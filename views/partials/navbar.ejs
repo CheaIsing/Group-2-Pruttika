@@ -1,0 +1,29 @@
+<header class="header">
+
+    <div class="logo-container">
+        <h1 class="company-name">ANT Training Center</h1>
+    </div>
+
+    <nav>
+
+        <% if(user) { %>
+            <ul class="nav-links">
+                <li>
+                    <p>Welcome to, <%= user[0].email %>
+                    </p>
+                </li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/create">Create</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+            <% } else { %>
+                <ul class="nav-links">
+                    <li><a href="/signin">Sign In </a></li>
+                    <li><a href="/signup">Sign Up</a></li>
+
+                </ul>
+                <% } %>
+    </nav>
+
+</header>
