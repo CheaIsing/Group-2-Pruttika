@@ -1,23 +1,23 @@
 const getSignUp = (req, res) => {
-  res.render("auth/signup");
+  res.render("pages/auth/signup");
 };
 
 const getSignIn = (req, res) => {
-  res.render("auth/signin");
+  res.render("pages/auth/signin");
 };
 
 const getForgotPassword = (req, res) => {
-  res.render("auth/forgot-password");
+  res.render("pages/auth/forgot-password");
 };
 
 const getVerifyOtp = (req, res) => {
-  res.render("auth/verify-otp");
+  res.render("pages/auth/verify-otp");
 }
 
 const getResetPassword = (req, res) => {
   const { email } = req.params;
 
-  res.render("auth/reset-password", { token, email });
+  res.render("pages/auth/reset-password", { token, email });
 };
 
 

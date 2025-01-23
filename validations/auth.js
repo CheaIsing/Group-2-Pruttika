@@ -1,6 +1,7 @@
 const Joi = require('joi');
 
 const vSignUp = Joi.object({
+  name: Joi.string().trim().min(4).required(),
   email: Joi.string().email().required(),
   password: Joi.string().min(6).required(),
   confirmPassword: Joi.string().valid(Joi.ref("password")).required().messages({
