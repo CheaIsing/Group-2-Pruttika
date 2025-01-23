@@ -1,19 +1,105 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
 
+:root {
+  --c-brand: #ff1694;
+  --c-brand-light: #ff1692ac;
+  --c-brand-dark: #e11594;
+  --text-gray: #403247;
+  --c-white: #fff;
+}
 
 body,
 input {
   font-family: "Poppins", sans-serif;
 }
 
-.text-brand{
-  color: #FF1694;
-}
-
 .link-brand:hover{
-  color: #e01380;
+  color: var(--c-brand-dark);
 }
 
+
+button {
+  cursor: pointer;
+}
+
+.bg-brand-light-50 {
+  background-color: #ffcbeb54 !important;
+}
+
+.bg-brand-light {
+  background-color: var(--c-brand-light) !important;
+}
+
+.bg-brand {
+  background-color: var(--c-brand) !important;
+}
+
+.fs-18 {
+  font-size: 18px;
+}
+
+.text-brand {
+  color: var(--c-brand) !important;
+}
+
+.text-brand-dark {
+  color: var(--c-brand-dark) !important;
+}
+
+.text-brand-light {
+  color: var(--c-brand-light) !important;
+}
+
+.btn{
+  height:  49px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-weight: 600 ;
+}
+
+.btn-brand {
+  background-color: var(--c-brand) !important;
+  color: #fff !important;
+  transition: .3s;
+}
+
+.btn-brand:hover {
+  background-color: var(--c-brand-dark) !important;
+}
+
+.btn-outline-brand {
+  border: 1px solid var(--c-brand);
+  color: var(--c-brand);
+  transition: 0.3s;
+}
+
+.btn-outline-brand:hover {
+  background-color: var(--c-brand) !important;
+  color: #fff !important;
+}
+
+.btn-outline-brand-white {
+  border: 2px solid var(--c-white);
+  color: var(--c-white);
+  background-color: transparent !important;
+  transition: 0.3s;
+}
+
+.btn-outline-brand-white:hover {
+  color: var(--c-brand) !important;
+  border: 2px solid var(--c-white) !important;
+  background-color: var(--c-white) !important;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.border-brand {
+  border: 2px solid var(--c-brand) !important;
+}
 
 .container-form {
   position: relative;
@@ -113,6 +199,14 @@ form.sign-in-form {
   border: 1px solid var(--bs-danger) !important;
 }
 
+.otp-inputs.is_invalid input{
+  border: 1px solid var(--bs-danger) !important;
+}
+
+.otp-inputs.is_invalid{
+  border: 0 !important;
+}
+
 .is_invalid i{
   color: var(--bs-danger) !important;
 }
@@ -180,24 +274,17 @@ form.sign-in-form {
   
 }
 
-.btn {
-  width: 100%;
-  background-color: #FF1694;
-  border: none;
-  outline: none;
+.otp-inputs input {
+  width: 49px;
   height: 49px;
+  font-size: 18px;
+  /* margin-left: 10px; */
+  text-align: center;
+  border: 1px solid #ff1694;
   border-radius: 8px;
-  color: #fff;
-  /* text-transform: uppercase; */
-  font-weight: 600;
-  margin: 10px 0;
-  cursor: pointer;
-  transition: 0.5s;
+  outline: none;
 }
 
-.btn:hover {
-  background-color: #FF1694;
-}
 .panels-container {
   position: absolute;
   height: 100%;
@@ -262,16 +349,6 @@ form.sign-in-form {
 .panel p {
   font-size: 0.95rem;
   padding: 0.7rem 0;
-}
-
-.btn.transparent {
-  margin: 0;
-  background: none;
-  border: 2px solid #fff;
-  width: 130px;
-  height: 41px;
-  font-weight: 600;
-  /* font-size: 0.8rem; */
 }
 
 .right-panel .image,

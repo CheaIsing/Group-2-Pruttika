@@ -15,9 +15,9 @@ const getVerifyOtp = (req, res) => {
 }
 
 const getResetPassword = (req, res) => {
-  const { email } = req.params;
 
-  res.render("pages/auth/reset-password", { token, email });
+
+  res.render("pages/auth/reset-password");
 };
 
 

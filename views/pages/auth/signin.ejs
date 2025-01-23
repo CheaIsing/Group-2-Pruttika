@@ -51,7 +51,7 @@
                 </label>
               </div>
               <div class="form-check">
-                <a href
+                <a href="/forgot-password"
                   class="text-brand text-decoration-none fw-normal link-brand">Forgot
                   Password?</a>
               </div>
@@ -59,7 +59,11 @@
             <!-- Changed input to button -->
             <div style="width: 100%;max-width: 380px;">
 
-              <button type="submit" class="btn solid">Sign In</button>
+              <button type="submit" class="btn btn-brand w-100">
+                <div class="spinner-border" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              </button>
             </div>
 
             <p class="social-text">Or Sign In With Social Platforms</p>
@@ -88,7 +92,7 @@
             <h3>
               Create amazing memories with us!
             </h3>
-            <a href="/signup" class="btn transparent mt-3" id="sign-up-btn">Sign
+            <a href="/signup" class="btn btn-outline-brand-white mt-3" id="sign-up-btn">Sign
               up</a>
           </div>
           <img src="/img/log.svg" class="image" alt />
@@ -107,7 +111,7 @@
     </div>
 
     <%- include('../../partials/script.ejs') %>
-    <script src="/js/sign-in.js"></script>
+    <script src="/js/auth/sign-in.js"></script>
 
   </body>
 </html>

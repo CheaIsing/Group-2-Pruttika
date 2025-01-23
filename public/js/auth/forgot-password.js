@@ -1,10 +1,9 @@
-const signInForm = document.getElementById("sign-in-form");
+const forgotPassForm = document.getElementById("forgot-password-form");
 
 let isSubmit = false;
 
 const formData = {
-  email: "",
-  password: "",
+  email: ""
 };
 
 const fields = [
@@ -13,16 +12,10 @@ const fields = [
     id: "input-field-email",
     textErrorElement: "#invalid_feedback_email div",
     isInvalidClass: "is_invalid",
-  },
-  {
-    name: "password",
-    id: "input-field-password",
-    textErrorElement: "#invalid_feedback_password div",
-    isInvalidClass: "is_invalid",
-  },
+  }
 ];
 
-signInForm.addEventListener(
+forgotPassForm.addEventListener(
   "submit",
   async (e) => {
     // alert("submitted");
@@ -30,13 +23,11 @@ signInForm.addEventListener(
     e.preventDefault();
     let isValid = false;
 
-    const email = document.getElementById("sign-in-email").value;
-    const password = document.getElementById("sign-in-password").value;
+    const email = document.getElementById("email").value;
 
     formData.email = email;
-    formData.password = password;
 
-    const { error } = vSignIn.validate(formData);
+    const { error } = vForgotPassword.validate(formData);
 
     if (error) {
       const errorMessages = error.details.map((detail) => detail.message);
@@ -51,9 +42,10 @@ signInForm.addEventListener(
     if (!isValid) return;
 
     try {
-      await axiosInstance.post("/auth/signin", formData);
-
-      showToast(true, "Sign In Successfully.");
+      await axiosInstance.post("/auth/forgot-password", formData);
+      sessionStorage.setItem('email', formData.email)
+      sessionStorage.setItem('isForgotPass', true)
+      location.href = "/verify-otp";
 
     } catch (error) {
       console.log(error.response.data);
@@ -73,5 +65,4 @@ signInForm.addEventListener(
   //
 );
 
-handleFieldChange("sign-in-email", "email", formData, vSignIn, fields);
-handleFieldChange("sign-in-password", "password", formData, vSignIn, fields);
+handleFieldChange("email", "email", formData, vSignIn, fields);
