@@ -23,12 +23,12 @@ app.use(express.urlencoded({ extended: true }));
 app.get("*", checkUser);
 
 // API
-app.use(apiAuth);
+app.use("/api/auth", apiAuth);
 
 // WEB
-app.get("/", requireAuth, (req, res) => {
-  res.render("index");
-});
+// app.get("/", requireAuth, (req, res) => {
+//   res.render("index");
+// });
 
 app.use(webAuth);
 

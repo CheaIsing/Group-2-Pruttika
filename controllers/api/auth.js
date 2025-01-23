@@ -73,7 +73,7 @@ const postSignIn = (req, res) => {
     if (data.length === 0) {
       return res.status(400).json({
         result: false,
-        message: "Invalid Email",
+        message: "Incorrect Email.",
       });
     }
 
@@ -93,7 +93,7 @@ const postSignIn = (req, res) => {
     } else {
       return res.status(400).json({
         result: false,
-        message: "Invalid Password",
+        message: "Incorrect Password.",
       });
     }
   });

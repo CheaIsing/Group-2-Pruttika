@@ -10,7 +10,7 @@ const transporter = nodemailer.createTransport({
 });
 
 const sendPasswordResetEmail = async (email, otp) => {
-  const resetLink = `http://localhost:8081/reset-password/${email}`;
+  const resetLink = `http://localhost:${process.env.PORT | 3000}/reset-password/${email}`;
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: email,
@@ -33,6 +33,5 @@ const sendPasswordResetEmail = async (email, otp) => {
     throw new Error("Error sending password reset email");
   }
 };
-
 
 module.exports = { sendPasswordResetEmail };
