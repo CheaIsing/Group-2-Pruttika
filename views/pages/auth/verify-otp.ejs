@@ -1,34 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<%- include('../partials/head.ejs') %>
+  <%- include('../../partials/head.ejs') %>
 
-    <body>
+  <body>
 
+    <div class="container-form sign-up-mode">
+      <div class="forms-container">
+        <div class="signin-signup">
 
-        <!-- Header -->
-        <%- include('../partials/navbar.ejs') %>
+          <!-- Sign Up Form -->
+          <form id="verify-otp-form" class="sign-up-form" autocomplete="off">
+            <h2 class="title mb-md-4">OTP Verification</h2>
 
-            <div class="form-container">
-                <h2>Sign In</h2>
-                <form action="/signin" method="post" id="userForm">
-
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="text" id="email" name="email" placeholder="Your email">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="verifyOtp">OTP : </label>
-                        <input type="text" id="verifyOtp" name="verifyOtp" placeholder="Enter Your OTP">
-                    </div>
-
-                    <button type="submit">Submit</button>
-                </form>
+            <label class="form-label mb-4 ">Enter the code that we sent to your
+              email</label>
+            <div id="otp-inputs"
+              class="otp-inputs mb-3 d-flex justify-content-between"
+              style="max-width: 380px; width: 100%;">
+              <input type="text" maxlength="1">
+              <input type="text" maxlength="1">
+              <input type="text" maxlength="1">
+              <input type="text" maxlength="1">
+              <input type="text" maxlength="1">
+              <input type="text" maxlength="1">
             </div>
+            <div
+              class="invalid_feedback text-danger d-flex align-items-center mb-2"
+              id="invalid_feedback_otp">
+              <i
+                class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+              <div class="ms-2">Invalid email.</div>
+            </div>
+            <div class style="max-width: 380px; width: 100%;">
 
-            <%- include('../partials/footer.ejs') %>
+              <!-- Changed input to button -->
+              <button type="submit" class="btn">Verify</button>
+            </div>
+            <div
+              class="resend-otp d-flex align-items-center justify-content-center my-1"
+              style="max-width: 380px; width: 100%;">
+              Didn't receive the OTP? <button type="button" id="resendBtn"
+                class="fw-medium text-brand bg-transparent p-0 border-0 ps-2"
+                onclick="resendOtp(this)">Resend</button>
+            </div>
+          </form>
+        </div>
+      </div>
 
-    </body>
+      <!-- Panels Container -->
+      <div class="panels-container">
+        <div class="panel left-panel">
+          <div class="content">
+            <h3>
+              Create amazing memories with us!
+            </h3>
+            <button class="btn transparent mt-3" id="sign-up-btn">Sign
+              up</button>
+          </div>
+          <img src="/img/log.svg" class="image" alt />
+        </div>
+        <div class="panel right-panel">
+          <!-- <div class="content">
+                  <h3>
+                    Welcome back! Let's get started Again!.
+                  </h3>
+                  <a role="button" href="/signin" class="btn transparent mt-3 "
+                    id="sign-in-btn">Sign In</a>
+                </div> -->
+          <img src="/img/register.svg" class="image" alt />
+        </div>
+      </div>
+    </div>
+
+    <%- include('../../partials/script.ejs') %>
+    <script src="/js/auth/verify-otp.js"></script>
+  </body>
 
 </html>

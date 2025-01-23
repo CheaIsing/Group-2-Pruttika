@@ -14,6 +14,6 @@ router.get("/signup", getSignUp);
 router.get("/signin", getSignIn);
 router.get("/forgot-password", getForgotPassword);
 router.get("/verify-otp", getVerifyOtp);
-router.get("/reset-password/:token/:email", getResetPassword);
+router.get("/reset-password", getResetPassword);
 
 module.exports = router;
