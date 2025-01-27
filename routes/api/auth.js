@@ -6,6 +6,7 @@ const {
     postForgotPassword,
     postResetPassword,
     verifyOtp,
+    getMe,
     logout
 } = require('../../controllers/api/auth');
 
@@ -16,6 +17,7 @@ router.post('/signin', postSignIn);
 router.post('/forgot-password', postForgotPassword);
 router.post('/verify-otp', verifyOtp);
 router.post('/reset-password', postResetPassword);
+router.get('/me', requireAuth, getMe);
 router.delete('/logout', logout);
 
 module.exports = router;
