@@ -10,6 +10,8 @@ const {
     logout
 } = require('../../controllers/api/auth');
 
+const { requireAuth } = require('../../middlewares/auth');
+
 const router = express.Router();
 
 router.post('/signup', postSignUp);
