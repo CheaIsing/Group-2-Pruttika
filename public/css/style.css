@@ -194,9 +194,9 @@ form.sign-in-form {
   border-color: #FF1694;
 }
 
-.form-check-input:focus {
+/* .form-check-input:focus {
   border-color: #FF1694;
-}
+} */
 
 .form-check-input {
   border-color: #FF1694;
@@ -710,11 +710,7 @@ button#prev-btn:hover::after, button#next-btn:hover::after, button#submit-btn:ho
   border-bottom: 2px solid #fff;
   transform: rotate(-45deg);
 }
-.form-check-input:checked, .form-check-input:focus {
-  background-color: var(--c-brand) !important;
-  outline: none !important;
-  border: none !important;
-}
+
 input:focus {
   outline: none;
 }
@@ -729,7 +725,7 @@ label.form-check-label.radio-lb {
 #q-box__buttons {
   text-align: center;
 }
-input[type="text"], input[type="email"] {
+/* input[type="text"], input[type="email"] {
   padding: 8px 14px;
 }
 input[type="text"]:focus, input[type="email"]:focus {
@@ -742,7 +738,7 @@ input[type="text"]:focus, input[type="email"]:focus {
   -moz-transition: all 0.15s ease-in-out;
   -o-transition: all 0.15s ease-in-out;
   transition: all 0.15s ease-in-out;
-}
+} */
 .form-check-input:checked[type=radio], .form-check-input:checked[type=radio]:hover, .form-check-input:checked[type=radio]:focus, .form-check-input:checked[type=radio]:active {
   border: none !important;
   -webkit-outline: 0px !important;
