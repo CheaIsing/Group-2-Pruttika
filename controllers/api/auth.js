@@ -16,22 +16,16 @@ const {
 const { executeQuery } = require("../../utils/dbQuery");
 const { sendResponse } = require("../../utils/response");
 
-const defaultAvatar = "default.jpg";
+// const defaultAvatar = "default.jpg";
 
 const postSignUp = async (req, res) => {
   const { error } = vSignUp.validate(req.body);
   if (handleValidateError(error, res)) return;
 
   const {
-    kh_name,
     eng_name,
     email,
-    password,
-    phone,
-    avatar,
-    role,
-    created_at,
-    updated_at,
+    password
   } = req.body;
 
   try {
@@ -50,17 +44,11 @@ const postSignUp = async (req, res) => {
     const hashPassword = await bcrypt.hash(password, salt);
 
     const insertUserQuery =
-      "INSERT INTO tbl_user(kh_name, eng_name, email, password, phone, avatar, role, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+      "INSERT INTO tbl_user(eng_name, email, password) VALUES (?, ?, ?)";
     const params = [
-      kh_name,
       eng_name,
       email,
-      hashPassword,
-      phone,
-      defaultAvatar,
-      role,
-      created_at,
-      updated_at,
+      hashPassword
     ];
 
     await executeQuery(insertUserQuery, params);
@@ -76,7 +64,7 @@ const postSignIn = async (req, res) => {
   const { error } = vSignIn.validate(req.body);
   if (handleValidateError(error, res)) return;
 
-  const { email, password, rememberMe } = req.body; 
+  const { email, password, rememberMe = false } = req.body; 
 
   try {
     const sql = "SELECT * FROM tbl_user WHERE email = ?";
