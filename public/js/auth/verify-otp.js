@@ -59,6 +59,7 @@ if (userEmail) {
       if (!isValid) return;
 
       try {
+        btnShowLoading("btnVerify");
         await axiosInstance.post("/auth/verify-otp", formData);
         sessionStorage.setItem("otp", formData.verifyOtp);
         sessionStorage.setItem("email", formData.email);
@@ -76,6 +77,8 @@ if (userEmail) {
         const errorMessages = Array.isArray(messages) ? messages : [messages];
 
         handleErrorMessages(errorMessages, fields);
+      }finally{
+        btnCloseLoading("btnVerify", "Verify");
       }
     }
 

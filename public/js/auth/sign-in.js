@@ -1,7 +1,10 @@
 const isResetedPass = sessionStorage.getItem("isResetedPass");
 
-if(isResetedPass == "true"){
-  showToast(true, "Password reset successful! Please sign in with your new password.")
+if (isResetedPass == "true") {
+  showToast(
+    true,
+    "Password reset successful! Please sign in with your new password."
+  );
   sessionStorage.removeItem("isResetedPass");
 }
 
@@ -58,12 +61,12 @@ signInForm.addEventListener(
     if (!isValid) return;
 
     try {
+      btnShowLoading("btnSignIn");
       await axiosInstance.post("/auth/signin", formData);
 
       showToast(true, "Sign In Successfully.");
-
     } catch (error) {
-      console.log(error.response.data);
+      console.log(error);
 
       if (typeof error.response.data == "string") {
         return showToast();
@@ -74,6 +77,8 @@ signInForm.addEventListener(
       const errorMessages = Array.isArray(messages) ? messages : [messages];
 
       handleErrorMessages(errorMessages, fields);
+    } finally {
+      btnCloseLoading("btnSignIn", "Sign In");
     }
   }
 

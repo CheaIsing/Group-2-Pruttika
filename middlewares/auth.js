@@ -11,6 +11,7 @@ const requireAuth = (req, res, next) => {
           message: "Invalid Loggin",
         });
       } else {
+        req.user = { id: decodedToken.id };
         next();
       }
     });

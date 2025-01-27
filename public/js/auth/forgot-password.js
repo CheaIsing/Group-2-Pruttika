@@ -42,6 +42,7 @@ forgotPassForm.addEventListener(
     if (!isValid) return;
 
     try {
+      btnShowLoading("btnForgotPass");
       await axiosInstance.post("/auth/forgot-password", formData);
       sessionStorage.setItem('email', formData.email)
       sessionStorage.setItem('isForgotPass', true)
@@ -59,6 +60,8 @@ forgotPassForm.addEventListener(
       const errorMessages = Array.isArray(messages) ? messages : [messages];
 
       handleErrorMessages(errorMessages, fields);
+    }finally{
+      btnCloseLoading("btnForgotPass", "Send");
     }
   }
 
