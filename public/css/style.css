@@ -741,7 +741,7 @@ input[type="text"]:focus, input[type="email"]:focus {
 } */
 .form-check-input:checked[type=radio], .form-check-input:checked[type=radio]:hover, .form-check-input:checked[type=radio]:focus, .form-check-input:checked[type=radio]:active {
   border: none !important;
-  -webkit-outline: 0px !important;
+  /* -webkit-outline: 0px !important; */
   box-shadow: none !important;
 }
 .form-check-input:focus, input[type="radio"]:hover {
