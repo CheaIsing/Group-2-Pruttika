@@ -1,6 +1,6 @@
-const conn = require("../../config/db");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const moment = require("moment");
 const {
   vSignUp,
   vSignIn,
@@ -8,168 +8,151 @@ const {
   vVerifyOTP,
   vResetPass,
 } = require("../../validations/auth");
-
 const { sendPasswordResetEmail } = require("../../config/mailer");
 const {
-  handleDatabaseError,
+  handleResponseError,
   handleValidateError,
 } = require("../../utils/handleError");
+const { executeQuery } = require("../../utils/dbQuery");
+const { sendResponse } = require("../../utils/response");
 
-const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.SECRET, { expiresIn: 3 * 24 * 60 * 60 });
-};
+const defaultAvatar = "default.jpg";
 
 const postSignUp = async (req, res) => {
   const { error } = vSignUp.validate(req.body);
   if (handleValidateError(error, res)) return;
 
-  const { name, email, password } = req.body;
+  const {
+    kh_name,
+    eng_name,
+    email,
+    password,
+    phone,
+    avatar,
+    role,
+    created_at,
+    updated_at,
+  } = req.body;
 
-  const checkEmailQuery = "SELECT * FROM tbl_user WHERE email = ?";
-  conn.query(checkEmailQuery, email, async (err, data) => {
-    if (err) {
-      return handleDatabaseError(res);
-    }
+  try {
+    const checkEmailQuery = "SELECT * FROM tbl_user WHERE email = ?";
+    const existingUsers = await executeQuery(checkEmailQuery, [email]);
 
-    if (data.length > 0) {
-      return res.status(400).json({
-        result: false,
-        message: "Email already exists. Please use a different email.",
-      });
-    }
+    if (existingUsers.length > 0)
+      return sendResponse(
+        res,
+        400,
+        false,
+        "Email already exists. Please use a different email."
+      );
 
-    let salt = await bcrypt.genSalt();
-    let hashPassword = await bcrypt.hash(password, salt);
+    const salt = await bcrypt.genSalt();
+    const hashPassword = await bcrypt.hash(password, salt);
 
-    const sql = "INSERT INTO tbl_user (name, email, password) VALUES (?, ?, ?)";
-    const params = [name, email, hashPassword];
+    const insertUserQuery =
+      "INSERT INTO tbl_user(kh_name, eng_name, email, password, phone, avatar, role, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    const params = [
+      kh_name,
+      eng_name,
+      email,
+      hashPassword,
+      phone,
+      defaultAvatar,
+      role,
+      created_at,
+      updated_at,
+    ];
 
-    conn.query(sql, params, (err, data) => {
-      if (err) {
-        return handleDatabaseError(res);
-      }
+    await executeQuery(insertUserQuery, params);
 
-      res.status(201).json({
-        result: true,
-        message: "User Successfully Created",
-      });
-    });
-  });
+    sendResponse(res, 201, true, "User created successfully");
+  } catch (error) {
+    console.log(error);
+    handleResponseError(res, error);
+  }
 };
 
-const postSignIn = (req, res) => {
+const postSignIn = async (req, res) => {
   const { error } = vSignIn.validate(req.body);
   if (handleValidateError(error, res)) return;
 
-  const { email, password } = req.body;
+  const { email, password, rememberMe } = req.body; 
 
-  const sql = "SELECT * FROM tbl_user WHERE email = ?";
-  conn.query(sql, email, async (err, data) => {
-    if (err) {
-      console.log(err);
-      return handleDatabaseError(res);
-    }
+  try {
+    const sql = "SELECT * FROM tbl_user WHERE email = ?";
+    const data = await executeQuery(sql, [email]);
 
-    if (data.length === 0) {
-      return res.status(400).json({
-        result: false,
-        message: "Incorrect Email.",
+    if (data.length === 0)
+      return sendResponse(res, 400, false, "Invalid Email");
+
+    const isPasswordValid = await bcrypt.compare(password, data[0].password);
+
+    if (isPasswordValid) {
+      const tokenExpiration = rememberMe ? 30 * 24 * 60 * 60 : 2 * 60 * 60;
+      const token = jwt.sign({ id: data[0].id }, process.env.SECRET, {
+        expiresIn: tokenExpiration,
       });
-    }
 
-    let decryptedPassword = await bcrypt.compare(password, data[0].password);
-
-    if (decryptedPassword) {
-      const token = generateToken(data[0].id);
       res.cookie("jwtToken", token, {
-        maxAge: 2 * 60 * 60 * 1000,
+        maxAge: tokenExpiration * 1000, 
         httpOnly: true,
       });
 
-      res.json({
-        result: true,
-        message: "Login Successfully",
-      });
+      sendResponse(res, 200, true, "Login Successfully");
     } else {
-      return res.status(400).json({
-        result: false,
-        message: "Incorrect Password.",
-      });
+      return sendResponse(res, 400, false, "Invalid Password");
     }
-  });
+  } catch (error) {
+    handleResponseError(res, error);
+  }
 };
 
-const postForgotPassword = (req, res) => {
+
+const postForgotPassword = async (req, res) => {
   const { error } = vForgotPass.validate(req.body);
   if (handleValidateError(error, res)) return;
 
   const { email } = req.body;
 
-  const checkUserQuery = "SELECT * FROM tbl_user WHERE email = ?";
-  conn.query(checkUserQuery, email, async (err, data) => {
-    if (err) {
-      return handleDatabaseError(res);
-    }
+  try {
+    const checkUserQuery = "SELECT * FROM tbl_user WHERE email = ?";
+    const data = await executeQuery(checkUserQuery, [email]);
 
-    if (data.length === 0) {
-      return res.status(400).json({
-        result: false,
-        message: "Email not found",
-      });
-    }
+    if (data.length === 0)
+      return sendResponse(res, 400, false, "Email not found.");
 
     const otp = Math.floor(100000 + Math.random() * 900000);
-    const expirationTime = new Date(Date.now() + 10 * 60 * 1000);
+    const expirationTime = moment()
+      .add(10, "minutes")
+      .format("YYYY-MM-DD HH:mm:ss");
+
 
     const insertOtpQuery =
       "REPLACE INTO tbl_otp (email, otp, expiration_time) VALUES (?, ?, ?)";
-    const params = [email, otp, expirationTime];
+    await executeQuery(insertOtpQuery, [email, otp, expirationTime]);
 
-    conn.query(insertOtpQuery, params, async (err) => {
-      if (err) {
-        return handleDatabaseError(res);
-      }
-
-      console.log(`OTP stored for ${email}:`, { otp });
-
-      try {
-        await sendPasswordResetEmail(email, otp);
-        res.json({
-          result: true,
-          message: "Password reset OTP sent to your email",
-        });
-      } catch (err) {
-        console.error("Email error:", err);
-        res.status(500).json({
-          result: false,
-          message: "Error sending password reset email",
-        });
-      }
-    });
-  });
+    await sendPasswordResetEmail(email, otp);
+    sendResponse(res, 200, true, "Password reset OTP send to your email.");
+  } catch (error) {
+    handleResponseError(res, error);
+  }
 };
 
-const verifyOtp = (req, res) => {
+const verifyOtp = async (req, res) => {
   const { error } = vVerifyOTP.validate(req.body);
   if (handleValidateError(error, res)) return;
 
   const { email, verifyOtp } = req.body;
-  const sql = "SELECT * FROM tbl_otp WHERE email = ?";
 
-  conn.query(sql, email, (err, data) => {
-    if (err) {
-      return handleDatabaseError(res);
-    }
+  try {
+    const sql = "SELECT * FROM tbl_otp WHERE email = ?";
+    const data = await executeQuery(sql, [email]);
 
-    if (data.length === 0) {
-      return res.status(400).json({
-        result: false,
-        message: "Email Not Found !",
-      });
-    }
+    if (data.length === 0)
+      return sendResponse(res, 400, false, "Email not found.");
 
-    let otp = data[0].otp;
-    let verifyForgotOtp = Number(verifyOtp);
+    const otp = data[0].otp;
+    const verifyForgotOtp = Number(verifyOtp);
 
     if (verifyForgotOtp === otp) {
       const updateOtpStatusQuery = `
@@ -177,24 +160,19 @@ const verifyOtp = (req, res) => {
         SET otp_verified = 1
         WHERE email = ?
       `;
-      conn.query(updateOtpStatusQuery, email, (err) => {
-        if (err) {
-          return handleDatabaseError(res);
-        }
-        res.json({
-          result: true,
-          message:
-            "OTP Verified Successfully. You can now reset your password.",
-        });
-      });
+      await executeQuery(updateOtpStatusQuery, [email]);
+      sendResponse(
+        res,
+        200,
+        true,
+        "OTP Verified Successfully. You can now reset your password."
+      );
     } else {
-      console.log("OTP verification failed");
-      return res.status(400).json({
-        result: false,
-        message: "Invalid OTP",
-      });
+      return sendResponse(res, 400, false, "Invalid OTP.");
     }
-  });
+  } catch (error) {
+    handleResponseError(res, error);
+  }
 };
 
 const postResetPassword = async (req, res) => {
@@ -202,84 +180,79 @@ const postResetPassword = async (req, res) => {
   if (handleValidateError(error, res)) return;
 
   const { email, otp, newPassword, confirmNewPassword } = req.body;
-  const checkEmailQuery = `SELECT * FROM tbl_user WHERE email = ?`;
 
-  conn.query(checkEmailQuery, email, (err, userData) => {
-    if (err) {
-      return handleDatabaseError(res);
-    }
+  try {
+    const checkUserQuery = "SELECT * FROM tbl_user WHERE email = ?";
+    const userData = await executeQuery(checkUserQuery, [email]);
 
-    if (userData.length === 0) {
-      return res.status(400).json({
-        result: false,
-        message: "Email does not exist",
-      });
-    }
+    if (userData.length === 0)
+      return sendResponse(res, 400, false, "Email doesn't exist.");
 
     const otpQuery = `
       SELECT * FROM tbl_otp
-      WHERE email = ? AND otp_verified = 1 AND expiration_time > NOW()
+      WHERE email = ? AND otp_verified = 1 AND expiration_time > ?
     `;
-    conn.query(otpQuery, email, async (err, data) => {
-      if (err) {
+    const now = moment().format("YYYY-MM-DD HH:mm:ss");
+    const data = await executeQuery(otpQuery, [email, now]);
 
+    if (data.length === 0)
+      return sendResponse(res, 400, false, "OTP not verified or expired");
 
-        return handleDatabaseError(res);
-      }
+    const storedOtp = data[0].otp;
 
-      if (data.length === 0) {
-        return res.status(400).json({
-          result: false,
-          message: "OTP not verified or expired",
-        });
-      }
+    if (otp != storedOtp) return sendResponse(res, 400, false, "Invalid OTP.");
 
-      const storedOtp = data[0].otp;
-      console.log("Stored OTP:", storedOtp, "Provided OTP:", otp);
+    if (newPassword !== confirmNewPassword)
+      return sendResponse(res, 400, false, "Passwords do not match.");
 
-      if (otp != storedOtp) {
-        return res.status(400).json({
-          result: false,
-          message: "Invalid OTP",
-        });
-      }
+    const isSameAsOldPassword = await bcrypt.compare(
+      newPassword,
+      userData[0].password
+    );
+    if (isSameAsOldPassword)
+      return sendResponse(
+        res,
+        400,
+        false,
+        "New password cannot be the same as the old password."
+      );
 
-      if (newPassword !== confirmNewPassword) {
-        return res.status(400).json({
-          result: false,
-          message: "Passwords do not match",
-        });
-      }
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    const updatePasswordQuery = `
+      UPDATE tbl_user SET password = ? WHERE email = ?
+    `;
+    await executeQuery(updatePasswordQuery, [hashedPassword, email]);
 
-      const hashedPassword = await bcrypt.hash(newPassword, 10);
-      const updatePasswordQuery = `
-        UPDATE tbl_user SET password = ? WHERE email = ?
-      `;
-      const params = [hashedPassword, email];
+    const deleteOtpQuery = `DELETE FROM tbl_otp WHERE email = ?`;
+    await executeQuery(deleteOtpQuery, [email]);
 
-      conn.query(updatePasswordQuery, params, (err) => {
-        if (err) {
-          return handleDatabaseError(res);
-        }
+    sendResponse(res, 200, true, "Password successfully reset.");
+  } catch (error) {
+    handleResponseError(res, error);
+  }
+};
 
-        const deleteOtpQuery = `DELETE FROM tbl_otp WHERE email = ?`;
-        conn.query(deleteOtpQuery, email);
+const getMe = async (req, res) => {
+  const userId = req.user.id;
 
-        res.json({
-          result: true,
-          message: "Password successfully reset",
-        });
-      });
-    });
-  });
+  try {
+    const sql = "SELECT * FROM tbl_user WHERE id = ?";
+    const data = await executeQuery(sql, [userId]);
+
+    if (data.length === 0) {
+      return sendResponse(res, 404, false, "User not found.");
+    }
+
+    sendResponse(res, 200, true, "Get user profile.", data);
+  } catch (error) {
+    console.log(error);
+    handleResponseError(res, error);
+  }
 };
 
 const logout = (req, res) => {
   res.cookie("jwtToken", "", { maxAge: 1 });
-  res.json({
-    result: true,
-    message: "Logout Successfully",
-  });
+  sendResponse(res, 200, true, "Logout successfully");
 };
 
 module.exports = {
@@ -288,5 +261,6 @@ module.exports = {
   postForgotPassword,
   verifyOtp,
   postResetPassword,
+  getMe,
   logout,
 };

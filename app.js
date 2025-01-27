@@ -7,9 +7,11 @@ const { checkUser, requireAuth } = require("./middlewares/auth");
 
 // API
 const apiAuth = require("./routes/api/auth");
+const apiProfile = require("./routes/api/profile")
 
 // WEB
 const webAuth = require("./routes/web/auth");
+const webEvent = require('./routes/web/event')
 
 const app = express();
 
@@ -24,6 +26,8 @@ app.get("*", checkUser);
 
 // API
 app.use("/api/auth", apiAuth);
+app.use("/api/profile", apiProfile)
+// app.use("/api/profile", )
 
 // WEB
 // app.get("/", requireAuth, (req, res) => {
@@ -31,6 +35,7 @@ app.use("/api/auth", apiAuth);
 // });
 
 app.use(webAuth);
+app.use(webEvent);
 
 const PORT = process.env.PORT | 3000;
 

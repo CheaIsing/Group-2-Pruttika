@@ -71,6 +71,7 @@ signUpForm.addEventListener(
     if (!isValid) return;
 
     try {
+      btnShowLoading("btnSignUp")
       const res = await axiosInstance.post("/auth/signup", formData);
 
       showToast(true, "Sign Up Successfully.");
@@ -85,6 +86,9 @@ signUpForm.addEventListener(
       const errorMessages = Array.isArray(messages) ? messages : [messages];
 
       handleErrorMessages(errorMessages, fields);
+    }
+    finally{
+      btnCloseLoading("btnSignUp", "Sign Up");
     }
   }
 

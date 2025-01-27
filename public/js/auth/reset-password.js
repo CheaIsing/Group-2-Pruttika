@@ -69,7 +69,8 @@ if (userEmail && userOtp) {
       if (!isValid) return;
 
       try {
-        console.log(formData);
+        // console.log(formData);
+        btnShowLoading("btnResetPass")
         
         await axiosInstance.post("/auth/reset-password", formData);
         sessionStorage.removeItem("otp");
@@ -88,6 +89,8 @@ if (userEmail && userOtp) {
         const errorMessages = Array.isArray(messages) ? messages : [messages];
 
         handleErrorMessages(errorMessages, fields);
+      }finally{
+        btnCloseLoading("btnResetPass", "Reset Password");
       }
     }
 
