@@ -31,11 +31,6 @@ app.use("/api/auth", apiAuth);
 app.use("/api/profile", apiProfile);
 // app.use("/api/profile", )
 
-// WEB
-// app.get("/", requireAuth, (req, res) => {
-//   res.render("index");
-// });
-
 app.use(webAuth);
 app.use(webEvent);
 
