@@ -33,7 +33,7 @@ const checkUser = (req, res, next) => {
         res.redirect("/signin");
       } else {
         con.query(
-          "select * from tbl_user where id = ?",
+          "select * from tbl_users where id = ?",
           decodedToken.id,
           (err, data) => {
             if (err) {
