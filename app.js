@@ -7,7 +7,8 @@ const { checkUser, requireAuth } = require("./middlewares/auth");
 
 // API
 const apiAuth = require("./routes/api/auth");
-const apiProfile = require("./routes/api/profile")
+const apiProfile = require("./routes/api/profile");
+const apiEvents=require('./routes/api/event');
 
 // WEB
 const webAuth = require("./routes/web/auth");
@@ -26,7 +27,8 @@ app.get("*", checkUser);
 
 // API
 app.use("/api/auth", apiAuth);
-app.use("/api/profile", apiProfile)
+app.use("/api/profile", apiProfile);
+app.use("/api/events",apiEvents);
 // app.use("/api/profile", )
 
 // WEB

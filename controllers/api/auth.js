@@ -85,7 +85,6 @@ const postSignIn = async (req, res) => {
         maxAge: tokenExpiration * 1000, 
         httpOnly: true,
       });
-
       sendResponse(res, 200, true, "Login Successfully");
     } else {
       return sendResponse(res, 400, false, "Invalid Password");
