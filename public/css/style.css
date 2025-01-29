@@ -74,6 +74,7 @@ button {
   align-items: center !important;
   justify-content: center !important;
   font-weight: 600 ;
+  /* margin: 12px 0; */
 }
 
 .btn-brand {
@@ -186,7 +187,7 @@ form.sign-in-form {
 .title {
   font-size: 2.2rem;
   color: #444;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
 }
 
 .form-check-input:checked {
@@ -194,9 +195,9 @@ form.sign-in-form {
   border-color: #FF1694;
 }
 
-.form-check-input:focus {
+/* .form-check-input:focus {
   border-color: #FF1694;
-}
+} */
 
 .form-check-input {
   border-color: #FF1694;
@@ -206,7 +207,7 @@ form.sign-in-form {
   max-width: 380px;
   width: 100%;
   background-color: transparent;
-  margin: 10px 0;
+  margin-bottom: 1rem ;
   height: 55px;
   border-radius: 8px;
   border: 1px solid #FF1694;
@@ -423,7 +424,7 @@ form.sign-in-form {
   }
   .signin-signup {
     width: 100%;
-    top: 95%;
+    top: 75%;
     transform: translate(-50%, -100%);
     transition: 1s 0.8s ease-in-out;
   }
@@ -517,11 +518,24 @@ form.sign-in-form {
     top: 5%;
     transform: translate(-50%, 0);
   }
+
+  .container-form.sign-up-mode .signin-signup.forgot-pass {
+    top: 25%;
+    /* transform: translate(-50%, 0); */
+  }
+
 }
 
 @media (max-width: 570px) {
   form {
     padding: 0 1.5rem;
+  }
+
+  .signin-signup {
+    width: 100%;
+    top: 95%;
+    transform: translate(-50%, -100%);
+    transition: 1s 0.8s ease-in-out;
   }
 
   .image {
@@ -710,11 +724,7 @@ button#prev-btn:hover::after, button#next-btn:hover::after, button#submit-btn:ho
   border-bottom: 2px solid #fff;
   transform: rotate(-45deg);
 }
-.form-check-input:checked, .form-check-input:focus {
-  background-color: var(--c-brand) !important;
-  outline: none !important;
-  border: none !important;
-}
+
 input:focus {
   outline: none;
 }
@@ -729,7 +739,7 @@ label.form-check-label.radio-lb {
 #q-box__buttons {
   text-align: center;
 }
-input[type="text"], input[type="email"] {
+/* input[type="text"], input[type="email"] {
   padding: 8px 14px;
 }
 input[type="text"]:focus, input[type="email"]:focus {
@@ -742,10 +752,10 @@ input[type="text"]:focus, input[type="email"]:focus {
   -moz-transition: all 0.15s ease-in-out;
   -o-transition: all 0.15s ease-in-out;
   transition: all 0.15s ease-in-out;
-}
+} */
 .form-check-input:checked[type=radio], .form-check-input:checked[type=radio]:hover, .form-check-input:checked[type=radio]:focus, .form-check-input:checked[type=radio]:active {
   border: none !important;
-  -webkit-outline: 0px !important;
+  /* -webkit-outline: 0px !important; */
   box-shadow: none !important;
 }
 .form-check-input:focus, input[type="radio"]:hover {
