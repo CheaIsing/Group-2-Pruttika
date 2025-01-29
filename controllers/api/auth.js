@@ -29,7 +29,7 @@ const postSignUp = async (req, res) => {
   } = req.body;
 
   try {
-    const checkEmailQuery = "SELECT * FROM tbl_user WHERE email = ?";
+    const checkEmailQuery = "SELECT * FROM tbl_users WHERE email = ?";
     const existingUsers = await executeQuery(checkEmailQuery, [email]);
 
     if (existingUsers.length > 0)
@@ -44,7 +44,7 @@ const postSignUp = async (req, res) => {
     const hashPassword = await bcrypt.hash(password, salt);
 
     const insertUserQuery =
-      "INSERT INTO tbl_user(eng_name, email, password) VALUES (?, ?, ?)";
+      "INSERT INTO tbl_users(eng_name, email, password) VALUES (?, ?, ?)";
     const params = [
       eng_name,
       email,
@@ -67,7 +67,7 @@ const postSignIn = async (req, res) => {
   const { email, password, rememberMe = false } = req.body; 
 
   try {
-    const sql = "SELECT * FROM tbl_user WHERE email = ?";
+    const sql = "SELECT * FROM tbl_users WHERE email = ?";
     const data = await executeQuery(sql, [email]);
 
     if (data.length === 0)
@@ -103,7 +103,7 @@ const postForgotPassword = async (req, res) => {
   const { email } = req.body;
 
   try {
-    const checkUserQuery = "SELECT * FROM tbl_user WHERE email = ?";
+    const checkUserQuery = "SELECT * FROM tbl_users WHERE email = ?";
     const data = await executeQuery(checkUserQuery, [email]);
 
     if (data.length === 0)
@@ -170,7 +170,7 @@ const postResetPassword = async (req, res) => {
   const { email, otp, newPassword, confirmNewPassword } = req.body;
 
   try {
-    const checkUserQuery = "SELECT * FROM tbl_user WHERE email = ?";
+    const checkUserQuery = "SELECT * FROM tbl_users WHERE email = ?";
     const userData = await executeQuery(checkUserQuery, [email]);
 
     if (userData.length === 0)
@@ -207,7 +207,7 @@ const postResetPassword = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(newPassword, 10);
     const updatePasswordQuery = `
-      UPDATE tbl_user SET password = ? WHERE email = ?
+      UPDATE tbl_users SET password = ? WHERE email = ?
     `;
     await executeQuery(updatePasswordQuery, [hashedPassword, email]);
 
@@ -224,7 +224,7 @@ const getMe = async (req, res) => {
   const userId = req.user.id;
 
   try {
-    const sql = "SELECT * FROM tbl_user WHERE id = ?";
+    const sql = "SELECT * FROM tbl_users WHERE id = ?";
     const data = await executeQuery(sql, [userId]);
 
     if (data.length === 0) {

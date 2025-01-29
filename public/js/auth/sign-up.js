@@ -5,7 +5,7 @@ const signUpForm = document.getElementById("sign-up-form");
 let isSubmit = false;
 
 const formData = {
-  name: "",
+  eng_name: "",
   email: "",
   password: "",
   confirmPassword: ""
@@ -51,7 +51,7 @@ signUpForm.addEventListener(
     const password = document.getElementById("sign-up-password").value;
     const confirmPassword = document.getElementById("sign-up-confirm-password").value;
 
-    formData.name = name;
+    formData.eng_name = name;
     formData.email = email;
     formData.password = password;
     formData.confirmPassword = confirmPassword;
