@@ -91,7 +91,6 @@ signUpForm.addEventListener(
       btnCloseLoading("btnSignUp", "Sign Up");
     }
   }
-
   //
 );
 
