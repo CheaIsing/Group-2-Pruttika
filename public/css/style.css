@@ -74,6 +74,7 @@ button {
   align-items: center !important;
   justify-content: center !important;
   font-weight: 600 ;
+  /* margin: 12px 0; */
 }
 
 .btn-brand {
@@ -186,7 +187,7 @@ form.sign-in-form {
 .title {
   font-size: 2.2rem;
   color: #444;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
 }
 
 .form-check-input:checked {
@@ -206,7 +207,7 @@ form.sign-in-form {
   max-width: 380px;
   width: 100%;
   background-color: transparent;
-  margin: 10px 0;
+  margin-bottom: 1rem ;
   height: 55px;
   border-radius: 8px;
   border: 1px solid #FF1694;
@@ -423,7 +424,7 @@ form.sign-in-form {
   }
   .signin-signup {
     width: 100%;
-    top: 95%;
+    top: 75%;
     transform: translate(-50%, -100%);
     transition: 1s 0.8s ease-in-out;
   }
@@ -517,11 +518,24 @@ form.sign-in-form {
     top: 5%;
     transform: translate(-50%, 0);
   }
+
+  .container-form.sign-up-mode .signin-signup.forgot-pass {
+    top: 25%;
+    /* transform: translate(-50%, 0); */
+  }
+
 }
 
 @media (max-width: 570px) {
   form {
     padding: 0 1.5rem;
+  }
+
+  .signin-signup {
+    width: 100%;
+    top: 95%;
+    transform: translate(-50%, -100%);
+    transition: 1s 0.8s ease-in-out;
   }
 
   .image {

@@ -10,6 +10,10 @@ const apiAuth = require("./routes/api/auth");
 const apiProfile = require("./routes/api/profile");
 const apiAdminUser = require("./routes/api/admin/user");
 const apiAdminOrganizer = require("./routes/api/admin/organizer");
+const apiNotification = require("./routes/api/notification")
+
+const apiEvents=require('./routes/api/event');
+
 
 // WEB
 const webAuth = require("./routes/web/auth");
@@ -32,11 +36,9 @@ app.use("/api/auth", apiAuth);
 app.use("/api/profile", apiProfile);
 app.use("/api/admin/user", apiAdminUser);
 app.use("/api/admin/organizer", apiAdminOrganizer);
+app.use("/api/notification", apiNotification)
+app.use("/api/events",apiEvents);
 
-// WEB
-// app.get("/", requireAuth, (req, res) => {
-//   res.render("index");
-// });
 
 app.use(webAuth);
 app.use(webEvent);
