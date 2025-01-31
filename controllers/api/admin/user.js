@@ -131,6 +131,8 @@ const deactivateUser = async (req, res) => {
       return sendResponse(res, 404, false, "uUser not found or already inactive.");
     }
 
+    res.cookie("jwtToken", "", { maxAge: 1 });
+
     sendResponse(res, 200, true, "User deactivated successfully.");
   } catch (error) {
     console.log(error);

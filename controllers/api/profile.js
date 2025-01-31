@@ -50,7 +50,6 @@ const updateOwnInfo = async (req, res) => {
   }
 };
 
-
 const updateOwnPassword = async (req, res) => {
   const { oldPass, newPass, newPassConfirm } = req.body;
   const userId = req.user.id;

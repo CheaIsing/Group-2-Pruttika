@@ -5,11 +5,11 @@ const {
     changePassword
 } = require("../../../controllers/api/admin/setting");
 
-const { requireAuth } = require("../../../middlewares/auth");
+const { requireAuth, checkRole } = require("../../../middlewares/checkRole");
 
 const router = express.Router();
 
-router.put("/email", requireAuth, changeEmail);
-router.put("/pass", requireAuth, changePassword);
+router.put("/email", requireAuth, checkRole(3), changeEmail);
+router.put("/pass", requireAuth, checkRole(3), changePassword);
 
 module.exports = router;

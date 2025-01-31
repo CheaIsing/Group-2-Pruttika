@@ -22,11 +22,7 @@ const postSignUp = async (req, res) => {
   const { error } = vSignUp.validate(req.body);
   if (handleValidateError(error, res)) return;
 
-  const {
-    eng_name,
-    email,
-    password
-  } = req.body;
+  const { eng_name, email, password } = req.body;
 
   try {
     const checkEmailQuery = "SELECT * FROM tbl_users WHERE email = ?";
@@ -45,11 +41,7 @@ const postSignUp = async (req, res) => {
 
     const insertUserQuery =
       "INSERT INTO tbl_users(eng_name, email, password) VALUES (?, ?, ?)";
-    const params = [
-      eng_name,
-      email,
-      hashPassword
-    ];
+    const params = [eng_name, email, hashPassword];
 
     await executeQuery(insertUserQuery, params);
 
@@ -64,7 +56,7 @@ const postSignIn = async (req, res) => {
   const { error } = vSignIn.validate(req.body);
   if (handleValidateError(error, res)) return;
 
-  const { email, password, rememberMe } = req.body; 
+  const { email, password, rememberMe } = req.body;
 
   try {
     const sql = "SELECT * FROM tbl_users WHERE email = ?";
@@ -73,16 +65,23 @@ const postSignIn = async (req, res) => {
     if (data.length === 0)
       return sendResponse(res, 400, false, "Invalid Email");
 
+    const user = data[0];
+
     const isPasswordValid = await bcrypt.compare(password, data[0].password);
 
     if (isPasswordValid) {
+      if (user.STATUS === 2) {
+        const updateQuery = "UPDATE tbl_users SET STATUS = 1 WHERE id = ?";
+        await executeQuery(updateQuery, [user.id]);
+      }
+
       const tokenExpiration = rememberMe ? 30 * 24 * 60 * 60 : 2 * 60 * 60;
       const token = jwt.sign({ id: data[0].id }, process.env.SECRET, {
         expiresIn: tokenExpiration,
       });
 
       res.cookie("jwtToken", token, {
-        maxAge: tokenExpiration * 1000, 
+        maxAge: tokenExpiration * 1000,
         httpOnly: true,
       });
       sendResponse(res, 200, true, "Login Successfully");
@@ -93,7 +92,6 @@ const postSignIn = async (req, res) => {
     handleResponseError(res, error);
   }
 };
-
 
 const postForgotPassword = async (req, res) => {
   const { error } = vForgotPass.validate(req.body);
@@ -112,7 +110,6 @@ const postForgotPassword = async (req, res) => {
     const expirationTime = moment()
       .add(10, "minutes")
       .format("YYYY-MM-DD HH:mm:ss");
-
 
     const insertOtpQuery =
       "REPLACE INTO tbl_otp (email, otp, expiration_time) VALUES (?, ?, ?)";

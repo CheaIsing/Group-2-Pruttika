@@ -1,32 +1,50 @@
+const jwt = require("jsonwebtoken");
 const { executeQuery } = require("../utils/dbQuery");
-const { handleResponseError } = require("../utils/handleError");
 const { sendResponse } = require("../utils/response");
+const { handleResponseError } = require("../utils/handleError");
 
-const checkRole = (roles) => {
-  return async (req, res, next) => {
-    try {
-      const userId = req.user?.id;
-      if (!userId) return sendResponse(res, 401, false, "Unauthorized");
+const requireAuth = async (req, res, next) => {
+  try {
+    const token = req.cookies.jwtToken;
 
-      const query = "SELECT role FROM tbl_users WHERE id = ?";
-
-      const data = await executeQuery(query, [userId]);
-
-      if (data.length === 0)
-        return sendResponse(res, 404, false, "User not found");
-
-      const userRole = data[0].role;
-
-      if (!role.includes(userRole)) {
-        return sendResponse(res, 404, false, "Access Denied.");
-      }
-
-      next();
-    } catch (error) {
-      console.log(error);
-      handleResponseError(res, error);
+    if (!token) {
+      return sendResponse(res, 401, false, "Unauthorized: No token provided.");
     }
+
+    const decodedToken = jwt.verify(token, process.env.SECRET);
+    req.user = { id: decodedToken.id };
+
+    const query = "SELECT role FROM tbl_users WHERE id = ?";
+    const user = await executeQuery(query, [decodedToken.id]);
+
+    if (user.length === 0) {
+      return sendResponse(res, 404, false, "User not found.");
+    }
+
+    req.user.role = user[0].role; 
+    next(); 
+  } catch (error) {
+    handleResponseError(res, error);
+  }
+};
+
+const checkRole = (...allowedRoles) => {
+  return (req, res, next) => {
+    if (!req.user || !req.user.role) {
+      return sendResponse(res, 403, false, "Unauthorized: No role assigned.");
+    }
+
+    if (!allowedRoles.includes(req.user.role)) {
+      return sendResponse(
+        res,
+        403,
+        false,
+        "Forbidden: You do not have permission."
+      );
+    }
+
+    next(); 
   };
 };
 
-module.exports = { checkRole };
+module.exports = { requireAuth, checkRole };
