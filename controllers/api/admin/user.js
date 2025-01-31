@@ -121,6 +121,21 @@ const getUserDetails = async (req, res) => {
 
 const deactivateUser = async (req, res) => {
   const userId = req.params.id;
+
+  try {
+    const query = `UPDATE tbl_users SET STATUS = 2 WHERE id = ?`;
+
+    const data = await executeQuery(query, [userId]);
+
+    if (data.length === 0) {
+      return sendResponse(res, 404, false, "uUser not found or already inactive.");
+    }
+
+    sendResponse(res, 200, true, "User deactivated successfully.");
+  } catch (error) {
+    console.log(error);
+    handleResponseError(res, error);
+  }
 };
 
 module.exports = {

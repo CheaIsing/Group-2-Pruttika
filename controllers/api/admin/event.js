@@ -39,7 +39,26 @@ const searchEvent = async (req, res) => {
   }
 };
 
-const filterEvent = async (req, res) => {};
+const filterEvent = async (req, res) => {
+  const { category_id } = req.query;
+
+  try {
+    if (!category_id) {
+      return sendResponse(res, 400, false, "Category ID is required");
+    }
+
+    const query = `
+      SELECT e.end_name, e.short_description, e.thumbnail, e.started_date, e.ended_date, e.location, e.event_type, e.is_published, c.name FROM tbl_event as e LEFT JOIN tbl_event_category as ec ON e.id = ec.event_id LEFT JOIN tbl_category as c ON ec.category_id = c.id WHERE c.id= ?
+    `;
+
+    const data = await executeQuery(query, [category_id]);
+
+    sendResponse(res, 200, true, "Filtered events by category", data);
+  } catch (error) {
+    console.log(error);
+    handleResponseError(res, error);
+  }
+};
 
 const viewEventDetail = async (req, res) => {
   const id = req.params.id;

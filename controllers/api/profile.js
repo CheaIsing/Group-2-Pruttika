@@ -13,8 +13,20 @@ const updateOwnInfo = async (req, res) => {
   const userId = req.user.id;
 
   try {
-    const sql =
-      "UPDATE tbl_users SET kh_name = ?, eng_name = ?, email = ?, phone = ?, dob = ?, gender = ?, address = ?, role = ? WHERE id = ?";
+    const checkQuery = `
+      SELECT id FROM tbl_users 
+      WHERE (email = ? OR phone = ?) AND id != ?`;
+
+    const existingUser = await executeQuery(checkQuery, [email, phone, userId]);
+
+    if (existingUser.length > 0) {
+      return sendResponse(res, 400, false, "Email or Phone is already in use.");
+    }
+
+    const updateQuery = `
+      UPDATE tbl_users SET kh_name = ?, eng_name = ?, email = ?, phone = ?, dob = ?, 
+      gender = ?, address = ?, role = ? WHERE id = ?`;
+
     const params = [
       kh_name,
       eng_name,
@@ -26,17 +38,18 @@ const updateOwnInfo = async (req, res) => {
       role,
       userId,
     ];
+    const data = await executeQuery(updateQuery, params);
 
-    const data = await executeQuery(sql, params);
-
-    if (data.affectedRows === 0)
+    if (data.affectedRows === 0) {
       return sendResponse(res, 404, false, "User not found.");
+    }
 
     sendResponse(res, 200, true, "Profile updated successfully.");
   } catch (error) {
     handleResponseError(res, error);
   }
 };
+
 
 const updateOwnPassword = async (req, res) => {
   const { oldPass, newPass, newPassConfirm } = req.body;

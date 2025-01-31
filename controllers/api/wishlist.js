@@ -1,7 +1,6 @@
 const { handleResponseError } = require("../../utils/handleError");
 const { executeQuery } = require("../../utils/dbQuery");
 const { sendResponse } = require("../../utils/response");
-const { updateEventCategory } = require("./admin/event");
 
 const getAllWishlist = async (req, res) => {
   try {

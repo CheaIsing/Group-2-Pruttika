@@ -1,54 +1,57 @@
 const jwt = require("jsonwebtoken");
-const con = require("../config/db");
+const { executeQuery } = require("../utils/dbQuery");
+const { sendResponse } = require("../utils/response");
+const { handleResponseError } = require("../utils/handleError");
 
 const requireAuth = (req, res, next) => {
-  const token = req.cookies.jwtToken;
-  if (token) {
+  try {
+    const token = req.cookies?.jwtToken;
+
+    if (!token) {
+      return sendResponse(res, 401, false, "You need to log in");
+    }
+
     jwt.verify(token, process.env.SECRET, (err, decodedToken) => {
       if (err) {
-        res.json({
-          message: "Invalid Loggin",
-        });
-      } else {
-        req.user = { id: decodedToken.id };
-        next();
+        return sendResponse(res, 403, false, "Invalid Login");
       }
+
+      req.user = { id: decodedToken.id };
+      next();
     });
-  } else {
-    console.log("Is not logged in");
-    res.json({
-      message: "You need to log in",
-    });
+  } catch (error) {
+    handleResponseError(res, error);
   }
 };
 
-const checkUser = (req, res, next) => {
-  const token = req.cookies.jwtToken;
-  if (token) {
-    jwt.verify(token, process.env.SECRET, (err, decodedToken) => {
+const checkUser = async (req, res, next) => {
+  try {
+    const token = req.cookies?.jwtToken;
+
+    if (!token) {
+      res.locals.user = null;
+      return next();
+    }
+
+    jwt.verify(token, process.env.SECRET, async (err, decodedToken) => {
       if (err) {
         res.locals.user = null;
-        res.redirect("/signin");
-      } else {
-        con.query(
-          "select * from tbl_users where id = ?",
-          decodedToken.id,
-          (err, data) => {
-            if (err) {
-              console.log(err);
-            }
-            res.locals.user = data;
-            next();
-          }
-        );
+        return res.redirect("/signin");
+      }
+
+      try {
+        const query = "SELECT * FROM tbl_users WHERE id = ?";
+        const data = await executeQuery(query, [decodedToken.id]);
+
+        res.locals.user = data.length ? data[0] : null;
+        next();
+      } catch (dbError) {
+        handleResponseError(res, dbError);
       }
     });
-  } else {
-    res.locals.user = null;
-    next();
+  } catch (error) {
+    handleResponseError(res, error);
   }
 };
-module.exports = {
-  requireAuth,
-  checkUser,
-};
+
+module.exports = { requireAuth, checkUser };
