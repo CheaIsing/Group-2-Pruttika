@@ -1,12 +1,6 @@
 const Joi = require('joi');
 
-// const vCreateEvent = Joi.object({
-//     description:Joi.string().max(2000).required(),
-//     started_date :Joi.string().required(),
-//     ended_date :Joi.string().required(),
-//     start_time :Joi.string().required(),
-//     end_time :Joi.string().required(),
-// }).options({ abortEarly: false ,allowUnknown: true});
+//validate input event
 const vCreateEvent = Joi.object({
     description: Joi.string()
         .max(2000)
@@ -32,11 +26,35 @@ const vCreateEvent = Joi.object({
         .messages({
             'string.pattern.base': `"end_time" must be in the format HH:MM`,
         }),
-    event_type: Joi.string().required(),
-    event_categories:Joi.string().required(),
+    event_type: Joi.number().required(),
+    event_categories:Joi.array().items(Joi.number()).required(),
     is_published: Joi.number().required()
 }).options({ abortEarly: false, allowUnknown: true });
 
+//validate input agenda
+const vAgendaSchema = Joi.object({
+    title: Joi.string().max(50).required().messages({
+        'string.max': `"title" must be at most {50} characters long`,
+    }),
+    description: Joi.string().max(100).messages({
+        'string.max': `"title" must be at most {100} characters long`,
+    }),
+    start_time: Joi.string()
+        .pattern(/^\d{2}:\d{2}$/) // Validates time format HH:MM
+        .required()
+        .messages({
+            'string.pattern.base': `"start_time" must be in the format HH:MM`,
+        }),
+    end_time: Joi.string()
+        .pattern(/^\d{2}:\d{2}$/) // Validates time format HH:MM
+        .required()
+        .messages({
+            'string.pattern.base': `"end_time" must be in the format HH:MM`,
+        }),
+}).options({ abortEarly: false, allowUnknown: true });
+
+
 module.exports={
-    vCreateEvent
+    vCreateEvent,
+    vAgendaSchema
 }

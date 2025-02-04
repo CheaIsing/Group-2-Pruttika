@@ -48,7 +48,7 @@ app.use("/api/wishlist", apiWishList);
 app.use("/api/follow", apiFollow);
 
 app.use("/api/notification", apiNotification)
-app.use("/api/events",apiEvents);
+app.use("/api/events", apiEvents);
 
 app.get("/",(req, res)=>res.redirect('/auth/signin'))
 
