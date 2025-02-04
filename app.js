@@ -2,13 +2,19 @@ require("dotenv").config();
 
 const express = require("express");
 const cookieParser = require("cookie-parser");
-const session = require("express-session");
 const fileUpload = require("express-fileupload");
 const { checkUser, requireAuth } = require("./middlewares/auth");
 
 // API
 const apiAuth = require("./routes/api/auth");
 const apiProfile = require("./routes/api/profile");
+const apiAdminUser = require("./routes/api/admin/user");
+const apiAdminOrganizer = require("./routes/api/admin/organizer");
+const apiAdminEvent = require("./routes/api/admin/event");
+const apiAdminSetting = require("./routes/api/admin/setting");
+const apiWishList = require("./routes/api/wishlist");
+const apiFollow = require("./routes/api/follow");
+
 const apiNotification = require("./routes/api/notification")
 
 const apiEvents=require('./routes/api/event');
@@ -34,6 +40,13 @@ app.get("*", checkUser);
 // API
 app.use("/api/auth", apiAuth);
 app.use("/api/profile", apiProfile);
+app.use("/api/admin/user", apiAdminUser);
+app.use("/api/admin/organizer", apiAdminOrganizer);
+app.use("/api/admin/event", apiAdminEvent);
+app.use("/api/admin/setting", apiAdminSetting);
+app.use("/api/wishlist", apiWishList);
+app.use("/api/follow", apiFollow);
+
 app.use("/api/notification", apiNotification)
 app.use("/api/events",apiEvents);
 

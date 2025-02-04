@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const fs = require("fs");
-const moment = require("moment"); 
+const moment = require("moment");
 const { handleResponseError } = require("../../utils/handleError");
 const { executeQuery } = require("../../utils/dbQuery");
 const { sendResponse } = require("../../utils/response");
@@ -8,18 +8,41 @@ const { sendResponse } = require("../../utils/response");
 const defaultAvatar = "default.jpg";
 
 const updateOwnInfo = async (req, res) => {
-  const { kh_name, eng_name, email, phone, role } = req.body;
+  const { kh_name, eng_name, email, phone, dob, gender, address, role } =
+    req.body;
   const userId = req.user.id;
 
   try {
-    const sql =
-      "UPDATE tbl_users SET kh_name = ?, eng_name = ?, email = ?, phone = ?, role = ? WHERE id = ?";
-    const params = [kh_name, eng_name, email, phone, role, userId];
+    const checkQuery = `
+      SELECT id FROM tbl_users 
+      WHERE (email = ? OR phone = ?) AND id != ?`;
 
-    const data = await executeQuery(sql, params);
+    const existingUser = await executeQuery(checkQuery, [email, phone, userId]);
 
-    if (data.affectedRows === 0)
+    if (existingUser.length > 0) {
+      return sendResponse(res, 400, false, "Email or Phone is already in use.");
+    }
+
+    const updateQuery = `
+      UPDATE tbl_users SET kh_name = ?, eng_name = ?, email = ?, phone = ?, dob = ?, 
+      gender = ?, address = ?, role = ? WHERE id = ?`;
+
+    const params = [
+      kh_name,
+      eng_name,
+      email,
+      phone,
+      dob,
+      gender,
+      address,
+      role,
+      userId,
+    ];
+    const data = await executeQuery(updateQuery, params);
+
+    if (data.affectedRows === 0) {
       return sendResponse(res, 404, false, "User not found.");
+    }
 
     sendResponse(res, 200, true, "Profile updated successfully.");
   } catch (error) {
