@@ -3,22 +3,26 @@ const { executeQuery } = require("../utils/dbQuery");
 const { sendResponse } = require("../utils/response");
 const { handleResponseError } = require("../utils/handleError");
 
-const requireAuth = (req, res, next) => {
+const requireAuth = async (req, res, next) => {
   try {
-    const token = req.cookies?.jwtToken;
+    const token = req.cookies.jwtToken;
 
     if (!token) {
-      return sendResponse(res, 401, false, "You need to log in");
+      return sendResponse(res, 401, false, "Unauthorized: No token provided.");
     }
 
-    jwt.verify(token, process.env.SECRET, (err, decodedToken) => {
-      if (err) {
-        return sendResponse(res, 403, false, "Invalid Login");
-      }
+    const decodedToken = jwt.verify(token, process.env.SECRET);
+    req.user = { id: decodedToken.id };
 
-      req.user = { id: decodedToken.id };
-      next();
-    });
+    const query = "SELECT role FROM tbl_users WHERE id = ?";
+    const user = await executeQuery(query, [decodedToken.id]);
+
+    if (user.length === 0) {
+      return sendResponse(res, 404, false, "User not found.");
+    }
+
+    req.user.role = user[0].role;
+    next();
   } catch (error) {
     handleResponseError(res, error);
   }
@@ -54,4 +58,23 @@ const checkUser = async (req, res, next) => {
   }
 };
 
-module.exports = { requireAuth, checkUser };
+const checkRole = (...allowedRoles) => {
+  return (req, res, next) => {
+    if (!req.user || !req.user.role) {
+      return sendResponse(res, 403, false, "Unauthorized: No role assigned.");
+    }
+
+    if (!allowedRoles.includes(req.user.role)) {
+      return sendResponse(
+        res,
+        403,
+        false,
+        "Forbidden: You do not have permission."
+      );
+    }
+
+    next();
+  };
+};
+
+module.exports = { requireAuth, checkUser, checkRole };

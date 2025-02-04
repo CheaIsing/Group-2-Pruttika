@@ -8,7 +8,8 @@ const {
     getUserDetails,
     deactivateUser
 } = require("../../../controllers/api/admin/user");
-const { checkRole, requireAuth } = require("../../../middlewares/checkRole");
+
+const { requireAuth, checkRole } = require("../../../middlewares/auth");
 
 const router = express.Router();
 
