@@ -5,7 +5,7 @@ const {
     changePassword
 } = require("../../../controllers/api/admin/setting");
 
-const { requireAuth, checkRole } = require("../../../middlewares/checkRole");
+const { requireAuth, checkRole } = require("../../../middlewares/auth");
 
 const router = express.Router();
 
