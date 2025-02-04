@@ -17,9 +17,9 @@ router.get("/:id", requireAuth, getNotification);
 
 router.put("/read", requireAuth, readNotifications);
 
-router.put("/:id/read", requireAuth, readNotification);
+router.put("/read/:id", requireAuth, readNotification);
 
-router.put("/:id/unread", requireAuth, unreadNotification);
+router.put("/unread/:id", requireAuth, unreadNotification);
 
 router.delete("/:id", requireAuth, deleteNotification);
 

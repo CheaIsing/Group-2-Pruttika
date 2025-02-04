@@ -50,7 +50,7 @@ const vVerifyOtp = Joi.object({
   verifyOtp: Joi.string()
     .trim()
     .required()
-    .pattern(/^\d{6}$/) 
+    .pattern(/^\d{6}$/)
     .messages({
       "string.empty": "Otp Code is required.",
       "string.pattern.base": "Otp Code must be exactly 6 digits.",
@@ -67,6 +67,51 @@ const vResetPass = Joi.object({
     .required()
     .messages({
       "any.only": "Passwords must match.",
-    "any.required": "Passwords must match.",
+      "any.required": "Passwords must match.",
     }),
+}).options({ abortEarly: false });
+
+const vProfileInfo = Joi.object({
+  eng_name: Joi.string().trim().min(4).required().messages({
+    "string.empty": "Username is required.",
+    "string.min": "Username must be at least 4 characters.",
+  }),
+  kh_name: Joi.string().trim().min(4).messages({
+    "string.min": "Username must be at least 4 characters.",
+  }),
+  email: Joi.string()
+    .regex(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/)
+    .required()
+    .messages({
+      "string.empty": "Email is required.",
+      "string.pattern.base": "Invalid Email.",
+    }),
+
+  phone: Joi.string()
+    .pattern(/^[0-9]{9,10}$/) 
+    .messages({
+      "string.pattern.base": "Phone number must be between 9 and 10 digits.",
+    }),
+}).options({ abortEarly: false });
+
+const vChangePass = Joi.object({
+  oldPass: Joi.string().required().messages({
+    "string.empty": "Old Password is required."
+  }),
+  newPass: Joi.string().required().messages({
+    "string.empty": "New Password is required.",
+  }),
+  newPassConfirm: Joi.string()
+    .valid(Joi.ref("newPass"))
+    .required()
+    .messages({
+      "any.only": "Passwords not match.",
+      "any.required": "Passwords not match.",
+    }),
+}).options({ abortEarly: false });
+
+const vDeleteAcc = Joi.object({
+  currentPass: Joi.string().required().messages({
+    "string.empty": "Current Password is required to delete account."
+  })
 }).options({ abortEarly: false });

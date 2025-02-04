@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Password</title>
+     <!-- Stylesheets -->
+     <%- include("../../partials/head.ejs")  %>
+</head>
+<body>
+    <div class="container-fluid p-md-5">
+        <a href="#"><h3><i class="bi bi-caret-left-fill text-brand me-2"></i>Settings</h3>
+        </a>
+        <div class="row">
+        <div class="col-12 col-md-4">
+            <%- include("../../partials/profile-sidebar.ejs")  %>
+        </div>
+        <div class="col-12 col-md-8">
+            <a href="#"> <h4><i class="bi bi-caret-left-fill text-brand"></i>&nbsp;Delete Account</h4></a>
+            <form id="frm" class="ms-4 mt-3">
+                <p>Deleting your account will be remove all information from our database. this action cannot undone</p>
+                <div class="mb-3">
+                    <label for="" class="form-label fw-medium mb-2">Current Password</label>
+                <div class="input-field input-field-setting" id="input-field-current-password">
+                    <i class="fas fa-lock "></i>
+                    <input type="password" placeholder="Current Password"
+                      id="current-password" />
+                      <i class="fa-solid fa-eye"></i>
+                  </div>
+                  <div
+                    class="invalid_feedback text-danger d-flex align-items-center mb-2"
+                    id="invalid_feedback_current_password">
+                    <i
+                      class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                    <div class="ms-2">Password must be at least 6 characters.</div>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-brand w-100" id="btnDeleteAccount">Delete Account</button>
+
+
+            </form>
+
+
+        </div>
+    </div>
+ 
+    </div>
+    
+    <%- include("../../partials/script.ejs")  %>
+
+    <script src="/js/profile/delete-account.js"></script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organizer Settings</title>
+    <!-- Stylesheets -->
+    <%- include("../../partials/head.ejs") %>
+   
+</head>
+<body>
+    <div class="container py-5">
+        <h3>
+            <i class="bi bi-caret-left-fill text-brand me-2"></i>Settings
+        </h3>
+        <div class="row g-5">
+            <!-- Sidebar Navigation -->
+            <div class="col-12">
+                <%- include('../../partials/profile-sidebar.ejs') %>
+            </div>
+    
+            <!-- Main Content -->
+            <div class="col-12 col-md-8">
+                <h3 class="text-center mb-4">Organizer Setting</h3>
+                <div class="upload-container">
+                    <img id="profilePicture" src="/img/Default_pfp.jpg" alt="Profile Picture">
+                    <input type="file" id="uploadInput" accept="image/png, image/jpeg" style="display: none;">
+                    <div class="hover-overlay">
+                        <button class="btn btn-light btn-sm" id="uploadButton"><i class="bi bi-camera fs-3"></i></button>
+                        <button class="btn btn-danger btn-sm" id="deleteButton"><i class="bi bi-trash"></i> Delete</button>
+                    </div>
+                </div>
+                
+                <h5 class="text-center mt-3">Profile Picture</h5>
+                <p class="text-center text-muted mt-3">PNG, JPG, Max Size: 3MB</p>
+                <form action="#">
+                    <!-- Organization Name -->
+                    <label for="organizationName" class="form-label fw-semibold mb-0">Organization Name</label>
+                    <div class="input-field-setting mb-4">
+                        <input type="text" id="organizationName" placeholder="Enter your organization name" />
+                    </div>
+    
+                    <!-- Phone Number -->
+                    <label for="contact" class="form-label fw-semibold mb-0">Phone Number</label>
+                    <div class="input-field-setting mb-4">
+                        <i class="fas fa-phone"></i>
+                        <input type="tel" id="contact" placeholder="Enter your phone number" />
+                    </div>
+    
+                    <!-- Email -->
+                    <label for="email" class="form-label fw-semibold mb-0">Email</label>
+                    <div class="input-field-setting mb-4">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" placeholder="Enter your email" />
+                    </div>
+    
+                    <!-- Language -->
+                    <label for="language" class="form-label fw-semibold mb-0">Language</label>
+                    <div class="input-field-setting mb-4">
+                        <i class="fa-solid fa-globe"></i>
+                        <select class="form-select" id="language">
+                            <option selected>English</option>
+                            <option value="1">Khmer</option>
+                        </select>
+                    </div>
+    
+                    <!-- Date of Birth -->
+                    <div class="row">
+                        <div class="col-12 col-md-4">
+                            <label for="day" class="form-label fw-semibold mb-0">Day of Birth</label>
+                            <input type="number" id="day" class="form-control" placeholder="Day" min="1" max="31" required>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label for="month" class="form-label fw-semibold mb-0">Month of Birth</label>
+                            <select id="month" class="form-select" required>
+                                <option value="" disabled selected>Choose...</option>
+                                <option value="1">January</option>
+                                <option value="2">February</option>
+                                <option value="3">March</option>
+                                <option value="4">April</option>
+                                <option value="5">May</option>
+                                <option value="6">June</option>
+                                <option value="7">July</option>
+                                <option value="8">August</option>
+                                <option value="9">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label for="year" class="form-label fw-semibold mb-0">Year of Birth</label>
+                            <input type="number" id="year" class="form-control" placeholder="Year" min="1900" max="2100" required>
+                        </div>
+                    </div>
+    
+                    <!-- Gender -->
+                    <label for="gender" class="form-label fw-semibold mb-0 mt-3">Gender</label>
+                    <select class="form-select mb-4" id="gender">
+                        <option selected>Choose...</option>
+                        <option value="1">Male</option>
+                        <option value="2">Female</option>
+                        <option value="3">Other</option>
+                    </select>
+    
+                    <!-- Address -->
+                    <label for="address" class="form-label fw-semibold mb-0">Address</label>
+                    <textarea class="form-control mb-5" id="address" rows="3" placeholder="Enter your address"></textarea>
+    
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-brand w-100 mt-5">Save Changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

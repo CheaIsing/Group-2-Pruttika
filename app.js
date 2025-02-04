@@ -17,6 +17,7 @@ const apiEvents=require('./routes/api/event');
 // WEB
 const webAuth = require("./routes/web/auth");
 const webEvent = require("./routes/web/event");
+const webProfile = require("./routes/web/profile")
 
 const app = express();
 
@@ -36,9 +37,11 @@ app.use("/api/profile", apiProfile);
 app.use("/api/notification", apiNotification)
 app.use("/api/events",apiEvents);
 
+app.get("/",(req, res)=>res.redirect('/auth/signin'))
 
-app.use(webAuth);
-app.use(webEvent);
+app.use("/auth",webAuth);
+app.use("/event", webEvent);
+app.use("/profile", webProfile);
 
 const PORT = process.env.PORT || 3000;
 
