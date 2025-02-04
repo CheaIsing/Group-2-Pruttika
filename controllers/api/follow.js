@@ -3,11 +3,10 @@ const { executeQuery } = require("../../utils/dbQuery");
 const { sendResponse } = require("../../utils/response");
 
 const followUser = async (req, res) => {
-  const followerId = req.user.id;
-  const followeeId = req.params.id;
+  const followerId = req.user.id; 
+  const followeeId = req.params.id; 
 
   try {
-    
     if (followerId === followeeId) {
       return sendResponse(res, 400, false, "You cannot follow yourself.");
     }
@@ -40,7 +39,7 @@ const followUser = async (req, res) => {
 };
 
 const unfollowUser = async (req, res) => {
-  const followerId = req.user.id;
+  const followerId = req.user.id; 
   const followeeId = req.params.id;
 
   try {
@@ -60,14 +59,20 @@ const unfollowUser = async (req, res) => {
 };
 
 const getFollowers = async (req, res) => {
-  const userId = req.params.id;
+  const userId = req.user.id; // Logged-in user
 
   try {
     const query = `
-            SELECT u.id, u.eng_name, u.email FROM tbl_follower AS f INNER JOIN tbl_users AS u ON f.follower_id = u.id WHERE f.followee_id = ?
-        `;
+      SELECT u.id, u.eng_name, u.email
+      FROM tbl_follower f
+      INNER JOIN tbl_users u ON f.follower_id = u.id
+      WHERE f.followee_id = ? AND f.follower_id != ?`; 
 
-    const followers = await executeQuery(query, [userId]);
+    const followers = await executeQuery(query, [userId, userId]);
+
+    if (followers.length === 0) {
+      return sendResponse(res, 404, false, "You don't have any followers.");
+    }
 
     sendResponse(
       res,
@@ -83,14 +88,20 @@ const getFollowers = async (req, res) => {
 };
 
 const getFollowing = async (req, res) => {
-  const userId = req.params.id;
+  const userId = req.user.id; 
 
   try {
     const query = `
-            SELECT u.id, u.eng_name, u.email FROM tbl_follower AS f INNER JOIN tbl_users AS u ON f.followee_id = u.id WHERE f.follower_id = ?
-        `;
+      SELECT u.id, u.eng_name, u.email
+      FROM tbl_follower f
+      INNER JOIN tbl_users u ON f.followee_id = u.id
+      WHERE f.follower_id = ? AND f.followee_id != ?`; 
 
-    const following = await executeQuery(query, [userId]);
+    const following = await executeQuery(query, [userId, userId]);
+
+    if (following.length === 0) {
+      return sendResponse(res, 404, false, "You are not following anyone.");
+    }
 
     sendResponse(
       res,

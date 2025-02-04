@@ -16,7 +16,7 @@ const router = express.Router();
 router.post("/:id", requireAuth, followUser);
 router.delete("/unfollow/:id", requireAuth, unfollowUser);
 
-router.get("/followers/:id", getFollowers);
-router.get("/following/:id", getFollowing);
+router.get("/followers", requireAuth,  getFollowers);
+router.get("/following", requireAuth, getFollowing);
 
 module.exports = router;
