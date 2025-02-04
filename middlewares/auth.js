@@ -12,6 +12,7 @@ const requireAuth = (req, res, next) => {
         });
       } else {
         req.user = { id: decodedToken.id };
+        console.log(req.user);
         next();
       }
     });
@@ -25,7 +26,7 @@ const requireAuth = (req, res, next) => {
 
 const checkUser = (req, res, next) => {
   const token = req.cookies.jwtToken;
-  console.log(token);
+  // console.log(token);
   if (token) {
     jwt.verify(token, process.env.SECRET, (err, decodedToken) => {
       if (err) {
@@ -40,7 +41,7 @@ const checkUser = (req, res, next) => {
               console.log(err);
             }
             res.locals.user = data;
-            console.log(data);
+            // console.log(data);
             next();
           }
         );

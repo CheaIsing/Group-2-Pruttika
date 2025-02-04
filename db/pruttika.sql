@@ -534,3 +534,30 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+
+-----UPDATE DATABASE - CREATE Tbl_organizer (DATE: 01/30/2025)
+CREATE TABLE `tbl_organizer` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `organization_name` varchar(50) NOT NULL,
+  `bio` varchar(100) DEFAULT NULL,
+  `business_email` varchar(255) NOT NULL,
+  `business_phone` varchar(10) NOT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `facebook` varchar(255) NOT NULL,
+  `telegram` varchar(255) NOT NULL,
+  `tiktok` varchar(255) DEFAULT NULL,
+  `linkin` varchar(255) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1 for Active, 2 for Inactive',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+ALTER TABLE `tbl_organizer`
+  ADD CONSTRAINT `tbl_organizer_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `tbl_users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `tbl_users` 
+  CHANGE `STATUS` `status` tinyint(1) DEFAULT 1 COMMENT ' 1 for active, 2 for inactive';
