@@ -14,6 +14,7 @@ const apiAdminEvent = require("./routes/api/admin/event");
 const apiAdminSetting = require("./routes/api/admin/setting");
 const apiWishList = require("./routes/api/wishlist");
 const apiFollow = require("./routes/api/follow");
+const apiOrganizer = require("./routes/api/organizer");
 
 const apiNotification = require("./routes/api/notification")
 
@@ -46,6 +47,7 @@ app.use("/api/admin/event", apiAdminEvent);
 app.use("/api/admin/setting", apiAdminSetting);
 app.use("/api/wishlist", apiWishList);
 app.use("/api/follow", apiFollow);
+app.use("/api/organizer", apiOrganizer);
 
 app.use("/api/notification", apiNotification)
 app.use("/api/events", apiEvents);

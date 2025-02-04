@@ -123,7 +123,7 @@ const deactivateUser = async (req, res) => {
   const userId = req.params.id;
 
   try {
-    const query = `UPDATE tbl_users SET STATUS = 2 WHERE id = ?`;
+    const query = `UPDATE tbl_users SET status = 2 WHERE id = ?`;
 
     const data = await executeQuery(query, [userId]);
 
