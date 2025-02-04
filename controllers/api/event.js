@@ -13,9 +13,6 @@ const {eventCollection , eventDetail}= require("../../resource/event");
 const default_img="default-events-img.jpg";
 
 const getAllEvent=async(req,res)=>{
-    // const sqlgetEvent=`SELECT * FROM tbl_event`;
-    // const result=await executeQuery(sqlInsertE, arrEvent);
-
     try {
         
         const data= await eventCollection(
@@ -37,6 +34,9 @@ const getEventDetail=async(req,res)=>{
     const event_id=req.params.id;
     try {
         const result=await eventDetail(event_id);
+        if(result==null){
+            sendResponse(res,404,false,"Event is not found");
+        }
         sendResponse1(res, 200, true,"Get event detail successfully", result);
     } catch (error) {
         handleResponseError(res, error);
@@ -320,7 +320,7 @@ const updateEThumbnail= async(req,res)=>{
         const oldTN= dbTNResult[0].thumbnail;
 
         let file; // create variable to easy to access to db
-        if(!req.files){
+        if(!req.files || !req.files.thumbnail){
             file=oldTN; // if not update new file=> file=old file
         }
         else{

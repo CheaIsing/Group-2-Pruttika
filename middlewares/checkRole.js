@@ -22,6 +22,7 @@ const requireAuth = async (req, res, next) => {
     }
 
     req.user.role = user[0].role; 
+    // console.log(req.user.role);
     next(); 
   } catch (error) {
     handleResponseError(res, error);
@@ -29,6 +30,7 @@ const requireAuth = async (req, res, next) => {
 };
 
 const checkRole = (...allowedRoles) => {
+  // console.log(allowedRoles);
   return (req, res, next) => {
     if (!req.user || !req.user.role) {
       return sendResponse(res, 403, false, "Unauthorized: No role assigned.");
