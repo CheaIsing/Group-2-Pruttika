@@ -4,8 +4,5 @@ const url = `http://localhost:${port}/api`
 const axiosInstance = axios.create({
   baseURL: url,
   timeout: 10000,
-  headers: {
-    "Content-Type": "application/json",
-  },
   withCredentials: true,
 });

@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const fs = require("fs");
-const moment = require("moment"); 
+const moment = require("moment");
 const { handleResponseError } = require("../../utils/handleError");
 const { executeQuery } = require("../../utils/dbQuery");
 const { sendResponse } = require("../../utils/response");
@@ -8,18 +8,41 @@ const { sendResponse } = require("../../utils/response");
 const defaultAvatar = "default.jpg";
 
 const updateOwnInfo = async (req, res) => {
-  const { kh_name, eng_name, email, phone, role } = req.body;
+  const { kh_name, eng_name, email, phone, dob, gender, address, role } =
+    req.body;
   const userId = req.user.id;
 
   try {
-    const sql =
-      "UPDATE tbl_user SET kh_name = ?, eng_name = ?, email = ?, phone = ?, role = ? WHERE id = ?";
-    const params = [kh_name, eng_name, email, phone, role, userId];
+    const checkQuery = `
+      SELECT id FROM tbl_users 
+      WHERE (email = ? OR phone = ?) AND id != ?`;
 
-    const data = await executeQuery(sql, params);
+    const existingUser = await executeQuery(checkQuery, [email, phone, userId]);
 
-    if (data.affectedRows === 0)
+    if (existingUser.length > 0) {
+      return sendResponse(res, 400, false, "Email or Phone is already in use.");
+    }
+
+    const updateQuery = `
+      UPDATE tbl_users SET kh_name = ?, eng_name = ?, email = ?, phone = ?, dob = ?, 
+      gender = ?, address = ?, role = ? WHERE id = ?`;
+
+    const params = [
+      kh_name,
+      eng_name,
+      email,
+      phone,
+      dob,
+      gender,
+      address,
+      role,
+      userId,
+    ];
+    const data = await executeQuery(updateQuery, params);
+
+    if (data.affectedRows === 0) {
       return sendResponse(res, 404, false, "User not found.");
+    }
 
     sendResponse(res, 200, true, "Profile updated successfully.");
   } catch (error) {
@@ -32,7 +55,7 @@ const updateOwnPassword = async (req, res) => {
   const userId = req.user.id;
 
   try {
-    const querySql = "SELECT password FROM tbl_user WHERE id = ?";
+    const querySql = "SELECT password FROM tbl_users WHERE id = ?";
     const data = await executeQuery(querySql, [userId]);
 
     if (data.length === 0)
@@ -47,7 +70,7 @@ const updateOwnPassword = async (req, res) => {
       return sendResponse(res, 400, false, "Passwords do not match.");
 
     const newHashedPass = await bcrypt.hash(newPass, 10);
-    const updateSql = "UPDATE tbl_user SET password = ? WHERE id = ?";
+    const updateSql = "UPDATE tbl_users SET password = ? WHERE id = ?";
     const params = [newHashedPass, userId];
 
     await executeQuery(updateSql, params);
@@ -70,7 +93,7 @@ const updateOwnProfileImage = async (req, res) => {
     const avatarName = moment().format("YYYYMMDDHHmmss") + avatar.name;
     const filePath = uploadPath + avatarName;
 
-    const querySql = "SELECT avatar FROM tbl_user WHERE id = ?";
+    const querySql = "SELECT avatar FROM tbl_users WHERE id = ?";
     const data = await executeQuery(querySql, [userId]);
 
     if (data.length === 0)
@@ -81,7 +104,7 @@ const updateOwnProfileImage = async (req, res) => {
     avatar.mv(filePath, async (err) => {
       if (err) return sendResponse(res, 500, false, "File upload failed.");
 
-      const updateSql = "UPDATE tbl_user SET avatar = ? WHERE id = ?";
+      const updateSql = "UPDATE tbl_users SET avatar = ? WHERE id = ?";
       const params = [avatarName, userId];
 
       const updateResult = await executeQuery(updateSql, params);
@@ -108,7 +131,7 @@ const deleteOwnProfileImage = async (req, res) => {
   const userId = req.user.id;
 
   try {
-    const querySql = "SELECT avatar FROM tbl_user WHERE id = ?";
+    const querySql = "SELECT avatar FROM tbl_users WHERE id = ?";
     const data = await executeQuery(querySql, [userId]);
 
     if (data.length === 0)
@@ -129,7 +152,7 @@ const deleteOwnProfileImage = async (req, res) => {
             "Error deleting the avatar image."
           );
 
-        const updateSql = "UPDATE tbl_user SET avatar = ? WHERE id = ?";
+        const updateSql = "UPDATE tbl_users SET avatar = ? WHERE id = ?";
         const params = [defaultAvatar, userId];
         const updateResult = await executeQuery(updateSql, params);
 
@@ -151,7 +174,7 @@ const deleteOwnAccount = async (req, res) => {
   const userId = req.user.id;
 
   try {
-    const querySql = "SELECT password, avatar FROM tbl_user WHERE id = ?";
+    const querySql = "SELECT password, avatar FROM tbl_users WHERE id = ?";
     const data = await executeQuery(querySql, [userId]);
 
     if (data.length === 0)
@@ -176,7 +199,7 @@ const deleteOwnAccount = async (req, res) => {
       });
     }
 
-    const deleteSql = "DELETE FROM tbl_user WHERE id = ?";
+    const deleteSql = "DELETE FROM tbl_users WHERE id = ?";
 
     const result = await executeQuery(deleteSql, [userId]);
 

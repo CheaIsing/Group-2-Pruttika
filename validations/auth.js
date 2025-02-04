@@ -13,6 +13,7 @@ const vSignUp = Joi.object({
 const vSignIn = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().min(6).required(),
+  rememberMe: Joi.boolean().required(),
 }).options({ abortEarly: false });
 
 const vForgotPass = Joi.object({
