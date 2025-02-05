@@ -7,41 +7,6 @@ const { sendResponse } = require("../../utils/response");
 
 const defaultAvatar = "default.jpg";
 
-const getAllProfile = async (req, res) => {
-  try {
-    const query = "SELECT * FROM tbl_users";
-
-    const data = await executeQuery(query);
-
-    if (data.length === 0) {
-      return sendResponse(res, 404, false, "No data found.");
-    }
-
-    sendResponse(res, 200, true, "Display all users profile.", data);
-  } catch (error) {
-    console.log(data);
-    handleResponseError(res, error);
-  }
-};
-
-const getProfileById = async (req, res) => {
-  const id = req.params.id;
-  try {
-    const query = "SELECT * FROM tbl_users WHERE id = ?";
-
-    const data = await executeQuery(query, [id]);
-
-    if (data.length === 0) {
-      return sendResponse(res, 404, false, "No data found.");
-    }
-
-    sendResponse(res, 200, true, `Display profile detail with id : ${id}`, data[0]);
-  } catch (error) {
-    console.log(error);
-    handleResponseError(res, error);
-  }
-}
-
 const updateOwnInfo = async (req, res) => {
   const { kh_name, eng_name, email, phone, dob, gender, address, role } =
     req.body;
@@ -248,8 +213,6 @@ const deleteOwnAccount = async (req, res) => {
 };
 
 module.exports = {
-  getAllProfile,
-  getProfileById,
   updateOwnInfo,
   updateOwnPassword,
   updateOwnProfileImage,

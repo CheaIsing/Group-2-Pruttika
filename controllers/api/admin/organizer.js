@@ -2,61 +2,109 @@ const { executeQuery } = require("../../../utils/dbQuery");
 const { handleResponseError } = require("../../../utils/handleError");
 const { sendResponse } = require("../../../utils/response");
 
-const displayPendingOrganizer = async (req, res) => {
+const displayRequestOrganizer = async (req, res) => {
   try {
-    const query = "SELECT * FROM tbl_organizer_req WHERE STATUS = 1";
+    const { status, search } = req.query;
+    let {
+      page = 1,
+      per_page = 50,
+      sort_col = "organization_name",
+      sort_dir = "asc",
+    } = req.query;
 
-    const data = await executeQuery(query);
+    const pageNum = parseInt(page);
+    const perPageNum = parseInt(per_page);
 
-    if (data.length === 0) {
-      return sendResponse(res, 404, false, "No pending organizer found.");
+    if (isNaN(pageNum) || pageNum < 1)
+      return sendResponse(res, 400, false, "Invalid page number.");
+    if (isNaN(perPageNum) || perPageNum < 1)
+      return sendResponse(res, 400, false, "Invalid per_page value.");
+
+    const sortDirection = sort_dir.toLowerCase() === "desc" ? "DESC" : "ASC";
+
+    let query = `SELECT * FROM tbl_organizer_req`;
+    const queryParams = [];
+
+    if (status) {
+      query += " WHERE status = ?";
+      queryParams.push(status);
     }
 
-    sendResponse(res, 200, true, "Display all pending organizers", data);
+    if (search) {
+      query += status ? " AND" : " WHERE";
+      query += " organization_name LIKE ?";
+      queryParams.push(`%${search}%`);
+    }
+
+    query += ` ORDER BY ${sort_col} ${sortDirection}`;
+
+    query += " LIMIT ? OFFSET ?";
+    queryParams.push(perPageNum, (pageNum - 1) * perPageNum);
+
+    const data = await executeQuery(query, queryParams);
+
+    if (data.length === 0) {
+      return sendResponse(res, 404, false, "No organizers request found.");
+    }
+
+    sendResponse(res, 200, true, "Display all organizers request", data);
   } catch (error) {
-    console.log(error);
+    console.error(error);
     handleResponseError(res, error);
   }
 };
 
 const displayAllOrganizer = async (req, res) => {
   try {
-    const query = "SELECT * FROM tbl_organizer";
+    const { status, search } = req.query;
+    let {
+      page = 1,
+      per_page = 50,
+      sort_col = "organization_name",
+      sort_dir = "asc",
+    } = req.query;
 
-    const data = await executeQuery(query);
+    const pageNum = parseInt(page);
+    const perPageNum = parseInt(per_page);
 
-    if (data.length === 0) {
-      return sendResponse(res, 404, false, "No organizer found.");
+    if (isNaN(pageNum) || pageNum < 1)
+      return sendResponse(res, 400, false, "Invalid page number.");
+    if (isNaN(perPageNum) || perPageNum < 1)
+      return sendResponse(res, 400, false, "Invalid per_page value.");
+
+    const sortDirection = sort_dir.toLowerCase() === "desc" ? "DESC" : "ASC";
+
+    let query = `SELECT * FROM tbl_organizer`;
+    const queryParams = [];
+
+    if (status) {
+      query += " WHERE status = ?";
+      queryParams.push(status);
     }
 
-    sendResponse(res, 200, true, "Display all organizer", data);
+    if (search) {
+      query += status ? " AND" : " WHERE";
+      query += " organization_name LIKE ?";
+      queryParams.push(`%${search}%`);
+    }
+
+    query += ` ORDER BY ${sort_col} ${sortDirection}`;
+
+    query += " LIMIT ? OFFSET ?";
+    queryParams.push(perPageNum, (pageNum - 1) * perPageNum);
+
+    const data = await executeQuery(query, queryParams);
+
+    if (data.length === 0) {
+      return sendResponse(res, 404, false, "No organizers found.");
+    }
+
+    sendResponse(res, 200, true, "Display all organizers", data);
   } catch (error) {
-    console.log(error);
+    console.error(error);
     handleResponseError(res, error);
   }
 };
-
-const filterOrganizer = async (req, res) => {
-  const status = req.params.status;
-  try {
-    const query = "SELECT * FROM tbl_organizer_req";
-
-    const data = await executeQuery(query);
-
-    if (data.length === 0) {
-      return sendResponse(res, 404, false, "No data found.");
-    }
-
-    const filterQuery = "SELECT * FROM tbl_organizer_req WHERE status = ?";
-
-    const result = await executeQuery(filterQuery, [status]);
-
-    sendResponse(res, 200, true, `Disply all organizers with status : ${status}`, result);
-  } catch (error) {
-    console.log(error);
-    handleResponseError(res, error);
-  }
-}
 
 const adminApproval = async (req, res) => {
   try {
@@ -137,10 +185,8 @@ const adminRejection = async (req, res) => {
 };
 
 module.exports = {
-  displayPendingOrganizer,
+  displayRequestOrganizer,
   displayAllOrganizer,
-  filterOrganizer,
   adminApproval,
   adminRejection,
 };
-

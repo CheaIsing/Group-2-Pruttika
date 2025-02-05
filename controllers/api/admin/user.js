@@ -2,60 +2,58 @@ const { executeQuery } = require("../../../utils/dbQuery");
 const { handleResponseError } = require("../../../utils/handleError");
 const { sendResponse } = require("../../../utils/response");
 
-const filterByRole = async (req, res) => {
-  const roleId = req.params.id;
-
+const displayAllUsers = async (req, res) => {
   try {
-    const query = "SELECT * FROM tbl_users WHERE role = ?";
-    const data = await executeQuery(query, [roleId]);
-    sendResponse(res, 200, true, "Filter by role", data);
-  } catch (error) {
-    console.error(error);
-    handleResponseError(res, error);
-  }
-};
+    const { role, search } = req.query;
+    let {
+      page = 1,
+      per_page = 50,
+      sort_col = "created_at",
+      sort_dir = "asc"
+    } = req.query;
 
-const searchUser = async (req, res) => {
-  const { name, email } = req.query;
+    const pageNum = parseInt(page);
+    const perPageNum = parseInt(per_page);
 
-  try {
-    if (!name && !email) {
-      return sendResponse(
-        res,
-        400,
-        false,
-        "At least one of name or email query parameters is required."
-      );
+    if (isNaN(pageNum) || pageNum < 1) {
+      return sendResponse(res, 404, false, "Invalid page number.");
     }
 
-    let query = "SELECT * FROM tbl_users WHERE 1";
-    const params = [];
-
-    if (name) {
-      query += " AND (eng_name LIKE ? OR email LIKE ?)";
-      params.push(`%${name}%`, `%${name}%`);
+    if (isNaN(perPageNum) || perPageNum < 1) {
+      return sendResponse(res, 404, false, "Invalid per_page value");
     }
 
-    if (email) {
-      query += " AND email LIKE ?";
-      params.push(`%${email}%`);
+    const sortDirection = sort_dir.toLowerCase() === 'desc' ? 'DESC' : 'ASC'; 
+
+    let query = "SELECT * FROM tbl_users";
+    const queryParams = [];
+
+    if (role) {
+      query += ' WHERE role = ?';
+      queryParams.push(role);
     }
 
-    const data = await executeQuery(query, params);
-    sendResponse(res, 200, true, "Search results", data);
-  } catch (error) {
-    console.error(error);
-    handleResponseError(res, error);
-  }
-};
+    if (search) {
+      query += role? ' AND' : ' WHERE';
+      query += ' eng_name LIKE ?';
+      queryParams.push(`%${search}%`)
+    }
 
-const sortByRegisterDate = async (req, res) => {
-  try {
-    const query = "SELECT * FROM tbl_users ORDER BY created_at DESC";
-    const data = await executeQuery(query);
-    sendResponse(res, 200, true, "Users sorted by registration date", data);
+    query += ` ORDER BY ${sort_col} ${sortDirection}`;
+
+    query += ' LIMIT ? OFFSET ?';
+
+    queryParams.push(perPageNum, (pageNum - 1) * perPageNum);
+
+    const data = await executeQuery(query, queryParams);
+
+    if (data.length === 0) {
+      return sendResponse(res, 404, false, "No users found.");
+    }
+
+    sendResponse(res, 200, true, "Display all users", data);
   } catch (error) {
-    console.error(error);
+    console.log(error);
     handleResponseError(res, error);
   }
 };
@@ -141,9 +139,7 @@ const deactivateUser = async (req, res) => {
 };
 
 module.exports = {
-  filterByRole,
-  searchUser,
-  sortByRegisterDate,
+  displayAllUsers,
   editUser,
   getUserDetails,
   deactivateUser
