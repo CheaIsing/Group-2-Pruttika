@@ -76,11 +76,11 @@
         </ul>
       </nav>
       <main>
-        <div class="container d-flex align-items-center">
-            <div class="row w-100">
+        <div class="container-fluid">
+            <div class="row ">
                 
                 <!-- FORMS -->
-                <div class="col-12 mx-0 px-0 py-0">
+                <div class="col-12 ps-md-4 me-0">
                     <h3 class="mb-3">Create Event</h3>
                     <div class="progress" style="background-color: #ff169232;border-radius: 2px !important;">
                         <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="50" class="progress-bar progress-bar-striped progress-bar-animated bg-brand" role="progressbar" style="width: 0%"></div>
@@ -209,7 +209,7 @@
                                     </div>
                                 </div> -->
                                 <div class="step">
-                                    <div class="sub-form-wrapper active p-4 rounded-4 mt-4 ">
+                                    <div class="sub-form-wrapper active p-sm-4 rounded-4 mt-3 ">
                                         <h5>Upload an image as your thumbnail</h5>
                                         <div class="form-display active upload-cover ">
                                             
@@ -249,7 +249,7 @@
                                     </div>
                                 </div>
                                 <div class="step">
-                                    <div class="sub-form-wrapper active p-4 border rounded-4 mt-4 ">
+                                    <div class="sub-form-wrapper active p-sm-4 rounded-4 mt-3 ">
                                         
                                         <div class="main-form active">
                                             <h5 class="">Event Overview</h5>
@@ -304,15 +304,14 @@
                                     </div>
                                 </div>
                                 <div class="step">
-                                    <div class="sub-form-wrapper active p-4 border rounded-4 mt-4 ">
+                                    <div class="sub-form-wrapper active p-sm-4 rounded-4 mt-3 ">
                                         
                                         <div class="main-form active">
-                                            <h4 class="fw-bold pb-3">Date and Location</h4>
-                                            <h5>Date and time*</h5>
+                                            <h4 class="mb-3">Event Date and Location</h4>
                                             <div class="row gx-4 gy-1">
-                                                <div class="col-7">
+                                                <div class="col-md-12 col-lg-9">
                                                     <div class="row gx-4 gy-1">
-                                                        <div class="col-md-8">
+                                                        <div class="col-md-6 col-lg-8">
                                                             <label for
                                                                 class="form-label fw-medium mb-2">Start Date</label>
                                                             <div class="input-field input-field-setting border-2"
@@ -330,7 +329,7 @@
                                                                 <div class="ms-2 ">Invalid email.</div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-4">
+                                                        <div class="col-md-6 col-lg-4">
                                                             <label for
                                                                 class="form-label fw-medium mb-2">Start Time</label>
                                                             <div class="input-field input-field-setting border-2"
@@ -348,7 +347,7 @@
                                                                 <div class="ms-2 ">Invalid email.</div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-8">
+                                                        <div class="col-md-6 col-lg-8">
                                                             <label for
                                                                 class="form-label fw-medium mb-2">End Date</label>
                                                             <div class="input-field input-field-setting border-2"
@@ -366,7 +365,7 @@
                                                                 <div class="ms-2 ">Invalid email.</div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-4">
+                                                        <div class="col-md-6 col-lg-4">
                                                             <label for
                                                                 class="form-label fw-medium mb-2">End Time</label>
                                                             <div class="input-field input-field-setting border-2"
@@ -389,8 +388,6 @@
 
                                                 
                                             </div>
-                                            <br>
-                                            <h5>Location*</h5>
                                             <div class="row">
 
                                                 <div class="col-md-12">
@@ -416,78 +413,88 @@
                                     </div>
                                 </div>
                                 <div class="step">
-                                    <h4>Provide us with your personal information</h4>
-                                    <div class="mt-1">
-                                        <label class="form-label">Complete Name:</label> 
-                                        <input class="form-control" id="full_name" name="full_name" type="text">
-                                    </div>
-                                    <div class="mt-2">
-                                        <label class="form-label">Complete Address:</label> 
-                                        <input class="form-control" id="address" name="address" type="text">
-                                    </div>
-                                    <div class="mt-2">
-                                        <label class="form-label">Email:</label> 
-                                        <input class="form-control" id="email" name="email" type="email">
-                                    </div>
-                                    <div class="mt-2">
-                                        <label class="form-label">Phone / Mobile Number:</label> 
-                                        <input class="form-control" id="phone" name="phone" type="text">
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col-lg-2 col-md-2 col-3">
-                                            <label class="form-label">Age:</label>
-                                            <div class="input-container">
-                                                <input class="form-control" id="age" name="age" type="text">
+                                    <div class="sub-form-wrapper active p-sm-4 rounded-4 mt-3 ">
+                                        
+                                        <div class="main-form active">
+                                            <h4 class="mb-0">Event Description</h4>
+                                            <div class="d-flex align-items-center mb-4">
+                                                <!-- <img class="tip-icon" src="../../assets/img/icon/bulb.png" alt=""> -->
+                                                <i class="fa-regular fa-lightbulb me-2 text-brand"></i>
+                                                <p class="p-0 m-0"><span class="fw-medium">Tip:</span> Give a short attractive and full detail description about your event.</p>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <div id="input-container">
-                                                <input class="form-check-input" name="gender" type="radio" value="male"> 
-                                                <label class="form-check-label radio-lb">Male</label> 
-                                                <input class="form-check-input" name="gender" type="radio" value="female"> 
-                                                <label class="form-check-label radio-lb">Female</label> 
-                                                <input checked class="form-check-input" name="gender" type="radio" value="undefined"> 
-                                                <label class="form-check-label radio-lb">Rather not say</label>
+                                            <div class="col-md-12">
+                                                <label for
+                                                    class="form-label fw-medium mb-2">Short Description</label>
+                                                <div class="input-field input-field-setting border-2"
+                                                    id="input-field-phone">
+                                                    <i class="fa-regular fa-pen-to-square"></i>
+                                                    <input type="text" placeholder="Street 2002, PP"
+                                                        id="phone" class=""
+                                                        autofocus />
+                                                </div>
+                                                <div
+                                                    class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100"
+                                                    id="invalid_feedback_phone">
+                                                    <i
+                                                        class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                                                    <div class="ms-2 ">Invalid email.</div>
+                                                </div>
+                                            </div>
+                                            <label for
+                                                    class="form-label fw-medium mb-2 mt-2">Description Detail</label>
+                                            
+                                            <div class="description mb-3">
+                                                <div id="editor" class="bg-white" style="min-height: 150px;"></div>
+                                            </div>
+                                            
+                                            <div class="upload-img-form d-none">
+                                                <h4 class="fw-bold pb-3">Add your image</h4>
+                                                <div
+                                                    class="upload-section d-flex align-items-center justify-content-center p-5 flex-column">
+                                                    <i id="photoIcon" class="fa-regular fa-image fs-1 text-secondary pb-3"></i>
+                                                    <label id="photoInputBtn" for="photoUpload" class="btn-outline-pink"><i
+                                                            class="fa-regular fa-image fs-5 text-secondary"></i> Upload
+                                                        Image</label>
+                                                    <input class="d-none" id="photoUpload" type="file"></input>
+                                                    <div class="d-flex">
+                                                        <p id="photoName" class="text-secondary pt-3">No file chosen</p>
+                                                        <button id="btnRemoveImg" type="button"
+                                                            class="ms-1 text-secondary fw-bold">X</button>
+                                                    </div>
+                                                    <img id="photoDisplay" src="" alt="img preview">
+        
+                                                </div>
+                                                <div class="img-format pt-3 w-100">
+                                                    <ul type="circle" class="d-flex justify-content-evenly">
+                                                        <li>Recommended image size: 2160 x 1080px</li>
+                                                        <li>Maximum file size: 10MB</li>
+                                                        <li>Supported image files: .JPEG, .PNG</li>
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="step">
-                                    <h4>Provide us with your personal information</h4>
-                                    <div class="mt-1">
-                                        <label class="form-label">Complete Name:</label> 
-                                        <input class="form-control" id="full_name" name="full_name" type="text">
-                                    </div>
-                                    <div class="mt-2">
-                                        <label class="form-label">Complete Address:</label> 
-                                        <input class="form-control" id="address" name="address" type="text">
-                                    </div>
-                                    <div class="mt-2">
-                                        <label class="form-label">Email:</label> 
-                                        <input class="form-control" id="email" name="email" type="email">
-                                    </div>
-                                    <div class="mt-2">
-                                        <label class="form-label">Phone / Mobile Number:</label> 
-                                        <input class="form-control" id="phone" name="phone" type="text">
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col-lg-2 col-md-2 col-3">
-                                            <label class="form-label">Age:</label>
-                                            <div class="input-container">
-                                                <input class="form-control" id="age" name="age" type="text">
+                                    <div class="sub-form-wrapper active p-sm-4 rounded-4 mt-3 ">
+                                        <div class="main-form active">
+                                            <h4 class="mb-0">Event Agenda</h4>
+                                            <div class="d-flex align-items-center mb-4">
+                                                <!-- <img class="tip-icon" src="../../assets/img/icon/bulb.png" alt=""> -->
+                                                <i class="fa-regular fa-lightbulb me-2 text-brand"></i>
+                                                <p class="p-0 m-0"><span class="fw-medium">Tip:</span> Give agendas about your event.</p>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <div id="input-container">
-                                                <input class="form-check-input" name="gender" type="radio" value="male"> 
-                                                <label class="form-check-label radio-lb">Male</label> 
-                                                <input class="form-check-input" name="gender" type="radio" value="female"> 
-                                                <label class="form-check-label radio-lb">Female</label> 
-                                                <input checked class="form-check-input" name="gender" type="radio" value="undefined"> 
-                                                <label class="form-check-label radio-lb">Rather not say</label>
+                                            <div class="description my-3 ">
+                                                <!-- <div id="agendaEditor"></div> -->
+                                                <div id="agenda-wrapper">
+                                                    
+                                                </div>
+                                                <button type="button" class="btn-outline-pink" onclick="createNewAgenda()"><i
+                                                        class="fa-solid fa-plus"></i> Add a new agenda</button>
                                             </div>
                                         </div>
                                     </div>
+                                            
                                 </div>
                                 <div class="step">
                                     <h4>Provide us with your personal information</h4>
@@ -565,6 +572,7 @@
 
       </main>
       
+      
       <!--For icons: https://fonts.google.com/icons-->
 
       <!--For icons: https://fonts.google.com/icons-->
@@ -576,6 +584,169 @@
     </div>
     <%- include("../../partials/script.ejs") %>
     <script src="/js/events/create-event.js">
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            window.descQuill = new Quill('#editor', { theme: 'snow' });
+        });
+
+    </script>
+    <script>
+        let agendaCount = 0;
+const agendaWrapper = document.getElementById("agenda-wrapper");
+createNewAgenda();
+function createNewAgenda() {
+    agendaCount++;
+    let agendaContainer = document.createElement("div");
+    agendaContainer.className = "agenda-container mb-4";
+    agendaContainer.id = `agenda${agendaCount}`;
+    
+    agendaContainer.innerHTML = `
+                                                        <div class="d-flex align-items-center justify-content-between mb-3 mt-4">
+        <h5 class="fw-bold text-brand ">+ Agenda ${agendaCount}</h5>
+        <button class="btn btn-danger" onclick="deleteAgenda('agenda${agendaCount}')">Delete</button>
+      </div>
+                                                    <div class="">
+                                                        <label for
+                                                        class="form-label fw-medium mb-2">Title</label>
+                                                <div class="input-field input-field-setting agenda mb-3">
+
+                                                    <i class="fa-regular fa-pen-to-square"></i>
+                                                    <input type="text" class=""
+                                                        id="agendaTitle${agendaCount}" placeholder="Title">
+                                                    
+                                                </div>
+                                                <div
+                                                                class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100"
+                                                                id="invalid_feedback_phone">
+                                                                <i
+                                                                    class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                                                                <div class="ms-2 ">Invalid email.</div>
+                                                            </div>
+                                                    </div>
+                                                   <div class="">
+                                                    <label for
+                                                    class="form-label fw-medium mb-2">Description</label>
+                                            <div class="input-field input-field-setting agenda mb-3">
+                                                <i class="fa-regular fa-pen-to-square"></i>
+                                                <input type="text" class=""
+                                                    id="agendaDesc${agendaCount}" placeholder="Description"></input>
+                                                
+                                            </div>
+                                            <div
+                                                        class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100"
+                                                        id="invalid_feedback_phone">
+                                                        <i
+                                                            class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                                                        <div class="ms-2 ">Invalid email.</div>
+                                                    </div>
+                                                   </div>
+                                                    
+                                                    <div class="row gx-4 gy-0">
+                                                        <div class="col-6 col-lg-4">
+                                                            <label for
+                                                                class="form-label fw-medium mb-2">Start Time</label>
+                                                            <div class="input-field input-field-setting border-2"
+                                                                id="input-field-phone">
+                                                                <i class="fa-regular fa-pen-to-square"></i>
+                                                                <input type="time"
+                                                                    id="agendaStarttime${agendaCount}" class=""
+                                                                    autofocus />
+                                                            </div>
+                                                            <div
+                                                                class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100"
+                                                                id="invalid_feedback_phone">
+                                                                <i
+                                                                    class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                                                                <div class="ms-2 ">Invalid email.</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-lg-4">
+                                                            <label for
+                                                                class="form-label fw-medium mb-2">End Time</label>
+                                                            <div class="input-field input-field-setting border-2"
+                                                                id="input-field-phone">
+                                                                <i class="fa-regular fa-pen-to-square fw-light"></i>
+                                                                <input type="time"
+                                                                    id="agendaEndtime${agendaCount}" class=""
+                                                                    autofocus />
+                                                            </div>
+                                                            <div
+                                                                class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100"
+                                                                id="invalid_feedback_phone">
+                                                                <i
+                                                                    class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                                                                <div class="ms-2 ">Invalid email.</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+        
+    `;
+    
+    agendaWrapper.appendChild(agendaContainer);
+}
+
+function deleteAgenda(agendaId) {
+    let agendaToRemove = document.getElementById(agendaId);
+    if (agendaToRemove) {
+        agendaToRemove.remove();
+        agendaCount--;
+    }
+}
+
+function getAgendaData() {
+    let agendas = [];
+    document.querySelectorAll(".agenda-container").forEach(agenda => {
+        let id = agenda.id.replace("agenda", "");
+        let title = document.getElementById(`agendaTitle${id}`).value;
+        let desc = document.getElementById(`agendaDesc${id}`).value;
+        let startTime = document.getElementById(`agendaStarttime${id}`).value;
+        let endTime = document.getElementById(`agendaEndtime${id}`).value;
+        
+        agendas.push({ id, title, desc, startTime, endTime });
+    });
+    return agendas;
+}
+
+function saveAgendaToAPI() {
+    let agendas = getAgendaData();
+    fetch("/api/agenda", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ agendas })
+    })
+    .then(response => response.json())
+    .then(data => console.log("Agenda saved successfully:", data))
+    .catch(error => console.error("Error saving agenda:", error));
+}
+
+function updateAgenda(id, updatedData) {
+    fetch(`/api/agenda/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedData)
+    })
+    .then(response => response.json())
+    .then(data => console.log("Agenda updated successfully:", data))
+    .catch(error => console.error("Error updating agenda:", error));
+}
+
+function deleteAgendaFromAPI(id) {
+    fetch(`/api/agenda/${id}`, {
+        method: "DELETE"
+    })
+    .then(response => response.json())
+    .then(data => console.log("Agenda deleted successfully:", data))
+    .catch(error => console.error("Error deleting agenda:", error));
+}
+
+function fetchAgendasFromAPI() {
+    fetch("/api/agenda")
+    .then(response => response.json())
+    .then(data => console.log("Fetched Agendas:", data))
+    .catch(error => console.error("Error fetching agenda:", error));
+}
+
     </script>
     <script>
         new TomSelect("#select-category",{

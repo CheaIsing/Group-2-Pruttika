@@ -15,6 +15,7 @@ let isSubmit = false;
 const formData = {
   email: "",
   password: "",
+  rememberMe: false
 };
 
 const fields = [
@@ -42,9 +43,12 @@ signInForm.addEventListener(
 
     const email = document.getElementById("sign-in-email").value;
     const password = document.getElementById("sign-in-password").value;
+    const rememberMe = document.getElementById("rememberMe").checked;
+
 
     formData.email = email;
     formData.password = password;
+    formData.rememberMe = rememberMe;
 
     const { error } = vSignIn.validate(formData);
 
@@ -87,3 +91,4 @@ signInForm.addEventListener(
 
 handleFieldChange("sign-in-email", "email", formData, vSignIn, fields);
 handleFieldChange("sign-in-password", "password", formData, vSignIn, fields);
+

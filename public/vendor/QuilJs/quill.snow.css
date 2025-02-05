@@ -912,7 +912,7 @@
     font-weight: 500;
     height: 24px;
     position: relative;
-    vertical-align: middle
+    vertical-align: middle;
 }
 
 .ql-snow .ql-picker-label {
@@ -1166,11 +1166,14 @@
 }
 
 .ql-toolbar.ql-snow {
-    border: 2px solid #ff1694;
+    border: 1px solid #ff1694;
     border-bottom: none;
     box-sizing: border-box;
     font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-    padding: 8px
+    padding: 8px;
+    border-radius: 8px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
 }
 
 .ql-toolbar.ql-snow .ql-formats {
