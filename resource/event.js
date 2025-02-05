@@ -1,5 +1,4 @@
 const { executeQuery }=require('../utils/dbQuery');
-const { sendResponse } = require('../utils/response');
 
 const joinEventQry=`SELECT
                 te.id,
@@ -31,7 +30,8 @@ const joinEventQry=`SELECT
                 agenda_info.agenda_title,
                 agenda_info.agenda_description,
                 agenda_info.agenda_start_time,
-                agenda_info.agenda_end_time
+                agenda_info.agenda_end_time,
+                tw.user_id AS user_id
             FROM  
                 tbl_event te 
             INNER JOIN 
@@ -65,11 +65,12 @@ const joinEventQry=`SELECT
                     tbl_agenda
                 GROUP 
                     BY event_id
-            ) agenda_info ON te.id = agenda_info.event_id 
+            ) agenda_info ON te.id = agenda_info.event_id
+            LEFT JOIN tbl_wishlist tw ON tw.event_id = te.id AND tw.user_id = ? 
         `;
 
 
-const eventCollection= async(page=1, perpage=10, search='', sort='id', order='ASC', start_date = null, end_date = null, event_type = null, min_price = null, max_price = null, cate_ids = [])=>{
+const eventCollection= async(userID,page=1, perpage=10, search='', sort='id', order='ASC', start_date = null, end_date = null, event_type = null, min_price = null, max_price = null, cate_ids = [])=>{
     try {
         page=parseInt(page);
         perpage=parseInt(perpage);
@@ -78,7 +79,7 @@ const eventCollection= async(page=1, perpage=10, search='', sort='id', order='AS
     
         //params
         const searchPattern=`%${search}%`;
-        const filterParams=[searchPattern,searchPattern];
+        const filterParams=[userID,searchPattern,searchPattern];
 
         //filter
         let filterQuery='';
@@ -153,6 +154,7 @@ const eventCollection= async(page=1, perpage=10, search='', sort='id', order='AS
                     name:eventData.organization_name
                 },
                 is_published: eventData.is_published==1? true:false,
+                is_Wishlist: eventData.user_id ? true : false,
                 created_at: eventData.created_at,
                 updated_at: eventData.updated_at
             }
@@ -188,7 +190,7 @@ const eventCollection= async(page=1, perpage=10, search='', sort='id', order='AS
             paginate:{
                 total: countQuery[0].total,
                 perpage: perpage,
-                currect_page: page,
+                current_page: page,
                 total_page: totalPage
             }
         }        
@@ -199,17 +201,15 @@ const eventCollection= async(page=1, perpage=10, search='', sort='id', order='AS
     }
 }
 
-const eventDetail=async(id)=>{
+const eventDetail=async(user_id,id)=>{
     const sqlQuery=joinEventQry+ ` WHERE te.id=? `;
-    const data=await executeQuery(sqlQuery,[id]);
+    const data=await executeQuery(sqlQuery,[user_id,id]);
     
     if(!data[0] || !data[0].id){
         console.log('error');
         return null;
     }
     const eventData=data[0];
-    // console.log(data);
-    // return
 
     const event={
         id:eventData.id,
@@ -233,6 +233,7 @@ const eventDetail=async(id)=>{
             name:eventData.organization_name
         },
         is_published: eventData.is_published==1? true:false,
+        is_Wishlist: eventData.user_id ? true : false,
         created_at: eventData.created_at,
         updated_at: eventData.updated_at
     }
