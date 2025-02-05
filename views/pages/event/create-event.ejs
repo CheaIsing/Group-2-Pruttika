@@ -77,10 +77,10 @@
       </nav>
       <main>
         <div class="container-fluid">
-            <div class="row ">
+            <div class="row m-sm-2 m-lg-4">
                 
                 <!-- FORMS -->
-                <div class="col-12 ps-md-4 me-0">
+                <div class="col-12 me-0">
                     <h3 class="mb-3">Create Event</h3>
                     <div class="progress" style="background-color: #ff169232;border-radius: 2px !important;">
                         <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="50" class="progress-bar progress-bar-striped progress-bar-animated bg-brand" role="progressbar" style="width: 0%"></div>
@@ -239,7 +239,7 @@
         
                                             </div>
                                             <div class="img-format pt-3 w-100">
-                                                <ul type="circle" class="d-flex justify-content-evenly">
+                                                <ul type="circle" class="d-flex flex-column flex-sm-row justify-content-evenly ">
                                                     <li>Recommended image size: 2160 x 1080px</li>
                                                     <li>Maximum file size: 10MB</li>
                                                     <li>Supported image files: .JPEG, .PNG</li>
@@ -261,7 +261,7 @@
                                             <!-- <p>Give an attractive brief paragraph about your event.</p> -->
                                             <div class>
                                                 <label for
-                                                    class="form-label fw-medium mb-2">Event Title *</label>
+                                                    class="form-label fw-medium mb-2">Event Title</label>
                                                 <div class="input-field input-field-setting border-2"
                                                     id="input-field-phone">
                                                     <i class="fa-regular fa-pen-to-square"></i>
@@ -277,15 +277,27 @@
                                                     <div class="ms-2 ">Invalid email.</div>
                                                 </div>
                                             </div>
+                                            <div class="mb-4 mt-2 w-100">
+                                                <div class="">
+                                                    <label for
+                                                    class="form-label fw-medium mb-2 d-block">Event Type</label>
+                                                    <div id="input-container">
+                                                        <input class="form-check-input" name="event_type" type="radio" value="2" checked> 
+                                                        <label class="form-check-label radio-lb">In Person</label> 
+                                                        <input class="form-check-input" name="event_type" type="radio" value="1"> 
+                                                        <label class="form-check-label radio-lb">Online</label> 
+                                                    </div>
+                                                </div>
+                                            </div>
         
                                             <div class="w-100">
                                                 <div class="">
                                                     <label for
-                                                    class="form-label fw-medium mb-2">Event Categories *</label>
+                                                    class="form-label fw-medium mb-2">Event Categories</label>
                                                    
 
                                                         <select class="tom-selected" id="select-category" name="state[]" multiple placeholder="Choose Categories" autocomplete="off">
-                                                            <option value="">Select a state...</option>
+                                                            <!-- <option value="">Select a state...</option> -->
                                                             <option value="AL">Alabama</option>
                                                             <option value="AK">Alaska</option>
                                                             <option value="AZ">Arizona</option>
@@ -309,9 +321,9 @@
                                         <div class="main-form active">
                                             <h4 class="mb-3">Event Date and Location</h4>
                                             <div class="row gx-4 gy-1">
-                                                <div class="col-md-12 col-lg-9">
+                                                <div class="col-md-12 col-lg-12 col-xxl-8">
                                                     <div class="row gx-4 gy-1">
-                                                        <div class="col-md-6 col-lg-8">
+                                                        <div class="col-md-6 col-lg-7 col-xxl-8">
                                                             <label for
                                                                 class="form-label fw-medium mb-2">Start Date</label>
                                                             <div class="input-field input-field-setting border-2"
@@ -329,7 +341,7 @@
                                                                 <div class="ms-2 ">Invalid email.</div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-6 col-lg-4">
+                                                        <div class="col-md-6 col-lg-5 col-xxl-4">
                                                             <label for
                                                                 class="form-label fw-medium mb-2">Start Time</label>
                                                             <div class="input-field input-field-setting border-2"
@@ -347,7 +359,7 @@
                                                                 <div class="ms-2 ">Invalid email.</div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-6 col-lg-8">
+                                                        <div class="col-md-6 col-lg-7 col-xxl-8">
                                                             <label for
                                                                 class="form-label fw-medium mb-2">End Date</label>
                                                             <div class="input-field input-field-setting border-2"
@@ -365,7 +377,7 @@
                                                                 <div class="ms-2 ">Invalid email.</div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-6 col-lg-4">
+                                                        <div class="col-md-6 col-lg-5 col-xxl-4">
                                                             <label for
                                                                 class="form-label fw-medium mb-2">End Time</label>
                                                             <div class="input-field input-field-setting border-2"
@@ -489,50 +501,115 @@
                                                 <div id="agenda-wrapper">
                                                     
                                                 </div>
-                                                <button type="button" class="btn-outline-pink" onclick="createNewAgenda()"><i
-                                                        class="fa-solid fa-plus"></i> Add a new agenda</button>
+                                                <button type="button" class="btn btn-outline-brand fw-medium d-flex align-items-center" onclick="createNewAgenda()"><i
+                                                        class="fa-solid fa-plus"></i>&nbsp; Add a new agenda</button>
                                             </div>
                                         </div>
                                     </div>
                                             
                                 </div>
                                 <div class="step">
-                                    <h4>Provide us with your personal information</h4>
-                                    <div class="mt-1">
-                                        <label class="form-label">Complete Name:</label> 
-                                        <input class="form-control" id="full_name" name="full_name" type="text">
-                                    </div>
-                                    <div class="mt-2">
-                                        <label class="form-label">Complete Address:</label> 
-                                        <input class="form-control" id="address" name="address" type="text">
-                                    </div>
-                                    <div class="mt-2">
-                                        <label class="form-label">Email:</label> 
-                                        <input class="form-control" id="email" name="email" type="email">
-                                    </div>
-                                    <div class="mt-2">
-                                        <label class="form-label">Phone / Mobile Number:</label> 
-                                        <input class="form-control" id="phone" name="phone" type="text">
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col-lg-2 col-md-2 col-3">
-                                            <label class="form-label">Age:</label>
-                                            <div class="input-container">
-                                                <input class="form-control" id="age" name="age" type="text">
+                                    <div class="sub-form-wrapper active p-sm-4 rounded-4 mt-3">
+                                        <div class="main-form active">
+                                            <h4 class="mb-0">Ticket Categories</h4>
+                                            <div class="d-flex align-items-center mb-4">
+                                                <i class="fa-regular fa-lightbulb me-2 text-brand"></i>
+                                                <p class="p-0 m-0"><span class="fw-medium">Tip:</span> Set up tickets information and define ticket categories for your event.</p>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <div id="input-container">
-                                                <input class="form-check-input" name="gender" type="radio" value="male"> 
-                                                <label class="form-check-label radio-lb">Male</label> 
-                                                <input class="form-check-input" name="gender" type="radio" value="female"> 
-                                                <label class="form-check-label radio-lb">Female</label> 
-                                                <input checked class="form-check-input" name="gender" type="radio" value="undefined"> 
-                                                <label class="form-check-label radio-lb">Rather not say</label>
+                                
+                                            <!-- Default Ticket Category -->
+                                            <div id="default-ticket">
+                                                <h5 class="fw-semibold text-brand mb-3">General Admission</h5>
+                                                <div class="row gx-4 gy-0">
+                                                    <div class="col-4">
+                                                        <label class="form-label fw-medium mb-2">Price</label>
+                                                        <div class="input-field input-field-setting border-2">
+                                                            <i class="fa-solid fa-dollar-sign"></i>
+                                                            <input type="number" id="defaultTicketPrice" placeholder="Enter price">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <label class="form-label fw-medium mb-2">Capacity</label>
+                                                        <div class="input-field input-field-setting border-2">
+                                                            <i class="fa-solid fa-ticket"></i>
+                                                            <input type="number" id="defaultTicketCapacity" placeholder="Enter capacity">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                
+                                            <!-- Button to Toggle Between Default and Custom Ticket Categories -->
+                                            <button id="toggle-ticket-btn" class="btn btn-outline-brand fw-medium mt-3">
+                                                <i class="fa-solid fa-plus"></i>&nbsp; Create Your Own Ticket Categories
+                                            </button>
+                                
+                                            <!-- Custom Ticket Categories Section -->
+                                            <div id="custom-ticket-section" style="display: none;">
+                                                <div id="ticket-wrapper"></div>
+                                
+                                                <!-- Button to Add More Custom Ticket Categories -->
+                                                <button type="button" class="btn btn-outline-brand fw-medium" onclick="createNewTicketCategory()">
+                                                    <i class="fa-solid fa-plus"></i> &nbsp; Add a New Ticket Category
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="step">
+                                    <div class="sub-form-wrapper active p-sm-4 rounded-4 mt-3">
+                                        <div class="main-form active">
+                                            <h4 class="mb-0">Payment Method</h4>
+                                            <div class="d-flex align-items-center mb-4">
+                                                <i class="fa-regular fa-lightbulb me-2 text-brand"></i>
+                                                <p class="p-0 m-0"><span class="fw-medium">Tip:</span> Give a KHQR image for your payment method.</p>
+                                            </div>
+                                
+                                            <div id="payment-container">
+                                                <div class="upload-img-form mb-5">
+                                                    
+        
+                                                    <div class="upload-section d-flex align-items-center justify-content-center p-5 flex-column"
+                                                        id="khqr-upload-section">
+                                                        <i id="khqrPhotoIcon"
+                                                            class="fa-regular fa-image fs-1 text-secondary pb-3"></i>
+                                                        <label id="khqrPhotoInputBtn" for="khqrPhotoUpload"
+                                                            class="btn-outline-pink"><i
+                                                                class="fa-regular fa-image fs-5 text-secondary"></i> Upload
+                                                            Image</label>
+                                                        <input class="d-none" id="khqrPhotoUpload" type="file"
+                                                            accept=".jpg, .jepg"></input>
+                                                        <div class="d-flex">
+                                                            <p id="KhqrPhotoName" class="text-secondary pt-3">No file chosen</p>
+                                                            <button id="btnRemoveKhqrImg" type="button"
+                                                                class="ms-1 text-secondary fw-bold bg-transparent">X</button>
+                                                        </div>
+                                                        <img id="KhqrPhotoDisplay" src="" alt="img preview">
+        
+                                                    </div>
+                                                    <div class="img-format pt-3 w-100">
+                                                        <ul type="circle" class="d-flex justify-content-evenly">
+                                                            <li>Recommended image size: 2160 x 1080px</li>
+                                                            <li>Maximum file size: 10MB</li>
+                                                            <li>Supported image files: .JPEG, .PNG</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                
+                                            <!-- Custom Ticket Categories Section -->
+                                            <div id="custom-ticket-section" style="display: none;">
+                                                <div id="ticket-wrapper"></div>
+                                
+                                                <!-- Button to Add More Custom Ticket Categories -->
+                                                <button type="button" class="btn btn-outline-brand fw-medium" onclick="createNewTicketCategory()">
+                                                    <i class="fa-solid fa-plus"></i> &nbsp; Add a New Ticket Category
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                
                                 <div class="step">
                                     <div class="mt-1">
                                         <div class="closing-text">
@@ -589,12 +666,96 @@
         document.addEventListener("DOMContentLoaded", function () {
             window.descQuill = new Quill('#editor', { theme: 'snow' });
         });
+        let ticketCount = 0;
+const ticketWrapper = document.getElementById("ticket-wrapper");
+const toggleTicketBtn = document.getElementById("toggle-ticket-btn");
+const customTicketSection = document.getElementById("custom-ticket-section");
+const defaultTicket = document.getElementById("default-ticket");
+
+// Function to toggle between default and custom ticket sections
+toggleTicketBtn.addEventListener("click", function () {
+    if (customTicketSection.style.display === "none" || customTicketSection.style.display === "") {
+        // Switch to Custom Ticket Category Mode
+        defaultTicket.style.display = "none";
+        customTicketSection.style.display = "block";
+        toggleTicketBtn.innerHTML = `<i class="fa-solid fa-arrow-left"></i>&nbsp; Back to Default Ticket Category`;
+
+        // Add the first custom ticket category automatically
+        if (ticketCount === 0) createNewTicketCategory();
+    } else {
+        // Switch Back to Default Ticket Category Mode
+        customTicketSection.style.display = "none";
+        defaultTicket.style.display = "block";
+        toggleTicketBtn.innerHTML = `<i class="fa-solid fa-plus"></i>&nbsp; Create Your Own Ticket Categories`;
+
+        // Remove all custom ticket categories
+        ticketWrapper.innerHTML = "";
+        ticketCount = 0;
+    }
+});
+
+// Function to create a new ticket category
+function createNewTicketCategory() {
+    ticketCount++;
+    let ticketContainer = document.createElement("div");
+    ticketContainer.className = "ticket-container mb-4";
+    ticketContainer.id = `ticket${ticketCount}`;
+
+    ticketContainer.innerHTML = `
+        <div class="d-flex align-items-center justify-content-between mb-3 mt-4">
+            <h5 class="fw-semibold text-brand mb-0">Ticket Category ${ticketCount}</h5>
+            <button class="btn btn-danger" onclick="deleteTicketCategory('ticket${ticketCount}')">
+                <i class="fa-solid fa-trash"></i>
+            </button>
+        </div>
+        <div class="">
+            <label class="form-label fw-medium mb-2">Name</label>
+            <div class="input-field input-field-setting mb-3">
+                <i class="fa-regular fa-pen-to-square"></i>
+                <input type="text" id="ticketCategoryName${ticketCount}" placeholder="e.g. VIP, Normal">
+            </div>
+        </div>
+        <div class="">
+            <label class="form-label fw-medium mb-2">Price</label>
+            <div class="input-field input-field-setting mb-3">
+                <i class="fa-solid fa-dollar-sign"></i>
+                <input type="number" id="ticketPrice${ticketCount}" placeholder="Enter price ($)">
+            </div> 
+        </div>
+        <div class="">
+            <label class="form-label fw-medium mb-2">Capacity</label>
+            <div class="input-field input-field-setting mb-3">
+                <i class="fa-solid fa-ticket"></i>
+                <input type="number" id="ticketCapacity${ticketCount}" placeholder="Enter ticket capacity">
+            </div>
+        </div>
+    `;
+
+    ticketWrapper.appendChild(ticketContainer);
+}
+
+// Function to delete a ticket category
+function deleteTicketCategory(ticketId) {
+    let ticketToRemove = document.getElementById(ticketId);
+    if (ticketToRemove) {
+        ticketToRemove.remove();
+        ticketCount--;
+
+        // If all custom tickets are removed, revert to Default Ticket Category mode
+        if (ticketCount === 0) {
+            toggleTicketBtn.innerHTML = `<i class="fa-solid fa-plus"></i> Create Your Own Ticket Categories`;
+            customTicketSection.style.display = "none";
+            defaultTicket.style.display = "block";
+        }
+    }
+}
+
 
     </script>
     <script>
         let agendaCount = 0;
 const agendaWrapper = document.getElementById("agenda-wrapper");
-createNewAgenda();
+// createNewAgenda();
 function createNewAgenda() {
     agendaCount++;
     let agendaContainer = document.createElement("div");
@@ -603,8 +764,8 @@ function createNewAgenda() {
     
     agendaContainer.innerHTML = `
                                                         <div class="d-flex align-items-center justify-content-between mb-3 mt-4">
-        <h5 class="fw-bold text-brand ">+ Agenda ${agendaCount}</h5>
-        <button class="btn btn-danger" onclick="deleteAgenda('agenda${agendaCount}')">Delete</button>
+        <h5 class="fw-semibold text-brand mb-0">Agenda ${agendaCount}</h5>
+        <button class="btn btn-danger" style="height:auto !important;" onclick="deleteAgenda('agenda${agendaCount}')"><i class="fa-solid fa-trash"></i></button>
       </div>
                                                     <div class="">
                                                         <label for
@@ -643,7 +804,7 @@ function createNewAgenda() {
                                                    </div>
                                                     
                                                     <div class="row gx-4 gy-0">
-                                                        <div class="col-6 col-lg-4">
+                                                        <div class="col-6 col-lg-4 col-xxl-3">
                                                             <label for
                                                                 class="form-label fw-medium mb-2">Start Time</label>
                                                             <div class="input-field input-field-setting border-2"
@@ -661,7 +822,7 @@ function createNewAgenda() {
                                                                 <div class="ms-2 ">Invalid email.</div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-6 col-lg-4">
+                                                        <div class="col-6 col-lg-4 col-xl-3">
                                                             <label for
                                                                 class="form-label fw-medium mb-2">End Time</label>
                                                             <div class="input-field input-field-setting border-2"
@@ -752,6 +913,9 @@ function fetchAgendasFromAPI() {
         new TomSelect("#select-category",{
 	maxItems: 3
 });
+//         new TomSelect("#select-type",{
+// 	maxItems: 1
+// });
         const toggleButton = document.getElementById("toggle-btn");
 const sidebar = document.getElementById("sidebar");
 
@@ -820,22 +984,28 @@ btnRemoveImgFile.addEventListener('click', function () {
 btnRemoveImgFile.click();
 
 // style input ts 
-document.querySelector(".ts-wrapper").classList.add("input-field", "input-field-setting", "d-flex" , "align-items-center");
+document.querySelectorAll(".ts-wrapper").forEach(input=>{
+    input.classList.add("input-field", "input-field-setting", "d-flex" , "align-items-center");
+})
+document.querySelectorAll(".ts-wrapper .ts-control").forEach(input=>{
+    input.classList.add("border-0")
+})
 
 document.querySelector(".ts-wrapper .ts-control").classList.add("border-0");
 
-console.log(document.getElementById("select-category").selectedOptions);
+// console.log(document.getElementById("select-category").selectedOptions);
 
-const parent = document.querySelector(".ts-wrapper.input-field"); // Get the parent element
+const parent = document.querySelectorAll(".ts-wrapper.input-field"); // Get the parent element
     console.log(parent)
     // if (!parent) return; // Ensure the parent exists
-
-    const newNode = document.createElement("i"); // Create a new element
-    newNode.classList.add("fa-solid", "fa-list")
-    newNode.style.marginBottom = "2px";
-
-    // Insert the new node as the first child
-    parent.insertBefore(newNode, parent.firstChild);
+ parent.forEach(p=>{
+     const newNode = document.createElement("i"); // Create a new element
+     newNode.classList.add("fa-solid", "fa-list")
+     newNode.style.marginBottom = "2px";
+ 
+     // Insert the new node as the first child
+     p.insertBefore(newNode, p.firstChild);
+ })
 
     
     

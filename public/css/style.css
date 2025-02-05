@@ -959,7 +959,6 @@ input:focus {
 #input-container {
   display: inline-block;
   box-shadow: none !important;
-  margin-top: 36px !important;
 }
 
 label.form-check-label.radio-lb {
@@ -1261,7 +1260,7 @@ body.dashboard {
 
 #sidebar {
   height: 100vh;
-  width: 250px;
+  /* width: 250px; */
   padding: 5px 1em;
   background-color: var(--base-clr);
   border-right: 1px solid var(--line-clr);
@@ -1481,7 +1480,7 @@ body.dashboard {
   }
 }
 
-.ts-wrapper.multi .ts-control>div {
+.ts-wrapper .ts-control>div {
   margin-right: 4px !important;
   padding: 4px 6px !important;
   cursor: pointer;
