@@ -12,6 +12,7 @@ const vSignIn = Joi.object({
     "string.empty": "Password is required.",
     "string.min": "Password must be at least 6 characters.",
   }),
+  rememberMe: Joi.boolean().required(),
 }).options({ abortEarly: false });
 
 const vSignUp = Joi.object({
