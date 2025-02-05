@@ -6,6 +6,6 @@ const {requireAuth} = require('../../middlewares/auth');
 
 const router = express.Router();
 
-router.get("/create-event",requireAuth,checkOrganizer, getCreateEvent);
+router.get("/create-event", getCreateEvent);
 
 module.exports = router;
