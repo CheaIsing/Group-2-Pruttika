@@ -14,9 +14,7 @@ const {
     deleteEQr
 }=require('../../controllers/api/event');
 const {checkEventOwner}=require('../../middlewares/event');
-const {requireAuth,checkRole}=require('../../middlewares/checkRole');
-
-// const { requireAuth } = require('../../middlewares/auth');
+const { requireAuth,checkRole } = require('../../middlewares/auth');
 
 const router = express.Router();
 
