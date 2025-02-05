@@ -5,7 +5,7 @@ const sendResponse = (res, statusCode, result, message, data = null) => {
   }
   res.status(statusCode).json(response);
 };
-const sendResponse1 = (res, statusCode, result, message, data = null,paginate=null) => {
+const sendResponse1 = (res, statusCode, result, message, data = null, paginate=null) => {
   const response = { result, message };
   if (data) {
     response.data = data;
