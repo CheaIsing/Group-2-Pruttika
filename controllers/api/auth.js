@@ -56,7 +56,7 @@ const postSignIn = async (req, res) => {
   const { error } = vSignIn.validate(req.body);
   if (handleValidateError(error, res)) return;
 
-  const { email, password, rememberMe } = req.body;
+  const { email, password, rememberMe=false } = req.body;
 
   try {
     const sql = "SELECT * FROM tbl_users WHERE email = ?";

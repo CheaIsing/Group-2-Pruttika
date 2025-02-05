@@ -541,7 +541,10 @@ form.sign-in-form {
 
 }
 
-@media (max-width: 570px) {
+@media (max-width: 576px) {
+  .sub-form-wrapper.active {
+    outline: 0 !important;
+  }
   form.signin-signup {
     padding: 0 1.5rem;
   }
@@ -577,6 +580,12 @@ form.sign-in-form {
 }
 
 /* create event form */
+#editor{
+  border: 1px solid var(--c-brand);
+  border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
 
 
 /* Global Input Field Styling */
@@ -593,6 +602,8 @@ form.sign-in-form {
   padding: 0 0.5rem;
   position: relative;
   border: 0;
+  align-items: center;
+  justify-content: center;
 }
 
 .input-field-setting:hover,
@@ -617,6 +628,11 @@ form.sign-in-form {
   padding: 0.5rem;
   font-size: 1rem;
   background: none;
+}
+
+.input-field-setting textarea {
+  height: auto;
+  padding: 8px;
 }
 
 .input-field-setting select {
@@ -1115,7 +1131,7 @@ input[type="radio"]:hover {
 
 @media (max-width: 767px) {
   #qbox-container {
-    padding: 30px;
+    /* padding: 30px; */
   }
 
   #steps-container {
@@ -1130,7 +1146,7 @@ input[type="radio"]:hover {
 
 @media (max-width: 560px) {
   #qbox-container {
-    padding: 40px;
+    /* padding: 40px; */
   }
 
   #title-container {
@@ -1145,9 +1161,9 @@ input[type="radio"]:hover {
 /* end of create event form */
 
 
-.sub-form-wrapper {
-  outline: 1px solid #4032475e !important;
-}
+/* .sub-form-wrapper {
+  outline: 1px solid var(--c-brand) !important;
+} */
 
 .sub-form-wrapper .form-display {
   cursor: pointer;
@@ -1157,13 +1173,18 @@ input[type="radio"]:hover {
   width: 3%;
 }
 
-.sub-form-wrapper:hover {
+/* .sub-form-wrapper:hover {
   outline: 1px solid var(--c-brand) !important;
+} */
+
+@media (min-width: 576px) {
+  .sub-form-wrapper.active {
+    outline: 1px solid var(--c-brand) !important;
+  }
 }
 
-.sub-form-wrapper.active {
-  outline: 1px solid var(--c-brand) !important;
-}
+
+
 
 .sub-form-wrapper .form-display {
   display: flex;
@@ -1358,10 +1379,10 @@ body.dashboard {
 #toggle-btn:hover {
   background-color: var(--hover-clr);
 }
-
+/* 
 .dashboard main {
   padding: min(30px, 7%);
-}
+} */
 
 /* main p {
   color: var(--secondary-text-clr);
@@ -1383,9 +1404,9 @@ body.dashboard {
     grid-template-columns: 1fr;
   }
 
-  main {
+  /* main {
     padding: 2em 1em 60px 1em;
-  }
+  } */
 
   .container {
     border: none;

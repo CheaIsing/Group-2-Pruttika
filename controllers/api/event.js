@@ -14,8 +14,11 @@ const default_img="default-events-img.jpg";
 
 const getAllEvent=async(req,res)=>{
     try {
-        
+        const userId = res.locals.user ? res.locals.user.id : null;
+        // console.log(res.locals.user);
+        // const userId = req.user ? req.user.id : null;
         const data= await eventCollection(
+            userId,
             req.query.page, req.query.perpage,
             req.query.search, req.query.sort, req.query.order, 
             req.query.start_date, req.query.end_date,
@@ -32,8 +35,9 @@ const getAllEvent=async(req,res)=>{
 
 const getEventDetail=async(req,res)=>{
     const event_id=req.params.id;
+    const userId = res.locals.user ? res.locals.user.id : null;
     try {
-        const result=await eventDetail(event_id);
+        const result=await eventDetail(userId,event_id);
         if(result==null){
             sendResponse(res,404,false,"Event is not found");
         }
