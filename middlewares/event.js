@@ -16,7 +16,7 @@ const checkOrganizer=async (req,res,next)=>{
 
 const checkEventOwner = async (req, res, next) => {
     const event_id = req.params.id;
-    const user_id = req.user.id; // Assuming user ID is stored in req.user after authentication
+    const user_id = req.user.id; 
     try {
         const sqlGetOwner = `SELECT creator_id FROM tbl_event WHERE id = ?`;
 
