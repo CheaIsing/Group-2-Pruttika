@@ -1,6 +1,6 @@
-// const { json } = require("express");
 
 const frm = document.getElementById("frm");
+const btnSaveChange = document.getElementById("btnSaveChange");
 
 let isSubmit = false;
 
@@ -9,7 +9,12 @@ const formData = {
   kh_name: "",
   email: "",
   phone: "",
+  dob: "",
+  gender: "",
+  address: ""
 };
+
+let defaultData = {}
 
 const fields = [
   {
@@ -36,57 +41,105 @@ const fields = [
     textErrorElement: "#invalid_feedback_phone div",
     isInvalidClass: "is_invalid",
   },
+  {
+    name: "dob",
+    id: "input-field-dob",
+    textErrorElement: "#invalid_feedback_dob div",
+    isInvalidClass: "is_invalid",
+  },
 ];
 
-// Get Profile
 
 const khNameEle = document.getElementById("kh-name");
 const engNameEle = document.getElementById("eng-name");
 const emailEle = document.getElementById("email");
 const phoneEle = document.getElementById("phone");
+const dobEle = document.getElementById("dob");
+const addressEle = document.getElementById("address");
+const maleEle = document.getElementById('male')
+const femaleEle = document.getElementById('female')
+// const femaleEle = document.querySelectorAll('input[name="gender"]')
 const avatarEle = document.getElementById("imagePreview");
+
+const btnChangeProfile = document.getElementById("btnChangeProfile");
+
+
+function checkForChanges() {
+  const gender = maleEle.checked ? 1 : femaleEle.checked ? 2 : "";
+  const avatarSrc = avatarEle.src || ""; // Get the image source
+
+  const hasChanged =
+    engNameEle.value.trim() !== (defaultData?.eng_name || "").trim() ||
+    khNameEle.value.trim() !== (defaultData?.kh_name || "").trim() ||
+    emailEle.value.trim() !== (defaultData?.email || "").trim() ||
+    phoneEle.value.trim() !== (defaultData?.phone || "").trim() ||
+    dobEle.value !== (defaultData?.dob || "") ||
+    addressEle.value.trim() !== (defaultData?.address || "").trim() ||
+    gender !== (defaultData?.gender || "") ||
+    avatarSrc !== (defaultData?.avatar || "");
+
+  btnSaveChange.disabled = !hasChanged;
+}
+
+// Attach event listeners to detect changes
+[engNameEle, khNameEle, emailEle, phoneEle, dobEle, addressEle, maleEle, femaleEle, avatarEle].forEach(element => {
+  element.addEventListener("input", checkForChanges);
+});
+
 
 async function getProfileInfo() {
   try {
+    
+    defaultData = {};
+
+    
     const { data } = await axiosInstance.get("/auth/me");
     const { data: jsonData } = data;
-
-    const { eng_name, kh_name, phone, email, avatar } = jsonData[0];
+    const { eng_name, kh_name, phone, email, avatar, address, dob, gender } = jsonData[0];
 
     khNameEle.value = kh_name;
     engNameEle.value = eng_name;
     emailEle.value = email;
     phoneEle.value = phone;
-    avatarEle.src = avatar ? "/uploads/" + avatar : "/uploads/" + "default.jpg";
-
-    console.log(avatarEle.src.endsWith("default.jpg"));
+    addressEle.value = address;
     
+    maleEle.checked = gender == 1;
+    femaleEle.checked = gender == 2;
+    
+    
+    dobEle.value = dob.split('T')[0];
+
+    avatarEle.src = avatar ? "/uploads/" + avatar : "/uploads/default.jpg";
+
+   
+    defaultData = { eng_name, kh_name, phone, email };
+
+    btnSaveChange.disabled = true;
 
     if (avatarEle.src.endsWith("default.jpg")) {
-      
-      document.getElementById("btnChangeProfile").removeAttribute("data-bs-toggle");
-      document.getElementById("btnChangeProfile").setAttribute("for", "imageUpload");
+      btnChangeProfile.removeAttribute("data-bs-toggle");
+      btnChangeProfile.setAttribute("for", "imageUpload");
     } else {
-      document.getElementById("btnChangeProfile").setAttribute("data-bs-toggle", "dropdown");
+      btnChangeProfile.setAttribute("data-bs-toggle", "dropdown");
     }
-
+    
     console.log(jsonData);
-
-    // showToast(true, "Sign In Successfully.");
   } catch (error) {
     console.log(error);
 
     if (
       error.response &&
       error.response.data &&
-      typeof error.response.data == "string"
+      typeof error.response.data === "string"
     ) {
       return showToast();
     }
   }
 }
 
+
 getProfileInfo();
+
 
 // Post Profile
 frm.addEventListener("submit", async (e) => {
@@ -99,8 +152,16 @@ frm.addEventListener("submit", async (e) => {
   formData.kh_name = khNameEle.value;
   formData.email = emailEle.value;
   formData.phone = phoneEle.value;
+  formData.dob = dobEle.value;
+  formData.address = addressEle.value;
+  formData.gender = maleEle.checked ? "1" : femaleEle.checked ? "2" : "";
+
+  console.log(formData);
+  
 
   const { error } = vProfileInfo.validate(formData);
+  console.log(error);
+  
 
   if (error) {
     const errorMessages = error.details.map((detail) => detail.message);
@@ -111,14 +172,17 @@ frm.addEventListener("submit", async (e) => {
   handleErrorMessages([], fields);
 
   isValid = true;
+  
 
   if (!isValid) return;
-
+  console.log("run here");
+  
   try {
     btnShowLoading("btnSaveChange");
     await axiosInstance.put("/profile/info", formData);
 
     showToast(true, "Update Profile Info Successfully.");
+    getProfileInfo()
   } catch (error) {
     console.log(error);
 

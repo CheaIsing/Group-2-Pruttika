@@ -668,8 +668,7 @@ form.sign-in-form {
 }
 
 /* Gender and Address Styling */
-#gender,
-#address {
+#gender{
   border: 2px solid #ff00aa;
   border-radius: 8px;
   padding: 0.5rem;
@@ -677,8 +676,7 @@ form.sign-in-form {
   transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-#gender:focus,
-#address:focus {
+#gender:focus {
   border-color: #ff00aa;
   box-shadow: 0 0 8px #ff00aa(98, 0, 234, 0.4);
   outline: none;

@@ -77,7 +77,7 @@ const vProfileInfo = Joi.object({
     "string.empty": "Username is required.",
     "string.min": "Username must be at least 4 characters.",
   }),
-  kh_name: Joi.string().trim().min(4).messages({
+  kh_name: Joi.string().trim().optional().min(4).messages({
     "string.min": "Username must be at least 4 characters.",
   }),
   email: Joi.string()
@@ -89,10 +89,15 @@ const vProfileInfo = Joi.object({
     }),
 
   phone: Joi.string()
-    .pattern(/^[0-9]{9,10}$/) 
+    .pattern(/^[0-9]{9,10}$/).allow('').optional()
     .messages({
       "string.pattern.base": "Phone number must be between 9 and 10 digits.",
     }),
+    dob: Joi.date().max('now').allow('').optional().messages({
+      "string.max": "Invalid Date of Birth.",
+    }),
+    address: Joi.string().allow('').optional(),
+    gender: Joi.string().allow('').optional()
 }).options({ abortEarly: false });
 
 const vChangePass = Joi.object({
