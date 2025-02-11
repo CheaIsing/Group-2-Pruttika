@@ -3,6 +3,8 @@ require("dotenv").config();
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const fileUpload = require("express-fileupload");
+const middleware = require("i18next-http-middleware");
+const i18next = require("./config/i18n");
 const { checkUser, requireAuth } = require("./middlewares/auth");
 
 // API
@@ -34,6 +36,7 @@ app.use(fileUpload());
 app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(middleware.handle(i18next));
 
 app.get("*", checkUser);
 

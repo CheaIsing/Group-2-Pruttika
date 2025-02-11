@@ -8,8 +8,7 @@ const { sendResponse } = require("../../utils/response");
 const defaultAvatar = "default.jpg";
 
 const updateOwnInfo = async (req, res) => {
-  const { kh_name, eng_name, email, phone, dob, gender, address, role } =
-    req.body;
+  const { kh_name, eng_name, email, phone, dob, gender, address } = req.body;
   const userId = req.user.id;
 
   try {
@@ -23,21 +22,44 @@ const updateOwnInfo = async (req, res) => {
       return sendResponse(res, 400, false, "Email or Phone is already in use.");
     }
 
-    const updateQuery = `
-      UPDATE tbl_users SET kh_name = ?, eng_name = ?, email = ?, phone = ?, dob = ?, 
-      gender = ?, address = ?, role = ? WHERE id = ?`;
+    let updateQuery = `UPDATE tbl_users SET `;
+    const params = [];
 
-    const params = [
-      kh_name,
-      eng_name,
-      email,
-      phone,
-      dob,
-      gender,
-      address,
-      role,
-      userId,
-    ];
+    if (kh_name) {
+      updateQuery += `kh_name = ?, `;
+      params.push(kh_name);
+    }
+    if (eng_name) {
+      updateQuery += `eng_name = ?, `;
+      params.push(eng_name);
+    }
+    if (email) {
+      updateQuery += `email = ?, `;
+      params.push(email);
+    }
+    if (phone) {
+      updateQuery += `phone = ?, `;
+      params.push(phone);
+    }
+    if (dob) {
+      updateQuery += `dob = ?, `;
+      params.push(dob);
+    }
+    if (gender) {
+      updateQuery += `gender = ?, `;
+      params.push(gender);
+    }
+    if (address) {
+      updateQuery += `address = ?, `;
+      params.push(address);
+    }
+
+    // Remove the last comma and space from the query string
+    updateQuery = updateQuery.slice(0, -2);
+
+    updateQuery += ` WHERE id = ?`;
+    params.push(userId);
+
     const data = await executeQuery(updateQuery, params);
 
     if (data.affectedRows === 0) {
