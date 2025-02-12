@@ -11,7 +11,8 @@ const {
     deleteEAgenda,
     deleteETickType,
     uploadEQr,
-    deleteEQr
+    deleteEQr,
+    putCheckIn
 }=require('../../controllers/api/event');
 const {checkEventOwner}=require('../../middlewares/event');
 const { requireAuth,checkRole } = require('../../middlewares/auth');
@@ -26,6 +27,7 @@ router.post('/thumbnail/:id',requireAuth, checkEventOwner,updateEThumbnail);
 router.post('/org-qr-img/:id',requireAuth, checkEventOwner,uploadEQr);
 
 router.put('/info/:id',requireAuth, checkEventOwner,putEditEvent);
+router.put('/check-in/',requireAuth,putCheckIn);
 
 router.delete('/:id',requireAuth, checkEventOwner, deleteEvent);
 router.delete('/thumbnail/:id',requireAuth, checkEventOwner, deleteEThumbnail);

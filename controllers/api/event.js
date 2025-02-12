@@ -1,4 +1,3 @@
-const con=require('../../config/db');
 const fs=require('fs');
 const {vCreateEvent, vAgendaSchema}=require("../../validations/event");
 const {
@@ -6,7 +5,6 @@ const {
     handleValidateError,
   } = require("../../utils/handleError");
 const { executeQuery } = require("../../utils/dbQuery");
-// const { sendResponse ​} = require("../../utils/response");
 const {sendResponse ,sendResponse1}= require("../../utils/response");
 const {eventCollection , eventDetail}= require("../../resource/event");
 
@@ -24,9 +22,9 @@ const getAllEvent=async(req,res)=>{
             req.query.start_date, req.query.end_date,
             req.query.event_type, 
             req.query.min_price, req.query.max_price,
-            req.query.cateId
+            req.query.cateId,
+            req.query.is_published, req.query.creator
         );
-        // const result=data;
         sendResponse1(res, 200, true,"Get all event successfully", data.rows,data.paginate);
     } catch (error) {
         handleResponseError(res, error);
@@ -39,7 +37,7 @@ const getEventDetail=async(req,res)=>{
     try {
         const result=await eventDetail(userId,event_id);
         if(result==null){
-            sendResponse(res,404,false,"Event is not found");
+            return sendResponse(res,404,false,"Event is not found");
         }
         sendResponse1(res, 200, true,"Get event detail successfully", result);
     } catch (error) {
@@ -319,7 +317,7 @@ const updateEThumbnail= async(req,res)=>{
         `;
         const dbTNResult = await executeQuery(sqlGetThumbnail, [event_id]);
         if (dbTNResult.length===0) {
-            sendResponse(res, 404, false, "Event is not found");
+            return sendResponse(res, 404, false, "Event is not found");
         }
         const oldTN= dbTNResult[0].thumbnail;
 
@@ -360,7 +358,7 @@ const deleteEThumbnail=async (req,res)=>{
         `;
         const dbTNResult = await executeQuery(sqlGetThumbnail, [event_id]);
         if (dbTNResult.length===0) {
-            sendResponse(res, 404, false, "Event is not found");
+            return sendResponse(res, 404, false, "Event is not found");
         }
         const oldTN= dbTNResult[0].thumbnail;
 
@@ -424,7 +422,7 @@ const uploadEQr=async(req,res)=>{
         `;
         const dbResult = await executeQuery(sqlGetEvent, [event_id]);
         if (dbResult.length===0) {
-            sendResponse(res, 404, false, "Event is not found");
+            return sendResponse(res, 404, false, "Event is not found");
         }
         const oldQr= dbResult[0].qr_img;
         let file; // create variable to easy to access to db
@@ -465,7 +463,7 @@ const deleteEQr=async (req,res)=>{
         `;
         const dbResult = await executeQuery(sqlGetEvent, [event_id]);
         if (dbResult.length===0) {
-            sendResponse(res, 404, false, "Event is not found");
+            return sendResponse(res, 404, false, "Event is not found");
         }
         // console.log("hello"+dbResult);
         const oldQr= dbResult[0].qr_img;
@@ -484,6 +482,33 @@ const deleteEQr=async (req,res)=>{
     }
 }
 
+//checkIn Ticket
+const putCheckIn=async(req,res)=>{
+    const ticketToken=req.body.ticketToken;
+    try {
+        const result=await executeQuery(`select * from tbl_ticket where qr_code=?`,[ticketToken]);
+
+        if(result.length===0){
+            return sendResponse(res,400,false,"Invalid Token");
+        }
+
+        const status=result[0].id;
+        if(status==2){
+            return sendResponse(res,400,false,"This ticket is already check-in!");
+        }
+        const sqlUpdateStatus=`UPDATE tbl_ticket SET status=2 WHERE id=?`;
+        await executeQuery(sqlUpdateStatus,status);
+        sendResponse(res,200,true,"Ticket Check in successfully");
+    } catch(error){
+        console.log(error);
+        handleResponseError(res,error);
+    }
+}
+
+//get summary data
+const summaryData=async(req,res)=>{
+    
+}
 
 module.exports={
     getAllEvent,
@@ -496,5 +521,7 @@ module.exports={
     deleteEAgenda,
     deleteETickType,
     uploadEQr,
-    deleteEQr
+    deleteEQr,
+    putCheckIn,
+    summaryData
 }

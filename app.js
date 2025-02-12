@@ -19,6 +19,7 @@ const apiOrganizer = require("./routes/api/organizer");
 const apiNotification = require("./routes/api/notification")
 
 const apiEvents=require('./routes/api/event');
+const apiTickets=require('./routes/api/ticket');
 
 
 // WEB
@@ -51,6 +52,7 @@ app.use("/api/organizer", apiOrganizer);
 
 app.use("/api/notification", apiNotification)
 app.use("/api/events", apiEvents);
+app.use("/api/tickets", apiTickets);
 
 app.get("/",(req, res)=>res.redirect('/auth/signin'))
 
