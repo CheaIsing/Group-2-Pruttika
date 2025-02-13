@@ -304,7 +304,6 @@ const eventTicket=(eventData)=>{
     return tickets;
 }
 
-
 module.exports={
     eventCollection,
     eventDetail

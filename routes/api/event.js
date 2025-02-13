@@ -12,7 +12,8 @@ const {
     deleteETickType,
     uploadEQr,
     deleteEQr,
-    putCheckIn
+    putCheckIn,
+    summaryData
 }=require('../../controllers/api/event');
 const {checkEventOwner}=require('../../middlewares/event');
 const { requireAuth,checkRole } = require('../../middlewares/auth');
@@ -21,6 +22,7 @@ const router = express.Router();
 
 router.get('/',getAllEvent);
 router.get('/:id',getEventDetail);
+router.get('/summary-data/:id',requireAuth,checkEventOwner,summaryData);
 
 router.post('/',requireAuth, checkRole(2),postCreateEvent);
 router.post('/thumbnail/:id',requireAuth, checkEventOwner,updateEThumbnail);

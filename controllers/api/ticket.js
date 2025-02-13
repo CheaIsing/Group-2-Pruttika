@@ -273,34 +273,6 @@ const getAllRequestTicket=async(req,res)=>{
     }
 }
 
-//checkIn Ticket
-const putCheckIn=async(req,res)=>{
-    const ticketToken=req.body.ticketToken;
-    try {
-        const result=await executeQuery(`select * from tbl_ticket where qr_code=?`,[ticketToken]);
-
-        if(result.length===0){
-            return sendResponse(res,400,false,"Invalid Token");
-        }
-
-        const status=result[0].id;
-        if(status==2){
-            return sendResponse(res,400,false,"This ticket is already check-in!");
-        }
-        const sqlUpdateStatus=`UPDATE tbl_ticket SET status=2 WHERE id=?`;
-        await executeQuery(sqlUpdateStatus,status);
-        sendResponse(res,200,true,"Ticket Check in successfully");
-    } catch(error){
-        console.log(error);
-        handleResponseError(res,error);
-    }
-}
-
-//get summary data
-const summaryData=async(req,res)=>{
-
-}
-
 
 module.exports={
     postRequestTicket,
@@ -308,7 +280,5 @@ module.exports={
     deleteTransactionFile,
     putApproveTicket,
     putRejectTicket,
-    getAllRequestTicket,
-    putCheckIn,
-    summaryData
+    getAllRequestTicket
 }
