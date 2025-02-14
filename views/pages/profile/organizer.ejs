@@ -23,20 +23,30 @@
                             organizer.</p>
                     </div>
                     <div>
-                        <button class="btn btn-brand w-100" onclick="toggle">Upgrade to Organizer</button>
-                      </div>
-          
-                    <form action="#" class="d-none">
+                        <button class="btn btn-brand w-100"
+                            id="btnUpdateToOrganizer"
+                            onclick="toggleOrganizer()">Upgrade to
+                            Organizer</button>
+                    </div>
+
+                    <form id="frmOrganizerRequest" action="#" class="d-none">
                         <!-- Organization Name -->
                         <div class="mb-3">
                             <label for="organizationName"
                                 class="form-label fw-medium mb-2">Organization
                                 Name</label>
-                            <div class="input-field input-field-setting ">
+                            <div class="input-field input-field-setting " id="input-field-organization-name">
                                 <i class="fas fa-user"></i>
-                                <input type="text" id="organizationName"
+                                <input type="text" id="organization-name"
                                     placeholder="Enter your organization name" />
                             </div>
+                            <div
+                            class="invalid_feedback text-danger d-flex align-items-center mb-2"
+                            id="invalid_feedback_organization_name">
+                            <i
+                              class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                            <div class="ms-2">Password must be the same as your new password.</div>
+                          </div>
                         </div>
 
                         <div class="mb-3">
@@ -47,77 +57,140 @@
                                 <div id="editor" class="bg-white"
                                     style="min-height: 100px;"></div>
                             </div>
+                            <div
+                            class="invalid_feedback text-danger d-flex align-items-center mb-2"
+                            id="invalid_feedback_bio">
+                            <i
+                              class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                            <div class="ms-2">Password must be the same as your new password.</div>
+                          </div>
                         </div>
                         <!-- Phone Number -->
                         <div class="mb-3">
                             <label for
                                 class="form-label fw-medium mb-2">Phone
                                 Number</label>
-                            <div class="input-field input-field-setting mb-4">
+                            <div class="input-field input-field-setting mb-4" id="input-field-phone">
                                 <i class="fas fa-phone"></i>
-                                <input type="tel" id="contact"
+                                <input type="tel" id="phone"
                                     placeholder="Enter your phone number" />
                             </div>
+                            <div
+                            class="invalid_feedback text-danger d-flex align-items-center mb-2"
+                            id="invalid_feedback_phone">
+                            <i
+                              class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                            <div class="ms-2">Password must be the same as your new password.</div>
+                          </div>
                         </div>
 
                         <!-- Email -->
                         <div class="mb-3">
                             <label for
                                 class="form-label fw-medium mb-2">Email</label>
-                            <div class="input-field input-field-setting mb-4">
+                            <div class="input-field input-field-setting mb-4"  id="input-field-email">
                                 <i class="fas fa-envelope"></i>
                                 <input type="email" id="email"
                                     placeholder="Enter your email" />
                             </div>
+                            <div
+                            class="invalid_feedback text-danger d-flex align-items-center mb-2"
+                            id="invalid_feedback_email">
+                            <i
+                              class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                            <div class="ms-2">Password must be the same as your new password.</div>
+                          </div>
                         </div>
 
                         <!-- Email -->
                         <div class="mb-3">
                             <label for
                                 class="form-label fw-medium mb-2">Location</label>
-                            <div class="input-field input-field-setting mb-4">
+                            <div class="input-field input-field-setting mb-4"  id="input-field-location">
                                 <i class="fa-solid fa-location-dot"></i>
-                                <input type="email" id="email"
+                                <input type="text" id="location"
                                     placeholder="Enter your location" />
+
                             </div>
+                            <div
+                            class="invalid_feedback text-danger d-flex align-items-center mb-2"
+                            id="invalid_feedback_location">
+                            <i
+                              class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                            <div class="ms-2">Password must be the same as your new password.</div>
+                          </div>
                         </div>
                         <!-- Social Media Link -->
-                        <div class="">
+                        <div class>
                             <label for
-                                class="form-label fw-medium mb-2">Social Media Links</label>
+                                class="form-label fw-medium mb-2">Social Media
+                                Links</label>
                             <div class="mb-3">
-                                <div class="input-field input-field-setting mb-4">
+                                <div
+                                    class="input-field input-field-setting mb-4"  id="input-field-facebook">
                                     <i class="fa-brands fa-square-facebook"></i>
-                                    <input type="email" id="email"
-                                        placeholder="Facebook" value="facebook.com" disabled />
+                                    <input type="text" id="facebook"
+                                        placeholder="Facebook"
+                                         />
                                 </div>
+                                <div
+                                class="invalid_feedback text-danger d-flex align-items-center mb-2"
+                                id="invalid_feedback_facebook">
+                                <i
+                                  class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                                <div class="ms-2">Password must be the same as your new password.</div>
+                              </div>
                             </div>
                             <div class="mb-3">
-                                <div class="input-field input-field-setting mb-4">
+                                <div
+                                    class="input-field input-field-setting mb-4">
                                     <i class="fa-brands fa-telegram"></i>
-                                    <input type="email" id="email"
+                                    <input type="text" id="telegram"
                                         placeholder="Telegram" />
                                 </div>
+                                <div
+                                class="invalid_feedback text-danger d-flex align-items-center mb-2"
+                                id="invalid_feedback_confirm_new_password">
+                                <i
+                                  class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                                <div class="ms-2">Password must be the same as your new password.</div>
+                              </div>
                             </div>
                             <div class="mb-3">
-                                <div class="input-field input-field-setting mb-4">
+                                <div
+                                    class="input-field input-field-setting mb-4">
                                     <i class="fa-brands fa-tiktok"></i>
-                                    <input type="email" id="email"
+                                    <input type="text" id="tiktok"
                                         placeholder="Tiktok" />
                                 </div>
+                                <div
+                                class="invalid_feedback text-danger d-flex align-items-center mb-2"
+                                id="invalid_feedback_confirm_new_password">
+                                <i
+                                  class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                                <div class="ms-2">Password must be the same as your new password.</div>
+                              </div>
                             </div>
                             <div class="mb-3">
-                                <div class="input-field input-field-setting mb-4">
+                                <div
+                                    class="input-field input-field-setting mb-4">
                                     <i class="fa-brands fa-linkedin"></i>
-                                    <input type="email" id="email"
+                                    <input type="text" id="linkin"
                                         placeholder="Linkedin" />
                                 </div>
+                                <div
+                                class="invalid_feedback text-danger d-flex align-items-center mb-2"
+                                id="invalid_feedback_confirm_new_password">
+                                <i
+                                  class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                                <div class="ms-2">Password must be the same as your new password.</div>
+                              </div>
                             </div>
-    
+
                         </div>
                         <!-- Submit Button -->
                         <button type="submit"
-                            class="btn btn-brand w-100">Submit</button>
+                            class="btn btn-brand w-100" id="btnSubmit">Submit</button>
                     </form>
 
                 </div>
@@ -126,9 +199,8 @@
 
         <%- include("../../partials/script.ejs") %>
         <script>
-                document.addEventListener("DOMContentLoaded", function () {
-            window.descQuill = new Quill('#editor', { theme: 'snow' , placeholder: "Enter your bio here..."});
-        });
+                
     </script>
+    <script src="/js/profile/update-to-organizer.js"></script>
     </body>
 </html>

@@ -21,7 +21,7 @@ router.get("/search", requireAuth, checkRole(3), searchEvent);
 router.get("/filter", requireAuth, checkRole(3), filterEvent);
 router.get("/detail/:id", requireAuth, checkRole(3), viewEventDetail);
 
-router.get("/category/view", requireAuth, checkRole(3), viewAllEventCategory);
+router.get("/category/view", viewAllEventCategory);
 router.get("/category/view/:id", requireAuth, checkRole(3), viewEventCategoryById);
 
 router.post("/category/create", requireAuth, checkRole(3), createEventCategory);

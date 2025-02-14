@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
-
     <%- include("../../partials/head.ejs")  %>
-   
-
 <body class="dashboard">
     <%- include('../../partials/manage-event-sidebar.ejs')  %>
       <main>
@@ -13,7 +9,7 @@
                 
                 <!-- FORMS -->
                 <div class="col-12 me-0">
-                    <h3 class="mb-3">Create Event</h3>
+                    <h3 class="mb-3">Update Event</h3>
                     <div class="progress" style="background-color: #ff169232;border-radius: 2px !important;">
                         <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="50" class="progress-bar progress-bar-striped progress-bar-animated bg-brand" role="progressbar" style="width: 0%"></div>
                     </div>
@@ -218,7 +214,7 @@
                                                     <label for
                                                     class="form-label fw-medium mb-2 d-block">Event Type</label>
                                                     <div id="input-container">
-                                                        <input class="form-check-input" name="event_type" type="radio" id="inPerson" value="2" checked> 
+                                                        <input class="form-check-input" name="event_type" type="radio" id="inPerson" value="2"> 
                                                         <label class="form-check-label radio-lb">In Person</label> 
                                                         <input class="form-check-input" name="event_type" type="radio" id="online" value="1"> 
                                                         <label class="form-check-label radio-lb">Online</label> 
@@ -750,7 +746,7 @@ function deleteTicketCategory(ticketId) {
 
 
     </script>
-    <script src="/js/events/create-event.js">
+    <script src="/js/events/update-event.js">
     </script>
     
     <script>
@@ -902,6 +898,96 @@ function deleteAgenda(agendaId) {
          })
     }
 }
+
+
+function getAgendaData() {
+    let agendas = [];
+    let isValid = true;
+
+    document.querySelectorAll(".agenda-container").forEach(agenda => {
+        let id = agenda.id.replace("agenda", "");
+        let title = document.getElementById(`agendaTitle${id}`).value.trim();
+        let desc = document.getElementById(`agendaDesc${id}`).value.trim();
+        let startTime = document.getElementById(`agendaStarttime${id}`).value;
+        let endTime = document.getElementById(`agendaEndtime${id}`).value;
+
+        // Clear previous errors
+        document.getElementById(`invalid_feedback_agendaTitle${id}`).style.display = "none";
+        document.getElementById(`invalid_feedback_agendaDesc${id}`).style.display = "none";
+        document.getElementById(`invalid_feedback_agendaStarttime${id}`).style.display = "none";
+        document.getElementById(`invalid_feedback_agendaEndtime${id}`).style.display = "none";
+
+        // Validate fields
+        if (!title) {
+            document.getElementById(`invalid_feedback_agendaTitle${id}`).style.display = "flex";
+            isValid = false;
+        }
+        if (!desc) {
+            document.getElementById(`invalid_feedback_agendaDesc${id}`).style.display = "flex";
+            isValid = false;
+        }
+        if (!startTime) {
+            document.getElementById(`invalid_feedback_agendaStarttime${id}`).style.display = "flex";
+            isValid = false;
+        }
+        if (!endTime) {
+            document.getElementById(`invalid_feedback_agendaEndtime${id}`).style.display = "flex";
+            isValid = false;
+        }
+
+        if (isValid) {
+            agendas.push({ id, title, desc, startTime, endTime });
+        }
+    });
+
+    return isValid ? agendas : null;
+}
+
+
+function saveAgendaToAPI() {
+    let agendas = getAgendaData();
+    if (!agendas) {
+        console.error("Validation failed. Please fill in all required fields.");
+        return;
+    }
+
+    fetch("/api/agenda", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ agendas })
+    })
+    .then(response => response.json())
+    .then(data => console.log("Agenda saved successfully:", data))
+    .catch(error => console.error("Error saving agenda:", error));
+}
+
+function updateAgenda(id, updatedData) {
+    fetch(`/api/agenda/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedData)
+    })
+    .then(response => response.json())
+    .then(data => console.log("Agenda updated successfully:", data))
+    .catch(error => console.error("Error updating agenda:", error));
+}
+
+function deleteAgendaFromAPI(id) {
+    fetch(`/api/agenda/${id}`, {
+        method: "DELETE"
+    })
+    .then(response => response.json())
+    .then(data => console.log("Agenda deleted successfully:", data))
+    .catch(error => console.error("Error deleting agenda:", error));
+}
+
+function fetchAgendasFromAPI() {
+    fetch("/api/agenda")
+    .then(response => response.json())
+    .then(data => console.log("Fetched Agendas:", data))
+    .catch(error => console.error("Error fetching agenda:", error));
+}
+
     </script>
     <script>
         new TomSelect("#select-category",{

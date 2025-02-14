@@ -61,7 +61,7 @@ button {
 }
 
 .btn {
-  height: 49px !important;
+  height: 50px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -217,7 +217,7 @@ form.sign-in-form {
 }
 
 .is_invalid {
-  border: 2px solid var(--bs-danger) !important;
+  border: 1px solid var(--bs-danger) !important;
 }
 
 .otp-inputs.is_invalid input {
@@ -581,9 +581,11 @@ form.sign-in-form {
 
 /* create event form */
 #editor{
-  border: 1px solid var(--c-brand);
-  border-bottom-right-radius: 8px;
-    border-bottom-left-radius: 8px;
+  border-top: 1px solid var(--c-brand);
+}
+
+.is_invalid #editor{
+  border-top: 1px solid var(--bs-danger);
 }
 
 
@@ -836,14 +838,12 @@ form.sign-in-form {
 button#prev-btn,
 button#next-btn,
 button#submit-btn {
-  font-size: 17px;
-  font-weight: 600;
-  position: relative;
+  /* margin: 0 auto; */
   width: 130px;
   height: 50px;
+  font-weight: 600;
+  position: relative;
   background: var(--c-brand);
-  margin: 0 auto;
-  margin-top: 40px;
   overflow: hidden;
   z-index: 1;
   cursor: pointer;
@@ -857,8 +857,27 @@ button#submit-btn {
   -moz-border-radius-bottomleft: 5px;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
-  /* border-radius: 8px; */
+}
 
+button#submit-btn:disabled{
+  width: 130px;
+  height: 50px;
+  font-weight: 600;
+  position: relative;
+  background: var(--c-brand);
+  overflow: hidden;
+  z-index: 1;
+  cursor: pointer;
+  transition: color .3s;
+  text-align: center;
+  color: #fff;
+  border: 0;
+  -webkit-border-bottom-right-radius: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  -moz-border-radius-bottomright: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 
 button#prev-btn:after,
@@ -1027,7 +1046,7 @@ input[type="radio"]:hover {
 }
 
 #preloader {
-  background-image: url('../images/img-preloader.png');
+  /* background-image: url('../images/img-preloader.png'); */
   width: 120px;
   height: 119px;
   border-top-color: #fff;
@@ -1037,8 +1056,8 @@ input[type="radio"]:hover {
   top: 50%;
   left: 50%;
   margin: -75px 0 0 -75px;
-  -webkit-animation: spin 2s linear infinite;
-  animation: spin 2s linear infinite;
+  /* -webkit-animation: spin 2s linear infinite; */
+  /* animation: spin 2s linear infinite; */
   z-index: 1001;
 }
 
@@ -1576,3 +1595,92 @@ body.dashboard {
   align-items: center !important;
   justify-content: center !important;
 }
+
+/* Request to organizer */
+
+#editor.is_invalid {
+  border: 1px solid var(--bs-danger);
+}
+
+/* Preloader */
+:root {
+  --white: #fff;
+}
+
+/* Loader Container */
+.showbox {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 5%;
+  background-color: transparent;
+}
+
+/* Loader */
+.loader {
+  position: relative;
+  margin: 0 auto;
+  width: 100px;
+  height: 100px;
+}
+
+.loader::before {
+  content: '';
+  display: block;
+  padding-top: 100%;
+}
+
+/* SVG Rotation */
+.circular {
+  animation: rotate 2s linear infinite;
+  height: 100%;
+  width: 100%;
+  transform-origin: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+/* Path Animation */
+.path {
+  stroke-dasharray: 1, 200;
+  stroke-dashoffset: 0;
+  animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
+  stroke-linecap: round;
+}
+
+/* Rotating Animation */
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Stroke Animation */
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35px;
+  }
+  100% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124px;
+  }
+}
+
+/* Color Changing Animation */
+@keyframes color {
+  0%, 100% {
+    stroke: var(--c-brand);
+  }
+}
+

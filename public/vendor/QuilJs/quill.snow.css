@@ -1166,14 +1166,11 @@
 }
 
 .ql-toolbar.ql-snow {
-    border: 1px solid #ff1694;
     border-bottom: none;
     box-sizing: border-box;
     font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
     padding: 8px;
     border-radius: 8px;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
 }
 
 .ql-toolbar.ql-snow .ql-formats {
@@ -1286,8 +1283,5 @@
     color: #06c
 }
 
-.ql-container.ql-snow {
-    border: 1px solid #ccc
-}
 
 /*# sourceMappingURL=quill.snow.css.map*/

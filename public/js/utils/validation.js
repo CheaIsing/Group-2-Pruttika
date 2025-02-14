@@ -121,3 +121,114 @@ const vDeleteAcc = Joi.object({
     "string.empty": "Current Password is required to delete account."
   })
 }).options({ abortEarly: false });
+
+const vOrganizerRequest = Joi.object({
+  organization_name: Joi.string().trim().min(4).required().messages({
+    "string.empty": "Organization Name is required.",
+    "string.min": "Organization Name must be at least 4 characters.",
+  }),
+  business_email: Joi.string()
+    .regex(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/)
+    .required()
+    .messages({
+      "string.empty": "Email is required.",
+      "string.pattern.base": "Invalid Email.",
+    }),
+    bio: Joi.string().trim().allow('').optional(),
+    location: Joi.string().trim().required().messages({
+      "string.empty": "Location is required."
+    }),
+    facebook: Joi.string().trim().required().messages({
+      "string.empty": "Facebook is required."
+    }),
+    telegram: Joi.string().allow('').optional(),
+    tiktok: Joi.string().allow('').optional(),
+    linkin: Joi.string().allow('').optional(),
+    business_phone: Joi.string().trim().required()
+    .pattern(/^[0-9]{9,10}$/)
+    .messages({
+      "string.pattern.base": "Phone number must be between 9 and 10 digits.",
+      "string.empty": "Phone number is required."
+    }),
+}).options({ abortEarly: false });
+
+const vEventOverview =   Joi.object({
+  eng_name: Joi.string().trim().min(6).required().messages({
+    'string.empty': 'Event title is required.',
+    'string.min': 'Event title must be at least 6 characters.',
+  }),
+  event_type: Joi.string().valid('1', '2').required().messages({
+    'any.only': 'Invalid event type selected.',
+  }),
+  event_categories: Joi.array().min(1).items(Joi.string()).required().messages({
+    'array.min': 'Please select at least one category.',
+  }),
+}).options({ abortEarly: false });
+
+const vEventDateAndLocation = Joi.object({
+  started_date: Joi.string().trim().required().messages({
+    'string.empty': 'Start date is required.',
+  }),
+  ended_date: Joi.string().trim().required().messages({
+    'string.empty': 'End date is required.',
+  }),
+  start_time: Joi.string().trim().required().messages({
+    'string.empty': 'Start time is required.',
+  }),
+  end_time: Joi.string().trim().required().messages({
+    'string.empty': 'End time is required.',
+  }),
+  location: Joi.string().trim().allow('').optional().messages({
+    'string.empty': 'Location is required.',
+  }),
+}).options({ abortEarly: false });
+
+const vEventDescription = Joi.object({
+  short_description: Joi.string().trim().required().messages({
+    'string.empty': 'Short Description is required.',
+  }),
+  description: Joi.string().trim().max(2000).required().messages({
+    'string.empty': 'Description Detail is required.',
+    'string.max': `Description Detail must be at most 2000 characters long.`,
+  })
+}).options({ abortEarly: false });
+
+const vEventAgenda = Joi.object({
+  title: Joi.string().trim().min(3).max(50).required().messages({
+    "string.empty": "Title is required.",
+    "string.min": "Title must be at least 3 characters.",
+    'string.max': `Title must be at most {50} characters long`
+  }),
+  description: Joi.string().trim().min(5).max(100).required().messages({
+    "string.empty": "Description is required.",
+    "string.min": "Description must be at least 5 characters.",
+    'string.max': `Title must be at most 100 characters long`,
+  }),
+  start_time: Joi.string().trim().required().messages({
+    "string.empty": "Start time is required.",
+  }),
+  end_time: Joi.string().trim().required().messages({
+    "string.empty": "End time is required.",
+  })
+}).options({ abortEarly: false });
+
+
+const vEventTickets = Joi.object({
+  type: Joi.string().trim().min(3).max(100).required().messages({
+    "string.empty": "Ticket type is required.",
+    "string.min": "Ticket type must be at least 3 characters."
+  }),
+  price: Joi.number().min(0).required().messages({
+    "number.base": "Ticket price must be a number.",
+    "number.min": "Ticket price cannot be negative.",
+    "any.required": "Ticket price is required."
+  }),
+  ticket_opacity: Joi.number().integer().min(1).required().messages({
+    "number.base": "Ticket capacity must be a number.",
+    "number.integer": "Ticket capacity must be an integer.",
+    "number.min": "Ticket capacity must be at least 1.",
+    "any.required": "Ticket capacity is required."
+  })
+}).options({ abortEarly: false });
+
+

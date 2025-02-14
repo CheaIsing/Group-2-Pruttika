@@ -35,6 +35,33 @@ onlineRadio.addEventListener("change", toggleMessage);
 
 toggleMessage();
 
+async function getEventDetail() {
+  try {
+
+    const {data} = await axiosInstance.get(`/events/${sessionStorage.getItem('event-update-id') || 28}`);
+    const {data: json} = data;
+
+    document.getElementById("imageDisplay").src = "/uploads/"+  json.thumbnail;
+    document.getElementById("imageDisplay").style.display = "block";
+
+    document.getElementById("title").value = json.eng_name;
+    
+    document.querySelector(`input[name="event_type"][value="${json. event_type == 'online' ? 1: 2}"]`).checked = true;
+
+
+
+
+    console.log(json);
+    
+
+  } catch (error) {
+    showToast()
+    console.log(error);
+    
+  }
+}
+getEventDetail()
+
 form.onsubmit = () => {
   return false;
 };
@@ -53,9 +80,9 @@ document.getElementById("stepNumber").innerText = `Step ${
 } of ${stepCount + 1}`;
 
 nextBtn.addEventListener("click", () => {
-  let isValidStep = checkStep();
+  // let isValidStep = checkStep();
 
-  if (!isValidStep) return;
+  // if (!isValidStep) return;
 
   current_step++;
   document.getElementById("stepNumber").innerText = `Step ${
