@@ -54,6 +54,7 @@ const vAgendaSchema = Joi.object({
 }).options({ abortEarly: false, allowUnknown: true });
 
 
+
 module.exports={
     vCreateEvent,
     vAgendaSchema

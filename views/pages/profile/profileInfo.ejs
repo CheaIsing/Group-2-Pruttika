@@ -9,10 +9,10 @@
             <div
                 class="row  g-5">
 
-                <div class="col-12 col-md-4 ">
+                <div class="col-12 col-lg-4 ">
                     <%- include('../../partials/profile-sidebar.ejs') %>
                 </div>
-                <div class="col-12 col-md-8">
+                <div class="col-12 col-lg-8">
                     <h3 class="text-center mb-4">Profile Information</h3>
                     <div class="avatar-upload">
                         <div class="avatar-edit">
@@ -47,7 +47,7 @@
                         enctype="multipart/form-data">
                         <!-- English and Khmer Username -->
                         <div class="row " class>
-                            <div class="col-12 col-md-6">
+                            <div class="col-12 col-xl-6">
                                 <!-- Khmer Username -->
                                 <label for
                                     class="form-label fw-medium mb-2">English
@@ -68,7 +68,7 @@
                                     <div class="ms-2">Invalid email.</div>
                                 </div>
                             </div>
-                            <div class="col-12 col-md-6">
+                            <div class="col-12 col-xl-6">
                                 <!-- English Username -->
                                 <label for
                                     class="form-label fw-medium mb-2">Khmer
@@ -138,47 +138,60 @@
                 </select>
             </div> -->
                         <!-- Date of Birth -->
-                        <!-- <div class="row">
-                        <div class="col-12 col-md-4">
-                            <label for="day" class="form-label fw-semibold mb-2">Day of Birth</label>
-                            <input type="number" id="day" class="form-control" placeholder="Day" min="1" max="31" required>
+                        <div class="row">
+                        <div class="col-12">
+                            <label for
+                                                                class="form-label fw-medium mb-2">Date of Birth</label>
+                                                            <div class="input-field input-field-setting border-2"
+                                                                id="input-field-dob">
+                                                                <i class="fa-solid fa-calendar-days" style="margin-bottom: 1px;"></i>
+                                                                <input type="date"
+                                                                    id="dob" class=""
+                                                                    autofocus />
+                                                            </div>
+                                                            <div
+                                                                class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100"
+                                                                id="invalid_feedback_dob">
+                                                                <i
+                                                                    class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                                                                <div class="ms-2 ">Invalid email.</div>
+                                                            </div>
                         </div>
-                        <div class="col-12 col-md-4">
-                            <label for="month" class="form-label fw-semibold mb-2">Month of Birth</label>
-                            <select id="month" class="form-select" required>
-                                <option value="" disabled selected>Choose...</option>
-                                <option value="1">January</option>
-                                <option value="2">February</option>
-                                <option value="3">March</option>
-                                <option value="4">April</option>
-                                <option value="5">May</option>
-                                <option value="6">June</option>
-                                <option value="7">July</option>
-                                <option value="8">August</option>
-                                <option value="9">September</option>
-                                <option value="10">October</option>
-                                <option value="11">November</option>
-                                <option value="12">December</option>
-                            </select>
+                    </div>
+
+                    <div class>
+                        <label for
+                            class="form-label fw-medium mb-2">Address</label>
+                        <div class="input-field input-field-setting"
+                            id="input-field-address">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <input type="text" placeholder="Address"
+                                id="address" class=""
+                                autofocus />
                         </div>
-                        <div class="col-12 col-md-4">
-                            <label for="year" class="form-label fw-semibold mb-2">Year of Birth</label>
-                            <input type="number" id="year" class="form-control" placeholder="Year" min="1900" max="2100" required>
+                        <div
+                            class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100"
+                            id="invalid_feedback_address">
+                            <i
+                                class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                            <div class="ms-2 ">Invalid email.</div>
                         </div>
-                    </div> -->
+                    </div>
 
                         <!-- Gender -->
-                        <!-- <label for="gender" class="form-label fw-semibold mb-2 mt-3">Gender</label>
-            <select class="form-select mb-4" id="gender">
-                <option selected>Choose...</option>
-                <option value="1">Male</option>
-                <option value="2">Female</option>
-                <option value="3">Other</option>
-            </select> -->
+                        <div class="mb-3">
+                            <label for
+                            class="form-label fw-medium mb-2 d-block">Gender</label>
+                            <div id="input-container" class="">
+                                
+                                <input class="form-check-input" name="gender" type="radio" value="1" id="male"> 
+                                <label class="form-check-label radio-lb">&nbsp;Male</label> &nbsp;
+                                <input class="form-check-input" name="gender" type="radio" value="2" id="female" class=""> 
+                                <label class="form-check-label radio-lb">&nbsp;Female</label> 
+                            </div>
+                        </div>
 
-                        <!-- Address -->
-                        <!-- <label for="address" class="form-label fw-semibold mb-2">Address</label>
-                <textarea class="form-control mb-5" id="address" rows="3" placeholder="Enter your address"></textarea> -->
+                        
 
                         <button type="submit"
                             class="btn btn-brand w-100 mt-4"
@@ -196,7 +209,7 @@
         <div class="modal fade modal-md"
             id="cropImageModal"
             tabindex="-1">
-            <div class="modal-dialog modal-fullscreen-md-down" aria-hidden="true">
+            <div class="modal-dialog modal-fullscreen-md-down modal-dialog-centered" aria-hidden="true">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="exampleModalLabel">Change Profile</h1>
@@ -217,7 +230,7 @@
                             </div> -->
                             <div class="col-12">
     
-                                <button type="button" class="btn btn-primary w-100"
+                                <button type="button" class="btn btn-brand w-100"
                                     id="cropImageBtn">Save</button>
                             </div>
                         </div>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Tikets</title>
+    <link rel="stylesheet" href="../../../public/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../public/vendor/bootstrap-icon/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="../../../public/css/main.css">
+    <link rel="stylesheet" href="../../../public/css/style.css">
+
+</head>
+
+<body>
+    <div class="container py-5">
+        <h3 class="fw-bold">Request Purchase <span class="text-brand">Ticket</span></h3>
+        <div class="row">
+            <div class="col-12 col-md-6 mt-4">
+                <div class="card-event-purchase">
+                <section class="top"></section>
+                <div class="event-info">
+                    <p class=" price price-tiket">70$</p>
+                    <p class="title text-white">Tom Jerrynie Music Festival</p>
+                    <div class="additional-info">
+                        <p class="info">
+                            <i class="fas fa-map-marker-alt fs-3 me-3"></i>
+                           <span class="fs-4"> Palace Theather</span>
+                        </p>
+                        <p class="info">
+                            <i class="fas fa-calendar-alt fs-3  me-2"></i>
+                            <span class="fs-4">Sat, Sep 19, 10:00 AM</span>
+                        </p>
+                    </div>
+                    <button class="action p-3">Book it</button>
+                </div>
+            </div>
+            </div>
+            <div class="col-6">
+                <h4 class="fw-bold mt-4">Order Summary</h4>
+                <!-- Type of Ticket -->
+                <div class="mb-3">
+                    <label for="ticketType" class="form-label fw-bold">Type Of Ticket</label>
+                    <select id="ticketType" class="form-select custom-select">
+                        <option value="normal">Normal</option>
+                        <option value="vip">VIP</option>
+                        <option value="premium">Premium</option>
+                    </select>
+                </div>
+
+               <!-- Number Of Ticket -->
+               <div class="mb-3">
+                <label for="ticketNumber" class="form-label fw-bold">Number Of Ticket</label>
+                <input type="number" id="ticketNumber" class="form-control custom-select" value="1" min="1" max="100"
+                    step="1">
+                </div>
+
+                <!-- Subtotal -->
+                <div class="d-flex justify-content-between">
+                    <p class="mb-1 fw-medium">SubTotal</p>
+                    <p class="mb-1">$10.00</p>
+                </div>
+
+                <!-- Discount Fee -->
+                <div class="d-flex justify-content-between">
+                    <p class="mb-1 fw-medium">Discount Fee</p>
+                    <p class="mb-1">$0.00</p>
+                </div>
+
+                
+
+                <!-- Divider -->
+                <div class="divider"></div>
+
+                <!-- Total -->
+                <div class="d-flex justify-content-between mb-4">
+                    <p class="fw-bold">Total</p>
+                    <p class="fw-bold">$10.00</p>
+                </div>
+
+                <!-- Payment QR Code -->
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Payment QR Code</label>
+                    <button class="qr-button w-100">
+                        <i class="fas fa-qrcode"></i> Show QR Code
+                    </button>
+                </div>
+
+                <!-- Upload Payment Proof -->
+                <div class="mb-4">
+                    <label class="form-label fw-bold">Upload Payment Proof</label>
+                    <div class="upload-box">
+                        <i class="bi bi-cloud-plus-fill fs-3 text-brand"></i>
+                        <p class="mb-0">Upload Transaction</p>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-brand w-100">Submit Purchase</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../../../public/js/bootstrap.bundle.min.js"></script>
+
+</html>

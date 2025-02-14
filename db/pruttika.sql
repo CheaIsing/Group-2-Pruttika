@@ -561,3 +561,24 @@ ALTER TABLE `tbl_organizer`
 
 ALTER TABLE `tbl_users` 
   CHANGE `STATUS` `status` tinyint(1) DEFAULT 1 COMMENT ' 1 for active, 2 for inactive';
+
+
+--UPDATE DATABASE (02/12/2025) - alter tbl_transaction & tbl_notification
+ALTER TABLE tbl_transaction MODIFY `ticket_event_id` bigint UNSIGNED NULL;
+
+ALTER TABLE tbl_transaction ADD COLUMN event_id bigint unsigned NOT null;
+
+ALTER TABLE `tbl_transaction`
+  ADD CONSTRAINT `tbl_transaction_event_id_fk` FOREIGN KEY (`event_id`) REFERENCES `tbl_event` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  
+ALTER TABLE `tbl_notification` ADD COLUMN organizer_req_id bigint(20) UNSIGNED NULL;
+
+ALTER TABLE `tbl_notification` ADD COLUMN ticket_req_id bigint(20) UNSIGNED NULL;
+
+ALTER TABLE `tbl_notification` ADD COLUMN type tinyint UNSIGNED COMMENT '1 for Approved, 2 for Rejected, 3 for Remind';
+
+ALTER TABLE `tbl_notification`
+  ADD CONSTRAINT `tbl_notification_org_req_id_fk` FOREIGN KEY (`organizer_req_id`) REFERENCES `tbl_organizer_req` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  
+ALTER TABLE `tbl_notification`
+  ADD CONSTRAINT `tbl_notification_ticket_req_id_fk` FOREIGN KEY (`ticket_req_id`) REFERENCES `tbl_transaction` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;

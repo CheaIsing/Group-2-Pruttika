@@ -1,112 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
     <%- include("../../partials/head.ejs") %>
-<body>
-    <div class="container py-5">
-        <h3>
-            <i class="bi bi-caret-left-fill text-brand me-2"></i>Settings
-        </h3>
-        <div class="row g-5">
-            <!-- Sidebar Navigation -->
-            <div class="col-12">
-                <%- include('../../partials/profile-sidebar.ejs') %>
-            </div>
-    
-            <!-- Main Content -->
-            <div class="col-12 col-md-8">
-                <h3 class="text-center mb-4">Organizer Setting</h3>
-                <div class="upload-container">
-                    <img id="profilePicture" src="/img/Default_pfp.jpg" alt="Profile Picture">
-                    <input type="file" id="uploadInput" accept="image/png, image/jpeg" style="display: none;">
-                    <div class="hover-overlay">
-                        <button class="btn btn-light btn-sm" id="uploadButton"><i class="bi bi-camera fs-3"></i></button>
-                        <button class="btn btn-danger btn-sm" id="deleteButton"><i class="bi bi-trash"></i> Delete</button>
-                    </div>
+    <body>
+        <div class="container py-5">
+            <h3>
+                <i class="bi bi-caret-left-fill text-brand me-2"></i>Settings
+            </h3>
+            <div class="row g-5">
+                <!-- Sidebar Navigation -->
+                <div class="col-12 col-md-4">
+                    <%- include('../../partials/profile-sidebar.ejs') %>
                 </div>
-                
-                <h5 class="text-center mt-3">Profile Picture</h5>
-                <p class="text-center text-muted mt-3">PNG, JPG, Max Size: 3MB</p>
-                <form action="#">
-                    <!-- Organization Name -->
-                    <label for="organizationName" class="form-label fw-semibold mb-0">Organization Name</label>
-                    <div class="input-field-setting mb-4">
-                        <input type="text" id="organizationName" placeholder="Enter your organization name" />
+
+                <!-- Main Content -->
+                <div class="col-12 col-md-8">
+                    <h3 class="mb-4">Organizer Setting</h3>
+                    <div class="d-flex align-items-center mb-4">
+                        <!-- <img class="tip-icon" src="../../assets/img/icon/bulb.png" alt=""> -->
+                        <i class="fa-regular fa-lightbulb me-2 text-brand"></i>
+                        <p class="p-0 m-0"><span class="fw-medium">Tip:</span>
+                            Give some information to upgrade account to
+                            organizer.</p>
                     </div>
-    
-                    <!-- Phone Number -->
-                    <label for="contact" class="form-label fw-semibold mb-0">Phone Number</label>
-                    <div class="input-field-setting mb-4">
-                        <i class="fas fa-phone"></i>
-                        <input type="tel" id="contact" placeholder="Enter your phone number" />
+                    <div>
+                        <button class="btn btn-brand w-100"
+                            id="btnUpdateToOrganizer"
+                            onclick="toggleOrganizer()">Upgrade to
+                            Organizer</button>
                     </div>
-    
-                    <!-- Email -->
-                    <label for="email" class="form-label fw-semibold mb-0">Email</label>
-                    <div class="input-field-setting mb-4">
-                        <i class="fas fa-envelope"></i>
-                        <input type="email" id="email" placeholder="Enter your email" />
-                    </div>
-    
-                    <!-- Language -->
-                    <label for="language" class="form-label fw-semibold mb-0">Language</label>
-                    <div class="input-field-setting mb-4">
-                        <i class="fa-solid fa-globe"></i>
-                        <select class="form-select" id="language">
-                            <option selected>English</option>
-                            <option value="1">Khmer</option>
-                        </select>
-                    </div>
-    
-                    <!-- Date of Birth -->
-                    <div class="row">
-                        <div class="col-12 col-md-4">
-                            <label for="day" class="form-label fw-semibold mb-0">Day of Birth</label>
-                            <input type="number" id="day" class="form-control" placeholder="Day" min="1" max="31" required>
+
+                    <form id="frmOrganizerRequest" action="#" class="d-none">
+                        <!-- Organization Name -->
+                        <div class="mb-3">
+                            <label for="organizationName"
+                                class="form-label fw-medium mb-2">Organization
+                                Name</label>
+                            <div class="input-field input-field-setting " id="input-field-organization-name">
+                                <i class="fas fa-user"></i>
+                                <input type="text" id="organization-name"
+                                    placeholder="Enter your organization name" />
+                            </div>
+                            <div
+                            class="invalid_feedback text-danger d-flex align-items-center mb-2"
+                            id="invalid_feedback_organization_name">
+                            <i
+                              class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                            <div class="ms-2">Password must be the same as your new password.</div>
+                          </div>
                         </div>
-                        <div class="col-12 col-md-4">
-                            <label for="month" class="form-label fw-semibold mb-0">Month of Birth</label>
-                            <select id="month" class="form-select" required>
-                                <option value="" disabled selected>Choose...</option>
-                                <option value="1">January</option>
-                                <option value="2">February</option>
-                                <option value="3">March</option>
-                                <option value="4">April</option>
-                                <option value="5">May</option>
-                                <option value="6">June</option>
-                                <option value="7">July</option>
-                                <option value="8">August</option>
-                                <option value="9">September</option>
-                                <option value="10">October</option>
-                                <option value="11">November</option>
-                                <option value="12">December</option>
-                            </select>
+
+                        <div class="mb-3">
+                            <label for
+                                class="form-label fw-medium mb-2">Bio</label>
+
+                            <div class="description mb-3">
+                                <div id="editor" class="bg-white"
+                                    style="min-height: 100px;"></div>
+                            </div>
+                            <div
+                            class="invalid_feedback text-danger d-flex align-items-center mb-2"
+                            id="invalid_feedback_bio">
+                            <i
+                              class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                            <div class="ms-2">Password must be the same as your new password.</div>
+                          </div>
                         </div>
-                        <div class="col-12 col-md-4">
-                            <label for="year" class="form-label fw-semibold mb-0">Year of Birth</label>
-                            <input type="number" id="year" class="form-control" placeholder="Year" min="1900" max="2100" required>
+                        <!-- Phone Number -->
+                        <div class="mb-3">
+                            <label for
+                                class="form-label fw-medium mb-2">Phone
+                                Number</label>
+                            <div class="input-field input-field-setting mb-4" id="input-field-phone">
+                                <i class="fas fa-phone"></i>
+                                <input type="tel" id="phone"
+                                    placeholder="Enter your phone number" />
+                            </div>
+                            <div
+                            class="invalid_feedback text-danger d-flex align-items-center mb-2"
+                            id="invalid_feedback_phone">
+                            <i
+                              class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                            <div class="ms-2">Password must be the same as your new password.</div>
+                          </div>
                         </div>
-                    </div>
-    
-                    <!-- Gender -->
-                    <label for="gender" class="form-label fw-semibold mb-0 mt-3">Gender</label>
-                    <select class="form-select mb-4" id="gender">
-                        <option selected>Choose...</option>
-                        <option value="1">Male</option>
-                        <option value="2">Female</option>
-                        <option value="3">Other</option>
-                    </select>
-    
-                    <!-- Address -->
-                    <label for="address" class="form-label fw-semibold mb-0">Address</label>
-                    <textarea class="form-control mb-5" id="address" rows="3" placeholder="Enter your address"></textarea>
-    
-                    <!-- Submit Button -->
-                    <button type="submit" class="btn btn-brand w-100 mt-5">Save Changes</button>
-                </form>
+
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label for
+                                class="form-label fw-medium mb-2">Email</label>
+                            <div class="input-field input-field-setting mb-4"  id="input-field-email">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" id="email"
+                                    placeholder="Enter your email" />
+                            </div>
+                            <div
+                            class="invalid_feedback text-danger d-flex align-items-center mb-2"
+                            id="invalid_feedback_email">
+                            <i
+                              class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                            <div class="ms-2">Password must be the same as your new password.</div>
+                          </div>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label for
+                                class="form-label fw-medium mb-2">Location</label>
+                            <div class="input-field input-field-setting mb-4"  id="input-field-location">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <input type="text" id="location"
+                                    placeholder="Enter your location" />
+
+                            </div>
+                            <div
+                            class="invalid_feedback text-danger d-flex align-items-center mb-2"
+                            id="invalid_feedback_location">
+                            <i
+                              class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                            <div class="ms-2">Password must be the same as your new password.</div>
+                          </div>
+                        </div>
+                        <!-- Social Media Link -->
+                        <div class>
+                            <label for
+                                class="form-label fw-medium mb-2">Social Media
+                                Links</label>
+                            <div class="mb-3">
+                                <div
+                                    class="input-field input-field-setting mb-4"  id="input-field-facebook">
+                                    <i class="fa-brands fa-square-facebook"></i>
+                                    <input type="text" id="facebook"
+                                        placeholder="Facebook"
+                                         />
+                                </div>
+                                <div
+                                class="invalid_feedback text-danger d-flex align-items-center mb-2"
+                                id="invalid_feedback_facebook">
+                                <i
+                                  class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                                <div class="ms-2">Password must be the same as your new password.</div>
+                              </div>
+                            </div>
+                            <div class="mb-3">
+                                <div
+                                    class="input-field input-field-setting mb-4">
+                                    <i class="fa-brands fa-telegram"></i>
+                                    <input type="text" id="telegram"
+                                        placeholder="Telegram" />
+                                </div>
+                                <div
+                                class="invalid_feedback text-danger d-flex align-items-center mb-2"
+                                id="invalid_feedback_confirm_new_password">
+                                <i
+                                  class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                                <div class="ms-2">Password must be the same as your new password.</div>
+                              </div>
+                            </div>
+                            <div class="mb-3">
+                                <div
+                                    class="input-field input-field-setting mb-4">
+                                    <i class="fa-brands fa-tiktok"></i>
+                                    <input type="text" id="tiktok"
+                                        placeholder="Tiktok" />
+                                </div>
+                                <div
+                                class="invalid_feedback text-danger d-flex align-items-center mb-2"
+                                id="invalid_feedback_confirm_new_password">
+                                <i
+                                  class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                                <div class="ms-2">Password must be the same as your new password.</div>
+                              </div>
+                            </div>
+                            <div class="mb-3">
+                                <div
+                                    class="input-field input-field-setting mb-4">
+                                    <i class="fa-brands fa-linkedin"></i>
+                                    <input type="text" id="linkin"
+                                        placeholder="Linkedin" />
+                                </div>
+                                <div
+                                class="invalid_feedback text-danger d-flex align-items-center mb-2"
+                                id="invalid_feedback_confirm_new_password">
+                                <i
+                                  class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                                <div class="ms-2">Password must be the same as your new password.</div>
+                              </div>
+                            </div>
+
+                        </div>
+                        <!-- Submit Button -->
+                        <button type="submit"
+                            class="btn btn-brand w-100" id="btnSubmit">Submit</button>
+                    </form>
+
+                </div>
             </div>
         </div>
-    </div>
-    
-    <script src="/js/bootstrap.bundle.min.js"></script>
-</body>
+
+        <%- include("../../partials/script.ejs") %>
+        <script>
+                
+    </script>
+    <script src="/js/profile/update-to-organizer.js"></script>
+    </body>
 </html>

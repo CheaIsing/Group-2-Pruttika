@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Ticket</title>
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../../../public/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../../public/vendor/bootstrap-icon/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../../../public/css/main.css">
+  <link rel="stylesheet" href="../../../public/css/style.css">
+</head>
+
+<body>
+  <div class="container py-5">
+    <h2 class="fw-bold">My Ticket</h2>
+
+    <!-- Navigation Links -->
+    <div class="d-flex mb-4">
+      <a class="nav-link fw-bold nav-underline fs-5 me-3" href="#">All Tickets</a>
+      <a class="nav-link fw-bold nav-underline text-brand fs-5" href="#">Request Tickets</a>
+    </div>
+
+   <div class="col-4 mb-3">
+      <select id="ticketType" class="form-select custom-select">
+          <option value="all">All</option>
+          <option value="aproved">Approved</option>
+          <option value="pending">Pending</option>
+          <option value="rejected">Rejected</option>
+      </select>
+  </div>
+
+    <!-- Tickets Table -->
+    <table class="table table-borderless align-middle">
+      <thead>
+        <tr class="border-bottom">
+          <th scope="col">Event</th>
+          <th scope="col">Status</th>
+          <th scope="col">Purchase Date</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Total price</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <!-- Event Card -->
+            <div class="d-flex align-items-start">
+              <img class="event-card-img me-3 rounded" src="../../../public/img/Eco-Action.jpg" alt="Event Image"
+                style="width: 150px; height: 100px; object-fit: cover;">
+              <div>
+                <div class="event-title fw-bold fs-5">Computer Science</div>
+                <p class="type_event text-muted mb-1">Online event</p>
+                <p class="schedule text-muted mb-0">Saturday, February 22, 2025 at CKCC</p>
+              </div>
+            </div>
+          </td>
+          <td>
+            <span class="badge p-3 bg-success">Used</span>
+          </td>
+          <td>
+            <p class="mb-0">17, February, 2025</p>
+          </td>
+          <td>
+            <p class="mb-0">1</p>
+          </td>
+          <td>
+            <p class="mb-0">$10.00</p>
+          </td>
+          <td>
+
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-brand" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              View Transection
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header border-bottom-0">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">
+                      <img src="../../../public/img/Prutika_Logo_text(2).png" alt="" style="width: 150px;">
+                    </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <h4 class="text-center fw-bold">View Ticket <span class="text-brand">Transection </span></h4>
+                    <div class="line-dash m-3"></div>
+                    <div
+                      class="row"
+                    >
+                      <div class="col-12 col-md-6">
+                       <h5> View Details</h5>
+                      <div class="text-start">
+                        <p>Status : aproved</p>
+                        <p>Ticket Bought : 1</p>
+                        <p>Price Per Ticket : $10.00</p>
+                        <p>Total:$10.00</p>
+                      </div>
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <h5>Transection File</h5>
+                        <div class="transection-img">
+                          <img src="../../../public/img/payment.jpg" alt="">
+
+                        </div>
+
+                      </div>
+                    </div>
+                  
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+
+      </tbody>
+
+    </table>
+  </div>
+
+
+</body>
+<script src="../../../public/js/bootstrap.bundle.min.js"></script>
+
+</html>

@@ -3,7 +3,8 @@ const fs = require("fs");
 const moment = require("moment");
 const { handleResponseError } = require("../../utils/handleError");
 const { executeQuery } = require("../../utils/dbQuery");
-const { sendResponse } = require("../../utils/response");
+const { sendResponse,sendResponse1 } = require("../../utils/response");
+const {ownReqTicketCollection, ownTicketCollection}=require("../../resource/ticket");
 
 const defaultAvatar = "default.jpg";
 
@@ -247,6 +248,41 @@ const deleteOwnAccount = async (req, res) => {
   }
 };
 
+//get own request ticket
+const getOwnReqTicket=async(req,res)=>{
+  const user_id=req.user.id;
+  try {
+      
+      const data=await ownReqTicketCollection(
+          user_id,
+          req.query.status,
+          req.query.page, req.query.per_page,
+          req.query.sort, req.query.order
+      );
+      sendResponse1(res,200,true,"Get all ticket request successfully",data.rows,data.paginate)
+  } catch (error) {
+      
+  }
+}
+
+//get own ticket
+const getOwnTicket=async(req,res)=>{
+  const user_id=req.user.id;
+  try {
+      const data=await ownTicketCollection(
+          user_id,
+          req.query.status,
+          req.query.page, req.query.per_page,
+          req.query.sort, req.query.order
+      );
+      sendResponse1(res,200,true,"Get all owned ticket successfully",data.rows,data.paginate);
+      
+
+  } catch (error) {
+      
+  }
+}
+
 module.exports = {
   getAllProfile,
   getProfileById,
@@ -255,4 +291,6 @@ module.exports = {
   updateOwnProfileImage,
   deleteOwnProfileImage,
   deleteOwnAccount,
+  getOwnReqTicket,
+  getOwnTicket
 };

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Ticket</title>
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../../../public/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../../public/vendor/bootstrap-icon/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../../../public/css/main.css">
+  <link rel="stylesheet" href="../../../public/css/style.css">
+</head>
+
+<body>
+  <div class="container py-5">
+    <h2 class="fw-bold">My Ticket</h2>
+
+    <!-- Navigation Links -->
+    <div class="d-flex mb-4 flex-wrap">
+      <a class="nav-link fw-bold nav-underline fs-5 text-brand me-3" href="#">All Tickets</a>
+      <a class="nav-link fw-bold nav-underline fs-5" href="#">Request Tickets</a>
+    </div>
+
+    <!-- Tickets Table -->
+    <div class="table-responsive">
+      <table class="table table-borderless align-middle">
+        <thead>
+          <tr class="border-bottom">
+            <th scope="col">Event</th>
+            <th scope="col ">Status</th>
+            <th scope="col ">Purchase Date</th>
+            <th scope="col ">Quantity</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <!-- Event Card -->
+              <div class="d-flex align-items-start flex-wrap">
+                <img class="event-card-img me-3 rounded img-fluid" src="../../../public/img/Eco-Action.jpg" alt="Event Image" style="width: 150px; height: 100px; object-fit: cover;">
+                <div>
+                  <div class="event-title fw-bold fs-5">Computer Science</div>
+                  <p class="type_event text-muted mb-1">Online event</p>
+                  <p class="schedule text-muted mb-0">Saturday, February 22, 2025 at CKCC</p>
+                </div>
+              </div>
+            </td>
+            <td>
+              <span class="badge p-3 bg-success">Used</span>
+            </td>
+            <td>
+              <p class="mb-0">17, February, 2025</p>
+            </td>
+            <td>
+              <p class="mb-0">1</p>
+            </td>
+            <td>
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-brand" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                View Ticket
+              </button>
+
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                  <div class="modal-content">
+                    <div class="modal-header border-bottom-0">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">
+                        <img src="../../../public/img/Prutika_Logo_text(2).png" alt="PRUTTIKA logo" style="width: 150px;">
+                      </h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="ticket-container">
+                        <div class="row">
+                          <div class="ticket-header">VIP</div>
+                          <!-- Left Section -->
+                          <div class="col-12 col-md-8 m-0">
+                            <div class="ticket-body">
+                              <div class="ticket-section d-flex flex-wrap">
+                                <img src="../../../public/img/Prutika_Logo_text(2).png" alt="PRUTTIKA logo" class="img-fluid me-3" style="width: 150px;">
+                                <div class="ticket-info">
+                                  <h5>Event Name</h5>
+                                  <h4>Halowin</h4>
+                                </div>
+                              </div>
+                              <div class="ticket-section d-flex flex-wrap mt-3">
+                                <img src="../../../public/img/ticket.png" alt="Ticket Icon" class="img-fluid me-3" style="width: 50px;">
+                                <div class="ticket-info">
+                                  <h5>Price: <span class="text-brand">10$</span></h5>
+                                  <p>Location: Touk Kork, Phnom Penh</p>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="ticket-details p-3">
+                              <div class="d-flex flex-wrap">
+                                <div class="me-3">
+                                  <h6>Start</h6>
+                                  <p>Fri, 25 Oct 2024</p>
+                                </div>
+                                <div class="me-3">
+                                  <h6>End</h6>
+                                  <p>8:00am - 11:00am</p>
+                                </div>
+                                <div>
+                                  <h6>Phone Number</h6>
+                                  <p>012 345 678</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- Right Section -->
+                          <div class="col-12 col-md-4 text-center ">
+                            <div class="ticket-section qr-code">
+                              <img src="../../../public/img/scan-qr-here.png" alt="QR Code" class="img-fluid">
+                              <p>012302513216565470000000</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="../../../public/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
