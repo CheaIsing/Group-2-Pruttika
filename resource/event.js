@@ -31,11 +31,14 @@ const joinEventQry=`SELECT
                 agenda_info.agenda_description,
                 agenda_info.agenda_start_time,
                 agenda_info.agenda_end_time,
-                tw.user_id AS user_id
+                tw.user_id AS user_id,
+                tu.avatar
             FROM  
                 tbl_event te 
             INNER JOIN 
                 tbl_organizer tor ON tor.user_id = te.creator_id
+            LEFT JOIN 
+                tbl_users tu ON tu.id=te.creator_id
             LEFT JOIN 
                 tbl_event_category tec ON te.id = tec.event_id
             LEFT JOIN 
@@ -66,11 +69,11 @@ const joinEventQry=`SELECT
                 GROUP 
                     BY event_id
             ) agenda_info ON te.id = agenda_info.event_id
-            LEFT JOIN tbl_wishlist tw ON tw.event_id = te.id AND tw.user_id = ? 
+            LEFT JOIN tbl_wishlist tw ON tw.event_id = te.id AND tw.user_id = ?
+            
         `;
 
-
-const eventCollection= async(userID,page=1, perpage=10, search='', sort='id', order='ASC', start_date = null, end_date = null, event_type = null, min_price = null, max_price = null, cate_ids = [])=>{
+const eventCollection= async(userID,page=1, perpage=25, search='', sort='id', order='ASC', start_date = null, end_date = null, event_type = null, min_price = null, max_price = null, cate_ids = [],published=null,creator=null)=>{
     try {
         page=parseInt(page);
         perpage=parseInt(perpage);
@@ -121,6 +124,15 @@ const eventCollection= async(userID,page=1, perpage=10, search='', sort='id', or
             filterParams.push(...cateId); //push category to param
         }
 
+        if(published=="true"){
+            filterQuery +=` AND te.is_published = 2 `;
+        }
+
+        if(creator){
+            filterQuery +=` AND te.creator_id = ?`;
+            filterParams.push(creator);
+        }
+
         sqlQuery+=filterQuery; //combine filter query
         sqlQuery+=` GROUP BY te.id
                     ORDER BY te.${sort} ${order}
@@ -151,16 +163,16 @@ const eventCollection= async(userID,page=1, perpage=10, search='', sort='id', or
                 qr_img:eventData.qr_img,
                 creator:{
                     id:eventData.creator_id,
-                    name:eventData.organization_name
+                    name:eventData.organization_name,
+                    avatar:eventData.avatar
                 },
-                is_published: eventData.is_published==1? true:false,
+                is_published: eventData.is_published==1? false:true,
                 is_Wishlist: eventData.user_id ? true : false,
                 created_at: eventData.created_at,
                 updated_at: eventData.updated_at
             }
             arrEvents.push(event);
         }
-        // console.log(arrEvents);
 
         //totalpage
         let countQueryStr=`SELECT COUNT(DISTINCT te.id) as total FROM tbl_event te
@@ -177,12 +189,11 @@ const eventCollection= async(userID,page=1, perpage=10, search='', sort='id', or
                                 GROUP BY 
                                     event_id
                             ) ticket_info ON te.id = ticket_info.event_id
+                            LEFT JOIN tbl_wishlist tw ON tw.event_id = te.id AND tw.user_id = ? 
                             WHERE (te.eng_name LIKE ? OR te.kh_name LIKE ?)`;
         countQueryStr+=filterQuery;
-        // console.log(filterParams);
-        // console.log("count param"+countParams);
+
         const countQuery=await executeQuery(countQueryStr,filterParams);
-        // console.log(countQuery);
         const totalPage=Math.ceil(countQuery[0].total/perpage); 
 
         const eventObj={
@@ -230,9 +241,10 @@ const eventDetail=async(user_id,id)=>{
         qr_img:eventData.qr_img,
         creator:{
             id:eventData.creator_id,
-            name:eventData.organization_name
+            name:eventData.organization_name,
+            avatar:eventData.avatar
         },
-        is_published: eventData.is_published==1? true:false,
+        is_published: eventData.is_published==1? false:true,
         is_Wishlist: eventData.user_id ? true : false,
         created_at: eventData.created_at,
         updated_at: eventData.updated_at
@@ -291,7 +303,6 @@ const eventTicket=(eventData)=>{
     }
     return tickets;
 }
-
 
 module.exports={
     eventCollection,

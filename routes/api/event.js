@@ -11,7 +11,9 @@ const {
     deleteEAgenda,
     deleteETickType,
     uploadEQr,
-    deleteEQr
+    deleteEQr,
+    putCheckIn,
+    summaryData
 }=require('../../controllers/api/event');
 const {checkEventOwner}=require('../../middlewares/event');
 const { requireAuth,checkRole } = require('../../middlewares/auth');
@@ -20,12 +22,14 @@ const router = express.Router();
 
 router.get('/',getAllEvent);
 router.get('/:id',getEventDetail);
+router.get('/summary-data/:id',requireAuth,checkEventOwner,summaryData);
 
 router.post('/',requireAuth, checkRole(2),postCreateEvent);
 router.post('/thumbnail/:id',requireAuth, checkEventOwner,updateEThumbnail);
 router.post('/org-qr-img/:id',requireAuth, checkEventOwner,uploadEQr);
 
 router.put('/info/:id',requireAuth, checkEventOwner,putEditEvent);
+router.put('/check-in/',requireAuth,putCheckIn);
 
 router.delete('/:id',requireAuth, checkEventOwner, deleteEvent);
 router.delete('/thumbnail/:id',requireAuth, checkEventOwner, deleteEThumbnail);

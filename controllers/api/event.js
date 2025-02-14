@@ -1,4 +1,3 @@
-const con=require('../../config/db');
 const fs=require('fs');
 const {vCreateEvent, vAgendaSchema}=require("../../validations/event");
 const {
@@ -6,7 +5,6 @@ const {
     handleValidateError,
   } = require("../../utils/handleError");
 const { executeQuery } = require("../../utils/dbQuery");
-// const { sendResponse ​} = require("../../utils/response");
 const {sendResponse ,sendResponse1}= require("../../utils/response");
 const {eventCollection , eventDetail}= require("../../resource/event");
 
@@ -24,9 +22,9 @@ const getAllEvent=async(req,res)=>{
             req.query.start_date, req.query.end_date,
             req.query.event_type, 
             req.query.min_price, req.query.max_price,
-            req.query.cateId
+            req.query.cateId,
+            req.query.is_published, req.query.creator
         );
-        // const result=data;
         sendResponse1(res, 200, true,"Get all event successfully", data.rows,data.paginate);
     } catch (error) {
         handleResponseError(res, error);
@@ -39,7 +37,7 @@ const getEventDetail=async(req,res)=>{
     try {
         const result=await eventDetail(userId,event_id);
         if(result==null){
-            sendResponse(res,404,false,"Event is not found");
+            return sendResponse(res,404,false,"Event is not found");
         }
         sendResponse1(res, 200, true,"Get event detail successfully", result);
     } catch (error) {
@@ -319,7 +317,7 @@ const updateEThumbnail= async(req,res)=>{
         `;
         const dbTNResult = await executeQuery(sqlGetThumbnail, [event_id]);
         if (dbTNResult.length===0) {
-            sendResponse(res, 404, false, "Event is not found");
+            return sendResponse(res, 404, false, "Event is not found");
         }
         const oldTN= dbTNResult[0].thumbnail;
 
@@ -360,7 +358,7 @@ const deleteEThumbnail=async (req,res)=>{
         `;
         const dbTNResult = await executeQuery(sqlGetThumbnail, [event_id]);
         if (dbTNResult.length===0) {
-            sendResponse(res, 404, false, "Event is not found");
+            return sendResponse(res, 404, false, "Event is not found");
         }
         const oldTN= dbTNResult[0].thumbnail;
 
@@ -424,7 +422,7 @@ const uploadEQr=async(req,res)=>{
         `;
         const dbResult = await executeQuery(sqlGetEvent, [event_id]);
         if (dbResult.length===0) {
-            sendResponse(res, 404, false, "Event is not found");
+            return sendResponse(res, 404, false, "Event is not found");
         }
         const oldQr= dbResult[0].qr_img;
         let file; // create variable to easy to access to db
@@ -465,7 +463,7 @@ const deleteEQr=async (req,res)=>{
         `;
         const dbResult = await executeQuery(sqlGetEvent, [event_id]);
         if (dbResult.length===0) {
-            sendResponse(res, 404, false, "Event is not found");
+            return sendResponse(res, 404, false, "Event is not found");
         }
         // console.log("hello"+dbResult);
         const oldQr= dbResult[0].qr_img;
@@ -484,6 +482,119 @@ const deleteEQr=async (req,res)=>{
     }
 }
 
+//checkIn Ticket
+const putCheckIn=async(req,res)=>{
+    const ticketToken=req.body.ticketToken;
+    try {
+        const result=await executeQuery(`select * from tbl_ticket where qr_code=?`,[ticketToken]);
+
+        if(result.length===0){
+            return sendResponse(res,400,false,"Invalid Token");
+        }
+
+        const status=result[0].status;
+        if(status==2){
+            return sendResponse(res,400,false,"This ticket is already check-in!");
+        }
+        const sqlUpdateStatus=`UPDATE tbl_ticket SET status=2 WHERE id=?`;
+        await executeQuery(sqlUpdateStatus,status);
+        sendResponse(res,200,true,"Ticket Check in successfully");
+    } catch(error){
+        console.log(error);
+        handleResponseError(res,error);
+    }
+}
+
+//get summary data
+const summaryData=async(req,res)=>{
+    const id=req.params.id;
+    try {
+        const sqlGetEvent=`SELECT    
+                id,
+                eng_name,
+                kh_name,
+                thumbnail,
+                event_type
+                FROM tbl_event
+                WHERE id=?
+        `;
+        const dataGetEvent=await executeQuery(sqlGetEvent,[id]);
+        const dataEvent=dataGetEvent[0];
+
+        let total_registration=0;
+        let total_approved_registrations=0;
+        let total_checkin=0;
+        const ticket=[];
+
+        //event_online
+        if(dataEvent.event_type==1){ 
+            const sqlGetSummary1=`SELECT  
+	            COUNT(id) AS total_registrations,
+                SUM(CASE WHEN status = 2 THEN 1 ELSE 0 END) AS total_app_regis
+                FROM tbl_transaction 
+                WHERE event_id=?`;
+            const dataResult=await executeQuery(sqlGetSummary1,[id]);
+            total_registration=dataResult[0].total_registrations;
+            total_approved_registrations=dataResult[0].total_app_regis;
+            total_checkin=null
+        }else{
+            const sqlGetSummary2=`
+                SELECT  
+                    ttt.id,
+                    ttt.type_name,
+                    ttt.price,
+                    ttt.ticket_opacity,
+                    ttt.ticket_bought,
+                    COALESCE(t.checkin_ticket, 0) AS checkin_ticket,
+                    COALESCE(tts.total_registrations, 0) AS total_registrations
+                FROM tbl_ticketevent_type ttt
+                LEFT JOIN (
+                    SELECT ticket_event_id, 
+                        SUM(CASE WHEN status = 2 THEN 1 ELSE 0 END) AS checkin_ticket
+                    FROM tbl_ticket
+                    GROUP BY ticket_event_id
+                ) t ON ttt.id = t.ticket_event_id
+                LEFT JOIN (
+                    SELECT ticket_event_id, 
+                        SUM(ticket_qty) AS total_registrations
+                    FROM tbl_transaction
+                    GROUP BY ticket_event_id
+                ) tts ON ttt.id = tts.ticket_event_id
+                WHERE ttt.event_id=?
+            `;
+            const dataResult=await executeQuery(sqlGetSummary2,[id]);
+            for(let i=0;i<dataResult.length; i++){
+                const item=dataResult[i];
+                ticket.push({
+                    id:item.id,
+                    type_name: item.type_name,
+                    price:item.price,
+                    ticket_opacity: item.ticket_opacity,
+                    ticket_bought: item.ticket_bought,
+                    checkin_ticket: item.checkin_ticket,
+                    total_register: item.total_registrations
+                })
+                total_registration+=item.total_registrations;
+                total_approved_registrations+=item.ticket_bought;
+                total_checkin+=item.checkin_ticket;
+            }
+        }
+        const data={
+            id : dataEvent.id,
+            eng_name :dataEvent.eng_name,
+            kh_name : dataEvent.kh_name,
+            thumbnail : dataEvent.thumbnail,
+            event_type : dataEvent.event_type,
+            ticket : ticket,
+            total_registration : total_registration,
+            total_approved_registrations : total_approved_registrations,
+            total_checkin : total_checkin
+        }
+        sendResponse(res,200,true,`Get summary data of event ID ${id} Successfully`,data);
+    } catch (error) {
+        handleResponseError(res,error);
+    }
+}
 
 module.exports={
     getAllEvent,
@@ -496,5 +607,7 @@ module.exports={
     deleteEAgenda,
     deleteETickType,
     uploadEQr,
-    deleteEQr
+    deleteEQr,
+    putCheckIn,
+    summaryData
 }
