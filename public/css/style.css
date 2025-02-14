@@ -541,13 +541,21 @@ form.sign-in-form {
 
 }
 
-@media (max-width: 576px) {
+@media (min-width: 0px) and (max-width: 576px) {
   .sub-form-wrapper.active {
     outline: 0 !important;
   }
   form.signin-signup {
-    padding: 0 1.5rem;
+    padding: 0 1.5rem !important;
   }
+  /* .input-field {
+    max-width: auto !important;
+  } */
+
+  form.sign-up-form, form.sign-in-form{
+    padding: 0 1.5rem !important;
+  }
+
 
   .signin-signup {
     width: 100%;
