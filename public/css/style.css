@@ -1684,3 +1684,341 @@ body.dashboard {
   }
 }
 
+
+/* my ticket style */
+.border-bottom-style {
+  width: 100%;
+  height: 5px;
+  background-color: #e11594;
+  border-radius: 8px;
+  color: #ff0077;
+}
+.event-card-img {
+  width: 200px;
+  height: 150px;
+  background-color: #f808a8;
+  position: relative;
+}
+
+/* buy ticket */
+
+.custom-select {
+  border: 1.6px solid #ff0077;
+  border-radius: 8px;
+  padding: 10px;
+  color: #000;
+}
+
+.btn-pink {
+  background-color: #ff0077;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+}
+
+.btn-pink:hover {
+  background-color: #ff1694;
+}
+
+.divider {
+  height: 2px;
+  background-color: #ff1694;
+  margin: 10px 0;
+}
+
+.upload-box {
+  border: 1.6px dashed #ff1694;
+  border-radius: 8px;
+  text-align: center;
+  padding: 20px;
+  color: #000;
+}
+
+.upload-box:hover {
+  background-color: #f6a9e3;
+  cursor: pointer;
+}
+
+.qr-button {
+  color: #ff1694;
+  background: transparent;
+  border: 1.6px solid #ff1694;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.qr-button i {
+  margin-right: 5px;
+}
+.card-event-purchase {
+  position: relative;
+  height: 675px;
+  background: url(../../../public/img/Eco-Action.jpg) no-repeat center;
+  background-size: cover;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 30px 2px rgba(0, 0, 0, 0.25);
+  display: grid;
+  grid-template-rows: 50% 50%;
+}
+.card-event img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-event {
+  position: relative;
+  /* width: 450px; */
+  height: 400px;
+  /* background: url(./images/img.jpg) no-repeat center; */
+  background-size: cover;
+  border-radius: 40px;
+  overflow: hidden;
+  box-shadow: 0 0 30px 2px rgba(0, 0, 0, 0.25);
+  display: grid;
+  grid-template-rows: 45% 55%;
+}
+
+.event-info {
+  position: relative;
+  display: grid;
+  grid-template-areas: 
+  "empty title title"
+  "info info action";
+  justify-items: center;
+  align-items: center;
+  /* grid-gap: 16px; */
+  padding: 10px;
+}
+
+.event-info * {
+  position: relative;
+}
+
+.title {
+  grid-area: title;
+  font-size: 1.4em;
+  font-weight: bold;
+  /* letter-spacing: 1.5px; */
+}
+
+.additional-info {
+  grid-area: info;
+}
+
+.additional-info p {
+  font-size: 0.9em;
+  margin-top: 8px;
+  /* letter-spacing: 0.7px; */
+}
+
+.action {
+  grid-area: action;
+}
+
+.price {
+  position: absolute;
+  top: -20%;
+  left: 40px;
+  width: 80px;
+  height: 80px;
+  background-color: #fff;
+  color: #FF1694;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.4);
+  font-size: 1.8em;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+.price-tiket {
+  position: absolute;
+  top: 0%;
+  left: 40px;
+  width: 80px;
+  height: 80px;
+  background-color: #fff;
+  color: #FF1694;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.4);
+  font-size: 1.8em;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.event-info::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 110%;
+  height: 300%;
+  background: linear-gradient(to bottom, #FF1694 51%, #dd5e89 100%);
+  transform: rotate(-8deg);
+  border-top-right-radius: 100px;
+}
+
+.action {
+  border: 1px solid;
+  outline: none;
+  background-color: transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 12px;
+  text-transform: uppercase;
+  font-size: 1.1em;
+  font-weight: bold;
+  color: white;
+  letter-spacing: 1.5px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.action:hover {
+  background-color: #fff;
+  color: #ff1694;
+}
+.ticket-container {
+  max-width: 1000px;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.ticket-header {
+  background-color: #ff1694;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.ticket-body {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.ticket-section {
+  flex: 1 1 50%;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.ticket-section img {
+  max-width: 100%;
+  height: auto;
+}
+
+.ticket-info {
+  text-align: center;
+}
+
+.ticket-info h5 {
+  color: #ff1694;
+  margin-bottom: 10px;
+}
+
+.ticket-details {
+  width: 100%;
+  margin-top: 15px;
+  border-top: 2px dashed #ff1694;
+  padding-top: 15px;
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
+
+.ticket-details div {
+  flex: 1;
+}
+.transection-img img {
+  width: 100%;
+  height: auto;
+}
+.line-dash {
+  border: 1.6px dashed #ff1694;
+}
+.herobanner {
+  width: 100%;
+  height: 450px;
+  background-color: #f6a9e3;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.herobanner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+}
+.overlay {
+  width: 800px;
+  height: 300px;
+  height: auto;
+  position: absolute;
+  top: 2;
+  background-color: #f6a9e3;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  text-align: center;
+}
+.fav-heart-stle {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  text-align: center;
+  border: 2px solid #ff1694;
+  padding: 5px 12px;
+}
+.event-image img {
+  width: 100%;
+  height: auto;
+}
+.line-style {
+  width: 100%;
+  height: 1.6px;
+  background-color: #ff1694;
+  border-radius: 8px;
+}
+.card-style {
+  border: 2px solid #ff1694;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.orgainer-profile {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  background-color: #ff1694;
+}
+.card-purchase {
+  background-color: #f6a9e3;
+}
+.card-purchaseTicket {
+  width: 100%;
+  background-color: #f7f9ff;
+}
+
+/* box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.4); */
