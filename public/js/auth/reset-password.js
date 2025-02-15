@@ -76,7 +76,7 @@ if (userEmail && userOtp) {
         sessionStorage.removeItem("otp");
         sessionStorage.removeItem("email");
         sessionStorage.setItem("isResetedPass", true);
-        location.href = "/signin";
+        location.href = "/auth/signin";
       } catch (error) {
         console.log(error.response.data);
 

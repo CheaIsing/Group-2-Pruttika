@@ -64,7 +64,7 @@ if (userEmail) {
         sessionStorage.setItem("otp", formData.verifyOtp);
         sessionStorage.setItem("email", formData.email);
         sessionStorage.setItem("isVerifiedOtp", true);
-        location.href = "/reset-password";
+        location.href = "/auth/reset-password";
       } catch (error) {
         console.log(error.response.data);
 

@@ -405,8 +405,20 @@ function checkStep() {
         location,
       };
 
+      const event_type = document.querySelector(
+        'input[name="event_type"]:checked'
+      )?.value;
+
+      let resultt;
+
+      if(event_type == 1){
+        resultt = vEventDateOnline.validate(formData);
+      }else if(event_type == 2){
+        resultt = vEventDateAndLocation.validate(formData)
+      }
+
       // Validate using Joi schema
-      const { error } = vEventDateAndLocation.validate(formData);
+      const { error } = resultt;
 
       // Define fields for displaying errors
       const fieldsEventDateLocation = [
