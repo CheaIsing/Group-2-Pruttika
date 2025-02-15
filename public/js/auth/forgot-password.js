@@ -46,9 +46,11 @@ forgotPassForm.addEventListener(
       await axiosInstance.post("/auth/forgot-password", formData);
       sessionStorage.setItem('email', formData.email)
       sessionStorage.setItem('isForgotPass', true)
-      location.href = "/verify-otp";
+      location.href = "/auth/verify-otp";
 
     } catch (error) {
+      console.log(error);
+      
       console.log(error.response.data);
 
       if (typeof error.response.data == "string") {

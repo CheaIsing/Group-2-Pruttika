@@ -194,7 +194,7 @@
                                                 <p class="p-0 m-0"><span class="fw-medium">Tip:</span> Give an attractive brief paragraph about your event.</p>
                                             </div>
                                             <!-- <p>Give an attractive brief paragraph about your event.</p> -->
-                                            <div class>
+                                            <div class="mb-3">
                                                 <label for
                                                     class="form-label fw-medium mb-2">Event Title</label>
                                                 <div class="input-field input-field-setting border-2"
@@ -214,7 +214,7 @@
                                                 </div>
                                             </div>
                                             <div class="mb-4 mt-2 w-100">
-                                                <div class="">
+                                                <div class="mb-3">
                                                     <label for
                                                     class="form-label fw-medium mb-2 d-block">Event Type</label>
                                                     <div id="input-container">
@@ -227,7 +227,7 @@
                                             </div>
         
                                             <div class="w-100">
-                                                <div class="">
+                                                <div class="mb-3">
                                                     <label for
                                                     class="form-label fw-medium mb-2">Event Categories</label>
  <select class="tom-selected" id="select-category" name="state[]" multiple placeholder="Choose Categories" autocomplete="off">
@@ -260,31 +260,67 @@
                                                 <div class="col-md-12 col-lg-12 col-xxl-8">
                                                     <div class="row gx-4 gy-1">
                                                         <div class="col-md-6 col-lg-7 col-xxl-8">
-                                                            <label for class="form-label fw-medium mb-2">Start Date</label>
-                                                            <div class="input-field input-field-setting border-2" id="input-field-started-date">
-                                                                <i class="fa-regular fa-pen-to-square"></i>
-                                                                <input type="date" id="started-date" class="" value="2025-02-11" />
+                                                            <div class="mb-3">
+                                                                <label for class="form-label fw-medium mb-2">Start Date</label>
+                                                                <div class="input-field input-field-setting border-2" id="input-field-started-date">
+                                                                    <i class="fa-regular fa-pen-to-square"></i>
+                                                                    <input type="date" id="started-date" class="" value="2025-02-11" />
+                                                                </div>
+                                                                <div
+                                                        class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100"
+                                                        id="invalid_feedback_started_date">
+                                                        <i
+                                                            class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                                                        <div class="ms-2 ">Invalid email.</div>
+                                                    </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 col-lg-5 col-xxl-4">
-                                                            <label for class="form-label fw-medium mb-2">Start Time</label>
+                                                            <div class="mb-3">
+                                                                <label for class="form-label fw-medium mb-2">Start Time</label>
                                                             <div class="input-field input-field-setting border-2" id="input-field-start-time">
                                                                 <i class="fa-regular fa-pen-to-square"></i>
                                                                 <input type="time" id="start-time" class="" value="10:00" />
                                                             </div>
+                                                            <div
+                                                        class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100"
+                                                        id="invalid_feedback_start_time">
+                                                        <i
+                                                            class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                                                        <div class="ms-2 ">Invalid email.</div>
+                                                    </div>
+                                                            </div>
                                                         </div>
                                                         <div class="col-md-6 col-lg-7 col-xxl-8">
-                                                            <label for class="form-label fw-medium mb-2">End Date</label>
+                                                            <div class="mb-3">
+                                                                <label for class="form-label fw-medium mb-2">End Date</label>
                                                             <div class="input-field input-field-setting border-2" id="input-field-ended-date">
                                                                 <i class="fa-regular fa-pen-to-square"></i>
                                                                 <input type="date" id="ended-date" class="" value="2025-02-12" />
                                                             </div>
+                                                            <div
+                                                        class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100"
+                                                        id="invalid_feedback_end_date">
+                                                        <i
+                                                            class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                                                        <div class="ms-2 ">Invalid email.</div>
+                                                    </div>
+                                                            </div>
                                                         </div>
                                                         <div class="col-md-6 col-lg-5 col-xxl-4">
-                                                            <label for class="form-label fw-medium mb-2">End Time</label>
+                                                            <div class="mb-3">
+                                                                <label for class="form-label fw-medium mb-2">End Time</label>
                                                             <div class="input-field input-field-setting border-2" id="input-field-end-time">
                                                                 <i class="fa-regular fa-pen-to-square"></i>
                                                                 <input type="time" id="end-time" class="" value="18:00" />
+                                                            </div>
+                                                            <div
+                                                        class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100"
+                                                        id="invalid_feedback_end_time">
+                                                        <i
+                                                            class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                                                        <div class="ms-2 ">Invalid email.</div>
+                                                    </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -294,7 +330,8 @@
                                             <div class="row">
 
                                                 <div class="col-md-12" id="block-location">
-                                                    <label for
+                                                    <div class="mb-3">
+                                                        <label for
                                                         class="form-label fw-medium mb-2">Location</label>
                                                     <div class="input-field input-field-setting border-2"
                                                         id="input-field-location">
@@ -309,6 +346,7 @@
                                                         <i
                                                             class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
                                                         <div class="ms-2 ">Invalid email.</div>
+                                                    </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -326,7 +364,8 @@
                                                 <p class="p-0 m-0"><span class="fw-medium">Tip:</span> Give a short attractive and full detail description about your event.</p>
                                             </div>
                                             <div class="col-md-12">
-                                                <label for
+                                                <div class="mb-3">
+                                                    <label for
                                                     class="form-label fw-medium mb-2">Short Description</label>
                                                 <div class="input-field input-field-setting border-2"
                                                     id="input-field-short-description">
@@ -342,9 +381,11 @@
                                                         class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
                                                     <div class="ms-2 ">Invalid email.</div>
                                                 </div>
+                                                </div>
                                             </div>
                                             <div class="">
-                                                <label for
+                                                <div class="mb-3">
+                                                    <label for
                                                     class="form-label fw-medium mb-2 mt-2">Description Detail</label>
                                             
                                                 <div class="description mb-3 overflow-hidden" id="input-field-description" style="border: 1px solid var(--c-brand);border-radius: 8px;">
@@ -356,6 +397,7 @@
                                                     <i
                                                         class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
                                                     <div class="ms-2 ">Invalid email.</div>
+                                                </div>
                                                 </div>
                                             </div>
                                             

@@ -16,41 +16,49 @@
           <form id="sign-up-form" class="sign-up-form" autocomplete="off">
             <h2 class="title">Sign Up</h2>
             
-            <div class="input-field" id="input-field-name">
-              <i class="fas fa-user"></i>
-              <input type="text" placeholder="Username" id="sign-up-name" autofocus/>
+            <div class="mb-3"  style="max-width: 380px; width: 100%;">
+              <div class="input-field" id="input-field-name">
+                <i class="fas fa-user"></i>
+                <input type="text" placeholder="Username" id="sign-up-name" autofocus/>
+              </div>
+              <div
+                class="invalid_feedback text-danger d-flex align-items-center" id="invalid_feedback_name">
+                <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                <div class="ms-2">Invalid email.</div>
+              </div>
             </div>
-            <div
-              class="invalid_feedback text-danger d-flex align-items-center mb-2" id="invalid_feedback_name">
-              <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
-              <div class="ms-2">Invalid email.</div>
-            </div>
+           <div class="mb-3" style="max-width: 380px; width: 100%;">
             <div class="input-field" id="input-field-email">
               <i class="fas fa-envelope"></i>
               <input type="email" placeholder="Email" id="sign-up-email" />
             </div>
             <div
-              class="invalid_feedback text-danger d-flex align-items-center mb-2" id="invalid_feedback_email">
+              class="invalid_feedback text-danger d-flex align-items-center" id="invalid_feedback_email">
               <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
               <div class="ms-2">Invalid email.</div>
             </div>
-            <div class="input-field" id="input-field-password">
-              <i class="fas fa-lock"></i>
-              <input type="password" placeholder="Password" id="sign-up-password" />
+           </div>
+            <div class="mb-3" style="max-width: 380px; width: 100%;">
+              <div class="input-field" id="input-field-password">
+                <i class="fas fa-lock"></i>
+                <input type="password" placeholder="Password" id="sign-up-password" />
+              </div>
+              <div
+                class="invalid_feedback text-danger d-flex align-items-center" id="invalid_feedback_password">
+                <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                <div class="ms-2">Invalid email.</div>
+              </div>
             </div>
-            <div
-              class="invalid_feedback text-danger d-flex align-items-center mb-2" id="invalid_feedback_password">
-              <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
-              <div class="ms-2">Invalid email.</div>
-            </div>
-            <div class="input-field" id="input-field-confirm-password">
-              <i class="fas fa-lock"></i>
-              <input type="password" placeholder="Confirm Password" id="sign-up-confirm-password" />
-            </div>
-            <div
-              class="invalid_feedback text-danger d-flex align-items-center mb-2" id="invalid_feedback_confirm_password">
-              <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
-              <div class="ms-2">Invalid email.</div>
+            <div class="mb-3" style="max-width: 380px; width: 100%;">
+              <div class="input-field" id="input-field-confirm-password">
+                <i class="fas fa-lock"></i>
+                <input type="password" placeholder="Confirm Password" id="sign-up-confirm-password" />
+              </div>
+              <div
+                class="invalid_feedback text-danger d-flex align-items-center " id="invalid_feedback_confirm_password">
+                <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                <div class="ms-2">Invalid email.</div>
+              </div>
             </div>
             <div class style="max-width: 380px; width: 100%;">
 
