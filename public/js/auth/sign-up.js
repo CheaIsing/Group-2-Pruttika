@@ -94,7 +94,7 @@ signUpForm.addEventListener(
   //
 );
 
-handleFieldChange("sign-up-name", "name", formData, vSignUp, fields);
+handleFieldChange("sign-up-name", "eng_name", formData, vSignUp, fields);
 handleFieldChange("sign-up-email", "email", formData, vSignUp, fields);
 handleFieldChange("sign-up-password", "password", formData, vSignUp, fields);
 handleFieldChange("sign-up-confirm-password", "confirmPassword", formData, vSignUp, fields);
