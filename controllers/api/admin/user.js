@@ -9,7 +9,7 @@ const displayAllUsers = async (req, res) => {
       page = 1,
       per_page = 50,
       sort_col = "created_at",
-      sort_dir = "asc"
+      sort_dir = "asc",
     } = req.query;
 
     const pageNum = parseInt(page);
@@ -23,25 +23,25 @@ const displayAllUsers = async (req, res) => {
       return sendResponse(res, 404, false, "Invalid per_page value");
     }
 
-    const sortDirection = sort_dir.toLowerCase() === 'desc' ? 'DESC' : 'ASC'; 
+    const sortDirection = sort_dir.toLowerCase() === "desc" ? "DESC" : "ASC";
 
     let query = "SELECT * FROM tbl_users";
     const queryParams = [];
 
     if (role) {
-      query += ' WHERE role = ?';
+      query += " WHERE role = ?";
       queryParams.push(role);
     }
 
     if (search) {
-      query += role? ' AND' : ' WHERE';
-      query += ' eng_name LIKE ?';
-      queryParams.push(`%${search}%`)
+      query += role ? " AND" : " WHERE";
+      query += " eng_name LIKE ?";
+      queryParams.push(`%${search}%`);
     }
 
     query += ` ORDER BY ${sort_col} ${sortDirection}`;
 
-    query += ' LIMIT ? OFFSET ?';
+    query += " LIMIT ? OFFSET ?";
 
     queryParams.push(perPageNum, (pageNum - 1) * perPageNum);
 
@@ -117,21 +117,25 @@ const getUserDetails = async (req, res) => {
   }
 };
 
-const deactivateUser = async (req, res) => {
-  const userId = req.params.id;
+const removeUser = async (req, res) => {
+  const { id } = req.params;
 
   try {
-    const query = `UPDATE tbl_users SET status = 2 WHERE id = ?`;
-
-    const data = await executeQuery(query, [userId]);
+    const query = "SELECT * FROM tbl_users WHERE id = ?";
+    const data = await executeQuery(query, [id]);
 
     if (data.length === 0) {
-      return sendResponse(res, 404, false, "uUser not found or already inactive.");
+      return sendResponse(res, 404, false, "User not found.");
     }
 
-    res.cookie("jwtToken", "", { maxAge: 1 });
+    if (data[0].role === 3) {
+      return sendResponse(res, 403, false, "Admins cannot be removed.");
+    }
 
-    sendResponse(res, 200, true, "User deactivated successfully.");
+    const deleteQuery = "DELETE FROM tbl_users WHERE id = ?";
+    await executeQuery(deleteQuery, [id]);
+
+    sendResponse(res, 200, true, "Remove user sucessfully.");
   } catch (error) {
     console.log(error);
     handleResponseError(res, error);
@@ -142,5 +146,5 @@ module.exports = {
   displayAllUsers,
   editUser,
   getUserDetails,
-  deactivateUser
+  removeUser
 };

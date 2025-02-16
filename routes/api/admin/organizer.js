@@ -12,7 +12,7 @@ const { requireAuth, checkRole } = require("../../../middlewares/auth");
 const router = express.Router();
 
 router.get("/request", requireAuth, checkRole(3), displayRequestOrganizer);
-router.get("/display", requireAuth, checkRole(3), displayAllOrganizer);
+router.get("/all", requireAuth, checkRole(3), displayAllOrganizer);
 router.put("/approve/:id", requireAuth, checkRole(3), adminApproval);
 router.put("/reject/:id", requireAuth, checkRole(3), adminRejection);
 

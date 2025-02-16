@@ -12,17 +12,19 @@
       "content": "Create amazing memories with us!"
     },
     "signup": {
-        "heading": "Signup",
-        "username": "Username",
-        "email": "Email",
-        "password": "Password",
-        "confirm": "Confirm Password",
-        "signup": "Sign Up",
-        "social": "Or Sign Up With Social Platforms",
-        "content": "Welcome back ! Let's get started Again !."
+      "heading": "Signup",
+      "username": "Username",
+      "email": "Email",
+      "password": "Password",
+      "confirm": "Confirm Password",
+      "signup": "Sign Up",
+      "social": "Or Sign Up With Social Platforms",
+      "content": "Welcome back ! Let's get started Again !."
     },
     "forgot-password": {},
     "verify-otp": {},
     "reset-password": {}
-  }
+  },
+  "event": {},
+  "profile": {}
 }

@@ -106,6 +106,7 @@ const displayAllOrganizer = async (req, res) => {
   }
 };
 
+
 const adminApproval = async (req, res) => {
   try {
     const requestId = req.params.id;

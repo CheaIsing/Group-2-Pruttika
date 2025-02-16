@@ -124,7 +124,10 @@ const updateOwnProfileImage = async (req, res) => {
     const oldAvatar = data[0].avatar;
 
     avatar.mv(filePath, async (err) => {
-      if (err) return sendResponse(res, 500, false, "File upload failed.");
+      if (err) {
+        console.error("File upload failed:", err);
+        return sendResponse(res, 500, false, "File upload failed.");
+      }
 
       const updateSql = "UPDATE tbl_users SET avatar = ? WHERE id = ?";
       const params = [avatarName, userId];
@@ -137,6 +140,7 @@ const updateOwnProfileImage = async (req, res) => {
       if (oldAvatar && oldAvatar !== defaultAvatar) {
         fs.unlink(`${uploadPath}${oldAvatar}`, (err) => {
           if (err) {
+            console.error("Error deleting old avatar:", err);
             return sendResponse(res, 400, false, "Error deleting old avatar");
           }
         });
@@ -145,9 +149,11 @@ const updateOwnProfileImage = async (req, res) => {
       sendResponse(res, 200, true, "Avatar updated successfully.", avatarName);
     });
   } catch (error) {
+    console.error("Error updating profile image:", error);
     handleResponseError(res, error);
   }
 };
+
 
 const deleteOwnProfileImage = async (req, res) => {
   const userId = req.user.id;
@@ -234,10 +240,37 @@ const deleteOwnAccount = async (req, res) => {
   }
 };
 
+const deactivateAccount = async (req, res) => {
+  const userId = req.user.id;
+
+  try {
+    const query = `UPDATE tbl_users SET status = 2 WHERE id = ?`;
+
+    const data = await executeQuery(query, [userId]);
+
+    if (data.length === 0) {
+      return sendResponse(
+        res,
+        404,
+        false,
+        "uUser not found or already inactive."
+      );
+    }
+
+    res.cookie("jwtToken", "", { maxAge: 1 });
+
+    sendResponse(res, 200, true, "User deactivated successfully.");
+  } catch (error) {
+    console.log(error);
+    handleResponseError(res, error);
+  }
+};
+
 module.exports = {
   updateOwnInfo,
   updateOwnPassword,
   updateOwnProfileImage,
   deleteOwnProfileImage,
   deleteOwnAccount,
+  deactivateAccount
 };

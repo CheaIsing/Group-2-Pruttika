@@ -26,6 +26,10 @@ const apiEvents = require("./routes/api/event");
 const webAuth = require("./routes/web/auth");
 const webEvent = require("./routes/web/event");
 const webProfile = require("./routes/web/profile");
+const webAdminDashboard = require("./routes/web/admin/index");
+const webAdminUser = require('./routes/web/admin/user');
+const webAdminOrganizer = require("./routes/web/admin/organizer");
+const webAdminEvent = require("./routes/web/admin/event");
 
 const app = express();
 
@@ -58,6 +62,10 @@ app.get("/", (req, res) => res.redirect("/auth/signin"));
 app.use("/auth", webAuth);
 app.use("/event", webEvent);
 app.use("/profile", webProfile);
+app.use("/admin", webAdminDashboard);
+app.use("/admin/user", webAdminUser);
+app.use("/admin/organizer", webAdminOrganizer);
+app.use("/admin/event", webAdminEvent);
 
 const PORT = process.env.PORT || 3000;
 

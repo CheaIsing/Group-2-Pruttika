@@ -80,7 +80,7 @@ const postSignIn = async (req, res) => {
     const isPasswordValid = await bcrypt.compare(password, data[0].password);
 
     if (isPasswordValid) {
-      if (user.STATUS === 2) {
+      if (user.status === 2) {
         const updateQuery = "UPDATE tbl_users SET STATUS = 1 WHERE id = ?";
         await executeQuery(updateQuery, [user.id]);
       }

@@ -24,5 +24,7 @@
     "forgot-password": {},
     "verify-otp": {},
     "reset-password": {}
-  }
+  },
+  "event": {},
+  "profile": {}
 }
