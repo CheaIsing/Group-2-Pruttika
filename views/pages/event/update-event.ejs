@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
+
     <%- include("../../partials/head.ejs")  %>
+   
+
 <body class="dashboard">
     <%- include('../../partials/manage-event-sidebar.ejs')  %>
       <main>
         <div class="container-fluid">
-            <div class="row m-sm-2 m-lg-4">
+            <div class="row m-sm-2 m-lg-4 mb-5 pb-5">
                 
                 <!-- FORMS -->
                 <div class="col-12 me-0">
@@ -190,7 +194,7 @@
                                                 <p class="p-0 m-0"><span class="fw-medium">Tip:</span> Give an attractive brief paragraph about your event.</p>
                                             </div>
                                             <!-- <p>Give an attractive brief paragraph about your event.</p> -->
-                                            <div class>
+                                            <div class="mb-3">
                                                 <label for
                                                     class="form-label fw-medium mb-2">Event Title</label>
                                                 <div class="input-field input-field-setting border-2"
@@ -198,7 +202,7 @@
                                                     <i class="fa-regular fa-pen-to-square"></i>
                                                     <input type="text" placeholder="Event Title"
                                                         id="title" class=""
-                                                        autofocus value="hfsjgdjksb" />
+                                                        autofocus />
                                                     
                                                 </div>
                                                 <div
@@ -210,26 +214,25 @@
                                                 </div>
                                             </div>
                                             <div class="mb-4 mt-2 w-100">
-                                                <div class="">
+                                                <div class="mb-3">
                                                     <label for
                                                     class="form-label fw-medium mb-2 d-block">Event Type</label>
                                                     <div id="input-container">
-                                                        <input class="form-check-input" name="event_type" type="radio" id="inPerson" value="2"> 
+                                                        <input class="form-check-input" name="event_type" type="radio" disabled id="inPerson" value="2"> 
                                                         <label class="form-check-label radio-lb">In Person</label> 
-                                                        <input class="form-check-input" name="event_type" type="radio" id="online" value="1"> 
+                                                        <input class="form-check-input" name="event_type" type="radio" disabled id="online" value="1"> 
                                                         <label class="form-check-label radio-lb">Online</label> 
                                                     </div>
                                                 </div>
                                             </div>
         
                                             <div class="w-100">
-                                                <div class="">
+                                                <div class="mb-3">
                                                     <label for
                                                     class="form-label fw-medium mb-2">Event Categories</label>
  <select class="tom-selected" id="select-category" name="state[]" multiple placeholder="Choose Categories" autocomplete="off">
                                                             <!-- <option value="">Select a state...</option> -->
-                                                            <option value="1">entertainment</option>
-                                                            <option value="2" selected>music</option>
+                                                            
                                                         </select>
                                                         <div
                                                         class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100"
@@ -256,31 +259,67 @@
                                                 <div class="col-md-12 col-lg-12 col-xxl-8">
                                                     <div class="row gx-4 gy-1">
                                                         <div class="col-md-6 col-lg-7 col-xxl-8">
-                                                            <label for class="form-label fw-medium mb-2">Start Date</label>
-                                                            <div class="input-field input-field-setting border-2" id="input-field-started-date">
-                                                                <i class="fa-regular fa-pen-to-square"></i>
-                                                                <input type="date" id="started-date" class="" value="2025-02-11" />
+                                                            <div class="mb-3">
+                                                                <label for class="form-label fw-medium mb-2">Start Date</label>
+                                                                <div class="input-field input-field-setting border-2" id="input-field-started-date">
+                                                                    <i class="fa-regular fa-pen-to-square"></i>
+                                                                    <input type="date" id="started-date" class=""  />
+                                                                </div>
+                                                                <div
+                                                        class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100"
+                                                        id="invalid_feedback_started_date">
+                                                        <i
+                                                            class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                                                        <div class="ms-2 ">Invalid email.</div>
+                                                    </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 col-lg-5 col-xxl-4">
-                                                            <label for class="form-label fw-medium mb-2">Start Time</label>
+                                                            <div class="mb-3">
+                                                                <label for class="form-label fw-medium mb-2">Start Time</label>
                                                             <div class="input-field input-field-setting border-2" id="input-field-start-time">
                                                                 <i class="fa-regular fa-pen-to-square"></i>
-                                                                <input type="time" id="start-time" class="" value="10:00" />
+                                                                <input type="time" id="start-time" class="" />
+                                                            </div>
+                                                            <div
+                                                        class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100"
+                                                        id="invalid_feedback_start_time">
+                                                        <i
+                                                            class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                                                        <div class="ms-2 ">Invalid email.</div>
+                                                    </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 col-lg-7 col-xxl-8">
-                                                            <label for class="form-label fw-medium mb-2">End Date</label>
+                                                            <div class="mb-3">
+                                                                <label for class="form-label fw-medium mb-2">End Date</label>
                                                             <div class="input-field input-field-setting border-2" id="input-field-ended-date">
                                                                 <i class="fa-regular fa-pen-to-square"></i>
-                                                                <input type="date" id="ended-date" class="" value="2025-02-12" />
+                                                                <input type="date" id="ended-date" class=""  />
+                                                            </div>
+                                                            <div
+                                                        class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100"
+                                                        id="invalid_feedback_end_date">
+                                                        <i
+                                                            class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                                                        <div class="ms-2 ">Invalid email.</div>
+                                                    </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 col-lg-5 col-xxl-4">
-                                                            <label for class="form-label fw-medium mb-2">End Time</label>
+                                                            <div class="mb-3">
+                                                                <label for class="form-label fw-medium mb-2">End Time</label>
                                                             <div class="input-field input-field-setting border-2" id="input-field-end-time">
                                                                 <i class="fa-regular fa-pen-to-square"></i>
-                                                                <input type="time" id="end-time" class="" value="18:00" />
+                                                                <input type="time" id="end-time" class=""  />
+                                                            </div>
+                                                            <div
+                                                        class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100"
+                                                        id="invalid_feedback_end_time">
+                                                        <i
+                                                            class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                                                        <div class="ms-2 ">Invalid email.</div>
+                                                    </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -290,14 +329,15 @@
                                             <div class="row">
 
                                                 <div class="col-md-12" id="block-location">
-                                                    <label for
+                                                    <div class="mb-3">
+                                                        <label for
                                                         class="form-label fw-medium mb-2">Location</label>
                                                     <div class="input-field input-field-setting border-2"
                                                         id="input-field-location">
                                                         <i class="fa-regular fa-pen-to-square"></i>
                                                         <input type="text" placeholder="Street 2002, PP"
                                                             id="location" class=""
-                                                            autofocus value="sdckjnjkxb" />
+                                                            autofocus  />
                                                     </div>
                                                     <div
                                                         class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100"
@@ -305,6 +345,7 @@
                                                         <i
                                                             class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
                                                         <div class="ms-2 ">Invalid email.</div>
+                                                    </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -322,7 +363,8 @@
                                                 <p class="p-0 m-0"><span class="fw-medium">Tip:</span> Give a short attractive and full detail description about your event.</p>
                                             </div>
                                             <div class="col-md-12">
-                                                <label for
+                                                <div class="mb-3">
+                                                    <label for
                                                     class="form-label fw-medium mb-2">Short Description</label>
                                                 <div class="input-field input-field-setting border-2"
                                                     id="input-field-short-description">
@@ -338,9 +380,11 @@
                                                         class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
                                                     <div class="ms-2 ">Invalid email.</div>
                                                 </div>
+                                                </div>
                                             </div>
                                             <div class="">
-                                                <label for
+                                                <div class="mb-3">
+                                                    <label for
                                                     class="form-label fw-medium mb-2 mt-2">Description Detail</label>
                                             
                                                 <div class="description mb-3 overflow-hidden" id="input-field-description" style="border: 1px solid var(--c-brand);border-radius: 8px;">
@@ -352,6 +396,7 @@
                                                     <i
                                                         class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
                                                     <div class="ms-2 ">Invalid email.</div>
+                                                </div>
                                                 </div>
                                             </div>
                                             
@@ -398,6 +443,7 @@
                                                 <h5 class="fw-semibold text-brand mb-3">General Admission</h5>
                                                 <div class="row gx-4 gy-0">
                                                     <div class="d-none">
+                                                        <input type="hidden" id="defaultTicketCategoryId">
                                                         <label class="form-label fw-medium mb-2">Name</label>
                                                         <div class="input-field input-field-setting mb-3" id="input-field-defaultTicketCategoryName">
                                                             <i class="fa-regular fa-pen-to-square"></i>
@@ -408,7 +454,7 @@
                                                             <div class="ms-2 ">Invalid email.</div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-4">
+                                                    <div class="col-xl-5 mb-3">
                                                         <label class="form-label fw-medium mb-2">Price</label>
                                                         <div class="input-field input-field-setting border-2" id="input-field-defaultTicketPrice">
                                                             <i class="fa-solid fa-dollar-sign"></i>
@@ -420,7 +466,7 @@
                                                         </div>
                                                         
                                                     </div>
-                                                    <div class="col-4">
+                                                    <div class="col-xl-5">
                                                         <label class="form-label fw-medium mb-2">Capacity</label>
                                                         <div class="input-field input-field-setting border-2" id="input-field-defaultTicketCapacity">
                                                             <i class="fa-solid fa-ticket"></i>
@@ -580,6 +626,8 @@
             <div class="preloader-section section-right"></div>
         </div>
       </main>
+
+      <div style="width: 100%; height: 150px;"></div>
       
       
       <!--For icons: https://fonts.google.com/icons-->
@@ -592,551 +640,11 @@
         <div class="preloader-section section-right"></div>
     </div>
     <%- include("../../partials/script.ejs") %>
-    <script>
-        let ticketCount = 0;
-const ticketWrapper = document.getElementById("ticket-wrapper");
-const toggleTicketBtn = document.getElementById("toggle-ticket-btn");
-const customTicketSection = document.getElementById("custom-ticket-section");
-const defaultTicket = document.getElementById("default-ticket");
-
-// Function to toggle between default and custom ticket sections
-toggleTicketBtn.addEventListener("click", function () {
-    if (customTicketSection.style.display === "none" || customTicketSection.style.display === "") {
-        // Switch to Custom Ticket Category Mode
-        defaultTicket.style.display = "none";
-        customTicketSection.style.display = "block";
-        toggleTicketBtn.innerHTML = `<i class="fa-solid fa-arrow-left"></i>&nbsp; Back to Default Ticket Category`;
-
-        // Add the first custom ticket category automatically
-        if (ticketCount === 0) createNewTicketCategory();
-    } else {
-        // Switch Back to Default Ticket Category Mode
-        customTicketSection.style.display = "none";
-        defaultTicket.style.display = "block";
-        toggleTicketBtn.innerHTML = `<i class="fa-solid fa-plus"></i>&nbsp; Create Your Own Ticket Categories`;
-
-        // Remove all custom ticket categories
-        ticketWrapper.innerHTML = "";
-        ticketCount = 0;
-    }
-});
-
-
-function createNewTicketCategory() {
-    ticketCount++;
-    let ticketContainer = document.createElement("div");
-    ticketContainer.className = "ticket-container mb-4";
-    ticketContainer.id = `ticket${ticketCount}`;
-
-    ticketContainer.innerHTML = `
-        <div class="d-flex align-items-center justify-content-between mb-3 mt-4">
-            <h5 class="fw-semibold text-brand mb-0">Ticket Category ${ticketCount}</h5>
-            <button class="btn btn-danger" onclick="deleteTicketCategory('ticket${ticketCount}')">
-                <i class="fa-solid fa-trash"></i>
-            </button>
-        </div>
-        <div class="">
-            <label class="form-label fw-medium mb-2">Name</label>
-            <div class="input-field input-field-setting mb-3" id="input-field-ticketCategoryName${ticketCount}">
-                <i class="fa-regular fa-pen-to-square"></i>
-                <input type="text" id="ticketCategoryName${ticketCount}" placeholder="e.g. VIP, Normal">
-            </div>
-            <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_ticketCategoryName${ticketCount}">
-                <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
-                <div class="ms-2 ">Invalid email.</div>
-            </div>
-        </div>
-        <div class="">
-            <label class="form-label fw-medium mb-2">Price</label>
-            <div class="input-field input-field-setting mb-3" id="input-field-ticketPrice${ticketCount}">
-                <i class="fa-solid fa-dollar-sign"></i>
-                <input type="number" id="ticketPrice${ticketCount}" placeholder="Enter price ($)">
-            </div> 
-            <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_ticketPrice${ticketCount}">
-                <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
-                <div class="ms-2 ">Invalid email.</div>
-            </div>
-        </div>
-        <div class="">
-            <label class="form-label fw-medium mb-2">Capacity</label>
-            <div class="input-field input-field-setting mb-3" id="input-field-ticketCapacity${ticketCount}">
-                <i class="fa-solid fa-ticket"></i>
-                <input type="number" id="ticketCapacity${ticketCount}" placeholder="Enter ticket capacity">
-            </div>
-            <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_ticketCapacity${ticketCount}">
-                <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
-                <div class="ms-2 ">Invalid email.</div>
-            </div>
-        </div>
-    `;
-
-    ticketWrapper.appendChild(ticketContainer);
-}
-
-// Function to delete a ticket category
-function deleteTicketCategory(ticketId) {
-    let ticketToRemove = document.getElementById(ticketId);
-    if (ticketToRemove) {
-        ticketToRemove.remove();
-
-
-
-        // If all custom tickets are removed, revert to Default Ticket Category mode
-        if (document.querySelectorAll(".ticket-container").length == 0) {
-            toggleTicketBtn.innerHTML = `<i class="fa-solid fa-plus"></i> Create Your Own Ticket Categories`;
-            customTicketSection.style.display = "none";
-            defaultTicket.style.display = "block";
-            ticketCount = 0;
-        }else{
-            ticketCount = document.querySelectorAll(".ticket-container").length
-
-            document.querySelectorAll(".ticket-container").forEach((ticket, i)=> {
-                let id = ticket.id.replace("ticket", "");
-            let title = document.getElementById(`ticketCategoryName${id}`).value;
-            let price = document.getElementById(`ticketPrice${id}`).value;
-            let capacity = document.getElementById(`ticketCapacity${id}`).value;
-
-            ticket.id = `ticket${i+1}`;
-
-            ticket.innerHTML = `
-            <div class="d-flex align-items-center justify-content-between mb-3 mt-4">
-            <h5 class="fw-semibold text-brand mb-0">Ticket Category ${i+1}</h5>
-            <button class="btn btn-danger" onclick="deleteTicketCategory('ticket${i+1}')">
-                <i class="fa-solid fa-trash"></i>
-            </button>
-        </div>
-        <div class="">
-            <label class="form-label fw-medium mb-2">Name</label>
-            <div class="input-field input-field-setting mb-3" id="input-field-ticketCategoryName${i+1}">
-                <i class="fa-regular fa-pen-to-square"></i>
-                <input type="text" id="ticketCategoryName${i+1}" value="${title}" placeholder="e.g. VIP, Normal">
-            </div>
-            <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_ticketCategoryName${i+1}">
-                <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
-                <div class="ms-2 ">Invalid email.</div>
-            </div>
-        </div>
-        <div class="">
-            <label class="form-label fw-medium mb-2">Price</label>
-            <div class="input-field input-field-setting mb-3" id="input-field-ticketPrice${i+1}">
-                <i class="fa-solid fa-dollar-sign"></i>
-                <input type="number" id="ticketPrice${i+1}" value="${price}" placeholder="Enter price ($)">
-            </div> 
-            <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_ticketPrice${i+1}">
-                <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
-                <div class="ms-2 ">Invalid email.</div>
-            </div>
-        </div>
-        <div class="">
-            <label class="form-label fw-medium mb-2">Capacity</label>
-            <div class="input-field input-field-setting mb-3" id="input-field-ticketCapacity${i+1}">
-                <i class="fa-solid fa-ticket"></i>
-                <input type="number" id="ticketCapacity${i+1}" value="${capacity}" placeholder="Enter ticket capacity">
-            </div>
-            <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_ticketCapacity${i+1}">
-                <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
-                <div class="ms-2 ">Invalid email.</div>
-            </div>
-        </div>
-            `
-            })
-        }
-    }
-}
-
-
-    </script>
+    
     <script src="/js/events/update-event.js">
     </script>
     
-    <script>
-let agendaIdCounter = 0;  // Keep track of the current agenda count
-const agendaWrapper = document.getElementById("agenda-wrapper");
-
-function createNewAgenda() {
-    if(!(document.getElementById('skipAgendaMessage').classList.contains("d-none"))){
-        document.getElementById('skipAgendaMessage').classList.add('d-none')
-    }
-    agendaIdCounter += 1;  // Increment the counter to get a unique agenda ID
-
-    let agendaContainer = document.createElement("div");
-    agendaContainer.className = "agenda-container mb-4";
-    agendaContainer.id = `agenda${agendaIdCounter}`;  // Use the current counter for the ID
-
-    agendaContainer.innerHTML = `
-        <div class="d-flex align-items-center justify-content-between mb-3 mt-4">
-            <h5 class="fw-semibold text-brand mb-0">Agenda ${agendaIdCounter}</h5>
-            <button class="btn btn-danger" style="height:auto !important;" onclick="deleteAgenda('agenda${agendaIdCounter}')"><i class="fa-solid fa-trash"></i></button>
-        </div>
-        <div class="">
-            <label for class="form-label fw-medium mb-2">Title</label>
-            <div class="input-field input-field-setting agenda mb-3" id="input-field-agenda-title-${agendaIdCounter}">
-                <i class="fa-regular fa-pen-to-square"></i>
-                <input type="text" id="agendaTitle${agendaIdCounter}" placeholder="Title">
-            </div>
-            <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_agendaTitle${agendaIdCounter}">
-                <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
-                <div class="ms-2 ">Invalid email.</div>
-            </div>
-        </div>
-        <div class="">
-            <label for class="form-label fw-medium mb-2">Description</label>
-            <div class="input-field input-field-setting agenda mb-3" id="input-field-agenda-desc-${agendaIdCounter}">
-                <i class="fa-regular fa-pen-to-square"></i>
-                <input type="text" id="agendaDesc${agendaIdCounter}" placeholder="Description">
-            </div>
-            <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_agendaDesc${agendaIdCounter}">
-                <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
-                <div class="ms-2 ">Invalid email.</div>
-            </div>
-        </div>
-        <div class="row gx-4 gy-0">
-            <div class="col-6 col-lg-4 col-xxl-3">
-                <label for class="form-label fw-medium mb-2">Start Time</label>
-                <div class="input-field input-field-setting border-2" id="input-field-agenda-start-time-${agendaIdCounter}">
-                    <i class="fa-regular fa-pen-to-square"></i>
-                    <input type="time" id="agendaStarttime${agendaIdCounter}" class="" autofocus />
-                </div>
-                <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_agendaStarttime${agendaIdCounter}">
-                    <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
-                    <div class="ms-2 ">Invalid email.</div>
-                </div>
-            </div>
-            <div class="col-6 col-lg-4 col-xl-3">
-                <label for class="form-label fw-medium mb-2">End Time</label>
-                <div class="input-field input-field-setting border-2" id="input-field-agenda-end-time-${agendaIdCounter}">
-                    <i class="fa-regular fa-pen-to-square fw-light"></i>
-                    <input type="time" id="agendaEndtime${agendaIdCounter}" class="" autofocus />
-                </div>
-                <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_agendaEndtime${agendaIdCounter}">
-                    <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
-                    <div class="ms-2 ">Invalid email.</div>
-                </div>
-            </div>
-        </div>
-    `;
+   
     
-    agendaWrapper.appendChild(agendaContainer);
-}
-
-function deleteAgenda(agendaId) {
-    let agendaToRemove = document.getElementById(agendaId);
-    if (agendaToRemove) {
-        agendaToRemove.remove();
-    }
-
-    // After deleting all agendas, reset the agendaIdCounter to the last maximum agenda number
-    if (document.querySelectorAll(".agenda-container").length === 0) {
-        agendaIdCounter = 0;  // Reset to start fresh
-        if(document.getElementById('skipAgendaMessage').classList.contains("d-none")){
-            document.getElementById('skipAgendaMessage').classList.remove('d-none')
-        }
-    }else{
-        agendaIdCounter = document.querySelectorAll(".agenda-container").length
-         document.querySelectorAll(".agenda-container").forEach((agenda, i)=>{
-            let id = agenda.id.replace("agenda", "");
-            let title = document.getElementById(`agendaTitle${id}`).value;
-            let description = document.getElementById(`agendaDesc${id}`).value;
-            let startTime = document.getElementById(`agendaStarttime${id}`).value;
-            let endTime = document.getElementById(`agendaEndtime${id}`).value;
-
-            agenda.id = `agenda${i+1}`
-            agenda.innerHTML = `
-            <div class="d-flex align-items-center justify-content-between mb-3 mt-4">
-            <h5 class="fw-semibold text-brand mb-0">Agenda ${i+1}</h5>
-            <button class="btn btn-danger" style="height:auto !important;" onclick="deleteAgenda('agenda${i+1}')"><i class="fa-solid fa-trash"></i></button>
-        </div>
-        <div class="">
-            <label for class="form-label fw-medium mb-2">Title</label>
-            <div class="input-field input-field-setting agenda mb-3" id="input-field-agenda-title-${i+1}">
-                <i class="fa-regular fa-pen-to-square"></i>
-                <input type="text" id="agendaTitle${i+1}" value="${title}" placeholder="Title">
-            </div>
-            <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_agendaTitle${i+1}">
-                <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
-                <div class="ms-2 ">Invalid email.</div>
-            </div>
-        </div>
-        <div class="">
-            <label for class="form-label fw-medium mb-2">Description</label>
-            <div class="input-field input-field-setting agenda mb-3" id="input-field-agenda-desc-${i+1}">
-                <i class="fa-regular fa-pen-to-square"></i>
-                <input type="text" id="agendaDesc${i+1}" value="${description}" placeholder="Description">
-            </div>
-            <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_agendaDesc${i+1}">
-                <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
-                <div class="ms-2 ">Invalid email.</div>
-            </div>
-        </div>
-        <div class="row gx-4 gy-0">
-            <div class="col-6 col-lg-4 col-xxl-3">
-                <label for class="form-label fw-medium mb-2">Start Time</label>
-                <div class="input-field input-field-setting border-2" id="input-field-agenda-start-time-${i+1}">
-                    <i class="fa-regular fa-pen-to-square"></i>
-                    <input type="time" id="agendaStarttime${i+1}" value="${startTime}" class="" autofocus />
-                </div>
-                <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_agendaStarttime${i+1}">
-                    <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
-                    <div class="ms-2 ">Invalid email.</div>
-                </div>
-            </div>
-            <div class="col-6 col-lg-4 col-xl-3">
-                <label for class="form-label fw-medium mb-2">End Time</label>
-                <div class="input-field input-field-setting border-2" id="input-field-agenda-end-time-${i+1}">
-                    <i class="fa-regular fa-pen-to-square fw-light"></i>
-                    <input type="time" id="agendaEndtime${i+1}" value="${endTime}" class="" autofocus />
-                </div>
-                <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_agendaEndtime${i+1}">
-                    <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
-                    <div class="ms-2 ">Invalid email.</div>
-                </div>
-            </div>
-        </div>
-            `;
-            // console.log(i);
-            
-         })
-    }
-}
-
-
-function getAgendaData() {
-    let agendas = [];
-    let isValid = true;
-
-    document.querySelectorAll(".agenda-container").forEach(agenda => {
-        let id = agenda.id.replace("agenda", "");
-        let title = document.getElementById(`agendaTitle${id}`).value.trim();
-        let desc = document.getElementById(`agendaDesc${id}`).value.trim();
-        let startTime = document.getElementById(`agendaStarttime${id}`).value;
-        let endTime = document.getElementById(`agendaEndtime${id}`).value;
-
-        // Clear previous errors
-        document.getElementById(`invalid_feedback_agendaTitle${id}`).style.display = "none";
-        document.getElementById(`invalid_feedback_agendaDesc${id}`).style.display = "none";
-        document.getElementById(`invalid_feedback_agendaStarttime${id}`).style.display = "none";
-        document.getElementById(`invalid_feedback_agendaEndtime${id}`).style.display = "none";
-
-        // Validate fields
-        if (!title) {
-            document.getElementById(`invalid_feedback_agendaTitle${id}`).style.display = "flex";
-            isValid = false;
-        }
-        if (!desc) {
-            document.getElementById(`invalid_feedback_agendaDesc${id}`).style.display = "flex";
-            isValid = false;
-        }
-        if (!startTime) {
-            document.getElementById(`invalid_feedback_agendaStarttime${id}`).style.display = "flex";
-            isValid = false;
-        }
-        if (!endTime) {
-            document.getElementById(`invalid_feedback_agendaEndtime${id}`).style.display = "flex";
-            isValid = false;
-        }
-
-        if (isValid) {
-            agendas.push({ id, title, desc, startTime, endTime });
-        }
-    });
-
-    return isValid ? agendas : null;
-}
-
-
-function saveAgendaToAPI() {
-    let agendas = getAgendaData();
-    if (!agendas) {
-        console.error("Validation failed. Please fill in all required fields.");
-        return;
-    }
-
-    fetch("/api/agenda", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ agendas })
-    })
-    .then(response => response.json())
-    .then(data => console.log("Agenda saved successfully:", data))
-    .catch(error => console.error("Error saving agenda:", error));
-}
-
-function updateAgenda(id, updatedData) {
-    fetch(`/api/agenda/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updatedData)
-    })
-    .then(response => response.json())
-    .then(data => console.log("Agenda updated successfully:", data))
-    .catch(error => console.error("Error updating agenda:", error));
-}
-
-function deleteAgendaFromAPI(id) {
-    fetch(`/api/agenda/${id}`, {
-        method: "DELETE"
-    })
-    .then(response => response.json())
-    .then(data => console.log("Agenda deleted successfully:", data))
-    .catch(error => console.error("Error deleting agenda:", error));
-}
-
-function fetchAgendasFromAPI() {
-    fetch("/api/agenda")
-    .then(response => response.json())
-    .then(data => console.log("Fetched Agendas:", data))
-    .catch(error => console.error("Error fetching agenda:", error));
-}
-
-    </script>
-    <script>
-        new TomSelect("#select-category",{
-	maxItems: 3
-});
-//         new TomSelect("#select-type",{
-// 	maxItems: 1
-// });
-        const toggleButton = document.getElementById("toggle-btn");
-const sidebar = document.getElementById("sidebar");
-
-function toggleSidebar() {
-  sidebar.classList.toggle("close");
-  toggleButton.classList.toggle("rotate");
-
-  closeAllSubMenus();
-}
-
-function toggleSubMenu(button) {
-  if (!button.nextElementSibling.classList.contains("show")) {
-    closeAllSubMenus();
-  }
-
-  button.nextElementSibling.classList.toggle("show");
-  button.classList.toggle("rotate");
-
-  if (sidebar.classList.contains("close")) {
-    sidebar.classList.toggle("close");
-    toggleButton.classList.toggle("rotate");
-  }
-}
-
-function closeAllSubMenus() {
-  Array.from(sidebar.getElementsByClassName("show")).forEach((ul) => {
-    ul.classList.remove("show");
-    ul.previousElementSibling.classList.remove("rotate");
-  });
-}
-
-// Upload File in create event
-let fileInput = document.getElementById('fileUpload');
-let fileNameDisplay = document.getElementById('fileName');
-let btnRemoveImgFile = document.getElementById('btnRemoveImgFile');
-let imageDisplay = document.getElementById('imageDisplay');
-
-// Update the file name display when a file is selected
-fileInput.addEventListener('change', function () {
-    if (fileInput.files.length > 0) {
-        fileNameDisplay.textContent = fileInput.files[0].name;
-
-        let reader = new FileReader();
-        reader.onload = function (event) {
-            imageDisplay.src = event.target.result; // Set the image source
-            imageDisplay.style.display = 'block';   // Display the image
-        }
-        reader.readAsDataURL(fileInput.files[0]); // Read the file as a data URL
-
-    }
-    document.getElementById('imgInputBtn').style.display = 'none';
-    document.getElementById('imgIcon').style.display = 'none';
-    btnRemoveImgFile.style.display = 'block';
-});
-
-btnRemoveImgFile.addEventListener('click', function () {
-    fileInput.value = '';
-    imageDisplay.src ='';
-    imageDisplay.style.display = 'none';
-    fileNameDisplay.textContent = 'No file chosen';
-    btnRemoveImgFile.style.display = 'none';
-    document.getElementById('imgInputBtn').style.display = 'block';
-    document.getElementById('imgIcon').style.display = 'block';
-});
-
-btnRemoveImgFile.click();
-
-// style input ts 
-document.querySelectorAll(".ts-wrapper").forEach(input=>{
-    input.classList.add("input-field", "input-field-setting", "d-flex" , "align-items-center");
-    input.id = "input-field-event-categories"
-})
-document.querySelectorAll(".ts-wrapper .ts-control").forEach(input=>{
-    input.classList.add("border-0")
-})
-
-document.querySelector(".ts-wrapper .ts-control").classList.add("border-0");
-
-// console.log(document.getElementById("select-category").selectedOptions);
-
-const parent = document.querySelectorAll(".ts-wrapper.input-field"); // Get the parent element
-    console.log(parent)
-    // if (!parent) return; // Ensure the parent exists
- parent.forEach(p=>{
-     const newNode = document.createElement("i"); // Create a new element
-     newNode.classList.add("fa-solid", "fa-list")
-     newNode.style.marginBottom = "2px";
- 
-     // Insert the new node as the first child
-     p.insertBefore(newNode, p.firstChild);
- })
-
-// --------------------------------------------------------
-
-// Upload photo in create event in description section 
-let khqrPhotoUpload = document.getElementById('khqrPhotoUpload');
-let KhqrPhotoName = document.getElementById('KhqrPhotoName');
-let btnRemoveKhqrImg = document.getElementById('btnRemoveKhqrImg');
-let KhqrPhotoDisplay = document.getElementById('KhqrPhotoDisplay');
-
-
-btnRemoveKhqrImg.style.display = 'none';
-KhqrPhotoDisplay.style.display = 'none';
-// Upload photo in create event in Ticket section (Khqr)
-khqrPhotoUpload.addEventListener('change', function () {
-    if (khqrPhotoUpload.files.length > 0) {
-        KhqrPhotoName.textContent = khqrPhotoUpload.files[0].name;
-
-        let reader = new FileReader();
-        reader.onload = function (event) {
-            KhqrPhotoDisplay.src = event.target.result; // Set the image source
-            KhqrPhotoDisplay.style.display = 'block';   // Display the image
-        }
-        reader.readAsDataURL(khqrPhotoUpload.files[0]); // Read the file as a data UR-L
-        isSkipStepPayment = true;
-    }else{
-        isSkipStepPayment = false;
-    }
-    document.getElementById('khqrPhotoInputBtn').style.display = 'none';
-    document.getElementById('khqrPhotoIcon').style.display = 'none';
-    btnRemoveKhqrImg.style.display = 'block';
-});
-
-function removeImageFile() {
-    khqrPhotoUpload.value = ''; // Clear the file input
-    KhqrPhotoName.textContent = 'No file chosen';
-}
-
-btnRemoveKhqrImg.addEventListener('click', function () {
-    khqrPhotoUpload.value = '';
-    KhqrPhotoDisplay.src = "";
-    KhqrPhotoDisplay.style.display = 'none';
-    KhqrPhotoName.textContent = 'No file chosen';
-    btnRemoveKhqrImg.style.display = 'none';
-    document.getElementById('khqrPhotoInputBtn').style.display = 'block';
-    document.getElementById('khqrPhotoIcon').style.display = 'block';
-});
-btnRemoveKhqrImg.click();
-// Example usage:
-
-
-    </script>
 </body>
 </html>

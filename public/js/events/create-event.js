@@ -192,7 +192,10 @@ submitBtn.addEventListener("click", async () => {
     showToast(true, "Created Event Successfully.");
 
 
-    location.href = "/event/create-event"
+    setTimeout(()=>{
+
+      window.location.href = "/event/create";
+    }, 1500)
   } catch (error) {
     showToast();
     console.error("Error:", error);
@@ -783,3 +786,22 @@ function checkStep() {
 
   return valid;
 }
+
+async function getCategories() {
+  try {
+    const result = await axiosInstance.get("/admin/event/category/view");
+    const categories = result.data.data;
+    console.log(categories);
+
+    let categoriesHtml = ''
+    categories.forEach(c=>{
+      categoriesHtml+=`
+      <option value="${c.id}">${c.name}</option>`;
+    })
+    document.getElementById('select-category').innerHTML = categoriesHtml
+  } catch (error) {
+    console.log(error);
+    showToast()
+  }
+}
+getCategories()

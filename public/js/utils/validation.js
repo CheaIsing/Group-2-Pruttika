@@ -231,7 +231,52 @@ const vEventAgenda = Joi.object({
   }),
 }).options({ abortEarly: false });
 
+const vUpdateEventAgenda = Joi.object({
+  id: Joi.alternatives().try(
+    Joi.number().integer().min(0),  // or just Joi.number().integer() if negative is allowed
+    Joi.string().valid('')
+  ),
+  title: Joi.string().trim().min(3).max(50).required().messages({
+    "string.empty": "Title is required.",
+    "string.min": "Title must be at least 3 characters.",
+    "string.max": `Title must be at most {50} characters long`,
+  }),
+  description: Joi.string().trim().min(5).max(100).required().messages({
+    "string.empty": "Description is required.",
+    "string.min": "Description must be at least 5 characters.",
+    "string.max": `Title must be at most 100 characters long`,
+  }),
+  start_time: Joi.string().trim().required().messages({
+    "string.empty": "Start time is required.",
+  }),
+  end_time: Joi.string().trim().required().messages({
+    "string.empty": "End time is required.",
+  }),
+}).options({ abortEarly: false });
+
 const vEventTickets = Joi.object({
+  type: Joi.string().trim().min(3).max(100).required().messages({
+    "string.empty": "Ticket type is required.",
+    "string.min": "Ticket type must be at least 3 characters.",
+  }),
+  price: Joi.number().min(0).required().messages({
+    "number.base": "Ticket price must be a number.",
+    "number.min": "Ticket price cannot be negative.",
+    "any.required": "Ticket price is required.",
+  }),
+  ticket_opacity: Joi.number().integer().min(1).required().messages({
+    "number.base": "Ticket capacity must be a number.",
+    "number.integer": "Ticket capacity must be an integer.",
+    "number.min": "Ticket capacity must be at least 1.",
+    "any.required": "Ticket capacity is required.",
+  }),
+}).options({ abortEarly: false });
+
+const vUpdateEventTickets = Joi.object({
+  id: Joi.alternatives().try(
+    Joi.number().integer().min(0),  // or just Joi.number().integer() if negative is allowed
+    Joi.string().valid('')
+  ),
   type: Joi.string().trim().min(3).max(100).required().messages({
     "string.empty": "Ticket type is required.",
     "string.min": "Ticket type must be at least 3 characters.",

@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <%-include('../../partials/head.ejs') %>
+    <style>
+    .event-details-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .icon-box {
+      font-size: 1.25rem;
+      width: 3.25rem;
+      height: 3.25rem;
+      text-align: center;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+    justify-content: center;
+    background-color: #F0F8FA;
+    }
+    .info-title {
+      margin-bottom: 0;
+      font-weight: 500;
+      font-size: 18px;
+      color: #333333!important;
+    }
+    .info-text {
+      margin-bottom: 0;
+      color: #6c757d; /* a muted text color */
+    }
+    .event-hero-banner {
+            position: relative;
+            height: 40vh; /* Adjust height as needed */
+            background-image: url('https://images.pexels.com/photos/2747449/pexels-photo-2747449.jpeg?cs=srgb&dl=pexels-wolfgang-1002140-2747449.jpg&fm=jpg'); /* Replace with your image URL */
+            background-size: cover;
+            background-position: center;
+        }
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+    
+</style>
+    <body>
+        <div class="event-hero-banner d-flex align-items-center justify-content-center">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h5></h5>
+                <span class="badge rounded-pill text-white bg-brand fs-6 fw-medium mb-3" id="snippet-date">Fri, 23 Feb 2025</span>
+                <h1 class="fs-2" id="title">Lorem Ipsum Dolor Sit Amet</h1>
+                <p id="short-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla quas perferendis.</p>
+                
+            </div>
+        </div>
+        <div class="container py-5">
+            <div class="row g-4">
+                <div class="col-12 col-lg-8 order-2 order-lg-1">
+                    <div class="event-image">
+                        <img class="rounded-3"
+                            src="https://images.pexels.com/photos/2747449/pexels-photo-2747449.jpeg?cs=srgb&dl=pexels-wolfgang-1002140-2747449.jpg&fm=jpg"
+                            alt>
+                    </div>
+                    <div class="event-description fs-18 py-3" id="desc">
+                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing
+                            elit. Nulla quasi praesentium omnis maxime
+                            placeat facere! Doloribus dolorem iure illum
+                            blanditiis, velit, eligendi omnis nostrum atque
+                            deleniti ipsam dolores quibusdam incidunt. Lorem
+                            ipsum dolor, sit amet consectetur adipisicing
+                            elit. Ratione magni distinctio laboriosam sunt dolor
+                            rerum ipsam dolore reiciendis ut, suscipit
+                            corporis, dolorem nam! Sapiente dolorem nesciunt
+                            sunt tempore architecto aut?Lorem ipsum dolor
+                            sit amet consectetur, adipisicing elit. Voluptas
+                            esse debitis laboriosam nostrum incidunt vero
+                            excepturi magni cupiditate ad consectetur aspernatur
+                            rem nulla, corporis, iure repudiandae
+                            doloremque ratione cumque numquam?
+                            Lorem ipsum dolor sit, amet consectetur adipisicing
+                            elit. Nulla quasi praesentium omnis maxime
+                            placeat facere! Doloribus dolorem iure illum
+                            blanditiis, velit, eligendi omnis nostrum atque
+                            deleniti ipsam dolores quibusdam incidunt. Lorem
+                            ipsum dolor, sit amet consectetur adipisicing
+                            elit. Ratione magni distinctio laboriosam sunt dolor
+                            rerum ipsam dolore reiciendis ut, suscipit
+                            corporis, dolorem nam! Sapiente dolorem nesciunt
+                            sunt tempore architecto aut?Lorem ipsum dolor
+                            sit amet consectetur, adipisicing elit. Voluptas
+                            esse debitis laboriosam nostrum incidunt vero
+                            excepturi magni cupiditate ad consectetur aspernatur
+                            rem nulla, corporis, iure repudiandae
+                            doloremque ratione cumque numquam?
+                            doloremque ratione cumque numquam?
+                            Lorem ipsum dolor sit, amet consectetur adipisicing
+                            elit. Nulla quasi praesentium omnis maxime
+                            placeat facere! Doloribus dolorem iure illum
+                            blanditiis, velit, eligendi omnis nostrum atque
+                            deleniti ipsam dolores quibusdam incidunt. Lorem
+                            ipsum dolor, sit amet consectetur adipisicing
+                            elit. Ratione magni distinctio laboriosam sunt dolor
+                            rerum ipsam dolore reiciendis ut, suscipit
+                            corporis, dolorem nam! Sapiente dolorem nesciunt
+                            sunt tempore architecto aut?Lorem ipsum dolor
+                            sit amet consectetur, adipisicing elit. Voluptas
+                            esse debitis laboriosam nostrum incidunt vero
+                            excepturi magni cupiditate ad consectetur aspernatur
+                            rem nulla, corporis, iure repudiandae
+                            doloremque ratione cumque numquam?
+                        </p>
+
+                    </div>
+                </div>
+                <div class="col-12 col-lg-4 order-1 order-lg-2">
+                    <div class="event-details-card">
+                        <!-- Organizer Info -->
+
+                        <!-- Section Heading -->
+                        <div
+                            class="d-flex align-items-center justify-content-between">
+                            <h5 class="fw-medium mb-0">Event Details</h5>
+                            <div>
+                                <!-- Heart button -->
+                                <div class="d-flex align-items-center">
+                                    <div class="me-2 btn-wishlist" 
+                                        data-bs-toggle="tooltip"
+                                        data-bs-placement="top"
+                                        title="Add to Wishlist"
+                                        data-bs-custom-class="custom-tooltip">
+                                        <i class="fa-regular fa-heart fs-5"></i>
+                                        </div>
+                                    <div class="btn-copy active ms-1" 
+                                        data-bs-toggle="tooltip"
+                                        data-bs-placement="top"
+                                        data-bs-custom-class="custom-tooltip"
+                                        title="Copy Link" href="#" id="btn-copylink-event"><i class="fa-regular fa-copy fs-5"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+
+                        <!-- Details with icons -->
+                        <div class="row text-start">
+                            <div class="col-12 d-flex align-items-center mb-3">
+                                <div class="icon-box text-brand me-2">
+                                    <i class="fa-solid fa-list"></i>
+                                </div>
+                                <div class=" ">
+                                    <p class="info-text">Type</p>
+                                    <p id="event-type" class="info-title">27 Feb
+                                        2025</p>
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex align-items-center mb-3">
+                                <div class="icon-box text-brand me-2">
+                                    <i class="fa-regular fa-calendar"></i>
+                                </div>
+                                <div class=" ">
+                                    <p class="info-text">Date</p>
+                                    <p id="date" class="info-title">27 Feb
+                                        2025</p>
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex align-items-center mb-3">
+                                <div class="icon-box text-brand me-2">
+                                    <i class="fa-regular fa-clock"></i>
+                                </div>
+                                <div class=" ">
+                                    <p class="info-text ">Time</p>
+                                    <p id="time" class="info-title">8:30 pm -
+                                        11:30 pm</p>
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex align-items-center mb-3"
+                                id="location-container">
+                                <div class="icon-box text-brand me-2">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <div class=" ">
+                                    <p class="info-text ">Location</p>
+                                    <p id="location" class="info-title">Phoenix
+                                        Arena</p>
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex align-items-center mb-3">
+                                <div class="icon-box text-brand me-2">
+                                    <i class="fa-solid fa-tag"></i>
+                                </div>
+                                <div class=" ">
+                                    <p class="info-text ">Categories</p>
+                                    <p id="category" class="info-title">Party</p>
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex align-items-center mb-3"
+                                id="ticket-category-container">
+                                <div class="icon-box text-brand me-2">
+                                    <i class="fa-solid fa-ticket"></i>
+                                </div>
+                                <div class=" ">
+                                    <p class="info-text ">Ticket Categories</p>
+                                    <p id="ticket-category"
+                                        class="info-title">5</p>
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex align-items-center">
+                                <div class="icon-box text-brand me-2">
+                                    <i class="fa-solid fa-user-group"></i>
+                                </div>
+                                <div class=" ">
+                                    <p class="info-text ">Ticket Capacity</p>
+                                    <p id="capacity" class="info-title">250</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="event-details-card mt-4">
+                        <div class="d-flex">
+                            <h5 class="mb-3">Posted By&nbsp;</h5><p class="text-muted">&bull;&nbsp;<small  id="created-at"></small></p>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between">
+
+                            <!-- Organizer avatar -->
+                            <img
+                                src="/uploads/default.jpg"
+                                alt="Organizer"
+                                class="rounded-circle me-3"
+                                width="50"
+                                height="50" id="creator-img"/>
+                            <!-- Organizer name & role -->
+
+                            <div>
+                                <h5 class="mb-0" id="creator-name">Event Organizer</h5>
+                                <p class="text-muted mb-0">
+                                    Event Organizer</p>
+                            </div>
+
+                            
+                                <button type="button" class="btn btn-brand ms-auto">Follow</button>
+                            
+                        </div>
+                    </div>
+
+                    <div class="card card-style mt-4"
+                        id="purchase-ticket-container" style="background-color: #ffeef7e7;border: 1px solid #ffd5ec9c;box-shadow: none;">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <div class="">
+                                <h5 class="mb-0">Tickets</h5>
+                            <p class="info-text mb-0">Event Entry</p>
+                            </div>
+                            
+                            <div class="icon-box text-brand me-2" style="width: 3rem; height: 3rem; font-size: 1.2rem;background-color: #FFD7ED;">
+                                <i class="fa-solid fa-dollar-sign"></i>
+                            </div>
+                        </div>
+                        <div
+                            class="card-purchaseTicket rounded-2 bg-transparent">
+                            <div
+                                class=" fw-semibold mb-3 text-brand">
+                                <h4 id="range-price">$0.00 - $200.00</h4>
+                            </div>
+                            <button type="submit"
+                                class="btn btn-brand w-100">Purchase
+                                Ticket</button>
+
+                        </div>
+                        <div>
+
+                        </div>
+                    </div>
+                    <!-- <div class="card card-style shadow mb-3">
+                    <div class=" d-flex justify-content-between align-items-center mb-3">
+                        <h4>Event Details</h4>
+                        <div>
+                            <a class="fav-heart-stle me-2" href="#"><i class="fa-solid fa-heart fs-5 text-brand"></i></a>
+                           <a class="fav-heart-stle" href="#"><i class="fa-solid fa-share  fs-5 text-brand"></i></a>
+                        </div>
+                    </div>
+                    <div class="line-style"></div>
+                    <div class="d-flex p-3">
+                        <i class="fa-solid fa-calendar-check text-brand mt-1 me-3 fs-5 "></i>
+                        <div>
+                            <span class="fs-5">Start Date</span> <br>
+                            <span class="">27 Feb 2025</span>
+                        </div>
+                    </div>
+                    <div class="line-style"></div>
+                    <div class="d-flex p-3">
+                        <i class="fa-solid fa-calendar-check text-brand mt-1 me-3 fs-5 "></i>
+                        <div>
+                            <span class="fs-5">End Date</span> <br>
+                            <span class="">28 Feb 2025</span>
+                        </div>
+                    </div>
+                    <div class="line-style"></div>
+                    <div class="d-flex p-3">
+                        <i class="fa-solid fa-clock text-brand mt-1 me-3 fs-5 "></i>
+                        <div>
+                            <span class="fs-5">Time</span> <br>
+                            <span class="">8:30 am - 11:30 am</span>
+                        </div>
+                    </div>
+                    <div class="line-style"></div>
+                    <div class="d-flex p-3 ">
+                        <i class="fa-solid fa-calendar-check text-brand mt-1 me-3 fs-5 "></i>
+                        <div>
+                            <span class="fs-5">Status</span> <br>
+                            <span class="">Up comming</span>
+                        </div>
+                    </div>
+                    <div class="line-style"></div>
+                    <div class="d-flex p-3 ">
+                        <i class="fa-solid fa-location-dot text-brand mt-1 me-3 fs-5"></i>
+                        <div>
+                            <span class="fs-5">Location</span> <br>
+                            <span class="">Phnom Penh</span>
+                        </div>
+                    </div>
+                    <div class="line-style"></div>
+                    <div class="d-flex p-3 ">
+                        <i class="fa-solid fa-layer-group mt-1 me-3 fs-5 text-brand"></i>
+                        <div>
+                            <span class="fs-5">Catagory</span> <br>
+                            <span class="">Party</span>
+                        </div>
+                    </div>
+                    <div class="line-style"></div>
+                    <div class="d-flex p-3">
+                        <i class="fa-solid fa-tags mt-1 me-3 fs-5 text-brand"></i>
+                        <div>
+                            <span class="fs-5">Price</span> <br>
+                            <span>$10.00</span>
+                        </div>
+                    </div>
+                    <div class="line-style"></div>
+                    <div class="d-flex p-4 ">
+                        <i class="fa-solid fa-ticket mt-1  me-3 fs-5 text-brand"></i>
+                        <div>
+                            <span class="fs-5">Ticket Opacity</span> <br>
+                            <span>200</span>
+                        </div>
+                    </div>
+                    <div class="line-style"></div>
+                    <div class="d-flex p-3 ">
+                        <i class="fa-solid fa-ticket mt-1 me-3 fs-5 text-brand"></i>
+                        <div>
+                            <span class="fs-5">Reminding Tickets</span> <br>
+                            <span >5</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card card-style text-start mb-3">
+                    <div class="d-flex">
+                        <div class="orgainer-profile">
+                            <img class="card-img-top" src="/" alt="Title" />
+                        </div>
+                        <div class="organizer-name fs-18 fw-medium ms-2 me-auto p-3">Tom Jerrynie</div>
+                        <a href="#">
+                            <p class="p-3 fw-semibold">Follow</p>
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">Hello beautiful world!</h4>
+                    </div>
+                </div>
+                <div class="card card-purchase card-style">
+                    <div class="card-purchaseTicket rounded-2 p-3">
+                        <div class="d-flex justify-content-between fw-semibold mb-2">
+                            <h5 class="ticket-price">Price</h5>
+                        <h5>$10.00/ticket</h5>
+                        </div>
+                        <button type="submit" class="btn btn-brand w-100">Purchase Now</button>
+                      
+                    </div>
+                    <div>
+                       
+                    </div>
+                </div> -->
+                </div>
+
+            </div>
+            <!-- <h2 class="fw-bold mb-3">Related <span
+                    class="text-brand">Event</span></h2>
+            <div class="row">
+                <div class="col-12 col-md-3">
+                    <div class="card-event">
+                        <img class="position-absolute"
+                            src="https://images.pexels.com/photos/2747449/pexels-photo-2747449.jpeg?cs=srgb&dl=pexels-wolfgang-1002140-2747449.jpg&fm=jpg"
+                            alt>
+                        <section class="top"></section>
+                        <div class="event-info">
+                            <p class="price">70$</p>
+
+                            <div class="additional-info">
+                                <p class="title text-white fs-5">NY Music
+                                    Festival</p>
+                                <p class="info ">
+                                    <i class="fas fa-map-marker-alt fs-5"></i>
+                                    Palace Theather
+                                </p>
+                                <p class="info">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    Sat, Sep 19, 10:00 AM
+                                </p>
+                            </div>
+                            <button class="action mt-5">Book it</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-3">
+                    <div class="card-event">
+                        <img class="position-absolute"
+                            src="https://images.pexels.com/photos/2747449/pexels-photo-2747449.jpeg?cs=srgb&dl=pexels-wolfgang-1002140-2747449.jpg&fm=jpg"
+                            alt>
+                        <section class="top"></section>
+                        <div class="event-info">
+                            <p class="price">70$</p>
+
+                            <div class="additional-info">
+                                <p class="title text-white fs-5">NY Music
+                                    Festival</p>
+                                <p class="info ">
+                                    <i class="fas fa-map-marker-alt fs-5"></i>
+                                    Palace Theather
+                                </p>
+                                <p class="info">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    Sat, Sep 19, 10:00 AM
+                                </p>
+                            </div>
+                            <button class="action mt-5">Book it</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-3">
+                    <div class="card-event">
+                        <img class="position-absolute"
+                            src="https://images.pexels.com/photos/2747449/pexels-photo-2747449.jpeg?cs=srgb&dl=pexels-wolfgang-1002140-2747449.jpg&fm=jpg"
+                            alt>
+                        <section class="top"></section>
+                        <div class="event-info">
+                            <p class="price">70$</p>
+
+                            <div class="additional-info">
+                                <p class="title text-white fs-5">NY Music
+                                    Festival</p>
+                                <p class="info ">
+                                    <i class="fas fa-map-marker-alt fs-5"></i>
+                                    Palace Theather
+                                </p>
+                                <p class="info">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    Sat, Sep 19, 10:00 AM
+                                </p>
+                            </div>
+                            <button class="action mt-5">Book it</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div> -->
+        </div>
+
+        <%-include('../../partials/script.ejs') %>
+        <script>
+        const tooltipTriggerList = [].slice.call(
+          document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        );
+        const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+          return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+      </script>
+        <script src="/js/events/event-detail.js"></script>
+
+    </body>
+
+</html>
