@@ -37,3 +37,25 @@ const btnCloseLoading = (id, msg) => {
   btnEle.disabled = false;
   btnEle.innerHTML = msg;
 };
+
+function extractDate(isoString) {
+  return isoString.split('T')[0]; // Extracts only the date part
+}
+
+function toHHMMFormat(timeValue) {
+  // Split by colon
+  const [hours, minutes] = timeValue.split(':');
+  // Return as "HH:MM"
+  return `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}`;
+}
+
+function copyEventUrlToClipboard(eventId) {
+  const url = `${window.location.protocol}//${window.location.host}/event/detail?e=${eventId}`;
+
+  console.log(window.location.href);
+  
+
+  navigator.clipboard.writeText(url).then(() => {
+    showToast("Event URL copied to clipboard:", true);
+  });
+}

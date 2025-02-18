@@ -3,45 +3,13 @@ const fs = require("fs");
 const moment = require("moment");
 const { handleResponseError } = require("../../utils/handleError");
 const { executeQuery } = require("../../utils/dbQuery");
-const { sendResponse,sendResponse1 } = require("../../utils/response");
-const {ownReqTicketCollection, ownTicketCollection}=require("../../resource/ticket");
+const { sendResponse, sendResponse1 } = require("../../utils/response");
+const {
+  ownReqTicketCollection,
+  ownTicketCollection,
+} = require("../../resource/ticket");
 
 const defaultAvatar = "default.jpg";
-
-const getAllProfile = async (req, res) => {
-  try {
-    const query = "SELECT * FROM tbl_users";
-
-    const data = await executeQuery(query);
-
-    if (data.length === 0) {
-      return sendResponse(res, 404, false, "No data found.");
-    }
-
-    sendResponse(res, 200, true, "Display all users profile.", data);
-  } catch (error) {
-    console.log(data);
-    handleResponseError(res, error);
-  }
-};
-
-const getProfileById = async (req, res) => {
-  const id = req.params.id;
-  try {
-    const query = "SELECT * FROM tbl_users WHERE id = ?";
-
-    const data = await executeQuery(query, [id]);
-
-    if (data.length === 0) {
-      return sendResponse(res, 404, false, "No data found.");
-    }
-
-    sendResponse(res, 200, true, `Display profile detail with id : ${id}`, data[0]);
-  } catch (error) {
-    console.log(error);
-    handleResponseError(res, error);
-  }
-}
 
 const updateOwnInfo = async (req, res) => {
   const { kh_name, eng_name, email, phone, dob, gender, address, role } =
@@ -59,21 +27,47 @@ const updateOwnInfo = async (req, res) => {
       return sendResponse(res, 400, false, "Email or Phone is already in use.");
     }
 
-    const updateQuery = `
-      UPDATE tbl_users SET kh_name = ?, eng_name = ?, email = ?, phone = ?, dob = ?, 
-      gender = ?, address = ?, role = ? WHERE id = ?`;
+    let updateQuery = `UPDATE tbl_users SET `;
+    const params = [];
 
-    const params = [
-      kh_name,
-      eng_name,
-      email,
-      phone,
-      dob,
-      gender,
-      address,
-      role,
-      userId,
-    ];
+    if (kh_name) {
+      updateQuery += `kh_name = ?, `;
+      params.push(kh_name);
+    }
+    if (eng_name) {
+      updateQuery += `eng_name = ?, `;
+      params.push(eng_name);
+    }
+    if (email) {
+      updateQuery += `email = ?, `;
+      params.push(email);
+    }
+    if (phone) {
+      updateQuery += `phone = ?, `;
+      params.push(phone);
+    }
+    if (dob) {
+      updateQuery += `dob = ?, `;
+      params.push(dob);
+    }
+    if (gender) {
+      updateQuery += `gender = ?, `;
+      params.push(gender);
+    }
+    if (address) {
+      updateQuery += `address = ?, `;
+      params.push(address);
+    }
+    if (role) {
+      updateQuery += `role = ?, `;
+      params.push(role);
+    }
+
+    updateQuery = updateQuery.slice(0, -2);
+
+    updateQuery += ` WHERE id = ?`;
+    params.push(userId);
+
     const data = await executeQuery(updateQuery, params);
 
     if (data.affectedRows === 0) {
@@ -138,7 +132,10 @@ const updateOwnProfileImage = async (req, res) => {
     const oldAvatar = data[0].avatar;
 
     avatar.mv(filePath, async (err) => {
-      if (err) return sendResponse(res, 500, false, "File upload failed.");
+      if (err) {
+        console.error("File upload failed:", err);
+        return sendResponse(res, 500, false, "File upload failed.");
+      }
 
       const updateSql = "UPDATE tbl_users SET avatar = ? WHERE id = ?";
       const params = [avatarName, userId];
@@ -151,6 +148,7 @@ const updateOwnProfileImage = async (req, res) => {
       if (oldAvatar && oldAvatar !== defaultAvatar) {
         fs.unlink(`${uploadPath}${oldAvatar}`, (err) => {
           if (err) {
+            console.error("Error deleting old avatar:", err);
             return sendResponse(res, 400, false, "Error deleting old avatar");
           }
         });
@@ -159,6 +157,7 @@ const updateOwnProfileImage = async (req, res) => {
       sendResponse(res, 200, true, "Avatar updated successfully.", avatarName);
     });
   } catch (error) {
+    console.error("Error updating profile image:", error);
     handleResponseError(res, error);
   }
 };
@@ -249,48 +248,102 @@ const deleteOwnAccount = async (req, res) => {
 };
 
 //get own request ticket
-const getOwnReqTicket=async(req,res)=>{
-  const user_id=req.user.id;
+const getOwnReqTicket = async (req, res) => {
+  const user_id = req.user.id;
   try {
-      
-      const data=await ownReqTicketCollection(
-          user_id,
-          req.query.status,
-          req.query.page, req.query.per_page,
-          req.query.sort, req.query.order
-      );
-      sendResponse1(res,200,true,"Get all ticket request successfully",data.rows,data.paginate)
-  } catch (error) {
-      
-  }
-}
+    const data = await ownReqTicketCollection(
+      user_id,
+      req.query.status,
+      req.query.page,
+      req.query.per_page,
+      req.query.sort,
+      req.query.order
+    );
+    sendResponse1(
+      res,
+      200,
+      true,
+      "Get all ticket request successfully",
+      data.rows,
+      data.paginate
+    );
+  } catch (error) {}
+};
 
 //get own ticket
-const getOwnTicket=async(req,res)=>{
-  const user_id=req.user.id;
+const getOwnTicket = async (req, res) => {
+  const user_id = req.user.id;
   try {
-      const data=await ownTicketCollection(
-          user_id,
-          req.query.status,
-          req.query.page, req.query.per_page,
-          req.query.sort, req.query.order
-      );
-      sendResponse1(res,200,true,"Get all owned ticket successfully",data.rows,data.paginate);
-      
+    const data = await ownTicketCollection(
+      user_id,
+      req.query.status,
+      req.query.page,
+      req.query.per_page,
+      req.query.sort,
+      req.query.order
+    );
+    sendResponse1(
+      res,
+      200,
+      true,
+      "Get all owned ticket successfully",
+      data.rows,
+      data.paginate
+    );
+  } catch (error) {}
+};
+const deactivateAccount = async (req, res) => {
+  const userId = req.user.id;
 
+  try {
+    const query = `UPDATE tbl_users SET status = 2 WHERE id = ?`;
+
+    const data = await executeQuery(query, [userId]);
+
+    if (data.length === 0) {
+      return sendResponse(
+        res,
+        404,
+        false,
+        "uUser not found or already inactive."
+      );
+    }
+
+    res.cookie("jwtToken", "", { maxAge: 1 });
+
+    sendResponse(res, 200, true, "User deactivated successfully.");
   } catch (error) {
-      
+    console.log(error);
+    handleResponseError(res, error);
   }
-}
+};
+
+const getProfileById = async (req, res) => {
+  const userId = req.params.id;
+
+  try {
+    const query = "SELECT * FROM tbl_users WHERE id = ?";
+    const data = await executeQuery(query, [userId]);
+
+    if (data.length === 0) {
+      return sendResponse(res, 404, false, "User not found.");
+    }
+
+    sendResponse(res, 200, true, "User details fetched sucessfully", data[0]);
+  } catch (error) {
+    console.log(error);
+    handleResponseError(res, error);
+  }
+};
 
 module.exports = {
-  getAllProfile,
-  getProfileById,
   updateOwnInfo,
   updateOwnPassword,
   updateOwnProfileImage,
   deleteOwnProfileImage,
   deleteOwnAccount,
   getOwnReqTicket,
-  getOwnTicket
+  getOwnTicket,
+  deactivateAccount,
+  getProfileById,
 };

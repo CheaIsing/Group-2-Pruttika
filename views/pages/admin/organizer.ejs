@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('../../partials/admin/head.ejs') %>
+
+    <body>
+        <style>
+            table.dataTable thead .sorting_asc,
+            table.dataTable thead .sorting {
+                background-image: none !important;
+                cursor: none !important;
+            }
+
+            #search,
+            #search2 {
+                width: 200px !important;
+            }
+
+            .form-select {
+                display: inline;
+                width: 200px !important;
+                height: 49px !important;
+            }
+
+            .form-select:focus {
+                border-color: #ff1694;
+                outline: 0;
+                box-shadow: none;
+            }
+        </style>
+
+        <%- include('../../partials/admin/preloader.ejs') %>
+
+            <div id="main-wrapper">
+                <%- include('../../partials/admin/nav-header.ejs') %>
+                    <%- include('../../partials/admin/chatbox.ejs') %>
+                        <%- include('../../partials/admin/header.ejs') %>
+                            <%- include('../../partials/admin/sidebar.ejs') %>
+
+                                <div class="content-body">
+                                    <div class="container-fluid">
+                                        <!-- row -->
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h4 class="card-title">Display all Request Organizer</h4>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="table-responsive">
+                                                            <form id="searchForm">
+                                                                <div
+                                                                    class="d-flex justify-content-between align-items-center">
+                                                                    <select id="status" class="form-select">
+                                                                        <option value="">All Status</option>
+                                                                        <option value="1">Pending</option>
+                                                                        <option value="2">Approved</option>
+                                                                        <option value="3">Rejected</option>
+                                                                    </select>
+                                                                    <input class="form-control" type="text" id="search"
+                                                                        placeholder="Search by name">
+                                                                </div>
+                                                            </form>
+                                                            <table id="example6" class="display"
+                                                                style="min-width: 845px">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>ID</th>
+                                                                        <th>Organization_name</th>
+                                                                        <th>Email</th>
+                                                                        <th>Phone</th>
+                                                                        <th>Location</th>
+                                                                        <th>Status</th>
+                                                                        <th>Action</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody id="requestOrganizerTableBody"></tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h4 class="card-title">Display all Organizers</h4>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="table-responsive">
+                                                            <form id="searchForm">
+                                                                <div
+                                                                    class="d-flex justify-content-between align-items-center">
+                                                                    <select id="status2" class="form-select">
+                                                                        <option value="">All Status</option>
+                                                                        <option value="1">Active</option>
+                                                                        <option value="2">Inactive</option>
+                                                                    </select>
+                                                                    <input class="form-control" type="text" id="search2"
+                                                                        placeholder="Search by name">
+                                                                </div>
+                                                            </form>
+                                                            <table id="example5" class="display"
+                                                                style="min-width: 845px">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>ID</th>
+                                                                        <th>Organization_name</th>
+                                                                        <th>Email</th>
+                                                                        <th>Phone</th>
+                                                                        <th>Location</th>
+                                                                        <th>Status</th>
+                                                                        <th>Action</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody id="organizerTableBody"></tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <%- include('../../partials/admin/footer.ejs') %>
+            </div>
+
+            <!-- Required vendors -->
+            <script src="/admin/vendor/global/global.min.js"></script>
+            <script src="/admin/vendor/chart.js/Chart.bundle.min.js"></script>
+            <script src="/admin/vendor/apexchart/apexchart.js"></script>
+            <script src="/admin/vendor/datatables/js/jquery.dataTables.min.js"></script>
+            <script src="/admin/js/plugins-init/datatables.init.js"></script>
+            <script src="/admin/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+            <script src="/admin/js/custom.min.js"></script>
+            <script src="/admin/js/dlabnav-init.js"></script>
+            <script src="/admin/js/demo.js"></script>
+            <script src="/admin/js/styleSwitcher.js"></script>
+
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+            <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+            <script src="/js/admin/organizer.js" defer></script>
+
+
+    </body>
+
+</html>

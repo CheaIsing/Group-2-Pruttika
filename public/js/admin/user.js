@@ -1,0 +1,353 @@
+const port = 3000;
+const url = `http://localhost:${port}/api`;
+
+const axiosInstance = axios.create({
+  baseURL: url,
+  timeout: 10000,
+  withCredentials: true,
+});
+
+async function fetchUsers(
+  role = "",
+  search = "",
+  page = 1,
+  perPage = 5,
+  sortCol = "created_at",
+  sortDir = "asc"
+) {
+  try {
+    const response = await axiosInstance.get("/admin/user/display", {
+      params: {
+        page,
+        per_page: perPage,
+        sort_col: sortCol,
+        sort_dir: sortDir,
+        role,
+        search,
+      },
+    });
+
+    const result = response.data;
+    if (!result.result)
+      throw new Error(result.message || "Failed to fetch users");
+
+    displayUsers(result.data);
+  } catch (error) {
+    console.error("Error fetching users:", error.message);
+  }
+}
+
+function displayUsers(users) {
+  const tableBody = document.getElementById("usersTableBody");
+  if (!tableBody) return;
+
+  tableBody.innerHTML = users
+    .map(
+      (user) => `
+          <tr>
+              <td>${user.id}</td>
+              <td><img class="rounded-circle" width="35" height="35" src="/uploads/${
+                user.avatar
+              }"></td>
+              <td>${user.kh_name}</td>
+              <td>${user.eng_name}</td>
+              <td>${user.email}</td>
+              <td>${user.phone}</td>
+              <td>
+                  <span class="badge ${
+                    user.status === 1 ? "badge-success" : "badge-danger"
+                  }">
+                      ${user.status === 1 ? "Active" : "Inactive"}
+                  </span>
+              </td>
+              <td>
+                  <div class="dropdown ms-auto text-center">
+                      <div class="btn-link" data-bs-toggle="dropdown">
+                          <svg width="24px" height="24px" viewbox="0 0 24 24">
+                              <g stroke="none" stroke-width="1" fill="none">
+                                  <rect x="0" y="0" width="24" height="24"></rect>
+                                  <circle fill="#000000" cx="5" cy="12" r="2"></circle>
+                                  <circle fill="#000000" cx="12" cy="12" r="2"></circle>
+                                  <circle fill="#000000" cx="19" cy="12" r="2"></circle>
+                              </g>
+                          </svg>
+                      </div>
+                      <div class="dropdown-menu dropdown-menu-end">
+                          <a href="javascript:void(0)" class="dropdown-item" role="button"
+                             onclick="fetchUserDetail(${user.id})" 
+                             data-bs-toggle="modal" data-bs-target="#viewDetail">
+                             View details
+                          </a>
+                           <a href="javascript:void(0)" class="dropdown-item" role="button"
+                             onclick="editUser(${user.id})" 
+                             data-bs-toggle="modal" data-bs-target="#editUser">
+                             Edit User
+                          </a>
+                          <a href="javascript:void(0)" class="dropdown-item" role="button"
+                             onclick="removeUser(${user.id})">
+                             Remove User
+                          </a>
+                      </div>
+                  </div>
+              </td>
+          </tr>
+          `
+    )
+    .join("");
+}
+
+async function fetchUserDetail(userId) {
+  const detailContainer = document.getElementById("userDetailContent");
+  if (!detailContainer) return;
+
+  detailContainer.innerHTML = "Loading...";
+
+  try {
+    const response = await axiosInstance.get(
+      `/admin/user/userDetail/${userId}`
+    );
+    const user = response.data.data;
+
+    detailContainer.innerHTML = `
+          <div class="card p-3 border-0 shadow-sm">
+              <img src="/uploads/${
+                user.avatar
+              }" class="rounded-circle mx-auto mb-3" width="120" height="120">
+              <h4 class="fw-bold">${user.eng_name} (${user.kh_name})</h4>
+              <p class="text-muted">${user.email}</p>
+              <hr>
+              <div class="text-start">
+                  <p><strong>Phone : </strong> ${user.phone}</p>
+                  <p><strong>Date of Birth : </strong> ${new Date(
+                    user.dob
+                  ).toLocaleDateString("en-CA")}</p>
+                  <p><strong>Gender:</strong> ${
+                    user.gender === 1 ? "Male" : "Female"
+                  }</p>
+                  <p><strong>Address : </strong> ${user.address}</p>
+                  <p><strong>Role : </strong> <span class="badge bg-primary">${getRoleName(
+                    user.role
+                  )}</span></p>
+                  <p><strong>Status : </strong> 
+                      <span class="badge ${
+                        user.status === 1 ? "bg-success" : "bg-danger"
+                      }">
+                          ${user.status === 1 ? "Active" : "Inactive"}
+                      </span>
+                  </p>
+              </div>
+          </div>
+      `;
+  } catch (error) {
+    detailContainer.innerHTML = "Failed to load user details.";
+    console.error("Error fetching user detail:", error.message);
+  }
+}
+
+async function editUser(userId) {
+  const editContainer = document.getElementById("editContent");
+  editContainer.innerHTML = "Loading...";
+
+  try {
+    const response = await axiosInstance.get(
+      `/admin/user/userDetail/${userId}`
+    );
+    const user = response.data.data;
+
+    const dobFormatted = new Date(user.dob).toISOString().split("T")[0];
+
+    editContainer.innerHTML = `
+      <form id="editUserForm">
+        <div class="mb-3 row">
+          <div class="col-6">
+            <label for="editKhName" class="form-label">Khmer Name</label>
+            <input type="text" id="editKhName" class="form-control" value="${
+              user.kh_name
+            }">
+          </div>
+          <div class="col-6">
+            <label for="editEngName" class="form-label">English Name</label>
+            <input type="text" id="editEngName" class="form-control" value="${
+              user.eng_name
+            }">
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <div class="col-6">
+            <label for="editEmail" class="form-label">Email</label>
+            <input type="email" id="editEmail" class="form-control" value="${
+              user.email
+            }">
+          </div>
+          <div class="col-6">
+            <label for="editPhone" class="form-label">Phone</label>
+            <input type="text" id="editPhone" class="form-control" value="${
+              user.phone
+            }">
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <div class="col-6">
+            <label for="editDob" class="form-label">Date of Birth</label>
+            <input type="date" id="editDob" class="form-control" value="${dobFormatted}">
+          </div>
+          <div class="col-6">
+            <label for="editGender" class="form-label">Gender</label>
+            <select id="editGender" class="form-select">
+              <option value="Male" ${
+                user.gender === "Male" ? "selected" : ""
+              }>Male</option>
+              <option value="Female" ${
+                user.gender === "Female" ? "selected" : ""
+              }>Female</option>
+              <option value="Other" ${
+                user.gender === "Other" ? "selected" : ""
+              }>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="editAddress" class="form-label">Address</label>
+          <input type="text" id="editAddress" class="form-control" value="${
+            user.address
+          }">
+        </div>
+        <div class="text-end">
+          <button type="submit" class="btn btn-primary">Update User</button>
+        </div>
+      </form>
+    `;
+
+    document
+      .getElementById("editUserForm")
+      .addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const updatedUser = {
+          kh_name: document.getElementById("editKhName").value,
+          eng_name: document.getElementById("editEngName").value,
+          email: document.getElementById("editEmail").value,
+          phone: document.getElementById("editPhone").value,
+          dob: document.getElementById("editDob").value,
+          gender: document.getElementById("editGender").value,
+          address: document.getElementById("editAddress").value,
+        };
+
+        try {
+          const updateResponse = await axiosInstance.put(
+            `/admin/user/editUser/${userId}`,
+            updatedUser
+          );
+
+          if (updateResponse.data.result) {
+            Swal.fire({
+              icon: "success",
+              title: "User Updated Successfully!",
+              text: "The user has been updated.",
+            });
+
+            const modalElement = document.getElementById("editUser");
+            const modalInstance = bootstrap.Modal.getInstance(modalElement);
+            if (modalInstance) {
+              modalInstance.hide();
+            }
+
+            fetchUsers();
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Update Failed",
+              text: "Failed to update user.",
+              confirmButtonText: "OK",
+            });
+          }
+        } catch (error) {
+          console.error("Error updating user:", error.message);
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "An error occurred while updating the user.",
+            confirmButtonText: "OK",
+          });
+        }
+      });
+  } catch (error) {
+    editContainer.innerHTML = "Failed to load user details.";
+    console.error("Error fetching user details:", error.message);
+  }
+}
+
+const removeUser = async (userId) => {
+  try {
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (result.isConfirmed) {
+      const response = await axiosInstance.delete(
+        `/admin/user/remove/${userId}`
+      );
+
+      if (response.data && response.data.result) {
+        Swal.fire({
+          icon: "success",
+          title: "User Deleted Successfully!",
+          text: "The user has been removed.",
+        });
+        fetchUsers(); 
+      } else {
+        console.error(
+          "Deletion failed:",
+          response.data.message || "Unknown error"
+        );
+        Swal.fire({
+          icon: "error",
+          title: "Error Deleting User",
+          text:
+            response.data.message || "There was an issue deleting the user.",
+        });
+      }
+    }
+  } catch (error) {
+    console.error("Error deleting user:", error.message);
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "An error occurred while trying to delete the user.",
+    });
+  }
+};
+
+function getRoleName(role) {
+  return role === 1
+    ? "Guest"
+    : role === 2
+    ? "Organizer"
+    : role === 3
+    ? "Admin"
+    : "Unknown";
+}
+
+fetchUsers();
+
+document.getElementById("search")?.addEventListener("keyup", () => {
+  fetchUsers(
+    document.getElementById("role")?.value,
+    document.getElementById("search")?.value
+  );
+});
+
+document.getElementById("role")?.addEventListener("change", () => {
+  fetchUsers(
+    document.getElementById("role")?.value,
+    document.getElementById("search")?.value
+  );
+});
+
+document.getElementById("example6_paginate").style.display = "none";

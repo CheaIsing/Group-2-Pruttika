@@ -14,12 +14,14 @@
 
           <!-- Sign Up Form -->
           <form id="sign-up-form" class="sign-up-form" autocomplete="off">
-            <h2 class="title">Sign Up</h2>
+            <h2 class="title">
+              <%= t('auth.signin.heading') %>
+            </h2>
             
             <div class="mb-3"  style="max-width: 380px; width: 100%;">
               <div class="input-field" id="input-field-name">
                 <i class="fas fa-user"></i>
-                <input type="text" placeholder="Username" id="sign-up-name" autofocus/>
+                <input type="text" placeholder="<%= t('auth.signup.username') %>" id="sign-up-name" autofocus/>
               </div>
               <div
                 class="invalid_feedback text-danger d-flex align-items-center" id="invalid_feedback_name">
@@ -30,7 +32,7 @@
            <div class="mb-3" style="max-width: 380px; width: 100%;">
             <div class="input-field" id="input-field-email">
               <i class="fas fa-envelope"></i>
-              <input type="email" placeholder="Email" id="sign-up-email" />
+              <input type="email" placeholder="<%= t('auth.signup.email') %>" id="sign-up-email" />
             </div>
             <div
               class="invalid_feedback text-danger d-flex align-items-center" id="invalid_feedback_email">
@@ -41,7 +43,7 @@
             <div class="mb-3" style="max-width: 380px; width: 100%;">
               <div class="input-field" id="input-field-password">
                 <i class="fas fa-lock"></i>
-                <input type="password" placeholder="Password" id="sign-up-password" />
+                <input type="password" placeholder="<%= t('auth.signup.password') %>" id="sign-up-password" />
               </div>
               <div
                 class="invalid_feedback text-danger d-flex align-items-center" id="invalid_feedback_password">
@@ -52,7 +54,7 @@
             <div class="mb-3" style="max-width: 380px; width: 100%;">
               <div class="input-field" id="input-field-confirm-password">
                 <i class="fas fa-lock"></i>
-                <input type="password" placeholder="Confirm Password" id="sign-up-confirm-password" />
+                <input type="password" placeholder="<%= t('auth.signup.confirm') %>" id="sign-up-confirm-password" />
               </div>
               <div
                 class="invalid_feedback text-danger d-flex align-items-center " id="invalid_feedback_confirm_password">
@@ -63,10 +65,14 @@
             <div class style="max-width: 380px; width: 100%;">
 
               <!-- Changed input to button -->
-              <button type="submit" class="btn btn-brand w-100" id="btnSignUp">Sign Up</button>
+              <button type="submit" class="btn btn-brand w-100" id="btnSignUp">
+                <%= t('auth.signup.signup') %>
+              </button>
             </div>
 
-            <p class="social-text">Or Sign Up With Social Platforms</p>
+            <p class="social-text">
+              <%= t('auth.signup.social') %>
+            </p>
             <div class="social-media">
               <a href="#" class="social-icon">
                 <i class="fab fa-facebook-f"></i>
@@ -90,20 +96,23 @@
         <div class="panel left-panel">
           <div class="content">
             <h3>
-              Create amazing memories with us!
+              <%= t('auth.signin.content') %>
             </h3>
-            <button class="btn btn-outline-brand-white mt-3" id="sign-up-btn">Sign
-              up</button>
+            <button class="btn btn-outline-brand-white mt-3" id="sign-up-btn">
+                <%= t('auth.signup.signup') %>
+            </button>
           </div>
           <img src="/img/log.svg" class="image" alt />
         </div>
         <div class="panel right-panel">
           <div class="content">
             <h3>
-              Welcome back! Let's get started Again!.
+              <%= t('auth.signup.content') %>
             </h3>
             <a role="button" href="/auth/signin" class="btn btn-outline-brand-white mt-3 "
-              id="sign-in-btn">Sign In</a>
+              id="sign-in-btn">
+            <%= t('auth.signin.signin') %>
+            </a>
           </div>
           <img src="/img/login.png" class="image" alt />
         </div>
