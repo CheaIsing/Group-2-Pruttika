@@ -22,7 +22,8 @@ const postSignUp = async (req, res) => {
   const { error } = vSignUp.validate(req.body);
   if (handleValidateError(error, res)) return;
 
-  const { eng_name, email, password } = req.body;
+  const { name, email, password } = req.body;
+  const { lang } = req.query;
 
   try {
     const checkEmailQuery = "SELECT * FROM tbl_users WHERE email = ?";
@@ -39,9 +40,18 @@ const postSignUp = async (req, res) => {
     const salt = await bcrypt.genSalt();
     const hashPassword = await bcrypt.hash(password, salt);
 
+    let eng_name = null;
+    let kh_name = null;
+
+    if (lang === "en") {
+      eng_name = name;
+    } else if (lang === "kh") {
+      kh_name = name;
+    }
+
     const insertUserQuery =
-      "INSERT INTO tbl_users(eng_name, email, password) VALUES (?, ?, ?)";
-    const params = [eng_name, email, hashPassword];
+      "INSERT INTO tbl_users(kh_name, eng_name, email, password) VALUES (?, ?, ?, ?)";
+    const params = [kh_name, eng_name, email, hashPassword];
 
     await executeQuery(insertUserQuery, params);
 
@@ -56,7 +66,7 @@ const postSignIn = async (req, res) => {
   const { error } = vSignIn.validate(req.body);
   if (handleValidateError(error, res)) return;
 
-  const { email, password, rememberMe=false } = req.body;
+  const { email, password, rememberMe = false } = req.body;
 
   try {
     const sql = "SELECT * FROM tbl_users WHERE email = ?";
@@ -70,7 +80,7 @@ const postSignIn = async (req, res) => {
     const isPasswordValid = await bcrypt.compare(password, data[0].password);
 
     if (isPasswordValid) {
-      if (user.STATUS === 2) {
+      if (user.status === 2) {
         const updateQuery = "UPDATE tbl_users SET STATUS = 1 WHERE id = ?";
         await executeQuery(updateQuery, [user.id]);
       }

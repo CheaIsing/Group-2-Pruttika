@@ -1,24 +1,21 @@
 const express = require("express");
 
 const {
-    filterByRole,
-    searchUser,
-    sortByRegisterDate,
+    displayAllUsers,
     editUser,
     getUserDetails,
-    deactivateUser
+    removeUser
 } = require("../../../controllers/api/admin/user");
 
 const { requireAuth, checkRole } = require("../../../middlewares/auth");
 
 const router = express.Router();
 
-router.get('/filterbyrole/:id', requireAuth, checkRole(3), filterByRole);
-router.get('/search', requireAuth, checkRole(3), searchUser);
-router.get('/sortbydate', requireAuth, checkRole(3), sortByRegisterDate);
+router.get('/display', requireAuth, checkRole(3), displayAllUsers);
 router.get('/userDetail/:id', requireAuth, checkRole(3), getUserDetails);
 
 router.put("/editUser/:id", requireAuth, checkRole(3), editUser);
-router.put("/deactivate/:id", requireAuth, checkRole(3), deactivateUser);
+
+router.delete("/remove/:id", requireAuth, checkRole(3), removeUser);
 
 module.exports = router;

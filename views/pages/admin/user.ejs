@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('../../partials/admin/head.ejs') %>
+
+    <body>
+        <style>
+            table.dataTable thead .sorting_asc,
+            table.dataTable thead .sorting {
+                background-image: none !important;
+                cursor: none !important;
+            }
+
+            #search {
+                width: 200px !important;
+            }
+
+            .form-select {
+                display: inline;
+                width: 200px !important;
+                height: 49px !important;
+
+            }
+
+            .form-select:focus {
+                border-color: #ff1694;
+                outline: 0;
+                box-shadow: none;
+            }
+
+        </style>
+        <%- include('../../partials/admin/preloader.ejs') %>
+            <div id="main-wrapper">
+                <%- include('../../partials/admin/nav-header.ejs') %>
+                    <%- include('../../partials/admin/chatbox.ejs') %>
+                        <%- include('../../partials/admin/header.ejs') %>
+                            <%- include('../../partials/admin/sidebar.ejs') %>
+                                <div class="content-body">
+                                    <div class="container-fluid">
+                                        <!-- row -->
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h4 class="card-title">DIsplay all users</h4>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="table-responsive">
+                                                            <form id="searchForm">
+                                                                <div
+                                                                    class="d-flex justify-content-between align-items-center">
+                                                                    <select id="role" class="form-select">
+                                                                        <option value="">All Roles</option>
+                                                                        <option value="1">Guest</option>
+                                                                        <option value="2">Organizer</option>
+                                                                        <option value="3">Admin</option>
+                                                                    </select>
+                                                                    <input class="form-control" type="text" id="search"
+                                                                        placeholder="Search by name">
+                                                                </div>
+                                                            </form>
+                                                            <table id="example6" class="display"
+                                                                style="min-width: 845px">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>ID</th>
+                                                                        <th>Avatar</th>
+                                                                        <th>Kh_name</th>
+                                                                        <th>Eng_name</th>
+                                                                        <th>Email</th>
+                                                                        <th>Phone</th>
+                                                                        <th>Status</th>
+                                                                        <th>Action</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody id="usersTableBody">
+
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <%- include('../../partials/admin/footer.ejs') %>
+            </div>
+
+            <!-- View Detail -->
+            <div class="modal fade" id="viewDetail">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title">User Detail</h3>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body text-center" id="userDetailContent">
+                            Loading...
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Edit User -->
+            <div class="modal fade" id="editUser">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title">Edit User</h3>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body" id="editContent">
+                            Loading...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Required vendors -->
+            <script src="/admin/vendor/global/global.min.js"></script>
+            <script src="/admin/vendor/chart.js/Chart.bundle.min.js"></script>
+            <!-- Apex Chart -->
+            <script src="/admin/vendor/apexchart/apexchart.js"></script>
+
+            <!-- Datatable -->
+            <script src="/admin/vendor/datatables/js/jquery.dataTables.min.js"></script>
+            <script src="/admin/js/plugins-init/datatables.init.js"></script>
+
+            <script src="/admin/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+            <script src="/admin/js/custom.min.js"></script>
+            <script src="/admin/js/dlabnav-init.js"></script>
+            <script src="/admin/js/demo.js"></script>
+            <script src="/admin/js/styleSwitcher.js"></script>
+
+            <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+            <script src="/js/admin/user.js" defer></script>
+
+    </body>
+
+</html>

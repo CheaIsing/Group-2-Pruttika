@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <%- include('../../partials/head.ejs') %>
+<%- include('../../partials/head.ejs') %>
 
   <body class>
     <!-- <div class="logo">
@@ -14,11 +14,11 @@
         <div class="signin-signup">
           <!-- Sign In Form -->
           <form class="sign-in-form" id="sign-in-form" autocomplete="off">
-            <h2 class="title">Sign In</h2>
+            <h2 class="title"><%= t('auth.signin.heading') %></h2>
             <div class="mb-3" style="max-width: 380px; width: 100%;">
               <div class="input-field" id="input-field-email">
                 <i class="fas fa-envelope"></i>
-                <input type="text" placeholder="Email" id="sign-in-email" class
+                <input type="text" placeholder="<%= t('auth.signin.email') %>" id="sign-in-email" class
                   autofocus />
               </div>
               <div
@@ -34,7 +34,7 @@
             <div class="mb-3" style="max-width: 380px; width: 100%;">
               <div class="input-field" id="input-field-password">
                 <i class="fas fa-lock "></i>
-                <input type="password" placeholder="Password"
+                <input type="password" placeholder="<%= t('auth.signin.password') %>"
                   id="sign-in-password" />
               </div>
               <div
@@ -51,27 +51,28 @@
             <div class="d-flex justify-content-between"
               style="width: 100%;max-width: 380px;margin-bottom: 0.9rem;">
               <div class="form-check ">
-                <input class="form-check-input shadow-none" type="checkbox"
-                  value id="rememberMe">
+                <input class="form-check-input shadow-none" type="checkbox" value id="rememberMe">
                 <label class="form-check-label" for="rememberMe">
-                  Remember me
+                  <%= t('auth.signin.remember') %>
                 </label>
               </div>
               <div class="form-check">
-                <a href="/auth/forgot-password"
-                  class="text-brand text-decoration-none fw-normal link-brand">Forgot
-                  Password?</a>
+                <a href="/auth/forgot-password" class="text-brand text-decoration-none fw-normal link-brand">
+                  <%= t('auth.signin.forgot') %>
+                </a>
               </div>
             </div>
             <!-- Changed input to button -->
             <div style="width: 100%;max-width: 380px;">
 
               <button type="submit" class="btn btn-brand w-100" id="btnSignIn">
-                Sign In
+                <%= t('auth.signin.signin') %>
               </button>
             </div>
 
-            <p class="social-text">Or Sign In With Social Platforms</p>
+            <p class="social-text">
+              <%= t('auth.signin.social') %>
+            </p>
             <div class="social-media">
               <a href="#" class="social-icon">
                 <i class="fab fa-facebook-f"></i>
@@ -95,20 +96,22 @@
         <div class="panel left-panel">
           <div class="content">
             <h3>
-              Create amazing memories with us!
+              <%= t('auth.signin.content') %>
             </h3>
-            <a href="/auth/signup" class="btn btn-outline-brand-white mt-3" id="sign-up-btn">Sign
-              Up</a>
+            <a href="/auth/signup" class="btn btn-outline-brand-white mt-3" id="sign-up-btn">
+              <%= t('auth.signup.signup') %>
+            </a>
           </div>
           <img src="/img/login.png" class="image" alt />
         </div>
         <div class="panel right-panel">
           <div class="content">
             <h3>
-              Welcome back! Let's get started Again!.
+              <%= t('auth.signup.content') %>
             </h3>
-            <button type="submit" class="btn transparent mt-3"
-              id="sign-in-btn">Sign In</button>
+            <button type="submit" class="btn transparent mt-3" id="sign-in-btn">
+              <%= t('auth.signin.signin') %>
+            </button>
           </div>
           <img src="/img/login.png" class="image" alt="" />
         </div>
@@ -116,7 +119,8 @@
     </div>
 
     <%- include('../../partials/script.ejs') %>
-    <script src="/js/auth/sign-in.js"></script>
+      <script src="/js/auth/sign-in.js"></script>
 
   </body>
+
 </html>
