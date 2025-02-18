@@ -60,30 +60,67 @@ const displayAllUsers = async (req, res) => {
 
 const editUser = async (req, res) => {
   const userId = req.params.id;
-
-  const { kh_name, eng_name, email, phone, dob, gender, address, role } =
+  const { kh_name, eng_name, email, phone, dob, gender, address, role, status } =
     req.body;
 
   try {
-    const query = `
-      UPDATE tbl_users SET kh_name = ?, eng_name = ?, email = ?, phone = ?, dob = ?, gender = ?, address = ?, role = ? WHERE id = ?;
-    `;
+    const checkQuery = `
+      SELECT id FROM tbl_users 
+      WHERE (email = ? OR phone = ?) AND id != ?`;
 
-    const params = [
-      kh_name,
-      eng_name,
-      email,
-      phone,
-      dob,
-      gender,
-      address,
-      role,
-      userId,
-    ];
+    const existingUser = await executeQuery(checkQuery, [email, phone, userId]);
 
-    const result = await executeQuery(query, params);
+    if (existingUser.length > 0) {
+      return sendResponse(res, 400, false, "Email or Phone is already in use.");
+    }
 
-    if (result.affectRows === 0) {
+    let updateQuery = `UPDATE tbl_users SET `;
+    const params = [];
+
+    if (kh_name) {
+      updateQuery += `kh_name = ?, `;
+      params.push(kh_name);
+    }
+    if (eng_name) {
+      updateQuery += `eng_name = ?, `;
+      params.push(eng_name);
+    }
+    if (email) {
+      updateQuery += `email = ?, `;
+      params.push(email);
+    }
+    if (phone) {
+      updateQuery += `phone = ?, `;
+      params.push(phone);
+    }
+    if (dob) {
+      updateQuery += `dob = ?, `;
+      params.push(dob);
+    }
+    if (gender) {
+      updateQuery += `gender = ?, `;
+      params.push(gender);
+    }
+    if (address) {
+      updateQuery += `address = ?, `;
+      params.push(address);
+    }
+    if (role) {
+      updateQuery += `role = ?, `;
+      params.push(role);
+    }
+    if (status) {
+      updateQuery += `status = ?, `;
+      params.push(status);
+    }
+
+    updateQuery = updateQuery.slice(0, -2);
+    updateQuery += ` WHERE id = ?`;
+    params.push(userId);
+
+    const data = await executeQuery(updateQuery, params);
+
+    if (data.affectedRows === 0) {
       return sendResponse(
         res,
         404,
@@ -92,12 +129,13 @@ const editUser = async (req, res) => {
       );
     }
 
-    sendResponse(res, 200, true, "User details updated sucessfully");
+    sendResponse(res, 200, true, "User details updated successfully.");
   } catch (error) {
     console.log(error);
     handleResponseError(res, error);
   }
 };
+
 
 const getUserDetails = async (req, res) => {
   const userId = req.params.id;

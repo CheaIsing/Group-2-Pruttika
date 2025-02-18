@@ -8,7 +8,8 @@ const { sendResponse } = require("../../utils/response");
 const defaultAvatar = "default.jpg";
 
 const updateOwnInfo = async (req, res) => {
-  const { kh_name, eng_name, email, phone, dob, gender, address } = req.body;
+  const { kh_name, eng_name, email, phone, dob, gender, address, role } =
+    req.body;
   const userId = req.user.id;
 
   try {
@@ -53,8 +54,11 @@ const updateOwnInfo = async (req, res) => {
       updateQuery += `address = ?, `;
       params.push(address);
     }
+    if (role) {
+      updateQuery += `role = ?, `;
+      params.push(role);
+    }
 
-    // Remove the last comma and space from the query string
     updateQuery = updateQuery.slice(0, -2);
 
     updateQuery += ` WHERE id = ?`;
@@ -153,7 +157,6 @@ const updateOwnProfileImage = async (req, res) => {
     handleResponseError(res, error);
   }
 };
-
 
 const deleteOwnProfileImage = async (req, res) => {
   const userId = req.user.id;
@@ -272,5 +275,5 @@ module.exports = {
   updateOwnProfileImage,
   deleteOwnProfileImage,
   deleteOwnAccount,
-  deactivateAccount
+  deactivateAccount,
 };
