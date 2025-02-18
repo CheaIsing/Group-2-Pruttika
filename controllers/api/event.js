@@ -185,8 +185,8 @@ const putEditEvent= async(req,res)=>{
         is_published
     } = req.body;
     let event_id=req.params.id;
+    const user_id=req.user.id;
 
-    // return
         try {
             const sqlUpdateEvent=`
                 UPDATE tbl_event SET
@@ -279,6 +279,27 @@ const putEditEvent= async(req,res)=>{
             `;
             for (const categoryId of event_categories) {
                 await executeQuery(sqlInsertCategories, [event_id, categoryId]);
+            }
+
+            const sqlGetBuyer=`SELECT buyer_id, ticket_event_id from tbl_transaction WHERE event_id=? AND status=2`;
+            const getBuyer= await executeQuery(sqlGetBuyer,[event_id]);
+
+            //insert notification
+            const sqlInsertNotification=`INSERT INTO tbl_notification
+            (event_id, receiver_id, eng_message,kh_message,sender_id,ticket_req_id, type_id) 
+            VALUES (?,?,?,?,?,?,?)`;
+            for(let i=0;i<getBuyer.length;i++){
+                const dataBuyer=getBuyer[i];
+                const paramsNotification=[
+                    event_id,
+                    dataBuyer.buyer_id,
+                    `The details of the event have been successfully updated. Please check the latest information to stay informed about any changes.`,
+                    `ព័ត៌មានលម្អិតនៃព្រឹត្តិការណ៍ ${eng_name} ត្រូវបានធ្វើបច្ចុប្បន្នភាពដោយជោគជ័យ។ សូមពិនិត្យមើលព័ត៌មានចុងក្រោយបំផុត ដើម្បីដឹងអំពីការផ្លាស់ប្តូរណាមួយ។`,
+                    user_id,
+                    dataBuyer.ticket_event_id,
+                    5
+                ];
+                await executeQuery(sqlInsertNotification, paramsNotification); 
             }
 
             sendResponse(res, 200, true, "Event Updated successfully");

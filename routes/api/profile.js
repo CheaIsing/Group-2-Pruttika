@@ -16,7 +16,7 @@ const { requireAuth, checkRole } = require("../../middlewares/auth");
 const router = express.Router();
 
 router.get("/display", requireAuth, checkRole(3), getAllProfile);
-router.get("/display/:id", requireAuth, checkRole(3), getProfileById);
+router.get("/display/:id", requireAuth, getProfileById);
 router.get('/own-request-ticket',requireAuth,getOwnReqTicket);
 router.get('/own-ticket',requireAuth,getOwnTicket);
 
