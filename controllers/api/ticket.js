@@ -138,7 +138,6 @@ const deleteTransactionFile=async (req,res)=>{
 const putApproveTicket=async(req,res)=>{
     const ticketReq_id=req.params.id;
     const user_id=req.user.id;
-    // console.log(user_id);
     try {
         const sqlGetTransaction = `
             SELECT 
@@ -146,7 +145,9 @@ const putApproveTicket=async(req,res)=>{
                 tts.ticket_event_id,
                 tts.ticket_qty,
                 tts.event_id,
-                te.event_type
+                tts.buyer_id,
+                te.event_type,
+                te.eng_name
             FROM tbl_transaction tts
             LEFT JOIN tbl_event te ON te.id=tts.event_id
             WHERE tts.id = ? AND te.creator_id=?
@@ -159,13 +160,14 @@ const putApproveTicket=async(req,res)=>{
         }
 
         const {
+            id,
             ticket_qty,
             ticket_event_id,
             event_id,
-            event_type
+            event_type,
+            buyer_id,
+            eng_name
         }=dbResult[0];
-        console.log(dbResult[0]);
-        console.log(event_type);
 
         // Check if tickets have already been approved
         const checkApprove= await executeQuery(`select * from tbl_transaction where id=? AND status=?`,[ticketReq_id,2]);
@@ -173,7 +175,7 @@ const putApproveTicket=async(req,res)=>{
             return sendResponse(res, 400, false, "This Request is already have been Approved!");
         }
 
-        //check if the tickett is online/offline
+        //check if the ticket is online/offline
         if(event_type==2){ //offline
             //check available ticket
             const checkAvailableTicket= await executeQuery(`
@@ -200,8 +202,38 @@ const putApproveTicket=async(req,res)=>{
                 );
             }
 
+            //insert notification
+            const sqlInsertNotification1=`INSERT INTO tbl_notification
+                    (event_id, receiver_id, eng_message,kh_message,sender_id,ticket_req_id, type_id) 
+                    VALUES (?,?,?,?,?,?,?)`
+            const paramsNotification1=[
+                event_id,
+                buyer_id,
+                `Congratulations! Your ticket for ${eng_name} has been successfully approved. Enjoy the event! Check your details here.`,
+                `អបអរសាទរ! សំបុត្ររបស់អ្នកសម្រាប់កម្មវិធី ${eng_name} ត្រូវបានអនុម័តដោយជោគជ័យ។ សូមរីករាយជាមួយព្រឹត្តិការណ៍នេះ! ពិនិត្យព័ត៌មានលម្អិតរបស់អ្នកនៅទីនេះ។`,
+                user_id,
+                id,
+                1
+            ];
+            await executeQuery(sqlInsertNotification1,paramsNotification1);
+            
             await Promise.all(promises);
             await executeQuery(`UPDATE tbl_ticketevent_type SET ticket_bought=? WHERE id=?`,[ticket_bought+ticket_qty,ticket_event_id]);
+        }else if(event_type==1){
+            //insert notification
+            const sqlInsertNotification2=`INSERT INTO tbl_notification
+                    (event_id, receiver_id, eng_message,kh_message,sender_id,ticket_req_id, type_id) 
+                    VALUES (?,?,?,?,?,?,?)`
+            const paramsNotification2=[
+                event_id,
+                buyer_id,
+                `Congratulations! Your registration for the event ${eng_name} has been approved. Please wait until the event day, as the organizer will send the link to join the event through a notification.`,
+                `អបអរសាទរ! ការចុះឈ្មោះរបស់អ្នកសម្រាប់ព្រឹត្តិការណ៍ ${eng_name} នេះត្រូវបានអនុម័តជោគជ័យ។ សូមរង់ចាំរហូតដល់ថ្ងៃព្រឹត្តិការណ៍មកដល់ ព្រោះអ្នករៀបចំនឹងផ្ញើតំណភ្ជាប់ដើម្បីចូលរួមកម្មវិធីតាមរយៈការជូនដំណឹង។`,
+                user_id,
+                id,
+                1
+            ];
+            await executeQuery(sqlInsertNotification2,paramsNotification2);
         }
 
         // Update transaction status to approved 
@@ -228,7 +260,9 @@ const putRejectTicket=async(req,res)=>{
             SELECT 
                 tts.id,
                 tts.status,
-                tts.event_id
+                tts.buyer_id,
+                tts.event_id,
+                te.eng_name
             FROM tbl_transaction tts
             LEFT JOIN tbl_event te ON te.id=tts.event_id
             WHERE tts.id = ? AND te.creator_id=?
@@ -239,6 +273,15 @@ const putRejectTicket=async(req,res)=>{
         if (dbResult.length===0) {
             return sendResponse(res, 404, false, "Ticket Request ID not found or You do not have permission to Reject this ticket");
         }
+
+        const {
+            id,
+            status,
+            event_id,
+            buyer_id,
+            eng_name
+        }=dbResult[0];
+
         
         // Check if the ticket request is already rejected or approved
         if (dbResult[0].status === 3) {
@@ -251,6 +294,23 @@ const putRejectTicket=async(req,res)=>{
         
         // Update transaction status to approved 
         await executeQuery(sqlUpdateTransaction, [3,rejected_reason, ticketReq_id]);
+
+        //insert notification
+        const sqlInsertNotification2=`INSERT INTO tbl_notification
+                    (event_id, receiver_id, eng_message,kh_message,sender_id,ticket_req_id, type_id) 
+                    VALUES (?,?,?,?,?,?,?)`
+                    
+        const paramsNotification2=[
+            event_id,
+            buyer_id,
+            `Unfortunately, your request for a ticket to event ${eng_name} has been denied. Reason: [Rejection Reason]. We appreciate your understanding`,
+            `គួរឲ្យសោកស្ដាយណាស់ សំណើរបស់អ្នកសម្រាប់សំបុត្រចូលរួមកម្មវិធី ${eng_name} ត្រូវបានបដិសេធ។ ហេតុផល៖ ${rejected_reason} ។ យើងសូមកោតសរសើរចំពោះការយោគយល់របស់អ្នក។`,
+            user_id,
+            id,
+            2
+        ];
+        await executeQuery(sqlInsertNotification2,paramsNotification2);
+
         sendResponse(res,200,true,`Ticket Request ID ${ticketReq_id} has been rejected successfully`);
     } catch (error) {
         handleResponseError(res,error);
