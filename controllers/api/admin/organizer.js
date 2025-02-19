@@ -242,6 +242,7 @@ const removeOrganizer = async (req, res) => {
 };
 
 const adminApproval = async (req, res) => {
+  const user_id=req.user.id;
   try {
     const requestId = req.params.id;
 
@@ -300,6 +301,20 @@ const adminApproval = async (req, res) => {
     const updateUserQuery = "UPDATE tbl_users SET role = 2 WHERE id = ?";
     await executeQuery(updateUserQuery, [user.user_id]);
 
+    //insert notification
+    const sqlInsertNotification=`INSERT INTO tbl_notification
+    (receiver_id, eng_message,kh_message,sender_id,organizer_req_id, type_id) 
+    VALUES (?,?,?,?,?,?)`
+    const paramsNotification=[
+      user.user_id,
+      `Congratulations! Your request to become an organizer has been approved. We are excited to have you on board! You can now create and manage events`,
+      `អបអរសាទរ! ការដាក់ស្នើរបស់អ្នកដើម្បីក្លាយជាអ្នករៀបចំព្រឹត្តិការណ៍ត្រូវបានយល់ព្រម។ យើងរីករាយដែលមានអ្នកនៅជាមួយ! ពេលនេះអ្នកអាចបង្កើត និងគ្រប់គ្រងព្រឹត្តិការណ៍ផ្ទាល់ខ្លួនបាន​ហើយ។`,
+      user_id,
+      requestId,
+      3
+    ];
+    await executeQuery(sqlInsertNotification,paramsNotification);
+
     sendResponse(
       res,
       200,
@@ -313,6 +328,7 @@ const adminApproval = async (req, res) => {
 };
 
 const adminRejection = async (req, res) => {
+  const sender_id=req.user.id;
   try {
     const requestId = req.params.id;
     const { rejection_reason } = req.body;
@@ -342,6 +358,20 @@ const adminRejection = async (req, res) => {
 
     const updateUserQuery = "UPDATE tbl_users SET role = 1 WHERE id = ?";
     await executeQuery(updateUserQuery, [user_id]);
+
+    //insert notification
+    const sqlInsertNotification=`INSERT INTO tbl_notification
+    (receiver_id, eng_message,kh_message,sender_id,organizer_req_id, type_id) 
+    VALUES (?,?,?,?,?,?)`;
+    const paramsNotification=[
+      userId,
+      `We regret to inform you that your request to become an organizer has been rejected.Reason: ${rejection_reason}. We appreciate your interest and hope you consider applying again.`,
+      `យើងសោកស្ដាយក្នុងការជូនដំណឹងដល់អ្នកថាសំណើរបស់អ្នកដើម្បីក្លាយជាអ្នករៀបចំត្រូវបានបដិសេធ។ ហេតុផល៖ ${rejection_reason}។ យើងសូមកោតសរសើរចំពោះចំណាប់អារម្មណ៍របស់អ្នក ហើយសង្ឃឹមថាអ្នកពិចារណាដាក់ពាក្យម្តងទៀត។`,
+      sender_id,
+      requestId,
+      4
+    ];
+    await executeQuery(sqlInsertNotification,paramsNotification);
 
     sendResponse(res, 200, true, "Request rejected successfully.");
   } catch (error) {

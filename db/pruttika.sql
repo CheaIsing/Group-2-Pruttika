@@ -655,3 +655,100 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+
+-----UPDATE DATABASE - CREATE Tbl_organizer (DATE: 01/30/2025)
+CREATE TABLE `tbl_organizer` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `organization_name` varchar(50) NOT NULL,
+  `bio` varchar(100) DEFAULT NULL,
+  `business_email` varchar(255) NOT NULL,
+  `business_phone` varchar(10) NOT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `facebook` varchar(255) NOT NULL,
+  `telegram` varchar(255) NOT NULL,
+  `tiktok` varchar(255) DEFAULT NULL,
+  `linkin` varchar(255) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1 for Active, 2 for Inactive',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+ALTER TABLE `tbl_organizer`
+  ADD CONSTRAINT `tbl_organizer_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `tbl_users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `tbl_users` 
+  CHANGE `STATUS` `status` tinyint(1) DEFAULT 1 COMMENT ' 1 for active, 2 for inactive';
+
+
+--UPDATE DATABASE (02/12/2025) - alter tbl_transaction & tbl_notification
+ALTER TABLE tbl_transaction MODIFY `ticket_event_id` bigint UNSIGNED NULL;
+
+ALTER TABLE tbl_transaction ADD COLUMN event_id bigint unsigned NOT null;
+
+ALTER TABLE `tbl_transaction`
+  ADD CONSTRAINT `tbl_transaction_event_id_fk` FOREIGN KEY (`event_id`) REFERENCES `tbl_event` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  
+ALTER TABLE `tbl_notification` ADD COLUMN organizer_req_id bigint(20) UNSIGNED NULL;
+
+ALTER TABLE `tbl_notification` ADD COLUMN ticket_req_id bigint(20) UNSIGNED NULL;
+
+ALTER TABLE `tbl_notification` ADD COLUMN type tinyint UNSIGNED COMMENT '1 for Approved, 2 for Rejected, 3 for Remind';
+
+ALTER TABLE `tbl_notification`
+  ADD CONSTRAINT `tbl_notification_org_req_id_fk` FOREIGN KEY (`organizer_req_id`) REFERENCES `tbl_organizer_req` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  
+ALTER TABLE `tbl_notification`
+  ADD CONSTRAINT `tbl_notification_ticket_req_id_fk` FOREIGN KEY (`ticket_req_id`) REFERENCES `tbl_transaction` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `tbl_notification` MODIFY `is_read` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1 for false, 2 for true';
+
+
+------------UPDATE DATABASE (02/17/25)- alter tbl_notification
+CREATE TABLE tbl_notification_type (
+    id bigint PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL UNIQUE,
+    kh_title VARCHAR(255),
+    eng_title VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- drop Table
+DROP TABLE tbl_notification;
+
+CREATE TABLE `tbl_notification` (
+  `id` bigint(20) AUTO_INCREMENT PRIMARY KEY,
+  `receiver_id` bigint(20) UNSIGNED NOT NULL,
+  `eng_message` varchar(255) DEFAULT NULL,
+  `kh_message` varchar(255) DEFAULT NULL,
+  `type_id` bigint,
+  `is_read` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1 for false, 2 for true',
+  `sender_id` bigint(20) UNSIGNED NOT NULL,
+  `event_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `organizer_req_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `ticket_req_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+)
+
+ALTER TABLE `tbl_notification`
+  ADD CONSTRAINT `tbl_notification_event_id_fk` FOREIGN KEY (`event_id`) REFERENCES `tbl_event` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tbl_notification_receiver_id_fk` FOREIGN KEY (`receiver_id`) REFERENCES `tbl_users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tbl_notification_sender_id_fk` FOREIGN KEY (`sender_id`) REFERENCES `tbl_users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tbl_notification_type_id_fk` FOREIGN KEY (`type_id`) REFERENCES `tbl_notification_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tbl_notification_org_req_id_fk` FOREIGN KEY (`organizer_req_id`) REFERENCES `tbl_organizer_req` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tbl_notification_ticket_req_id_fk` FOREIGN KEY (`ticket_req_id`) REFERENCES `tbl_transaction` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `tbl_event` ADD COLUMN join_link varchar(500) NULL;
+
+ALTER TABLE tbl_organizer_req DROP INDEX business_email;
+ALTER TABLE tbl_organizer_req DROP INDEX business_phone;
+
+
+  
+
+
