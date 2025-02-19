@@ -10,3 +10,136 @@
   font-size: 2rem;
   color: #dc3545;
 }
+
+.notification-container {
+  width: 650px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: sans-serif;
+  overflow: hidden; /* Prevents content from overflowing rounded corners */
+}
+
+.header {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+}
+
+.title {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.mark-as-read {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.notifications {
+  padding: 16px;
+  overflow-y: auto; /* Makes the notifications scrollable */
+  max-height: 300px; /* Adjust as needed */
+}
+
+.notification {
+  display: flex;
+  align-items: flex-start; /* Align items to the top of the container */
+  padding: 8px 0px;
+  border-bottom: 1px solid #eee;
+  /* border: 1.6px solid  #e11594;
+  border-radius: 0px 8px 8px 0px; */
+}
+
+
+
+.message {
+  padding: 0px 8px;
+  flex-grow: 1; /* Allows the message to take up available space */
+}
+
+.user-name {
+  font-weight: bold;
+  margin-right: 4px;
+}
+
+.time {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.footer {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #eee;
+}
+
+.footer button {
+  background: none;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.footer button.see-all {
+  color: #007bff; /* Example: Blue color for "See all" */
+}
+
+.notification-count {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  background-color: #f0f0f0;
+  color: #333;
+  padding: 4px 8px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+}
+
+.ellipsis, .heart {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+.ellipsis img, .heart img {
+  width: 20px; /* Adjust size as needed */
+  height: 20px;
+}
+/* All Notification */
+
+.notification {
+  /* ... (previous styles) ... */
+  align-items: center; /* Vertically center items */
+  position: relative; /* For positioning ellipsis and heart */
+}
+
+.time {
+  margin-right: auto; /* Push time to the left */
+}
+
+.ellipsis {
+  position: absolute;
+  top: 50%;
+  right: 50px; /* Adjust as needed */
+  transform: translateY(-50%);
+}
+
+.heart {
+  position: absolute;
+  top: 50%;
+  right: 16px; /* Adjust as needed */
+  transform: translateY(-50%);
+}
+
+.footer {
+  /* ... (previous styles) ... */
+  justify-content: flex-end; /* Align Clear All to the right */
+}

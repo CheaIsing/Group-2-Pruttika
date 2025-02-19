@@ -1,17 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Ticket</title>
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="../../../public/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../../../public/vendor/bootstrap-icon/bootstrap-icons.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-  <link rel="stylesheet" href="../../../public/css/main.css">
-  <link rel="stylesheet" href="../../../public/css/style.css">
-</head>
+<%- include("../../partials/head.ejs")  %>
 
 <body>
   <div class="container py-5">
@@ -23,7 +13,7 @@
       <a class="nav-link fw-bold nav-underline text-brand fs-5" href="#">Request Tickets</a>
     </div>
 
-   <div class="col-4 mb-3">
+   <div class="col-2 mb-3">
       <select id="ticketType" class="form-select custom-select">
           <option value="all">All</option>
           <option value="aproved">Approved</option>
@@ -124,9 +114,9 @@
 
     </table>
   </div>
-
+<%- include("../../partials/script.ejs")  %>
 
 </body>
-<script src="../../../public/js/bootstrap.bundle.min.js"></script>
+
 
 </html>
