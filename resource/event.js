@@ -306,5 +306,7 @@ const eventTicket=(eventData)=>{
 
 module.exports={
     eventCollection,
-    eventDetail
+    eventDetail,
+    eventCategories,
+    eventTicket
 }

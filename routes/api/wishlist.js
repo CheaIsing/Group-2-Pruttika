@@ -11,7 +11,7 @@ const { requireAuth } = require("../../middlewares/auth");
 
 const router = express.Router();
 
-router.get("/display", getAllWishlist);
+router.get("/display",requireAuth, getAllWishlist);
 router.get("/display/:id", getWishlistById);
 
 router.post("/create", requireAuth, storeEventToWishlist);
