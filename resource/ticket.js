@@ -98,7 +98,7 @@ const reqTicketCollection=async(userId,event_id=null,ticket_type_id=null,page=1,
         return ticketReqObj;
     } catch (error) {
         console.log(error);
-        throw error;
+        // throw error;
     }
 }
 

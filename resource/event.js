@@ -70,7 +70,6 @@ const joinEventQry=`SELECT
                     BY event_id
             ) agenda_info ON te.id = agenda_info.event_id
             LEFT JOIN tbl_wishlist tw ON tw.event_id = te.id AND tw.user_id = ?
-            
         `;
 
 const eventCollection= async(userID,page=1, perpage=25, search='', sort='id', order='ASC', start_date = null, end_date = null, event_type = null, min_price = null, max_price = null, cate_ids = [],published=null,creator=null)=>{
@@ -117,11 +116,10 @@ const eventCollection= async(userID,page=1, perpage=25, search='', sort='id', or
         }
 
         // Filter by category
-        const cateId = Array.isArray(cate_ids) ? cate_ids.map(Number) : [Number(cate_ids)];
-        if (cateId.length > 0) {
-            const placeholders = cateId.map(() => '?').join(', ');
-            filterQuery += ` AND tec.category_id IN (${placeholders})`;
-            filterParams.push(...cateId); //push category to param
+        if (Array.isArray(cate_ids) && cate_ids.length > 0) {
+            const placeholders = cate_ids.map(() => '?').join(', ');
+            sqlQuery += ` AND tec.category_id IN (${placeholders})`;
+            filterParams.push(...cate_ids); // Push category IDs directly
         }
 
         if(published=="true"){
@@ -208,7 +206,7 @@ const eventCollection= async(userID,page=1, perpage=25, search='', sort='id', or
         return eventObj;
     } catch (error) {
         console.log(error);
-        throw error;
+        // throw error;
     }
 }
 
@@ -265,6 +263,7 @@ const eventCategories=(eventData)=>{
     }
     return categories;
 }
+
 const eventAgenda=(eventData)=>{
     const agendaIds = eventData.agenda_id ? eventData.agenda_id.split(',') : [];
     const agendaTitle = eventData.agenda_title ? eventData.agenda_title.split(',') : [];
@@ -284,6 +283,7 @@ const eventAgenda=(eventData)=>{
     }
     return agenda;
 }
+
 const eventTicket=(eventData)=>{
     const ticketIds = eventData.ticket_type_id ? eventData.ticket_type_id.split(',') : [];
     const ticketNames = eventData.ticket_type_names ? eventData.ticket_type_names.split(',') : [];
