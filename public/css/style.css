@@ -812,7 +812,7 @@ form.sign-in-form {
 }
 
 /* FORMS */
-#qbox-container {
+/* #qbox-container { */
   /* background: url(../images/img-corona.png); */
   /* background-repeat: repeat; */
   /* position: relative; */
@@ -821,7 +821,7 @@ form.sign-in-form {
   /* box-shadow: 10px 8px 21px 0px rgba(204, 204, 204, 0.75); */
   /* -webkit-box-shadow: 10px 8px 21px 0px rgba(204, 204, 204, 0.75); */
   /* -moz-box-shadow: 10px 8px 21px 0px rgba(204, 204, 204, 0.75); */
-}
+/* } */
 
 #steps-container {
   /* margin: auto; */
@@ -830,7 +830,7 @@ form.sign-in-form {
   display: flex;
   vertical-align: middle;
   align-items: center; */
-}
+/* } */
 
 .step {
   display: none;
