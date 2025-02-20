@@ -13,9 +13,12 @@ const getNotifications = async (req, res) => {
   SELECT 
     -- Notification Data
     tn.id AS notification_id,
-    tn.title AS notification_title,
-    tn.message AS notification_message,
-    tn.link AS notification_link,
+    tnt.id AS notification_type_id,
+    tnt.name AS notification_type,
+    tn.eng_message AS notification_eng_message,
+    tn.kh_message AS notification_kh_message,
+    tnt.eng_title AS notification_eng_title,
+    tnt.kh_title AS notification_kh_title,
     tn.is_read AS notification_is_read,
     tn.created_at AS notification_created_at,
     tn.updated_at AS notification_updated_at,
@@ -71,6 +74,7 @@ const getNotifications = async (req, res) => {
     GROUP_CONCAT(DISTINCT ta.id) AS agenda_ids
 
     FROM tbl_notification tn
+    LEFT JOIN tbl_notification_type tnt ON tnt.id = tn.type_id
     LEFT JOIN tbl_event te ON te.id = tn.event_id
     LEFT JOIN tbl_users tr ON tr.id = tn.receiver_id
     LEFT JOIN tbl_users ts ON ts.id = tn.sender_id
@@ -102,11 +106,11 @@ const getNotifications = async (req, res) => {
   WHERE id IN (?);
 `;
 
-  const agendaSql = `
-  SELECT id, title, description, start_time, end_time 
-  FROM tbl_agenda 
-  WHERE id IN (?);
-`;
+//   const agendaSql = `
+//   SELECT id, title, description, start_time, end_time 
+//   FROM tbl_agenda 
+//   WHERE id IN (?);
+// `;
 
 const arrData = [userId];
 
@@ -140,25 +144,32 @@ const arrData = [userId];
       }
     });
 
-    const agendaPromises = result.map(async (notification) => {
-      if (notification.agenda_ids) {
-        const agendaIds = notification.agenda_ids.split(",").map(Number);
-        const agenda = await executeQuery(agendaSql, [agendaIds]);
-        notification.event_agenda = agenda;
-        delete notification.agenda_ids;
-      } else {
-        notification.event_agenda = [];
-        delete notification.agenda_ids;
-      }
-    });
+    // const agendaPromises = result.map(async (notification) => {
+    //   if (notification.agenda_ids) {
+    //     const agendaIds = notification.agenda_ids.split(",").map(Number);
+    //     const agenda = await executeQuery(agendaSql, [agendaIds]);
+    //     notification.event_agenda = agenda;
+    //     delete notification.agenda_ids;
+    //   } else {
+    //     notification.event_agenda = [];
+    //     delete notification.agenda_ids;
+    //   }
+    // });
 
-    await Promise.all([...categoryPromises, ...ticketPromises, ...agendaPromises]);
+    await Promise.all([...categoryPromises, ...ticketPromises]);
 
     const notifications = result.map(noti => ({
       id: noti.notification_id,
-      title: noti.notification_title,
-      message: noti.notification_message,
-      link: noti.notification_link,
+      type:{
+        type_id : noti.notification_type_id,
+      type_name: noti.notification_type,
+      type_id_status: "1 & 3 Approved, 2 & 4 Rejected, 5 Update Event, 6 Reminder, 7 Event Link Access"
+      },
+      
+      eng_title: noti.notification_eng_title,
+      kh_title: noti.notification_kh_title,
+      eng_message: noti.notification_eng_message,
+      kh_message: noti.notification_kh_message,
       is_read: noti.notification_is_read == 1 ? true:false,
       created_at: noti.notification_created_at,
       updated_at: noti.notification_updated_at,
@@ -209,8 +220,7 @@ const arrData = [userId];
         qr_img: noti.event_qr_img,
         is_published: noti.event_is_published,
         categories: noti.event_categories,
-        tickets: noti.event_tickets,
-        agenda: noti.event_agenda
+        tickets: noti.event_tickets
       }
     }));
 

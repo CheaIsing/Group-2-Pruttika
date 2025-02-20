@@ -1,18 +1,22 @@
 const showToast = (
   result = false,
-  msg = "Something went wrong. Please try again later."
+  msg = "Something went wrong. Please try again later.",
+  gravity = "top",
+  position= "center", 
+  close = true
 ) => {
   const styleBg = result
     ? `linear-gradient(to right, rgb(251, 45, 155), #FF1694)`
     : `linear-gradient(to right,rgb(231, 57, 74), #dc3545)`;
 
   Toastify({
+    // avatar: "https://static-00.iconduck.com/assets.00/success-icon-2048x2048-8woikx05.png",
     text: msg,
     duration: 3000,
     newWindow: true,
-    close: true,
-    gravity: "top", // `top` or `bottom`
-    position: "center", // `left`, `center` or `right`
+    close,
+    gravity, // `top` or `bottom`
+    position, // `left`, `center` or `right`
     stopOnFocus: true, // Prevents dismissing of toast on hover
     style: {
       background: styleBg,
@@ -56,6 +60,6 @@ function copyEventUrlToClipboard(eventId) {
   
 
   navigator.clipboard.writeText(url).then(() => {
-    showToast("Event URL copied to clipboard:", true);
+    showToast(true, "Copied to Clipboard.");
   });
 }

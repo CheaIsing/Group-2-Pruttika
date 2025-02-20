@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+    <%- include("../../partials/head.ejs") %>
+    <body>
+        <div
+            class="allnotification d-flex align-items-center justify-content-center">
+            <div
+                class="container d-flex align-items-center justify-content-between">
+                <h4>All Notification</h4>
+
+                <div class="d-flex align-items-center">
+                    <div
+                        class="num-circle ms-3 fs-4 d-flex align-items-center justify-content-center text-brand"
+                        style="width: 30px; height: 30px; border-radius: 50%; background-color: #f0f0f0;">
+                        <strong>4</strong>
+                    </div>
+                    <div class="ms-3">Make As Read</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container py-4" style="max-width: 1000px !important;">
+            <div>
+                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active btn-brand rounded-pill"
+                            id="pills-home-tab" data-bs-toggle="pill"
+                            data-bs-target="#pills-home" type="button"
+                            role="tab" aria-controls="pills-home"
+                            aria-selected="true">ALL</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active rounded-pill" id="pills-profile-tab"
+                            data-bs-toggle="pill"
+                            data-bs-target="#pills-profile" type="button"
+                            role="tab" aria-controls="pills-profile"
+                            aria-selected="false">Unread</button>
+                    </li>
+                </ul>
+                <div class="tab-content m-0" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-home"
+                        role="tabpanel" aria-labelledby="pills-home-tab"
+                        tabindex="0">
+
+                        <div class="row" id="notification-container">
+                            
+
+                        </div>
+                        <div class="tab-pane fade" id="pills-profile"
+                            role="tabpanel" aria-labelledby="pills-profile-tab"
+                            tabindex="0">
+
+                            <div class="col-12">
+                                <div class="notification mb-3">
+                                    <!-- <div class="line-style-noti me-3"></div> -->
+                                    <div>
+
+                                        <div
+                                            class="icon-noti d-flex align-items-center justify-content-center">
+                                            <i class="fa-solid fa-bell"></i>
+                                        </div>
+                                    </div>
+                                    <div class="message">
+                                        <h2>Tom Jerrynie</h2>
+                                        <div class="content">How can i join the
+                                            event?</div>
+                                    </div>
+                                    <span class="icon-unread me-3"></span>
+                                    <span class="time me-3">2 days ago</span>
+                                    <div class="dropdown">
+                                        <button class="btn btn-brand "
+                                            type="button"
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            <i
+                                                class="fa-solid fa-ellipsis fs-5 px-3"></i>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><button class="dropdown-item"
+                                                    type="button">Make As
+                                                    Read</button></li>
+                                            <li><button class="dropdown-item"
+                                                    type="button">Delete</button></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <%- include("../../partials/script.ejs") %>
+            <script>
+        async function getAllNotifications() {
+            try {
+                const {data} = await axiosInstance.get("/notification");
+                const {data:json} = data
+                console.log(json);
+
+                let notiHtml = ''
+
+                json.forEach(noti => {
+
+                    const title = noti.eng_title
+                    const message = noti.eng_message
+
+                    let status = '';
+                    switch(noti.type.type_id){
+                        case 1 :
+                        case 3 : {
+                            status = `<div
+                                                class="d-flex align-items-center justify-content-center"
+                                                style="width: 3rem;height: 3rem;border-radius: 50%; background-color: #DCFCE7; color: #37CC6D;">
+                                                <i data-lucide="check"
+                                                    style="width: 1.5rem;height: 1.5rem;"></i>
+                                            </div>`
+                            break
+                        }
+                        case 2: 
+                        case 4: {
+                            status = `<div
+                                                class="d-flex align-items-center justify-content-center"
+                                                style="width: 3rem;height: 3rem;border-radius: 50%; background-color: #FEE2E2; color: #EF4444;">
+                                                <i data-lucide="x"
+                                                    style="width: 1.5rem;height: 1.5rem;"></i>
+                                            </div>
+                            `
+                            break
+                        }
+                        default : {
+                            status = `<div
+                                                class="d-flex align-items-center justify-content-center"
+                                                style="width: 3rem;height: 3rem;border-radius: 50%; background-color: #DBEAFE; color: #3B82F6;">
+                                                <i data-lucide="info"
+                                                    style="width: 1.5rem;height: 1.5rem;"></i>
+                                            </div>
+                            `
+                        }
+                    }
+                    
+                    notiHtml += `<div class="col-12">
+                                <div class="notification mb-3 py-3 rounded-3 shadow-hover">
+                                    <!-- <div class="line-style-noti me-3"></div> -->
+                                    <div class="d-flex align-items-start">
+                                        <div class="me-2">
+                                            ${status}
+                                        </div>
+
+                                        <div class="message mt-1">
+                                            <h6
+                                                style="color: #333;font-size: 1.2rem;">${title}</h6>
+                                            <div
+                                                class="d-flex align-items-center">
+                                                <p class="content mb-2"
+                                                    style="color: #4b5563;"
+                                                    id="message">${message}</p>
+
+                                            </div>
+                                            <div style="color: #4b5563;"
+                                                class="d-flex align-items-center">
+                                                <i
+                                                    data-lucide="clock"
+                                                    style="stroke-width: 1.25; width: 1.25rem;" class=""></i>
+                                                <div class="ms-2 me-3">${moment(json.created_at)
+      .startOf("day")
+      .fromNow()}</div> 
+                                                ${json.is_read ? '' : `<div
+                                                    class="icon-unread bg-brand"></div>`}
+                                            </div>
+                                        </div>
+
+                                        <div class="dropdown">
+                                            <button
+                                                type="button"
+                                                class="btn btn-icon border-0 rounded-pill dropdown-toggle hide-arrow"
+                                                data-bs-toggle="dropdown"
+                                                aria-expanded="false">
+                                                <i
+                                                    data-lucide="ellipsis-vertical"></i>
+                                            </button>
+                                            <ul
+                                                class="dropdown-menu dropdown-menu-end">
+                                                <li><a class="dropdown-item"
+                                                        href="javascript:void(0);">Mark As Read</a></li>
+                                                
+                                                <li><a class="dropdown-item"
+                                                        href="javascript:void(0);">Delete</a></li>
+                                                <li>
+                                                    <hr
+                                                        class="dropdown-divider" />
+                                                </li>
+                                                <li><a class="dropdown-item"
+                                                        href="javascript:void(0);">Separated
+                                                        link</a></li>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>`
+
+                    
+                });
+
+                document.getElementById("notification-container").innerHTML = notiHtml;
+                lucide.createIcons();
+            } catch (error) {
+                console.log(error);
+                
+            }
+        }
+        getAllNotifications()
+      </script>
+        </body>
+    </html>

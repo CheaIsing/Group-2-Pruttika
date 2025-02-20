@@ -115,6 +115,21 @@
     </table>
   </div>
 <%- include("../../partials/script.ejs")  %>
+<script>
+  async function getRequestTicket() {
+    try {
+      const {data} = await axiosInstance.get("/profile/own-request-ticket")
+      const {data: json} = data
+
+      console.log(json);
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
+  getRequestTicket()
+</script>
 
 </body>
 
