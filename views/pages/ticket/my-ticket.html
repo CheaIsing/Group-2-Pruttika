@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Tickets</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="/public/css/style.css">
+
+    <!-- Lucide Icons (Optional) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+    /* STATUS BADGES */
+    .ticket-status {
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 16px;
+      padding: 8px 12px;
+      /* display: inline-block; */
+    }
+    .approved {
+      background: #d1fae5; 
+      color: #047857; 
+    }
+    .pending {
+      background: #fef3c7; 
+      color: #b45309;
+    }
+    .rejected {
+      background: #fee2e2; 
+      color: #b91c1c;
+    }
+
+    /* OPTIONAL: Make the accordion panel look card-like */
+    .accordion-button {
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center;
+    }
+    .accordion-button h5 {
+      margin: 0;
+      font-size: 1.125rem; /* h5 default: 1.25rem, adjust as needed */
+    }
+    .accordion-button small {
+      color: #6c757d; /* text-muted */
+      display: block;
+    }
+    .accordion-button::after {
+  margin-left: 1rem !important;
+  margin-block: auto !important;
+  display: none !important;
+  background-image: none !important;
+}
+.accordion-button:not(.collapsed) {
+  background-color: transparent !important;
+}
+
+.transaction-btn{
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: all 0.3s;
+}
+
+
+.hover-transaction:hover .transaction-btn{
+  opacity: 1;
+}
+  </style>
+  </head>
+  <body class="bg-light">
+    <div class="container py-4">
+
+      <!-- Title -->
+      <h3 class="mb-4">My Tickets</h3>
+
+      <!-- Filter Buttons (Optional) -->
+      <!-- <div class="d-flex gap-2 mb-4">
+        <button class="btn btn-primary">All</button>
+        <button class="btn btn-outline-secondary">Pending</button>
+        <button class="btn btn-outline-secondary">Approved</button>
+        <button class="btn btn-outline-secondary">Rejected</button>
+      </div> -->
+
+      <!-- Accordion Start -->
+      <div class="accordion" id="ticketsAccordion">
+
+        <!-- TICKET 1: Approved -->
+        <div
+          class="accordion-item mb-3 rounded-3 overflow-hidden border-0">
+          <h2 class="accordion-header rounded-top-3"
+            id="ticket1Header">
+            <button class="accordion-button"
+              type="button"
+              data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <div style="max-width: 200px;" class="me-1 d-none d-md-block">
+                <img src="/public/uploads/default-events-img.jpg"
+                  style="max-width: 200px;" class="img-preview rounded-3"
+                  alt="Image">
+              </div>
+              <!-- Left side (Title, Date, #Tickets) -->
+              <div style="color: #4b5563;" class="ms-md-3">
+                <h3 class="mb-3">Summer Music Festival 2024</h3>
+                <div class="mb-md-2 fs-5">
+                  <div
+                    class="d-flex align-items-md-center flex-column flex-md-row">
+                    <div
+                      class="d-flex align-items-center fs-5 me-md-4 mb-2 mb-md-0
+                ">
+                      <i data-lucide="calendar"
+                        style="stroke-width: 1.75px; width: 1.25rem;"></i>
+                      <div class="ms-2">March 15,
+                        2024</div>
+                    </div>
+                    <div
+                      class="d-flex align-items-center fs-5 mb-2 mb-md-0">
+                      <i data-lucide="ticket"
+                        style="stroke-width: 1.75px; width: 1.25rem;"></i>
+                      <div class="ms-2 ">1 tickets</div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="d-flex align-items-center fs-5 mt-md-2 mb-2 mb-md-0 d-none d-sm-flex">
+                  <i data-lucide="map-pin"
+                    style="stroke-width: 1.75px; width: 1.25rem;"></i>
+                  <div class="ms-2 ">Central Park, NY</div>
+
+                </div>
+                <div>
+                  <div
+                    class="ticket-status approved text-nowrap d-block d-sm-none mt-3 text-center"
+                    style="width: auto !important; ">✔
+                    Approved</div>
+                </div>
+
+              </div>
+              <!-- Right side (Status) -->
+              <div
+                class="ticket-status approved ms-auto text-nowrap d-none d-sm-block fw-semibold">✔
+                Approved</div>
+
+              <a id="btnTransaction" data-bs-toggle="tooltip"
+              data-bs-placement="bottom"
+              title="View Transaction"
+              data-bs-custom-class="custom-tooltip" class="btn btn-brand btn-icon fw-semibold ms-3 px-3 rounded-circle" type="button"><i data-lucide="eye"></i></a>
+            </button>
+          </h2>
+
+        </div>
+
+        <!-- TICKET 2: Rejected -->
+        <!-- <div class="accordion-item mb-3 rounded-3 overflow-hidden">
+      <h2 class="accordion-header rounded-top-3" id="ticket2Header">
+        <button class="accordion-button collapsed" 
+                type="button" 
+                data-bs-toggle="collapse" 
+                data-bs-target="#ticket2Collapse" 
+                aria-expanded="false" 
+                aria-controls="ticket2Collapse">
+          <div>
+            <h5>Comedy Night Show</h5>
+            <small><i data-lucide="calendar"></i> March 20, 2024 · 1 ticket</small>
+          </div>
+          <span class="ticket-status rejected ms-auto">✖ Rejected</span>
+        </button>
+      </h2>
+      <div 
+        id="ticket2Collapse" 
+        class="accordion-collapse collapse" 
+        aria-labelledby="ticket2Header" 
+        data-bs-parent="#ticketsAccordion"
+      >
+        <div class="accordion-body">
+          <p>Transaction details not available.</p>
+        </div>
+      </div>
+    </div> -->
+
+        <!-- TICKET 3: Pending -->
+        <!-- <div class="accordion-item mb-3 rounded-3 overflow-hidden">
+      <h2 class="accordion-header rounded-top-3" id="ticket3Header">
+        <button class="accordion-button collapsed" 
+                type="button" 
+                data-bs-toggle="collapse" 
+                data-bs-target="#ticket3Collapse" 
+                aria-expanded="false" 
+                aria-controls="ticket3Collapse">
+          <div>
+            <h5>Tech Conference 2024</h5>
+            <small><i data-lucide="calendar"></i> April 5, 2024 · 3 tickets</small>
+          </div>
+          <span class="ticket-status pending ms-auto">⏳ Pending</span>
+        </button>
+      </h2>
+      <div 
+        id="ticket3Collapse" 
+        class="accordion-collapse collapse" 
+        aria-labelledby="ticket3Header" 
+        data-bs-parent="#ticketsAccordion"
+      >
+        <div class="accordion-body">
+          <p>Transaction details pending approval.</p>
+        </div>
+      </div>
+    </div> -->
+
+      </div>
+      <!-- Accordion End -->
+
+    </div>
+
+<!-- Modal -->
+<div class="modal fade modal-md" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog ">
+  <div class="modal-content " style="color: #333;">
+    <div class="modal-header">
+      <h4 class="modal-title" style="color: #333;" id="exampleModalLabel">
+        Ticket Transaction
+      </h4>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+
+          <span class="ticket-status badge rounded-pill approved fw-medium">✔ Status: 
+            Approved</span>
+            <br><br>
+
+            <div class="shadow-sm border rounded-3 overflow-hidden">
+              <div class="hover-transaction position-relative overflow-hidden">
+                <img class="w-100 object-fit-cover" style="max-height: 200px;" src="https://www.gonnaorder.com/wp-content/uploads/2024/08/pay-9-usd-aba-payway.jpg" alt="">
+                <div class="transaction-btn position-absolute top-0 end-0 start-0 bottom-0 d-flex align-items-center justify-content-center ">
+
+                  <button type="button" class="btn btn-outline-brand-white ">Full Image</button>
+                </div>
+              </div>
+              <div class="bg-light p-4 border-top">
+                <h5 class="fw-meduim mb-3">Ticket Detail</h5>
+  
+                <div class="card-text fs-5 d-flex align-items-center justify-content-between mb-2">
+                  <small>
+                    Ticket Bought 
+                  </small>
+                  <small class="fw-medium">
+                    1
+                  </small>
+                </div>
+                <div class="card-text fs-5 d-flex align-items-center justify-content-between mb-2">
+                  <small>
+                    Price Per Ticket
+                  </small>
+                  <small class="fw-medium">
+                    $10.00
+                  </small>
+                </div>
+                <div class="card-text fs-5 d-flex align-items-center justify-content-between mb-2">
+                  <small>
+                    Discount
+                  </small>
+                  <small class="fw-medium">
+                    $0.00
+                  </small>
+                </div>
+                <hr>
+                <div class="card-text fs-5 d-flex align-items-center justify-content-between mb-2">
+                  <small>
+                    Total
+                  </small>
+                  <small class="fw-medium">
+                    $10.00
+                  </small>
+                </div>
+              </div>
+            </div>
+
+
+
+      <!-- <div
+        class="row"
+      >
+        <div class="col-12 col-md-6">
+          
+        <div class="text-start">
+          <p>Ticket Bought : 1</p>
+          <p>Price Per Ticket : $10.00</p>
+          <p>Total:$10.00</p>
+        </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <h5>Transection File</h5>
+          <div class="transection-img">
+            <img src="../../../public/img/payment.jpg" alt="">
+
+          </div>
+
+        </div>
+      </div> -->
+    
+    </div>
+  </div>
+</div>
+</div>
+
+    <!-- Bootstrap JS (for accordion functionality) -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+</script>
+
+    <!-- Initialize Lucide Icons (Optional) -->
+    <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    lucide.createIcons();
+  });
+  const tooltipTriggerList = [].slice.call(
+          document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        );
+        const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+          return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+
+        btnTransaction.click()
+</script>
+
+  </body>
+</html>

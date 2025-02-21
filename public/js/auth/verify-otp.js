@@ -66,9 +66,9 @@ if (userEmail) {
         sessionStorage.setItem("isVerifiedOtp", true);
         location.href = "/auth/reset-password";
       } catch (error) {
-        console.log(error.response.data);
+        console.log(error);
 
-        if (typeof error.response.data == "string") {
+        if (!(error.response && error.response.data &&  typeof error.response.data == "object")) {
           return showToast();
         }
 

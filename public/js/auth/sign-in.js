@@ -72,7 +72,7 @@ signInForm.addEventListener(
     } catch (error) {
       console.log(error);
 
-      if (typeof error.response.data == "string") {
+      if (!(error.response && error.response.data &&  typeof error.response.data == "object")) {
         return showToast();
       }
 

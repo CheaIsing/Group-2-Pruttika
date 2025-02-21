@@ -26,75 +26,6 @@ const getAllProfile = async (req, res) => {
   }
 };
 
-// const getProfileById = async (req, res) => {
-//   const id = req.params.id;
-//   try {
-//     // const query = "SELECT * FROM tbl_users WHERE id = ?";
-//     const query = `SELECT 
-//             tu.*,
-//               tor.id AS organizer_id,
-//               tor.organization_name,
-//               tor.bio,
-//               tor.business_email,
-//               tor.business_phone,
-//               tor.location,
-//               tor.facebook,
-//               tor.telegram,
-//               tor.tiktok,
-//               tor.linkin,
-//               tor.status AS org_status,
-//               tor.created_at AS org_created,
-//               tor.updated_at AS org_updated
-//           FROM tbl_users tu
-//           LEFT JOIN tbl_organizer tor ON tu.id=tor.user_id
-//           WHERE tu.id=?
-//     `;
-
-//     const data = await executeQuery(query, [id]);
-
-//     if (data.length === 0) {
-//       return sendResponse(res, 404, false, "No data found.");
-//     }
-
-//     const User=data[0];
-//     const dataUser={
-//       id: User.id,
-//       kh_name : User.kh_name,
-//       eng_name: User.eng_name,
-//       email: User.email,
-//       phone: User.phone,
-//       avatar: User.avatar,
-//       dob: User.dob,
-//       gender: User.gender,
-//       address:User.address,
-//       role: User.role,
-//       status: User.status,
-//       Organizer_info:{
-//         id:User.organizer_id,
-//         name: User.organization_name,
-//         bio: User.bio,
-//         email: User.business_email,
-//         phone: User.business_phone,
-//         location: User.location,
-//         facebook: User.facebook,
-//         telegram: User.telegram,
-//         tiktok: User.tiktok,
-//         linkin: User.linkin,
-//         status: User.org_status,
-//         created_at: User.org_created,
-//         updated_at: User.org_updated
-//       },
-//       created_at : User.created_at,
-//       updated_at : User.updated_at
-//     };
-
-//     sendResponse(res, 200, true, `Display profile detail with id : ${id}`, dataUser);
-//   } catch (error) {
-//     console.log(error);
-//     handleResponseError(res, error);
-//   }
-// }
-
 const updateOwnInfo = async (req, res) => {
   const { kh_name, eng_name, email, phone, dob, gender, address, role } =
     req.body;
@@ -376,6 +307,7 @@ const getOwnTicket = async (req, res) => {
     );
   } catch (error) {}
 };
+
 const deactivateAccount = async (req, res) => {
   const userId = req.user.id;
 
@@ -403,22 +335,73 @@ const deactivateAccount = async (req, res) => {
 };
 
 const getProfileById = async (req, res) => {
-  const userId = req.params.id;
-
+  const id = req.params.id;
   try {
-    const query = "SELECT * FROM tbl_users WHERE id = ?";
-    const data = await executeQuery(query, [userId]);
+    // const query = "SELECT * FROM tbl_users WHERE id = ?";
+    const query = `SELECT 
+            tu.*,
+              tor.id AS organizer_id,
+              tor.organization_name,
+              tor.bio,
+              tor.business_email,
+              tor.business_phone,
+              tor.location,
+              tor.facebook,
+              tor.telegram,
+              tor.tiktok,
+              tor.linkin,
+              tor.status AS org_status,
+              tor.created_at AS org_created,
+              tor.updated_at AS org_updated
+          FROM tbl_users tu
+          LEFT JOIN tbl_organizer tor ON tu.id=tor.user_id
+          WHERE tu.id=?
+    `;
+
+    const data = await executeQuery(query, [id]);
 
     if (data.length === 0) {
-      return sendResponse(res, 404, false, "User not found.");
+      return sendResponse(res, 404, false, "No data found.");
     }
 
-    sendResponse(res, 200, true, "User details fetched sucessfully", data[0]);
+    const User=data[0];
+    const dataUser={
+      id: User.id,
+      kh_name : User.kh_name,
+      eng_name: User.eng_name,
+      email: User.email,
+      phone: User.phone,
+      avatar: User.avatar,
+      dob: User.dob,
+      gender: User.gender,
+      address:User.address,
+      role: User.role,
+      status: User.status,
+      Organizer_info:{
+        id:User.organizer_id,
+        name: User.organization_name,
+        bio: User.bio,
+        email: User.business_email,
+        phone: User.business_phone,
+        location: User.location,
+        facebook: User.facebook,
+        telegram: User.telegram,
+        tiktok: User.tiktok,
+        linkin: User.linkin,
+        status: User.org_status,
+        created_at: User.org_created,
+        updated_at: User.org_updated
+      },
+      created_at : User.created_at,
+      updated_at : User.updated_at
+    };
+
+    sendResponse(res, 200, true, `Display profile detail with id : ${id}`, dataUser);
   } catch (error) {
     console.log(error);
     handleResponseError(res, error);
   }
-};
+}
 
 module.exports = {
   updateOwnInfo,

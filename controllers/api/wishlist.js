@@ -1,21 +1,12 @@
 const { handleResponseError } = require("../../utils/handleError");
 const { executeQuery } = require("../../utils/dbQuery");
 const { sendResponse } = require("../../utils/response");
+const {wishlistCollection}=require("../../resource/wishlist");
 
 const getAllWishlist = async (req, res) => {
+  const user_id=req.user.id;
   try {
-    const query = `
-      SELECT w.id, w.user_id, w.event_id, e.eng_name, e.started_date, e.ended_date, u.eng_name
-      FROM tbl_wishlist AS w
-      JOIN tbl_event AS e ON w.event_id = e.id
-      JOIN tbl_users AS u ON w.user_id = u.id
-    `;
-
-    const data = await executeQuery(query);
-
-    if (data.length === 0) {
-      return sendResponse(res, 404, false, "No event in wishlist found.");
-    }
+    const data= await wishlistCollection(user_id);
 
     sendResponse(res, 200, true, "Display all events in wishlist.", data);
   } catch (error) {

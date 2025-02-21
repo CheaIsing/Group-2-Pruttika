@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/public/css/style.css">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet">
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link
+      href="/public/css/bootstrap.min.css"
+      rel="stylesheet">
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+      <style>
+        .event-card {
+  transition: all 0.3s ease;
+  border-radius: 1rem;
+}
+
+.event-card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.event-card .image-container {
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+
+.event-card .image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.event-card:hover .image-container img {
+  transform: scale(1.05);
+}
+
+.event-badge {
+  position: absolute;
+  padding: 0.25rem 0.75rem;
+  border-radius: 2rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.filter-button {
+  width: 100%;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+  border: 0;
+}
+
+.filter-button:hover {
+  background-color: #f8f9fa;
+}
+
+.filter-button.active {
+  background-color: var(--bs-primary);
+  color: white;
+}
+
+.mobile-sidebar {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 100%;
+  max-width: 320px;
+  height: 100vh;
+  background: white;
+  transition: right 0.3s ease;
+  z-index: 1050;
+}
+
+.mobile-sidebar.show {
+  right: 0;
+}
+
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1040;
+  display: none;
+}
+
+.sidebar-overlay.show {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .desktop-sidebar {
+    position: sticky;
+    top: 2rem;
+  }
+}
+      </style>
+</head>
+<body>
+
+    <div class="bg-light min-vh-100 py-4 py-md-5">
+        <div class="container">
+          <!-- {/* Header */} -->
+          <div class="row align-items-center mb-4 mb-md-5">
+            <div class="col-12 col-md-8 mb-4 mb-md-0">
+              <h1 class="display-5 fw-bold mb-2">Discover Events</h1>
+              <p class="text-muted">Find and join amazing events near you</p>
+            </div>
+            <div class="col-12 col-md-4 d-flex gap-2">
+              <button 
+                
+                class="btn btn-outline-primary d-md-none"
+              >
+                <!-- <Filter class="me-2" size={20} /> -->
+                Filter
+              </button>
+              <select 
+                class="form-select"
+              >
+                <option value="popularity">Sort by popularity</option>
+                <option value="date">Sort by date</option>
+                <option value="price">Sort by price</option>
+              </select>
+            </div>
+          </div>
+  
+          <div class="row g-4">
+            <!-- {/* Desktop Sidebar */} -->
+            <div class="col-md-4 col-lg-3 d-none d-md-block">
+              <div class="desktop-sidebar bg-white p-4 rounded-4 shadow-sm">
+                <div class="position-relative mb-4">
+                  <!-- <Search class="position-absolute ms-3 top-3" /> -->
+                  <input
+                    type="text"
+                    placeholder="Search events..."
+                    class="form-control ps-5 rounded-pill"
+                  />
+                </div>
+  
+                <div class="mb-4">
+                  <h3 class="h5 mb-3">Price</h3>
+                  <div class="d-grid gap-2">
+                    <button
+                      
+                      class="filter-button active"
+                    >
+                      <!-- <DollarSign class="me-2" size={20} /> -->
+                      Free
+                      <span class="float-end text-muted">(10)</span>
+                    </button>
+                    <button
+                    class="filter-button"
+                    >
+                      <!-- <DollarSign class="me-2" size={20} /> -->
+                      Paid
+                      <span class="float-end text-muted">(25)</span>
+                    </button>
+                  </div>
+                </div>
+  
+                <div class="mb-4">
+                  <h3 class="h5 mb-3">Location</h3>
+                  <div class="d-grid gap-2">
+                    <button
+                    class="filter-button active"
+                    >
+                      <!-- <Wifi class="me-2" size={20} /> -->
+                      Online
+                      <span class="float-end text-muted">(15)</span>
+                    </button>
+                    <button
+                      
+                    class="filter-button active"
+                    >
+                      <!-- <MapPin class="me-2" size={20} /> -->
+                      In Person
+                      <span class="float-end text-muted">(20)</span>
+                    </button>
+                  </div>
+                </div>
+  
+                <div>
+                  <h3 class="h5 mb-3">Categories</h3>
+                  <div class="d-grid gap-2">
+                    
+                      <button
+                        
+                      class="filter-button active"
+                      >
+                        {category}
+                        <span class="float-end text-muted">(12)</span>
+                      </button>
+                      <button
+                        
+                      class="filter-button active"
+                      >
+                        {category}
+                        <span class="float-end text-muted">(12)</span>
+                      </button>
+                      <button
+                        
+                      class="filter-button active"
+                      >
+                        {category}
+                        <span class="float-end text-muted">(12)</span>
+                      </button>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <!-- {/* Mobile Sidebar */} -->
+            <div class="sidebar-overlay " id="sidebar" onclick="showSidebar()">
+            <div class="mobile-sidebar p-4 ">
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="h4 mb-0">Filters</h2>
+                <button class="btn btn-link p-0" >
+                  <!-- <X size={24} />  -->
+                  X
+                </button>
+              </div>
+              
+              <div class="position-relative mb-4">
+                <!-- <Search class="position-absolute ms-3"  /> -->
+                <input
+                  type="text"
+                  placeholder="Search events..."
+                  class="form-control ps-5 rounded-pill"
+                />
+              </div>
+  
+              <!-- {/* Mobile Price Filters */} -->
+              <div class="mb-4">
+                <h3 class="h5 mb-3">Price</h3>
+                <div class="d-grid gap-2">
+                  <button
+                    class="filter-button active"
+                  >
+                    <!-- <DollarSign class="me-2" size={20} /> -->
+                    Free
+                    <span class="float-end text-muted">(10)</span>
+                  </button>
+                  <button
+                    class="filter-button active"
+                  >
+                    <!-- <DollarSign class="me-2" size={20} /> -->
+                    Paid
+                    <span class="float-end text-muted">(25)</span>
+                  </button>
+                </div>
+              </div>
+  
+              <!-- {/* Mobile Location Filters */} -->
+              <div class="mb-4">
+                <h3 class="h5 mb-3">Location</h3>
+                <div class="d-grid gap-2">
+                  <button class="filter-button active"
+                  >
+                    <Wifi class="me-2" size={20} />
+                    Online
+                    <span class="float-end text-muted">(15)</span>
+                  </button>
+                  <button
+                  class="filter-button active"
+                  >
+                    <!-- <MapPin class="me-2" size={20} /> -->
+                    In Person
+                    <span class="float-end text-muted">(20)</span>
+                  </button>
+                </div>
+              </div>
+  
+              <!-- {/* Mobile Categories */} -->
+              <div>
+                <h3 class="h5 mb-3">Categories</h3>
+                <div class="d-grid gap-2">
+                  
+                    <button
+                     
+                    class="filter-button active"
+                    >
+                      {category}
+                      <span class="float-end text-muted">(12)</span>
+                    </button>
+                    <button
+                     
+                    class="filter-button active"
+                    >
+                      {category}
+                      <span class="float-end text-muted">(12)</span>
+                    </button>
+                    <button
+                     
+                    class="filter-button active"
+                    >
+                      {category}
+                      <span class="float-end text-muted">(12)</span>
+                    </button>
+                  
+                </div>
+              </div>
+            </div>
+  
+            <!-- {/* Event Grid */} -->
+            <div class="col-md-8 col-lg-9">
+              <div class="row g-4">
+                
+                  <div key={event.id} class="col-12 col-lg-6">
+                    <div class="event-card bg-white shadow-sm h-100">
+                      <div class="image-container">
+                        <img src={event.image} alt={event.title} />
+                        
+                          <span class="event-badge bg-primary text-white" style="top: 1rem ; left: 1rem;">
+                            Online
+                          </span>
+                        
+                        <span class="event-badge bg-white " style="top: 1rem ; left: 1rem;" >
+                          {event.price}
+                        </span>
+                      </div>
+                      <div class="p-4">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                          <span class="text-primary small fw-medium">{event.category}</span>
+                          <span class="text-muted">•</span>
+                          <span class="text-muted small d-flex align-items-center">
+                            <!-- <Calendar class="me-1" size={16} /> -->
+                            {new Date(event.date).toLocaleDateString()}
+                          </span>
+                        </div>
+                        <h3 class="h5 mb-2">{event.title}</h3>
+                        <p class="text-muted mb-0 d-flex align-items-center">
+                          <!-- <MapPin class="me-1" size={16} /> -->
+                          {event.location}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+
+    <script>
+        function showSidebar(){
+            document.getElementById("sidebar").classList.add("show");
+            document.querySelector("mobile-sidebar").classList.add("show")
+        }
+    </script>
+</body>
+</html>
