@@ -94,17 +94,17 @@ const getNotifications = async (req, res) => {
     ORDER BY ${order ? 'notification_created_at ' + (order === 'asc' ? 'ASC' : 'DESC') : 'notification_created_at DESC'}
 `;
 
-  const categorySql = `
-  SELECT id, name 
-  FROM tbl_category 
-  WHERE id IN (?);
-`;
+//   const categorySql = `
+//   SELECT id, name 
+//   FROM tbl_category 
+//   WHERE id IN (?);
+// `;
 
-  const eventTypeSql = `
-  SELECT id, type_name, price, ticket_opacity, ticket_bought 
-  FROM tbl_ticketevent_type 
-  WHERE id IN (?);
-`;
+//   const eventTypeSql = `
+//   SELECT id, type_name, price, ticket_opacity, ticket_bought 
+//   FROM tbl_ticketevent_type 
+//   WHERE id IN (?);
+// `;
 
 //   const agendaSql = `
 //   SELECT id, title, description, start_time, end_time 
@@ -120,29 +120,29 @@ const arrData = [userId];
     }
     const result = await executeQuery(notiSql, arrData);
 
-    const categoryPromises = result.map(async (notification) => {
-      if (notification.category_ids) {
-        const categoryIds = notification.category_ids.split(",").map(Number);
-        const categories = await executeQuery(categorySql, [categoryIds]);
-        notification.event_categories = categories;
-        delete notification.category_ids;
-      } else {
-        notification.event_categories = [];
-        delete notification.category_ids;
-      }
-    });
+    // const categoryPromises = result.map(async (notification) => {
+    //   if (notification.category_ids) {
+    //     const categoryIds = notification.category_ids.split(",").map(Number);
+    //     const categories = await executeQuery(categorySql, [categoryIds]);
+    //     notification.event_categories = categories;
+    //     delete notification.category_ids;
+    //   } else {
+    //     notification.event_categories = [];
+    //     delete notification.category_ids;
+    //   }
+    // });
 
-    const ticketPromises = result.map(async (notification) => {
-      if (notification.ticket_type_ids) {
-        const ticketTypeIds = notification.ticket_type_ids.split(",").map(Number);
-        const tickets = await executeQuery(eventTypeSql, [ticketTypeIds]);
-        notification.event_tickets = tickets;
-        delete notification.ticket_type_ids;
-      } else {
-        notification.event_tickets = [];
-        delete notification.ticket_type_ids;
-      }
-    });
+    // const ticketPromises = result.map(async (notification) => {
+    //   if (notification.ticket_type_ids) {
+    //     const ticketTypeIds = notification.ticket_type_ids.split(",").map(Number);
+    //     const tickets = await executeQuery(eventTypeSql, [ticketTypeIds]);
+    //     notification.event_tickets = tickets;
+    //     delete notification.ticket_type_ids;
+    //   } else {
+    //     notification.event_tickets = [];
+    //     delete notification.ticket_type_ids;
+    //   }
+    // });
 
     // const agendaPromises = result.map(async (notification) => {
     //   if (notification.agenda_ids) {
@@ -156,7 +156,7 @@ const arrData = [userId];
     //   }
     // });
 
-    await Promise.all([...categoryPromises, ...ticketPromises]);
+    // await Promise.all([...categoryPromises, ...ticketPromises]);
 
     const notifications = result.map(noti => ({
       id: noti.notification_id,
@@ -219,8 +219,8 @@ const arrData = [userId];
         creator_id: noti.event_creator_id,
         qr_img: noti.event_qr_img,
         is_published: noti.event_is_published,
-        categories: noti.event_categories,
-        tickets: noti.event_tickets
+        // categories: noti.event_categories,
+        // tickets: noti.event_tickets
       }
     }));
 

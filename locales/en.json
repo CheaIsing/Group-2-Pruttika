@@ -2,7 +2,7 @@
   "title": "Pruttika",
   "auth": {
     "signin": {
-      "heading": "Signin",
+      "heading": "Sign In",
       "email": "Email",
       "password": "Password",
       "remember": "Remember me",
@@ -12,14 +12,14 @@
       "content": "Create amazing memories with us!"
     },
     "signup": {
-      "heading": "Signup",
+      "heading": "Sign Up",
       "username": "Username",
       "email": "Email",
       "password": "Password",
       "confirm": "Confirm Password",
       "signup": "Sign Up",
       "social": "Or Sign Up With Social Platforms",
-      "content": "Welcome back ! Let's get started Again !."
+      "content": "Welcome back ! Let's get started Again!"
     },
     "forgot-password": {},
     "verify-otp": {},

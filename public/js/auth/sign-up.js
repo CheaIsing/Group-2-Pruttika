@@ -76,9 +76,9 @@ signUpForm.addEventListener(
 
       showToast(true, "Sign Up Successfully.");
     } catch (error) {
-      console.log(error.response.data);
-      if (typeof error.response.data == "string") {
-        return showToast(); 
+      console.log(error);
+      if (!(error.response && error.response.data &&  typeof error.response.data == "object")) {
+        return showToast();
       }
 
       const messages = error.response.data.message;

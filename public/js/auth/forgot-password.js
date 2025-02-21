@@ -51,9 +51,8 @@ forgotPassForm.addEventListener(
     } catch (error) {
       console.log(error);
       
-      console.log(error.response.data);
 
-      if (typeof error.response.data == "string") {
+      if (!(error.response && error.response.data &&  typeof error.response.data == "object")) {
         return showToast();
       }
 
