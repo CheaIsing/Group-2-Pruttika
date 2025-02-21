@@ -8,8 +8,13 @@ const getEventDetail = (req, res)=>{
   res.render("pages/event/eventdetails", {title: "Event Detail"});
 }
 
+const getBrowseEvent = (req, res)=>{
+  res.render("pages/event/browse-event", {title: "Browse Event"});
+}
+
 module.exports = {
   getCreateEvent,
   getUpdateEvent,
-  getEventDetail
+  getEventDetail,
+  getBrowseEvent
 };

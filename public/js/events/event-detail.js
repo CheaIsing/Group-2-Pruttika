@@ -19,7 +19,7 @@ async function getEventDetail() {
     document.getElementById('title-event').innerText = json.eng_name
 
     document.getElementById("event-type").innerText =
-      json.event_type == "online" ? "Online" : "In Person";
+      json.event_type == "online" ? "Onlicne" : "In Person";
 
     document.getElementById("snippet-date").innerText = moment(
       json.started_date
