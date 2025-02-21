@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("../../partials/head.ejs") %>
+
+    <body>
+        <%- include("../../partials/navbar.ejs")  %>
+        <div id="event-hero-banner-img" class="event-hero-banner d-flex align-items-center justify-content-center">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h5></h5>
+                <span class="badge rounded-pill text-white bg-brand fs-6 fw-medium mb-3" id="snippet-date">Fri, 23 Feb 2025</span>
+                <h1 class="fs-2" id="title">Lorem Ipsum Dolor Sit Amet</h1>
+                <p id="short-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla quas perferendis.</p>
+                
+            </div>
+        </div>
+        <div class=" min-vh-100 py-4 mt-4">
+            <div class="container-xxl">
+                <div class="row align-items-center mb-4">
+                    <div class="col-xxl-8">
+                        <h1 class="h2">Discover Events</h1>
+                        <p class="text-muted">Find and join amazing events near
+                            you</p>
+                    </div>
+                    <div class="col-xxl-4 d-flex gap-2">
+                        <button class="btn btn-outline-brand d-xxl-none"
+                            onclick="showSidebar()">Filter</button>
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text bg-white border-end-0 "
+                                id="addon-wrapping">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </span>
+                                <input type="search" id="searchInput" class="form-control border-start-0 shadow-none fw-medium" 
+                                       placeholder="Search Event..." name="search">
+                                
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Sidebar -->
+                    <div class="col-xxl-3 d-none d-xxl-block">
+                        <div id="sidebar" class="pe-3 ps-"
+                            style=" overflow-y: auto;
+    max-height: 82vh;position: sticky;top: 82px;">
+                            <div class="mb-4">
+                                <div class="d-flex align-items-center justify-content-between mb-3">
+                                    <h3 class="h5 mb-0">Sort</h3>
+                                    <a role="button" id="btnResetFilter" class="text-brand h6 mb-0">Clear All</a>
+
+                                </div>
+                                <select id="sort-filter" class="form-select w-100 border rounded-3 fw-normal" style="background-color: #f3f4f6;">
+                                    <option value="">Any</option>
+                                    <option value="eng_name">Event Title</option>
+                                    <option value="created_at">Latest Post</option>
+                                </select>
+                            </div>
+                             <div class="mb-4">
+                                <h3 class="h5">Date</h3>
+                                <select id="date-filter" class="form-select w-100 border rounded-3 fw-normal" style="background-color: #f3f4f6;">
+                                    <option value="">Any Day</option>
+                                    <option value="week">This Week</option>
+                                    <option value="month">This Month</option>
+                                </select>
+                            </div>
+                        
+                            <div class="mb-4">
+                                <h3 class="h5">Price</h3>
+                                <select id="price-filter" class="form-select w-100 border rounded-3 fw-normal" style="background-color: #f3f4f6;">
+                                    <option value="">Any Price</option>
+                                    <option value="free">Free</option>
+                                    <option value="0-50">$0 - $50</option>
+                                    <option value="50-100">$50 - $100</option>
+                                    <option value="100-200">$100 - $200</option>
+                                    <option value="200+">$200+</option>
+                                </select>
+                            </div>
+                        
+                            <!-- <div class="mb-4">
+                                <h3 class="h5">Location</h3>
+                                <select id="location-filter" class="form-select w-100 border rounded-3 fw-normal" style="background-color: #f3f4f6;">
+                                    <option value="">All</option>
+                                    <option value="online">Online</option>
+                                    <option value="in-person">In Person</option>
+                                </select>
+                            </div> -->
+                            <div class="mb-4" id="">
+                                <h3 class="h5">Categories</h3>
+                                <div id="category-container">
+                                    <button
+                                    class="btn btn-light w-100 px-4 border-0 rounded-3 mb-2 fw-normal justify-content-between"
+                                    style="background-color: #f3f4f6;justify-content: space-between !important;">
+                                    <div>Music </div>
+                                    <div>(10)</div>
+                                    <button
+                                    class="btn btn-light w-100 px-4 border-0 rounded-3 mb-2 fw-normal justify-content-between"
+                                    style="background-color: #f3f4f6;justify-content: space-between !important;">
+                                    <div>Music </div>
+                                    <div>(10)</div>
+                                </button>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <!-- Event Grid -->
+                    <div class="col-xxl-9">
+                        <div class="row g-4" id="event-list">
+                            <div class="col-12">
+                                <div class="event-card shadow-light-sm">
+                                    <div class="event-card-container">
+                                        <!-- Event Thumbnail -->
+                                        <div
+                                            class="event-thumbnail object-fit-cover d-flex justify-content-between">
+                                            <img
+                                                class="img-fluid object-fit-cover"
+                                                src="https://cdn.pixabay.com/photo/2016/11/23/15/48/audience-1853662_640.jpg"
+                                                alt="Event Image"/>
+                                            <div
+                                                class="event-thumbnail-overlay"></div>
+
+                                            <!-- Wishlist & Copy buttons -->
+                                            <div class="button-group">
+                                                <div>
+                                                    <button class="button">
+                                                        <i
+                                                            class="fa-regular fa-heart"></i>
+                                                        <!-- Wishlist Icon -->
+                                                    </button>
+                                                </div>
+                                                <button class="button">
+                                                    <i class="fas fa-link"></i>
+                                                    <!-- Copy Link Icon -->
+                                                </button>
+                                            </div>
+
+                                            <!-- Event Type Tag -->
+                                            <div class="event-type text-brand">
+                                                <i
+                                                    class="fas fa-map-marker-alt"></i>
+                                                <!-- <i class="fa-solid fa-tag"></i> -->
+                                                <span>Online </span>
+                                                <!-- <small class=" badge">$50</small> -->
+                                            </div>
+                                        </div>
+
+                                        <!-- Event Details -->
+                                        <div class="event-details">
+                                            <div
+                                                class="d-flex justify-content-between">
+
+                                                <h3
+                                                    class="event-title text-wrap">Exciting
+                                                    Food Festival Lorem ipsum
+                                                    dolor sit amet.</h3>
+                                                <span
+                                                    class="event-category pill1 fw-medium d-none d-sm-flex">Upcoming</span>
+                                                <!-- <p class="status">${element.status}</p> -->
+                                            </div>
+                                            <p
+                                                class="event-description d-none d-lg-block text-1-line">
+                                                Join us for an unforgettable
+                                                culinary experience with the
+                                                best
+                                                local chefs and street food.
+                                            </p>
+
+                                            <!-- Event Tags -->
+                                            <div
+                                                class="d-flex align-items-center justify-content-between mb-3 mt-2 mt-lg-0">
+                                                <div
+                                                    class="event-categories flex-nowrap">
+                                                    <!-- <span class="event-category pill1">Food</span> -->
+                                                    <span
+                                                        class="event-category pill2 fw-medium">Music</span>
+                                                    <span
+                                                        class="event-category pill3 fw-medium">Technology</span>
+                                                    <span
+                                                        class="event-category pill5 fw-medium">Festival</span>
+                                                    <!-- <span class="event-category pill5">Festival</span> -->
+                                                </div>
+                                                <div
+                                                    class="d-flex align-items-center">
+
+                                                </div>
+                                            </div>
+
+                                            <!-- Date & Location -->
+                                            <div class="event-meta">
+                                                <div class="event-meta-item">
+                                                    <i
+                                                        class="fas fa-calendar-alt text-brand"></i>
+                                                    <span>Friday March 20,
+                                                        2025</span>
+                                                </div>
+                                                <div class="event-meta-item">
+                                                    <i
+                                                        class="fas fa-clock text-brand"></i>
+                                                    <span>5:00 PM - 10:00
+                                                        PM</span>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="event-meta-item"
+                                                style="margin-bottom: 0.75rem !important;">
+                                                <i
+                                                    class="fas fa-map-marker-alt text-brand"></i>
+                                                <p
+                                                    class="text-1-line mb-0">Phnom
+                                                    Penh Kakab Pochentong, Siem
+                                                    Reap, Cambodia</p>
+                                                <div
+                                                    class=" text-brand fw-medium"
+                                                    style="border-color: var(--c-brand) !important;">
+
+                                                </div>
+
+                                            </div>
+                                            <div class="event-meta-item">
+                                                <i
+                                                    class="fa-solid fa-tag text-brand"></i><span
+                                                    class>$10.00 - $20.00</span>
+
+                                            </div>
+
+                                            <!-- Event Price -->
+
+                                            <!-- Creator Profile -->
+                                            <div class="creator-profile d-none">
+                                                <div class="creator-avatar">
+                                                    <img
+                                                        src="/public/img/Default_pfp.jpg"
+                                                        alt="Creator" />
+                                                </div>
+                                                <a href="#"
+                                                    class="creator-name">Hosted
+                                                    by John Doe</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- Pagination -->
+                        <div class="pagination-container">
+                            <button class="pagination-button btn-icon"
+                                onclick="changePage(currentPage - 1)"
+                                id="prevBtn" disabled><i
+                                    class="fa-solid fa-angle-left"></i></button>
+
+                            <div id="pagination-numbers"></div>
+
+                            <button class="pagination-button btn-icon"
+                                onclick="changePage(currentPage + 1)"
+                                id="nextBtn"><i
+                                    class="fa-solid fa-angle-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Sidebar -->
+        <div class="sidebar-overlay" id="sidebar-overlay"
+            onclick="hideSidebar()"></div>
+        <div class="mobile-sidebar" id="mobile-sidebar">
+            <button class="btn btn-link text-dark mb-3"
+                onclick="hideSidebar()">Close X</button>
+                <div class="mb-4">
+                    <h3 class="h5">Date</h3>
+                    <select
+                        class="btn form-select d-block w-100 text-start border rounded-3 mb-2 fw-normal"
+                        style="background-color: #f3f4f6;">
+                        <option>Any Day</option>
+                        <option>This Week</option>
+                        <option>This Month</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <h3 class="h5">Price</h3>
+                    <select
+                        class="btn form-select d-block w-100 text-start border rounded-3 mb-2 fw-normal"
+                        style="background-color: #f3f4f6;">
+                        <option>Any Price</option>
+                        <option>Free</option>
+                        <option>$0 - $50</option>
+                        <option>$50 - $100</option>
+                        <option>$100 - $200</option>
+                        <option>$200+</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <h3 class="h5">Location</h3>
+                    <select
+                        class="btn form-select d-block w-100 text-start border rounded-3 mb-2 fw-normal"
+                        style="background-color: #f3f4f6;">
+                        <option>All</option>
+                        <option>Online</option>
+                        <option>In Person</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <h3 class="h5">Categories</h3>
+                    <button
+                        class="btn btn-light w-100 px-4 border-0 rounded-3 mb-2 fw-normal justify-content-between"
+                        style="background-color: #f3f4f6;justify-content: space-between !important;">
+                        <div>Music </div>
+                        <div>(10)</div>
+                    </button>
+                    <button
+                        class="btn btn-light w-100 px-4 border-0 rounded-3 mb-2 fw-normal justify-content-between"
+                        style="background-color: #f3f4f6;justify-content: space-between !important;">
+                        <div>Technology</div>
+                        <div>(10)</div>
+                    </button>
+                    <button
+                        class="btn btn-light w-100 px-4 border-0 rounded-3 mb-2 fw-normal justify-content-between"
+                        style="background-color: #f3f4f6;justify-content: space-between !important;">
+                        <div>Education</div>
+                        <div>(10)</div>
+                    </button>
+                    <button
+                        class="btn btn-light w-100 px-4 border-0 rounded-3 mb-2 fw-normal justify-content-between"
+                        style="background-color: #f3f4f6;justify-content: space-between !important;">
+                        <div>Art</div>
+                        <div>(10)</div>
+                    </button>
+                </div>
+        </div>
+
+        <%- include("../../partials/script.ejs") %>
+        <script src="/js/events/browse-event.js"></script>
+
+    </body>
+</html>
