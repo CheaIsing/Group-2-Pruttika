@@ -1,5 +1,5 @@
-const port = 3000;
-const url = `http://localhost:${port}/api`
+const port = 3001;
+const url = `http://test.pruttika.run.place:/api`
 
 const axiosInstance = axios.create({
   baseURL: url,
