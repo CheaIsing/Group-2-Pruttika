@@ -24,16 +24,16 @@ const getNotifications = async (req, res) => {
     tn.updated_at AS notification_updated_at,
 
     -- Receiver (User) Data
-    tr.id AS receiver_id,
-    tr.kh_name AS receiver_kh_name,
-    tr.eng_name AS receiver_eng_name,
-    tr.email AS receiver_email,
-    tr.phone AS receiver_phone,
-    tr.avatar AS receiver_avatar,
-    tr.address AS receiver_address,
-    tr.role AS receiver_role,
-    tr.created_at AS receiver_created_at,
-    tr.updated_at AS receiver_updated_at,
+    -- tr.id AS receiver_id,
+    -- tr.kh_name AS receiver_kh_name,
+    -- tr.eng_name AS receiver_eng_name,
+    -- tr.email AS receiver_email,
+    -- tr.phone AS receiver_phone,
+    -- tr.avatar AS receiver_avatar,
+    -- tr.address AS receiver_address,
+    -- tr.role AS receiver_role,
+    -- tr.created_at AS receiver_created_at,
+    -- tr.updated_at AS receiver_updated_at,
 
     -- Sender (User) Data
     ts.id AS sender_id,
@@ -42,45 +42,43 @@ const getNotifications = async (req, res) => {
     ts.email AS sender_email,
     ts.phone AS sender_phone,
     ts.avatar AS sender_avatar,
-    ts.address AS sender_address,
+
     ts.role AS sender_role,
-    ts.created_at AS sender_created_at,
-    ts.updated_at AS sender_updated_at,
 
     -- Event Data
     te.id AS event_id,
     te.eng_name AS event_eng_name,
     te.kh_name AS event_kh_name,
     te.short_description AS event_short_description,
-    te.description AS event_description,
-    te.thumbnail AS event_thumbnail,
-    te.started_date AS event_started_date,
-    te.ended_date AS event_ended_date,
-    te.start_time AS event_start_time,
-    te.end_time AS event_end_time,
-    te.location AS event_location,
-    te.event_type AS event_event_type,
-    te.creator_id AS event_creator_id,
-    te.qr_img AS event_qr_img,
-    te.is_published AS event_is_published,
+    te.description AS event_description
+    -- te.thumbnail AS event_thumbnail,
+    -- te.started_date AS event_started_date,
+    -- te.ended_date AS event_ended_date,
+    -- te.start_time AS event_start_time,
+    -- te.end_time AS event_end_time,
+    -- te.location AS event_location,
+    -- te.event_type AS event_event_type,
+    -- te.creator_id AS event_creator_id,
+    -- te.qr_img AS event_qr_img,
+    -- te.is_published AS event_is_published,
 
     -- Grouped Category IDs (Distinct to Prevent Duplicates)
-    GROUP_CONCAT(DISTINCT tec.category_id) AS category_ids,
+    -- GROUP_CONCAT(DISTINCT tec.category_id) AS category_ids,
 
     -- Grouped Ticket Type IDs (Distinct to Prevent Duplicates)
-    GROUP_CONCAT(DISTINCT ttet.id) AS ticket_type_ids,
+    -- GROUP_CONCAT(DISTINCT ttet.id) AS ticket_type_ids,
 
     -- Grouped Agenda IDs (Distinct to Prevent Duplicates)
-    GROUP_CONCAT(DISTINCT ta.id) AS agenda_ids
+    -- GROUP_CONCAT(DISTINCT ta.id) AS agenda_ids
 
     FROM tbl_notification tn
     LEFT JOIN tbl_notification_type tnt ON tnt.id = tn.type_id
     LEFT JOIN tbl_event te ON te.id = tn.event_id
     LEFT JOIN tbl_users tr ON tr.id = tn.receiver_id
     LEFT JOIN tbl_users ts ON ts.id = tn.sender_id
-    LEFT JOIN tbl_event_category tec ON tec.event_id = te.id
-    LEFT JOIN tbl_ticketevent_type ttet ON ttet.event_id = te.id  
-    LEFT JOIN tbl_agenda ta ON te.id = ta.event_id  
+    -- LEFT JOIN tbl_event_category tec ON tec.event_id = te.id
+    -- LEFT JOIN tbl_ticketevent_type ttet ON ttet.event_id = te.id  
+    -- LEFT JOIN tbl_agenda ta ON te.id = ta.event_id  
     WHERE tn.receiver_id = ?`;
 
   // Add filter for is_read if provided
@@ -175,18 +173,18 @@ const arrData = [userId];
       updated_at: noti.notification_updated_at,
   
       // Receiver (User) Data
-      receiver: {
-        id: noti.receiver_id,
-        kh_name: noti.receiver_kh_name,
-        eng_name: noti.receiver_eng_name,
-        email: noti.receiver_email,
-        phone: noti.receiver_phone,
-        avatar: noti.receiver_avatar,
-        address: noti.receiver_address,
-        role: noti.receiver_role,
-        created_at: noti.receiver_created_at,
-        updated_at: noti.receiver_updated_at,
-      },
+      // receiver: {
+      //   id: noti.receiver_id,
+      //   kh_name: noti.receiver_kh_name,
+      //   eng_name: noti.receiver_eng_name,
+      //   email: noti.receiver_email,
+      //   phone: noti.receiver_phone,
+      //   avatar: noti.receiver_avatar,
+      //   address: noti.receiver_address,
+      //   role: noti.receiver_role,
+      //   created_at: noti.receiver_created_at,
+      //   updated_at: noti.receiver_updated_at,
+      // },
   
       // Sender (User) Data
       sender: {
@@ -196,10 +194,10 @@ const arrData = [userId];
         email: noti.sender_email,
         phone: noti.sender_phone,
         avatar: noti.sender_avatar,
-        address: noti.sender_address,
+        // address: noti.sender_address,
         role: noti.sender_role,
-        created_at: noti.sender_created_at,
-        updated_at: noti.sender_updated_at,
+        // created_at: noti.sender_created_at,
+        // updated_at: noti.sender_updated_at,
       },
   
       // Event Data
@@ -208,17 +206,17 @@ const arrData = [userId];
         eng_name: noti.event_eng_name,
         kh_name: noti.event_kh_name,
         short_description: noti.event_short_description,
-        description: noti.event_description,
-        thumbnail: noti.event_thumbnail,
-        started_date: noti.event_started_date,
-        ended_date: noti.event_ended_date,
-        start_time: noti.event_start_time,
-        end_time: noti.event_end_time,
-        location: noti.event_location,
-        event_type: noti.event_event_type,
-        creator_id: noti.event_creator_id,
-        qr_img: noti.event_qr_img,
-        is_published: noti.event_is_published,
+        // description: noti.event_description,
+        // thumbnail: noti.event_thumbnail,
+        // started_date: noti.event_started_date,
+        // ended_date: noti.event_ended_date,
+        // start_time: noti.event_start_time,
+        // end_time: noti.event_end_time,
+        // location: noti.event_location,
+        // event_type: noti.event_event_type,
+        // creator_id: noti.event_creator_id,
+        // qr_img: noti.event_qr_img,
+        // is_published: noti.event_is_published,
         // categories: noti.event_categories,
         // tickets: noti.event_tickets
       }

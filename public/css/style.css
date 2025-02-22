@@ -732,18 +732,18 @@ form.sign-in-form {
 
 
 /* organizer style */
-.nav-link {
+/* .nav-link {
   display: flex;
   align-items: center;
   gap: 10px;
   padding: 15px;
   border-radius: 8px;
   color: #495057;
-}
+} */
 
 .nav-link.active {
-  background-color: #ffe3f3;
-  color: #d63384;
+  /* background-color: #ffe3f3; */
+  /* color: #d63384; */
 }
 
 .tab-content {
@@ -3193,3 +3193,118 @@ background-color: #ffeef7e7;
 /* .btn-love.active{
   bac
 } */
+
+
+.sidebar {
+  position: sticky;
+  top: 70px;
+  bottom: 0;
+  height: 100vh;
+  left: 0;
+  width: 90px;
+  background: #fff;
+  overflow: hidden;
+  transition: 0.3s;
+}
+
+.sidebar:hover {
+  width: 280px;
+  transition: 0.3s;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar .logo {
+  text-align: center;
+  display: flex;
+  margin: 10px 0 0 10px;
+  padding-bottom: 3rem;
+}
+
+.sidebar .logo img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+}
+
+.sidebar .logo span {
+  font-weight: bold;
+  padding-left: 15px;
+  font-size: 18px;
+  text-transform: uppercase;
+}
+
+.sidebar a {
+  position: relative;
+  width: 280px;
+  font-size: 14px;
+  color: rgb(85, 83, 83);
+  padding: 10px;
+  text-decoration: none;
+}
+
+.sidebar ul li a.active {
+  color: var(--c-brand) !important;
+}
+
+.sidebar ul li a {
+  display: flex;
+  align-items: center;
+  padding-block: 2rem;
+}
+
+.sidebar i {
+  width: 70px;
+  /* height: 40px; */
+  font-size: 20px;
+  text-align: center;
+}
+
+.sidebar .nav-item {
+  position: relative;
+  margin-left: 10px;
+}
+
+.sidebar a:hover {
+  background: #eee;
+}
+
+.sidebar a:hover i {
+  color: var(--c-brand);
+  transition: 0.3s;
+}
+
+.nav-underline .nav-item .nav-link.active {
+  color: var(--c-brand) !important;
+  font-weight: 500 !important;
+}
+
+.nav-underline .nav-item .nav-link {
+  font-weight: 500 !important;
+  color: #333333 !important;
+}
+.nav-underline .nav-item .nav-link:not(.active) {
+  color: inherit !important;
+}
+
+.nav-underline .nav-item .nav-link:not(.active):hover {
+  color: var(--c-brand) !important;
+}
+
+.ticket-order .table td,
+.ticket-order .table td {
+  padding-block: 1rem !important;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+
+
+tr.border-bottom:hover td{
+  background-color: #FAFAFA !important;
+}
