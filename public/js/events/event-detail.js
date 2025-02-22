@@ -1,7 +1,4 @@
 const urlParams = new URLSearchParams(window.location.search);
-const id = urlParams.has("e")
-  ? urlParams.get("e")
-  : sessionStorage.getItem("itemID");
 
 let eventId = urlParams.has("e")
   ? urlParams.get("e")
@@ -19,7 +16,7 @@ async function getEventDetail() {
     document.getElementById('title-event').innerText = json.eng_name
 
     document.getElementById("event-type").innerText =
-      json.event_type == "online" ? "Onlicne" : "In Person";
+      json.event_type == "online" ? "Online" : "In Person";
 
     document.getElementById("snippet-date").innerText = moment(
       json.started_date

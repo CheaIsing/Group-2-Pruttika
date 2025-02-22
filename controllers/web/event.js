@@ -12,9 +12,14 @@ const getBrowseEvent = (req, res)=>{
   res.render("pages/event/browse-event", {title: "Browse Event"});
 }
 
+const getWishlist = (req, res)=>{
+  res.render("pages/event/wishlist", {title: "Wishlist"});
+}
+
 module.exports = {
   getCreateEvent,
   getUpdateEvent,
   getEventDetail,
-  getBrowseEvent
+  getBrowseEvent,
+  getWishlist
 };
