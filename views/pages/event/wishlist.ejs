@@ -15,99 +15,15 @@
             </div>
         </div>
         <div class=" min-vh-100 py-4 mt-4">
-            <div class="container-xxl">
-                <div class="row align-items-center mb-4">
-                    <div class="col-xxl-8">
-                        <h1 class="h2">Discover Events</h1>
-                        <p class="text-muted">Find and join amazing events near
-                            you</p>
-                    </div>
-                    <div class="col-xxl-4 d-flex gap-2">
-                        <button class="btn btn-outline-brand d-xxl-none"
-                            onclick="showSidebar()">Filter</button>
-                        <div class="input-group flex-nowrap">
-                            <span class="input-group-text bg-white border-end-0 "
-                                id="addon-wrapping">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                            </span>
-                                <input type="search" id="searchInput" class="form-control border-start-0 shadow-none fw-medium" 
-                                       placeholder="Search Event..." name="search">
-                                
-                            
-                        </div>
-                    </div>
-                </div>
+            <div class="container-lg">
+                
 
                 <div class="row">
                     <!-- Sidebar -->
-                    <div class="col-xxl-3 d-none d-xxl-block">
-                        <div id="sidebar" class="pe-3 ps-"
-                            style=" overflow-y: auto;
-    max-height: 82vh;position: sticky;top: 82px;">
-                            <div class="mb-4">
-                                <div class="d-flex align-items-center justify-content-between mb-3">
-                                    <h3 class="h5 mb-0">Sort</h3>
-                                    <a role="button" id="btnResetFilter" class="text-brand h6 mb-0">Clear All</a>
-
-                                </div>
-                                <select id="sort-filter" class="form-select w-100 border rounded-3 fw-normal" style="background-color: #f3f4f6;">
-                                    <option value="">Any</option>
-                                    <option value="eng_name">Event Title</option>
-                                    <option value="created_at">Latest Post</option>
-                                </select>
-                            </div>
-                             <div class="mb-4">
-                                <h3 class="h5">Date</h3>
-                                <select id="date-filter" class="form-select w-100 border rounded-3 fw-normal" style="background-color: #f3f4f6;">
-                                    <option value="">Any Day</option>
-                                    <option value="week">This Week</option>
-                                    <option value="month">This Month</option>
-                                </select>
-                            </div>
-                        
-                            <div class="mb-4">
-                                <h3 class="h5">Price</h3>
-                                <select id="price-filter" class="form-select w-100 border rounded-3 fw-normal" style="background-color: #f3f4f6;">
-                                    <option value="">Any Price</option>
-                                    <option value="free">Free</option>
-                                    <option value="0-50">$0 - $50</option>
-                                    <option value="50-100">$50 - $100</option>
-                                    <option value="100-200">$100 - $200</option>
-                                    <option value="200+">$200+</option>
-                                </select>
-                            </div>
-                        
-                            <!-- <div class="mb-4">
-                                <h3 class="h5">Location</h3>
-                                <select id="location-filter" class="form-select w-100 border rounded-3 fw-normal" style="background-color: #f3f4f6;">
-                                    <option value="">All</option>
-                                    <option value="online">Online</option>
-                                    <option value="in-person">In Person</option>
-                                </select>
-                            </div> -->
-                            <div class="mb-4" id="">
-                                <h3 class="h5">Categories</h3>
-                                <div id="category-container">
-                                    <button
-                                    class="btn btn-light w-100 px-4 border-0 rounded-3 mb-2 fw-normal justify-content-between"
-                                    style="background-color: #f3f4f6;justify-content: space-between !important;">
-                                    <div>Music </div>
-                                    <div>(10)</div>
-                                    <button
-                                    class="btn btn-light w-100 px-4 border-0 rounded-3 mb-2 fw-normal justify-content-between"
-                                    style="background-color: #f3f4f6;justify-content: space-between !important;">
-                                    <div>Music </div>
-                                    <div>(10)</div>
-                                </button>
-                                </div>
-                            </div>
-
-
-                        </div>
-                    </div>
+                    
 
                     <!-- Event Grid -->
-                    <div class="col-xxl-9">
+                    <div class="col-12">
                         <div class="row g-4" id="event-list">
                             <div class="col-12">
                                 <div class="event-card shadow-light-sm">
@@ -246,76 +162,16 @@
 
                             </div>
                         </div>
-                        <!-- Pagination -->
-                        <div class="pagination-container">
-                            <button class="pagination-button btn-icon"
-                                onclick="changePage(currentPage - 1)"
-                                id="prevBtn" disabled><i
-                                    class="fa-solid fa-angle-left"></i></button>
-
-                            <div id="pagination-numbers"></div>
-
-                            <button class="pagination-button btn-icon"
-                                onclick="changePage(currentPage + 1)"
-                                id="nextBtn"><i
-                                    class="fa-solid fa-angle-right"></i></button>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Mobile Sidebar -->
-        <div class="sidebar-overlay" id="sidebar-overlay"
-            onclick="hideSidebar()"></div>
-        <div class="mobile-sidebar" id="mobile-sidebar">
-            <div class="d-flex align-items-center mb-4 border-bottom">
-                <h4 class="mb-0">Filter</h4>
-            <button class="btn btn-link text-dark ms-auto"
-                onclick="hideSidebar()"><i data-lucide="x"></i></button>
-            </div>
-                <div class="mb-4">
-                    <div class="d-flex align-items-center justify-content-between mb-3">
-                        <h3 class="h5 mb-0">Sort</h3>
-                        <a role="button" id="btnResetFilterMobile" class="text-brand h6 mb-0">Clear All</a>
 
-                    </div>
-                    <select id="sort-filter-mobile" class="form-select w-100 border rounded-3 fw-normal" style="background-color: #f3f4f6;">
-                        <option value="">Any</option>
-                        <option value="eng_name">Event Title</option>
-                        <option value="created_at">Latest Post</option>
-                    </select>
-                </div>
-                 <div class="mb-4">
-                    <h3 class="h5">Date</h3>
-                    <select id="date-filter-mobile" class="form-select w-100 border rounded-3 fw-normal" style="background-color: #f3f4f6;">
-                        <option value="">Any Day</option>
-                        <option value="week">This Week</option>
-                        <option value="month">This Month</option>
-                    </select>
-                </div>
-            
-                <div class="mb-4">
-                    <h3 class="h5">Price</h3>
-                    <select id="price-filter-mobile" class="form-select w-100 border rounded-3 fw-normal" style="background-color: #f3f4f6;">
-                        <option value="">Any Price</option>
-                        <option value="free">Free</option>
-                        <option value="0-50">$0 - $50</option>
-                        <option value="50-100">$50 - $100</option>
-                        <option value="100-200">$100 - $200</option>
-                        <option value="200+">$200+</option>
-                    </select>
-                </div>
-                <div class="mb-4">
-                    <h3 class="h5">Categories</h3>
-                    <div id="categories-mobile-container">
-
-                    </div>
-                </div>
-        </div>
 
         <%- include("../../partials/script.ejs") %>
-        <script src="/js/events/browse-event.js"></script>
+        <script src="/js/events/wishlist.js"></script>
 
     </body>
 </html>

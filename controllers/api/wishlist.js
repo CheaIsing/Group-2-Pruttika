@@ -1,12 +1,12 @@
 const { handleResponseError } = require("../../utils/handleError");
 const { executeQuery } = require("../../utils/dbQuery");
 const { sendResponse } = require("../../utils/response");
-const {wishlistCollection}=require("../../resource/wishlist");
+const { wishlistCollection } = require("../../resource/wishlist");
 
 const getAllWishlist = async (req, res) => {
-  const user_id=req.user.id;
+  const user_id = req.user.id;
   try {
-    const data= await wishlistCollection(user_id);
+    const data = await wishlistCollection(user_id);
 
     sendResponse(res, 200, true, "Display all events in wishlist.", data);
   } catch (error) {
@@ -24,7 +24,7 @@ const getWishlistById = async (req, res) => {
       FROM tbl_wishlist AS w
       JOIN tbl_event AS e ON w.event_id = e.id
       JOIN tbl_users AS u ON w.user_id = u.id
-      WHERE w.id = ?
+      WHERE w.event_id = ?
     `;
 
     const data = await executeQuery(query, [id]);
@@ -32,7 +32,7 @@ const getWishlistById = async (req, res) => {
     if (data.length === 0) {
       return sendResponse(
         res,
-        404,
+        200,
         false,
         `No event in wishlist with id : ${id} found.`
       );
@@ -78,14 +78,15 @@ const deleteItemInWishlist = async (req, res) => {
   const id = req.params.id;
 
   try {
-    const query = "SELECT * FROM tbl_wishlist WHERE id = ?";
+    const query = "SELECT * FROM tbl_wishlist WHERE tbl_wishlist.event_id = ?";
     const data = await executeQuery(query, [id]);
 
     if (data.length === 0) {
       return sendResponse(res, 404, false, "No item in wishlist.");
     }
 
-    const deleteQuery = "DELETE FROM tbl_wishlist WHERE id = ?";
+    const deleteQuery =
+      "DELETE FROM tbl_wishlist WHERE tbl_wishlist.event_id = ?";
     await executeQuery(deleteQuery, [id]);
 
     sendResponse(res, 200, true, "Deleted item from wishlist successfully.");

@@ -56,10 +56,41 @@ function toHHMMFormat(timeValue) {
 function copyEventUrlToClipboard(eventId) {
   const url = `${window.location.protocol}//${window.location.host}/event/detail?e=${eventId}`;
 
-  console.log(window.location.href);
+  console.log(url);
   
 
   navigator.clipboard.writeText(url).then(() => {
     showToast(true, "Copied to Clipboard.");
   });
+}
+
+async function addWishlist(id, btn) {
+    // console.log(btn);
+  try {
+    btn.disabled = true
+    const {data} = await axiosInstance.get(`/wishlist/display/${id}`);
+
+    if(data.result){
+      await axiosInstance.delete(`wishlist/delete/${id}`);
+      btn.classList.remove("active")
+      showToast(true, "Event removed from wishlist.")
+    }else{
+      
+      await axiosInstance.post("/wishlist/create", {event_id: id});
+      btn.classList.add("active")
+      showToast(true, "Event added to wishlist.")
+    }
+
+  } catch (error) {
+
+    console.error(error);
+    showToast()
+  }finally{
+    btn.disabled = false
+  }
+}
+
+function goEventDetail(id){
+  sessionStorage.setItem("event-detail-id", id);
+  window.location.href = "/event/detail"
 }
