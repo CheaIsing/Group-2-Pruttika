@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organizer Profile | Acount</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../../../public/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../public/vendor/bootstrap-icon/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="../../../public/css/main.css">
+    <link rel="stylesheet" href="../../../public/css/style.css">
+</head>
+
+<body>
+    <!-- <header>
+        <div class="navbar" style="width: 100%; height: 70px; background-color: deeppink;">
+        </div>
+    </header> -->
+    <div class="container py-5">
+        <h3>Welcome to Organizer Profile</h3>
+        <div class="d-flex justify-content-between align-content-center">
+            <div class="d-flex my-3">
+                <div class="orgainerAcount me-3">
+                    <img src="../../../public/img/Default_pfp.jpg" alt="">
+                    <input type="file" id="uploadInput" accept="image/png, image/jpeg" style="display: none;">
+                    <div class="hover-overlay">
+                        <button class="btn btn-light btn-sm" id="uploadButton"><i
+                                class="bi bi-camera fs-3"></i></button>
+                        <button class="btn btn-danger btn-sm" id="deleteButton"><i class="bi bi-trash"></i>
+                            Delete</button>
+                    </div>
+                </div>
+                <div class="py-5">
+                    <div class="organizerName fs-4 fw-semibold mb-2">
+                        Tom Jerranie
+                    </div>
+                    <div class="d-flex">
+                        <div class="follow fw-medium text-center me-4">
+                            <strong class="d-block">10</strong>
+                            <span class="text-muted">Posts</span>
+                        </div>
+                        <div class="follow fw-medium text-center me-4">
+                            <strong class="d-block">5k</strong>
+                           <a href="follower.html"><span class="text-muted">Followers</span></a>
+                        </div>
+                        <div class="follow fw-medium text-center">
+                            <strong class="d-block">50</strong>
+                            <a href="following.html"><span class="text-muted">Following</span></a>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="d-flex my-auto">
+                <div class="dropdown">
+                    <button class="btn btn-brand dropdown-toggle me-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Following
+                    </button>
+                    <ul class="dropdown-menu border-0 shadow-sm">
+                        <li class="dropdown-header d-flex align-items-center">
+                            <i class="fa-solid fa-chevron-left"></i>
+                            <strong class="ms-3">Tom Jerranie</strong>
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
+                                Add to favorites
+                                <i class="fa-regular fa-star ms-2"></i>
+                            </a>
+                        </li>
+                        <li><a class="dropdown-item" href="#">Mute (Post)</a></li>
+                        <li><a class="dropdown-item" href="#">Unfollow</a></li>
+                    </ul>
+                </div>
+                
+
+                <button type="submit" class="btn btn-brand">Contact</button>
+            </div>
+        </div>
+        <h4>About</h4>
+        <div class="about mb-3">
+            <div>
+                <i class="fa-solid fa-phone text-brand me-3"></i>
+                <span>Phone : <span class="fw-medium">088 777 999</span></span>
+            </div>
+            <div>
+                <i class="fa-solid fa-envelope text-brand me-3"></i>
+                <span> Email : <span class="fw-medium">tomjerranie@gmail.com</span></span>
+            </div>
+            <div>
+                <a href="#"> <i class="fa-solid fa-location-dot text-brand me-3"></i></a>
+                <span> Address : <span class="fw-medium">Street 2002, Sen Sok, Phnom Penh, Cambodia </span></span>
+            </div>
+        </div>
+        <h4>
+            Organizer Socials
+        </h4>
+        <div class="social-media-orgainzer mt-3">
+            <a href="#" class="social-icon social-icon-organizer m-0">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="social-icon">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="social-icon">
+              <i class="fab fa-google"></i>
+            </a>
+            <a href="#" class="social-icon">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+          </div>
+          <div class="d-flex justify-content-between">
+            <h4 class="mt-4">Organizer <strong class="text-brand">Events</strong></h4>
+            <h4 class="mt-4"><strong class="text-brand me-2 total-event">4</strong>Events</h4>
+          </div>
+          <div class="col-12 mb-3">
+            <select id="ticketType" class="form-select custom-select">
+                <option value="all">All</option>
+                <option value="aproved">Approved</option>
+                <option value="pending">Pending</option>
+                <option value="rejected">Rejected</option>
+            </select>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-3">
+                <div class="card-event">
+                    <img class="position-absolute" src="../../../public/img/Eco-Action.jpg" alt="">
+                    <section class="top"></section>
+                    <div class="event-info">
+                        <p class="price">15$</p>
+            
+                        <div class="additional-info">
+                            <p class="title text-white fs-5">NY Music Festival</p>
+                            <p class="info ">
+                                <i class="fas fa-map-marker-alt fs-5"></i>
+                               Palace Theather
+                            </p>
+                            <p class="info">
+                                <i class="fas fa-calendar-alt"></i>
+                                Sat, Sep 19, 10:00 AM
+                            </p>
+                        </div>
+                        <button class="action mt-5">Buy Ticket</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-12 col-md-3">
+                <div class="card-event">
+                    <img class="position-absolute" src="../../../public/img/Eco-Action.jpg" alt="">
+                    <section class="top"></section>
+                    <div class="event-info">
+                        <p class="price">70$</p>
+            
+                        <div class="additional-info">
+                            <p class="title text-white fs-5">NY Music Festival</p>
+                            <p class="info ">
+                                <i class="fas fa-map-marker-alt fs-5"></i>
+                               Palace Theather
+                            </p>
+                            <p class="info">
+                                <i class="fas fa-calendar-alt"></i>
+                                Sat, Sep 19, 10:00 AM
+                            </p>
+                        </div>
+                        <button class="action mt-5">Buy Ticket</button>
+                    </div>
+                </div>
+            </div>
+           </div>
+    </div>
+
+</body>
+<script src="../../../public/js/bootstrap.bundle.min.js"></script>
+
+</html>

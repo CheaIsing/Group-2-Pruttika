@@ -66,7 +66,7 @@ button {
 }
 
 .btn {
-  height: auto !important;
+  height: 50px !important;
   display: flex ;
   align-items: center !important;
   justify-content: center ;
@@ -3557,4 +3557,241 @@ overflow-wrap: break-word;  /* For modern browsers */
 }
 .select-image:hover {
 	background: var(--dark-blue);
+}
+
+
+/* Orgainizer Profile| Acount */
+.orgainerAcount{
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 2px solid #ff1694;
+  overflow: hidden;
+}
+.orgainerAcount img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Notification Style */
+.allnotification{
+  width: 100%;
+  height: 65px;
+  background-color: #e11594;
+  color: #f7f9ff;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+.num-cicle{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #f7f9ff;
+  color: #333; 
+}
+/* .notification{
+  border: 1.6px solid  #eee;
+} */
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 12px;
+  position: relative;
+}
+.line-style-noti{
+  width: 10px;
+  height: 76px;
+  background-color: #e11594;
+  margin: -8px;
+}
+.icon-noti{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #e11594;
+  color: white;
+  position: absolute;
+  top: 45px;
+  left: 50px;
+}
+
+
+
+/* Notification Dropdown */
+
+
+.notification-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.notification-icon {
+  font-size: 24px;
+  cursor: pointer;
+  position: relative;
+}
+
+.notification-icon .badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: red;
+  color: white;
+  font-size: 12px;
+  border-radius: 50%;
+  padding: 3px 6px;
+}
+
+.notification-dropdown {
+  position: absolute;
+  top: 35px;
+  right: 0;
+  width: 500px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  display: none;
+  z-index: 1000;
+  padding: 10px;
+}
+
+.notification-wrapper:hover .notification-dropdown {
+  display: block;
+ 
+}
+.icon-unread{
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #1815e1;
+}
+
+.notification-header {
+  font-weight: bold;
+  background: #e11594;
+  color: white;
+  padding: 15px;
+  font-size: 20px;
+  border-radius: 5px 5px 0 0;
+}
+
+.notification-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+
+}
+
+.notification-item:last-child {
+  border-bottom: none;
+}
+
+.notification-item img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.notification-text {
+  flex-grow: 1;
+}
+
+.notification-time {
+  font-size: 12px;
+  color: gray;
+}
+
+.notification-footer {
+  display: flex;
+  justify-content: end;
+  padding: 10px;
+}
+.border-style{
+  border: 1.6px solid var(--c-brand);
+  border-radius: 8px;
+}
+.btn-pink {
+  padding: 4px 10px;
+  background-color: var(--c-brand);
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  right:5px;
+}
+.btn-pink:hover {
+  background-color: var(--c-brand-dark);
+  color: white;
+}
+
+.btn-pink:hover p {
+  color: #fff !important;
+}
+
+.btn-pink:hover i {
+  color: #fff !important;
+}
+.btn-pink:hover label {
+  color: #fff !important;
+}
+.dropdown-item:hover{
+  background-color: #e11594;
+  color: white;
+}
+
+.profile-Morganier{
+  width:50px;
+  height: 50px;
+  background-color: #e11594;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.profile-Morganier img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.color-style{
+  color: #333;
+}
+.link-text-hover{
+  color: #333;
+}
+.link-text-hover:hover{
+  color: #e11594;
+}
+.summary-card {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.event-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.active-tab {
+  border-bottom: 3px solid #e11594;
+  padding-bottom: 5px;
+}
+.follow-btn {
+  border-radius: 8px;
+  border: none;
+  padding: 8px 12px;
+}
+.nav-tabs .nav-link.active {
+  border-bottom: 3px solid #e11594 !important;
+  color: black !important;
+}
+.icon-backpage{
+  color: #333;
+}
+.icon-backpage:hover{
+  color:#e11594;
 }

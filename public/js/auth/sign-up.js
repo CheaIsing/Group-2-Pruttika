@@ -5,7 +5,7 @@ const signUpForm = document.getElementById("sign-up-form");
 let isSubmit = false;
 
 const formData = {
-  eng_name: "",
+  name: "",
   email: "",
   password: "",
   confirmPassword: ""
@@ -51,7 +51,7 @@ signUpForm.addEventListener(
     const password = document.getElementById("sign-up-password").value;
     const confirmPassword = document.getElementById("sign-up-confirm-password").value;
 
-    formData.eng_name = name;
+    formData.name = name;
     formData.email = email;
     formData.password = password;
     formData.confirmPassword = confirmPassword;
@@ -94,7 +94,7 @@ signUpForm.addEventListener(
   //
 );
 
-handleFieldChange("sign-up-name", "eng_name", formData, vSignUp, fields);
+handleFieldChange("sign-up-name", "name", formData, vSignUp, fields);
 handleFieldChange("sign-up-email", "email", formData, vSignUp, fields);
 handleFieldChange("sign-up-password", "password", formData, vSignUp, fields);
 handleFieldChange("sign-up-confirm-password", "confirmPassword", formData, vSignUp, fields);

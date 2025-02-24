@@ -16,7 +16,7 @@ const vSignIn = Joi.object({
 }).options({ abortEarly: false });
 
 const vSignUp = Joi.object({
-  eng_name: Joi.string().trim().min(4).required().messages({
+  name: Joi.string().trim().min(4).required().messages({
     "string.empty": "Username is required.",
     "string.min": "Username must be at least 4 characters.",
   }),
