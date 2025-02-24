@@ -57,7 +57,7 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
           ).format("LT")
         }`;
         
-        let totalPrice = data.data.ticket.length > 0 ? `${data.data.ticket.reduce((sum, item) => sum + item.price, 0)}` : `Free`;
+        let totalPrice = data.data.ticket.length > 0 ? `$${data.data.ticket.reduce((sum, item) => sum + item.price, 0).toFixed(2)}` : `Free`;
 
         // let pricing = null;
   
@@ -83,12 +83,12 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
                                                             <div class="d-flex align-items-center">
                                                                 <div class="me-3">
                                                                     <div class="text-center text-brand fw-bold">${moment(event.started_date).format("MMM ")}</div>
-                                                                    <div class="text-center text-brand fw-bold">${moment(event.started_date).format("DDD")}</div>
+                                                                    <div class="text-center text-brand fw-bold">${moment(event.started_date).format("DD")}</div>
                                                                 </div>
                                                                 <img src="/uploads/default-events-img.jpg" alt="Event Image" class="rounded object-fit-cover" width="150" height="85">
                                                                 <div class="ms-3 text-nowrap">
                                                                     <h5 class="mb-0 text-wrap">${event.eng_name}</h5>
-                                                                    <p class="text-muted mb-0 w-75">${event.location}</p>
+                                                                    <p class="text-muted mb-0 w-75">${event.location ? event.location : "Online Event"}</p>
                                                                     <p class="text-muted mb-0 small">${formattedDate}</p>
                                                                 </div>
                                                             </div>
@@ -100,14 +100,14 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
                                                     <td class="text-nowrap">${data.data.total_checkin ? data.data.total_checkin : "0"} <span class="">participated</span></td>
                                                     <td>
                                                         <div class="dropstart position-relative z-3">
-                                                            <button class="btn btn-brand" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <button class="btn btn-brand" style="height: auto !important;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                                 <i class="bi bi-three-dots"></i>
                                                             </button>
                                                             <ul class="dropdown-menu dropdown-menu-end">
-                                                                <li><a class="dropdown-item edit-event-btn" href="#">Edit</a></li>
-                                                                <li><a class="dropdown-item delete-event-btn" href="#">Delete</a></li>
-                                                                <li><a class="dropdown-item views-event-detail" href="#">View</a></li>
-                                                                <li><a class="dropdown-item" href="#" onclick="copyEventUrlToClipboard()">Copy Link</a></li>
+                                                                <li><a class="dropdown-item edit-event-btn" onclick="updateEvent(${event.id})">Update</a></li>
+                                                                <li><a class="dropdown-item delete-event-btn" onclick="deleteEvent(${event.id})">Delete</a></li>
+                                                                <li><a class="dropdown-item views-event-detail" href="/event/detail?e=${event.id}">View</a></li>
+                                                                <li><a class="dropdown-item" onclick="copyEventUrlToClipboard(${event.id})">Copy Link</a></li>
                                                             </ul>
                                                         </div>
                                                     </td>
@@ -185,3 +185,19 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
     }
 
 renderEventsAll();
+
+async function deleteEvent(id) {
+  try {
+    await axiosInstance.delete("/events/"+id);
+    showToast(true, "Event Deleted Successfully.")
+  } catch (error) {
+    showToast()
+    console.log(error);
+    
+  }
+}
+
+function updateEvent(id) {
+  sessionStorage.setItem("event-update-id", id)
+  window.location.href = "/event/update-event"
+}

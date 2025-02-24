@@ -267,7 +267,10 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
             : "Free Ticket"
         }`;
       } else if (event.event_tickets.length == 0) {
-        pricing = ``;
+        if(event.event_type == 'online'){
+
+          pricing = `Free`;
+        }
       }
 
       let categories = "";
@@ -299,7 +302,7 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
                                                 <div>
                                                     <button onclick="addWishlist(${
                                                       event.id
-                                                    }, this)" class="z-3 button ${
+                                                    }, this)" class="button ${
         event.is_Wishlist && "active"
       }">
                                                         <i
@@ -307,7 +310,7 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
                                                         <!-- Wishlist Icon -->
                                                     </button>
                                                 </div>
-                                                <button class="button z-3" onclick="copyEventUrlToClipboard(${
+                                                <button class="button" onclick="copyEventUrlToClipboard(${
                                                   event.id
                                                 })">
                                                     <i data-lucide="link" style="stroke-width: 2; width: 1.25rem;"></i>
@@ -315,26 +318,21 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
                                                 </button>
                                             </div>
 
-                                            <!-- Event Type Tag -->
-                                            <div style="cursor: pointer;" onclick="goEventDetail(${event.id})" class="event-type text-brand ${
-                                              event.event_type == "offline"
-                                                ? "d-none"
-                                                : ""
-                                            }">
+                                             <!-- Event Type Tag -->
+                                            <div style="cursor: pointer;" onclick="goEventDetail(${event.id})" class="event-type text-brand py-1">
                                                 <i
-                                                    class="fas fa-map-marker-alt"></i>
-                                                <span>${
-                                                  event.event_type == "offline"
-                                                    ? "In Person"
-                                                    : "Online"
-                                                }</span>
+                                                    class="fas fa-tag" style="font-size: 10px !important;"></i>
+                                                <small>${
+                                                 pricing
+                                                }</small>
                                             </div>
                                         </div>
+                                       
 
                                         <!-- Event Details -->
                                         <div class="event-details" style="cursor: pointer;" onclick="goEventDetail(${event.id})">
                                             <div
-                                                class="d-flex justify-content-between">
+                                                class="d-flex justify-content-between align-items-center">
 
                                                 <h3
                                                     class="event-title text-wrap">${
@@ -344,14 +342,14 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
                                                     class="event-category pill5 fw-medium d-none d-sm-flex">${eventStatus}</span>
                                                 
                                             </div>
-                                            <p
-                                                class="event-description d-none d-lg-block text-1-line">
+                                            <!-- <p
+                                                class="event-description d-none text-1-line">
                                                 ${event.short_description}
-                                            </p>
+                                            </p> -->
 
                                             <!-- Event Tags -->
                                             <div
-                                                class="d-flex align-items-center justify-content-between mb-3 mt-2 mt-lg-0">
+                                                class="d-flex align-items-center justify-content-between mb-2">
                                                 <div
                                                     class="event-categories flex-nowrap">
                                                     ${categories}
@@ -366,14 +364,14 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
                                             <div class="event-meta">
                                                 <div class="event-meta-item">
                                                     <i
-                                                        class="fas fa-calendar-alt text-brand"></i>
+                                                        class="fas fa-calendar-alt text-brand fs-6"></i>
                                                     <span>${moment(
                                                       event.started_date
                                                     ).format("ll")}</span>
                                                 </div>
                                                 <div class="event-meta-item">
                                                     <i
-                                                        class="fas fa-clock text-brand"></i>
+                                                        class="fas fa-clock text-brand fs-6"></i>
                                                     <span>${
                                                       moment(
                                                         event.start_time,
@@ -390,14 +388,15 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
                                             </div>
 
                                             <div class="event-meta-item ${
-                                              event.location ? "" : "d-none"
+                                              event.location ? "" : ""
                                             }"
-                                                style="margin-bottom: 0.75rem !important;">
+                                                style="">
                                                 <i
-                                                    class="fas fa-map-marker-alt text-brand"></i>
+                                                    class="fas fa-map-marker-alt text-brand fs-6"></i>
                                                 <p
-                                                    class="text-1-line mb-0">${
-                                                      event.location
+                                                    class="text-1-line mb-0 pb-0">${
+                                                      event.event_type == "offline" ?
+                                                      event.location : "Online Event"
                                                     }</p>
                                                 <div
                                                     class=" text-brand fw-medium"
@@ -406,14 +405,14 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
                                                 </div>
 
                                             </div>
-                                            <div class="event-meta-item ${
+                                            <!-- <div class="event-meta-item ${
                                               !pricing && "d-none"
                                             }">
                                                 <i
                                                     class="fa-solid fa-tag text-brand"></i><span
                                                     class>${pricing}</span>
 
-                                            </div>
+                                            </div> -->
 
                                             <!-- Event Price -->
 
