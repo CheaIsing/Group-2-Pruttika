@@ -115,11 +115,27 @@ const eventCollection= async(userID,page=1, perpage=25, search='', sort='id', or
             filterParams.push(event_type);
         }
 
+        if (typeof cate_ids === 'string') {
+            try {
+                // Attempt to parse as JSON
+                cate_ids = JSON.parse(cate_ids);
+            } catch (error) {
+                console.error('Error parsing cate_ids:', error);
+                cate_ids = []; // Fallback to an empty array
+            }
+        }
+
         // Filter by category
         if (Array.isArray(cate_ids) && cate_ids.length > 0) {
             const placeholders = cate_ids.map(() => '?').join(', ');
-            sqlQuery += ` AND tec.category_id IN (${placeholders})`;
-            filterParams.push(...cate_ids); // Push category IDs directly
+            console.log(placeholders);
+            sqlQuery += ` AND te.id IN (
+                SELECT tec.event_id 
+                FROM tbl_event_category tec 
+                WHERE tec.category_id IN (${placeholders})
+                GROUP BY tec.event_id
+            )`;
+            filterParams.push(...cate_ids);
         }
 
         if(published=="true"){
@@ -138,9 +154,12 @@ const eventCollection= async(userID,page=1, perpage=25, search='', sort='id', or
 
         const params=[...filterParams];
         params.push(perpage,offset);
+        console.log(sqlQuery);
 
         //get all data event
         const result=await executeQuery(sqlQuery,params);
+        // console.log(sqlQuery);
+        // console.log(params);
         const arrEvents=[];
         for(let i=0;i<result.length;i++){
             const eventData=result[i];
