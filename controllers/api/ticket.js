@@ -60,8 +60,8 @@ const postRequestTicket=async(req,res)=>{
             }
             const amount=checkTicket.price*qty;
             const sqlInsertReq=`INSERT INTO tbl_transaction(buyer_id, ticket_event_id, ticket_qty, total_amount,event_id) VALUES(?,?,?,?,?)`;
-            await executeQuery(sqlInsertReq,[buyer_id, ticketTypeId, qty, amount,event_id]);
-            sendResponse(res,200,true,`Request Ticket Successfully`);
+            const result = await executeQuery(sqlInsertReq,[buyer_id, ticketTypeId, qty, amount,event_id]);
+            sendResponse(res,200,true,`Request Ticket Successfully`, result);
         }
     } catch (error) {
         console.log(error);

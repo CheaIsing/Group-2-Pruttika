@@ -748,7 +748,3 @@ ALTER TABLE `tbl_event` ADD COLUMN join_link varchar(500) NULL;
 ALTER TABLE tbl_organizer_req DROP INDEX business_email;
 ALTER TABLE tbl_organizer_req DROP INDEX business_phone;
 
-
-  
-
-

@@ -24,6 +24,7 @@ const apiEvents=require('./routes/api/event');
 const apiTickets=require('./routes/api/ticket');
 
 // WEB
+const webIndex = require("./routes/web/index")
 const webAuth = require("./routes/web/auth");
 const webEvent = require("./routes/web/event");
 const webProfile = require("./routes/web/profile");
@@ -63,8 +64,8 @@ app.use("/api/notification", apiNotification);
 app.use("/api/events", apiEvents);
 app.use("/api/tickets", apiTickets);
 
-app.get("/", (req, res) => res.redirect("/auth/signin"));
 
+app.use(webIndex);
 app.use("/auth", webAuth);
 app.use("/event", webEvent);
 app.use("/profile", webProfile);

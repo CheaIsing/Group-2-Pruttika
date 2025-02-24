@@ -155,6 +155,8 @@ document.getElementById("sort-filter-mobile").addEventListener("change", (e) => 
   renderEvents();
 });
 
+document.addEventListener("DOMContentLoaded", (e)=> renderEvents());
+
 async function renderEvents(page = 1, perpage = 10, is_published = true) {
   const eventList = document.getElementById("event-list");
   eventList.innerHTML = "";
@@ -171,6 +173,7 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
     endDate = "",
     minPrice = "",
     maxPrice = "";
+    
 
   queryParams.append("page", `${page}`);
   queryParams.append("is_published", `${is_published}`);
@@ -179,6 +182,7 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
   if (search) {
     queryParams.append("search", search);
   }
+
 
   // Handle date filter
   if (dateFilter === "week") {
@@ -222,9 +226,15 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
   // Handle location filter
   // if (location) queryParams.append("location", location);
   try {
-
+    let qryStr = queryParams.toString()
+    if(selectedCategories.length >0){
+      let resultCate = selectedCategories.map(Number);
+      qryStr += `&cateId=[${resultCate}]`
+    }
+    console.log(qryStr);
+    
     const { data } = await axiosInstance.get(
-      `/events?${queryParams.toString()}`
+      `/events?${qryStr}`
     );
     const { data: events , paginate} = data;
     console.log(data);
@@ -435,8 +445,6 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
     showToast();
   }
 }
-
-document.addEventListener("DOMContentLoaded", (e)=> renderEvents());
 
 function renderPagination(paginate) {
     const paginationNumbers = document.getElementById("pagination-numbers");

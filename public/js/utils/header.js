@@ -1,14 +1,13 @@
 const header = document.getElementById("header");
-
 const toggleClass = "is-sticky";
 
-window.addEventListener("scroll", () => {
-  if (header) {
+if (header) {
+  window.addEventListener("scroll", () => {
     const currentScroll = window.pageYOffset;
-    if (currentScroll > 150) {
+    if (currentScroll > 1500) {
       header.classList.add(toggleClass);
     } else {
       header.classList.remove(toggleClass);
     }
-  }
-});
+  });
+}

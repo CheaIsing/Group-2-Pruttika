@@ -107,7 +107,7 @@ async function getProfileInfo() {
     femaleEle.checked = gender == 2;
     
     
-    dobEle.value = dob.split('T')[0];
+    dobEle.value = dob ? dob.split('T')[0] : "";
 
     avatarEle.src = avatar ? "/uploads/" + avatar : "/uploads/default.jpg";
 

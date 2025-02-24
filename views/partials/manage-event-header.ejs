@@ -1,0 +1,37 @@
+<header class="border px-1" id="header">
+    <div class="container-fluid px-4">
+        <nav class="d-flex align-items-center justify-content-between">
+            <div class="logo border-0">
+                <a href="../homepage.html">
+                    <img
+                        src="/img/Prutika_Logo_text(2).png"
+                        alt>
+                </a>
+            </div>
+            <div class="dropdown d-flex gap-4">
+                <a href="/event/create" role="button" class="btn btn-outline-brand fw-medium" style="height: auto !important;">+ Create Event</a>
+                <a href="#"
+                    class="dropdown-toggle fs-3 text-brand d-flex align-items-center"
+                    role="button"
+                    id="accountDropdown" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <!-- <i class="bi bi-person-circle"></i> -->
+                    <div class="userImgPf-wrapper">
+                        <img id="userImgPf"
+                            src="http://mps2.chandalen.dev/storage/avatars/no_photo.jpg"
+                            alt="pfp">
+                    </div>
+                    <!-- User Icon -->
+                    <span class="ps-1 fs-6" id="userEmail"></span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end"
+                    aria-labelledby="accountDropdown">
+                    <li><a class="dropdown-item"
+                            href="../homepage.html">Switch to
+                            Attending</a></li>
+
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>

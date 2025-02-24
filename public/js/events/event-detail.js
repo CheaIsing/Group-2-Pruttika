@@ -3,11 +3,14 @@ const urlParams = new URLSearchParams(window.location.search);
 let eventId = urlParams.has("e")
   ? urlParams.get("e")
   : sessionStorage.getItem("event-detail-id") || 28;
+
+  let eventObj = null;
 async function getEventDetail() {
   try {
     const { data } = await axiosInstance.get(`/events/${eventId}`);
     const { data: json } = data;
     console.log(json);
+    eventObj = json
 
     document.getElementById('event-hero-banner-img').setAttribute("style", `background-image: url('/uploads/${json.thumbnail}');`) 
 
@@ -113,3 +116,9 @@ document.getElementById("btn-copylink-event").onclick = () => {
   copyEventUrlToClipboard(eventId);
 };
 
+document.getElementById("btnPurchaseTicket").addEventListener("click", (e)=>{
+  if(eventObj){
+    sessionStorage.setItem("event_obj", JSON.stringify(eventObj))
+    window.location.href="/ticket/buy-ticket"
+  }
+})

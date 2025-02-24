@@ -4,7 +4,7 @@
     <%-include('../../partials/head.ejs') %>
 
     <body>
-        <header class="border is-sticky" id="header">
+        <header class="border" id="header">
             <div class="container">
                 <nav class="d-flex align-items-center justify-content-between">
                     <div class="logo">
@@ -306,9 +306,9 @@
                                 class=" fw-semibold mb-3 text-brand">
                                 <h4 id="range-price">$0.00 - $200.00</h4>
                             </div>
-                            <button type="submit"
+                            <a id="btnPurchaseTicket" role="button"
                                 class="btn btn-brand w-100">Purchase
-                                Ticket</button>
+                                Ticket</a>
 
                         </div>
                         <div>

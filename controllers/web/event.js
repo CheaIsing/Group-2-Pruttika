@@ -16,10 +16,15 @@ const getWishlist = (req, res)=>{
   res.render("pages/event/wishlist", {title: "Wishlist"});
 }
 
+const getEventList = (req, res)=>{
+  res.render("pages/event/event", {title: "Manage Event"});
+}
+
 module.exports = {
   getCreateEvent,
   getUpdateEvent,
   getEventDetail,
   getBrowseEvent,
-  getWishlist
+  getWishlist,
+  getEventList
 };
