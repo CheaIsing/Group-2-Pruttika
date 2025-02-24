@@ -155,6 +155,8 @@ document.getElementById("sort-filter-mobile").addEventListener("change", (e) => 
   renderEvents();
 });
 
+document.addEventListener("DOMContentLoaded", (e)=> renderEvents());
+
 async function renderEvents(page = 1, perpage = 10, is_published = true) {
   const eventList = document.getElementById("event-list");
   eventList.innerHTML = "";
@@ -435,8 +437,6 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
     showToast();
   }
 }
-
-document.addEventListener("DOMContentLoaded", (e)=> renderEvents());
 
 function renderPagination(paginate) {
     const paginationNumbers = document.getElementById("pagination-numbers");

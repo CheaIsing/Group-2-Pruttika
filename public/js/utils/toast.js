@@ -59,7 +59,7 @@ function copyEventUrlToClipboard(eventId) {
   console.log(url);
   
 
-  navigator.clipboard.writeText(url).then(() => {
+  window.navigator.clipboard.writeText(url).then(() => {
     showToast(true, "Copied to Clipboard.");
   });
 }

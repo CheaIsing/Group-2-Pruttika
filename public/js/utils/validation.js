@@ -77,7 +77,7 @@ const vProfileInfo = Joi.object({
     "string.empty": "Username is required.",
     "string.min": "Username must be at least 4 characters.",
   }),
-  kh_name: Joi.string().trim().optional().min(4).messages({
+  kh_name: Joi.string().trim().allow("").optional().min(4).messages({
     "string.min": "Username must be at least 4 characters.",
   }),
   email: Joi.string()

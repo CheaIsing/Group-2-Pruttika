@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include("../../partials/head.ejs") %>
+
+<body>
+    <%- include("../../partials/navbar.ejs") %>
+    <div class="container-lg py-5">
+        <h3 class="fw-medium mb-3" style="color: #333;">Request Purchase <span class="text-brand">Ticket</span></h3>
+        <div class="row">
+            <div class="col-12 col-md-6" id="event-card">
+                <div class="event-card shadow-light-sm">
+                    <div class="event-card-container flex-column">
+                        <!-- Event Thumbnail -->
+                        <div
+                            class="event-thumbnail object-fit-cover d-flex justify-content-between w-100">
+                            <img
+                                class="img-fluid object-fit-cover"
+                                src="https://cdn.pixabay.com/photo/2016/11/23/15/48/audience-1853662_640.jpg"
+                                alt="Event Image"/>
+                            <div
+                                class="event-thumbnail-overlay"></div>
+
+                            <!-- Wishlist & Copy buttons -->
+
+                            <!-- Event Type Tag -->
+                            <div class="event-type text-brand">
+                                <i
+                                    class="fas fa-map-marker-alt"></i>
+                                <!-- <i class="fa-solid fa-tag"></i> -->
+                                <span>Online </span>
+                                <!-- <small class=" badge">$50</small> -->
+                            </div>
+                        </div>
+
+                        <!-- Event Details -->
+                        <div class="event-details">
+                            <div
+                                class="d-flex justify-content-between">
+
+                                <h3
+                                    class="event-title" style="color: #333;">Exciting
+                                    Food Festival Lorem ipsum
+                                    dolor sit amet.</h3>
+                                
+                                <!-- <p class="status">${element.status}</p> -->
+                            </div>
+                            <p
+                                class="event-description">
+                                Join us for an unforgettable
+                                culinary experience with the
+                                best
+                                local chefs and street food.
+                            </p>
+
+                            <!-- Event Tags -->
+                            <div
+                                class="d-flex align-items-center justify-content-between mb-3 mt-2 mt-lg-0">
+                                <div
+                                    class="event-categories flex-nowrap">
+                                    <!-- <span class="event-category pill1">Food</span> -->
+                                    <span
+                                        class="event-category pill2 fw-medium">Music</span>
+                                    <span
+                                        class="event-category pill3 fw-medium">Technology</span>
+                                    <span
+                                        class="event-category pill5 fw-medium">Festival</span>
+                                    <!-- <span class="event-category pill5">Festival</span> -->
+                                </div>
+                                <div
+                                    class="d-flex align-items-center">
+
+                                </div>
+                            </div>
+
+                            <!-- Date & Location -->
+                            <div class="event-meta">
+                                <div class="event-meta-item">
+                                    <i
+                                        class="fas fa-calendar-alt text-brand"></i>
+                                    <span>Friday March 20,
+                                        2025</span>
+                                </div>
+                                <div class="event-meta-item">
+                                    <i
+                                        class="fas fa-clock text-brand"></i>
+                                    <span>5:00 PM - 10:00
+                                        PM</span>
+                                </div>
+
+                            </div>
+
+                            <div class="event-meta-item"
+                                style="margin-bottom: 0.75rem !important;">
+                                <i
+                                    class="fas fa-map-marker-alt text-brand"></i>
+                                <p
+                                    class="text-1-line mb-0">Phnom
+                                    Penh Kakab Pochentong, Siem
+                                    Reap, Cambodia</p>
+                                <div
+                                    class=" text-brand fw-medium"
+                                    style="border-color: var(--c-brand) !important;">
+
+                                </div>
+
+                            </div>
+                            <div class="event-meta-item">
+                                <i
+                                    class="fa-solid fa-tag text-brand"></i><span
+                                    class>$10.00 - $20.00</span>
+
+                            </div>
+
+                            <!-- Event Price -->
+
+                            <!-- Creator Profile -->
+                            <div class="creator-profile d-none">
+                                <div class="creator-avatar">
+                                    <img
+                                        src="/public/img/Default_pfp.jpg"
+                                        alt="Creator" />
+                                </div>
+                                <a href="#"
+                                    class="creator-name">Hosted
+                                    by John Doe</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+                <div class="col-md-6">
+                    <div class="card border-brand-sm">
+                        
+                        <div class="card-body">
+                            <h5 class="card-title" style="color: #333;">Purchase Information</h5>
+                            <div class="mb-3">
+                                <label for="ticketQuantity" class="form-label">Ticket Type:</label>
+                                <select class="form-select shadow-none border-brand-sm py-2" id="ticketType">
+                                    <option selected value='1'>1</option>
+                                    
+                                    <option value='3'>3</option>
+                                    <option value='4'>4</option>
+                                    <option value='5'>5</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="ticketQuantity" class="form-label">Number of Tickets:</label>
+                                <select class="form-select shadow-none border-brand-sm py-2" id="ticketQuantity">
+                                    <option selected value='1'>1</option>
+                                    
+                                    <option value='3'>3</option>
+                                    <option value='4'>4</option>
+                                    <option value='5'>5</option>
+                                </select>
+                            </div>
+                            <hr class="text-brand bg-brand opacity-100">
+                            <p>Subtotal: <span id="subTotal" class="float-end">$10.00</span></p>
+                            <p>Dicount Fee: <span class="float-end">$0.00</span></p>
+                            <h5 style="color: #333;">Total: <span id="total" class="float-end fw-medium">$10.00</span></h5>
+                            <hr class="text-brand bg-brand opacity-100">
+                            <div class="mb-3">
+                            <label class="form-label">Payment QR Code</label>
+                            <button class="btn btn-outline-brand w-100 fw-medium" onclick="toggleQRCode()"><i class="bi bi-qr-code"></i>&nbsp; Show QR Code</button>
+                            <img src="" width="200" alt="QR Code" id="qrCodeImage" class="img-fluid mt-3 d-none">
+                        </div>
+    
+                        
+                        <div class="mb-3">
+                            <label for="paymentProof" class="form-label">Upload Payment Proof</label>
+                            
+                            <div class=" d-flex align-items-center border border-brand-sm p- rounded">
+                                <input type="file" class="d-none" id="paymentProof" accept=".jpeg, .jpg, .pdf" onchange="previewFile()">
+                                <button class="btn text-nowrap text-brand d-flex align-items-center fw-normal fs-6 rounded-0 py-1"  style="border-right: 1px solid var(--c-brand);" onclick="document.getElementById('paymentProof').click();">
+                                    <i class="bi bi-upload me-2"></i> Choose File
+                                </button>
+                                <label for="paymentProof" id="fileName" class="ms-2 text-muted h-100 w-75 d-block">No file selected</label>
+                            </div>
+                            
+                            <small class="text-muted">Please upload your payment transaction in .jpeg, .jpg, or PDF</small>
+                        </div>
+                        
+                            
+        
+                            
+                            <button class="btn btn-brand w-100" id="submitButton">Submit Purchase</button>
+                        </div>
+                    </div>
+                </div>
+
+                
+            
+        </div>
+    </div>
+    <%- include("../../partials/script.ejs") %>
+    <script src="/js/ticket/buy-ticket.js"></script>
+</body>
+
+
+</html>

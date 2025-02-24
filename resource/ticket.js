@@ -119,10 +119,16 @@ const ownReqTicketCollection=async(userId,status=null,page=1,perpage=15,sort='id
             tts.created_at,
             tts.updated_at,
             tts.event_id,
+            te.eng_name as event_eng_name,
+            te.kh_name as event_kh_name,
+            te.thumbnail as event_thumbnail,
+            te.location as event_location,
+            te.started_date as event_started_date,
             ttt.type_name,
             ttt.price
         from tbl_transaction tts
         LEFT JOIN tbl_ticketevent_type ttt ON ttt.id=tts.ticket_event_id
+        LEFT JOIN tbl_event te ON te.id=tts.ticket_event_id
         WHERE buyer_id=? `;
 
         const filterParam=[userId];
@@ -151,7 +157,15 @@ const ownReqTicketCollection=async(userId,status=null,page=1,perpage=15,sort='id
             const item=result[i];
             data.push({
                 id : item.id,
-                event_id: item.event_id,
+                
+                event : {
+                    id: item.event_id,
+                    eng_name: item.event_eng_name,
+                    kh_name: item.event_kh_name,
+                    location: item.event_location,
+                    thumbnail: item.event_thumbnail,
+                    started_date: item.event_started_date
+                },
                 ticket_type:{
                     ticket_event_id: item.ticket_event_id,
                     type_name : item.type_name,
