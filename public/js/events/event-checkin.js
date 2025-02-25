@@ -59,27 +59,10 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
         
         let totalPrice = data.data.ticket.length > 0 ? `$${data.data.ticket.reduce((sum, item) => sum + item.price, 0).toFixed(2)}` : `Free`;
 
-        // let pricing = null;
-  
-        // if (event.event_tickets.length > 1) {
-        //   const numbers = event.event_tickets.map((et) => et.price);
-        //   const minNumber = Math.min(...numbers);
-        //   const maxNumber = Math.max(...numbers);
-  
-        //   pricing = `$${minNumber.toFixed(2)} - $${maxNumber.toFixed(2)}`;
-        // } else if (event.event_tickets.length == 1) {
-        //   pricing = `${
-        //     event.event_tickets[0].price > 0
-        //       ? `$${event.event_tickets[0].price.toFixed(2)}`
-        //       : "Free Ticket"
-        //   }`;
-        // } else if (event.event_tickets.length == 0) {
-        //   pricing = ``;
-        // }
   
         const eventCard = `<tr class="border-bottom position-relative">
                                                     <td>
-                                                        <a href="" class="stretched-link text-decoration-none bg-transparent link-event-details" style="color: inherit;">
+                                                        <a onclick="showRequestTicketList(${event.id})" role="button" class="stretched-link text-decoration-none bg-transparent"  style="color: inherit;">
                                                             <div class="d-flex align-items-center">
                                                                 <div class="me-3">
                                                                     <div class="text-center text-brand fw-bold">${moment(event.started_date).format("MMM ")}</div>
@@ -95,22 +78,8 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
                                                         </a>
                                                     </td>
                                                     <td class="text-nowrap">Active</td>
-                                                    <td class="text-nowrap">${data.data.total_approved_registrations ? data.data.total_approved_registrations: "0"} <span class="">tickets</span></td>
-                                                    <td class="text-nowrap">${totalPrice}</td>
-                                                    <td class="text-nowrap">${data.data.total_checkin ? data.data.total_checkin : "0"} <span class="">participated</span></td>
-                                                    <td>
-                                                        <div class="dropstart position-relative z-3">
-                                                            <button class="btn btn-brand" style="height: auto !important;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                <i class="bi bi-three-dots"></i>
-                                                            </button>
-                                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                                <li><a role="button" class="dropdown-item edit-event-btn" onclick="updateEvent(${event.id})">Update</a></li>
-                                                                <li><a role="button" class="dropdown-item delete-event-btn" onclick="deleteEvent(${event.id}, this)">Delete</a></li>
-                                                                <li><a class="dropdown-item views-event-detail" href="/event/detail?e=${event.id}">View</a></li>
-                                                                <li><a role="button" class="dropdown-item" onclick="copyEventUrlToClipboard(${event.id})">Copy Link</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </td>
+                                                    <td class="text-nowrap">${data.data.total_checkin ? data.data.total_checkin : '0'} Checked In </td>
+                                                    
                                                 </tr>`
               
         eventList.innerHTML += eventCard;
@@ -209,4 +178,11 @@ document.getElementById("searchEventInput").oninput = (e)=>{
 
 document.getElementById("event-sort-filter").onchange = (e)=>{
   renderEventsAll()
+}
+
+
+  function showRequestTicketList(id) {
+    
+    sessionStorage.setItem("event-request-ticket-list", id); 
+    window.location.href = "/event/request-ticket-list";
 }

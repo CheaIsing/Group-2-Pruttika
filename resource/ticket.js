@@ -10,6 +10,8 @@ const reqTicketCollection=async(userId,event_id=null,ticket_type_id=null,page=1,
                 tts.id AS transaction_id,
                 tts.event_id,
                 tts.ticket_event_id ,
+                ttt.price,
+                tts.rejection_reason,
                 ttt.type_name AS ticket_type,
                 tts.ticket_qty,
                 tts.total_amount,
@@ -26,21 +28,21 @@ const reqTicketCollection=async(userId,event_id=null,ticket_type_id=null,page=1,
             LEFT JOIN tbl_ticketevent_type ttt ON ttt.id=tts.ticket_event_id
             LEFT JOIN tbl_event te ON te.id=tts.event_id
             LEFT JOIN tbl_users tu ON tu.id= tts.buyer_id
-            WHERE te.creator_id=?
+            WHERE te.creator_id=? 
         `;
         let filterQry='';
         const filterParam=[userId];
         if(event_id){
-            filterQry +=`AND te.id=?`;
+            filterQry +=` AND te.id=?`;
             filterParam.push(event_id);
         }
         if(ticket_type_id){
-            filterQry +=`AND tts.ticket_event_id=?`;
+            filterQry +=` AND tts.ticket_event_id=?`;
             filterParam.push(ticket_type_id);
         }
         
         sqlGetReq+=filterQry;
-        sqlGetReq+=`ORDER BY tts.${sort} ${order}
+        sqlGetReq+=` ORDER BY tts.${sort} ${order}
                     LIMIT ? OFFSET ?;`
 
         const params=[...filterParam];
@@ -59,7 +61,9 @@ const reqTicketCollection=async(userId,event_id=null,ticket_type_id=null,page=1,
             data.push({
                 transaction_id : item.transaction_id,
                 event_id : item.event_id,
+                rejection_reason: item.rejection_reason,
                 ticket_type_id: item.ticket_event_id,
+                price: item.price,
                 ticket_type : item.ticket_type,
                 ticket_qty : item.ticket_qty,
                 total_amount : item.total_amount,

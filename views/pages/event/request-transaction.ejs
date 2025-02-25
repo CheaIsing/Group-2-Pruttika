@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("../../partials/head.ejs") %>
+<body>
+    <%- include("../../partials/manage-event-header.ejs") %>
+
+    <main>
+        <div class>
+            <div class="d-flex">
+                <%- include("../../partials/manage-event-sidebar.ejs")  %>
+
+                <section class="p-4 w-100">
+                    <div class="d-flex align-items-center">
+                        <button type="button"
+                            class="btn border-0 ps-0"
+                            onclick="history.back()">
+                            <i
+                                class="fa-solid fa-angle-left fs-2"></i>
+                        </button>
+                        <h2>Transaction</h2>
+                    </div>
+
+                    <div class="row" id="row-transaction"></div>
+                </section>
+            </div>
+        </div>
+    </main>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5"
+                            id="exampleModalLabel">Disapprove request</h1>
+                        <button type="button" class="btn-close"
+                            data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="modal-disapprove">
+                        <div class="mb-3">
+                            <div class="input-field input-field-setting" id="input-field-reject">
+                              <i class="fas fa-lock"></i>
+                              <input type="text" placeholder="Enter Reject Reason" id="reject" autofocus/>
+                            </div>
+                            <div
+                              class="invalid_feedback text-danger d-flex align-items-center" id="invalid_feedback_reject">
+                              <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                              <div class="ms-2">Reject Reason is required.</div>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal">Close</button>
+                        <button id="btn-disapprove" type="button"
+                            class="btn btn-primary btn-disapprove">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<%- include("../../partials/script.ejs") %>
+
+<script src="/public/js/utils/organizer-sidebar.js"></script>
+
+
+
+<script src="/js/events/request-transaction.js">
+
+</script>
+
+</body>
+</html>

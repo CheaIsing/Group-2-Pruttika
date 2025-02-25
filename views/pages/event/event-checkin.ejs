@@ -13,7 +13,7 @@
 
                     <section class="p-4 w-100">
                         <div class="mb-3">
-                            <h2 style="color: #333;">Event</h2>
+                            <h2 style="color: #333;">Check In Ticket</h2>
                         </div>
                         <ul class="nav nav-underline gap-3" id="myTab" role="tablist">
                             <li class="nav-item " role="presentation">
@@ -55,11 +55,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-auto">
-                                        <div class=" d-none d-sm-block">
-                                            <a href="/event/create" role="button" class="btn btn-brand fw-medium w-auto" style="height: auto !important;">+ Create Event</a>
-                                        </div>
-                                    </div>
                                 </div>
                                 
                                 
@@ -71,10 +66,7 @@
                                                 <tr >
                                                     <th scope="col" style="color: #333;" class="fw-semibold">Event</th>
                                                     <th scope="col" style="color: #333;" class="fw-semibold">Status</th>
-                                                    <th scope="col" style="color: #333;" class="fw-semibold">Sold</th>
-                                                    <th scope="col" style="color: #333;" class="fw-semibold">Gross</th>
-                                                    <th scope="col" style="color: #333;" class="fw-semibold">Participated</th>
-                                                    <th scope="col" style="color: #333;" class="fw-semibold"></th>
+                                                    <th scope="col" style="color: #333;" class="fw-semibold">Checked-In</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="event-tobody">
@@ -97,21 +89,7 @@
                                                     </td>
                                                     <td class="text-nowrap">Active</td>
                                                     <td class="text-nowrap">100 tickets</td>
-                                                    <td class="text-nowrap">$5,000.00</td>
-                                                    <td class="text-nowrap">85 participated</td>
-                                                    <td>
-                                                        <div class="dropstart position-relative z-3">
-                                                            <button class="btn btn-brand" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                <i class="bi bi-three-dots"></i>
-                                                            </button>
-                                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                                <li><a class="dropdown-item edit-event-btn" href="#">Edit</a></li>
-                                                                <li><a class="dropdown-item delete-event-btn" href="#">Delete</a></li>
-                                                                <li><a class="dropdown-item views-event-detail" href="#">View</a></li>
-                                                                <li><a class="dropdown-item" href="#" onclick="copyEventUrlToClipboard()">Copy Link</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </td>
+                                                    
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -306,6 +284,6 @@
 
         <%- include("../../partials/script.ejs") %>
         <script src="/js/utils/organizer-sidebar.js"></script>
-        <script src="/js/events/manage-event.js"></script>
+        <script src="/js/events/event-checkin.js"></script>
     </body>
 </html>
