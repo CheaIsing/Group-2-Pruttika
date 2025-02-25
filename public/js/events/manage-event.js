@@ -81,7 +81,7 @@ let eventLinkAttributes = isOffline
                                                                 <img src="/uploads/default-events-img.jpg" alt="Event Image" class="rounded object-fit-cover" width="150" height="85">
                                                                 <div class="ms-3 text-nowrap">
                                                                     <h5 class="mb-0 text-wrap">${event.eng_name}</h5>
-                                                                    <p class="text-muted mb-0 w-75">${event.location ? event.location : "Online Event"}</p>
+                                                                    <p class="text-muted mb-0 w-75">${event.location || event.event_type != "online" ? event.location ? event.location : "No location" : "Online Event"}</p>
                                                                     <p class="text-muted mb-0 small">${formattedDate}</p>
                                                                 </div>
                                                             </div>
