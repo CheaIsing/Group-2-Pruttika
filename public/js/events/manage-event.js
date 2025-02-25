@@ -43,7 +43,10 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
   
       events.forEach(async(event) => {
         const {data} = await axiosInstance.get("/events/summary-data/"+event.id);
-        console.log(data);
+        // console.log(data);
+
+        console.log(event);
+        
 
         const formattedDate = `${moment(event.started_date).format("MMM D, YYYY")} - ${moment(event.started_date).format("MMM D, YYYY")}, ${
           moment(
@@ -56,30 +59,20 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
             "HH:mm"
           ).format("LT")
         }`;
+
+        let isOffline = event.event_type !== "offline";
+        console.log(isOffline);
+        
+let eventLinkAttributes = isOffline 
+    ? '' 
+    : `role="button" onclick="showSummary(${event.id})"`;
+
         
         let totalPrice = data.data.ticket.length > 0 ? `$${data.data.ticket.reduce((sum, item) => sum + item.price, 0).toFixed(2)}` : `Free`;
-
-        // let pricing = null;
-  
-        // if (event.event_tickets.length > 1) {
-        //   const numbers = event.event_tickets.map((et) => et.price);
-        //   const minNumber = Math.min(...numbers);
-        //   const maxNumber = Math.max(...numbers);
-  
-        //   pricing = `$${minNumber.toFixed(2)} - $${maxNumber.toFixed(2)}`;
-        // } else if (event.event_tickets.length == 1) {
-        //   pricing = `${
-        //     event.event_tickets[0].price > 0
-        //       ? `$${event.event_tickets[0].price.toFixed(2)}`
-        //       : "Free Ticket"
-        //   }`;
-        // } else if (event.event_tickets.length == 0) {
-        //   pricing = ``;
-        // }
   
         const eventCard = `<tr class="border-bottom position-relative">
                                                     <td>
-                                                        <a href="" class="stretched-link text-decoration-none bg-transparent link-event-details" style="color: inherit;">
+                                                        <a ${eventLinkAttributes} class="stretched-link text-decoration-none bg-transparent link-event-details" style="color: inherit;">
                                                             <div class="d-flex align-items-center">
                                                                 <div class="me-3">
                                                                     <div class="text-center text-brand fw-bold">${moment(event.started_date).format("MMM ")}</div>
@@ -209,4 +202,9 @@ document.getElementById("searchEventInput").oninput = (e)=>{
 
 document.getElementById("event-sort-filter").onchange = (e)=>{
   renderEventsAll()
+}
+
+function showSummary(id){
+  sessionStorage.setItem("event-summary", id);
+  window.location.href = "/event/summary"
 }

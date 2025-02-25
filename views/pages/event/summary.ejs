@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <%- include("../../partials/head.ejs") %>
+    <body>
+        <%- include("../../partials/manage-event-header.ejs") %>
+        <main>
+            <div class>
+                <div class="d-flex">
+                    <%- include("../../partials/manage-event-sidebar.ejs") %>
+
+                    <section class="p-4 w-100">
+                        <div class="mb-3">
+                            <h2 style="color: #333;">Event Summary</h2>
+                        </div>
+                        <div class>
+
+                            <h4>testing</h4>
+                            <p class="text-muted"><i
+                                    class="fa-regular fa-calendar text-brand"></i>
+                                Thu, 5 December, 2024</p>
+
+                            <div class="row g-3">
+                                <div class="col-md-3">
+                                    <div
+                                        class="summary-card p-3 bg-white d-flex justify-content-between">
+                                        <div>
+                                            <h6 class="text-primary">TICKETS
+                                                SOLD</h6>
+                                            <p class="mb-0">0 tickets</p>
+                                        </div>
+                                        <span class="fs-4"><i
+                                                class="fa-regular fa-calendar text-brand"></i></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div
+                                        class="summary-card p-3 bg-white d-flex justify-content-between">
+                                        <div>
+                                            <h6 class="text-success">TICKETS
+                                                EARNINGS</h6>
+                                            <p class="mb-0">$0.00</p>
+                                        </div>
+                                        <span class="fs-4"><i
+                                                class="fa-solid fa-comments-dollar text-brand"></i></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div
+                                        class="summary-card p-3 bg-white d-flex justify-content-between">
+                                        <div>
+                                            <h6
+                                                class="text-info">PARTICIPATED</h6>
+                                            <p class="mb-0">0 attendant</p>
+                                        </div>
+                                        <span class="fs-4"><i
+                                                class="fa-solid fa-clipboard-user text-brand"></i></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div
+                                        class="summary-card p-3 bg-white d-flex justify-content-between">
+                                        <div>
+                                            <h6 class="text-warning">NOT YET
+                                                PARTICIPATE</h6>
+                                            <p class="mb-0">0</p>
+                                        </div>
+                                        <span class="fs-4"><i
+                                                class="fa-solid fa-comments text-brand"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-4 w-50">
+                                <h5>Share</h5>
+                                <p>Event link <span class="text-muted"><i
+                                            class="fa-solid fa-link text-brand"></i></span></p>
+
+                                <div
+                                    class="input-field input-field-setting mb-3">
+                                    <i class="fa-solid fa-link text-brand"></i>
+                                    <input type="text"
+                                        placeholder="Input Event Link"
+                                        aria-label="Recipient's username"
+                                        aria-describedby="basic-addon2">
+                                    <span class="btn btn-outline-brand"
+                                        id="basic-addon2">copy link</span>
+                                </div>
+
+                                <div class="social-media-orgainzer mt-3 d-flex">
+                                    <a href="#"
+                                        class="social-icon social-icon-organizer m-0">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                    <a href="#" class="social-icon">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                    <a href="#" class="social-icon">
+                                        <i class="fab fa-google"></i>
+                                    </a>
+                                    <a href="#" class="social-icon">
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+        </main>
+
+    </body>
+    <%- include("../../partials/script.ejs") %>
+    <script src="/js/utils/organizer-sidebar.js"></script>
+    <script src="/js/events/summary.js"></script>
+
+</html>

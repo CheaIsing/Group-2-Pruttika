@@ -1,19 +1,19 @@
 <nav class="shadow sidebar position-sticky" style="top: 70px !important;" id="">
   <ul>
       <li>
-          <a href="/event/manage" class="active">
+          <a href="/event/manage" class="<%= active == "event" && "active"  %>">
               <i class="fas fa-menorah"></i>
               <span class="nav-item">Event</span>
           </a>
       </li>
       <li>
-          <a href="/event/manage-request">
+          <a href="/event/manage-request" class="<%= active == "request" && "active"  %>">
               <i class="fa-solid fa-ticket"></i>
               <span class="nav-item">Request Ticket</span>
           </a>
       </li>
       <li>
-          <a href="/event/manage-check-in">
+          <a href="/event/manage-check-in" class="<%= active == "checkin" && "active"  %>">
               <i class="fa-solid fa-qrcode"></i>
               <span class="nav-item">Check-in
                   Ticket</span>

@@ -1,5 +1,5 @@
 const express = require("express");
-const { getCreateEvent, getEventList, getUpdateEvent, getEventDetail, getBrowseEvent, getWishlist, getRequestEventList, getRequestTicketList,getCheckInTicketList, getRequestTransaction, getCheckInEventList } = require("../../controllers/web/event");
+const { getCreateEvent, getEventList, getUpdateEvent, getEventDetail, getBrowseEvent, getWishlist, getRequestEventList, getRequestTicketList,getCheckInTicketList, getRequestTransaction, getCheckInEventList, getSummaryData } = require("../../controllers/web/event");
 const {checkOrganizer}=require('../../middlewares/event');
 const {requireAuth} = require('../../middlewares/auth');
 
@@ -17,5 +17,6 @@ router.get("/manage-check-in", getCheckInEventList);
 router.get("/request-ticket-list", getRequestTicketList);
 router.get("/request-transaction", getRequestTransaction);
 router.get("/check-in-ticket-list", getCheckInTicketList);
+router.get("/summary", getSummaryData);
 
 module.exports = router;

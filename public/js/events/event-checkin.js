@@ -186,3 +186,57 @@ document.getElementById("event-sort-filter").onchange = (e)=>{
     sessionStorage.setItem("event-check-in-ticket-list", id); 
     window.location.href = "/event/check-in-ticket-list";
 }
+
+document.getElementById("btn-checked-in").onclick = async (e) => {
+  const fields = [
+    {
+      name: "token",
+      id: "input-field-qrcode", // Ensure this matches your input field ID
+      textErrorElement: "#invalid_feedback_qrcode div",
+      isInvalidClass: "is_invalid",
+    }
+];
+
+const schema = Joi.object({
+  ticketToken: Joi.string()
+        .required()
+        .messages({
+            "string.empty": "Ticket token is required.",
+            "any.required": "Ticket token is required."
+        })
+});
+
+// Validate the input value
+const { error } = schema.validate({ ticketToken: document.getElementById("qrcode").value });
+
+if (error) {
+    const errorMessages = error.details.map((detail) => detail.message);
+    handleErrorMessages(errorMessages, fields);
+    return;
+}
+
+handleErrorMessages([], fields);
+
+  try {
+    await axiosInstance.put("/events/check-in/", { ticketToken: document.getElementById("qrcode").value });
+    const disapproveModal = bootstrap.Modal.getInstance(
+        document.getElementById("exampleModal")
+      );
+      disapproveModal.hide();
+    showToast(true, "Checked In successfully.")
+
+    // window.location.href = "/event/check-in-ticket-list"
+  } catch (error) {
+    console.log(error);
+    if (!(error.response && error.response.data &&  typeof error.response.data == "object")) {
+      return showToast();
+    }
+
+    const messages = error.response.data.message;
+
+    const errorMessages = Array.isArray(messages) ? messages : [messages];
+
+    handleErrorMessages(errorMessages, fields);
+    // showToast()
+  }
+};

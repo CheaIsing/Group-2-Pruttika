@@ -303,6 +303,8 @@ currentDate.setHours(0, 0, 0, 0);
           c.name
         }</span>`;
       });
+
+
       const eventCard = `
                 <div class="col-12" data-event-id="${event.id}">
                                 <div class="event-card shadow-light-sm">
@@ -546,3 +548,4 @@ function hideSidebar() {
   document.getElementById("mobile-sidebar").classList.remove("show");
   document.getElementById("sidebar-overlay").classList.remove("show");
 }
+
