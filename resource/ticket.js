@@ -1,6 +1,6 @@
 const { executeQuery }=require('../utils/dbQuery');
 
-const reqTicketCollection=async(userId,event_id=null,ticket_type_id=null,page=1, perpage=25, sort='id', order='ASC')=>{
+const reqTicketCollection=async(userId,event_id=null,ticket_type_id=null,req_status=null,page=1, perpage=25, sort='id', order='ASC')=>{
     try {
         page=parseInt(page);
         perpage=parseInt(perpage);
@@ -31,16 +31,20 @@ const reqTicketCollection=async(userId,event_id=null,ticket_type_id=null,page=1,
         let filterQry='';
         const filterParam=[userId];
         if(event_id){
-            filterQry +=`AND te.id=?`;
+            filterQry +=` AND te.id=?`;
             filterParam.push(event_id);
         }
         if(ticket_type_id){
-            filterQry +=`AND tts.ticket_event_id=?`;
+            filterQry +=` AND tts.ticket_event_id=?`;
             filterParam.push(ticket_type_id);
+        }
+        if(req_status){
+            filterQry +=` AND tts.status=? `;
+            filterParam.push(req_status);
         }
         
         sqlGetReq+=filterQry;
-        sqlGetReq+=`ORDER BY tts.${sort} ${order}
+        sqlGetReq+=` ORDER BY tts.${sort} ${order}
                     LIMIT ? OFFSET ?;`
 
         const params=[...filterParam];
@@ -319,8 +323,34 @@ const ownTicketCollection=async(userId,status=null,page=1,perpage=15,sort='id',o
     }
 }
 
+const checkInTicketCollection= async (id)=>{
+    try {
+        const sqlGetCheckin=`SELECT 
+            tt.id, 
+            tt.transaction_id,
+            tt.status,
+            ttt.type_name,
+            tu.eng_name,
+            tu.email,
+            tu.avatar,
+            tt.updated_at as checkin_at
+        FROM tbl_ticket tt
+        LEFT JOIN tbl_ticketevent_type ttt ON ttt.id=tt.ticket_event_id
+        LEFT JOIN tbl_transaction tts ON tts.id=tt.transaction_id
+        LEFT JOIN tbl_users tu ON tu.id=tts.buyer_id
+        WHERE tt.status=2 AND ttt.event_id=?`;
+
+        const result = await executeQuery(sqlGetCheckin,[id]);
+        return result;
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 module.exports={
     reqTicketCollection,
     ownReqTicketCollection,
-    ownTicketCollection
+    ownTicketCollection,
+    checkInTicketCollection
 };

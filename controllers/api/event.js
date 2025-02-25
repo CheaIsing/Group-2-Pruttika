@@ -7,6 +7,7 @@ const {
 const { executeQuery } = require("../../utils/dbQuery");
 const {sendResponse ,sendResponse1}= require("../../utils/response");
 const {eventCollection , eventDetail}= require("../../resource/event");
+const {checkInTicketCollection}= require("../../resource/ticket");
 
 const default_img="default-events-img.jpg";
 
@@ -617,6 +618,17 @@ const summaryData=async(req,res)=>{
     }
 }
 
+//get all checkin
+const getAllCheckInTicket=async(req,res)=>{
+    const event_id=req.params.id;
+    try {
+        const data=await checkInTicketCollection(event_id);
+        sendResponse(res,200,true,"Get all check-in ticket of event successfully",data);
+    } catch (error) {
+        handleResponseError(res,error);
+    }
+}
+
 module.exports={
     getAllEvent,
     putEditEvent,
@@ -630,5 +642,6 @@ module.exports={
     uploadEQr,
     deleteEQr,
     putCheckIn,
-    summaryData
+    summaryData,
+    getAllCheckInTicket
 }
