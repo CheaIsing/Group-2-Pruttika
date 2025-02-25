@@ -20,7 +20,7 @@ const getAllEvent=async(req,res)=>{
             userId,
             req.query.page, req.query.perpage,
             req.query.search, req.query.sort, req.query.order, 
-            req.query.start_date, req.query.end_date,
+            req.query.start_date, req.query.end_date,req.query.date_status,
             req.query.event_type, 
             req.query.min_price, req.query.max_price,
             req.query.cateId,

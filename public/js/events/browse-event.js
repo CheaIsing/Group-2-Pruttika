@@ -276,6 +276,8 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
           c.name
         }</span>`;
       });
+
+
       const eventCard = `
                 <div class="col-12" data-event-id="${event.id}">
                                 <div class="event-card shadow-light-sm">
@@ -515,3 +517,4 @@ function hideSidebar() {
   document.getElementById("mobile-sidebar").classList.remove("show");
   document.getElementById("sidebar-overlay").classList.remove("show");
 }
+
