@@ -200,7 +200,7 @@ const editOrganizer = async (req, res) => {
 
     updateQuery = updateQuery.slice(0, -2);
     updateQuery += ` WHERE id = ?`;
-    params.push(userId);
+    params.push(id);
 
     const data = await executeQuery(updateQuery, params);
 

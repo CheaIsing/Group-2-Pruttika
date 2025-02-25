@@ -6,7 +6,7 @@
     <body>
         <style>
             table.dataTable thead .sorting_asc,
-            table.dataTable thead .sorting  {
+            table.dataTable thead .sorting {
                 background-image: none !important;
                 cursor: none !important;
             }
@@ -19,15 +19,14 @@
                 display: inline;
                 width: 200px !important;
                 height: 49px !important;
-                
+
             }
 
             .form-select:focus {
                 border-color: #ff1694;
                 outline: 0;
-                box-shadow: none; 
+                box-shadow: none;
             }
-
         </style>
         <%- include('../../partials/admin/preloader.ejs') %>
             <div id="main-wrapper">
@@ -42,38 +41,73 @@
                                             <div class="col-12">
                                                 <div class="card">
                                                     <div class="card-header">
-                                                        <h4 class="card-title">DIsplay all users</h4>
+                                                        <h4 class="card-title">Display all event</h4>
                                                     </div>
                                                     <div class="card-body">
                                                         <div class="table-responsive">
-                                                                <form id="searchForm">
-                                                                    <div class="d-flex justify-content-between align-items-center">
-                                                                        <select id="role" class="form-select">
-                                                                            <option value="">All Roles</option>
-                                                                            <option value="1">Guest</option>
-                                                                            <option value="2">Organizer</option>
-                                                                            <option value="3">Admin</option>
-                                                                        </select>
-                                                                        <input class="form-control" type="text" id="search" placeholder="Search by name">
-                                                                    </div>
-                                                                </form>
+                                                            <form id="searchForm">
+                                                                <div
+                                                                    class="d-flex justify-content-between align-items-center">
+                                                                    <select id="role" class="form-select">
+                                                                        <option value="">All Roles</option>
+                                                                        <option value="1">Guest</option>
+                                                                        <option value="2">Organizer</option>
+                                                                        <option value="3">Admin</option>
+                                                                    </select>
+                                                                    <input class="form-control" type="text" id="search"
+                                                                        placeholder="Search by name">
+                                                                </div>
+                                                            </form>
                                                             <table id="example6" class="display"
                                                                 style="min-width: 845px">
                                                                 <thead>
                                                                     <tr>
                                                                         <th>ID</th>
-                                                                        <th>Avatar</th>
-                                                                        <th>Kh_name</th>
                                                                         <th>Eng_name</th>
-                                                                        <th>Email</th>
-                                                                        <th>Phone</th>
-                                                                        <th>Status</th>
-                                                                        <th>Address</th>
+                                                                        <th>Kh_name</th>
+                                                                        <th>Thumbnail</th>
+                                                                        <th>Description</th>
+                                                                        <th>Event Type</th>
+                                                                        <th>Is published</th>
+                                                                        <th>Location</th>
                                                                         <th>Action</th>
                                                                     </tr>
                                                                 </thead>
-                                                                <tbody id="usersTableBody">
+                                                                <tbody id="tableBody">
 
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h4 class="card-title">Display all event categories</h4>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="table-responsive">
+                                                            <form id="searchForm">
+                                                                <div class="d-flex justify-content-between align-items-center">
+                                                                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#createCategory">
+                                                                        Create New
+                                                                    </button>
+                                                                    <input class="form-control" type="text" id="search" placeholder="Search by name">
+                                                                </div>
+                                                            </form>
+                                                            <table id="example5" class="display" style="min-width: 845px">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>ID</th>
+                                                                        <th>Name</th>
+                                                                        <th>Created At</th>
+                                                                        <th>Updated At</th>
+                                                                        <th>Action</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody id="categoryTableBody">
+                                            
                                                                 </tbody>
                                                             </table>
                                                         </div>
@@ -84,6 +118,51 @@
                                     </div>
                                 </div>
                                 <%- include('../../partials/admin/footer.ejs') %>
+            </div>
+
+            <div class="modal fade" id="viewDetail">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title">Event Detail</h3>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body text-center" id="detailContent">
+                            Loading...
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="createCategory">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title">Create Event Category</h3>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body" id="createContent">
+                            Loading...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="editCategory">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title">Edit Event Category</h3>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body" id="editContent">
+                            Loading...
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Required vendors -->
@@ -103,94 +182,11 @@
             <script src="/admin/js/demo.js"></script>
             <script src="/admin/js/styleSwitcher.js"></script>
 
-            <script>
-                async function fetchUsers(role = '', search = '', page = 1, perPage = 5, sortCol = 'created_at', sortDir = 'asc') {
-                    try {
-                        const apiUrl = `http://localhost:3000/api/admin/user/display?page=${page}&per_page=${perPage}&sort_col=${sortCol}&sort_dir=${sortDir}&role=${role}&search=${search}`;
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-                        const response = await fetch(apiUrl);
-                        const result = await response.json();
+            <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-                        if (!result.result) {
-                            throw new Error(result.message || 'Failed to fetch users');
-                        }
-
-                        displayUsers(result.data);
-                    } catch (error) {
-                        console.error('Error fetching users:', error);
-                    }
-                }
-
-                function displayUsers(users) {
-                    const tableBody = document.getElementById('usersTableBody');
-                    tableBody.innerHTML = '';
-
-                    users.forEach(user => {
-                        const row = `
-                            <tr>
-                                <td>${user.id}</td>
-                                <td><img class="rounded-circle" width="35" height="35" src="/uploads/${user.avatar}"></td>
-                                <td>${user.kh_name}</td>
-                                <td>${user.eng_name}</td>
-                                <td>${user.email}</td>
-                                <td>${user.phone}</td>
-                                <td>
-                                    <span class="badge ${user.status === 1 ? 'badge-success' : 'badge-danger'}">
-                                        ${user.status === 1 ? 'Active' : 'Inactive'}
-                                    </span>
-                                </td>
-                                <td>${user.address}</td>
-                                <td>
-                                    <div class="dropdown ms-auto text-end">
-                                        <div class="btn-link" data-bs-toggle="dropdown">
-                                            <svg width="24px" height="24px" viewbox="0 0 24 24" version="1.1">
-                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                    <rect x="0" y="0" width="24" height="24"></rect>
-                                                    <circle fill="#000000" cx="5" cy="12" r="2"></circle>
-                                                    <circle fill="#000000" cx="12" cy="12" r="2"></circle>
-                                                    <circle fill="#000000" cx="19" cy="12" r="2"></circle>
-                                                </g>
-                                            </svg>
-                                        </div>
-                                        <div class="dropdown-menu dropdown-menu-end">
-                                            <a class="dropdown-item" href="#">View details</a>
-                                            <a class="dropdown-item" href="#">Edit User</a>
-                                            <a class="dropdown-item" href="#">Remove User</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        `;
-                        tableBody.innerHTML += row;
-                    });
-                }
-
-                function getRoleName(role) {
-                    switch (role) {
-                        case 1: return 'Guest';
-                        case 2: return 'Organizer';
-                        case 3: return 'Admin';
-                        default: return 'Unknown';
-                    }
-                }
-
-                document.getElementById('search').addEventListener('keyup', function () {
-                    const role = document.getElementById('role').value;
-                    const search = this.value;
-                    fetchUsers(role, search);
-                });
-
-                document.getElementById('role').addEventListener('change', function () {
-                    const role = this.value;
-                    const search = document.getElementById('search').value;
-                    fetchUsers(role, search);
-                });
-
-                document.getElementById('example6_paginate').style.display = "none";
-
-                fetchUsers();
-            </script>
-
+            <script src="/js/admin/event.js" defer></script>
 
     </body>
 

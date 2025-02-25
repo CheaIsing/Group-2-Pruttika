@@ -20,21 +20,20 @@ const apiOrganizer = require("./routes/api/organizer");
 
 const apiNotification = require("./routes/api/notification");
 
-const apiEvents=require('./routes/api/event');
-const apiTickets=require('./routes/api/ticket');
+const apiEvents = require("./routes/api/event");
+const apiTickets = require("./routes/api/ticket");
 
 // WEB
-const webIndex = require("./routes/web/index")
 const webAuth = require("./routes/web/auth");
 const webEvent = require("./routes/web/event");
 const webProfile = require("./routes/web/profile");
-const webTicket = require('./routes/web/ticket')
-const webNotification = require("./routes/web/notification")
+const webTicket = require("./routes/web/ticket");
+const webNotification = require("./routes/web/notification");
 const webAdminDashboard = require("./routes/web/admin/index");
-const webAdminUser = require('./routes/web/admin/user');
+const webAdminUser = require("./routes/web/admin/user");
 const webAdminOrganizer = require("./routes/web/admin/organizer");
 const webAdminEvent = require("./routes/web/admin/event");
-
+const webAdminSetting = require("./routes/web/admin/setting");
 
 const app = express();
 
@@ -46,7 +45,6 @@ app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(middleware.handle(i18next));
-
 
 app.get("*", checkUser);
 
@@ -64,19 +62,19 @@ app.use("/api/notification", apiNotification);
 app.use("/api/events", apiEvents);
 app.use("/api/tickets", apiTickets);
 
+app.get("/", (req, res) => res.redirect("/auth/signin"));
 
-app.use(webIndex);
 app.use("/auth", webAuth);
 app.use("/event", webEvent);
 app.use("/profile", webProfile);
-app.use('/ticket', webTicket)
-app.use('/notification', webNotification)
-
+app.use("/ticket", webTicket);
+app.use("/notification", webNotification);
 
 app.use("/admin", webAdminDashboard);
 app.use("/admin/user", webAdminUser);
 app.use("/admin/organizer", webAdminOrganizer);
 app.use("/admin/event", webAdminEvent);
+app.use("/admin/setting", webAdminSetting);
 
 const PORT = process.env.PORT || 3000;
 
