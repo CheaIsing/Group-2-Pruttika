@@ -62,7 +62,7 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
   
         const eventCard = `<tr class="border-bottom position-relative">
                                                     <td>
-                                                        <a onclick="showRequestTicketList(${event.id})" role="button" class="stretched-link text-decoration-none bg-transparent"  style="color: inherit;">
+                                                        <a onclick="showCheckInTicketList(${event.id})" role="button" class="stretched-link text-decoration-none bg-transparent"  style="color: inherit;">
                                                             <div class="d-flex align-items-center">
                                                                 <div class="me-3">
                                                                     <div class="text-center text-brand fw-bold">${moment(event.started_date).format("MMM ")}</div>
@@ -181,8 +181,8 @@ document.getElementById("event-sort-filter").onchange = (e)=>{
 }
 
 
-  function showRequestTicketList(id) {
+  function showCheckInTicketList(id) {
     
-    sessionStorage.setItem("event-request-ticket-list", id); 
-    window.location.href = "/event/request-ticket-list";
+    sessionStorage.setItem("event-check-in-ticket-list", id); 
+    window.location.href = "/event/check-in-ticket-list";
 }

@@ -7,6 +7,9 @@ const middleware = require("i18next-http-middleware");
 const i18next = require("./config/i18n");
 const { checkUser, requireAuth } = require("./middlewares/auth");
 
+const { deleteNotification } = require('./job/notification'); //auto delete noti after 3 days
+
+
 // API
 const apiAuth = require("./routes/api/auth");
 const apiProfile = require("./routes/api/profile");
