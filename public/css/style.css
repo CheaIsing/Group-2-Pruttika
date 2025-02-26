@@ -3908,3 +3908,45 @@ tr.border-bottom:hover td {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
 }
+
+.tab-pane:not(.active){
+  display: none !important;
+}
+
+#reader {
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+#result {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 15px;
+}
+.btn-scan {
+  margin-top: 15px;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  transition: background 0.3s ease-in-out;
+}
+.btn-scan:hover {
+  background-color: #218838;
+}
+
+#html5-qrcode-button-camera-permission{
+  margin-top: 15px;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 5px;
+  background-color: var(--c-brand);
+  color: white;
+  border: none;
+}

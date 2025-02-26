@@ -94,3 +94,21 @@ function goEventDetail(id){
   sessionStorage.setItem("event-detail-id", id);
   window.location.href = "/event/detail"
 }
+
+async function logOut (){
+  try {
+
+    await axiosInstance.delete("/auth/logout")
+    showToast(true, "Logged out successfully.")
+
+    setTimeout(()=>{
+      window.location.href = "/"
+    }, 1200)
+
+  } catch (error) {
+    
+    console.log(error);
+    showToast();
+
+  }
+}

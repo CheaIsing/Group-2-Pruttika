@@ -1,4 +1,6 @@
 const fs=require('fs');
+const moment = require("moment");
+
 const {vCreateEvent, vAgendaSchema}=require("../../validations/event");
 const {
     handleResponseError,
@@ -508,16 +510,38 @@ const deleteEQr=async (req,res)=>{
 const putCheckIn=async(req,res)=>{
     const ticketToken=req.body.ticketToken;
     try {
-        const result=await executeQuery(`select * from tbl_ticket where qr_code=?`,[ticketToken]);
+        const sqlCheckTicket=`SELECT 
+            tt.id,
+            tt.ticket_event_id,
+            tt.status,
+            te.ended_date
+            FROM tbl_ticket tt
+            INNER JOIN tbl_ticketevent_type ttt ON ttt.id=tt.ticket_event_id
+            INNER JOIN tbl_event te ON te.id=ttt.event_id 
+            where tt.qr_code=?
+        `;
+        const result=await executeQuery(sqlCheckTicket,[ticketToken]);
 
         if(result.length===0){
             return sendResponse(res,400,false,"Invalid Token");
         }
 
         const status=result[0].status;
+        const expired_date=moment(result[0].ended_date);
+        const current_date= moment();
+
+        
+        const normalized_expired_date = expired_date.startOf('day');
+        const normalized_current_date = current_date.startOf('day');
+
         if(status==2){
             return sendResponse(res,400,false,"This ticket token is already check-in!");
         }
+
+        if(normalized_expired_date<normalized_current_date){
+            return sendResponse(res,400,false,"This ticket is already expired!");
+        }
+
         const sqlUpdateStatus=`UPDATE tbl_ticket SET status=2 WHERE id=?`;
         await executeQuery(sqlUpdateStatus,result[0].id);
         sendResponse(res,200,true,"Ticket Check in successfully");

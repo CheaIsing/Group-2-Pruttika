@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <%- include("../../partials/head.ejs") %>
+    
     <body>
         <%- include("../../partials/manage-event-header.ejs") %>
 
@@ -19,9 +20,11 @@
                             </button>
                             <h2>Check In Ticket List</h2>
                         </div>
+                        
 
-                        <div id="content" style>
-                            <div
+                        <div id="content" class="">
+                            <div class="d-flex align-items-end">
+                                <div
                                 class="my-4 d-flex w-100 justify-content-between align-content-center">
                                 <div
                                     class>
@@ -34,10 +37,21 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="text-center col-4">
+                                <div class="scanner-container">
+                                    <div class="">
+                                        <div id="reader"></div>
+                                        <div id="result" class="mt-3 text-success"></div>
+                                        <!-- <button class="btn btn-scan">Scan Again</button> -->
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
                             <!-- <h5 class="mt-5 mb-3">Ticket Request</h5> -->
                             <div
                                 class="d-flex align-items-end justify-content-between">
                                 <div class="d-flex gap-3">
+
                                     <!-- <div class>
                                         <label for="statusFilter"
                                             class="form-label">Filter by
@@ -187,6 +201,29 @@
 
         <script src="/js/events/check-in-ticket-list.js">
 
+</script>
+        <script>
+    const scanner = new Html5QrcodeScanner("reader", {
+        fps: 10,
+        qrbox: { width: 300, height: 300 },
+        rememberLastUsedCamera: false
+    });
+    
+    scanner.render(success, error);
+    
+    function success(result) {
+        document.getElementById('result').innerHTML = `
+            <div class="alert alert-success" role="alert">
+                <h5>Success!</h5>
+                <a href="${result}" target="_blank" class="fw-bold">${result}</a>
+            </div>`;
+        scanner.clear();
+        document.getElementById('reader').remove();
+    }
+    
+    function error(err) {
+        console.error(err);
+    }
 </script>
 
     </body>

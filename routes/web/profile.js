@@ -7,10 +7,13 @@ const {
   getManageAccount,
   getViewOrganizerProfile
 } = require("../../controllers/web/profile");
+const { authorize } = require("../../middlewares/web.middleware");
 
 const router = express.Router();
 
 // router.get("/", getRedirect);
+
+router.use(authorize([2, 3]))
 
 router.get("/info", getProfileInfo);
 
