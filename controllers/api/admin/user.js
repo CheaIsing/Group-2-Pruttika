@@ -59,16 +59,15 @@ const displayAllUsers = async (req, res) => {
 };
 
 const editUser = async (req, res) => {
-  const userId = req.params.id;
-  const { kh_name, eng_name, email, phone, dob, gender, address, role, status } =
-    req.body;
+  const id = req.params.id;
+  const { kh_name, eng_name, email, phone, dob, gender, adddress } = req.body;
 
   try {
     const checkQuery = `
-      SELECT id FROM tbl_users 
+      SELECT id FROM tbl_users
       WHERE (email = ? OR phone = ?) AND id != ?`;
 
-    const existingUser = await executeQuery(checkQuery, [email, phone, userId]);
+    const existingUser = await executeQuery(checkQuery, [email, phone, id]);
 
     if (existingUser.length > 0) {
       return sendResponse(res, 400, false, "Email or Phone is already in use.");
@@ -101,22 +100,14 @@ const editUser = async (req, res) => {
       updateQuery += `gender = ?, `;
       params.push(gender);
     }
-    if (address) {
-      updateQuery += `address = ?, `;
-      params.push(address);
-    }
-    if (role) {
-      updateQuery += `role = ?, `;
-      params.push(role);
-    }
-    if (status) {
-      updateQuery += `status = ?, `;
-      params.push(status);
+    if (adddress) {
+      updateQuery += `adddress = ?, `;
+      params.push(adddress);
     }
 
     updateQuery = updateQuery.slice(0, -2);
     updateQuery += ` WHERE id = ?`;
-    params.push(userId);
+    params.push(id);
 
     const data = await executeQuery(updateQuery, params);
 
@@ -129,13 +120,12 @@ const editUser = async (req, res) => {
       );
     }
 
-    sendResponse(res, 200, true, "User details updated successfully.");
+    sendResponse(res, 200, true, "User updated successfully.");
   } catch (error) {
     console.log(error);
     handleResponseError(res, error);
   }
 };
-
 
 const getUserDetails = async (req, res) => {
   const userId = req.params.id;
@@ -184,5 +174,5 @@ module.exports = {
   displayAllUsers,
   editUser,
   getUserDetails,
-  removeUser
+  removeUser,
 };

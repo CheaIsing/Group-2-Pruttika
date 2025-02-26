@@ -88,7 +88,7 @@
                 <h6 class="text-brand"><span id="total-event-2">0</span> Events</h6>
             </div>
             
-                <select id="ticketType" class="form-select w-auto mb-3 border-brand-sm rounded-5 bg-transparent ps-3">
+                <select id="select-sort" class="form-select w-auto mb-3 border-brand-sm rounded-5 bg-transparent ps-3">
                     <option value="all">All</option>
                     <option value="aproved">Upcoming</option>
                     <option value="pending">Showing</option>
@@ -225,7 +225,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="pagination-container">
+                <div class="pagination-container" id="pagination">
                     <button class="pagination-button btn-icon"
                         onclick="changePage(currentPage - 1)"
                         id="prevBtn" disabled><i

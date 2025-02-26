@@ -4,7 +4,7 @@ const { sendResponse } = require("../../../utils/response");
 
 const viewEvent = async (req, res) => {
   try {
-    const { category_id, search } = req.query;
+    // const { category_id, search } = req.query;
     let {
       page = 1,
       per_page = 50,
@@ -22,28 +22,20 @@ const viewEvent = async (req, res) => {
 
     const sortDirection = sort_dir.toLowerCase() === "desc" ? "DESC" : "ASC";
 
-    let query = `
-      SELECT 
-        e.id, e.eng_name, e.short_description, e.thumbnail, 
-        e.started_date, e.ended_date, e.location, 
-        e.event_type, e.is_published, c.name AS category_name
-      FROM tbl_event AS e
-      LEFT JOIN tbl_event_category AS ec ON e.id = ec.event_id
-      LEFT JOIN tbl_category AS c ON ec.category_id = c.id
-    `;
+    let query = `SELECT * FROM tbl_event`;
 
     const queryParams = [];
 
-    if (category_id) {
-      query += " WHERE c.id = ?";
-      queryParams.push(category_id);
-    }
+    // if (category_id) {
+    //   query += " WHERE c.id = ?";
+    //   queryParams.push(category_id);
+    // }
 
-    if (search) {
-      query += category_id ? " AND" : " WHERE";
-      query += " e.eng_name LIKE ?";
-      queryParams.push(`%${search}%`);
-    }
+    // if (search) {
+    //   query += category_id ? " AND" : " WHERE";
+    //   query += " e.eng_name LIKE ?";
+    //   queryParams.push(`%${search}%`);
+    // }
 
     query += ` ORDER BY ${sort_col} ${sortDirection}`;
 
@@ -63,16 +55,66 @@ const viewEvent = async (req, res) => {
   }
 };
 
-
 const viewEventDetail = async (req, res) => {
   const id = req.params.id;
 
   try {
-    const query = "SELECT * FROM tbl_event WHERE id = ?";
+    const eventQuery = `
+      SELECT 
+        e.id, e.eng_name, e.kh_name, e.short_description, e.description, e.thumbnail,
+        e.started_date, e.ended_date, e.start_time, e.end_time, e.location, 
+        e.event_type, e.qr_img, e.is_published, e.created_at, e.updated_at, e.creator_id,
+        o.organization_name AS creator_name, u.avatar AS creator_avatar
+      FROM tbl_event e
+      LEFT JOIN tbl_organizer o ON e.creator_id = o.id
+      LEFT JOIN tbl_users u ON o.user_id = u.id
+      WHERE e.id = ?
+    `;
+    const eventData = await executeQuery(eventQuery, [id]);
 
-    const data = await executeQuery(query, [id]);
+    if (eventData.length === 0) {
+      sendResponse(res, 404, false, "Event not found", null);
+      return;
+    }
 
-    sendResponse(res, 200, true, "Display event detail", data);
+    const categoryQuery = `
+      SELECT ec.category_id AS id, c.name 
+      FROM tbl_event_category ec
+      JOIN tbl_category c ON ec.category_id = c.id
+      WHERE ec.event_id = ?
+    `;
+    const eventCategories = await executeQuery(categoryQuery, [id]);
+
+    const eventDetail = {
+      result: true,
+      message: "Get event detail successfully",
+      data: {
+        id: eventData[0].id,
+        eng_name: eventData[0].eng_name,
+        kh_name: eventData[0].kh_name,
+        short_description: eventData[0].short_description,
+        description: eventData[0].description,
+        thumbnail: eventData[0].thumbnail,
+        started_date: eventData[0].started_date,
+        ended_date: eventData[0].ended_date,
+        start_time: eventData[0].start_time,
+        end_time: eventData[0].end_time,
+        location: eventData[0].location,
+        event_type: eventData[0].event_type,
+        event_categories: eventCategories, 
+        qr_img: eventData[0].qr_img,
+        creator: {
+          id: eventData[0].creator_id,
+          name: eventData[0].creator_name,
+          avatar: eventData[0].creator_avatar,
+        },
+        is_published: eventData[0].is_published,
+        created_at: eventData[0].created_at,
+        updated_at: eventData[0].updated_at,
+      },
+    };
+
+    sendResponse(res, 200, true, "Display event detail", eventDetail);
   } catch (error) {
     console.log(error);
     handleResponseError(res, error);

@@ -1,4 +1,4 @@
-let userId = sessionStorage.getItem("view-profile-id") || 1;
+let userId = sessionStorage.getItem("view-profile-id") || 3;
 async function getOrganizer() {
   try {
     const { data } = await axiosInstance.get("/profile/display/" + userId);
@@ -25,8 +25,13 @@ async function getOrganizer() {
 
     if(!user.Organizer_info.id){
       document.getElementById('name').innerText = user.eng_name;
-      document.getElementById("organizer-info").style.display = "none !important;"
-      document.getElementById("event-list").innerHTML = "No event to show."
+      document.getElementById("organizer-info").classList.add("d-none")
+      
+      document.getElementById("event-list").innerHTML = `<div class="col-12">No event to show.</div>`
+      document.getElementById("event-list").classList.add("h-auto");
+      console.log(document.getElementById("event-list").innerHTML);
+      document.getElementById("select-sort").classList.add("d-none")
+      document.getElementById("pagination").classList.add("d-none")
     }else{
       document.getElementById("contact-phone").innerText = user.Organizer_info.phone
       document.getElementById("contact-email").innerText = user.Organizer_info.email
@@ -45,9 +50,11 @@ async function getOrganizer() {
                 <a href="${user.Organizer_info.linkin}" id="li" class="social-icon mx-0 fs-6 ${!(user.Organizer_info.linkin) && "d-none"}" style="width: 36px;height: 36px;">
                     <i class="fab fa-linkedin-in"></i>
                 </a>`
+
+                renderEvents();
     }
     
-    renderEvents();
+
     
   } catch (error) {
     console.log(error);

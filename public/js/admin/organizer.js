@@ -70,7 +70,42 @@ async function fetchOrganizers(
 }
 
 async function fetchOrganizerDetail(id) {
-  
+  const detailContainer = document.getElementById("detailContent");
+  if (!detailContainer) return;
+
+  detailContainer.innerHTML = "Loading...";
+
+  try {
+    const response = await axiosInstance.get(`/admin/organizer/details/${id}`);
+    const organizer = response.data.data;
+
+    detailContainer.innerHTML = `
+          <div class="card p-3 border-0 shadow-sm">
+              <h4 class="fw-bold">${organizer.organization_name}</h4>
+              <p class="text-muted">${organizer.business_email}</p>
+              <p class="text-muted">${organizer.bio}</p>
+              <hr>
+              <div class="text-start">
+                  <p><strong>Phone : </strong> ${organizer.business_phone}</p>
+                  <p><strong>Address : </strong> ${organizer.location}</p>
+                  <p><strong>Facebook : </strong> ${organizer.facebook}</p>
+                  <p><strong>Telegram : </strong> ${organizer.telegram}</p>
+                  <p><strong>Tiktok : </strong> ${organizer.tiktok}</p>
+                  <p><strong>Linkin : </strong> ${organizer.linkin}</p>
+                  <p><strong>Status : </strong> 
+                      <span class="badge ${
+                        organizer.status === 1 ? "bg-success" : "bg-danger"
+                      }">
+                          ${organizer.status === 1 ? "Active" : "Inactive"}
+                      </span>
+                  </p>
+              </div>
+          </div>
+      `;
+  } catch (error) {
+    detailContainer.innerHTML = "Failed to load organizer details.";
+    console.error("Error fetching organizer detail:", error.message);
+  }
 }
 
 function displayRequestOrganizer(organizers) {
@@ -129,7 +164,6 @@ function displayRequestOrganizer(organizers) {
   });
 }
 
-
 function displayOrganizers(organizers) {
   const tableBody = document.getElementById("organizerTableBody");
   tableBody.innerHTML = "";
@@ -162,9 +196,21 @@ function displayOrganizers(organizers) {
                             </svg>
                         </div>
                         <div class="dropdown-menu dropdown-menu-end">
-                            <a class="dropdown-item" href="#">View Details</a>
-                            <a class="dropdown-item" href="#">Edit Organizer</a>
-                            <a class="dropdown-item" href="#">Remove Organizer</a>
+                            <a href="javascript:void(0)" class="dropdown-item" role="button"
+                             onclick="fetchOrganizerDetail(${organizer.id})" 
+                             data-bs-toggle="modal" data-bs-target="#viewDetail">
+                             View details
+                          </a>
+                          <a href="javascript:void(0)" class="dropdown-item" role="button"
+                             onclick="editOrganizer(${organizer.id})" 
+                             data-bs-toggle="modal" data-bs-target="#editOrganizer">
+                             Edit organizer
+                          </a>
+                          <a href="javascript:void(0)" class="dropdown-item" role="button"
+                             onclick="removeOrganizer(${organizer.id})">
+                             Remove organizer
+                          </a>
+
                         </div>
                     </div>
                 </td>
@@ -194,8 +240,8 @@ async function adminApproval(id) {
       if (response.data && response.data.result) {
         Swal.fire({
           icon: "success",
-          title: "User Approved Successfully!",
-          text: "The user has been apporved",
+          title: "organizer Approved Successfully!",
+          text: "The organizer has been apporved",
         });
         fetchRequestOrganizers();
       } else {
@@ -257,15 +303,15 @@ async function adminRejection(id) {
       const response = await axiosInstance.put(
         `/admin/organizer/reject/${id}`,
         {
-          rejection_reason, 
+          rejection_reason,
         }
       );
 
       if (response.data && response.data.result) {
         Swal.fire({
           icon: "success",
-          title: "User Rejected Successfully!",
-          text: "The user has been rejected.",
+          title: "organizer Rejected Successfully!",
+          text: "The organizer has been rejected.",
         });
         fetchRequestOrganizers();
       } else {
@@ -292,6 +338,175 @@ async function adminRejection(id) {
   }
 }
 
+async function editOrganizer(organizerId) {
+  const editContainer = document.getElementById("editContent");
+  editContainer.innerHTML = "Loading...";
+
+  try {
+    const response = await axiosInstance.get(
+      `/admin/organizer/details/${organizerId}`
+    );
+    const organizer = response.data.data;
+
+    editContainer.innerHTML = `
+      <form id="editOrganizerForm">
+        <div class="mb-3 row">
+          <div class="col-6">
+            <label for="editName" class="form-label">Organization Name</label>
+            <input type="text" id="editName" class="form-control" value="${organizer.organization_name}">
+          </div>
+          <div class="col-6">
+            <label for="editBio" class="form-label">Bio</label>
+            <input type="text" id="editBio" class="form-control" value="${organizer.bio}">
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <div class="col-6">
+            <label for="editEmail" class="form-label">Email</label>
+            <input type="email" id="editEmail" class="form-control" value="${organizer.business_email}">
+          </div>
+          <div class="col-6">
+            <label for="editPhone" class="form-label">Phone</label>
+            <input type="text" id="editPhone" class="form-control" value="${organizer.business_phone}">
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <div class="col-6">
+            <label for="editFb" class="form-label">Facebook</label>
+            <input type="text" id="editFb" class="form-control" value="${organizer.facebook}">
+          </div>
+          <div class="col-6">
+            <label for="editTg" class="form-label">Telegram</label>
+            <input type="text" id="editTg" class="form-control" value="${organizer.telegram}">
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <div class="col-6">
+            <label for="editTt" class="form-label">Tiktok</label>
+            <input type="text" id="editTt" class="form-control" value="${organizer.tiktok}">
+          </div>
+          <div class="col-6">
+            <label for="editLl" class="form-label">Linkin</label>
+            <input type="text" id="editLl" class="form-control" value="${organizer.linkin}">
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="editAddress" class="form-label">Address</label>
+          <input type="text" id="editAddress" class="form-control" value="${organizer.address}">
+        </div>
+        <div class="text-end">
+          <button type="submit" class="btn btn-primary">Update Organizer</button>
+        </div>
+      </form>
+    `;
+
+    document
+      .getElementById("editOrganizerForm")
+      .addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const updatedOrganizer = {
+          organization_name: document.getElementById("editName").value,
+          bio: document.getElementById("editBio").value,
+          business_email: document.getElementById("editEmail").value,
+          business_phone: document.getElementById("editPhone").value,
+          facebook: document.getElementById("editFb").value,
+          telegram: document.getElementById("editTg").value,
+          tiktok: document.getElementById("editTt").value,
+          linkin: document.getElementById("editLl").value,
+          address: document.getElementById("editAddress").value,
+        };
+
+        try {
+          const updateResponse = await axiosInstance.put(
+            `/admin/organizer/update/${organizerId}`,
+            updatedOrganizer
+          );
+
+          if (updateResponse.data.result) {
+            Swal.fire({
+              icon: "success",
+              title: "organizer Updated Successfully!",
+              text: "The organizer has been updated.",
+            });
+
+            const modalElement = document.getElementById("editOrganizer");
+            const modalInstance = bootstrap.Modal.getInstance(modalElement);
+            if (modalInstance) {
+              modalInstance.hide();
+            }
+
+            fetchOrganizers();
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Update Failed",
+              text: "Failed to update organizer.",
+              confirmButtonText: "OK",
+            });
+          }
+        } catch (error) {
+          console.error("Error updating organizer:", error.message);
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "An error occurred while updating the organizer.",
+            confirmButtonText: "OK",
+          });
+        }
+      });
+  } catch (error) {
+    editContainer.innerHTML = "Failed to load organizer details.";
+    console.error("Error fetching organizer details:", error.message);
+  }
+}
+
+const removeOrganizer = async (organizerId) => {
+  try {
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (result.isConfirmed) {
+      const response = await axiosInstance.delete(
+        `/admin/organizer/remove/${organizerId}`
+      );
+
+      if (response.data && response.data.result) {
+        Swal.fire({
+          icon: "success",
+          title: "organizer Deleted Successfully!",
+          text: "The organizer has been removed.",
+        });
+        fetchOrganizers();
+      } else {
+        console.error(
+          "Deletion failed:",
+          response.data.message || "Unknown error"
+        );
+        Swal.fire({
+          icon: "error",
+          title: "Error Deleting organizer",
+          text:
+            response.data.message || "There was an issue deleting the organizer.",
+        });
+      }
+    }
+  } catch (error) {
+    console.error("Error deleting organizer:", error.message);
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "An error occurred while trying to delete the organizer.",
+    });
+  }
+};
 
 function getStatusName(status) {
   switch (status) {
