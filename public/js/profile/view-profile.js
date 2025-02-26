@@ -1,4 +1,4 @@
-let userId = sessionStorage.getItem("view-profile-id") || 3;
+let userId = sessionStorage.getItem("view-profile-id")
 async function getOrganizer() {
   try {
     const { data } = await axiosInstance.get("/profile/display/" + userId);

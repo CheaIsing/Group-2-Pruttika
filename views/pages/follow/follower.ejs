@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("../../partials/head.ejs")  %>
+
+<body>
+    <%- include("../../partials/navbar.ejs")  %>
+
+<div class="container mt-4">
+    <!-- Back Arrow and Name -->
+    <div class="d-flex align-items-center">
+        <a href="#"><i class="fa-solid fa-chevron-left icon-backpage fs-4"></i></a>
+        <h4 class="ms-3 fw-medium">Tom Jerranie</h4>
+    </div>
+
+    <!-- Followers & Following Tabs -->
+    <ul class="nav nav-underline mt-3 border-0">
+        <li class="nav-item" style="cursor: pointer;">
+            <a class="nav-link active fw-bold" id="followers-tab" data-bs-toggle="tab" data-bs-target="#followers">Followers</a>
+        </li>
+        <li class="nav-item" style="cursor: pointer;">
+            <a class="nav-link fw-bold text-muted" id="following-tab" data-bs-toggle="tab" data-bs-target="#following">Following</a>
+        </li>
+    </ul>
+
+    <!-- Search Box -->
+    <div class="col-12 col-md-8 mt-4">
+        <div class="d-flex align-items-center w-50 position-relative">
+            <input type="text" class="form-control search-bar border-brand-sm w-100" id="searchEvent" placeholder="Search...">
+            <button class="btn-pink position-absolute"><i class="fa-solid fa-magnifying-glass fs-6"></i></button>
+            <ul class="search-dropdown position-absolute" id="search-dropdown"></ul>
+        </div>
+    </div>
+
+    <!-- Tab Content -->
+    <div class="tab-content bg-transparent mt-4 m-0">
+        <!-- Followers List -->
+        <div class="tab-pane fade show active">
+            <h5 class="fw-medium mb-3">All Followers</h5>
+            <div class="d-flex flex-column gap-3" id="followers">
+                <div class="list-group bg-white p-3 rounded-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center"> 
+                            <img src="../../../public/img/Default_pfp.jpg" alt="Man Malina" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
+                            <div class="ms-3">
+                                <h6 class="mb-0">Man Malina</h6>
+                                <small class="text-muted">@Malina</small>
+                            </div>
+                        </div>
+                        
+                        <button class="follow-btn btn-brand">Follow Back</button>
+                    </div>
+                </div>
+                <div class="list-group bg-white p-3 rounded-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center"> 
+                            <img src="../../../public/img/Default_pfp.jpg" alt="Man Malina" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
+                            <div class="ms-3">
+                                <h6 class="mb-0">Man Malina</h6>
+                                <small class="text-muted">@Malina</small>
+                            </div>
+                        </div>
+                        
+                        <button class="follow-btn btn-brand">Follow Back</button>
+                    </div>
+                </div>
+                <div class="list-group bg-white p-3 rounded-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center"> 
+                            <img src="../../../public/img/Default_pfp.jpg" alt="Man Malina" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
+                            <div class="ms-3">
+                                <h6 class="mb-0">Man Malina</h6>
+                                <small class="text-muted">@Malina</small>
+                            </div>
+                        </div>
+                        
+                        <button class="follow-btn btn-brand">Follow Back</button>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <!-- Following List -->
+        <div class="tab-pane fade" id="following">
+            <h5 class="fw-medium mb-3">People you follow</h5>
+            <div class="d-flex flex-column gap-3">
+                <div class="list-group bg-white p-3 rounded-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center"> 
+                            <img src="../../../public/img/Default_pfp.jpg" alt="Man Malina" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
+                            <div class="ms-3">
+                                <h6 class="mb-0">Man Malina</h6>
+                                <small class="text-muted">@Malina</small>
+                            </div>
+                        </div>
+                        
+                        <button class="follow-btn btn-brand">Follow</button>
+                    </div>
+                </div>
+                <div class="list-group bg-white p-3 rounded-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center"> 
+                            <img src="../../../public/img/Default_pfp.jpg" alt="Man Malina" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
+                            <div class="ms-3">
+                                <h6 class="mb-0">Man Malina</h6>
+                                <small class="text-muted">@Malina</small>
+                            </div>
+                        </div>
+                        
+                        <button class="follow-btn btn-brand">Follow Back</button>
+                    </div>
+                </div>
+                <div class="list-group bg-white p-3 rounded-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center"> 
+                            <img src="../../../public/img/Default_pfp.jpg" alt="Man Malina" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
+                            <div class="ms-3">
+                                <h6 class="mb-0">Man Malina</h6>
+                                <small class="text-muted">@Malina</small>
+                            </div>
+                        </div>
+                        
+                        <button class="follow-btn btn-brand">Follow Back</button>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>
+
+
+<%- include("../../partials/script.ejs")  %>
+<script src="/js/follow/follow.js"></script>
+
+</body>
+</html>

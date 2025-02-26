@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -51,4 +51,79 @@ console.error(err);
 </script>
 
     </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Scanner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        video {
+            width: 100%;
+            max-width: 500px;
+            border: 2px solid black;
+        }
+        #message {
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>QR Code Scanner</h1>
+    <video id="video" autoplay></video>
+    <p id="message">Scanning QR code...</p>
+    
+    <script src="https://unpkg.com/jsqr/dist/jsQR.js"></script>
+    <script>
+        const videoElement = document.getElementById('video');
+        const messageElement = document.getElementById('message');
+
+        async function startCamera() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+                videoElement.srcObject = stream;
+                scanQRCode();
+            } catch (error) {
+                console.error('Camera error:', error);
+                messageElement.textContent = 'Failed to access the camera. Please allow permissions.';
+            }
+        }
+
+        function scanQRCode() {
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+
+            videoElement.addEventListener('play', function () {
+                const scan = () => {
+                    if (videoElement.paused || videoElement.ended) return;
+
+                    canvas.width = videoElement.videoWidth;
+                    canvas.height = videoElement.videoHeight;
+                    context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+
+                    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                    const code = jsQR(imageData.data, canvas.width, canvas.height);
+
+                    if (code) {
+                        messageElement.textContent = `QR Code: ${code.data}`;
+                        videoElement.srcObject.getTracks().forEach(track => track.stop());
+                    } else {
+                        messageElement.textContent = 'Scanning QR code...';
+                    }
+                    requestAnimationFrame(scan);
+                };
+                scan();
+            });
+        }
+
+        window.onload = startCamera;
+    </script>
+</body>
 </html>

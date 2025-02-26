@@ -34,6 +34,14 @@ async function getEventDetail() {
       document.getElementById("creator-img").src = json.creator.avatar;
     }
 
+    document.querySelectorAll(".click-profile").forEach(btn=>{
+      btn.style.cursor = "pointer "
+      btn.onclick = ()=>{
+        sessionStorage.setItem("view-profile-id", json.creator.id)
+        window.location.href = "/profile/view-profile"
+      }
+    })
+
     document.getElementById("date").innerText =
       moment(json.started_date).format("ll") +
       " - " +

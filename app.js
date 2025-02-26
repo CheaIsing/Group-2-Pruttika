@@ -31,6 +31,7 @@ const webAuth = require("./routes/web/auth");
 const webEvent = require("./routes/web/event");
 const webProfile = require("./routes/web/profile");
 const webTicket = require("./routes/web/ticket");
+const webFollow = require("./routes/web/follow");
 const webNotification = require("./routes/web/notification");
 const webAdminDashboard = require("./routes/web/admin/index");
 const webAdminUser = require("./routes/web/admin/user");
@@ -72,6 +73,7 @@ app.use("/event", webEvent);
 app.use("/profile", webProfile);
 app.use("/ticket", webTicket);
 app.use("/notification", webNotification);
+app.use("/follow", webFollow);
 
 app.use("/admin", webAdminDashboard);
 app.use("/admin/user", webAdminUser);
