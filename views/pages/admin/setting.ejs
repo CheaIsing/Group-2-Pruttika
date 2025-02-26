@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('../../partials/admin/head.ejs') %>
+
+    <body>
+        <style>
+            table.dataTable thead .sorting_asc,
+            table.dataTable thead .sorting {
+                background-image: none !important;
+                cursor: none !important;
+            }
+
+            #search {
+                width: 200px !important;
+            }
+
+            .form-select {
+                display: inline;
+                width: 200px !important;
+                height: 49px !important;
+
+            }
+
+            .form-select:focus {
+                border-color: #ff1694;
+                outline: 0;
+                box-shadow: none;
+            }
+        </style>
+        <%- include('../../partials/admin/preloader.ejs') %>
+            <div id="main-wrapper">
+                <%- include('../../partials/admin/nav-header.ejs') %>
+                    <%- include('../../partials/admin/chatbox.ejs') %>
+                        <%- include('../../partials/admin/header.ejs') %>
+                            <%- include('../../partials/admin/sidebar.ejs') %>
+                                <div class="content-body">
+                                    <div class="container-fluid">
+                                        <!-- row -->
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <h2 class="mb-4">Account Setting</h2>
+                                                        <div class="row mb-3">
+                                                            <div class="col-6">
+                                                                <div class="form-group mb-3">
+                                                                    <label for="">Eng_name</label>
+                                                                    <input class="form-control" id="eng_name" type="text"
+                                                                        placeholder="Enter eng_name">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <div class="form-group mb-3">
+                                                                    <label for="">Kh_name</label>
+                                                                    <input class="form-control" id="kh_name" type="text"
+                                                                        placeholder="Enter kh_name">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mb-3">
+                                                            <div class="col-6">
+                                                                <div class="form-group mb-3">
+                                                                    <label for="">Email</label>
+                                                                    <input class="form-control" id="email" type="email"
+                                                                        placeholder="Enter email">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <div class="form-group mb-3">
+                                                                    <label for="">Phone</label>
+                                                                    <input class="form-control" id="phone" type="text"
+                                                                        placeholder="Enter phone">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mb-3">
+                                                            <div class="col-6">
+                                                                <div class="form-group mb-3">
+                                                                    <label for="">Date of birth</label>
+                                                                    <input class="form-control" id="dob" type="date"
+                                                                        placeholder="Enter date">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <div class="form-group mb-3">
+                                                                    <label class="form-label" for="">Address</label>
+                                                                    <input class="form-control" id="address" type="text" name=""
+                                                                        id="" placeholder="Enter address">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mb-3">
+                                                            <div class="col-12">
+                                                                <div class="form-group">
+                                                                    <label for="">Gender</label>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="gender" id="male" value="male">
+                                                                        <label class="form-check-label" for="male">
+                                                                            Male
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="gender" id="female" value="female">
+                                                                        <label class="form-check-label" for="female">
+                                                                            Female
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <button class="btn btn-primary" id="btnSaveChange">Save
+                                                                    Change</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h2 class="mb-4">Change Password</h2>
+                                                <div class="row mb-3">
+                                                    <div class="col-6">
+                                                        <div class="form-group mb-3">
+                                                            <label class="form-label" for="">Current
+                                                                Password</label>
+                                                            <input type="password" class="form-control" name="" id="oldPass"
+                                                                placeholder="Enter current password">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <div class="col-6">
+                                                        <div class="form-group mb-3">
+                                                            <label class="form-label" for="">New
+                                                                Password</label>
+                                                            <input type="password" class="form-control" name="" id="newPass"
+                                                                placeholder="Enter new password">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <div class="col-6">
+                                                        <div class="form-group mb-3">
+                                                            <label class="form-label" for="">Confirm
+                                                                Password</label>
+                                                            <input type="password" class="form-control" name="" id="newPassConfirm"
+                                                                placeholder="Enter confirm password">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <button type="submit" class="btn btn-primary" id="btnChangePassword">Change
+                                                            Password</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h2 class="mb-4">Change Avatar</h2>
+                                                <div class="row mb-3">
+                                                    <div class="col-6">
+                                                        <form action="" method="POST" enctype="multipart/form-data">
+                                                            <label class="form-label" for="">Avatar</label>
+                                                            <input class="form-control" type="file" name="" id="">
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <button type="submit" class="btn btn-primary" id="btnChangeAvatar">Change Avatar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <%- include('../../partials/admin/footer.ejs') %>
+            </div>
+
+            <!-- Required vendors -->
+            <script src="/admin/vendor/global/global.min.js"></script>
+            <script src="/admin/vendor/chart.js/Chart.bundle.min.js"></script>
+            <!-- Apex Chart -->
+            <script src="/admin/vendor/apexchart/apexchart.js"></script>
+
+            <!-- Datatable -->
+            <script src="/admin/vendor/datatables/js/jquery.dataTables.min.js"></script>
+            <script src="/admin/js/plugins-init/datatables.init.js"></script>
+
+            <script src="/admin/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+            <script src="/admin/js/custom.min.js"></script>
+            <script src="/admin/js/dlabnav-init.js"></script>
+            <script src="/admin/js/demo.js"></script>
+            <script src="/admin/js/styleSwitcher.js"></script>
+
+            <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+            <script src="/js/admin/setting.js" defer></script>
+
+    </body>
+
+</html>

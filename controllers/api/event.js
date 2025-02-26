@@ -7,6 +7,7 @@ const {
 const { executeQuery } = require("../../utils/dbQuery");
 const {sendResponse ,sendResponse1}= require("../../utils/response");
 const {eventCollection , eventDetail}= require("../../resource/event");
+const {checkInTicketCollection}= require("../../resource/ticket");
 
 const default_img="default-events-img.jpg";
 
@@ -19,7 +20,7 @@ const getAllEvent=async(req,res)=>{
             userId,
             req.query.page, req.query.perpage,
             req.query.search, req.query.sort, req.query.order, 
-            req.query.start_date, req.query.end_date,
+            req.query.start_date, req.query.end_date,req.query.date_status,
             req.query.event_type, 
             req.query.min_price, req.query.max_price,
             req.query.cateId,
@@ -515,10 +516,10 @@ const putCheckIn=async(req,res)=>{
 
         const status=result[0].status;
         if(status==2){
-            return sendResponse(res,400,false,"This ticket is already check-in!");
+            return sendResponse(res,400,false,"This ticket token is already check-in!");
         }
         const sqlUpdateStatus=`UPDATE tbl_ticket SET status=2 WHERE id=?`;
-        await executeQuery(sqlUpdateStatus,status);
+        await executeQuery(sqlUpdateStatus,result[0].id);
         sendResponse(res,200,true,"Ticket Check in successfully");
     } catch(error){
         console.log(error);
@@ -617,6 +618,17 @@ const summaryData=async(req,res)=>{
     }
 }
 
+//get all checkin
+const getAllCheckInTicket=async(req,res)=>{
+    const event_id=req.params.id;
+    try {
+        const data=await checkInTicketCollection(event_id);
+        sendResponse(res,200,true,"Get all check-in ticket of event successfully",data);
+    } catch (error) {
+        handleResponseError(res,error);
+    }
+}
+
 module.exports={
     getAllEvent,
     putEditEvent,
@@ -630,5 +642,6 @@ module.exports={
     uploadEQr,
     deleteEQr,
     putCheckIn,
-    summaryData
+    summaryData,
+    getAllCheckInTicket
 }

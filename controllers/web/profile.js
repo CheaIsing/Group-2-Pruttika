@@ -18,10 +18,15 @@ const getOrganizer = (req, res) => {
   res.render("pages/profile/organizer", {title: "Organizer Setting"});
 };
 
+const getViewOrganizerProfile = (req, res) => {
+  res.render("pages/profile/organizerProfile", {title: "View Profile"});
+};
+
 module.exports = {
   getProfileInfo,
   getChangePassword,
   getDeleteAccount,
   getOrganizer,
+  getViewOrganizerProfile,
   getManageAccount
 };

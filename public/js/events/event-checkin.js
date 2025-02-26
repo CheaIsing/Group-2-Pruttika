@@ -43,10 +43,7 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
   
       events.forEach(async(event) => {
         const {data} = await axiosInstance.get("/events/summary-data/"+event.id);
-        // console.log(data);
-
-        console.log(event);
-        
+        console.log(data);
 
         const formattedDate = `${moment(event.started_date).format("MMM D, YYYY")} - ${moment(event.started_date).format("MMM D, YYYY")}, ${
           moment(
@@ -59,20 +56,13 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
             "HH:mm"
           ).format("LT")
         }`;
-
-        let isOffline = event.event_type !== "offline";
-        console.log(isOffline);
-        
-let eventLinkAttributes = isOffline 
-    ? '' 
-    : `role="button" onclick="showSummary(${event.id})"`;
-
         
         let totalPrice = data.data.ticket.length > 0 ? `$${data.data.ticket.reduce((sum, item) => sum + item.price, 0).toFixed(2)}` : `Free`;
+
   
         const eventCard = `<tr class="border-bottom position-relative">
                                                     <td>
-                                                        <a ${eventLinkAttributes} class="stretched-link text-decoration-none bg-transparent link-event-details" style="color: inherit;">
+                                                        <a onclick="showCheckInTicketList(${event.id})" role="button" class="stretched-link text-decoration-none bg-transparent"  style="color: inherit;">
                                                             <div class="d-flex align-items-center">
                                                                 <div class="me-3">
                                                                     <div class="text-center text-brand fw-bold">${moment(event.started_date).format("MMM ")}</div>
@@ -81,29 +71,15 @@ let eventLinkAttributes = isOffline
                                                                 <img src="/uploads/default-events-img.jpg" alt="Event Image" class="rounded object-fit-cover" width="150" height="85">
                                                                 <div class="ms-3 text-nowrap">
                                                                     <h5 class="mb-0 text-wrap">${event.eng_name}</h5>
-                                                                    <p class="text-muted mb-0 w-75">${event.location || event.event_type != "online" ? event.location ? event.location : "No location" : "Online Event"}</p>
+                                                                    <p class="text-muted mb-0 w-75">${event.location ? event.location : "Online Event"}</p>
                                                                     <p class="text-muted mb-0 small">${formattedDate}</p>
                                                                 </div>
                                                             </div>
                                                         </a>
                                                     </td>
                                                     <td class="text-nowrap">Active</td>
-                                                    <td class="text-nowrap">${data.data.total_approved_registrations ? data.data.total_approved_registrations: "0"} <span class="">tickets</span></td>
-                                                    <td class="text-nowrap">${totalPrice}</td>
-                                                    <td class="text-nowrap">${data.data.total_checkin ? data.data.total_checkin : "0"} <span class="">participated</span></td>
-                                                    <td>
-                                                        <div class="dropstart position-relative z-3">
-                                                            <button class="btn btn-brand" style="height: auto !important;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                <i class="bi bi-three-dots"></i>
-                                                            </button>
-                                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                                <li><a role="button" class="dropdown-item edit-event-btn" onclick="updateEvent(${event.id})">Update</a></li>
-                                                                <li><a role="button" class="dropdown-item delete-event-btn" onclick="deleteEvent(${event.id}, this)">Delete</a></li>
-                                                                <li><a class="dropdown-item views-event-detail" href="/event/detail?e=${event.id}">View</a></li>
-                                                                <li><a role="button" class="dropdown-item" onclick="copyEventUrlToClipboard(${event.id})">Copy Link</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </td>
+                                                    <td class="text-nowrap">${data.data.total_checkin ? data.data.total_checkin : '0'} Checked In </td>
+                                                    
                                                 </tr>`
               
         eventList.innerHTML += eventCard;
@@ -204,7 +180,63 @@ document.getElementById("event-sort-filter").onchange = (e)=>{
   renderEventsAll()
 }
 
-function showSummary(id){
-  sessionStorage.setItem("event-summary", id);
-  window.location.href = "/event/summary"
+
+  function showCheckInTicketList(id) {
+    
+    sessionStorage.setItem("event-check-in-ticket-list", id); 
+    window.location.href = "/event/check-in-ticket-list";
 }
+
+document.getElementById("btn-checked-in").onclick = async (e) => {
+  const fields = [
+    {
+      name: "token",
+      id: "input-field-qrcode", // Ensure this matches your input field ID
+      textErrorElement: "#invalid_feedback_qrcode div",
+      isInvalidClass: "is_invalid",
+    }
+];
+
+const schema = Joi.object({
+  ticketToken: Joi.string()
+        .required()
+        .messages({
+            "string.empty": "Ticket token is required.",
+            "any.required": "Ticket token is required."
+        })
+});
+
+// Validate the input value
+const { error } = schema.validate({ ticketToken: document.getElementById("qrcode").value });
+
+if (error) {
+    const errorMessages = error.details.map((detail) => detail.message);
+    handleErrorMessages(errorMessages, fields);
+    return;
+}
+
+handleErrorMessages([], fields);
+
+  try {
+    await axiosInstance.put("/events/check-in/", { ticketToken: document.getElementById("qrcode").value });
+    const disapproveModal = bootstrap.Modal.getInstance(
+        document.getElementById("exampleModal")
+      );
+      disapproveModal.hide();
+    showToast(true, "Checked In successfully.")
+
+    // window.location.href = "/event/check-in-ticket-list"
+  } catch (error) {
+    console.log(error);
+    if (!(error.response && error.response.data &&  typeof error.response.data == "object")) {
+      return showToast();
+    }
+
+    const messages = error.response.data.message;
+
+    const errorMessages = Array.isArray(messages) ? messages : [messages];
+
+    handleErrorMessages(errorMessages, fields);
+    // showToast()
+  }
+};

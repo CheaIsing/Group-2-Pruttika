@@ -4,7 +4,8 @@ const {
   getChangePassword,
   getDeleteAccount,
   getOrganizer,
-  getManageAccount
+  getManageAccount,
+  getViewOrganizerProfile
 } = require("../../controllers/web/profile");
 
 const router = express.Router();
@@ -22,5 +23,7 @@ router.get("/organizer", getOrganizer);
 // router.get("/privacy", getChangePassword);
 
 router.get("/delete-account", getDeleteAccount);
+
+router.get("/view-profile", getViewOrganizerProfile);
 
 module.exports = router;

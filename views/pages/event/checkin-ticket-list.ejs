@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("../../partials/head.ejs") %>
+    <body>
+        <%- include("../../partials/manage-event-header.ejs") %>
+
+        <main>
+            <div class>
+                <div class="d-flex">
+                    <%- include("../../partials/manage-event-sidebar.ejs") %>
+
+                    <section class="p-4 w-100">
+                        <div class="d-flex align-items-center">
+                            <button type="button"
+                                class="btn border-0 ps-0"
+                                onclick="history.back()">
+                                <i
+                                    class="fa-solid fa-angle-left fs-2"></i>
+                            </button>
+                            <h2>Check In Ticket List</h2>
+                        </div>
+
+                        <div id="content" style>
+                            <div
+                                class="my-4 d-flex w-100 justify-content-between align-content-center">
+                                <div
+                                    class>
+                                    <h3 id="title">Hi</h3>
+                                    <div
+                                        class="d-inline-flex align-items-center">
+                                        <i
+                                            class="bi bi-calendar-event me-2"></i>
+                                        <span id="ev-date">Thhdb</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <h5 class="mt-5 mb-3">Ticket Request</h5> -->
+                            <div
+                                class="d-flex align-items-end justify-content-between">
+                                <div class="d-flex gap-3">
+                                    <!-- <div class>
+                                        <label for="statusFilter"
+                                            class="form-label">Filter by
+                                            Status:</label>
+                                        <select id="statusFilter"
+                                            class="form-select mb-3">
+                                            <option value>All</option>
+                                            <option
+                                                value="Approved">Approved</option>
+                                            <option
+                                                value="Pending">Pending</option>
+                                            <option
+                                                value="Rejected">Rejected</option>
+                                        </select>
+                                    </div>
+                                    <div class>
+                                        <label for="dateFilter"
+                                            class="form-label">Filter by
+                                            Date:</label>
+                                        <input type="date" id="dateFilter"
+                                            class="form-control mb-3">
+                                    </div> -->
+                                    <h4>Checked-In</h4>
+                                </div>
+                                <div class=" w-50 d-flex justify-content-end">
+                                    <input type="text" id="searchInput"
+                                        class="form-control mb-3 w-75"
+                                        placeholder="Search by name...">
+                                </div>
+
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table" id="ticketTable">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Avatar</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Type</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Check-in Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="request-tbody">
+                                        <tr>
+                                            <td colspan="1">1</td>
+                                            <td colspan="1">John Doe</td>
+                                            <td colspan="1">2 tickets</td>
+                                            <td colspan="1">$400.00</td>
+                                            <td colspan="1">Thu, Nov 28, 2024
+                                                9:16 AM</td>
+                                            <td colspan="1"><span
+                                                    class="badge bg-warning">Pending</span></td>
+                                            <td style="width: 340px;">
+                                                <div>
+                                                    <button type="button"
+                                                        data-transaction-id="12345"
+                                                        class="btn btn-brand views-transaction"
+                                                        style="height: auto !important;"><i
+                                                            class="fa-solid fa-eye"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1">1</td>
+                                            <td colspan="1">John Doe</td>
+                                            <td colspan="1">2 tickets</td>
+                                            <td colspan="1">$400.00</td>
+                                            <td colspan="1">Thu, Nov 28, 2024
+                                                9:16 AM</td>
+                                            <td colspan="1"><span
+                                                    class="badge bg-warning">Pending</span></td>
+                                            <td style="width: 340px;">
+                                                <div>
+                                                    <button type="button"
+                                                        data-transaction-id="12345"
+                                                        class="btn btn-brand views-transaction"
+                                                        style="height: auto !important;"><i
+                                                            class="fa-solid fa-eye"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1">1</td>
+                                            <td colspan="1">Chea Doe</td>
+                                            <td colspan="1">2 tickets</td>
+                                            <td colspan="1">$400.00</td>
+                                            <td colspan="1">Thu, Nov 28, 2024
+                                                9:16 AM</td>
+                                            <td colspan="1"><span
+                                                    class="badge bg-warning">Pending</span></td>
+                                            <td style="width: 340px;">
+                                                <div>
+                                                    <button type="button"
+                                                        data-transaction-id="12345"
+                                                        class="btn btn-brand views-transaction"
+                                                        style="height: auto !important;"><i
+                                                            class="fa-solid fa-eye"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1">1</td>
+                                            <td colspan="1">Thu Doe</td>
+                                            <td colspan="1">2 tickets</td>
+                                            <td colspan="1">$400.00</td>
+                                            <td colspan="1">Thu, Nov 29, 2024
+                                                9:16 AM</td>
+                                            <td colspan="1"><span
+                                                    class="badge bg-warning">Pending</span></td>
+                                            <td style="width: 340px;">
+                                                <div>
+                                                    <button type="button"
+                                                        data-transaction-id="12345"
+                                                        class="btn btn-brand views-transaction"
+                                                        style="height: auto !important;"><i
+                                                            class="fa-solid fa-eye"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- Pagination -->
+                            <!-- <div class="pagination-container">
+                        <button class="pagination-button btn-icon"
+                            onclick="changePage(currentPage - 1)"
+                            id="prevBtn" disabled><i
+                                class="fa-solid fa-angle-left"></i></button>
+
+                        <div id="pagination-numbers"></div>
+
+                        <button class="pagination-button btn-icon"
+                            onclick="changePage(currentPage + 1)"
+                            id="nextBtn"><i
+                                class="fa-solid fa-angle-right"></i></button>
+                    </div> -->
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </main>
+
+        <%- include("../../partials/script.ejs") %>
+
+        <script src="/public/js/utils/organizer-sidebar.js"></script>
+
+        <script src="/js/events/check-in-ticket-list.js">
+
+</script>
+
+    </body>
+</html>

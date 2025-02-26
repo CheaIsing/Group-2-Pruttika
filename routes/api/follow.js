@@ -18,7 +18,7 @@ router.post("/:id", requireAuth, followUser);
 router.delete("/unfollow/:id", requireAuth, unfollowUser);
 router.delete("/remove-follower/:id", requireAuth, removeFollower);
 
-router.get("/followers", requireAuth,  getFollowers);
-router.get("/following", requireAuth, getFollowing);
+router.get("/followers/:id", requireAuth,  getFollowers);
+router.get("/following/:id", requireAuth, getFollowing);
 
 module.exports = router;

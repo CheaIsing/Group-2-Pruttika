@@ -72,7 +72,7 @@ const joinEventQry=`SELECT
             LEFT JOIN tbl_wishlist tw ON tw.event_id = te.id AND tw.user_id = ?
         `;
 
-const eventCollection= async(userID,page=1, perpage=25, search='', sort='id', order='ASC', start_date = null, end_date = null, event_type = null, min_price = null, max_price = null, cate_ids = [],published=null,creator=null)=>{
+const eventCollection= async(userID,page=1, perpage=25, search='', sort='id', order='DESC', start_date = null, end_date = null,date_status=null, event_type = null, min_price = null, max_price = null, cate_ids = [],published=null,creator=null)=>{
     try {
         page=parseInt(page);
         perpage=parseInt(perpage);
@@ -147,6 +147,19 @@ const eventCollection= async(userID,page=1, perpage=25, search='', sort='id', or
             filterParams.push(creator);
         }
 
+        if(date_status){
+            if(date_status==1){
+                filterQuery +=` AND te.ended_date < CURDATE()`;
+            }
+            else if(date_status==2){
+                filterQuery +=` AND te.started_date <= CURDATE() AND te.ended_date >= CURDATE()
+`;
+            }
+            else{
+                filterQuery +=` AND te.started_date > CURDATE()`;
+            }
+        }
+
         sqlQuery+=filterQuery; //combine filter query
         sqlQuery+=` GROUP BY te.id
                     ORDER BY te.${sort} ${order}
@@ -154,7 +167,6 @@ const eventCollection= async(userID,page=1, perpage=25, search='', sort='id', or
 
         const params=[...filterParams];
         params.push(perpage,offset);
-        console.log(sqlQuery);
 
         //get all data event
         const result=await executeQuery(sqlQuery,params);

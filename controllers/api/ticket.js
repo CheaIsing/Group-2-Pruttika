@@ -324,6 +324,7 @@ const getAllRequestTicket=async(req,res)=>{
         const data=await reqTicketCollection(
             user_id,
             req.query.event_id , req.query.ticket_type_id,
+            req.query.status,
             req.query.page, req.query.per_page,
             req.query.sort, req.query.order
         );

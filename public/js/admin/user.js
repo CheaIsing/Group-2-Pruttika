@@ -61,6 +61,20 @@ function displayUsers(users) {
                   </span>
               </td>
               <td>
+                <span class="badge ${
+                  user.role === 1
+                    ? "badge-info"
+                    : user.role === 2
+                    ? "badge-warning"
+                    : user.role === 3
+                    ? "badge-primary"
+                    : "badge-default"
+                }">
+                  ${getRoleName(user.role)}
+                </span>
+              </td>
+
+              <td>
                   <div class="dropdown ms-auto text-center">
                       <div class="btn-link" data-bs-toggle="dropdown">
                           <svg width="24px" height="24px" viewbox="0 0 24 24">
@@ -122,7 +136,7 @@ async function fetchUserDetail(userId) {
                     user.dob
                   ).toLocaleDateString("en-CA")}</p>
                   <p><strong>Gender:</strong> ${
-                    user.gender === 1 ? "Male" : "Female"
+                    user.gender === 0 ? "Male" : "Female"
                   }</p>
                   <p><strong>Address : </strong> ${user.address}</p>
                   <p><strong>Role : </strong> <span class="badge bg-primary">${getRoleName(
@@ -300,7 +314,7 @@ const removeUser = async (userId) => {
           title: "User Deleted Successfully!",
           text: "The user has been removed.",
         });
-        fetchUsers(); 
+        fetchUsers();
       } else {
         console.error(
           "Deletion failed:",

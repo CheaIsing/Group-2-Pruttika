@@ -16,7 +16,7 @@ const {
 const { executeQuery } = require("../../utils/dbQuery");
 const { sendResponse } = require("../../utils/response");
 
-// const defaultAvatar = "default.jpg";
+const defaultAvatar = "default.jpg";
 
 const postSignUp = async (req, res) => {
   const { error } = vSignUp.validate(req.body);
@@ -50,8 +50,8 @@ const postSignUp = async (req, res) => {
     }
 
     const insertUserQuery =
-      "INSERT INTO tbl_users(kh_name, eng_name, email, password) VALUES (?, ?, ?, ?)";
-    const params = [kh_name, eng_name, email, hashPassword];
+      "INSERT INTO tbl_users(kh_name, eng_name, email, password, avatar) VALUES (?, ?, ?, ?, ?)";
+    const params = [kh_name, eng_name, email, hashPassword, defaultAvatar];
 
     await executeQuery(insertUserQuery, params);
 

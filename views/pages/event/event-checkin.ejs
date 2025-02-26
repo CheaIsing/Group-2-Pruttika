@@ -4,114 +4,149 @@
     <%- include("../../partials/head.ejs") %>
 
     <body class>
-        <%- include("../../partials/manage-event-header.ejs")  %>
+        <%- include("../../partials/manage-event-header.ejs") %>
 
         <main>
             <div class>
                 <div class="d-flex">
-                    <%- include("../../partials/manage-event-sidebar.ejs")  %>
+                    <%- include("../../partials/manage-event-sidebar.ejs") %>
 
                     <section class="p-4 w-100">
                         <div class="mb-3">
-                            <h2 style="color: #333;">Event</h2>
+                            <h2 style="color: #333;">Check In Ticket</h2>
                         </div>
-                        <ul class="nav nav-underline gap-3" id="myTab" role="tablist">
+                        <ul class="nav nav-underline gap-3" id="myTab"
+                            role="tablist">
                             <li class="nav-item " role="presentation">
                                 <a href="#" class="nav-link active"
                                     id="events-tab" style="color: #333;">All</a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a href="#" style="color: #333;" class="nav-link"
+                                <a href="#" style="color: #333;"
+                                    class="nav-link"
                                     id="events-tab">Upcoming</a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a href="#" style="color: #333;" class="nav-link"
+                                <a href="#" style="color: #333;"
+                                    class="nav-link"
                                     id="events-tab">Showing</a>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <a href="recruitment.html"
-                                    class="nav-link" style="color: #333;">Past</a>
+                                    class="nav-link"
+                                    style="color: #333;">Past</a>
                             </li>
                         </ul>
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active"
                                 id="events-tab-pane" role="tabpanel"
                                 aria-labelledby="events-tab" tabindex="0">
-                                <div class="row g-3 align-items-center my-2 justify-content-between">
+                                <div
+                                    class="row g-3 align-items-center my-2 justify-content-between">
                                     <div class="col-auto">
                                         <div class="row g-3">
                                             <div class="col-auto">
-                                                <select class="form-select border-brand-sm shadow-none" id="event-sort-filter" aria-label="Default select example">
-                                                    <option value="" selected>All</option>
-                                                    <option value="eng_name">Event Title</option>
-                                                    <option value="created_at">Latest Event</option>
+                                                <select
+                                                    class="form-select border-brand-sm shadow-none"
+                                                    id="event-sort-filter"
+                                                    aria-label="Default select example">
+                                                    <option value
+                                                        selected>All</option>
+                                                    <option
+                                                        value="eng_name">Event
+                                                        Title</option>
+                                                    <option
+                                                        value="created_at">Latest
+                                                        Event</option>
                                                 </select>
                                             </div>
-                                            
+
                                             <div class="col-auto">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control border-brand-sm shadow-none ps-3"  placeholder="Search" id="searchEventInput">
+                                                    <input type="text"
+                                                        class="form-control border-brand-sm shadow-none ps-3"
+                                                        placeholder="Search"
+                                                        id="searchEventInput">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-auto">
-                                        <div class=" d-none d-sm-block">
-                                            <a href="/event/create" role="button" class="btn btn-brand fw-medium w-auto" style="height: auto !important;">+ Create Event</a>
-                                        </div>
+                                        <button data-bs-toggle="modal"
+                                            data-bs-target="#exampleModal"
+                                            type="button"
+                                            class="btn btn-brand fw-medium"
+                                            style="height: auto !important;">+
+                                            Add Check-In</button>
                                     </div>
                                 </div>
-                                
-                                
 
                                 <div class="my-4">
                                     <div class="table-responsive">
-                                        <table class="table table-borderless align-middle">
+                                        <table
+                                            class="table table-borderless align-middle">
                                             <thead class="border-bottom">
-                                                <tr >
-                                                    <th scope="col" style="color: #333;" class="fw-semibold">Event</th>
-                                                    <th scope="col" style="color: #333;" class="fw-semibold">Status</th>
-                                                    <th scope="col" style="color: #333;" class="fw-semibold">Sold</th>
-                                                    <th scope="col" style="color: #333;" class="fw-semibold">Gross</th>
-                                                    <th scope="col" style="color: #333;" class="fw-semibold">Participated</th>
-                                                    <th scope="col" style="color: #333;" class="fw-semibold"></th>
+                                                <tr>
+                                                    <th scope="col"
+                                                        style="color: #333;"
+                                                        class="fw-semibold">Event</th>
+                                                    <th scope="col"
+                                                        style="color: #333;"
+                                                        class="fw-semibold">Status</th>
+                                                    <th scope="col"
+                                                        style="color: #333;"
+                                                        class="fw-semibold">Checked-In</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="event-tobody">
-                                                <tr class="border-bottom position-relative">
+                                                <tr
+                                                    class="border-bottom position-relative">
                                                     <td>
-                                                        <a href="#" class="stretched-link text-decoration-none bg-transparent link-event-details" style="color: inherit;">
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="me-3">
-                                                                    <div class="text-center text-brand fw-bold">Feb</div>
-                                                                    <div class="text-center text-brand fw-bold">23</div>
+                                                        <a href="#"
+                                                            class="stretched-link text-decoration-none bg-transparent link-event-details"
+                                                            style="color: inherit;">
+                                                            <div
+                                                                class="d-flex align-items-center">
+                                                                <div
+                                                                    class="me-3">
+                                                                    <div
+                                                                        class="text-center text-brand fw-bold">Feb</div>
+                                                                    <div
+                                                                        class="text-center text-brand fw-bold">23</div>
                                                                 </div>
-                                                                <img src="/uploads/default-events-img.jpg" alt="Event Image" class="rounded object-fit-cover" width="150" height="85">
-                                                                <div class="ms-3 text-nowrap">
-                                                                    <h5 class="mb-0 text-wrap">Sample Event</h5>
-                                                                    <p class="text-muted mb-0 w-75">Phnom Penh, Cambodia</p>
-                                                                    <p class="text-muted mb-0 small">Feb 23, 2025 - Feb 25, 2025, 10:00 AM - 5:00 PM</p>
+                                                                <img
+                                                                    src="/uploads/default-events-img.jpg"
+                                                                    alt="Event Image"
+                                                                    class="rounded object-fit-cover"
+                                                                    width="150"
+                                                                    height="85">
+                                                                <div
+                                                                    class="ms-3 text-nowrap">
+                                                                    <h5
+                                                                        class="mb-0 text-wrap">Sample
+                                                                        Event</h5>
+                                                                    <p
+                                                                        class="text-muted mb-0 w-75">Phnom
+                                                                        Penh,
+                                                                        Cambodia</p>
+                                                                    <p
+                                                                        class="text-muted mb-0 small">Feb
+                                                                        23, 2025
+                                                                        - Feb
+                                                                        25,
+                                                                        2025,
+                                                                        10:00 AM
+                                                                        - 5:00
+                                                                        PM</p>
                                                                 </div>
                                                             </div>
                                                         </a>
                                                     </td>
-                                                    <td class="text-nowrap">Active</td>
-                                                    <td class="text-nowrap">100 tickets</td>
-                                                    <td class="text-nowrap">$5,000.00</td>
-                                                    <td class="text-nowrap">85 participated</td>
-                                                    <td>
-                                                        <div class="dropstart position-relative z-3">
-                                                            <button class="btn btn-brand" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                <i class="bi bi-three-dots"></i>
-                                                            </button>
-                                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                                <li><a class="dropdown-item edit-event-btn" href="#">Edit</a></li>
-                                                                <li><a class="dropdown-item delete-event-btn" href="#">Delete</a></li>
-                                                                <li><a class="dropdown-item views-event-detail" href="#">View</a></li>
-                                                                <li><a class="dropdown-item" href="#" onclick="copyEventUrlToClipboard()">Copy Link</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </td>
+                                                    <td
+                                                        class="text-nowrap">Active</td>
+                                                    <td class="text-nowrap">100
+                                                        tickets</td>
+
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -119,20 +154,19 @@
                                 </div>
 
                                 <!-- Pagination -->
-                        <div class="pagination-container">
-                            <button class="pagination-button btn-icon"
-                                onclick="changePageAll(currentPage - 1)"
-                                id="prevBtn" disabled><i
-                                    class="fa-solid fa-angle-left"></i></button>
+                                <div class="pagination-container">
+                                    <button class="pagination-button btn-icon"
+                                        onclick="changePageAll(currentPage - 1)"
+                                        id="prevBtn" disabled><i
+                                            class="fa-solid fa-angle-left"></i></button>
 
-                            <div id="pagination-numbers-all"></div>
+                                    <div id="pagination-numbers-all"></div>
 
-                            <button class="pagination-button btn-icon"
-                                onclick="changePageAll(currentPage + 1)"
-                                id="nextBtn"><i
-                                    class="fa-solid fa-angle-right"></i></button>
-                        </div>
-                                
+                                    <button class="pagination-button btn-icon"
+                                        onclick="changePageAll(currentPage + 1)"
+                                        id="nextBtn"><i
+                                            class="fa-solid fa-angle-right"></i></button>
+                                </div>
 
                             </div>
                             <div class="tab-pane fade"
@@ -303,9 +337,47 @@
                 </div>
             </div>
         </main>
+        <div class="modal fade" id="exampleModal" tabindex="-1"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5"
+                            id="exampleModalLabel">Check-in Ticket</h1>
+                        <button type="button" class="btn-close"
+                            data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="">
+                            <div class="input-field input-field-setting"
+                                id="input-field-qrcode">
+                                <i class="fas fa-lock"></i>
+                                <input type="text"
+                                    placeholder="Enter ticket token"
+                                    id="qrcode" autofocus />
+                            </div>
+                            <div
+                                class="invalid_feedback text-danger d-flex align-items-center"
+                                id="invalid_feedback_qrcode">
+                                <i
+                                    class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                                <div class="ms-2">Ticket token is
+                                    required.</div>
+                            </div>
+                        </div>
+                    </div>
+                <div class="modal-footer border-0 pt-0">
+
+                    <button type="button"
+                        class="btn btn-brand w-100"
+                        id="btn-checked-in">Check In</button>
+                </div>
+
+            </div>
+        </div>
 
         <%- include("../../partials/script.ejs") %>
         <script src="/js/utils/organizer-sidebar.js"></script>
-        <script src="/js/events/manage-event.js"></script>
+        <script src="/js/events/event-checkin.js"></script>
     </body>
 </html>

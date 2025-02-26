@@ -16,7 +16,8 @@ async function getCategories() {
                                 </button>`;
     });
     document.getElementById("category-container").innerHTML = categoriesHtml;
-    document.getElementById("categories-mobile-container").innerHTML = categoriesHtml;
+    document.getElementById("categories-mobile-container").innerHTML =
+      categoriesHtml;
   } catch (error) {
     console.log(error);
     showToast();
@@ -62,51 +63,57 @@ document.getElementById("category-container").addEventListener("click", (e) => {
     renderEvents(); // Fetch events based on new filter
   }
 });
-document.getElementById("categories-mobile-container").addEventListener("click", (e) => {
-  if (e.target.closest("button")) {
-    const button = e.target.closest("button");
-    const categoryId = button.getAttribute("data-category-id");
+document
+  .getElementById("categories-mobile-container")
+  .addEventListener("click", (e) => {
+    if (e.target.closest("button")) {
+      const button = e.target.closest("button");
+      const categoryId = button.getAttribute("data-category-id");
 
-    // Toggle active class and add/remove categoryId from selectedCategories
-    if (selectedCategories.includes(categoryId)) {
-      selectedCategories = selectedCategories.filter((id) => id !== categoryId);
-      button.classList.remove("active");
-    } else {
-      if (selectedCategories.length < 2) {
-        selectedCategories.push(categoryId);
-        button.classList.add("active");
-      } else {
-        // If there are already 2 categories, replace the oldest one
-        selectedCategories.shift(); // Remove the first category (oldest)
-        selectedCategories.push(categoryId); // Add the new category
-        // Update the active class for the buttons accordingly
-        const allButtons = document.querySelectorAll(
-          "#category-container button"
+      // Toggle active class and add/remove categoryId from selectedCategories
+      if (selectedCategories.includes(categoryId)) {
+        selectedCategories = selectedCategories.filter(
+          (id) => id !== categoryId
         );
-        allButtons.forEach((btn) => {
-          if (
-            selectedCategories.includes(btn.getAttribute("data-category-id"))
-          ) {
-            btn.classList.add("active");
-          } else {
-            btn.classList.remove("active");
-          }
-        });
+        button.classList.remove("active");
+      } else {
+        if (selectedCategories.length < 2) {
+          selectedCategories.push(categoryId);
+          button.classList.add("active");
+        } else {
+          // If there are already 2 categories, replace the oldest one
+          selectedCategories.shift(); // Remove the first category (oldest)
+          selectedCategories.push(categoryId); // Add the new category
+          // Update the active class for the buttons accordingly
+          const allButtons = document.querySelectorAll(
+            "#category-container button"
+          );
+          allButtons.forEach((btn) => {
+            if (
+              selectedCategories.includes(btn.getAttribute("data-category-id"))
+            ) {
+              btn.classList.add("active");
+            } else {
+              btn.classList.remove("active");
+            }
+          });
+        }
       }
-    }
 
-    renderEvents(); // Fetch events based on new filter
-  }
-});
+      renderEvents(); // Fetch events based on new filter
+    }
+  });
 
 document.getElementById("btnResetFilter").addEventListener("click", (e) => {
   clearFilter();
   renderEvents();
 });
-document.getElementById("btnResetFilterMobile").addEventListener("click", (e) => {
-  clearFilter();
-  renderEvents();
-});
+document
+  .getElementById("btnResetFilterMobile")
+  .addEventListener("click", (e) => {
+    clearFilter();
+    renderEvents();
+  });
 
 // document.getElementById("searchForm").addEventListener("submit", (e)=>{
 //     e.preventDefault()
@@ -131,9 +138,11 @@ function clearFilter() {
   document.querySelectorAll("#category-container button").forEach((button) => {
     button.classList.remove("active");
   });
-  document.querySelectorAll("#categories-mobile-container button").forEach((button) => {
-    button.classList.remove("active");
-  });
+  document
+    .querySelectorAll("#categories-mobile-container button")
+    .forEach((button) => {
+      button.classList.remove("active");
+    });
 }
 
 document.getElementById("date-filter").addEventListener("change", (e) => {
@@ -142,28 +151,40 @@ document.getElementById("date-filter").addEventListener("change", (e) => {
 document.getElementById("price-filter").addEventListener("change", (e) => {
   renderEvents();
 });
-document.getElementById("date-filter-mobile").addEventListener("change", (e) => {
-  renderEvents();
-});
-document.getElementById("price-filter-mobile").addEventListener("change", (e) => {
-  renderEvents();
-});
+document
+  .getElementById("date-filter-mobile")
+  .addEventListener("change", (e) => {
+    renderEvents();
+  });
+document
+  .getElementById("price-filter-mobile")
+  .addEventListener("change", (e) => {
+    renderEvents();
+  });
 document.getElementById("sort-filter").addEventListener("change", (e) => {
   renderEvents();
 });
-document.getElementById("sort-filter-mobile").addEventListener("change", (e) => {
-  renderEvents();
-});
+document
+  .getElementById("sort-filter-mobile")
+  .addEventListener("change", (e) => {
+    renderEvents();
+  });
 
-document.addEventListener("DOMContentLoaded", (e)=> renderEvents());
+document.addEventListener("DOMContentLoaded", (e) => renderEvents());
 
 async function renderEvents(page = 1, perpage = 10, is_published = true) {
   const eventList = document.getElementById("event-list");
   eventList.innerHTML = "";
 
-  const dateFilter = document.getElementById("date-filter").value || document.getElementById("date-filter-mobile").value;
-  const priceFilter = document.getElementById("price-filter").value || document.getElementById("price-filter-mobile").value;
-  const sort = document.getElementById("sort-filter").value || document.getElementById("sort-filter-mobile").value;
+  const dateFilter =
+    document.getElementById("date-filter").value ||
+    document.getElementById("date-filter-mobile").value;
+  const priceFilter =
+    document.getElementById("price-filter").value ||
+    document.getElementById("price-filter-mobile").value;
+  const sort =
+    document.getElementById("sort-filter").value ||
+    document.getElementById("sort-filter-mobile").value;
   const search = document.getElementById("searchInput").value;
   // const location = document.getElementById("location-filter").value;
 
@@ -173,7 +194,6 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
     endDate = "",
     minPrice = "",
     maxPrice = "";
-    
 
   queryParams.append("page", `${page}`);
   queryParams.append("is_published", `${is_published}`);
@@ -182,7 +202,6 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
   if (search) {
     queryParams.append("search", search);
   }
-
 
   // Handle date filter
   if (dateFilter === "week") {
@@ -226,33 +245,39 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
   // Handle location filter
   // if (location) queryParams.append("location", location);
   try {
-    let qryStr = queryParams.toString()
-    if(selectedCategories.length >0){
+    let qryStr = queryParams.toString();
+    if (selectedCategories.length > 0) {
       let resultCate = selectedCategories.map(Number);
-      qryStr += `&cateId=[${resultCate}]`
+      qryStr += `&cateId=[${resultCate}]`;
     }
     console.log(qryStr);
-    
-    const { data } = await axiosInstance.get(
-      `/events?${qryStr}`
-    );
-    const { data: events , paginate} = data;
+
+    const { data } = await axiosInstance.get(`/events?${qryStr}`);
+    const { data: events, paginate } = data;
     console.log(data);
 
     events.forEach((event) => {
       let pricing = null;
       // Get the current date and time
       const eventDate = new Date(event.started_date);
+      const endDate = new Date(event.ended_date);
+
       const currentDate = new Date();
+currentDate.setHours(0, 0, 0, 0);
       let eventStatus = null;
+
+      console.log(eventDate);
+      console.log(currentDate);
+      console.log(endDate);
+      
 
       if (currentDate < eventDate) {
         eventStatus = "Upcoming";
-      } else if (currentDate > eventDate) {
-        eventStatus = "Past";
+      } else if (currentDate >= eventDate && currentDate <= endDate) {
+        eventStatus = "Showing";
       } else {
-        eventStatus = "Ongoing";
-      }
+        eventStatus = "Past";
+      } 
 
       if (event.event_tickets.length > 1) {
         const numbers = event.event_tickets.map((et) => et.price);
@@ -267,7 +292,9 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
             : "Free Ticket"
         }`;
       } else if (event.event_tickets.length == 0) {
-        pricing = ``;
+        if (event.event_type == "online") {
+          pricing = `Free`;
+        }
       }
 
       let categories = "";
@@ -276,6 +303,8 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
           c.name
         }</span>`;
       });
+
+
       const eventCard = `
                 <div class="col-12" data-event-id="${event.id}">
                                 <div class="event-card shadow-light-sm">
@@ -283,7 +312,9 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
                                         <!-- Event Thumbnail -->
                                         <div
                                             class="event-thumbnail object-fit-cover d-flex justify-content-between" >
-                                            <img style="cursor: pointer;" onclick="goEventDetail(${event.id})"
+                                            <img style="cursor: pointer;" onclick="goEventDetail(${
+                                              event.id
+                                            })"
                                                 class="img-fluid object-fit-cover"
                                                 src="${
                                                   event.thumbnail
@@ -292,14 +323,16 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
                                                 }"
                                                 alt="Event Image"/>
                                             <div
-                                                class="event-thumbnail-overlay" style="cursor: pointer;" onclick="goEventDetail(${event.id})"></div>
+                                                class="event-thumbnail-overlay" style="cursor: pointer;" onclick="goEventDetail(${
+                                                  event.id
+                                                })"></div>
 
                                             <!-- Wishlist & Copy buttons -->
                                             <div class="button-group">
                                                 <div>
                                                     <button onclick="addWishlist(${
                                                       event.id
-                                                    }, this)" class="z-3 button ${
+                                                    }, this)" class="button ${
         event.is_Wishlist && "active"
       }">
                                                         <i
@@ -307,7 +340,7 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
                                                         <!-- Wishlist Icon -->
                                                     </button>
                                                 </div>
-                                                <button class="button z-3" onclick="copyEventUrlToClipboard(${
+                                                <button class="button" onclick="copyEventUrlToClipboard(${
                                                   event.id
                                                 })">
                                                     <i data-lucide="link" style="stroke-width: 2; width: 1.25rem;"></i>
@@ -315,26 +348,23 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
                                                 </button>
                                             </div>
 
-                                            <!-- Event Type Tag -->
-                                            <div style="cursor: pointer;" onclick="goEventDetail(${event.id})" class="event-type text-brand ${
-                                              event.event_type == "offline"
-                                                ? "d-none"
-                                                : ""
-                                            }">
+                                             <!-- Event Type Tag -->
+                                            <div style="cursor: pointer;" onclick="goEventDetail(${
+                                              event.id
+                                            })" class="event-type text-brand py-1">
                                                 <i
-                                                    class="fas fa-map-marker-alt"></i>
-                                                <span>${
-                                                  event.event_type == "offline"
-                                                    ? "In Person"
-                                                    : "Online"
-                                                }</span>
+                                                    class="fas fa-tag" style="font-size: 10px !important;"></i>
+                                                <small>${pricing}</small>
                                             </div>
                                         </div>
+                                       
 
                                         <!-- Event Details -->
-                                        <div class="event-details" style="cursor: pointer;" onclick="goEventDetail(${event.id})">
+                                        <div class="event-details" style="cursor: pointer;" onclick="goEventDetail(${
+                                          event.id
+                                        })">
                                             <div
-                                                class="d-flex justify-content-between">
+                                                class="d-flex justify-content-between align-items-center">
 
                                                 <h3
                                                     class="event-title text-wrap">${
@@ -344,14 +374,14 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
                                                     class="event-category pill5 fw-medium d-none d-sm-flex">${eventStatus}</span>
                                                 
                                             </div>
-                                            <p
-                                                class="event-description d-none d-lg-block text-1-line">
+                                            <!-- <p
+                                                class="event-description d-none text-1-line">
                                                 ${event.short_description}
-                                            </p>
+                                            </p> -->
 
                                             <!-- Event Tags -->
                                             <div
-                                                class="d-flex align-items-center justify-content-between mb-3 mt-2 mt-lg-0">
+                                                class="d-flex align-items-center justify-content-between mb-2">
                                                 <div
                                                     class="event-categories flex-nowrap">
                                                     ${categories}
@@ -366,14 +396,14 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
                                             <div class="event-meta">
                                                 <div class="event-meta-item">
                                                     <i
-                                                        class="fas fa-calendar-alt text-brand"></i>
+                                                        class="fas fa-calendar-alt text-brand fs-6"></i>
                                                     <span>${moment(
                                                       event.started_date
                                                     ).format("ll")}</span>
                                                 </div>
                                                 <div class="event-meta-item">
                                                     <i
-                                                        class="fas fa-clock text-brand"></i>
+                                                        class="fas fa-clock text-brand fs-6"></i>
                                                     <span>${
                                                       moment(
                                                         event.start_time,
@@ -390,14 +420,17 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
                                             </div>
 
                                             <div class="event-meta-item ${
-                                              event.location ? "" : "d-none"
+                                              event.location ? "" : ""
                                             }"
-                                                style="margin-bottom: 0.75rem !important;">
+                                                style="">
                                                 <i
-                                                    class="fas fa-map-marker-alt text-brand"></i>
+                                                    class="fas fa-map-marker-alt text-brand fs-6"></i>
                                                 <p
-                                                    class="text-1-line mb-0">${
-                                                      event.location
+                                                    class="text-1-line mb-0 pb-0">${
+                                                      event.event_type ==
+                                                      "offline"
+                                                        ? event.location
+                                                        : "Online Event"
                                                     }</p>
                                                 <div
                                                     class=" text-brand fw-medium"
@@ -406,14 +439,14 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
                                                 </div>
 
                                             </div>
-                                            <div class="event-meta-item ${
+                                            <!-- <div class="event-meta-item ${
                                               !pricing && "d-none"
                                             }">
                                                 <i
                                                     class="fa-solid fa-tag text-brand"></i><span
                                                     class>${pricing}</span>
 
-                                            </div>
+                                            </div> -->
 
                                             <!-- Event Price -->
 
@@ -447,63 +480,63 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
 }
 
 function renderPagination(paginate) {
-    const paginationNumbers = document.getElementById("pagination-numbers");
-    paginationNumbers.innerHTML = "";
-  
-    const totalPages = paginate.total_page;
-    const currentPage = paginate.current_page;
-  
-    function createPageButton(page) {
-      const pageButton = document.createElement("button");
-      pageButton.textContent = page;
-      pageButton.classList.add("pagination-number");
-      if (page === currentPage) {
-        pageButton.classList.add("active");
-      }
-      pageButton.onclick = () => changePage(page);
-      return pageButton;
+  const paginationNumbers = document.getElementById("pagination-numbers");
+  paginationNumbers.innerHTML = "";
+
+  const totalPages = paginate.total_page;
+  const currentPage = paginate.current_page;
+
+  function createPageButton(page) {
+    const pageButton = document.createElement("button");
+    pageButton.textContent = page;
+    pageButton.classList.add("pagination-number");
+    if (page === currentPage) {
+      pageButton.classList.add("active");
     }
-  
-    if (totalPages <= 5) {
-      for (let i = 1; i <= totalPages; i++) {
-        paginationNumbers.appendChild(createPageButton(i));
-      }
-    } else {
-      paginationNumbers.appendChild(createPageButton(1));
-  
-      if (currentPage > 3) {
-        paginationNumbers.appendChild(document.createTextNode("..."));
-      }
-  
-      let start = Math.max(2, currentPage - 1);
-      let end = Math.min(totalPages - 1, currentPage + 1);
-  
-      for (let i = start; i <= end; i++) {
-        paginationNumbers.appendChild(createPageButton(i));
-      }
-  
-      if (currentPage < totalPages - 2) {
-        paginationNumbers.appendChild(document.createTextNode("..."));
-      }
-  
-      paginationNumbers.appendChild(createPageButton(totalPages));
-    }
-  
-    document.getElementById("prevBtn").disabled = currentPage === 1;
-    document.getElementById("nextBtn").disabled = currentPage === totalPages;
-  
-    document.getElementById("prevBtn").onclick = () => changePage(currentPage - 1);
-    document.getElementById("nextBtn").onclick = () => changePage(currentPage + 1);
+    pageButton.onclick = () => changePage(page);
+    return pageButton;
   }
-  
+
+  if (totalPages <= 5) {
+    for (let i = 1; i <= totalPages; i++) {
+      paginationNumbers.appendChild(createPageButton(i));
+    }
+  } else {
+    paginationNumbers.appendChild(createPageButton(1));
+
+    if (currentPage > 3) {
+      paginationNumbers.appendChild(document.createTextNode("..."));
+    }
+
+    let start = Math.max(2, currentPage - 1);
+    let end = Math.min(totalPages - 1, currentPage + 1);
+
+    for (let i = start; i <= end; i++) {
+      paginationNumbers.appendChild(createPageButton(i));
+    }
+
+    if (currentPage < totalPages - 2) {
+      paginationNumbers.appendChild(document.createTextNode("..."));
+    }
+
+    paginationNumbers.appendChild(createPageButton(totalPages));
+  }
+
+  document.getElementById("prevBtn").disabled = currentPage === 1;
+  document.getElementById("nextBtn").disabled = currentPage === totalPages;
+
+  document.getElementById("prevBtn").onclick = () =>
+    changePage(currentPage - 1);
+  document.getElementById("nextBtn").onclick = () =>
+    changePage(currentPage + 1);
+}
 
 async function changePage(newPage) {
-    const queryParams = new URLSearchParams(window.location.search);
-    queryParams.set("page", newPage); // Update page parameter
-  
-    await renderEvents(newPage); // Call renderEvents with new page
-  }
-  
+  const queryParams = new URLSearchParams(window.location.search);
+  queryParams.set("page", newPage); // Update page parameter
+
+  await renderEvents(newPage); // Call renderEvents with new page
+}
 
 // Sidebar Toggle
 function showSidebar() {
@@ -515,3 +548,4 @@ function hideSidebar() {
   document.getElementById("mobile-sidebar").classList.remove("show");
   document.getElementById("sidebar-overlay").classList.remove("show");
 }
+

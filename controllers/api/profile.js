@@ -3,9 +3,11 @@ const fs = require("fs");
 const moment = require("moment");
 const { handleResponseError } = require("../../utils/handleError");
 const { executeQuery } = require("../../utils/dbQuery");
-const { sendResponse,sendResponse1 } = require("../../utils/response");
-const {ownReqTicketCollection, ownTicketCollection}=require("../../resource/ticket");
-const { name } = require("ejs");
+const { sendResponse, sendResponse1 } = require("../../utils/response");
+const {
+  ownReqTicketCollection,
+  ownTicketCollection,
+} = require("../../resource/ticket");
 
 const defaultAvatar = "default.jpg";
 
@@ -364,21 +366,21 @@ const getProfileById = async (req, res) => {
       return sendResponse(res, 404, false, "No data found.");
     }
 
-    const User=data[0];
-    const dataUser={
+    const User = data[0];
+    const dataUser = {
       id: User.id,
-      kh_name : User.kh_name,
+      kh_name: User.kh_name,
       eng_name: User.eng_name,
       email: User.email,
       phone: User.phone,
       avatar: User.avatar,
       dob: User.dob,
       gender: User.gender,
-      address:User.address,
+      address: User.address,
       role: User.role,
       status: User.status,
-      Organizer_info:{
-        id:User.organizer_id,
+      Organizer_info: {
+        id: User.organizer_id,
         name: User.organization_name,
         bio: User.bio,
         email: User.business_email,
@@ -390,18 +392,24 @@ const getProfileById = async (req, res) => {
         linkin: User.linkin,
         status: User.org_status,
         created_at: User.org_created,
-        updated_at: User.org_updated
+        updated_at: User.org_updated,
       },
-      created_at : User.created_at,
-      updated_at : User.updated_at
+      created_at: User.created_at,
+      updated_at: User.updated_at,
     };
 
-    sendResponse(res, 200, true, `Display profile detail with id : ${id}`, dataUser);
+    sendResponse(
+      res,
+      200,
+      true,
+      `Display profile detail with id : ${id}`,
+      dataUser
+    );
   } catch (error) {
     console.log(error);
     handleResponseError(res, error);
   }
-}
+};
 
 module.exports = {
   updateOwnInfo,

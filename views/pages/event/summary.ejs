@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <%- include("../../partials/head.ejs") %>
+    <style>
+        
+        .dashboard {
+          min-height: 100vh;
+          background-color: #f8f9fa;
+        }
+        
+        .card {
+          border: none;
+          border-radius: 0.5rem;
+          box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+          transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+          box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+        }
+        
+        .stat-card {
+          padding: 1.5rem;
+        }
+        
+        .stat-title {
+          font-size: 0.875rem;
+          color: #6c757d;
+          margin-bottom: 0.25rem;
+        }
+        
+        .stat-value {
+          font-size: 1.5rem;
+          font-weight: 500;
+          margin-bottom: 0;
+        }
+        
+        .icon-blue { color: #3b82f6; }
+        .icon-green { color: #10b981; }
+        .icon-cyan { color: #06b6d4; }
+        .icon-yellow { color: #f59e0b; }
+        
+        .table-container {
+          overflow-x: auto;
+        }
+        
+        .custom-table {
+          min-width: 600px;
+          width: 100%;
+        }
+        
+        .custom-table th {
+          color: #6c757d;
+          font-weight: 500;
+          border-bottom: 2px solid #e9ecef;
+          padding: 0.75rem 1rem;
+        }
+        
+        .custom-table td {
+          padding: 0.75rem 1rem;
+          border-bottom: 1px solid #e9ecef;
+        }
+        
+        .custom-table tr:last-child td {
+          border-bottom: none;
+        }
+        
+        .share-link-container {
+          border: 1px solid var(--c-brand-light);
+          border-radius: 0.5rem;
+          padding: 0.5rem 1rem;
+        }
+        
+        .share-link-input {
+          border: none;
+          outline: none;
+          width: 100%;
+          color: #6c757d;
+        }
+        
+        .share-button {
+          color: var(--c-brand);
+          border: 1px solid var(--c-brand);
+          background: white;
+          padding: 0.5rem 1rem;
+          border-radius: 0.5rem;
+          transition: all 0.2s ease;
+        }
+        
+        .share-button:hover {
+          background-color: var(--c-brand-dark);
+          color: #fff;
+        }
+        
+        .social-button {
+          width: 2.5rem;
+          height: 2.5rem;
+          border: 1px solid #e11d48;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #e11d48;
+          background: white;
+          transition: all 0.2s ease;
+        }
+        
+        .social-button:hover {
+          background-color: #fdf2f2;
+        }
+            </style>
+    <body class="">
+        <%- include("../../partials/manage-event-header.ejs") %>
+        <main class="dashboard">
+            <div class>
+                <div class="d-flex">
+                    <%- include("../../partials/manage-event-sidebar.ejs") %>
+
+                    <section class="p-4 w-100">
+                        <div class="">
+                            <main class="px-md-4 pb-md-3">
+                                <div class="d-flex align-items-center">
+                                    <button onclick="history.back()" type="button" class="btn fw-medium border-0 ps-0 d-flex align-items-center mb-2">
+                                        <i class="fa-solid fa-angle-left fs-6 m-0 p-0 "></i>
+                                        <span class="m-0 ps-2"><a>Back to
+                                                Event</a></span>
+                                    </button>
+                                </div>
+                                <div class="card mb-4 p-4">
+                                    <h1 class="h3 mb-2">Event Summary</h1>
+                                    <h2
+                                        class="h5 text-muted mb-2" id="event-title">{eventData.eng_name}</h2>
+                                    <div class="d-flex align-items-center">
+                                        <small class="me-2 text-brand"><i data-lucide="calendar-days" width="1rem"></i></small>
+                                        <span id="event-date">Thu, 5 December, 2024</span>
+                                    </div>
+                                </div>
+                                <div class="row g-4 mb-4">
+                                    <div class="col-12 col-md-6 col-lg-3">
+                                        <!-- <StatCard
+                                    title="TICKETS SOLD"
+                                    value={`${eventData.total_registration} tickets`}
+                                    type="tickets"
+                                  /> -->
+                                        <div class="card stat-card">
+                                            <div
+                                                class="d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <h3
+                                                        class="stat-title">TICKETS
+                                                        SOLD</h3>
+                                                    <p class="stat-value" id="ticket-sold">10
+                                                        tickets</p>
+                                                </div>
+                                                <div style="color: #3B82F6;"><i
+                                                        data-lucide="ticket-percent"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6 col-lg-3">
+                                        <!-- <StatCard
+                                    title="TICKETS EARNINGS"
+                                    value={`$${totalEarnings.toFixed(2)}`}
+                                    type="earnings"
+                                  /> -->
+                                        <div class="card stat-card">
+                                            <div
+                                                class="d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <h3
+                                                        class="stat-title">TICKETS
+                                                        EARNINGS</h3>
+                                                    <p
+                                                        class="stat-value" id="ticket-earning">$100.00</p>
+                                                </div>
+                                                <div class="" style="color: #10B981;"><i
+                                                        data-lucide="circle-dollar-sign"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6 col-lg-3">
+                                        <!-- <StatCard
+                                    title="PARTICIPATED"
+                                    value={`${eventData.total_checkin} attendant`}
+                                    type="participated"
+                                  /> -->
+                                        <div class="card stat-card">
+                                            <div
+                                                class="d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <h3
+                                                        class="stat-title">PARTICIPATED</h3>
+                                                    <p class="stat-value" id="participated">10
+                                                        attendant</p>
+                                                </div>
+                                                <div style="color: #06B6D4;" class={class}><i
+                                                        data-lucide="user-check"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6 col-lg-3">
+                                        <!-- <StatCard
+                                    title="NOT YET PARTICIPATE"
+                                    value={eventData.total_registration - eventData.total_checkin}
+                                    type="notParticipated"
+                                  /> -->
+                                        <div class="card stat-card">
+                                            <div
+                                                class="d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <h3  class="stat-title">NOT
+                                                        YET PARTICIPATE</h3>
+                                                    <p class="stat-value" id="not-participated">0</p>
+                                                </div>
+                                                <div style="color: #F59E0B;" class={class}><i
+                                                        data-lucide="users"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <!-- <TicketDetailsSection tickets={eventData.ticket} /> -->
+                                    <div class="card p-4">
+                                        <h2 class="h4 mb-4">Ticket Details</h2>
+                                        <div class="table-container">
+                                            <table class="custom-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th
+                                                            class="text-start">Ticket
+                                                            Type</th>
+                                                        <th
+                                                            class="text-end">Price</th>
+                                                        <th
+                                                            class="text-end">Tickets
+                                                            Bought</th>
+                                                        <th
+                                                            class="text-end">Total
+                                                            Earnings</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="ticket-tbody">
+                                                    <!-- {tickets.map((ticket) => ( -->
+                                                    <tr >
+                                                        <td>{ticket.type_name}</td>
+                                                        <td
+                                                            class="text-end">${ticket.price.toFixed(2)}</td>
+                                                        <td
+                                                            class="text-end">{ticket.ticket_bought}</td>
+                                                        <td class="text-end">
+                                                        </td>
+                                                    </tr>
+                                                    
+                                                    
+                                                </tbody>
+                                                <tfoot id="ticket-tfoot">
+                                                    <tr
+                                                        class="fw-bold bg-light">
+                                                        <td>Total</td>
+                                                        <td
+                                                            class="text-end">-</td>
+                                                        <td class="text-end">
+                                                            {tickets.reduce((sum,
+                                                            ticket) => sum +
+                                                            ticket.ticket_bought,
+                                                            0)}
+                                                        </td>
+                                                        <td
+                                                            class="text-end text-success">
+                                                            ${totalEarnings.toFixed(2)}
+                                                        </td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <ShareSection /> -->
+                                <div class="card p-4">
+                                    <h2 class="h4 mb-4">Share</h2>
+                                    <div class="mb-4">
+                                        <p class="text-muted mb-2">Event
+                                            link <i class="text-brand" data-lucide="link" width="1.25rem"></i></p>
+                                        <div class="d-flex gap-2">
+                                            <div
+                                                class="share-link-container flex-grow-1 d-flex align-items-center">
+                                                <i class="text-brand me-2" data-lucide="link" width="1.25rem"></i>
+                                                <input id="input-link"
+                                                    type="text"
+                                                    class="share-link-input"
+                                                    readOnly />
+                                            </div>
+                                            <button id="shareBtn"
+                                                class="share-button">
+                                                
+                                                Copy link
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex gap-2">
+
+                                        <div class="social-media-orgainzer d-flex">
+                                            <a href="#"
+                                                class="social-icon social-icon-organizer ms-0">
+                                                <i class="fab fa-facebook-f"></i>
+                                            </a>
+                                            <a href="#" class="social-icon">
+                                                <i class="fab fa-twitter"></i>
+                                            </a>
+                                            <a href="#" class="social-icon">
+                                                <i class="fab fa-google"></i>
+                                            </a>
+                                            <a href="#" class="social-icon">
+                                                <i class="fab fa-linkedin-in"></i>
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                               
+
+                            </main>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+        </main>
+
+    </body>
+    <%- include("../../partials/script.ejs") %>
+    <script src="/js/utils/organizer-sidebar.js"></script>
+    <script src="/js/events/summary.js"></script>
+
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        
+.dashboard {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.card {
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.stat-card {
+  padding: 1.5rem;
+}
+
+.stat-title {
+  font-size: 0.875rem;
+  color: #6c757d;
+  margin-bottom: 0.25rem;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+.icon-blue { color: #3b82f6; }
+.icon-green { color: #10b981; }
+.icon-cyan { color: #06b6d4; }
+.icon-yellow { color: #f59e0b; }
+
+.table-container {
+  overflow-x: auto;
+}
+
+.custom-table {
+  min-width: 600px;
+  width: 100%;
+}
+
+.custom-table th {
+  color: #6c757d;
+  font-weight: 500;
+  border-bottom: 2px solid #e9ecef;
+  padding: 0.75rem 1rem;
+}
+
+.custom-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.custom-table tr:last-child td {
+  border-bottom: none;
+}
+
+.share-link-container {
+  border: 1px solid #e9ecef;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+}
+
+.share-link-input {
+  border: none;
+  outline: none;
+  width: 100%;
+  color: #6c757d;
+}
+
+.share-button {
+  color: #e11d48;
+  border: 1px solid #e11d48;
+  background: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.share-button:hover {
+  background-color: #fdf2f2;
+}
+
+.social-button {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid #e11d48;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #e11d48;
+  background: white;
+  transition: all 0.2s ease;
+}
+
+.social-button:hover {
+  background-color: #fdf2f2;
+}
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <main class="container py-4">
+          <div class="card mb-4 p-4">
+            <h1 class="h3 mb-2">Event Summary</h1>
+            <h2 class="h5 text-muted mb-2">{eventData.eng_name}</h2>
+            <div class="text-danger">
+              <span class="me-2">📅</span>
+              <span>Thu, 5 December, 2024</span>
+            </div>
+          </div>
+          <div class="row g-4 mb-4">
+            <div class="col-12 col-md-6 col-lg-3">
+              <!-- <StatCard
+                title="TICKETS SOLD"
+                value={`${eventData.total_registration} tickets`}
+                type="tickets"
+              /> -->
+              <div class="card stat-card">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <h3 class="stat-title">{title}</h3>
+                    <p class="stat-value">{value}</p>
+                  </div>
+                  <div class={class}>{icon}</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+              <!-- <StatCard
+                title="TICKETS EARNINGS"
+                value={`$${totalEarnings.toFixed(2)}`}
+                type="earnings"
+              /> -->
+              <div class="card stat-card">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <h3 class="stat-title">{title}</h3>
+                    <p class="stat-value">{value}</p>
+                  </div>
+                  <div class={class}>{icon}</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+              <!-- <StatCard
+                title="PARTICIPATED"
+                value={`${eventData.total_checkin} attendant`}
+                type="participated"
+              /> -->
+              <div class="card stat-card">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <h3 class="stat-title">{title}</h3>
+                    <p class="stat-value">{value}</p>
+                  </div>
+                  <div class={class}>{icon}</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+              <!-- <StatCard
+                title="NOT YET PARTICIPATE"
+                value={eventData.total_registration - eventData.total_checkin}
+                type="notParticipated"
+              /> -->
+              <div class="card stat-card">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <h3 class="stat-title">{title}</h3>
+                    <p class="stat-value">{value}</p>
+                  </div>
+                  <div class={class}>{icon}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mb-4">
+            <!-- <TicketDetailsSection tickets={eventData.ticket} /> -->
+            <div class="card p-4">
+                <h2 class="h4 mb-4">Ticket Details</h2>
+                <div class="table-container">
+                  <table class="custom-table">
+                    <thead>
+                      <tr>
+                        <th class="text-start">Ticket Type</th>
+                        <th class="text-end">Price</th>
+                        <th class="text-end">Tickets Bought</th>
+                        <th class="text-end">Total Earnings</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- {tickets.map((ticket) => ( -->
+                        <tr key={ticket.id}>
+                          <td>{ticket.type_name}</td>
+                          <td class="text-end">${ticket.price.toFixed(2)}</td>
+                          <td class="text-end">{ticket.ticket_bought}</td>
+                          <td class="text-end">
+                            $
+                            {calculateEarnings(
+                              ticket.price,
+                              ticket.ticket_bought,
+                            ).toFixed(2)}
+                          </td>
+                        </tr>
+                      <!-- ))} -->
+                      <tr class="fw-bold bg-light">
+                        <td>Total</td>
+                        <td class="text-end">-</td>
+                        <td class="text-end">
+                          {tickets.reduce((sum, ticket) => sum + ticket.ticket_bought, 0)}
+                        </td>
+                        <td class="text-end text-success">
+                          ${totalEarnings.toFixed(2)}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+          </div>
+          <!-- <ShareSection /> -->
+          <div class="card p-4">
+            <h2 class="h4 mb-4">Share</h2>
+            <div class="mb-4">
+              <p class="text-muted mb-2">Event link</p>
+              <div class="d-flex gap-2">
+                <div class="share-link-container flex-grow-1 d-flex align-items-center">
+                  <Link size={20} class="text-danger me-2" />
+                  <input
+                    type="text"
+                    value={window.location.href}
+                    class="share-link-input"
+                    readOnly
+                  />
+                </div>
+                <button onClick={handleCopyLink} class="share-button">
+                  {copySuccess ? "Copied!" : "copy link"}
+                </button>
+              </div>
+            </div>
+            <div class="d-flex gap-2">
+              
+                <button class="social-button">
+                  {platform[0].toUpperCase()}
+                </button>
+              
+            </div>
+          </div>
+        </main>
+      </div>
+</body>
+</html>
