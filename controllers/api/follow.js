@@ -80,7 +80,7 @@ const removeFollower = async (req, res) => {
 };
 
 const getFollowers = async (req, res) => {
-  const userId = req.user.id; // Logged-in user
+  const userId = req.params.id; // Logged-in user
 
   try {
     const query = `
@@ -127,7 +127,7 @@ const getFollowers = async (req, res) => {
 };
 
 const getFollowing = async (req, res) => {
-  const userId = req.user.id; 
+  const userId = req.params.id;
 
   try {
     const query = `
