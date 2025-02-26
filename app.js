@@ -7,8 +7,7 @@ const middleware = require("i18next-http-middleware");
 const i18next = require("./config/i18n");
 const { checkUser, requireAuth } = require("./middlewares/auth");
 
-const { deleteNotification } = require('./job/notification'); //auto delete noti after 3 days
-
+const { deleteNotification } = require("./job/notification"); //auto delete noti after 3 days
 
 // API
 const apiAuth = require("./routes/api/auth");
@@ -37,6 +36,7 @@ const webAdminUser = require("./routes/web/admin/user");
 const webAdminOrganizer = require("./routes/web/admin/organizer");
 const webAdminEvent = require("./routes/web/admin/event");
 const webAdminSetting = require("./routes/web/admin/setting");
+const webAdminProfile = require("./routes/web/admin/profile");
 
 const app = express();
 
@@ -78,6 +78,7 @@ app.use("/admin/user", webAdminUser);
 app.use("/admin/organizer", webAdminOrganizer);
 app.use("/admin/event", webAdminEvent);
 app.use("/admin/setting", webAdminSetting);
+app.use("/admin/profile", webAdminProfile);
 
 const PORT = process.env.PORT || 3000;
 

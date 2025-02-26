@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('../../partials/admin/head.ejs') %>
+
+    <body>
+        <style>
+            body {
+                font-family: 'Poppins', sans-serif;
+            }
+
+            /* .content-body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            } */
+
+            .profile-card {
+                background: #fff;
+                border-radius: 15px;
+                box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+                padding: 30px;
+                text-align: center;
+            }
+
+            .profile-avatar {
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+                object-fit: cover;
+                border: 5px solid #ff1694;
+            }
+
+            .profile-info {
+                display: block !important;
+                text-align: left;
+                margin-top: 20px;
+            }
+
+            .profile-info h4 {
+                font-size: 18px;
+                font-weight: 500;
+                margin: 10px 0;
+            }
+
+            .profile-info strong {
+                color: #ff1694;
+            }
+        </style>
+
+        <%- include('../../partials/admin/preloader.ejs') %>
+
+            <div id="main-wrapper">
+                <%- include('../../partials/admin/nav-header.ejs') %>
+                    <%- include('../../partials/admin/chatbox.ejs') %>
+                        <%- include('../../partials/admin/header.ejs') %>
+                            <%- include('../../partials/admin/sidebar.ejs') %>
+
+                                <div class="content-body">
+                                    <div class="container-fluid">
+                                        <div class="row justify-content-center">
+                                            <div class="col-md-8">
+                                                <div class="profile-card">
+                                                    <img src="/uploads/<%= user.avatar %>" alt="Profile Avatar"
+                                                        class="profile-avatar">
+                                                    <h2>
+                                                        <%= user.eng_name %>
+                                                    </h2>
+                                                    <h4 style="color: #ff1694;">(<%= user.kh_name %>)</h4>
+
+                                                    <div class="profile-info">
+                                                        <div class="row justify-content-center align-items-center mb-3">
+                                                            <div class="col-6">
+                                                                <h4><strong>Email : </strong>
+                                                                    <%= user.email %>
+                                                                </h4>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <h4><strong>Phone : </strong>
+                                                                    <%= user.phone %>
+                                                                </h4>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row justify-content-center align-items-center mb-3">
+                                                            <div class="col-6">
+                                                                <h4><strong>Date of Birth : </strong>
+                                                                    <%= new Date(user.dob).toLocaleDateString("en-CA")
+                                                                        %>
+                                                                </h4>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <h4><strong>Gender : </strong>
+                                                                    <%= user.gender===0 ? "Male" : "Female" %>
+                                                                </h4>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row justify-content-center align-items-center mb-3">
+                                                            <div class="col-6">
+                                                                <h4><strong>Role : </strong>
+                                                                    <span class="badge 
+                                                                        <%= user.role === 1 ? 'badge-info' : 
+                                                                            user.role === 2 ? 'badge-warning' : 
+                                                                            user.role === 3 ? 'badge-primary' : 'badge-default' 
+                                                                        %>">
+                                                                        <%= user.role===1 ? "Guest" : user.role===2
+                                                                            ? "Organizer" : user.role===3 ? "Admin"
+                                                                            : "Unknown" %>
+                                                                    </span>
+                                                                </h4>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <h4><strong>Status : </strong>
+                                                                    <span class="badge
+                                                                        <%= user.status === 1 ? 'badge-success' : 'badge-danger'
+                                                                        %>">
+                                                                        <%= user.status === 1 ? 'Active' : 'Inactive' %>
+                                                                    </span>
+                                                                </h4>
+                                                            </div>
+                                                        </div>
+                                                        <h4><strong>Address : </strong>
+                                                            <%= user.address %>
+                                                        </h4>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <%- include('../../partials/admin/footer.ejs') %>
+            </div>
+
+            <!-- Required vendors -->
+            <script src="/admin/vendor/global/global.min.js"></script>
+            <script src="/admin/vendor/chart.js/Chart.bundle.min.js"></script>
+            <script src="/admin/vendor/apexchart/apexchart.js"></script>
+            <script src="/admin/vendor/datatables/js/jquery.dataTables.min.js"></script>
+            <script src="/admin/js/plugins-init/datatables.init.js"></script>
+            <script src="/admin/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+            <script src="/admin/js/custom.min.js"></script>
+            <script src="/admin/js/dlabnav-init.js"></script>
+            <script src="/admin/js/demo.js"></script>
+            <script src="/admin/js/styleSwitcher.js"></script>
+    </body>
+
+</html>

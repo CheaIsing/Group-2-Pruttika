@@ -1,17 +1,17 @@
-const port = 3000;
-const url = `http://localhost:${port}/api`;
+// const port = 3000;
+// const url = `http://localhost:${port}/api`;
 
-const axiosInstance = axios.create({
-  baseURL: url,
-  timeout: 10000,
-  withCredentials: true,
-});
+// const axiosInstance = axios.create({
+//   baseURL: url,
+//   timeout: 10000,
+//   withCredentials: true,
+// });
 
 async function fetchRequestOrganizers(
   status = "",
   search = "",
   page = 1,
-  perPage = 5,
+  perPage = 10,
   sortCol = "organization_name",
   sortDir = "asc"
 ) {
@@ -69,6 +69,63 @@ async function fetchOrganizers(
   }
 }
 
+async function fetchRequestOrganizerDetail(id) {
+  const detailContainer = document.getElementById("requestDetailContent");
+  if (!detailContainer) return;
+
+  detailContainer.innerHTML = "Loading...";
+
+  try {
+    const response = await axiosInstance.get(
+      `/admin/organizer/req-details/${id}`
+    );
+    const organizer = response.data.data;
+
+    detailContainer.innerHTML = `
+          <div class="card p-3 border-0 shadow-sm">
+              <h4 class="fw-bold">${organizer.organization_name}</h4>
+              <p class="text-muted">${organizer.business_email}</p>
+              <p class="text-muted">${organizer.bio}</p>
+              <hr>
+              <div class="text-start">
+                  <p><strong>Phone : </strong> ${organizer.business_phone}</p>
+                  <p><strong>Address : </strong> ${organizer.location}</p>
+                  <p><strong>Facebook : </strong> <a href="#">${
+                    organizer.facebook
+                  }<a/></p>
+                  <p><strong>Telegram : </strong> <a href="#">
+                  ${organizer.telegram}</a></p>
+                  <p><strong>Tiktok : </strong> <a href="#">${
+                    organizer.tiktok
+                  }<a/></p>
+                  <p><strong>Linkin : </strong> <a href="#">${
+                    organizer.linkin
+                  }<a/></p>
+                  <p>
+                    <strong>Status : </strong>
+                    <span class="badge
+                      ${
+                        organizer.status == 1
+                          ? "badge-warning"
+                          : organizer.status == 2
+                          ? "badge-success"
+                          : organizer.status == 3
+                          ? "badge-danger"
+                          : "badge-secondary"
+                      }">
+                      ${getStatusName(organizer.status)}
+                  </span>
+                  </p>
+                  ${organizer.status === 3 ? `<p><strong>Reject reason : </strong> ${organizer.rejection_reason}<p>` : ""}
+              </div>
+          </div>
+      `;
+  } catch (error) {
+    detailContainer.innerHTML = "Failed to load organizer details.";
+    console.error("Error fetching organizer detail:", error.message);
+  }
+}
+
 async function fetchOrganizerDetail(id) {
   const detailContainer = document.getElementById("detailContent");
   if (!detailContainer) return;
@@ -88,10 +145,17 @@ async function fetchOrganizerDetail(id) {
               <div class="text-start">
                   <p><strong>Phone : </strong> ${organizer.business_phone}</p>
                   <p><strong>Address : </strong> ${organizer.location}</p>
-                  <p><strong>Facebook : </strong> ${organizer.facebook}</p>
-                  <p><strong>Telegram : </strong> ${organizer.telegram}</p>
-                  <p><strong>Tiktok : </strong> ${organizer.tiktok}</p>
-                  <p><strong>Linkin : </strong> ${organizer.linkin}</p>
+                  <p><strong>Facebook : </strong> <a href="#">${
+                    organizer.facebook
+                  }<a/></p>
+                  <p><strong>Telegram : </strong> <a href="#">
+                  ${organizer.telegram}</a></p>
+                  <p><strong>Tiktok : </strong> <a href="#">${
+                    organizer.tiktok
+                  }<a/></p>
+                  <p><strong>Linkin : </strong> <a href="#">${
+                    organizer.linkin
+                  }<a/></p>
                   <p><strong>Status : </strong> 
                       <span class="badge ${
                         organizer.status === 1 ? "bg-success" : "bg-danger"
@@ -154,7 +218,13 @@ function displayRequestOrganizer(organizers) {
                             <a class="dropdown-item" href="javascript:void(0)" role="button" onclick="adminRejection(${organizer.id})">Reject</a>
                         </div>
                       `
-                      : ""
+                      : `<div class="dropdown-menu dropdown-menu-end">
+                            <a href="javascript:void(0)" class="dropdown-item" role="button"
+                                onclick="fetchRequestOrganizerDetail(${organizer.id})" 
+                                data-bs-toggle="modal" data-bs-target="#viewRequestDetail">
+                                View details
+                            </a>
+                      </div>`
                   }
               </div>
           </td>
@@ -494,7 +564,8 @@ const removeOrganizer = async (organizerId) => {
           icon: "error",
           title: "Error Deleting organizer",
           text:
-            response.data.message || "There was an issue deleting the organizer.",
+            response.data.message ||
+            "There was an issue deleting the organizer.",
         });
       }
     }

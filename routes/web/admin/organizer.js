@@ -1,6 +1,8 @@
 const express = require("express");
 
-const { displayAllOrganizer } = require("../../../controllers/web/admin/organizer");
+const {
+  displayAllOrganizer,
+} = require("../../../controllers/web/admin/organizer");
 
 const router = express.Router();
 
