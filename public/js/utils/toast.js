@@ -68,6 +68,7 @@ async function addWishlist(id, btn) {
     // console.log(btn);
   try {
     btn.disabled = true
+    const result = await axiosInstance("/auth/me")
     const {data} = await axiosInstance.get(`/wishlist/display/${id}`);
 
     if(data.result){
@@ -82,8 +83,11 @@ async function addWishlist(id, btn) {
     }
 
   } catch (error) {
-
     console.error(error);
+    if (error.response && error.response.status == 401) {
+      return window.location.href = "/auth/signin"
+    }
+
     showToast()
   }finally{
     btn.disabled = false

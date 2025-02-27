@@ -69,6 +69,10 @@ signInForm.addEventListener(
       await axiosInstance.post("/auth/signin", formData);
 
       showToast(true, "Sign In Successfully.");
+
+      setTimeout(()=>{
+        window.location.href = "/"
+      }, 1200)
     } catch (error) {
       console.log(error);
 

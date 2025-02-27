@@ -27,6 +27,7 @@ const apiEvents = require("./routes/api/event");
 const apiTickets = require("./routes/api/ticket");
 
 // WEB
+// const webStatic = require("./routes/web/static")
 const webIndex = require("./routes/web/index")
 const webAuth = require("./routes/web/auth");
 const webEvent = require("./routes/web/event");
@@ -71,6 +72,7 @@ app.use("/api/tickets", apiTickets);
 // Web
 app.use(requireAuthWeb);
 app.use(webIndex)
+// app.use(webStatic)
 app.use("/auth", webAuth);
 app.use("/event", webEvent);
 app.use("/profile", webProfile);
@@ -85,6 +87,10 @@ app.use("/admin/event", webAdminEvent);
 app.use("/admin/setting", webAdminSetting);
 
 const PORT = process.env.PORT || 3000;
+
+app.use((req, res) => {
+  res.status(404).render("pages/static/404", {title: "404"})
+});
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
