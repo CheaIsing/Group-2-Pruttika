@@ -755,7 +755,7 @@ form.sign-in-form {
   background-color: #ffff;
   border-radius: 8px;
   /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
-  padding-top: 16px;
+  /* padding-top: 16px; */
   /* margin-left: 20px; */
 }
 
@@ -1293,7 +1293,12 @@ input[type="radio"]:hover {
 /* sidebar organiizer */
 @media (min-width: 768px) {
 
-  #searchEventInput {
+  #searchEventInput, 
+   #upcoming-searchEventInput,
+    #showing-searchEventInput{
+    width: 400px;
+  }
+  #past-searchEventInput {
     width: 400px;
   }
 }
@@ -3550,7 +3555,7 @@ tr.border-bottom:hover td {
 .qr-code {
   width: 160px;
   height: 160px;
-  background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png') no-repeat center center;
+  /* background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png') no-repeat center center; */
   background-size: cover;
   margin: auto;
 }
@@ -3944,16 +3949,6 @@ tr.border-bottom:hover td {
   background-color: #218838;
 }
 
-#html5-qrcode-button-camera-permission{
-  margin-top: 15px;
-  font-size: 1rem;
-  font-weight: 500;
-  padding: 6px 12px;
-  border-radius: 5px;
-  background-color: var(--c-brand);
-  color: white;
-  border: none;
-}
 
 /* homepage landing page */
 
@@ -4249,3 +4244,36 @@ footer .social-media a:hover {
   color: #e11594;
 }
 
+#html5-qrcode-button-camera-permission,
+#html5-qrcode-button-camera-stop,
+#html5-qrcode-button-camera-start,
+#html5-qrcode-button-file-selection{
+  margin-bottom: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 5px;
+  background-color: var(--c-brand);
+  color: white;
+  border: none;
+  width: 100%;
+}
+
+a#html5-qrcode-anchor-scan-type-change{
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 5px;
+  background-color: var(--c-white);
+  color: var(--c-brand);
+  border: 1px solid var(--c-brand);
+  transition: 0.3s;
+  text-decoration: none !important;
+  width: 100%;
+  display: inline-block;
+}
+
+a#html5-qrcode-anchor-scan-type-change:hover{
+  background-color: var(--c-brand);
+  color: var(--c-white);
+}
