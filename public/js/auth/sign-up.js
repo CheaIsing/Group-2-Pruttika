@@ -75,6 +75,9 @@ signUpForm.addEventListener(
       const res = await axiosInstance.post("/auth/signup", formData);
 
       showToast(true, "Sign Up Successfully.");
+      setTimeout(()=>{
+        window.location.href = "/auth/signin"
+      }, 1200)
     } catch (error) {
       console.log(error);
       if (!(error.response && error.response.data &&  typeof error.response.data == "object")) {

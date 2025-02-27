@@ -68,6 +68,7 @@ async function addWishlist(id, btn) {
     // console.log(btn);
   try {
     btn.disabled = true
+    const result = await axiosInstance("/auth/me")
     const {data} = await axiosInstance.get(`/wishlist/display/${id}`);
 
     if(data.result){
@@ -82,8 +83,11 @@ async function addWishlist(id, btn) {
     }
 
   } catch (error) {
-
     console.error(error);
+    if (error.response && error.response.status == 401) {
+      return window.location.href = "/auth/signin"
+    }
+
     showToast()
   }finally{
     btn.disabled = false
@@ -93,4 +97,22 @@ async function addWishlist(id, btn) {
 function goEventDetail(id){
   sessionStorage.setItem("event-detail-id", id);
   window.location.href = "/event/detail"
+}
+
+async function logOut (){
+  try {
+
+    await axiosInstance.delete("/auth/logout")
+    showToast(true, "Logged out successfully.")
+
+    setTimeout(()=>{
+      window.location.href = "/"
+    }, 1200)
+
+  } catch (error) {
+    
+    console.log(error);
+    showToast();
+
+  }
 }

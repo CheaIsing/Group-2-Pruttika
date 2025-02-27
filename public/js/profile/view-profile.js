@@ -1,4 +1,4 @@
-let userId = sessionStorage.getItem("view-profile-id") || 3;
+let userId = sessionStorage.getItem("view-profile-id") || 1
 async function getOrganizer() {
   try {
     const { data } = await axiosInstance.get("/profile/display/" + userId);
@@ -6,7 +6,7 @@ async function getOrganizer() {
 
 
     const {data: user} = data
-    let avatar = user.avatar ? `/uploads/${user.avatar}` : `/uploads/default.png`
+    let avatar = user.avatar ? `/uploads/${user.avatar}` : `/uploads/default.jpg`
 
     // document.getElementById('pfp').src = '/uploads/' + user.thumbnail;
 
@@ -37,6 +37,7 @@ async function getOrganizer() {
       document.getElementById("contact-email").innerText = user.Organizer_info.email
       document.getElementById("contact-location").innerText = user.Organizer_info.location
       document.getElementById('name').innerText = user.Organizer_info.name;
+      document.getElementById('smallName').innerText = user.eng_name;
       document.getElementById('social-media').innerHTML = `
       <a href="${user.Organizer_info.facebook}" id="fb" class="social-icon mx-0 social-icon-organizer ${!(user.Organizer_info.facebook) && "d-none"} fs-6" style="width: 36px;height: 36px;">
                     <i class="fab fa-facebook-f"></i>

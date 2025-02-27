@@ -1,24 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<%- include("../../partials/head.ejs")  %>
+    <%- include("../../partials/head.ejs") %>
 
     <body>
-        <%- include("../../partials/navbar.ejs")  %>
+        <%- include("../../partials/navbar.ejs") %>
 
         <div class="container-lg  py-4">
             <h4 id="role">Organizer Profile</h4>
-            <div class="d-flex justify-content-between align-content-center flex-column flex-md-row mb-3">
+            <div
+                class="d-flex justify-content-between align-content-center flex-column flex-md-row mb-3">
                 <div class="d-flex my-3 align-items-center gap-3">
-                    <div class="orgainerAcount ">
-                        <img src="../../../public/img/Default_pfp.jpg" id="pfp" alt>
-                        
-                        
+                    <div class="orgainerAcount me-1">
+                        <img src="../../../public/img/Default_pfp.jpg" id="pfp"
+                            alt>
+
                     </div>
-                    <div class="">
-                        <h4 class="organizerName fs-4 fw-medium" id="name">
-                            Tom Jerranie
-                        </h4>
+                    <div class>
+                        <div class="mb-2"><h4
+                                class="organizerName fs-4 fw-medium mb-0"
+                                id="name">
+                                Tom Jerranie
+                            </h4>
+                            <div id="smallName">Hi</div>
+                        </div>
                         <div class="d-flex mt-2">
                             <div class="follow fw-medium text-center me-4">
                                 <div class="d-block" id="total-event">10</div>
@@ -26,128 +31,148 @@
                             </div>
                             <div class="follow fw-medium text-center me-4">
                                 <div class="d-block" id="total-follower">5</div>
-                                <a href="follower.html"><span
-                                        class="text-muted">Followers</span></a>
+                                <div><span
+                                        class="text-muted">Followers</span></div>
                             </div>
                             <div class="follow fw-medium text-center">
-                                <div class="d-block" id="total-following">50</div>
-                                <a href="following.html"><span
-                                        class="text-muted">Following</span></a>
+                                <div class="d-block"
+                                    id="total-following">50</div>
+                                <div><span
+                                        class="text-muted">Following</span></div>
                             </div>
                         </div>
 
                     </div>
                 </div>
                 <div class="d-flex align-items-center gap-3">
-                        <button class="btn btn-brand fw-medium px-4 py-2 rounded-5"
-                            type="button"  style="height: auto !important;">
-                            Following
-                        </button>
-                    <button type="submit" class="btn btn-outline-brand fw-medium px-4 py-2 rounded-5" style="height: auto !important;">Contact</button>
+                    <button class="btn btn-brand fw-medium px-4 py-2 rounded-5"
+                        type="button" style="height: auto !important;">
+                        Following
+                    </button>
+                    <button type="submit"
+                        class="btn btn-outline-brand fw-medium px-4 py-2 rounded-5"
+                        style="height: auto !important;">Contact</button>
                 </div>
             </div>
-            <div class="" id="organizer-info">
-                <h5 class="mb-3">About</h5>
-            <div class="about mb-4">
-                <div class="mb-2 d-flex align-items-center gap-2">
-                    <i data-lucide="phone" width="1.25rem" class="text-brand"></i>
-                    <span class="" id="contact-phone">088 777
-                            999</span>
+            <div class="d-flex flex-column" id="organizer-info">
+                <div class>
+                    <h5 class="mb-3">About</h5>
+                    <div class="about mb-4">
+                        <div class="mb-2 d-flex align-items-center gap-2">
+                            <i data-lucide="phone" width="1.25rem"
+                                class="text-brand"></i>
+                            <span class id="contact-phone">088 777
+                                999</span>
+                        </div>
+                        <div class="mb-2 d-flex align-items-center gap-2">
+                            <i data-lucide="mail" width="1.25rem"
+                                class="text-brand"></i>
+                            <span
+                                class
+                                id="contact-email">tomjerranie@gmail.com</span>
+                        </div>
+                        <div class="mb-2 d-flex align-items-center gap-2">
+                            <i data-lucide="map-pin" width="1.25rem"
+                                class="text-brand"></i>
+                            <span class id="contact-location">Street 2002, Sen
+                                Sok, Phnom Penh, Cambodia </span>
+                        </div>
+                    </div>
                 </div>
-                <div class="mb-2 d-flex align-items-center gap-2">
-                    <i data-lucide="mail"  width="1.25rem" class="text-brand"></i>
-                     <span
-                            class="" id="contact-email">tomjerranie@gmail.com</span>
+                <div class>
+                    <h5 class="mb-3" id>
+                        Social Media
+                    </h5>
+                    <div id="social-media"
+                        class="social-media-orgainzer mt-2 gap-3 d-flex align-items-center mb-4">
+                        <a href="#" id="fb"
+                            class="social-icon mx-0 social-icon-organizer fs-6"
+                            style="width: 36px;height: 36px;">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" id="tel" class="social-icon mx-0 fs-6"
+                            style="width: 36px;height: 36px;">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <a href="#" id="tt" class="social-icon mx-0  fs-6"
+                            style="width: 36px;height: 36px;">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                        <a href="#" id="li" class="social-icon mx-0 fs-6"
+                            style="width: 36px;height: 36px;">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
                 </div>
-                <div class="mb-2 d-flex align-items-center gap-2">
-                    <i data-lucide="map-pin"  width="1.25rem" class="text-brand"></i>
-                     <span class="" id="contact-location">Street 2002, Sen
-                            Sok, Phnom Penh, Cambodia </span>
-                </div>
-            </div>
-            <h5 class="mb-3" id="">
-                Social Media
-            </h5>
-            <div id="social-media" class="social-media-orgainzer mt-2 gap-3 d-flex align-items-center mb-4">
-                <a href="#" id="fb" class="social-icon mx-0 social-icon-organizer fs-6" style="width: 36px;height: 36px;">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-                <a href="#" id="tel" class="social-icon mx-0 fs-6" style="width: 36px;height: 36px;">
-                    <i class="fab fa-telegram"></i>
-                </a>
-                <a href="#" id="tt" class="social-icon mx-0  fs-6" style="width: 36px;height: 36px;">
-                    <i class="fab fa-tiktok"></i>
-                </a>
-                <a href="#" id="li" class="social-icon mx-0 fs-6" style="width: 36px;height: 36px;">
-                    <i class="fab fa-linkedin-in"></i>
-                </a>
-            </div>
             </div>
             <div class="d-flex justify-content-between align-items-center">
-                <h5 class="">Events</h5>
-                <h6 class="text-brand"><span id="total-event-2">0</span> Events</h6>
+                <h5 class>Events</h5>
+                <h6 class="text-brand"><span id="total-event-2">0</span>
+                    Events</h6>
             </div>
-            
-                <select id="select-sort" class="form-select w-auto mb-3 border-brand-sm rounded-5 bg-transparent ps-3">
-                    <option value="all">All</option>
-                    <option value="aproved">Upcoming</option>
-                    <option value="pending">Showing</option>
-                    <option value="rejected">Past</option>
-                </select>
 
-                <div class="row g-4" id="event-list">
-                    <div class="col-12 col-md-6 col-xl-4 col-xxl-3">
-                        <div class="event-card mb-0 shadow-light-sm">
-                            <div class="event-card-container event-card-container-horizontal">
-                                <!-- Event Thumbnail -->
+            <select id="select-sort"
+                class="form-select w-auto mb-3 border-brand-sm rounded-5 bg-transparent ps-3">
+                <option value="all">All</option>
+                <option value="aproved">Upcoming</option>
+                <option value="pending">Showing</option>
+                <option value="rejected">Past</option>
+            </select>
+
+            <div class="row g-4" id="event-list">
+                <div class="col-12 col-md-6 col-xl-4 col-xxl-3">
+                    <div class="event-card mb-0 shadow-light-sm">
+                        <div
+                            class="event-card-container event-card-container-horizontal">
+                            <!-- Event Thumbnail -->
+                            <div
+                                class="event-thumbnail object-fit-cover d-flex justify-content-between">
+                                <img
+                                    class="img-fluid object-fit-cover"
+                                    src="/uploads/default-events-img.jpg"
+                                    alt="Event Image" />
                                 <div
-                                    class="event-thumbnail object-fit-cover d-flex justify-content-between" >
-                                    <img
-                                        class="img-fluid object-fit-cover"
-                                        src="/uploads/default-events-img.jpg"
-                                        alt="Event Image"/>
-                                    <div
-                                        class="event-thumbnail-overlay"></div>
+                                    class="event-thumbnail-overlay"></div>
 
-                                    <!-- Wishlist & Copy buttons -->
-                                    <div class="button-group">
-                                        <div>
-                                            <button class="button">
-                                                <i
-                                                    class="fa-regular fa-heart"></i>
-                                                <!-- Wishlist Icon -->
-                                            </button>
-                                        </div>
+                                <!-- Wishlist & Copy buttons -->
+                                <div class="button-group">
+                                    <div>
                                         <button class="button">
-                                            <i class="fas fa-link"></i>
-                                            <!-- Copy Link Icon -->
+                                            <i
+                                                class="fa-regular fa-heart"></i>
+                                            <!-- Wishlist Icon -->
                                         </button>
                                     </div>
-
-                                    <!-- Event Type Tag -->
-                                    <div class="event-type text-brand">
-                                        <i
-                                            class="fa-solid fa-tag text-brand"></i>
-                                        <!-- <i class="fa-solid fa-tag"></i> -->
-                                        <span>Online </span>
-                                        <!-- <small class=" badge">$50</small> -->
-                                    </div>
+                                    <button class="button">
+                                        <i class="fas fa-link"></i>
+                                        <!-- Copy Link Icon -->
+                                    </button>
                                 </div>
 
-                                <!-- Event Details -->
-                                <div class="event-details">
-                                    <div
-                                        class="d-flex justify-content-between">
+                                <!-- Event Type Tag -->
+                                <div class="event-type text-brand">
+                                    <i
+                                        class="fa-solid fa-tag text-brand"></i>
+                                    <!-- <i class="fa-solid fa-tag"></i> -->
+                                    <span>Online </span>
+                                    <!-- <small class=" badge">$50</small> -->
+                                </div>
+                            </div>
 
-                                        <h3
-                                            class="event-title text-wrap">Exciting
-                                            Food Festival Lorem ipsum
-                                            dolor sit amet.</h3>
-                                        <span
-                                            class="event-category pill1 fw-medium d-none">Upcoming</span>
-                                        <!-- <p class="status">${element.status}</p> -->
-                                    </div>
-                                    <!-- <p
+                            <!-- Event Details -->
+                            <div class="event-details">
+                                <div
+                                    class="d-flex justify-content-between">
+
+                                    <h3
+                                        class="event-title text-wrap">Exciting
+                                        Food Festival Lorem ipsum
+                                        dolor sit amet.</h3>
+                                    <span
+                                        class="event-category pill1 fw-medium d-none">Upcoming</span>
+                                    <!-- <p class="status">${element.status}</p> -->
+                                </div>
+                                <!-- <p
                                         class="event-description d-none text-1-line">
                                         Join us for an unforgettable
                                         culinary experience with the
@@ -155,98 +180,96 @@
                                         local chefs and street food.
                                     </p> -->
 
-                                    <!-- Event Tags -->
+                                <!-- Event Tags -->
+                                <div
+                                    class="d-flex align-items-center justify-content-between mb-3 mt-2 mt-lg-0">
                                     <div
-                                        class="d-flex align-items-center justify-content-between mb-3 mt-2 mt-lg-0">
-                                        <div
-                                            class="event-categories flex-nowrap">
-                                            <!-- <span class="event-category pill1">Food</span> -->
-                                            <span
-                                                class="event-category pill2 fw-medium">Music</span>
-                                            <span
-                                                class="event-category pill3 fw-medium">Technology</span>
-                                            
-                                            <!-- <span class="event-category pill5">Festival</span> -->
-                                        </div>
-                                        <div
-                                            class="d-flex align-items-center">
+                                        class="event-categories flex-nowrap">
+                                        <!-- <span class="event-category pill1">Food</span> -->
+                                        <span
+                                            class="event-category pill2 fw-medium">Music</span>
+                                        <span
+                                            class="event-category pill3 fw-medium">Technology</span>
 
-                                        </div>
+                                        <!-- <span class="event-category pill5">Festival</span> -->
                                     </div>
-
-                                    <!-- Date & Location -->
-                                    <div class="event-meta">
-                                        <div class="event-meta-item">
-                                            <i
-                                                class="fas fa-calendar-alt text-brand"></i>
-                                            <span>Friday March 20,
-                                                2025</span>
-                                        </div>
-                                        <div class="event-meta-item">
-                                            <i
-                                                class="fas fa-clock text-brand"></i>
-                                            <span>5:00 PM - 10:00
-                                                PM</span>
-                                        </div>
+                                    <div
+                                        class="d-flex align-items-center">
 
                                     </div>
+                                </div>
 
-                                    <div class="event-meta-item"
-                                        style="margin-bottom: 0.75rem !important;">
+                                <!-- Date & Location -->
+                                <div class="event-meta">
+                                    <div class="event-meta-item">
                                         <i
-                                            class="fas fa-map-marker-alt text-brand"></i>
-                                        <p
-                                            class="text-1-line mb-0">Phnom
-                                            Penh Kakab Pochentong, Siem
-                                            Reap, Cambodia</p>
-                                        <div
-                                            class=" text-brand fw-medium"
-                                            style="border-color: var(--c-brand) !important;">
+                                            class="fas fa-calendar-alt text-brand"></i>
+                                        <span>Friday March 20,
+                                            2025</span>
+                                    </div>
+                                    <div class="event-meta-item">
+                                        <i
+                                            class="fas fa-clock text-brand"></i>
+                                        <span>5:00 PM - 10:00
+                                            PM</span>
+                                    </div>
 
-                                        </div>
+                                </div>
+
+                                <div class="event-meta-item"
+                                    style="margin-bottom: 0.75rem !important;">
+                                    <i
+                                        class="fas fa-map-marker-alt text-brand"></i>
+                                    <p
+                                        class="text-1-line mb-0">Phnom
+                                        Penh Kakab Pochentong, Siem
+                                        Reap, Cambodia</p>
+                                    <div
+                                        class=" text-brand fw-medium"
+                                        style="border-color: var(--c-brand) !important;">
 
                                     </div>
 
-                                    <!-- Event Price -->
+                                </div>
 
-                                    <!-- Creator Profile -->
-                                    <div class="creator-profile d-none">
-                                        <div class="creator-avatar">
-                                            <img
-                                                src=""
-                                                alt="Creator" />
-                                        </div>
-                                        <a href="#"
-                                            class="creator-name">Hosted
-                                            by John Doe</a>
+                                <!-- Event Price -->
+
+                                <!-- Creator Profile -->
+                                <div class="creator-profile d-none">
+                                    <div class="creator-avatar">
+                                        <img
+                                            src
+                                            alt="Creator" />
                                     </div>
+                                    <a href="#"
+                                        class="creator-name">Hosted
+                                        by John Doe</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="pagination-container" id="pagination">
-                    <button class="pagination-button btn-icon"
-                        onclick="changePage(currentPage - 1)"
-                        id="prevBtn" disabled><i
-                            class="fa-solid fa-angle-left"></i></button>
+            </div>
+            <div class="pagination-container" id="pagination">
+                <button class="pagination-button btn-icon"
+                    onclick="changePage(currentPage - 1)"
+                    id="prevBtn" disabled><i
+                        class="fa-solid fa-angle-left"></i></button>
 
-                    <div id="pagination-numbers"></div>
+                <div id="pagination-numbers"></div>
 
-                    <button class="pagination-button btn-icon"
-                        onclick="changePage(currentPage + 1)"
-                        id="nextBtn"><i
-                            class="fa-solid fa-angle-right"></i></button>
-                </div>
-            
-            
+                <button class="pagination-button btn-icon"
+                    onclick="changePage(currentPage + 1)"
+                    id="nextBtn"><i
+                        class="fa-solid fa-angle-right"></i></button>
+            </div>
+
         </div>
 
-        <%- include("../../partials/script.ejs")  %>
+        <%- include("../../partials/script.ejs") %>
 
         <script src="/js/profile/view-profile.js"></script>
 
     </body>
-
 
 </html>

@@ -174,7 +174,141 @@ document.addEventListener("DOMContentLoaded", (e) => renderEvents());
 
 async function renderEvents(page = 1, perpage = 10, is_published = true) {
   const eventList = document.getElementById("event-list");
-  eventList.innerHTML = "";
+  eventList.innerHTML = `
+  <div class="mb-3">
+                                              <div colspan="5">
+                                                  <div
+                                                      class="card border-0 h-100"
+                                                      aria-hidden="true">
+                                                      <div class="row g-0">
+                                                          <div class="col-4">
+                                                              <div
+                                                                  class="bg-secondary-subtle border rounded-1"
+                                                                  style="width: 100%; height: 100%;">
+
+                                                              </div>
+                                                          </div>
+                                                          <div class="col-8">
+                                                              <div
+                                                                  class="card-body py-2">
+                                                                  <h5
+                                                                      class="card-title ">
+                                                                      <span
+                                                                          class="placeholder col-11 "
+                                                                          style="background-color: #D4D4D4;"></span>
+                                                                  </h5>
+                                                                  <p
+                                                                      class="card-text ">
+                                                                      <span
+                                                                          class="placeholder col-10"
+                                                                          style="background-color: #D4D4D4;"></span>
+                                                                      <span
+                                                                          class="placeholder col-12"
+                                                                          style="background-color: #D4D4D4;"></span>
+                                                                  </p>
+                                                                  <p
+                                                                      class="card-text ">
+                                                                      <span
+                                                                          class="placeholder col-10"
+                                                                          style="background-color: #D4D4D4;"></span>
+                                                                      
+                                                                  </p>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+
+                                              </div>
+                                          </div>
+                                          <div class="mb-3">
+                                              <td colspan="5">
+                                                  <div
+                                                      class="card border-0 h-100"
+                                                      aria-hidden="true">
+                                                      <div class="row g-0">
+                                                          <div class="col-4">
+                                                              <div
+                                                                  class="bg-secondary-subtle border rounded-1"
+                                                                  style="width: 100%; height: 100%;">
+
+                                                              </div>
+                                                          </div>
+                                                          <div class="col-8">
+                                                              <div
+                                                                  class="card-body py-2">
+                                                                  <h5
+                                                                      class="card-title ">
+                                                                      <span
+                                                                          class="placeholder col-11 "
+                                                                          style="background-color: #D4D4D4;"></span>
+                                                                  </h5>
+                                                                  <p
+                                                                      class="card-text ">
+                                                                      <span
+                                                                          class="placeholder col-10"
+                                                                          style="background-color: #D4D4D4;"></span>
+                                                                      <span
+                                                                          class="placeholder col-12"
+                                                                          style="background-color: #D4D4D4;"></span>
+                                                                  </p>
+                                                                  <p
+                                                                      class="card-text ">
+                                                                      <span
+                                                                          class="placeholder col-10"
+                                                                          style="background-color: #D4D4D4;"></span>
+                                                                      
+                                                                  </p>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+
+                                              </td>
+                                          </div>
+                                          <div class="mb-3">
+                                              <td colspan="5">
+                                                  <div
+                                                      class="card border-0 h-100"
+                                                      aria-hidden="true">
+                                                      <div class="row g-0">
+                                                          <div class="col-4">
+                                                              <div
+                                                                  class="bg-secondary-subtle border rounded-1"
+                                                                  style="width: 100%; height: 100%;">
+
+                                                              </div>
+                                                          </div>
+                                                          <div class="col-8">
+                                                              <div
+                                                                  class="card-body py-2">
+                                                                  <h5
+                                                                      class="card-title ">
+                                                                      <span
+                                                                          class="placeholder col-11 "
+                                                                          style="background-color: #D4D4D4;"></span>
+                                                                  </h5>
+                                                                  <p
+                                                                      class="card-text ">
+                                                                      <span
+                                                                          class="placeholder col-10"
+                                                                          style="background-color: #D4D4D4;"></span>
+                                                                      <span
+                                                                          class="placeholder col-12"
+                                                                          style="background-color: #D4D4D4;"></span>
+                                                                  </p>
+                                                                  <p
+                                                                      class="card-text ">
+                                                                      <span
+                                                                          class="placeholder col-10"
+                                                                          style="background-color: #D4D4D4;"></span>
+                                                                      
+                                                                  </p>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+
+                                              </td>`;
 
   const dateFilter =
     document.getElementById("date-filter").value ||
@@ -255,6 +389,16 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
     const { data } = await axiosInstance.get(`/events?${qryStr}`);
     const { data: events, paginate } = data;
     console.log(data);
+
+    let html = ''
+
+    if(events.length == 0){
+      document.querySelector('.pagination-container').classList.add("d-none")
+      return eventList.innerHTML = `<div class="text-center w-100 my-5">
+              <img src="/img/noFound.png" alt="..." height="220px;">
+              <h4 class="text-center text-brand mt-2">No Event to Display</h4>
+            </div>`
+    }
 
     events.forEach((event) => {
       let pricing = null;
@@ -467,9 +611,13 @@ currentDate.setHours(0, 0, 0, 0);
 
                             </div>
             `;
-      eventList.innerHTML += eventCard;
-      lucide.createIcons();
+
+            html += eventCard
+      
+      
     });
+    eventList.innerHTML = html;
+    lucide.createIcons();
 
     // Initialize pagination on load
     renderPagination(paginate);

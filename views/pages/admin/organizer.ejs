@@ -125,6 +125,23 @@
                                 <%- include('../../partials/admin/footer.ejs') %>
             </div>
 
+            <div class="modal fade" id="viewRequestDetail">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title">Request Organizer Detail</h3>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body text-center" id="requestDetailContent">
+                            Loading...
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- View Detail -->
             <div class="modal fade" id="viewDetail">
                 <div class="modal-dialog modal-dialog-centered">

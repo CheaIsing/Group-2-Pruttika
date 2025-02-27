@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Management</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../../../public/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../public/vendor/bootstrap-icon/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="../../../public/css/main.css">
+    <link rel="stylesheet" href="../../../public/css/style.css">
+
+</head>
+
+<body class="home">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="logo" href="#">
+                <img src="../../../public/img/Prutika_Logo_text(2).png" alt="logo" style="width: 150px;">
+            </a>
+            <div class="d-flex align-items-center w-25 position-relative ">
+                <!-- <i class="fa-solid fa-magnifying-glass text-brand fs-6 ms-3 position-absolute"></i> -->
+                <input type="text" class="form-control search-bar border-style w-100 " id="searchEvent"
+                    placeholder="Search Event " />
+                <button class="btn-pink position-absolute"><i class="fa-solid fa-magnifying-glass fs-6"></i></button>
+                <ul class="search-dropdown position-absolute" id="search-dropdown">
+                </ul>
+            </div>
+            <div class="d-flex">
+                <button class="btn btn-outline-brand me-3"><i class="fa-solid fa-plus me-2"></i>Create post</button>
+                <div class="dropdown me-3 ">
+                    <button class="btn btn-outline-brand dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Browse
+                    </button>
+                    <ul class="dropdown-menu border-0 shadow-sm">
+                        <li><button class="dropdown-item" type="button">switch to Attendee</button></li>
+                        <li><button class="dropdown-item" type="button">Another action</button></li>
+                        <li><button class="dropdown-item" type="button">Something else here</button></li>
+                    </ul>
+                </div>
+                <button class="btn btn-outline-brand me-3"><i class="fa-solid fa-ticket me-2"></i>My Ticket</button>
+                <button class="btn btn-outline-brand me-3">Log in</button>
+                <button class="btn btn-brand">Sign Up</button>
+            </div>
+            <!-- <div class="d-flex">
+                <img class="profile-Morganier ms-3" src="../../../public/img/Default_pfp.jpg" alt=""> 
+                <div class="dropdown ">
+                    <button class="btn border-0 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Tom Jerrynie
+                    </button>
+                    <ul class="dropdown-menu border-0 shadow-sm">
+                      <li><button class="dropdown-item" type="button">switch to Attendee</button></li>
+                      <li><button class="dropdown-item" type="button">Another action</button></li>
+                      <li><button class="dropdown-item" type="button">Something else here</button></li>
+                    </ul>
+                  </div>
+            </div> -->
+        </div>
+    </nav>
+
+    <section class="hero-banner">
+        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active d-flex align-items-center justify-content-center">
+                    <div class="hero-title text-end w-50 pe-5">
+                        <h1 class="text-white fw-bold display-2 z-3">It's
+                            Time to <br> <span class="text-white display-1 fw-bold">Celebrate!</span></h1>
+                        <div class="hero-button">
+                            <button class="btn-darkpink"><span class="fw-bold ">Create your event
+                                    now!</span></button>
+                        </div>
+                    </div>
+
+                    <div class="hero-img w-50 z-2">
+                        <img src="../../../public/img/event1.jpg" alt>
+                        <img src="../../../public/img/hero.jpg" alt>
+                    </div>
+                </div>
+                <!-- <div class="carousel-item d-flex align-items-center justify-content-center">
+                    <img src="../../../public/img/event1.jpg" class="d-block w-100" alt="...">
+
+                </div>
+                <div class="carousel-item d-flex align-items-center justify-content-center">
+                    <img src="../../../public/img/Eco-Action.jpg" class="d-block w-100" alt="...">
+                </div> -->
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <!-- <div class="d-flex align-items-center justify-content-center mt-4 flex-column">
+            <h3 class="text-lightgray fw-bold">Organize your events and
+                grow your business for free</h3>
+            <div class="d-flex align-items-center">
+                <h4 class="fw-bold pe-3">with</h4>
+                <img src="../../../public/img/Prutika_Logo_text(2).png" alt style="height: 90px;">
+            </div>
+        </div> -->
+    </section>
+
+    <!-- About Section -->
+    <section class="container my-5">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-6 mb-4 mb-md-0">
+                <img src="../../../public/img/webpage_on_pc.png" alt="" class="img-fluid"
+                    style="height: auto; max-height: 350px;">
+            </div>
+            <div class="col-12 col-md-6 text-center text-md-start px-3 px-md-0">
+                <h4 class="color-style fw-bold">ABOUT <span class="text-brand">US</span></h4>
+                <h2>Know More About <span class="text-brand fw-bold">PRUTTIKA</span></h2>
+                <p>Your seamless platform for event management where creativity meets efficiency.</p>
+                <ul class="list-unstyled about-icons">
+                    <li class="d-flex align-items-center">
+                        <i class="bi bi-calendar-event text-brand"></i>
+                        <div class="ms-2">Create Event</div>
+                    </li>
+                    <li class="d-flex align-items-center">
+                        <i class="bi bi-gear text-brand"></i>
+                        <div class="ms-2">Event Management</div>
+                    </li>
+                    <li class="d-flex align-items-center">
+                        <i class="bi bi-ticket-perforated text-brand"></i>
+                        <div class="ms-2">Event Tickets Management</div>
+                    </li>
+                    <li class="d-flex align-items-center">
+                        <i class="bi bi-share text-brand"></i>
+                        <div class="ms-2">Resource Sharing</div>
+                    </li>
+                </ul>
+                <button class="btn btn-outline-brand">Join Event</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <h2 class="count" data-target="5000" data-duration="2000">0</h2>
+                    <strong>Events Created</strong>
+                </div>
+                <div class="col-md-4 text-center">
+                    <h2 class="count" data-target="5000" data-duration="2000">0</h2>
+                    <strong>Event Management</strong>
+                </div>
+                <div class="col-md-4 text-center">
+                    <h2 class="count" data-target="10000" data-duration="2500">0</h2>
+                    <strong>Event Tickets</strong>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container my-5">
+        <div class="d-flex justify-content-between mb-3">
+            <h3><i class="fa-solid fa-globe text-brand me-3"></i>All Events In <span class="text-brand">Phnom
+                    Penh</span>, Cambodia</h3>
+            <a class="seeAllEvent color-style" href="#"><strong>See all Event</strong></a>
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-10 col-md-6 col-lg-3 col-xl-3 mx-auto">
+                <div class="event-card mb-3 mb-lg-3">
+                    <img src="../../../public/img/hero.jpg" alt="Event" class="event-image">
+                    <div class="event-card-hover">
+                        <div class="rounded-icon mb-2">
+                            <a href="#"><i class="fa-regular fa-heart text-brand"></i></a>
+                        </div>
+                        <div class="rounded-icon">
+                            <a href="#"> <i class="fa-regular fa-copy text-brand"></i></a>
+                        </div>
+                    </div>
+                    <div class="event-details">
+                        <div class="position-relative z-3">
+                            <div class="event-price text-center">50$</div>
+                            <h5 class="fw-bold mb-3 text-center event-title">Cybersecurity</h5>
+                            <div class="event-tags mb-3 text-center">
+                                <span class="badge">Music</span>
+                                <span class="badge">Technology</span>
+                            </div>
+                            <div class="event-meta px-4">
+                                <p class="mb-1"><i class="fa-regular fa-calendar me-2"></i> Web, 7 December • 5:00PM</p>
+                                <p class="mb-0"><i class="bi bi-geo-alt me-2"></i> Street 2002, Riverside, Porsenchey,
+                                    Phnom Penh</p>
+                            </div>
+                            <div class="event-author d-flex align-items-center px-4 my-3">
+                                <img src="../../../public/img/Default_pfp.jpg" alt="Author" class="me-3 rounded-circle"
+                                    style="width: 30px; height: 30px; object-fit: cover;">
+                                <span class="fw-bold">Tom Jerranie</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-10 col-md-6 col-lg-3 col-xl-3 mx-auto">
+                <div class="event-card mb-3 mb-lg-3">
+                    <img src="../../../public/img/hero.jpg" alt="Event" class="event-image">
+                    <div class="event-card-hover">
+                        <div class="rounded-icon mb-2">
+                            <a href="#"><i class="fa-regular fa-heart text-brand"></i></a>
+                        </div>
+                        <div class="rounded-icon">
+                            <a href="#"> <i class="fa-regular fa-copy text-brand"></i></a>
+                        </div>
+                    </div>
+                    <div class="event-details">
+                        <div class="position-relative z-3">
+                            <div class="event-price text-center">50$</div>
+                            <h5 class="fw-bold mb-3 text-center event-title">Cybersecurity</h5>
+                            <div class="event-tags mb-3 text-center">
+                                <span class="badge">Music</span>
+                                <span class="badge">Technology</span>
+                            </div>
+                            <div class="event-meta px-4">
+                                <p class="mb-1"><i class="fa-regular fa-calendar me-2"></i> Web, 7 December • 5:00PM</p>
+                                <p class="mb-0"><i class="bi bi-geo-alt me-2"></i> Street 2002, Riverside, Porsenchey,
+                                    Phnom Penh</p>
+                            </div>
+                            <div class="event-author d-flex align-items-center px-4 my-3">
+                                <img src="../../../public/img/Default_pfp.jpg" alt="Author" class="me-3 rounded-circle"
+                                    style="width: 30px; height: 30px; object-fit: cover;">
+                                <span class="fw-bold">P Jenny</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-10 col-md-6 col-lg-3 col-xl-3 mx-auto">
+                <div class="event-card mb-3 mb-lg-3">
+                    <img src="../../../public/img/hero.jpg" alt="Event" class="event-image">
+                    <div class="event-card-hover">
+                        <div class="rounded-icon mb-2">
+                            <a href="#"><i class="fa-regular fa-heart text-brand"></i></a>
+                        </div>
+                        <div class="rounded-icon">
+                            <a href="#"> <i class="fa-regular fa-copy text-brand"></i></a>
+                        </div>
+                    </div>
+                    <div class="event-details">
+                        <div class="position-relative z-3">
+                            <div class="event-price text-center">50$</div>
+                            <h5 class="fw-bold mb-3 text-center event-title">Cybersecurity</h5>
+                            <div class="event-tags mb-3 text-center">
+                                <span class="badge">Music</span>
+                                <span class="badge">Technology</span>
+                            </div>
+                            <div class="event-meta px-4">
+                                <p class="mb-1"><i class="fa-regular fa-calendar me-2"></i> Web, 7 December • 5:00PM</p>
+                                <p class="mb-0"><i class="bi bi-geo-alt me-2"></i> Street 2002, Riverside, Porsenchey,
+                                    Phnom Penh</p>
+                            </div>
+                            <div class="event-author d-flex align-items-center px-4 my-3">
+                                <img src="../../../public/img/Default_pfp.jpg" alt="Author" class="me-3 rounded-circle"
+                                    style="width: 30px; height: 30px; object-fit: cover;">
+                                <span class="fw-bold">Nong Jennie</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-10 col-md-6 col-lg-3 col-xl-3 mx-auto">
+                <div class="event-card mb-3 mb-lg-3">
+                    <img src="../../../public/img/hero.jpg" alt="Event" class="event-image">
+                    <div class="event-card-hover">
+                        <div class="rounded-icon mb-2">
+                            <a href="#"><i class="fa-regular fa-heart text-brand"></i></a>
+                        </div>
+                        <div class="rounded-icon">
+                            <a href="#"> <i class="fa-regular fa-copy text-brand"></i></a>
+                        </div>
+                    </div>
+                    <div class="event-details">
+                        <div class="position-relative z-3">
+                            <div class="event-price text-center">50$</div>
+                            <h5 class="fw-bold mb-3 text-center event-title">Cybersecurity</h5>
+                            <div class="event-tags mb-3 text-center">
+                                <span class="badge">Music</span>
+                                <span class="badge">Technology</span>
+                            </div>
+                            <div class="event-meta px-4">
+                                <p class="mb-1"><i class="fa-regular fa-calendar me-2"></i> Web, 7 December • 5:00PM</p>
+                                <p class="mb-0"><i class="bi bi-geo-alt me-2"></i> Street 2002, Riverside, Porsenchey,
+                                    Phnom Penh</p>
+                            </div>
+                            <div class="event-author d-flex align-items-center px-4 my-3">
+                                <img src="../../../public/img/Default_pfp.jpg" alt="Author" class="me-3 rounded-circle"
+                                    style="width: 30px; height: 30px; object-fit: cover;">
+                                <span class="fw-bold">P Jenny</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="container my-5">
+        <div class="d-flex justify-content-between mb-3">
+            <h3><i class="fa-brands fa-elementor text-brand me-3"></i>Upcoming online <span
+                    class="text-brand">events</span></h3>
+            <a class="seeAllEvent color-style" href="#"><strong>See all Event</strong></a>
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-10 col-md-6 col-lg-3 col-xl-3 mx-auto">
+                <div class="event-card mb-3 mb-lg-3">
+                    <img src="../../../public/img/hero.jpg" alt="Event" class="event-image">
+                    <div class="event-card-hover">
+                        <div class="rounded-icon mb-2">
+                            <a href="#"><i class="fa-regular fa-heart text-brand"></i></a>
+                        </div>
+                        <div class="rounded-icon">
+                            <a href="#"> <i class="fa-regular fa-copy text-brand"></i></a>
+                        </div>
+                    </div>
+                    <div class="event-details">
+                        <div class="position-relative z-3">
+                            <div class="event-price text-center">50$</div>
+                            <h5 class="fw-bold mb-3 text-center event-title">Cybersecurity</h5>
+                            <div class="event-tags mb-3 text-center">
+                                <span class="badge">Music</span>
+                                <span class="badge">Technology</span>
+                            </div>
+                            <div class="event-meta px-4">
+                                <p class="mb-1"><i class="fa-regular fa-calendar me-2"></i> Web, 7 December • 5:00PM</p>
+                                <p class="mb-0"><i class="bi bi-geo-alt me-2"></i> Street 2002, Riverside, Porsenchey,
+                                    Phnom Penh</p>
+                            </div>
+                            <div class="event-author d-flex align-items-center px-4 my-3">
+                                <img src="../../../public/img/Default_pfp.jpg" alt="Author" class="me-3 rounded-circle"
+                                    style="width: 30px; height: 30px; object-fit: cover;">
+                                <span class="fw-bold">Tom Jerranie</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-10 col-md-6 col-lg-3 col-xl-3 mx-auto">
+                <div class="event-card mb-3 mb-lg-3">
+                    <img src="../../../public/img/hero.jpg" alt="Event" class="event-image">
+                    <div class="event-card-hover">
+                        <div class="rounded-icon mb-2">
+                            <a href="#"><i class="fa-regular fa-heart text-brand"></i></a>
+                        </div>
+                        <div class="rounded-icon">
+                            <a href="#"> <i class="fa-regular fa-copy text-brand"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="event-details">
+                        <div class="position-relative z-3">
+                            <div class="event-price text-center">50$</div>
+                            <h5 class="fw-bold mb-3 text-center event-title">Cybersecurity</h5>
+                            <div class="event-tags mb-3 text-center">
+                                <span class="badge">Music</span>
+                                <span class="badge">Technology</span>
+                            </div>
+                            <div class="event-meta px-4">
+                                <p class="mb-1"><i class="fa-regular fa-calendar me-2"></i> Web, 7 December • 5:00PM</p>
+                                <p class="mb-0"><i class="bi bi-geo-alt me-2"></i> Street 2002, Riverside, Porsenchey,
+                                    Phnom Penh</p>
+                            </div>
+                            <div class="event-author d-flex align-items-center px-4 my-3">
+                                <img src="../../../public/img/Default_pfp.jpg" alt="Author" class="me-3 rounded-circle"
+                                    style="width: 30px; height: 30px; object-fit: cover;">
+                                <span class="fw-bold">P Jenny</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-10 col-md-6 col-lg-3 col-xl-3 mx-auto">
+                <div class="event-card mb-3 mb-lg-3">
+                    <img src="../../../public/img/hero.jpg" alt="Event" class="event-image">
+                    <div class="event-card-hover">
+                        <div class="rounded-icon mb-2">
+                            <a href="#"><i class="fa-regular fa-heart text-brand"></i></a>
+                        </div>
+                        <div class="rounded-icon">
+                            <a href="#"> <i class="fa-regular fa-copy text-brand"></i></a>
+                        </div>
+                    </div>
+                    <div class="event-details">
+                        <div class="position-relative z-3">
+                            <div class="event-price text-center">50$</div>
+                            <h5 class="fw-bold mb-3 text-center event-title">Cybersecurity</h5>
+                            <div class="event-tags mb-3 text-center">
+                                <span class="badge">Music</span>
+                                <span class="badge">Technology</span>
+                            </div>
+                            <div class="event-meta px-4">
+                                <p class="mb-1"><i class="fa-regular fa-calendar me-2"></i> Web, 7 December • 5:00PM</p>
+                                <p class="mb-0"><i class="bi bi-geo-alt me-2"></i> Street 2002, Riverside, Porsenchey,
+                                    Phnom Penh</p>
+                            </div>
+                            <div class="event-author d-flex align-items-center px-4 my-3">
+                                <img src="../../../public/img/Default_pfp.jpg" alt="Author" class="me-3 rounded-circle"
+                                    style="width: 30px; height: 30px; object-fit: cover;">
+                                <span class="fw-bold">Nong Jennie</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-10 col-md-6 col-lg-3 col-xl-3 mx-auto">
+                <div class="event-card mb-3 mb-lg-3">
+                    <img src="../../../public/img/hero.jpg" alt="Event" class="event-image">
+                    <div class="event-card-hover">
+                        <div class="rounded-icon mb-2">
+                            <a href="#"><i class="fa-regular fa-heart text-brand"></i></a>
+                        </div>
+                        <div class="rounded-icon">
+                            <a href="#"> <i class="fa-regular fa-copy text-brand"></i></a>
+                        </div>
+                    </div>
+                    <div class="event-details">
+                        <div class="position-relative z-3">
+                            <div class="event-price text-center">50$</div>
+                            <h5 class="fw-bold mb-3 text-center event-title">Cybersecurity</h5>
+                            <div class="event-tags mb-3 text-center">
+                                <span class="badge">Music</span>
+                                <span class="badge">Technology</span>
+                            </div>
+                            <div class="event-meta px-4">
+                                <p class="mb-1"><i class="fa-regular fa-calendar me-2"></i> Web, 7 December • 5:00PM</p>
+                                <p class="mb-0"><i class="bi bi-geo-alt me-2"></i> Street 2002, Riverside, Porsenchey,
+                                    Phnom Penh</p>
+                            </div>
+                            <div class="event-author d-flex align-items-center px-4 my-3">
+                                <img src="../../../public/img/Default_pfp.jpg" alt="Author" class="me-3 rounded-circle"
+                                    style="width: 30px; height: 30px; object-fit: cover;">
+                                <span class="fw-bold">P Jenny</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section class="container my-5">
+        <h3 class="text-center text-md-start">
+            <i class="fa-solid fa-layer-group text-brand me-3 mb-3"></i>
+            Explore top <span class="text-brand">Categories</span>
+        </h3>
+        <div class="row">
+            <div class="col-lg-2 col-md-4 col-6">
+                <div class="card-categories text-center mb-lg-3">
+                    <div class="categories-icon">
+                        <i class="fa-solid fa-microchip fs-3"></i>
+                    </div>
+                    <div class="categories-title mt-2">
+                        <strong>Technology</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-6 ">
+                <div class="card-categories text-center mb-lg-3 mb-md-3 mb-3">
+                    <div class="categories-icon">
+                        <i class="fa-solid fa-medal fs-3"></i>
+                    </div>
+                    <div class="categories-title mt-2">
+                        <strong>Sport & Fitness</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-6">
+                <div class="card-categories text-center mb-3">
+                    <div class="categories-icon">
+                        <i class="fa-solid fa-hand-holding-hand fs-3"></i>
+                    </div>
+                    <div class="categories-title mt-2">
+                        <strong>Health Care</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4  col-6">
+                <div class="card-categories text-center">
+                    <div class="categories-icon">
+                        <i class="fa-solid fa-award fs-3"></i>
+                    </div>
+                    <div class="categories-title mt-2">
+                        <strong>Education</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-6">
+                <div class="card-categories text-center">
+                    <div class="categories-icon">
+                        <i class="fa-solid fa-icons fs-3"></i>
+                    </div>
+                    <div class="categories-title mt-2">
+                        <strong>Music</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-6">
+                <div class="card-categories text-center">
+                    <div class="categories-icon">
+                        <i class="fa-solid fa-business-time fs-3"></i>
+                    </div>
+                    <div class="categories-title mt-2">
+                        <strong>Business</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <div class="row py-5">
+                <div class="col-lg-4 col-md-6 col-12 text-center text-md-start mb-4 mb-lg-0">
+                    <a href="homepage.html">
+                        <img src="../../../public/img/Prutika_Logo_text(2).png" alt class="logo" style="width: 200px;">
+                    </a>
+                    <div class="information pe-lg-5 mt-3">
+                        <p>"Your seamless platform for event management, where creativity meets efficiency. We simplify
+                            planning, coordinate every detail, and bring your vision to life for unforgettable
+                            experiences that inspire.”</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-12 text-center text-md-start">
+                    <h4 class="py-4 text-brand fw-bold">Contact Info</h4>
+                    <p>Tel: +855-12-123-456</p>
+                    <p><a href="mailto:pruttikaKH@gmail.com">Email: pruttikaKH@gmail.com</a></p>
+                    <div class="social-media fs-2 d-flex justify-content-center justify-content-md-start gap-3">
+                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#"><i class="fa-brands fa-square-x-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-telegram"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-12 text-center text-md-start mt-4 mt-lg-0">
+                    <h4 class="py-4 text-brand fw-bold">Quick Links</h4>
+                    <div class="d-flex justify-content-center justify-content-md-start">
+                        <div class="d-flex quick-link flex-column w-50 pe-3">
+                            <a href="#">Contact us</a>
+                            <a href="#">Events</a>
+                            <a href="#">About us</a>
+                        </div>
+                        <div class="d-flex flex-column quick-link w-50">
+                            <a href="#">Our Policy</a>
+                            <a href="#">Our Team</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="border-top py-3 text-center">
+            <span>Copyright ©2024 All rights reserved | Pruttika.com.kh</span>
+        </div>
+    </footer>
+
+
+
+
+
+</body>
+<script src="../../../public/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const counters = document.querySelectorAll('.count');
+
+        counters.forEach(counter => {
+            const target = parseInt(counter.dataset.target);
+            const duration = parseInt(counter.dataset.duration);
+            let current = 0;
+            const increment = target / (duration / 16); // 16ms interval (approx. 60fps)
+
+            function updateCounter() {
+                if (current < target) {
+                    current += increment;
+                    counter.textContent = Math.ceil(current); // Round up to the nearest integer
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    counter.textContent = target; // Ensure the final value is exact
+                }
+            }
+
+            updateCounter();
+        });
+    });
+</script>
+
+
+</html>

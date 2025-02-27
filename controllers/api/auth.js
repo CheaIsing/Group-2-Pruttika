@@ -227,6 +227,10 @@ const postResetPassword = async (req, res) => {
 };
 
 const getMe = async (req, res) => {
+  if (!req.user || !req.user.id) {
+    return sendResponse(res, 401, false, "Unauthorized access.");
+  }
+
   const userId = req.user.id;
 
   try {
@@ -237,9 +241,9 @@ const getMe = async (req, res) => {
       return sendResponse(res, 404, false, "User not found.");
     }
 
-    sendResponse(res, 200, true, "Get user profile.", data);
+    sendResponse(res, 200, true, "Get user profile.", data[0]); // Send single user object
   } catch (error) {
-    console.log(error);
+    console.error(error);
     handleResponseError(res, error);
   }
 };

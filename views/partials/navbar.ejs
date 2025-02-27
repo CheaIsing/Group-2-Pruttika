@@ -32,9 +32,6 @@
                     class="btn-outline-pink ms-3 d-flex align-items-center"><i
                         class="pe-1 lucide-i" data-lucide="ticket" style="stroke-width: 1.25;"></i>My
                     Ticket</a>
-
-                
-
                 </ul>
             </div>
             <% if (!user) { %>
@@ -139,11 +136,11 @@
                         <ul class="dropdown-menu dropdown-menu-end"
                             aria-labelledby="accountDropdown">
                             <li><a class="dropdown-item"
-                                    href="./organizer/event.html">Manage
+                                    href="/event/manage">Manage
                                     as
                                     organizer</a></li>
                             <li><a class="dropdown-item"
-                                    href="./vendor/vendor-business.html">Following</a></li>
+                                    href="/follow/follower">Following</a></li>
                             <li><a class="dropdown-item"
                                     href="/event/wishlist">Wishlist</a></li>
                             <li><a class="dropdown-item"
@@ -151,7 +148,7 @@
                                     Setting</a></li>
         
                             <li><a class="dropdown-item border-top"
-                                    href="javascript:void(0);" id="btn-logout">Log
+                                     id="btn-logout" onclick="logOut()">Log
                                     out</a>
                             </li>
                         </ul>
