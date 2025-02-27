@@ -35,6 +35,7 @@
         console.log(queryParams);
         queryParams.append("page", page)
         queryParams.append("per_page", perpage)
+        queryParams.append("event_id", eventId)
 
         document.getElementById("request-tbody").innerHTML =""
         

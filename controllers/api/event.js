@@ -509,6 +509,7 @@ const deleteEQr=async (req,res)=>{
 //checkIn Ticket
 const putCheckIn=async(req,res)=>{
     const ticketToken=req.body.ticketToken;
+    
     try {
         const sqlCheckTicket=`SELECT 
             tt.id,

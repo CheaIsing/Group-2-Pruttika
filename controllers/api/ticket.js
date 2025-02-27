@@ -6,6 +6,7 @@ const {
 const { executeQuery } = require("../../utils/dbQuery");
 const {sendResponse ,sendResponse1}= require("../../utils/response");
 const {reqTicketCollection}=require("../../resource/ticket");
+const { generateQRCodeImg } = require('../../utils/generateQrImg');
 
 // const QRCode = require('qrcode');
 const generateToken= (id,ticket_type,event_id) => {
@@ -197,7 +198,10 @@ const putApproveTicket=async(req,res)=>{
                         const resultInsert = await executeQuery(sqlInsertTicket, [ticketReq_id, ticket_event_id]);
                         const ticket_id = resultInsert.insertId;
                         const token = await generateToken(ticket_id, ticket_event_id, event_id);
-                        await executeQuery(`UPDATE tbl_ticket SET qr_code = ? WHERE id = ?`, [token, ticket_id]);
+
+                        const qr_code_img = await generateQRCodeImg(token);
+
+                        await executeQuery(`UPDATE tbl_ticket SET qr_code = ?, qr_code_img = ? WHERE id = ?`, [token,qr_code_img, ticket_id]);
                     })()
                 );
             }
@@ -238,6 +242,8 @@ const putApproveTicket=async(req,res)=>{
 
         // Update transaction status to approved 
         await executeQuery(`UPDATE tbl_transaction SET status = ? WHERE id = ?`, [2, ticketReq_id]);
+
+
         sendResponse(res, 200, true, "Ticket Request has been approved successfully");
         return
     } catch (error) {

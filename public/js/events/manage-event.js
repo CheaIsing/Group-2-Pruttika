@@ -1,6 +1,4 @@
-async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
-  const eventList = document.getElementById("event-tobody");
-  eventList.innerHTML = `
+let loadingHtml = `
   <tr>
     <td colspan="5">
       <div class="card border-0" aria-hidden="true">
@@ -92,6 +90,14 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
   
   `;
 
+  let noEvent = `<tr><td colspan="6"><div class="text-center w-100 my-5">
+              <img src="/img/noFound.png" alt="..." height="220px;">
+              <h4 class="text-center text-brand mt-2">No Event to Display</h4>
+            </div></td></tr>`
+async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
+  const eventList = document.getElementById("event-tobody");
+  eventList.innerHTML = loadingHtml
+
   const sort = document.getElementById("event-sort-filter")?.value;
   const search = document.getElementById("searchEventInput")?.value;
 
@@ -113,17 +119,17 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
   try {
     const { data: resultUser } = await axiosInstance.get("/auth/me");
     const { data: user } = resultUser;
-    const userId = user[0].id;
+
+    // console.log(user);
+    
+    const userId = user.id;
     queryParams.append("creator", userId);
 
     const { data } = await axiosInstance.get(`/events?${queryParams.toString()}`);
     const { data: events, paginate } = data;
 
     if (events.length <= 0) {
-      return (eventList.innerHTML = `<div class="text-center w-100 my-5">
-              <img src="/img/noFound.png" alt="..." height="220px;">
-              <h4 class="text-center text-brand mt-2">No Event to Display</h4>
-            </div>`);
+      return eventList.innerHTML = noEvent
     }
 
     let eventCard = "";
@@ -133,7 +139,9 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
       const formattedDate = `${moment(event.started_date).format("MMM D, YYYY")} - ${moment(event.started_date).format("MMM D, YYYY")}, ${moment(event.start_time, "HH:mm").format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
 
       let isOffline = event.event_type !== "offline";
-      let eventLinkAttributes = `role="button" onclick="showSummary(${event.id})"`;
+      let eventLinkAttributes = ``;
+      console.log(eventLinkAttributes);
+      
 
       let totalPrice = data.data.ticket.length > 0 
         ? `$${data.data.ticket.reduce((sum, item) => sum + item.price, 0).toFixed(2)}`
@@ -141,7 +149,7 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
 
       eventCard += `<tr class="border-bottom position-relative">
                       <td>
-                        <a ${eventLinkAttributes} class="stretched-link text-decoration-none bg-transparent link-event-details" style="color: inherit;">
+                        <a role="button" onclick="showSummary(${event.id})" class="stretched-link text-decoration-none bg-transparent link-event-details" style="color: inherit;">
                           <div class="d-flex align-items-center">
                             <div class="me-3">
                               <div class="text-center text-brand fw-bold">${moment(event.started_date).format("MMM ")}</div>
@@ -176,7 +184,7 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
                     </tr>`;
     }
 
-    console.log(eventCard); 
+    // console.log(eventCard); 
 
     eventList.innerHTML = eventCard;
     lucide.createIcons();
@@ -250,14 +258,14 @@ renderEventsAll();
 // Upcoming
 async function renderEventsUpcoming(page = 1, perpage = 10, is_published = null) {
   const eventList = document.getElementById("upcoming-event-tbody");
-  eventList.innerHTML = `<tr><td colspan="6">Loading...</td></tr>`;
+  eventList.innerHTML = loadingHtml
 
-  const sort = document.getElementById("event-sort-filter")?.value;
-  const search = document.getElementById("searchEventInput")?.value;
+  const sort = document.getElementById("upcoming-event-sort-filter")?.value;
+  const search = document.getElementById("upcoming-searchEventInput")?.value;
 
   let queryParams = new URLSearchParams();
   queryParams.append("page", `${page}`);
-  queryParams.append("default_status", 3); // Upcoming status
+  queryParams.append("date_status", 3); // Upcoming status
   if (is_published) queryParams.append("is_published", `${is_published}`);
   queryParams.append("perpage", `${perpage}`);
   if (search) queryParams.append("search", search);
@@ -267,17 +275,15 @@ async function renderEventsUpcoming(page = 1, perpage = 10, is_published = null)
   try {
     const { data: resultUser } = await axiosInstance.get("/auth/me");
     const { data: user } = resultUser;
-    const userId = user[0].id;
+    const userId = user.id;
     queryParams.append("creator", userId);
-
+    
+    
     const { data } = await axiosInstance.get(`/events?${queryParams.toString()}`);
     const { data: events, paginate } = data;
 
     if (events.length <= 0) {
-      return (eventList.innerHTML = `<div class="text-center w-100 my-5">
-              <img src="/img/noFound.png" alt="..." height="220px;">
-              <h4 class="text-center text-brand mt-2">No Upcoming Events to Display</h4>
-            </div>`);
+      return eventList.innerHTML = noEvent
     }
 
     let eventCard = "";
@@ -291,7 +297,7 @@ async function renderEventsUpcoming(page = 1, perpage = 10, is_published = null)
 
       eventCard += `<tr class="border-bottom position-relative">
                       <td>
-                        <a class="stretched-link text-decoration-none bg-transparent link-event-details" style="color: inherit;">
+                        <a role="button" onclick="showSummary(${event.id})" class="stretched-link text-decoration-none bg-transparent link-event-details" style="color: inherit;">
                           <div class="d-flex align-items-center">
                             <div class="me-3">
                               <div class="text-center text-brand fw-bold">${moment(event.started_date).format("MMM ")}</div>
@@ -393,14 +399,14 @@ renderEventsUpcoming();
 // showing
 async function renderEventsShowing(page = 1, perpage = 10, is_published = null) {
   const eventList = document.getElementById("showing-event-tbody");
-  eventList.innerHTML = `<tr><td colspan="6">Loading...</td></tr>`;
+  eventList.innerHTML = loadingHtml;
 
-  const sort = document.getElementById("event-sort-filter")?.value;
-  const search = document.getElementById("searchEventInput")?.value;
+  const sort = document.getElementById("showing-event-sort-filter")?.value;
+  const search = document.getElementById("showing-searchEventInput")?.value;
 
   let queryParams = new URLSearchParams();
   queryParams.append("page", `${page}`);
-  queryParams.append("default_status", 2); // Showing status
+  queryParams.append("date_status", 2); // Showing status
   if (is_published) queryParams.append("is_published", `${is_published}`);
   queryParams.append("perpage", `${perpage}`);
   if (search) queryParams.append("search", search);
@@ -410,18 +416,24 @@ async function renderEventsShowing(page = 1, perpage = 10, is_published = null) 
   try {
     const { data: resultUser } = await axiosInstance.get("/auth/me");
     const { data: user } = resultUser;
-    const userId = user[0].id;
+    const userId = user.id;
     queryParams.append("creator", userId);
-
+    console.log(queryParams.toString());
     const { data } = await axiosInstance.get(`/events?${queryParams.toString()}`);
     const { data: events, paginate } = data;
 
+    console.log(events);
+    
+    
+
     if (events.length <= 0) {
-      return (eventList.innerHTML = `<div class="text-center w-100 my-5">
-              <img src="/img/noFound.png" alt="..." height="220px;">
-              <h4 class="text-center text-brand mt-2">No Showing Events to Display</h4>
-            </div>`);
+      console.log(true);
+      eventList.innerHTML = noEvent;
+      return ;
     }
+
+    console.log("Hi");
+    
 
     let eventCard = "";
     for (const event of events) {
@@ -434,7 +446,7 @@ async function renderEventsShowing(page = 1, perpage = 10, is_published = null) 
 
       eventCard += `<tr class="border-bottom position-relative">
                       <td>
-                        <a class="stretched-link text-decoration-none bg-transparent link-event-details" style="color: inherit;">
+                        <a role="button" onclick="showSummary(${event.id})"  class="stretched-link text-decoration-none bg-transparent link-event-details" style="color: inherit;">
                           <div class="d-flex align-items-center">
                             <div class="me-3">
                               <div class="text-center text-brand fw-bold">${moment(event.started_date).format("MMM ")}</div>
@@ -535,15 +547,15 @@ renderEventsShowing();
 
 // Past
 async function renderEventsPast(page = 1, perpage = 10, is_published = null) {
-  const eventList = document.getElementById("showing-event-tbody");
-  eventList.innerHTML = `<tr><td colspan="6">Loading...</td></tr>`;
+  const eventList = document.getElementById("past-event-tbody");
+  eventList.innerHTML = loadingHtml;
 
-  const sort = document.getElementById("event-sort-filter")?.value;
-  const search = document.getElementById("searchEventInput")?.value;
+  const sort = document.getElementById("past-event-sort-filter")?.value;
+  const search = document.getElementById("past-searchEventInput")?.value;
 
   let queryParams = new URLSearchParams();
   queryParams.append("page", `${page}`);
-  queryParams.append("default_status", 1); // Showing status
+  queryParams.append("date_status", 1); // Showing status
   if (is_published) queryParams.append("is_published", `${is_published}`);
   queryParams.append("perpage", `${perpage}`);
   if (search) queryParams.append("search", search);
@@ -553,17 +565,14 @@ async function renderEventsPast(page = 1, perpage = 10, is_published = null) {
   try {
     const { data: resultUser } = await axiosInstance.get("/auth/me");
     const { data: user } = resultUser;
-    const userId = user[0].id;
+    const userId = user.id;
     queryParams.append("creator", userId);
 
     const { data } = await axiosInstance.get(`/events?${queryParams.toString()}`);
     const { data: events, paginate } = data;
 
     if (events.length <= 0) {
-      return (eventList.innerHTML = `<div class="text-center w-100 my-5">
-              <img src="/img/noFound.png" alt="..." height="220px;">
-              <h4 class="text-center text-brand mt-2">No Showing Events to Display</h4>
-            </div>`);
+      return (eventList.innerHTML = noEvent);
     }
 
     let eventCard = "";
@@ -577,7 +586,7 @@ async function renderEventsPast(page = 1, perpage = 10, is_published = null) {
 
       eventCard += `<tr class="border-bottom position-relative">
                       <td>
-                        <a class="stretched-link text-decoration-none bg-transparent link-event-details" style="color: inherit;">
+                        <a role="button" onclick="showSummary(${event.id})"  class="stretched-link text-decoration-none bg-transparent link-event-details" style="color: inherit;">
                           <div class="d-flex align-items-center">
                             <div class="me-3">
                               <div class="text-center text-brand fw-bold">${moment(event.started_date).format("MMM ")}</div>
@@ -670,10 +679,10 @@ function renderPaginationPast(paginate) {
 }
 
 async function changePagePast(newPage) {
-  await renderEventsShowing(newPage);
+  await renderEventsPast(newPage);
 }
 
-// Initial call to render showing events
+
 renderEventsPast();
 
 async function deleteEvent(id, btn) {
@@ -695,7 +704,25 @@ function updateEvent(id) {
 document.getElementById("searchEventInput").oninput = (e) => {
   renderEventsAll();
 };
+document.getElementById("upcoming-searchEventInput").oninput = (e) => {
+  renderEventsUpcoming();
+};
+document.getElementById("showing-searchEventInput").oninput = (e) => {
+  renderEventsShowing();
+};
+document.getElementById("past-searchEventInput").oninput = (e) => {
+  renderEventsPast();
+};
 
+document.getElementById("upcoming-event-sort-filter").onchange = (e) => {
+  renderEventsUpcoming();
+};
+document.getElementById("showing-event-sort-filter").onchange = (e) => {
+  renderEventsShowing();
+};
+document.getElementById("past-event-sort-filter").onchange = (e) => {
+  renderEventsPast();
+};
 document.getElementById("event-sort-filter").onchange = (e) => {
   renderEventsAll();
 };

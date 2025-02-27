@@ -6,7 +6,7 @@
     <body class="bg-white-stain">
         <%- include("../../partials/manage-event-header.ejs")  %>
 
-        <main>
+        <main class="bg-white">
             <div class>
                 <div class="d-flex">
                     <%- include("../../partials/manage-event-sidebar.ejs")  %>
@@ -15,53 +15,84 @@
                         <div class="mb-3">
                             <h2 style="color: #333;">Request Ticket</h2>
                         </div>
-                        <ul class="nav nav-underline gap-3" id="myTab" role="tablist">
-                            <li class="nav-item " role="presentation">
-                                <a href="#" class="nav-link active"
-                                    id="events-tab" style="color: #333;">All</a>
+                        <ul class="nav nav-underline gap-3" id="myTab"
+                            role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="all-tab"
+                                    data-bs-toggle="tab" data-bs-target="#all"
+                                    type="button" role="tab" aria-controls="all"
+                                    aria-selected="true"
+                                    style="color: #333;">All</button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a href="#" style="color: #333;" class="nav-link"
-                                    id="events-tab">Upcoming</a>
+                                <button class="nav-link" id="upcoming-tab"
+                                    data-bs-toggle="tab"
+                                    data-bs-target="#upcoming" type="button"
+                                    role="tab" aria-controls="upcoming"
+                                    aria-selected="false"
+                                    style="color: #333;">Upcoming</button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a href="#" style="color: #333;" class="nav-link"
-                                    id="events-tab">Showing</a>
+                                <button class="nav-link" id="showing-tab"
+                                    data-bs-toggle="tab"
+                                    data-bs-target="#showing" type="button"
+                                    role="tab" aria-controls="showing"
+                                    aria-selected="false"
+                                    style="color: #333;">Showing</button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a href="recruitment.html"
-                                    class="nav-link" style="color: #333;">Past</a>
+                                <button class="nav-link" id="past-tab"
+                                    data-bs-toggle="tab" data-bs-target="#past"
+                                    type="button" role="tab"
+                                    aria-controls="past" aria-selected="false"
+                                    style="color: #333;">Past</button>
                             </li>
                         </ul>
-                        <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active"
-                                id="events-tab-pane" role="tabpanel"
-                                aria-labelledby="events-tab" tabindex="0">
-                                <div class="row g-3 align-items-center my-2 justify-content-between">
-                                    <div class="col-auto">
-                                        <div class="row g-3">
-                                            <div class="col-auto">
-                                                <select class="form-select border-brand-sm shadow-none" id="event-sort-filter" aria-label="Default select example">
-                                                    <option value="" selected>All</option>
-                                                    <option value="eng_name">Event Title</option>
-                                                    <option value="created_at">Latest Event</option>
-                                                </select>
-                                            </div>
-                                            
-                                            <div class="col-auto">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control border-brand-sm shadow-none ps-3"  placeholder="Search" id="searchEventInput">
-                                                </div>
+                        
+
+                        <div class="tab-content bg-transparent"
+                            id="myTabContent">
+                            <div class="tab-pane fade show active" id="all"
+                                role="tabpanel" aria-labelledby="all-tab">
+                                <!-- All Events Content Here -->
+                                <div
+                                class="row g-3 align-items-center my-2 justify-content-between">
+                                <div class="col-auto">
+                                    <div class="row g-3">
+                                        <div class="col-auto">
+                                            <select
+                                                class="form-select border-brand-sm shadow-none bg-transparent"
+                                                id="event-sort-filter"
+                                                aria-label="Default select example">
+                                                <option value
+                                                    selected>All</option>
+                                                <option
+                                                    value="eng_name">Event
+                                                    Title</option>
+                                                <option
+                                                    value="created_at">Latest
+                                                    Event</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-auto">
+                                            <div class="input-group">
+                                                <input type="text"
+                                                    class="form-control border-brand-sm shadow-none ps-3 bg-transparent"
+                                                    placeholder="Search"
+                                                    id="searchEventInput">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 
+                            </div>
                                 
 
                                 <div class="my-4">
                                     <div class="table-responsive">
-                                        <table class="table table-borderless align-middle">
+                                        <table
+                                            class="table table-borderless align-middle bg-transparent">
                                             <thead class="border-bottom">
                                                 <tr >
                                                     <th scope="col" style="color: #333;" class="fw-semibold">Event</th>
@@ -70,32 +101,92 @@
                                                 </tr>
                                             </thead>
                                             <tbody id="event-tobody">
-                                                <tr class="border-bottom position-relative">
+                                                <tr
+                                                    class="border-bottom position-relative">
                                                     <td>
-                                                        <a href="#" class="stretched-link text-decoration-none bg-transparent link-event-details" style="color: inherit;">
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="me-3">
-                                                                    <div class="text-center text-brand fw-bold">Feb</div>
-                                                                    <div class="text-center text-brand fw-bold">23</div>
+                                                        <a href="#"
+                                                            class="stretched-link text-decoration-none bg-transparent link-event-details"
+                                                            style="color: inherit;">
+                                                            <div
+                                                                class="d-flex align-items-center">
+                                                                <div
+                                                                    class="me-3">
+                                                                    <div
+                                                                        class="text-center text-brand fw-bold">Feb</div>
+                                                                    <div
+                                                                        class="text-center text-brand fw-bold">23</div>
                                                                 </div>
-                                                                <img src="/uploads/default-events-img.jpg" alt="Event Image" class="rounded object-fit-cover" width="150" height="85">
-                                                                <div class="ms-3 text-nowrap">
-                                                                    <h5 class="mb-0 text-wrap">Sample Event</h5>
-                                                                    <p class="text-muted mb-0 w-75">Phnom Penh, Cambodia</p>
-                                                                    <p class="text-muted mb-0 small">Feb 23, 2025 - Feb 25, 2025, 10:00 AM - 5:00 PM</p>
+                                                                <img
+                                                                    src="/uploads/default-events-img.jpg"
+                                                                    alt="Event Image"
+                                                                    class="rounded object-fit-cover"
+                                                                    width="150"
+                                                                    height="85">
+                                                                <div
+                                                                    class="ms-3 text-nowrap">
+                                                                    <h5
+                                                                        class="mb-0 text-wrap">Sample
+                                                                        Event</h5>
+                                                                    <p
+                                                                        class="text-muted mb-0 w-75">Phnom
+                                                                        Penh,
+                                                                        Cambodia</p>
+                                                                    <p
+                                                                        class="text-muted mb-0 small">Feb
+                                                                        23, 2025
+                                                                        - Feb
+                                                                        25,
+                                                                        2025,
+                                                                        10:00 AM
+                                                                        - 5:00
+                                                                        PM</p>
                                                                 </div>
                                                             </div>
                                                         </a>
                                                     </td>
-                                                    <td class="text-nowrap">Active</td>
-                                                    <td class="text-nowrap">100 tickets</td>
-                                                    
+                                                    <td
+                                                        class="text-nowrap">Active</td>
+                                                    <td class="text-nowrap">100
+                                                        tickets</td>
+                                                    <td
+                                                        class="text-nowrap">$5,000.00</td>
+                                                    <td class="text-nowrap">85
+                                                        participated</td>
+                                                    <td>
+                                                        <div
+                                                            class="dropstart position-relative z-3">
+                                                            <button
+                                                                class="btn btn-brand"
+                                                                type="button"
+                                                                data-bs-toggle="dropdown"
+                                                                aria-expanded="false">
+                                                                <i
+                                                                    class="bi bi-three-dots"></i>
+                                                            </button>
+                                                            <ul
+                                                                class="dropdown-menu dropdown-menu-end">
+                                                                <li><a
+                                                                        class="dropdown-item edit-event-btn"
+                                                                        href="#">Edit</a></li>
+                                                                <li><a
+                                                                        class="dropdown-item delete-event-btn"
+                                                                        href="#">Delete</a></li>
+                                                                <li><a
+                                                                        class="dropdown-item views-event-detail"
+                                                                        href="#">View</a></li>
+                                                                <li><a
+                                                                        class="dropdown-item"
+                                                                        href="#"
+                                                                        onclick="copyEventUrlToClipboard()">Copy
+                                                                        Link</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-
                                 <!-- Pagination -->
                         <div class="pagination-container">
                             <button class="pagination-button btn-icon"
@@ -110,170 +201,370 @@
                                 id="nextBtn"><i
                                     class="fa-solid fa-angle-right"></i></button>
                         </div>
-                                
 
                             </div>
-                            <div class="tab-pane fade"
-                                id="vendor-recruitment-tab-pane" role="tabpanel"
-                                aria-labelledby="vendor-recruitment-tab"
-                                tabindex="0">
-                                <div class="d-flex align-items-center my-4">
-                                    <div class>
-                                        <select class="form-select"
-                                            aria-label="Default select example">
-                                            <option value="all">All</option>
-                                            <option
-                                                value="upcoming">Upcoming</option>
-                                            <option
-                                                value="showing">Showing</option>
-                                            <option value="past">Past</option>
-                                        </select>
-                                    </div>
-                                    <div class>
-                                        <div class="input-group ms-3">
-                                            <input type="text"
-                                                class="form-control"
-                                                placeholder="Search"
-                                                id="searchEventInput">
+                            <div class="tab-pane fade" id="upcoming"
+                                role="tabpanel" aria-labelledby="upcoming-tab">
+                                <div
+                                class="row g-3 align-items-center my-2 justify-content-between">
+                                <div class="col-auto">
+                                    <div class="row g-3">
+                                        <div class="col-auto">
+                                            <select
+                                                class="form-select border-brand-sm shadow-none bg-transparent"
+                                                id="upcoming-event-sort-filter"
+                                                aria-label="Default select example">
+                                                <option value
+                                                    selected>All</option>
+                                                <option
+                                                    value="eng_name">Event
+                                                    Title</option>
+                                                <option
+                                                    value="created_at">Latest
+                                                    Event</option>
+                                            </select>
+                                        </div>
 
+                                        <div class="col-auto">
+                                            <div class="input-group">
+                                                <input type="text"
+                                                    class="form-control border-brand-sm shadow-none ps-3 bg-transparent"
+                                                    placeholder="Search"
+                                                    id="upcoming-searchEventInput">
+                                            </div>
                                         </div>
                                     </div>
-
-                                    <a href="vendor-recruitment.html"
-                                        role="button"
-                                        class="btn btn-brand ms-auto">+ Create
-                                        Vendor Recruitment</a>
-
                                 </div>
-
+                                
+                            </div>
+                                <!-- Upcoming Events Content Here -->
                                 <div class="my-4">
-                                    <table
-                                        class="table table-borderless align-middle">
-                                        <thead class>
-                                            <tr class="border-bottom">
-                                                <th scope="col">Vendor
-                                                    Recruitment</th>
-                                                <th scope="col">Request</th>
-                                                <th scope="col"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="vendor-recruitment-tbody">
-                                            <!-- First Event Row -->
-                                            <tr>
-                                                <td colspan="5">
-                                                    <div class="card border-0"
-                                                        aria-hidden="true">
-                                                        <div class="row g-0">
-                                                            <div class="col-4">
-                                                                <div
-                                                                    class="bg-secondary-subtle border rounded-1"
-                                                                    style="width: 100%; height: 100%;">
-
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-8">
-                                                                <div
-                                                                    class="card-body py-2">
-                                                                    <h5
-                                                                        class="card-title ">
-                                                                        <span
-                                                                            class="placeholder col-11 "
-                                                                            style="background-color: #D4D4D4;"></span>
-                                                                    </h5>
-                                                                    <p
-                                                                        class="card-text ">
-                                                                        <span
-                                                                            class="placeholder col-10"
-                                                                            style="background-color: #D4D4D4;"></span>
-                                                                        <span
-                                                                            class="placeholder col-12"
-                                                                            style="background-color: #D4D4D4;"></span>
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="5">
-                                                    <div class="card border-0"
-                                                        aria-hidden="true">
-                                                        <div class="row g-0">
-                                                            <div class="col-4">
-                                                                <div
-                                                                    class="bg-secondary-subtle border rounded-1"
-                                                                    style="width: 100%; height: 100%;">
-
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-8">
-                                                                <div
-                                                                    class="card-body py-2">
-                                                                    <h5
-                                                                        class="card-title ">
-                                                                        <span
-                                                                            class="placeholder col-11 "
-                                                                            style="background-color: #D4D4D4;"></span>
-                                                                    </h5>
-                                                                    <p
-                                                                        class="card-text ">
-                                                                        <span
-                                                                            class="placeholder col-10"
-                                                                            style="background-color: #D4D4D4;"></span>
-                                                                        <span
-                                                                            class="placeholder col-12"
-                                                                            style="background-color: #D4D4D4;"></span>
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="5">
-                                                    <div class="card border-0"
-                                                        aria-hidden="true">
-                                                        <div class="row g-0">
-                                                            <div class="col-4">
-                                                                <div
-                                                                    class="bg-secondary-subtle border rounded-1"
-                                                                    style="width: 100%; height: 100%;">
-
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-8">
-                                                                <div
-                                                                    class="card-body py-2">
-                                                                    <h5
-                                                                        class="card-title ">
-                                                                        <span
-                                                                            class="placeholder col-11 "
-                                                                            style="background-color: #D4D4D4;"></span>
-                                                                    </h5>
-                                                                    <p
-                                                                        class="card-text ">
-                                                                        <span
-                                                                            class="placeholder col-10"
-                                                                            style="background-color: #D4D4D4;"></span>
-                                                                        <span
-                                                                            class="placeholder col-12"
-                                                                            style="background-color: #D4D4D4;"></span>
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-
+                                    <div class="table-responsive">
+                                        <table
+                                            class="table table-borderless align-middle bg-transparent">
+                                            <thead class="border-bottom">
+                                                <tr >
+                                                    <th scope="col" style="color: #333;" class="fw-semibold">Event</th>
+                                                    <th scope="col" style="color: #333;" class="fw-semibold">Status</th>
+                                                    <th scope="col" style="color: #333;" class="fw-semibold">Request</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="upcoming-event-tbody">
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
+                                <!-- Pagination -->
+                        <div class="pagination-container">
+                            <button class="pagination-button btn-icon"
+                                onclick="changePageUpcoming(currentPage - 1)"
+                                id="prevUpcomingBtn" disabled><i
+                                    class="fa-solid fa-angle-left"></i></button>
+
+                            <div id="pagination-numbers-upcoming"></div>
+
+                            <button class="pagination-button btn-icon"
+                                onclick="changePageUpcoming(currentPage + 1)"
+                                id="nextUpcomingBtn"><i
+                                    class="fa-solid fa-angle-right"></i></button>
+                        </div>
+                            </div>
+                            <div class="tab-pane fade" id="showing"
+                                role="tabpanel" aria-labelledby="showing-tab">
+                                <div
+                                class="row g-3 align-items-center my-2 justify-content-between">
+                                <div class="col-auto">
+                                    <div class="row g-3">
+                                        <div class="col-auto">
+                                            <select
+                                                class="form-select border-brand-sm shadow-none bg-transparent"
+                                                id="showing-event-sort-filter"
+                                                aria-label="Default select example">
+                                                <option value
+                                                    selected>All</option>
+                                                <option
+                                                    value="eng_name">Event
+                                                    Title</option>
+                                                <option
+                                                    value="created_at">Latest
+                                                    Event</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-auto">
+                                            <div class="input-group">
+                                                <input type="text"
+                                                    class="form-control border-brand-sm shadow-none ps-3 bg-transparent"
+                                                    placeholder="Search"
+                                                    id="showing-searchEventInput">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                                <!-- Showing Events Content Here -->
+                                <div class="my-4">
+                                    <div class="table-responsive">
+                                        <table
+                                            class="table table-borderless align-middle bg-transparent">
+                                            <thead class="border-bottom">
+                                                <tr >
+                                                    <th scope="col" style="color: #333;" class="fw-semibold">Event</th>
+                                                    <th scope="col" style="color: #333;" class="fw-semibold">Status</th>
+                                                    <th scope="col" style="color: #333;" class="fw-semibold">Request</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="showing-event-tbody">
+                                                <tr
+                                                    class="border-bottom position-relative">
+                                                    <td>
+                                                        <a href="#"
+                                                            class="stretched-link text-decoration-none bg-transparent link-event-details"
+                                                            style="color: inherit;">
+                                                            <div
+                                                                class="d-flex align-items-center">
+                                                                <div
+                                                                    class="me-3">
+                                                                    <div
+                                                                        class="text-center text-brand fw-bold">Feb</div>
+                                                                    <div
+                                                                        class="text-center text-brand fw-bold">23</div>
+                                                                </div>
+                                                                <img
+                                                                    src="/uploads/default-events-img.jpg"
+                                                                    alt="Event Image"
+                                                                    class="rounded object-fit-cover"
+                                                                    width="150"
+                                                                    height="85">
+                                                                <div
+                                                                    class="ms-3 text-nowrap">
+                                                                    <h5
+                                                                        class="mb-0 text-wrap">Sample
+                                                                        Event</h5>
+                                                                    <p
+                                                                        class="text-muted mb-0 w-75">Phnom
+                                                                        Penh,
+                                                                        Cambodia</p>
+                                                                    <p
+                                                                        class="text-muted mb-0 small">Feb
+                                                                        23, 2025
+                                                                        - Feb
+                                                                        25,
+                                                                        2025,
+                                                                        10:00 AM
+                                                                        - 5:00
+                                                                        PM</p>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </td>
+                                                    <td
+                                                        class="text-nowrap">Active</td>
+                                                    <td class="text-nowrap">100
+                                                        tickets</td>
+                                                    <td
+                                                        class="text-nowrap">$5,000.00</td>
+                                                    <td class="text-nowrap">85
+                                                        participated</td>
+                                                    <td>
+                                                        <div
+                                                            class="dropstart position-relative z-3">
+                                                            <button
+                                                                class="btn btn-brand"
+                                                                type="button"
+                                                                data-bs-toggle="dropdown"
+                                                                aria-expanded="false">
+                                                                <i
+                                                                    class="bi bi-three-dots"></i>
+                                                            </button>
+                                                            <ul
+                                                                class="dropdown-menu dropdown-menu-end">
+                                                                <li><a
+                                                                        class="dropdown-item edit-event-btn"
+                                                                        href="#">Edit</a></li>
+                                                                <li><a
+                                                                        class="dropdown-item delete-event-btn"
+                                                                        href="#">Delete</a></li>
+                                                                <li><a
+                                                                        class="dropdown-item views-event-detail"
+                                                                        href="#">View</a></li>
+                                                                <li><a
+                                                                        class="dropdown-item"
+                                                                        href="#"
+                                                                        onclick="copyEventUrlToClipboard()">Copy
+                                                                        Link</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- Pagination -->
+                        <div class="pagination-container">
+                            <button class="pagination-button btn-icon"
+                                onclick="changePageShowing(currentPage - 1)"
+                                id="prevShowingBtn" disabled><i
+                                    class="fa-solid fa-angle-left"></i></button>
+
+                            <div id="pagination-numbers-showing"></div>
+
+                            <button class="pagination-button btn-icon"
+                                onclick="changePageShowing(currentPage + 1)"
+                                id="nextShowingBtn"><i
+                                    class="fa-solid fa-angle-right"></i></button>
+                        </div>
+                            </div>
+                            <div class="tab-pane fade" id="past" role="tabpanel"
+                                aria-labelledby="past-tab">
+                                <div
+                                class="row g-3 align-items-center my-2 justify-content-between">
+                                <div class="col-auto">
+                                    <div class="row g-3">
+                                        <div class="col-auto">
+                                            <select
+                                                class="form-select border-brand-sm shadow-none bg-transparent"
+                                                id="past-event-sort-filter"
+                                                aria-label="Default select example">
+                                                <option value
+                                                    selected>All</option>
+                                                <option
+                                                    value="eng_name">Event
+                                                    Title</option>
+                                                <option
+                                                    value="created_at">Latest
+                                                    Event</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-auto">
+                                            <div class="input-group">
+                                                <input type="text"
+                                                    class="form-control border-brand-sm shadow-none ps-3 bg-transparent"
+                                                    placeholder="Search"
+                                                    id="past-searchEventInput" style="width: 400px !important;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                                <!-- Past Events Content Here -->
+                                <div class="my-4">
+                                    <div class="table-responsive">
+                                        <table
+                                            class="table table-borderless align-middle bg-transparent">
+                                            <thead class="border-bottom">
+                                                <tr >
+                                                    <th scope="col" style="color: #333;" class="fw-semibold">Event</th>
+                                                    <th scope="col" style="color: #333;" class="fw-semibold">Status</th>
+                                                    <th scope="col" style="color: #333;" class="fw-semibold">Request</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="past-event-tbody">
+                                                <tr
+                                                    class="border-bottom position-relative">
+                                                    <td>
+                                                        <a href="#"
+                                                            class="stretched-link text-decoration-none bg-transparent link-event-details"
+                                                            style="color: inherit;">
+                                                            <div
+                                                                class="d-flex align-items-center">
+                                                                <div
+                                                                    class="me-3">
+                                                                    <div
+                                                                        class="text-center text-brand fw-bold">Feb</div>
+                                                                    <div
+                                                                        class="text-center text-brand fw-bold">23</div>
+                                                                </div>
+                                                                <img
+                                                                    src="/uploads/default-events-img.jpg"
+                                                                    alt="Event Image"
+                                                                    class="rounded object-fit-cover"
+                                                                    width="150"
+                                                                    height="85">
+                                                                <div
+                                                                    class="ms-3 text-nowrap">
+                                                                    <h5
+                                                                        class="mb-0 text-wrap">Sample
+                                                                        Event</h5>
+                                                                    <p
+                                                                        class="text-muted mb-0 w-75">Phnom
+                                                                        Penh,
+                                                                        Cambodia</p>
+                                                                    <p
+                                                                        class="text-muted mb-0 small">Feb
+                                                                        23, 2025
+                                                                        - Feb
+                                                                        25,
+                                                                        2025,
+                                                                        10:00 AM
+                                                                        - 5:00
+                                                                        PM</p>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </td>
+                                                    <td
+                                                        class="text-nowrap">Active</td>
+                                                    <td class="text-nowrap">100
+                                                        tickets</td>
+                                                    <td
+                                                        class="text-nowrap">$5,000.00</td>
+                                                    <td class="text-nowrap">85
+                                                        participated</td>
+                                                    <td>
+                                                        <div
+                                                            class="dropstart position-relative z-3">
+                                                            <button
+                                                                class="btn btn-brand"
+                                                                type="button"
+                                                                data-bs-toggle="dropdown"
+                                                                aria-expanded="false">
+                                                                <i
+                                                                    class="bi bi-three-dots"></i>
+                                                            </button>
+                                                            <ul
+                                                                class="dropdown-menu dropdown-menu-end">
+                                                                <li><a
+                                                                        class="dropdown-item edit-event-btn"
+                                                                        href="#">Edit</a></li>
+                                                                <li><a
+                                                                        class="dropdown-item delete-event-btn"
+                                                                        href="#">Delete</a></li>
+                                                                <li><a
+                                                                        class="dropdown-item views-event-detail"
+                                                                        href="#">View</a></li>
+                                                                <li><a
+                                                                        class="dropdown-item"
+                                                                        href="#"
+                                                                        onclick="copyEventUrlToClipboard()">Copy
+                                                                        Link</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- Pagination -->
+                        <div class="pagination-container">
+                            <button class="pagination-button btn-icon"
+                                onclick="changePagePast(currentPage - 1)"
+                                id="prevPastBtn" disabled><i
+                                    class="fa-solid fa-angle-left"></i></button>
+
+                            <div id="pagination-numbers-past"></div>
+
+                            <button class="pagination-button btn-icon"
+                                onclick="changePagePast(currentPage + 1)"
+                                id="nextPastBtn"><i
+                                    class="fa-solid fa-angle-right"></i></button>
+                        </div>
                             </div>
                         </div>
 

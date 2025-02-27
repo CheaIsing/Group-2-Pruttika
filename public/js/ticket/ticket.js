@@ -373,7 +373,7 @@ function showTicket(el) {
           <div class=" d-flex flex-column justify-content-center">
             <p class="mb-0">${obj.ticket_type}</p>
           <h3 class="text-brand">$${obj.price.toFixed(2)}</h3>
-          <div class="qr-code"></div>
+          <img src="${obj.qr_code_img}" alt="Qr" />
           <small style="font-size: 10px;" class="wrap-text mt-3">${obj.qr_code}</small>
         </div>
           <!-- <h5>ADMISSION</h5> -->
