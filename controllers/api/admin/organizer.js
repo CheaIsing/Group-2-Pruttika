@@ -106,6 +106,24 @@ const displayAllOrganizer = async (req, res) => {
   }
 };
 
+const getRequestOrganizerDetails = async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const query = "SELECT * FROM tbl_organizer_req WHERE id = ?";
+    const data = await executeQuery(query, [id]);
+
+    if (data.length === 0) {
+      return sendResponse(res, 404, false, "Request organizer not found");
+    }
+
+    sendResponse(res, 200, true, "Display request organizer details", data[0]);
+  } catch (error) {
+    console.log(error);
+    sendResponse(res, error);
+  }
+};
+
 const getOrganizerDetails = async (req, res) => {
   const id = req.params.id;
 
@@ -364,7 +382,7 @@ const adminRejection = async (req, res) => {
     (receiver_id, eng_message,kh_message,sender_id,organizer_req_id, type_id) 
     VALUES (?,?,?,?,?,?)`;
     const paramsNotification=[
-      userId,
+      user_id,
       `We regret to inform you that your request to become an organizer has been rejected.Reason: ${rejection_reason}. We appreciate your interest and hope you consider applying again.`,
       `យើងសោកស្ដាយក្នុងការជូនដំណឹងដល់អ្នកថាសំណើរបស់អ្នកដើម្បីក្លាយជាអ្នករៀបចំត្រូវបានបដិសេធ។ ហេតុផល៖ ${rejection_reason}។ យើងសូមកោតសរសើរចំពោះចំណាប់អារម្មណ៍របស់អ្នក ហើយសង្ឃឹមថាអ្នកពិចារណាដាក់ពាក្យម្តងទៀត។`,
       sender_id,
@@ -383,6 +401,7 @@ const adminRejection = async (req, res) => {
 module.exports = {
   displayRequestOrganizer,
   displayAllOrganizer,
+  getRequestOrganizerDetails,
   getOrganizerDetails,
   editOrganizer,
   removeOrganizer,

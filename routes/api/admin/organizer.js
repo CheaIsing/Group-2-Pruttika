@@ -3,6 +3,7 @@ const express = require("express");
 const {
   displayRequestOrganizer,
   displayAllOrganizer,
+  getRequestOrganizerDetails,
   getOrganizerDetails,
   editOrganizer,
   removeOrganizer,
@@ -17,6 +18,7 @@ const router = express.Router();
 router.get("/request", requireAuth, checkRole(3), displayRequestOrganizer);
 router.get("/all", requireAuth, checkRole(3), displayAllOrganizer);
 router.get("/details/:id", requireAuth, checkRole(3), getOrganizerDetails);
+router.get("/req-details/:id", requireAuth, checkRole(3), getRequestOrganizerDetails);
 
 router.put("/update/:id", requireAuth, checkRole(3), editOrganizer);
 router.put("/approve/:id", requireAuth, checkRole(3), adminApproval);
