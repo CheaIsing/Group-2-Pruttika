@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <%- include("../../partials/head.ejs") %>
-  <body class="">
+  <body class>
     <%- include("../../partials/navbar.ejs") %>
     <div class="container-lg py-4">
 
@@ -17,129 +17,150 @@
       </div> -->
 
       <div class="my-ticket">
-        <ul class="nav nav-pills mb-1 mt-2 gap-3 align-items-center" id="pills-tab" role="tablist">
-            <li class="nav-item border-bottom-2" role="presentation">
-                <button
-                    class="nav-link active rounded-5" 
-                    id="pills-home-tab" data-bs-toggle="pill"
-                    data-bs-target="#pills-home" type="button"
-                    role="tab" aria-controls="pills-home"
-                    aria-selected="true">Owned Ticket</button>
-            </li>
-            <li class="nav-item nav-item-request d-flex w-auto align-items-center gap-3" role="presentation">
+        <ul class="nav nav-pills mb-1 mt-2 gap-3 align-items-center"
+          id="pills-tab" role="tablist">
+          <li class="nav-item border-bottom-2" role="presentation">
+            <button
+              class="nav-link active rounded-5"
+              id="pills-home-tab" data-bs-toggle="pill"
+              data-bs-target="#pills-home" type="button"
+              role="tab" aria-controls="pills-home"
+              aria-selected="true">Owned Ticket</button>
+          </li>
+          <li
+            class="nav-item nav-item-request d-flex w-auto align-items-center gap-3"
+            role="presentation">
 
-                <!-- Tab Button -->
-                <button class="nav-link rounded-5 text-nowrap" id="pills-profile-tab"
-                  data-bs-toggle="pill" data-bs-target="#pills-profile"
-                  type="button" role="tab" aria-controls="pills-profile"
-                  aria-selected="false">
-                  Requested Ticket <span id="notiUnreadCount"></span>
-                </button>
+            <!-- Tab Button -->
+            <button class="nav-link rounded-5 text-nowrap"
+              id="pills-profile-tab"
+              data-bs-toggle="pill" data-bs-target="#pills-profile"
+              type="button" role="tab" aria-controls="pills-profile"
+              aria-selected="false">
+              Requested Ticket <span id="notiUnreadCount"></span>
+            </button>
 
-                
-            
-                <!-- Dropdown Button -->
-                
+            <!-- Dropdown Button -->
 
-              
-            </li>
-            
+          </li>
+
         </ul>
         <div class="tab-content m-0" id="pills-tabContent">
-            <div class="tab-pane fade show active" id="pills-home"
-                role="tabpanel" aria-labelledby="pills-home-tab"
-                tabindex="0">
-                <select name="" id="select-owned-ticket-status" class="form-select rounded-5 ps-3 w-auto mb-3" style="background-color: #f3f4f6 !important;">
-                  <option value="">All</option>
-                  <option value="1">Issue</option>
-                  <option value="2">Used</option>
-                </select>
+          <div class="tab-pane fade show active" id="pills-home"
+            role="tabpanel" aria-labelledby="pills-home-tab"
+            tabindex="0">
+            <select name id="select-owned-ticket-status"
+              class="form-select rounded-5 ps-3 w-auto my-3"
+              style="background-color: #f3f4f6 !important;">
+              <option value>All</option>
+              <option value="1">Issue</option>
+              <option value="2">Used</option>
+            </select>
 
-                <div class="accordion" id="owned-ticket-container">
-                    
-                </div>
-                
+            <div class="accordion" id="owned-ticket-container">
+
             </div>
-            <div class="tab-pane fade" id="pills-profile"
-                    role="tabpanel" aria-labelledby="pills-profile-tab"
-                    tabindex="0">
-                    <select name="" id="select-request-ticket-status" class="form-select rounded-5 ps-3 w-auto mb-3" style="background-color: #f3f4f6 !important;">
-                      <option value="">All</option>
-                      <option value="2">Approved</option>
-                      <option value="1">Pending</option>
-                      <option value="3">Rejected</option>
-                    </select>
-                    
-            <div class="row"  >
-                    <!-- Accordion Start -->
-      <div class="accordion" id="requested-ticket-container">
+            <div class="pagination-container">
+              <button class="pagination-button btn-icon"
+                onclick="changePageOwned(currentPage - 1)"
+                id="prevOwnedBtn" disabled><i
+                  class="fa-solid fa-angle-left"></i></button>
 
-        <!-- TICKET 1: Approved -->
-        <div
-          class="accordion-item mb-3 rounded-4 overflow-hidden border-0 shadow-light-sm">
-          <h2 class="accordion-header rounded-top-3"
-            id="ticket1Header">
-            <button class="accordion-button"
-              type="button"
-              data-bs-toggle="modal" data-bs-target="#exampleModal">
-              <div style="max-width: 200px;" class="me-1 d-none d-md-block">
-                <img src="/uploads/default-events-img.jpg"
-                  style="max-width: 200px;" class="img-preview rounded-4"
-                  alt="Image">
-              </div>
-              <!-- Left side (Title, Date, #Tickets) -->
-              <div style="color: #4b5563;" class="ms-md-3">
-                <h3 class="mb-3">Summer Music Festival 2024</h3>
-                <div class="mb-md-2 fs-5">
-                  <div
-                    class="d-flex align-items-md-center flex-column flex-md-row">
-                    <div
-                      class="d-flex align-items-center fs-5 me-md-4 mb-2 mb-md-0
-                ">
-                      <i class="text-brand" data-lucide="calendar"
-                        style="stroke-width: 1.75px; width: 1.25rem;"></i>
-                      <div class="ms-2">March 15,
-                        2024</div>
-                    </div>
-                    <div
-                      class="d-flex align-items-center fs-5 mb-2 mb-md-0">
-                      <i class="text-brand" data-lucide="ticket"
-                        style="stroke-width: 1.75px; width: 1.25rem;"></i>
-                      <div class="ms-2 ">1 tickets</div>
-                    </div>
-                  </div>
-                </div>
+              <div id="pagination-numbers-owned"></div>
+
+              <button class="pagination-button btn-icon"
+                onclick="changePageOwned(currentPage + 1)"
+                id="nextOwnedBtn"><i
+                  class="fa-solid fa-angle-right"></i></button>
+            </div>
+
+          </div>
+          <div class="tab-pane fade" id="pills-profile"
+            role="tabpanel" aria-labelledby="pills-profile-tab"
+            tabindex="0">
+            <select name id="select-request-ticket-status"
+              class="form-select rounded-5 ps-3 w-auto my-3"
+              style="background-color: #f3f4f6 !important;">
+              <option value>All</option>
+              <option value="2">Approved</option>
+              <option value="1">Pending</option>
+              <option value="3">Rejected</option>
+            </select>
+
+            <div class="row">
+              <!-- Accordion Start -->
+              <div class="accordion" id="requested-ticket-container">
+
+                <!-- TICKET 1: Approved -->
                 <div
-                  class="d-flex align-items-center fs-5 mt-md-2 mb-2 mb-md-0 d-none d-sm-flex">
-                  <i class="text-brand" data-lucide="map-pin"
-                    style="stroke-width: 1.75px; width: 1.25rem;"></i>
-                  <div class="ms-2 ">Central Park, NY</div>
+                  class="accordion-item mb-3 rounded-4 overflow-hidden border-0 shadow-light-sm">
+                  <h2 class="accordion-header rounded-top-3"
+                    id="ticket1Header">
+                    <button class="accordion-button"
+                      type="button"
+                      data-bs-toggle="modal" data-bs-target="#exampleModal">
+                      <div style="max-width: 200px;"
+                        class="me-1 d-none d-md-block">
+                        <img src="/uploads/default-events-img.jpg"
+                          style="max-width: 200px;"
+                          class="img-preview rounded-4"
+                          alt="Image">
+                      </div>
+                      <!-- Left side (Title, Date, #Tickets) -->
+                      <div style="color: #4b5563;" class="ms-md-3">
+                        <h3 class="mb-3">Summer Music Festival 2024</h3>
+                        <div class="mb-md-2 fs-5">
+                          <div
+                            class="d-flex align-items-md-center flex-column flex-md-row">
+                            <div
+                              class="d-flex align-items-center fs-5 me-md-4 mb-2 mb-md-0
+                ">
+                              <i class="text-brand" data-lucide="calendar"
+                                style="stroke-width: 1.75px; width: 1.25rem;"></i>
+                              <div class="ms-2">March 15,
+                                2024</div>
+                            </div>
+                            <div
+                              class="d-flex align-items-center fs-5 mb-2 mb-md-0">
+                              <i class="text-brand" data-lucide="ticket"
+                                style="stroke-width: 1.75px; width: 1.25rem;"></i>
+                              <div class="ms-2 ">1 tickets</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="d-flex align-items-center fs-5 mt-md-2 mb-2 mb-md-0 d-none d-sm-flex">
+                          <i class="text-brand" data-lucide="map-pin"
+                            style="stroke-width: 1.75px; width: 1.25rem;"></i>
+                          <div class="ms-2 ">Central Park, NY</div>
+
+                        </div>
+                        <div>
+                          <div
+                            class="ticket-status approved text-nowrap d-block d-sm-none mt-3 text-center"
+                            style="width: auto !important; ">✔
+                            Approved</div>
+                        </div>
+
+                      </div>
+                      <!-- Right side (Status) -->
+                      <div
+                        class="ticket-status approved ms-auto text-nowrap d-none d-sm-block fw-semibold">✔
+                        Approved</div>
+
+                      <a id="btnTransaction" data-bs-toggle="tooltip"
+                        data-bs-placement="bottom"
+                        title="View Transaction"
+                        data-bs-custom-class="custom-tooltip"
+                        class="btn btn-brand btn-icon fw-semibold ms-3 px-3 rounded-circle"
+                        type="button"><i data-lucide="eye"></i></a>
+                    </button>
+                  </h2>
 
                 </div>
-                <div>
-                  <div
-                    class="ticket-status approved text-nowrap d-block d-sm-none mt-3 text-center"
-                    style="width: auto !important; ">✔
-                    Approved</div>
-                </div>
 
-              </div>
-              <!-- Right side (Status) -->
-              <div
-                class="ticket-status approved ms-auto text-nowrap d-none d-sm-block fw-semibold">✔
-                Approved</div>
-
-              <a id="btnTransaction" data-bs-toggle="tooltip"
-              data-bs-placement="bottom"
-              title="View Transaction"
-              data-bs-custom-class="custom-tooltip" class="btn btn-brand btn-icon fw-semibold ms-3 px-3 rounded-circle" type="button"><i data-lucide="eye"></i></a>
-            </button>
-          </h2>
-
-        </div>
-
-        <!-- TICKET 2: Rejected -->
-        <!-- <div class="accordion-item mb-3 rounded-3 overflow-hidden">
+                <!-- TICKET 2: Rejected -->
+                <!-- <div class="accordion-item mb-3 rounded-3 overflow-hidden">
       <h2 class="accordion-header rounded-top-3" id="ticket2Header">
         <button class="accordion-button collapsed" 
                 type="button" 
@@ -166,8 +187,8 @@
       </div>
     </div> -->
 
-        <!-- TICKET 3: Pending -->
-        <!-- <div class="accordion-item mb-3 rounded-3 overflow-hidden">
+                <!-- TICKET 3: Pending -->
+                <!-- <div class="accordion-item mb-3 rounded-3 overflow-hidden">
       <h2 class="accordion-header rounded-top-3" id="ticket3Header">
         <button class="accordion-button collapsed" 
                 type="button" 
@@ -194,14 +215,27 @@
       </div>
     </div> -->
 
-      </div>
-      <!-- Accordion End -->
+              </div>
+              <div class="pagination-container">
+                <button class="pagination-button btn-icon"
+                  onclick="changePageRequest(currentPage - 1)"
+                  id="prevRequestBtn" disabled><i
+                    class="fa-solid fa-angle-left"></i></button>
 
-    </div>
+                <div id="pagination-numbers-request"></div>
+
+                <button class="pagination-button btn-icon"
+                  onclick="changePageRequest(currentPage + 1)"
+                  id="nextRequestBtn"><i
+                    class="fa-solid fa-angle-right"></i></button>
+              </div>
+              <!-- Accordion End -->
+
             </div>
-                   
-                </div>
+          </div>
+
         </div>
+      </div>
 
     </div>
 
@@ -323,25 +357,30 @@
         </div>
       </div> -->
 
-<!-- Modal -->
-<div class="modal fade modal-md" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-  <div class="modal-content rounded-5" style="color: #333;">
-    <div class="modal-header border-bottom p-4">
-      <h4 class="modal-title" style="color: #333;" id="exampleModalLabel">
-        Ticket Transaction
-      </h4>
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-    <div class="modal-body p-4" id="modal-body">
+    <!-- Modal -->
+    <div class="modal fade modal-md" id="exampleModal" tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content rounded-5" style="color: #333;">
+          <div class="modal-header border-bottom p-3">
+            <h4 class="modal-title" style="color: #333;" id="exampleModalLabel">
+              Ticket Transaction
+            </h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"
+              aria-label="Close"></button>
+          </div>
+          <div class="modal-body p-4" id="modal-body">
 
-          <span class="ticket-status badge rounded-pill approved fw-medium">✔ Status: 
-            Approved</span>
+            <span class="ticket-status badge rounded-pill approved fw-medium">✔
+              Status:
+              Approved</span>
             <br><br>
 
             <div class="shadow-sm border rounded-4 overflow-hidden">
-              <img class="w-100 object-fit-cover" src="https://www.gonnaorder.com/wp-content/uploads/2024/08/pay-9-usd-aba-payway.jpg" alt="transaction">
+              <img class="w-100 object-fit-cover"
+                src="https://www.gonnaorder.com/wp-content/uploads/2024/08/pay-9-usd-aba-payway.jpg"
+                alt="transaction">
               <!-- <div class="hover-transaction position-relative overflow-hidden">
                 <img class="w-100 object-fit-cover" style="max-height: 200px;" src="https://www.gonnaorder.com/wp-content/uploads/2024/08/pay-9-usd-aba-payway.jpg" alt="">
                 <div class="transaction-btn position-absolute top-0 end-0 start-0 bottom-0 d-flex align-items-center justify-content-center ">
@@ -351,16 +390,18 @@ aria-hidden="true">
               </div> -->
               <div class="bg-light p-4 border-top">
                 <h5 class="fw-meduim mb-3">Ticket Detail</h5>
-  
-                <div class="card-text fs-5 d-flex align-items-center justify-content-between mb-2">
+
+                <div
+                  class="card-text fs-5 d-flex align-items-center justify-content-between mb-2">
                   <small>
-                    Ticket Bought 
+                    Ticket Bought
                   </small>
                   <small class="fw-medium">
                     1
                   </small>
                 </div>
-                <div class="card-text fs-5 d-flex align-items-center justify-content-between mb-2">
+                <div
+                  class="card-text fs-5 d-flex align-items-center justify-content-between mb-2">
                   <small>
                     Price Per Ticket
                   </small>
@@ -368,7 +409,8 @@ aria-hidden="true">
                     $10.00
                   </small>
                 </div>
-                <div class="card-text fs-5 d-flex align-items-center justify-content-between mb-2">
+                <div
+                  class="card-text fs-5 d-flex align-items-center justify-content-between mb-2">
                   <small>
                     Discount
                   </small>
@@ -377,7 +419,8 @@ aria-hidden="true">
                   </small>
                 </div>
                 <hr>
-                <div class="card-text fs-5 d-flex align-items-center justify-content-between mb-2">
+                <div
+                  class="card-text fs-5 d-flex align-items-center justify-content-between mb-2">
                   <small>
                     Total
                   </small>
@@ -388,9 +431,7 @@ aria-hidden="true">
               </div>
             </div>
 
-
-
-      <!-- <div
+            <!-- <div
         class="row"
       >
         <div class="col-12 col-md-6">
@@ -410,107 +451,117 @@ aria-hidden="true">
 
         </div>
       </div> -->
-    
-    </div>
-    <!-- <div class="modal-footer border-top p-4">
+
+          </div>
+          <!-- <div class="modal-footer border-top p-4">
       <button
         type="button"
         class="btn btn-light flex-grow-1">
         Close
       </button>
     </div> -->
-  </div>
-</div>
-</div>
-<div class="modal fade modal-xl" id="exampleModalTicket" tabindex="-1" aria-labelledby="exampleModalLabelTicket"
-aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-  <div class="modal-content rounded-5" id="modal-content">
-    <div class="modal-header py-1 px-md-4 w-100 text-white bg-brand d-flex align-items-center justify-content-between">
 
-        <button type="button" class="btn btn-icon text-white shadow-none border-0">
-          <i class="fa-solid fa-download text-white"></i>
-        </button>
-
-      <h4 class="modal-title fw-medium h5" id="exampleModalLabelTicket">
-        VIP
-      </h4>
-    
-      <button type="button" class="btn btn-icon text-white shadow-none border-0" 
-      data-bs-dismiss="modal" aria-label="Close">
-      <i class="fa-solid fa-x text-white"></i>
-    </button>
-
-    </div>
-    
-    <div class="modal-body py-0 px-0" id="modal-body">
-
-      <div class="row ticket">
-        <!-- Left Side -->
-        <div class="col-lg-8 ticket-left">
-          <div class="d-flex flex-column justify-content-between align-items-start h-100">
-            <div class="">
-              <img src="/img/Prutika_Logo_text(2).png" class="img-fluid mb-2" alt="" width="140px">
-            <h2 class="fw-bold text-brand">HALOWIN PRUTTIKA PRESENTS PRESENTS</h2>
-            </div>
-       
-            <div class=" w-100">
-                <div class="w-100">
-                  <div class="d-flex">
-                    <i class="bi bi-calendar-event text-brand me-2"></i>
-                    <p> Friday 25 October 2024 - Friday 25 October  2024</p>
-                  </div>
-                  <div class="d-flex">
-                    <i class="bi bi-clock text-brand me-2"></i>
-                    <p> 8:00am - 11:00am</p>
-                  </div>
-                  <div class="d-flex">
-                    <i class="bi bi-geo-alt text-brand me-2"></i> 
-                    <p>Aeon 2 Sensok Touk Kork, Phnom Penh</p>
-                  </div>
-                  <div class="d-flex">
-                    <i class="bi bi-telephone text-brand me-2"></i>
-                    <p class="mb-0"> 098765467</p>
-                  </div>
-                </div>
-                <!-- <div class="w-100">
-                  
-                <hr>
-                <p class="mb-0 text-center text-brand">www.pruttika.com</p>
-                </div> -->
-            </div>
-          </div>
-        </div>
-      
-        <!-- Right Side -->
-        <div class="col-lg-4 ticket-right">
-          <div class=" d-flex flex-column justify-content-center">
-            <p class="mb-0">GENERAL ENTRY</p>
-          <h2 class="text-brand">$10.00</h2>
-          <div class="qr-code"></div>
-          <small class="wrap-text mt-3">QaZ3h47yBNR5u7dmKCvi29AzQaZ3h47yBNR5u7dmKCvi29Azd</small>
-        </div>
-          <!-- <h5>ADMISSION</h5> -->
-          
-          <!-- <hr>
-          <p class="text-muted mb-0 text-brand">#YTFK2024</p> -->
-          <!-- <hr />   -->
-          <!-- <p class="small text-muted mb-0">PRUTTIKA Events</p> -->
         </div>
       </div>
     </div>
-    
+    <div class="modal fade" id="exampleModalTicket" tabindex="-1"
+      aria-labelledby="exampleModalLabelTicket"
+      aria-hidden="true">
+      <div
+        class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+        <div class="modal-content rounded-5" id="modal-content">
+          <div
+            class="modal-header py-1 px-md-4 w-100 text-white bg-brand d-flex align-items-center justify-content-between">
 
-  </div>
-</div>
-</div>
+            <button type="button"
+              class="btn btn-icon text-white shadow-none border-0">
+              <i class="fa-solid fa-download text-white"></i>
+            </button>
 
+            <h4 class="modal-title fw-medium h5" id="exampleModalLabelTicket">
+              VIP
+            </h4>
 
+            <button type="button"
+              class="btn btn-icon text-white shadow-none border-0"
+              data-bs-dismiss="modal" aria-label="Close">
+              <i class="fa-solid fa-x text-white"></i>
+            </button>
 
-  
+          </div>
+
+          <div class="modal-body py-0 px-0" id="modal-body">
+
+            <div class="row ticket">
+              <!-- Left Side -->
+              <div class="col-12 col-md-8 m-0">
+                <div class="ticket-body">
+                  <div class="ticket-section d-flex flex-wrap">
+                    <img src="/img/Prutika_Logo_text(3).png"
+                      alt="PRUTTIKA logo" class="img-fluid me-3"
+                      style="width: 150px;">
+                    <div class="ticket-info">
+                      <h4>Halowin</h4>
+                    </div>
+                  </div>
+                  <div class="ticket-section d-flex flex-wrap mt-3">
+                    <img src="/img/ticket.png" alt="Ticket Icon"
+                      class="img-fluid me-3" style="width: 50px;">
+                    <div class="ticket-info">
+                      <h5>Price: <span class="text-brand">10$</span></h5>
+                      <p>Touk Kork, Phnom Penh</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="ticket-details p-3">
+                  <div class="d-flex flex-wrap">
+                    <div class="me-3">
+                      <h6>Start</h6>
+                      <p>Fri, 25 Oct 2024</p>
+                    </div>
+                    <div class="me-3">
+                      <h6>End</h6>
+                      <p>8:00am - 11:00am</p>
+                    </div>
+                    <div>
+                      <h6>Phone Number</h6>
+                      <p>012 345 678</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Right Section -->
+              <div class="col-12 col-md-4 text-center d-flex align-items-center justify-content-center">
+                <div class="ticket-section qr-code">
+                  <img src="/img/scan-qr-here.png" width="180px" alt="QR Code"
+                    class="img-fluid">
+                  <p>www.pruttika.com</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
     <%- include("../../partials/script.ejs") %>
 
-  <script src="/js/ticket/ticket.js"></script>
+    <script src="/js/ticket/ticket.js"></script>
+    
+<script>
+     function downloadTicket() {
+        let modalContent = document.getElementById("modal-content");
+
+        html2canvas(modalContent).then(canvas => {
+            let image = canvas.toDataURL("image/png");
+            let link = document.createElement("a");
+            link.href = image;
+            link.download = "ticket.png";
+            link.click();
+        });
+    }
+</script>
 
   </body>
 </html>

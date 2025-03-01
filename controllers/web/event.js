@@ -2,7 +2,7 @@ const getCreateEvent = (req, res) => {
   res.render("pages/event/create-event", {title: "Create Event", active : "event"});
 };
 const getUpdateEvent = (req, res) => {
-  res.render("pages/event/update-event", {title: "Update Event"});
+  res.render("pages/event/update-event", {title: "Update Event", active: "event"});
 };
 const getEventDetail = (req, res)=>{
   res.render("pages/event/eventdetails", {title: "Event Detail"});

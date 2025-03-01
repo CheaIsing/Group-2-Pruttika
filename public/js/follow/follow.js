@@ -6,11 +6,10 @@ async function getFollower() {
         console.log(data3);
         const {data: user} = data3
         
-        userId = user[0].id
+        userId = user.id
 
         console.log(userId);
         
-
 
         const {data} = await axiosInstance.get(`/follow/followers/${userId}`)
         const {data: data2} = await axiosInstance.get("/follow/following/"+userId)
@@ -83,8 +82,6 @@ async function getFollower() {
 
 async function toggleFollow(id, btn){
     try {
-
-
 
         const { data } = await axiosInstance.get(`/follow/following/${userId}`);
         const {data: following} = data

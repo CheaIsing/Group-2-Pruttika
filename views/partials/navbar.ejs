@@ -46,72 +46,74 @@
                     <div class="notification-wrapper mt-1">
                         <div class="notification-icon">
                           <i class="fas fa-bell fs-4 text-brand"></i>
-                          <span class="badge fw-medium">0</span>
+                          <span class="badge fw-medium" id="unreadCount1">0</span>
                         </div>
                   
                         <div class="notification-dropdown">
-                          <div class="notification-header title d-flex justify-content-between">
-                          <div>Notifications</div>
-                          <a class="fw-normal" href="#">Make as Read</a>
+                          <div class="notification-header title d-flex justify-content-between bg-brand">
+                          <div>Unread Notifications</div>
+                          <span class="fw-normal" id="unreadCount2">0</span>
                           </div>
                   
-                          <div class="notification-item px-0 no mb-3">
-                            <div class="icon-type-noti">
-                              <img src="../../../public/img/Default_pfp.jpg" alt="User Avatar" class="avatar">
+                          <div id="noti-wrapper" style="max-height: 300px; overflow-y: auto;">
+                            <div class="notification-item px-0 no mb-3">
+                              <div class="icon-type-noti">
+                                <img src="../../../public/img/Default_pfp.jpg" alt="User Avatar" class="avatar">
+                              </div>
+                    
+                              <div class="message">
+                                <span class="user-name">Tom Jerrynie</span>
+                                <div class="content">How can i join the event?</div>
+                              </div> 
+                              <span class="icon-unread me-3"></span>
+                             <span class="time me-4">2 hours ago</span>
+                              <i class="fa-solid fa-ellipsis-vertical fs-5 text-brand"></i>
                             </div>
-                  
-                            <div class="message">
-                              <span class="user-name">Tom Jerrynie</span>
-                              <div class="content">How can i join the event?</div>
-                            </div> 
-                            <span class="icon-unread me-3"></span>
-                           <span class="time me-4">2 hours ago</span>
-                            <i class="fa-solid fa-ellipsis-vertical fs-5 text-brand"></i>
-                          </div>
-                  
-                          <div class="notification-item px-0 no mb-3">
-                            <div class="icon-type-noti">
-                              <img src="../../../public/img/Default_pfp.jpg" alt="User Avatar" class="avatar">
+                    
+                            <div class="notification-item px-0 no mb-3">
+                              <div class="icon-type-noti">
+                                <img src="../../../public/img/Default_pfp.jpg" alt="User Avatar" class="avatar">
+                              </div>
+                    
+                              <div class="message">
+                                <span class="user-name">Tom Jerrynie</span>
+                                <div class="content">How can i join the event?</div>
+                              </div> 
+                              <!-- <span class="icon-unread me-3"></span> -->
+                             <span class="time me-4">2 hours ago</span>
+                              <i class="fa-solid fa-ellipsis-vertical fs-5 text-brand"></i>
                             </div>
-                  
-                            <div class="message">
-                              <span class="user-name">Tom Jerrynie</span>
-                              <div class="content">How can i join the event?</div>
-                            </div> 
-                            <!-- <span class="icon-unread me-3"></span> -->
-                           <span class="time me-4">2 hours ago</span>
-                            <i class="fa-solid fa-ellipsis-vertical fs-5 text-brand"></i>
-                          </div>
-                  
-                          <div class="notification-item px-0 no mb-3">
-                            <div class="icon-type-noti">
-                              <img src="../../../public/img/Default_pfp.jpg" alt="User Avatar" class="avatar">
+                    
+                            <div class="notification-item px-0 no mb-3">
+                              <div class="icon-type-noti">
+                                <img src="../../../public/img/Default_pfp.jpg" alt="User Avatar" class="avatar">
+                              </div>
+                    
+                              <div class="message">
+                                <span class="user-name">Tom Jerrynie</span>
+                                <div class="content">How can i join the event?</div>
+                              </div> 
+                              <!-- <span class="icon-unread me-3"></span> -->
+                             <span class="time me-4">2 hours ago</span>
+                              <i class="fa-solid fa-ellipsis-vertical fs-5 text-brand"></i>
                             </div>
-                  
-                            <div class="message">
-                              <span class="user-name">Tom Jerrynie</span>
-                              <div class="content">How can i join the event?</div>
-                            </div> 
-                            <!-- <span class="icon-unread me-3"></span> -->
-                           <span class="time me-4">2 hours ago</span>
-                            <i class="fa-solid fa-ellipsis-vertical fs-5 text-brand"></i>
-                          </div>
-                  
-                          <div class="notification-item px-0 no mb-3">
-                            <div class="icon-type-noti">
-                              <img src="../../../public/img/Default_pfp.jpg" alt="User Avatar" class="avatar">
+                    
+                            <div class="notification-item px-0 no mb-3">
+                              <div class="icon-type-noti">
+                                <img src="../../../public/img/Default_pfp.jpg" alt="User Avatar" class="avatar">
+                              </div>
+                    
+                              <div class="message">
+                                <span class="user-name">Tom Jerrynie</span>
+                                <div class="content">How can i join the event?</div>
+                              </div> 
+                              <!-- <span class="icon-unread me-3"></span> -->
+                             <span class="time me-4">2 hours ago</span>
+                              <i class="fa-solid fa-ellipsis-vertical fs-5 text-brand"></i>
                             </div>
-                  
-                            <div class="message">
-                              <span class="user-name">Tom Jerrynie</span>
-                              <div class="content">How can i join the event?</div>
-                            </div> 
-                            <!-- <span class="icon-unread me-3"></span> -->
-                           <span class="time me-4">2 hours ago</span>
-                            <i class="fa-solid fa-ellipsis-vertical fs-5 text-brand"></i>
                           </div>
                           <div class="notification-footer mt-3">
-                            <a href="/notification" class="btn btn-outline-brand border-0 w-100 ">View All Notifications</a>
+                            <a href="/notification" class="btn btn-outline-brand w-100 fw-medium">View All Notifications</a>
                             
                           </div>
                   
@@ -120,20 +122,20 @@
                       </div>
                     <div class="dropdown">
                         <a href="#"
-                            class="dropdown-toggle fs-3 text-brand d-flex align-items-center"
+                            class="dropdown-toggle fs-3 text-brand d-flex align-items-center hide-arrow"
                             role="button"
                             id="accountDropdown" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             <!-- <i class="bi bi-person-circle"></i> -->
                             <div class="userImgPf-wrapper">
                                 <img id="userImgPf"
-                                    src="http://mps2.chandalen.dev/storage/avatars/no_photo.jpg"
+                                    src="/uploads/<%= user.avatar ? user.avatar : "default.jpg"  %>"
                                     alt="pfp">
                             </div>
                             <!-- User Icon -->
                             <span class="ps-1" id="userEmail"></span>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end"
+                        <ul class="dropdown-menu dropdown-menu-end "
                             aria-labelledby="accountDropdown">
                             <li><a class="dropdown-item"
                                     href="/event/manage">Manage
@@ -147,7 +149,7 @@
                                     href="/profile/info">Account
                                     Setting</a></li>
         
-                            <li><a class="dropdown-item border-top"
+                            <li><a class="dropdown-item border-top" role="button"
                                      id="btn-logout" onclick="logOut()">Log
                                     out</a>
                             </li>
@@ -156,7 +158,6 @@
                 </div>
             <% } %>
 
-            
             
         </nav>
     </div>
