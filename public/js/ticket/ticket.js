@@ -6,12 +6,14 @@ const tooltipTriggerList = [].slice.call(
       return new bootstrap.Tooltip(tooltipTriggerEl);
     });
 
-async function getRequestTicket( status="", page=1, perpage=10000000) {
+    
+
+async function getRequestTicket( status="", page=1, perpage=25) {
   let queryParams = new URLSearchParams();
 
 
   queryParams.append("page", page);
-  queryParams.append("perpage", perpage);
+  queryParams.append("per_page", perpage);
   queryParams.append("sort", "created_at");
 
   if (status) {
@@ -19,7 +21,7 @@ async function getRequestTicket( status="", page=1, perpage=10000000) {
   }
   try {
     const {data} = await axiosInstance.get(`/profile/own-request-ticket?${queryParams.toString()}`);
-    const {data:tickets} = data;
+    const {data:tickets, paginate} = data;
     console.log(tickets);
 
 
@@ -122,28 +124,38 @@ async function getRequestTicket( status="", page=1, perpage=10000000) {
         </div>`
         lucide.createIcons();
       })
+    }else{
+      document.getElementById("requested-ticket-container").innerHTML = `<div class="text-center w-100 my-5">
+              <img src="/img/noFound.png" alt="..." height="220px;">
+              <h4 class="text-center text-brand mt-2">No Request Ticket to Display</h4>
+            </div>`
     }
+
+    renderPaginationRequest(paginate)
     
   } catch (error) {
     console.log(error);
     showToast();
   }
 }
-async function getOwnedTicket( status="", page=1, perpage=10000000) {
+async function getOwnedTicket( status="", page=1, perpage=15) {
   let queryParams = new URLSearchParams();
 
 
   queryParams.append("page", page);
-  queryParams.append("perpage", perpage);
+  queryParams.append("per_page", perpage);
   queryParams.append("sort", "created_at");
 
   if (status) {
     queryParams.append("status", status);
   }
+
+  console.log(queryParams.toString());
+  
   try {
     const {data} = await axiosInstance.get(`/profile/own-ticket?${queryParams.toString()}`);
-    const {data:tickets} = data;
-    console.log(tickets);
+    const {data:tickets, paginate} = data;
+    console.log(paginate);
 
 
     
@@ -231,7 +243,14 @@ async function getOwnedTicket( status="", page=1, perpage=10000000) {
         </div>`
         lucide.createIcons();
       })
+    }else{
+      document.getElementById("owned-ticket-container").innerHTML = `<div class="text-center w-100 my-5">
+              <img src="/img/noFound.png" alt="..." height="220px;">
+              <h4 class="text-center text-brand mt-2">No Owned Ticket to Display</h4>
+            </div>`
     }
+
+    renderPaginationOwned(paginate)
     
   } catch (error) {
     console.log(error);
@@ -242,6 +261,123 @@ async function getOwnedTicket( status="", page=1, perpage=10000000) {
 getOwnedTicket()
 
 getRequestTicket() 
+
+function renderPaginationOwned(paginate) {
+  const paginationNumbers = document.getElementById("pagination-numbers-owned");
+  paginationNumbers.innerHTML = "";
+
+  const totalPages = paginate.total_page;
+  const currentPage = paginate.current_page;
+
+  function createPageButton(page) {
+    const pageButton = document.createElement("button");
+    pageButton.textContent = page;
+    pageButton.classList.add("pagination-number");
+    if (page === currentPage) {
+      pageButton.classList.add("active");
+    }
+    pageButton.onclick = () => changePageOwned(page);
+    return pageButton;
+  }
+
+  if (totalPages <= 5) {
+    for (let i = 1; i <= totalPages; i++) {
+      paginationNumbers.appendChild(createPageButton(i));
+    }
+  } else {
+    paginationNumbers.appendChild(createPageButton(1));
+
+    if (currentPage > 3) {
+      paginationNumbers.appendChild(document.createTextNode("..."));
+    }
+
+    let start = Math.max(2, currentPage - 1);
+    let end = Math.min(totalPages - 1, currentPage + 1);
+
+    for (let i = start; i <= end; i++) {
+      paginationNumbers.appendChild(createPageButton(i));
+    }
+
+    if (currentPage < totalPages - 2) {
+      paginationNumbers.appendChild(document.createTextNode("..."));
+    }
+
+    paginationNumbers.appendChild(createPageButton(totalPages));
+  }
+
+  document.getElementById("prevOwnedBtn").disabled = currentPage === 1;
+  document.getElementById("nextOwnedBtn").disabled = currentPage === totalPages;
+
+  document.getElementById("prevOwnedBtn").onclick = () =>
+    changePage(currentPage - 1);
+  document.getElementById("nextOwnedBtn").onclick = () =>
+    changePage(currentPage + 1);
+}
+
+async function changePageOwned(newPage) {
+  const queryParams = new URLSearchParams(window.location.search);
+  queryParams.set("page", newPage); // Update page parameter
+  let status = document.getElementById("select-owned-ticket-status").value
+  await getOwnedTicket(status,newPage); // Call renderEvents with new page
+}
+function renderPaginationRequest(paginate) {
+  const paginationNumbers = document.getElementById("pagination-numbers-request");
+  paginationNumbers.innerHTML = "";
+
+  const totalPages = paginate.total_page;
+  const currentPage = paginate.current_page;
+
+  function createPageButton(page) {
+    const pageButton = document.createElement("button");
+    pageButton.textContent = page;
+    pageButton.classList.add("pagination-number");
+    if (page === currentPage) {
+      pageButton.classList.add("active");
+    }
+    pageButton.onclick = () => changePageRequest(page);
+    return pageButton;
+  }
+
+  if (totalPages <= 5) {
+    for (let i = 1; i <= totalPages; i++) {
+      paginationNumbers.appendChild(createPageButton(i));
+    }
+  } else {
+    paginationNumbers.appendChild(createPageButton(1));
+
+    if (currentPage > 3) {
+      paginationNumbers.appendChild(document.createTextNode("..."));
+    }
+
+    let start = Math.max(2, currentPage - 1);
+    let end = Math.min(totalPages - 1, currentPage + 1);
+
+    for (let i = start; i <= end; i++) {
+      paginationNumbers.appendChild(createPageButton(i));
+    }
+
+    if (currentPage < totalPages - 2) {
+      paginationNumbers.appendChild(document.createTextNode("..."));
+    }
+
+    paginationNumbers.appendChild(createPageButton(totalPages));
+  }
+
+  document.getElementById("prevRequestBtn").disabled = currentPage === 1;
+  document.getElementById("nextRequestBtn").disabled = currentPage === totalPages;
+
+  document.getElementById("prevRequestBtn").onclick = () =>
+    changePage(currentPage - 1);
+  document.getElementById("nextRequestBtn").onclick = () =>
+    changePage(currentPage + 1);
+}
+
+async function changePageRequest(newPage) {
+  const queryParams = new URLSearchParams(window.location.search);
+  queryParams.set("page", newPage); // Update page parameter
+  let status = document.getElementById("select-request-ticket-status").value
+  await getRequestTicket(status,newPage); // Call renderEvents with new page
+}
 
 document.getElementById("select-owned-ticket-status").addEventListener("change", (e)=>{
   getOwnedTicket(e.target.value);
@@ -298,92 +434,100 @@ function showTicket(el) {
 
   console.log("click", obj);
 
-  document.getElementById("modal-content").innerHTML = `<div class="modal-header py-1 px-md-4 w-100 text-white bg-brand d-flex align-items-center justify-content-between">
 
-        <button type="button" class="btn btn-icon text-white shadow-none border-0">
-          <i class="fa-solid fa-download text-white"></i>
-        </button>
 
-      <h4 class="modal-title fw-medium h5" id="exampleModalLabelTicket">
-        ${obj.ticket_type}
-      </h4>
-    
-      <button type="button" class="btn btn-icon text-white shadow-none border-0" 
-      data-bs-dismiss="modal" aria-label="Close">
-      <i class="fa-solid fa-x text-white"></i>
-    </button>
+  document.getElementById("modal-content").innerHTML =   `<div
+  class="modal-header py-1 px-md-4 w-100 text-white bg-brand d-flex align-items-center justify-content-between">
 
-    </div>
-    
-    <div class="modal-body py-0 px-0" id="modal-body">
+  <button type="button" onclick="downloadTicket()" data-bs-toggle="tooltip"
+                                        data-bs-placement="top"
+                                        title="Download Ticket"
+                                        data-bs-custom-class="custom-tooltip"
+    class="btn btn-icon text-white shadow-none border-0">
+    <i class="fa-solid fa-download text-white"></i>
+  </button>
 
-      <div class="row ticket">
-        <!-- Left Side -->
-        <div class="col-lg-8 ticket-left">
-          <div class="d-flex flex-column justify-content-between align-items-start h-100">
-            <div class="">
-              <img src="/img/Prutika_Logo_text(2).png" class="img-fluid mb-2" alt="" width="140px">
-            <h2 class="fw-bold text-brand">${obj.event.eng_name}</h2>
-            </div>
-       
-            <div class="mt-3 mt-md-0 w-100">
-                <div class="w-100">
-                  <div class="d-flex">
-                    <i class="bi bi-calendar-event text-brand me-2"></i>
-                    <p>${moment(
-                      obj.event.started_date
-                    ).format("ll")} - ${moment(
-                      obj.event.ended_date
-                    ).format("ll")}</p>
-                  </div>
-                  <div class="d-flex">
-                    <i class="bi bi-clock text-brand me-2"></i>
-                    <p> ${
-                      moment(
-                        obj.event.start_time,
-                        "HH:mm"
-                      ).format("LT") +
-                      " - " +
-                      moment(
-                        obj.event.end_time,
-                        "HH:mm"
-                      ).format("LT")
-                    }</p>
-                  </div>
-                  <div class="d-flex">
-                    <i class="bi bi-geo-alt text-brand me-2"></i> 
-                    <p>${obj.event.location}</p>
-                  </div>
-                  <div class="d-flex">
-                    <i class="bi bi-telephone text-brand me-2"></i>
-                    <p class="mb-0"> ${obj.event.creator.phone}</p>
-                  </div>
-                </div>
-                <!-- <div class="w-100">
-                  
-                <hr>
-                <p class="mb-0 text-center text-brand">www.pruttika.com</p>
-                </div> -->
+  <h4 class="modal-title fw-medium h5" id="exampleModalLabelTicket">
+  ${obj.ticket_type}
+  </h4>
+
+  <button type="button"
+    class="btn btn-icon text-white shadow-none border-0"
+    data-bs-dismiss="modal" aria-label="Close">
+    <i class="fa-solid fa-x text-white"></i>
+  </button>
+
+</div>
+
+<div class="modal-body py-0 px-0" id="modal-body">
+
+  <div class="row ticket">
+    <!-- Left Side -->
+    <div class="col-12 col-md-8 m-0">
+      <div class="ticket-body">
+        <div class="ticket-section d-flex flex-wrap">
+          <img src="/img/Prutika_Logo_text(3).png"
+            alt="PRUTTIKA logo" class="img-fluid me-3"
+            style="width: 150px;">
+          <div class="ticket-info">
+            <h4>${obj.event.eng_name}</h4>
+          </div>
+        </div>
+        <div class="ticket-section d-flex flex-wrap mt-3">
+          <img src="/img/ticket.png" alt="Ticket Icon"
+            class="img-fluid me-3" style="width: 50px;">
+          <div class="ticket-info">
+            <h5><span class="text-brand">$${obj.price.toFixed(2)}</span></h5>
+            <div class="d-flex">
+            <i class="bi bi-geo-alt text-brand me-1"></i> 
+            <p>${obj.event.location}</p>
             </div>
           </div>
         </div>
-      
-        <!-- Right Side -->
-        <div class="col-lg-4 ticket-right">
-          <div class=" d-flex flex-column justify-content-center">
-            <p class="mb-0">${obj.ticket_type}</p>
-          <h3 class="text-brand">$${obj.price.toFixed(2)}</h3>
-          <img src="${obj.qr_code_img}" alt="Qr" />
-          <small style="font-size: 10px;" class="wrap-text mt-3">${obj.qr_code}</small>
-        </div>
-          <!-- <h5>ADMISSION</h5> -->
+      </div>
+      <div class="ticket-details p-3">
+        <div class="d-flex flex-wrap">
+          <div class="me-3">
+            <h6>Start</h6>
+            <p>${moment(
+              obj.event.started_date
+            ).format("ll")}</p>
+          </div>
+          <div class="me-3">
+            <h6>End</h6>
+            <p>${moment(
+              obj.event.ended_date
+            ).format("ll")}</p>
+          </div>
+          <div class="me-3">
+            <h6>Time</h6>
+            <p class="text-nowrap">${
+              moment(
+                obj.event.start_time,
+                "HH:mm"
+              ).format("LT") +
+              " - " +
+              moment(
+                obj.event.end_time,
+                "HH:mm"
+              ).format("LT")
+            }</p>
+          </div>
           
-          <!-- <hr>
-          <p class="text-muted mb-0 text-brand">#YTFK2024</p> -->
-          <!-- <hr />   -->
-          <!-- <p class="small text-muted mb-0">PRUTTIKA Events</p> -->
         </div>
       </div>
     </div>
-  `;
+    <!-- Right Section -->
+    <div class="col-12 col-md-4 text-center d-flex align-items-center justify-content-center">
+      <div class="ticket-section qr-code">
+        <img src="${obj.qr_code_img}" width="180px" alt="QR Code"
+          class="img-fluid">
+        <div class="d-flex">
+          <i class="bi bi-telephone text-brand me-1"></i>
+          <p class="mb-0"> ${obj.event.creator.phone}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>`
 }

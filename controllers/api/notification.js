@@ -7,7 +7,7 @@ const { sendResponse } = require("../../utils/response");
 
 const getNotifications = async (req, res) => {
   const { id: userId = 1 } = req.user;
-  const { read = false, order = 'asc' } = req.query; // Extract sorting parameters from query
+  const { read = false, order = 'desc' } = req.query; // Extract sorting parameters from query
 
   let notiSql = `
   SELECT 
@@ -114,7 +114,7 @@ const arrData = [userId];
 
   try {
     if (read) {
-      arrData.push(read === 'true' ? 1 : 2);
+      arrData.push(read === 'true' ? 2 : 1);
     }
     const result = await executeQuery(notiSql, arrData);
 
@@ -168,7 +168,7 @@ const arrData = [userId];
       kh_title: noti.notification_kh_title,
       eng_message: noti.notification_eng_message,
       kh_message: noti.notification_kh_message,
-      is_read: noti.notification_is_read == 1 ? true:false,
+      is_read: noti.notification_is_read == 1 ? false:true,
       created_at: noti.notification_created_at,
       updated_at: noti.notification_updated_at,
   

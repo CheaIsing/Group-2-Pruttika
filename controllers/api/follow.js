@@ -131,7 +131,7 @@ const getFollowing = async (req, res) => {
 
   try {
     const query = `
-      SELECT u.id , u.eng_name AS user_name, u.email AS user_email ,u.role,u.avatar , tor.organization_name ,tor.business_email
+      SELECT f.followee_id , u.eng_name AS user_name, u.email AS user_email ,u.role,u.avatar , tor.organization_name ,tor.business_email
       FROM tbl_follower f
       INNER JOIN tbl_users u ON f.follower_id = u.id
       LEFT JOIN tbl_organizer tor ON u.id=tor.user_id
@@ -152,7 +152,7 @@ const getFollowing = async (req, res) => {
     const followingList=[];
     following.forEach(item => {
       followingList.push({
-        id:item.id,
+        id:item.followee_id,
         name:item.user_name,
         email: item.email,
         avatar: item.avatar,

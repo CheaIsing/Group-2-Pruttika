@@ -13,6 +13,7 @@ async function getSummary() {
   document.getElementById("event-date").innerText = moment(
     json.started_date
   ).format("LLLL");
+  document.getElementById("event-type").innerText = json.event_type == 1 ? "Online Event" : "In Person Event"
 
   document.getElementById("ticket-sold").innerText = json.ticket.reduce(
     (sum, ticket) => sum + ticket.ticket_bought,
@@ -20,21 +21,26 @@ async function getSummary() {
   );
   document.getElementById("ticket-earning").innerText = `$${totalEarnings.toFixed(2)}`
   document.getElementById("participated").innerText = json.total_checkin + " attendant"
-  document.getElementById("not-participated").innerText = (json.total_registration - json.total_checkin) + " attendant"
+  document.getElementById("not-participated").innerText = (json.total_approved_registrations - json.total_checkin) + " attendant"
 
   document.getElementById("ticket-tbody").innerHTML = ''
-  json.ticket.forEach(t=>{
-    document.getElementById("ticket-tbody").innerHTML += `
-    <tr >
-        <td>${t.type_name}</td>
-        <td
-            class="text-end">$${t.price.toFixed(2)}</td>
-        <td
-            class="text-end">${t.ticket_bought}</td>
-        <td class="text-end">
-        </td>
-    </tr>`
-  })
+  if(json.ticket.length <= 0){
+    document.getElementById("ticket-section").classList.add("d-none")
+  }else{
+    json.ticket.forEach(t=>{
+      document.getElementById("ticket-tbody").innerHTML += `
+      <tr >
+          <td>${t.type_name}</td>
+          <td
+              class="text-end">$${t.price.toFixed(2)}</td>
+          <td
+              class="text-end">${t.ticket_bought}</td>
+          <td class="text-end">
+          </td>
+      </tr>`
+    })
+  }
+
 
   document.getElementById("ticket-tfoot").innerHTML = `
   <tr
@@ -49,7 +55,7 @@ async function getSummary() {
         0)}
     </td>
     <td
-        class="text-end text-success">
+        class="text-end text-brand">
        $ ${totalEarnings.toFixed(2)}
     </td>
 </tr>`

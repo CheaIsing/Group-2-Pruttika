@@ -6,11 +6,10 @@ async function getFollower() {
         console.log(data3);
         const {data: user} = data3
         
-        userId = user[0].id
+        userId = user.id
 
         console.log(userId);
         
-
 
         const {data} = await axiosInstance.get(`/follow/followers/${userId}`)
         const {data: data2} = await axiosInstance.get("/follow/following/"+userId)
@@ -45,6 +44,11 @@ async function getFollower() {
             })
             document.getElementById("followers").innerHTML = html
     
+        }else{
+            document.getElementById("followers").innerHTML = `<div class="text-center w-100 my-5">
+              <img src="/img/noFound.png" alt="..." height="220px;">
+              <h4 class="text-center text-brand mt-2">No Follower to Display</h4>
+            </div>`
         }
 
         document.getElementById("following").innerHTML = ``
@@ -68,6 +72,11 @@ async function getFollower() {
             })
             document.getElementById("following").innerHTML = html2
     
+        }else{
+            document.getElementById("following").innerHTML = `<div class="text-center w-100 my-5">
+              <img src="/img/noFound.png" alt="..." height="220px;">
+              <h4 class="text-center text-brand mt-2">No Following to Display</h4>
+            </div>`
         }
 
 
@@ -83,8 +92,6 @@ async function getFollower() {
 
 async function toggleFollow(id, btn){
     try {
-
-
 
         const { data } = await axiosInstance.get(`/follow/following/${userId}`);
         const {data: following} = data

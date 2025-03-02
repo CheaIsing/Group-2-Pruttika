@@ -1,11 +1,12 @@
 <script src="/vendor/ToasifyJs/toastify-js.js"></script>
 <script src="/vendor/Axios/axios.min.js"></script>
 <script src="/vendor/Joi/joi-browser.min.js"></script>
-<script src="/js/utils/header.js"></script>
 <script src="/js/config/configAxios.js"></script>
 <script src="/js/utils/validation.js"></script>
 <script src="/js/utils/handleError.js"></script>
 <script src="/js/utils/toast.js"></script>
+<script src="/js/utils/header.js"></script>
+
 <!-- Bootstrap JS -->
 <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -18,9 +19,41 @@
     src="https://cdn.jsdelivr.net/npm/tom-select@2.4.2/dist/js/tom-select.complete.min.js"></script>
 <script src="/vendor/QuilJs/quill.js"></script>
 <script src="/vendor/momentjs/moment.min.js"></script>
+<script src="
+https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js
+"></script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
     lucide.createIcons();
+    
 });
+
+
+</script>
+<script>
+    // Show preloader for 2 seconds, then reveal body content
+    // document.addEventListener("DOMContentLoaded", function () {
+    //     document.body.classList.add("d-none");
+    //     document.getElementById("preload").classList.remove("d-none")
+    //     setTimeout(() => {
+    //         document.getElementById("preload").classList.add("d-none")
+    //         document.body.classList.remove("d-none")
+    //     }, 2000);
+    // });
+
+    document.addEventListener("DOMContentLoaded", function () {
+    const loader = document.getElementById("loader-overlay");
+
+    // Hide the loader once the page is fully loaded
+    window.addEventListener("load", function () {
+        setTimeout(() => {
+            loader.classList.add("hidden"); // Add hidden class to fade out
+        }, 1200); // Matches the animation duration
+    });
+
+    // Show loader when navigating to another page
+    
+});
+
 </script>

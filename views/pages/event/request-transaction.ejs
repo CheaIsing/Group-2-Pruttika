@@ -10,17 +10,21 @@
                 <%- include("../../partials/manage-event-sidebar.ejs")  %>
 
                 <section class="p-4 w-100">
-                    <div class="d-flex align-items-center">
-                        <button type="button"
-                            class="btn border-0 ps-0"
-                            onclick="history.back()">
-                            <i
-                                class="fa-solid fa-angle-left fs-2"></i>
-                        </button>
-                        <h2>Transaction</h2>
-                    </div>
+                    <div class="px-3">
+                        <div class="d-flex align-items-center">
+                            <button onclick="history.back()" type="button" class="btn fw-medium border-0 ps-0 d-flex align-items-center mb-2">
+                                <i class="fa-solid fa-angle-left fs-6 m-0 p-0 "></i>
+                                <span class="m-0 ps-2"><a>Back to
+                                        Request Ticket List</a></span>
+                            </button>
+                        </div>
 
-                    <div class="row" id="row-transaction"></div>
+                        <div class="card p-4 border-0 shadow-light-sm">
+                            <h3>Transaction</h3>
+                            <div class="row" id="row-transaction"></div>
+                        </div>
+    
+                    </div>
                 </section>
             </div>
         </div>

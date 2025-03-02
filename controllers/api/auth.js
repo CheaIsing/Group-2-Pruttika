@@ -228,7 +228,7 @@ const postResetPassword = async (req, res) => {
 
 const getMe = async (req, res) => {
   if (!req.user || !req.user.id) {
-    return sendResponse(res, 401, false, "Unauthorized access.");
+    return sendResponse(res, 203, false, "Unauthorized access.");
   }
 
   const userId = req.user.id;

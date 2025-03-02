@@ -10,6 +10,13 @@ async function renderEvents() {
       );
       const { data: events} = data;
       console.log(data);
+
+      if(events.length == 0){
+        return eventList.innerHTML = `<div class="text-center w-100 my-5">
+        <img src="/img/noFound.png" alt="..." height="220px;">
+        <h4 class="text-center text-brand mt-2">No Wishlist to Display</h4>
+      </div>`
+      }
   
       events.forEach((event) => {
         let pricing = null;

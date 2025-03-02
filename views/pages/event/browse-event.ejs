@@ -4,7 +4,7 @@
 
     <body>
         <%- include("../../partials/navbar.ejs") %>
-         <div id="event-hero-banner-img" style="height: auto; background-image: url('/uploads/default-events-img.jpg');" 
+         <div id="event-hero-banner-img" style="height: auto; background: url('https://www.oyorooms.com/blog/wp-content/uploads/2018/02/event.jpg')  center center;" 
             class="event-hero-banner d-flex align-items-center justify-content-center py-5">
             <div class="hero-overlay"></div>
             <div class="hero-content">
@@ -65,6 +65,17 @@
                                         Title</option>
                                     <option value="created_at">Latest
                                         Post</option>
+                                </select>
+                            </div>
+                            <div class="mb-4">
+                                <h3 class="h5">Status</h3>
+                                <select id="status-filter"
+                                    class="form-select w-100 border rounded-3 fw-normal"
+                                    style="background-color: #f3f4f6;">
+                                    <option value="">Any</option>
+                                    <option value="3">Upcoming</option>
+                                    <option value="2">Showing</option>
+                                    <option value="1">Past</option>
                                 </select>
                             </div>
                             <div class="mb-4">
@@ -350,6 +361,17 @@
                             <option value>Any</option>
                             <option value="eng_name">Event Title</option>
                             <option value="created_at">Latest Post</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <h3 class="h5">Status</h3>
+                        <select id="status-filter-mobile"
+                            class="form-select w-100 border rounded-3 fw-normal"
+                            style="background-color: #f3f4f6;">
+                            <option value="">Any Status</option>
+                            <option value="3">Upcoming</option>
+                            <option value="2">Showing</option>
+                            <option value="1">Past</option>
                         </select>
                     </div>
                     <div class="mb-4">

@@ -1,12 +1,12 @@
 // const moment = require("moment");
 
     document.getElementById('searchInput').addEventListener('keyup', filterTable);
-    document.getElementById('dateFilter').addEventListener('change', filterTable);
+    // document.getElementById('dateFilter').addEventListener('change', filterTable);
     document.getElementById('statusFilter').addEventListener('change', filterTable);
 
     function filterTable() {
         const nameFilter = document.getElementById('searchInput').value.toLowerCase();
-        const dateFilter = document.getElementById('dateFilter').value;
+        // const dateFilter = document.getElementById('dateFilter').value;
         const statusFilter = document.getElementById('statusFilter').value;
 
         const rows = document.querySelectorAll('#ticketTable tbody tr');
@@ -17,10 +17,10 @@
             const statusCell = row.cells[6].textContent.trim();
 
             const matchesName = nameCell.includes(nameFilter);
-            const matchesDate = dateFilter ? dateCell.startsWith(dateFilter) : true;
+            // const matchesDate = dateFilter ? dateCell.startsWith(dateFilter) : true;
             const matchesStatus = statusFilter ? statusCell.includes(statusFilter) : true;
 
-            if (matchesName && matchesDate && matchesStatus) {
+            if (matchesName  && matchesStatus) {
                 row.classList.remove("d-none")
             } else {
                 row.classList.add("d-none")
@@ -49,6 +49,13 @@
             document.getElementById("ev-date").innerText = moment(event.data.started_date).format("llll")
             const {data:json, paginate} = data
             console.log(data);
+
+            if(json.length ==0){
+              document.getElementById("request-tbody").innerHTML = `<tr><td colspan="6"><div class="text-center w-100 my-5">
+              <img src="/img/noFound.png" alt="..." height="220px;">
+              <h4 class="text-center text-brand mt-2">No Request to Display</h4>
+            </div></td></tr>`
+            }
             
 
             json.forEach((r, i)=>{
@@ -69,13 +76,13 @@
                 }
                 document.getElementById("request-tbody").innerHTML += `<tr>
                     <td colspan="1" class="text-nowrap">${i+1}</td>
-                    <td colspan="1" class="text-nowrap d-flex align-items-center justify-content-center"><img width="60px" height="60px" class="border-brand rounded-circle" src="/uploads/${r.buyer.avatar}"></img></td>
+                    <td colspan="1" class="text-nowrap"><img width="60px" height="60px" class="border-brand rounded-circle" src="/uploads/${r.buyer.avatar ? r.buyer.avatar :"default.jpg"}"></img></td>
                     <td colspan="1" class="">${r.buyer.eng_name}</td>
                     <td colspan="1" class="text-nowrap">${r.ticket_qty} tickets</td>
                     <td colspan="1" class="text-nowrap">$${r.total_amount.toFixed(2)}</td>
                     <td colspan="1" class="text-nowrap">${moment(r.created_at).format('llll')}</td>
                     <td colspan="1" class="text-nowrap"><span class="badge ${statusClass}">${r.status}</span></td>
-                    <td style="width: 340px;">
+                    <td style="max-width: 340px;">
                         <div>
                             <button onclick="showTransaction(${r.transaction_id}, ${r.event_id})" type="button" class="btn btn-brand views-transaction" style="height: auto !important;"><i class="fa-solid fa-eye"></i></button>
                         </div>
