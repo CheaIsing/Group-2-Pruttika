@@ -9,12 +9,12 @@ const router = express.Router();
 
 router.get("/browse", getBrowseEvent);
 router.get("/detail", getEventDetail);
+router.get("/wishlist", getWishlist);
 
 
 router.use(authorize([2, 3]))
 router.get("/create", getCreateEvent);
 router.get("/update-event", getUpdateEvent);
-router.get("/wishlist", getWishlist);
 router.get("/manage", getEventList);
 router.get("/manage-request", getRequestEventList);
 router.get("/manage-check-in", getCheckInEventList);

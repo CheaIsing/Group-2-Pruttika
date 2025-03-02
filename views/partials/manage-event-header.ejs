@@ -11,14 +11,14 @@
             <div class="dropdown d-flex gap-4">
                 <a href="/event/create" role="button" class="btn btn-outline-brand fw-medium" style="height: auto !important;">+ Create Event</a>
                 <a href="#"
-                    class="dropdown-toggle fs-3 text-brand d-flex align-items-center"
+                    class="dropdown-toggle fs-3 text-brand d-flex align-items-center hide-arrow"
                     role="button"
                     id="accountDropdown" data-bs-toggle="dropdown"
                     aria-expanded="false">
                     <!-- <i class="bi bi-person-circle"></i> -->
                     <div class="userImgPf-wrapper">
                         <img id="userImgPf"
-                            src="http://mps2.chandalen.dev/storage/avatars/no_photo.jpg"
+                            src="<%= (user && user.avatar) ? `/uploads/${user.avatar}` : `/uploads/default.jpg` %>"
                             alt="pfp">
                     </div>
                     <!-- User Icon -->
@@ -27,7 +27,7 @@
                 <ul class="dropdown-menu dropdown-menu-end"
                     aria-labelledby="accountDropdown">
                     <li><a class="dropdown-item"
-                            href="../homepage.html">Switch to
+                            href="/">Switch to
                             Attending</a></li>
 
                 </ul>
@@ -35,3 +35,6 @@
         </nav>
     </div>
 </header>
+<div id="loader-overlay" class="loader-overlay">
+    <img src="/img/Prutika_Logo_text(2).png" alt="Logo" class="loader-logo" />
+  </div>

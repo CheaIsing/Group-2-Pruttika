@@ -1571,6 +1571,7 @@ body.dashboard {
   right: 36px;
   z-index: 1;
   bottom: 8px;
+  right: 0;
   outline: 3px solid #fff;
   border-radius: 50%;
   box-shadow: none;
@@ -1599,8 +1600,8 @@ body.dashboard {
 }
 
 .avatar-preview img {
-  width: 140px;
-  height: 140px;
+  width: 110px;
+  height: 110px;
   border-radius: 100%;
   border: 2px solid var(--c-brand);
   object-fit: cover;
@@ -4249,4 +4250,53 @@ a#html5-qrcode-anchor-scan-type-change {
 a#html5-qrcode-anchor-scan-type-change:hover {
   background-color: var(--c-brand);
   color: var(--c-white);
+}
+
+
+.loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  pointer-events: none;
+  transition: opacity 1.2s ease;
+}
+
+/* Logo in the center */
+.loader-logo {
+  width: 350px;
+  /* Adjust size */
+  animation: scale-fade 1.2s ease-in-out forwards;
+}
+
+/* Scale and fade animation */
+@keyframes scale-fade {
+  0% {
+      opacity: 0;
+      transform: scale(0.8);
+  }
+
+  50% {
+      opacity: 1;
+      transform: scale(1);
+  }
+
+  100% {
+      opacity: 0;
+      transform: scale(1.2);
+  }
+}
+
+/* Hide overlay when done */
+.loader-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.2s ease;
 }

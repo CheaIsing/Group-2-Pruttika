@@ -26,5 +26,34 @@ https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js
 <script>
     document.addEventListener("DOMContentLoaded", function () {
     lucide.createIcons();
+    
 });
+
+
+</script>
+<script>
+    // Show preloader for 2 seconds, then reveal body content
+    // document.addEventListener("DOMContentLoaded", function () {
+    //     document.body.classList.add("d-none");
+    //     document.getElementById("preload").classList.remove("d-none")
+    //     setTimeout(() => {
+    //         document.getElementById("preload").classList.add("d-none")
+    //         document.body.classList.remove("d-none")
+    //     }, 2000);
+    // });
+
+    document.addEventListener("DOMContentLoaded", function () {
+    const loader = document.getElementById("loader-overlay");
+
+    // Hide the loader once the page is fully loaded
+    window.addEventListener("load", function () {
+        setTimeout(() => {
+            loader.classList.add("hidden"); // Add hidden class to fade out
+        }, 1200); // Matches the animation duration
+    });
+
+    // Show loader when navigating to another page
+    
+});
+
 </script>

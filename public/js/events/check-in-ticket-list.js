@@ -98,6 +98,13 @@ async function getCheckInTicketList(page=1, perpage=25) {
         document.getElementById("ev-date").innerText = moment(event.data.started_date).format("llll")
         const {data:json} = data
         console.log(data);
+
+        if(json.length ==0 ){
+          return document.getElementById("request-tbody").innerHTML = `<tr><td colspan="6"><div class="text-center w-100 my-5">
+              <img src="/img/noFound.png" alt="..." height="220px;">
+              <h4 class="text-center text-brand mt-2">No Checkin to Display</h4>
+            </div></td></tr>`
+        }
         
 
         json.forEach((r, i)=>{

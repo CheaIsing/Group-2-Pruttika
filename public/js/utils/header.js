@@ -32,9 +32,9 @@ async function getAllNotifications() {
     if(json.length <= 0){
 
       document.getElementById("noti-wrapper").innerHTML =  `
-      <div class="notification text-center w-100 my-5">
-              <img src="/img/noFound.png" alt="..." height="220px;">
-              <h4 class="text-center text-brand mt-2">No Event to Display</h4>
+      <div class="notification text-center w-100 my-4 d-flex flex-column">
+              <img src="/img/noFound.png" alt="..." height="180px;">
+              <h4 class="text-center text-brand mt-2">No Notification to Display</h4>
             </div>`
 
       return 

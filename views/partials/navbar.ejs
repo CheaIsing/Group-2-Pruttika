@@ -1,3 +1,20 @@
+<!-- <div id="preload" class="position-absolute top-0 start-0 end-0 bottom-0 w-100 vh-100 d-flex align-items-center justify-content-center bg-white" style="z-index: 9999 !important;">
+  <div class="position-relative border" style="z-index: 9999999 !important;">
+   <div class="spinner-grow spinner-grow-sm text-brand mx-1" role="status">
+       <span class="visually-hidden">Loading...</span>
+     </div>
+   <div class="spinner-grow spinner-grow-sm text-brand mx-1" role="status">
+       <span class="visually-hidden">Loading...</span>
+     </div>
+   <div class="spinner-grow spinner-grow-sm text-brand mx-1" role="status">
+       <span class="visually-hidden">Loading...</span>
+     </div>
+   
+  </div>
+</div> -->
+<div id="loader-overlay" class="loader-overlay">
+  <img src="/img/Prutika_Logo_text(2).png" alt="Logo" class="loader-logo" />
+</div>
 <header class="border" id="header">
     <div class="container">
         <nav class="d-flex align-items-center justify-content-between">
@@ -20,7 +37,7 @@
                 </ul>
             </div>
             <div class="action-btn d-flex">
-                <a href="/event/create" class="btn-outline-pink d-flex align-items-center" role="button"><i
+                <a href="<%= (user && user.role != 1) ? `/event/create` : `/profile/organizer` %>" class="btn-outline-pink d-flex align-items-center" role="button"><i
                         class="lucide-i" data-lucide="plus" style="stroke-width: 1.25;"></i> Create
                     Event</a>
                 
@@ -28,7 +45,7 @@
                     class="btn-outline-pink ms-3 d-flex align-items-center"><i
                         class="pe-1 fs-6 lucide-i" data-lucide="calendar-days" style="stroke-width: 1.25;"></i>Browse Event</a>
 
-                <a href="ticket/my-ticket" role="button"
+                <a href="/ticket/my-ticket" role="button"
                     class="btn-outline-pink ms-3 d-flex align-items-center"><i
                         class="pe-1 lucide-i" data-lucide="ticket" style="stroke-width: 1.25;"></i>My
                     Ticket</a>
@@ -138,7 +155,7 @@
                         <ul class="dropdown-menu dropdown-menu-end "
                             aria-labelledby="accountDropdown">
                             <li><a class="dropdown-item"
-                                    href="/event/manage">Manage
+                                    href="<%= (user && user.role != 1) ? `/event/manage` : `/profile/organizer` %>">Manage
                                     as
                                     organizer</a></li>
                             <li><a class="dropdown-item"
@@ -161,5 +178,4 @@
             
         </nav>
     </div>
-    <!-- <%= JSON.stringify(user) %> -->
 </header>

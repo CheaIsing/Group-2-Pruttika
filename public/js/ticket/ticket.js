@@ -124,6 +124,11 @@ async function getRequestTicket( status="", page=1, perpage=25) {
         </div>`
         lucide.createIcons();
       })
+    }else{
+      document.getElementById("requested-ticket-container").innerHTML = `<div class="text-center w-100 my-5">
+              <img src="/img/noFound.png" alt="..." height="220px;">
+              <h4 class="text-center text-brand mt-2">No Request Ticket to Display</h4>
+            </div>`
     }
 
     renderPaginationRequest(paginate)
@@ -238,6 +243,11 @@ async function getOwnedTicket( status="", page=1, perpage=15) {
         </div>`
         lucide.createIcons();
       })
+    }else{
+      document.getElementById("owned-ticket-container").innerHTML = `<div class="text-center w-100 my-5">
+              <img src="/img/noFound.png" alt="..." height="220px;">
+              <h4 class="text-center text-brand mt-2">No Owned Ticket to Display</h4>
+            </div>`
     }
 
     renderPaginationOwned(paginate)

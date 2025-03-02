@@ -13,7 +13,7 @@ const router = express.Router();
 
 // router.get("/", getRedirect);
 
-router.use(authorize([2, 3]))
+router.use(authorize([1, 2, 3]))
 
 router.get("/info", getProfileInfo);
 

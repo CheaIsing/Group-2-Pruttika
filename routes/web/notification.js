@@ -4,7 +4,7 @@ const { authorize } = require("../../middlewares/web.middleware");
 
 
 const router = express.Router();
-router.use(authorize([2, 3]))
+router.use(authorize([1, 2, 3]))
 router.get("/", getNotification);
 
 module.exports = router;
