@@ -2487,7 +2487,7 @@ header.is-sticky {
   height: 100%;
 
 
-  margin-right: 5px;
+  /* margin-right: 5px; */
 }
 
 .userImgPf-wrapper img {
@@ -2611,6 +2611,51 @@ header .dropdown-menu-end {
 
 .search-dropdown .search-dropdown-item:hover {
   background-color: #e1159313;
+}
+
+/* Offcanvas Styles */
+.offcanvas {
+  background-color: white;
+  width: 300px !important; /* Adjust width as needed */
+}
+
+.offcanvas-header {
+  border-bottom: 1px solid #e9ecef;
+}
+
+.offcanvas-body {
+  padding: 1rem;
+}
+
+/* Mobile Styles */
+@media (max-width: 991.98px) {
+  header .action-btn {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  header .btn-outline-pink {
+    width: 100%;
+    text-align: left;
+  }
+
+  /* header .notification-wrapper,
+  header .dropdown {
+    margin-top: 1rem;
+  } */
+
+  header .search-bar {
+    width: 100%;
+  }
+  .notification-icon,
+  .dropdown-toggle {
+    font-size: 1.5rem; /* Adjust size for mobile */
+  }
+
+  .userImgPf-wrapper img {
+    width: 30px; /* Adjust size for mobile */
+    height: 30px;
+  }
 }
 
 /* Agenda */
@@ -4274,6 +4319,14 @@ a#html5-qrcode-anchor-scan-type-change:hover {
   width: 350px;
   /* Adjust size */
   animation: scale-fade 1.2s ease-in-out forwards;
+}
+
+@media (max-width: 576px){
+  .loader-logo {
+    width: 230px;
+    /* Adjust size */
+    animation: scale-fade 1.2s ease-in-out forwards;
+  }
 }
 
 /* Scale and fade animation */
