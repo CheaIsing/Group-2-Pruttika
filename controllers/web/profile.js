@@ -23,6 +23,11 @@ const getViewOrganizerProfile = (req, res) => {
 };
 
 
+const getOrganizerView = (req, res) => {
+  res.render("pages/profile/organizerView", {title: "Organizer View"});
+};
+
+
 
 module.exports = {
   getProfileInfo,
@@ -31,4 +36,5 @@ module.exports = {
   getOrganizer,
   getViewOrganizerProfile,
   getManageAccount,
+  getOrganizerView
 };

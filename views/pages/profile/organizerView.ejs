@@ -13,22 +13,30 @@
 
                 <!-- Main Content -->
                 <div class="col-12 col-md-8">
-                    <h3 class="mb-4">Organizer Setting</h3>
+                    <div class="card border-0 shadow-light-sm p-4 rounded-4">
+                      <h4 class="mb-3">Organizer Information</h4>
                     <div class="d-flex align-items-center mb-4">
                         <!-- <img class="tip-icon" src="../../assets/img/icon/bulb.png" alt=""> -->
                         <i class="fa-regular fa-lightbulb me-2 text-brand"></i>
                         <p class="p-0 m-0"><span class="fw-medium">Tip:</span>
-                            Give some information to upgrade account to
+                            Some information that upgrade account to
                             organizer.</p>
                     </div>
-                    <div>
+
+                    <!-- <div>
                         <button class="btn btn-brand w-100"
                             id="btnUpdateToOrganizer"
                             onclick="toggleOrganizer()">Upgrade to
                             Organizer</button>
-                    </div>
+                    </div> -->
 
-                    <form id="frmOrganizerRequest" action="#" class="d-none">
+                    <form id="frmOrganizerRequest" action="#">
+                      <div class="mb-3">
+    <label for="status" class="form-label fw-medium mb-2">Status</label>
+    <div>
+        <span id="status-badge" class="badge"></span>
+    </div>
+</div>
                         <!-- Organization Name -->
                         <div class="mb-3">
                             <label for="organizationName"
@@ -188,9 +196,10 @@
 
                         </div>
                         <!-- Submit Button -->
-                        <button type="submit"
-                            class="btn btn-brand w-100" id="btnSubmit">Submit</button>
+                        <!-- <button type="submit"
+                            class="btn btn-brand w-100" id="btnSubmit">Submit</button> -->
                     </form>
+                    </div>
 
                 </div>
             </div>
@@ -200,6 +209,6 @@
         <script>
                 
     </script>
-    <script src="/js/profile/update-to-organizer.js"></script>
+    <script src="/js/profile/update-to-organizer-view.js"></script>
     </body>
 </html>
