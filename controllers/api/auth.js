@@ -23,7 +23,7 @@ const postSignUp = async (req, res) => {
   if (handleValidateError(error, res)) return;
 
   const { name, email, password } = req.body;
-  const { lang } = req.query;
+  const { lang = "en" } = req.query;
 
   try {
     const checkEmailQuery = "SELECT * FROM tbl_users WHERE email = ?";
