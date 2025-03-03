@@ -309,7 +309,7 @@ const putRejectTicket=async(req,res)=>{
         const paramsNotification2=[
             event_id,
             buyer_id,
-            `Unfortunately, your request for a ticket to event ${eng_name} has been denied. Reason: [Rejection Reason]. We appreciate your understanding`,
+            `Unfortunately, your request for a ticket to event ${eng_name} has been denied. Reason: ${rejected_reason}. We appreciate your understanding.`,
             `គួរឲ្យសោកស្ដាយណាស់ សំណើរបស់អ្នកសម្រាប់សំបុត្រចូលរួមកម្មវិធី ${eng_name} ត្រូវបានបដិសេធ។ ហេតុផល៖ ${rejected_reason} ។ យើងសូមកោតសរសើរចំពោះការយោគយល់របស់អ្នក។`,
             user_id,
             id,

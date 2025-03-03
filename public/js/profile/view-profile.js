@@ -146,15 +146,17 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
                                 <!-- Event Thumbnail -->
                                 <div
                                     class="event-thumbnail object-fit-cover d-flex justify-content-between" >
-                                    <img
+                                    <img 
                                         class="img-fluid object-fit-cover"
                                         src="/uploads/${event.thumbnail}"
                                         alt="Event Image"/>
                                     <div
-                                        class="event-thumbnail-overlay"></div>
+                                        class="event-thumbnail-overlay" style="cursor: pointer;" onclick="goEventDetail(${
+                                                  event.id
+                                                })"></div>
 
                                     <!-- Wishlist & Copy buttons -->
-                                    <div class="button-group">
+                                    <div class="button-group z-2">
                                                 <div>
                                                     <button onclick="addWishlist(${
                                                       event.id
@@ -185,7 +187,9 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
                                 </div>
 
                                 <!-- Event Details -->
-                                <div class="event-details">
+                                <div class="event-details" style="cursor: pointer;" onclick="goEventDetail(${
+                                                  event.id
+                                                })">
                                     <div
                                         class="d-flex justify-content-between">
 

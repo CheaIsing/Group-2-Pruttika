@@ -146,6 +146,25 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
       let totalPrice = data.data.ticket.length > 0 
         ? `$${data.data.ticket.reduce((sum, item) => sum + item.price, 0).toFixed(2)}`
         : `Free`;
+        const eventDate = new Date(event.started_date);
+        const endDate = new Date(event.ended_date);
+  
+        const currentDate = new Date();
+  currentDate.setHours(0, 0, 0, 0);
+        let eventStatus = null;
+        let eventText = null
+        
+  
+        if (currentDate < eventDate) {
+          eventStatus = "pill5";
+          eventText = "Upcoming"
+        } else if (currentDate >= eventDate && currentDate <= endDate) {
+          eventStatus = "pill2";
+          eventText = "Showing"
+        } else {
+          eventStatus = `pill3`;
+          eventText = "Past"
+        } 
 
       eventCard += `<tr class="border-bottom position-relative">
                       <td>
@@ -164,7 +183,7 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
                           </div>
                         </a>
                       </td>
-                      <td class="text-nowrap">Active</td>
+                      <td class="text-nowrap"><span class="badge fw-medium ${eventStatus} p-2  rounded-5">${eventText}</span></td>
                       <td class="text-nowrap">${data.data.total_approved_registrations || "0"} tickets</td>
                       <td class="text-nowrap">${totalPrice}</td>
                       <td class="text-nowrap">${data.data.total_checkin || "0"} participated</td>
@@ -286,6 +305,7 @@ async function renderEventsUpcoming(page = 1, perpage = 10, is_published = null)
       return eventList.innerHTML = noEvent
     }
 
+
     let eventCard = "";
     for (const event of events) {
       const { data } = await axiosInstance.get("/events/summary-data/" + event.id);
@@ -295,6 +315,26 @@ async function renderEventsUpcoming(page = 1, perpage = 10, is_published = null)
         ? `$${data.data.ticket.reduce((sum, item) => sum + item.price, 0).toFixed(2)}`
         : `Free`;
 
+        const eventDate = new Date(event.started_date);
+        const endDate = new Date(event.ended_date);
+  
+        const currentDate = new Date();
+  currentDate.setHours(0, 0, 0, 0);
+        let eventStatus = null;
+        let eventText = null
+        
+  
+        if (currentDate < eventDate) {
+          eventStatus = "pill5";
+          eventText = "Upcoming"
+        } else if (currentDate >= eventDate && currentDate <= endDate) {
+          eventStatus = "pill2";
+          eventText = "Showing"
+        } else {
+          eventStatus = `pill3`;
+          eventText = "Past"
+        } 
+  
       eventCard += `<tr class="border-bottom position-relative">
                       <td>
                         <a role="button" onclick="showSummary(${event.id})" class="stretched-link text-decoration-none bg-transparent link-event-details" style="color: inherit;">
@@ -312,7 +352,7 @@ async function renderEventsUpcoming(page = 1, perpage = 10, is_published = null)
                           </div>
                         </a>
                       </td>
-                      <td class="text-nowrap">Active</td>
+                      <td class="text-nowrap"><span class="badge fw-medium ${eventStatus} p-2  rounded-5">${eventText}</span></td>
                       <td class="text-nowrap">${data.data.total_approved_registrations || "0"} tickets</td>
                       <td class="text-nowrap">${totalPrice}</td>
                       <td class="text-nowrap">${data.data.total_checkin || "0"} participated</td>
@@ -443,6 +483,26 @@ async function renderEventsShowing(page = 1, perpage = 10, is_published = null) 
       let totalPrice = data.data.ticket.length > 0 
         ? `$${data.data.ticket.reduce((sum, item) => sum + item.price, 0).toFixed(2)}`
         : `Free`;
+        const eventDate = new Date(event.started_date);
+        const endDate = new Date(event.ended_date);
+  
+        const currentDate = new Date();
+  currentDate.setHours(0, 0, 0, 0);
+        let eventStatus = null;
+        let eventText = null
+        
+  
+        if (currentDate < eventDate) {
+          eventStatus = "pill5";
+          eventText = "Upcoming"
+        } else if (currentDate >= eventDate && currentDate <= endDate) {
+          eventStatus = "pill2";
+          eventText = "Showing"
+        } else {
+          eventStatus = `pill3`;
+          eventText = "Past"
+        } 
+
 
       eventCard += `<tr class="border-bottom position-relative">
                       <td>
@@ -461,7 +521,7 @@ async function renderEventsShowing(page = 1, perpage = 10, is_published = null) 
                           </div>
                         </a>
                       </td>
-                      <td class="text-nowrap">Active</td>
+                      <td class="text-nowrap"><span class="badge fw-medium ${eventStatus} p-2  rounded-5">${eventText}</span></td>
                       <td class="text-nowrap">${data.data.total_approved_registrations || "0"} tickets</td>
                       <td class="text-nowrap">${totalPrice}</td>
                       <td class="text-nowrap">${data.data.total_checkin || "0"} participated</td>
@@ -583,6 +643,25 @@ async function renderEventsPast(page = 1, perpage = 10, is_published = null) {
       let totalPrice = data.data.ticket.length > 0 
         ? `$${data.data.ticket.reduce((sum, item) => sum + item.price, 0).toFixed(2)}`
         : `Free`;
+        const eventDate = new Date(event.started_date);
+        const endDate = new Date(event.ended_date);
+  
+        const currentDate = new Date();
+  currentDate.setHours(0, 0, 0, 0);
+        let eventStatus = null;
+        let eventText = null
+        
+  
+        if (currentDate < eventDate) {
+          eventStatus = "pill5";
+          eventText = "Upcoming"
+        } else if (currentDate >= eventDate && currentDate <= endDate) {
+          eventStatus = "pill2";
+          eventText = "Showing"
+        } else {
+          eventStatus = `pill3`;
+          eventText = "Past"
+        } 
 
       eventCard += `<tr class="border-bottom position-relative">
                       <td>
@@ -601,7 +680,7 @@ async function renderEventsPast(page = 1, perpage = 10, is_published = null) {
                           </div>
                         </a>
                       </td>
-                      <td class="text-nowrap">Active</td>
+                      <td class="text-nowrap"><span class="badge fw-medium ${eventStatus} p-2  rounded-5">${eventText}</span></td>
                       <td class="text-nowrap">${data.data.total_approved_registrations || "0"} tickets</td>
                       <td class="text-nowrap">${totalPrice}</td>
                       <td class="text-nowrap">${data.data.total_checkin || "0"} participated</td>

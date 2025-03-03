@@ -4,6 +4,56 @@ document.getElementById('searchInput').addEventListener('keyup', filterTable);
 // document.getElementById('dateFilter').addEventListener('change', filterTable);
 // document.getElementById('statusFilter').addEventListener('change', filterTable);
 
+const scanner = new Html5QrcodeScanner("reader", {
+    fps: 10,
+    qrbox: { width: 400, height: 400 },
+    rememberLastUsedCamera: false
+});
+
+scanner.render(success);
+document.getElementById("reader").style.border = "0px solid transparent";
+let scanningEnabled = true;
+
+async function success(result) {
+if (!scanningEnabled) return; 
+
+console.log(result);
+
+
+
+try {
+await axiosInstance.put("/events/check-in/", { ticketToken: result });
+
+scanningEnabled = false; 
+showToast(true, `Checked In Successfully.`);
+getCheckInTicketList()
+
+setTimeout(() => {
+    scanningEnabled = true; 
+}, 3000); 
+
+
+} catch (error) {
+console.log(error);
+if (!(error.response && error.response.data &&  typeof error.response.data == "object")) {
+  return showToast();
+}else{
+    showToast(false, error.response.data.message)
+}
+
+
+}
+
+
+
+}
+
+// function error(err) {
+//     console.error(err);
+// }
+
+
+
 function filterTable() {
     const nameFilter = document.getElementById('searchInput').value.toLowerCase();
     const dateFilter = document.getElementById('dateFilter').value;
@@ -48,13 +98,20 @@ async function getCheckInTicketList(page=1, perpage=25) {
         document.getElementById("ev-date").innerText = moment(event.data.started_date).format("llll")
         const {data:json} = data
         console.log(data);
+
+        if(json.length ==0 ){
+          return document.getElementById("request-tbody").innerHTML = `<tr><td colspan="6"><div class="text-center w-100 my-5">
+              <img src="/img/noFound.png" alt="..." height="220px;">
+              <h4 class="text-center text-brand mt-2">No Checkin to Display</h4>
+            </div></td></tr>`
+        }
         
 
         json.forEach((r, i)=>{
 
             document.getElementById("request-tbody").innerHTML += `<tr>
                 <td colspan="1" class="text-nowrap">${i+1}</td>
-                <td colspan="1" class=""><img width="60px" height="60px" class="border-brand rounded-circle" src="/uploads/${r.avatar}"></img></td>
+                <td colspan="1" class=""><img width="50px" height="50px" class="border-brand rounded-circle" src="/uploads/${r.avatar ? r.avatar : "default.jpg"}"></img></td>
                 <td colspan="1" class="">${r.eng_name}</td>
                 <td colspan="1" class="text-nowrap">${r.type_name}</td>
                 <td colspan="1" class="text-nowrap">${r.email}</td>

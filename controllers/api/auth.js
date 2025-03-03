@@ -23,7 +23,7 @@ const postSignUp = async (req, res) => {
   if (handleValidateError(error, res)) return;
 
   const { name, email, password } = req.body;
-  const { lang } = req.query;
+  const { lang = "en" } = req.query;
 
   try {
     const checkEmailQuery = "SELECT * FROM tbl_users WHERE email = ?";
@@ -228,7 +228,7 @@ const postResetPassword = async (req, res) => {
 
 const getMe = async (req, res) => {
   if (!req.user || !req.user.id) {
-    return sendResponse(res, 401, false, "Unauthorized access.");
+    return sendResponse(res, 203, false, "Unauthorized access.");
   }
 
   const userId = req.user.id;

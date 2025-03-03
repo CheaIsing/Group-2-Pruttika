@@ -1,4 +1,21 @@
-<header class="border" id="header">
+<!-- <div id="preload" class="position-absolute top-0 start-0 end-0 bottom-0 w-100 vh-100 d-flex align-items-center justify-content-center bg-white" style="z-index: 9999 !important;">
+  <div class="position-relative border" style="z-index: 9999999 !important;">
+   <div class="spinner-grow spinner-grow-sm text-brand mx-1" role="status">
+       <span class="visually-hidden">Loading...</span>
+     </div>
+   <div class="spinner-grow spinner-grow-sm text-brand mx-1" role="status">
+       <span class="visually-hidden">Loading...</span>
+     </div>
+   <div class="spinner-grow spinner-grow-sm text-brand mx-1" role="status">
+       <span class="visually-hidden">Loading...</span>
+     </div>
+   
+  </div>
+</div> -->
+<div id="loader-overlay" class="loader-overlay">
+  <img src="/img/Prutika_Logo_text(2).png" alt="Logo" class="loader-logo" />
+</div>
+<!-- <header class="border" id="header">
     <div class="container">
         <nav class="d-flex align-items-center justify-content-between">
             <div class="logo">
@@ -20,7 +37,7 @@
                 </ul>
             </div>
             <div class="action-btn d-flex">
-                <a href="/event/create" class="btn-outline-pink d-flex align-items-center" role="button"><i
+                <a href="<%= (user && user.role != 1) ? `/event/create` : `/profile/organizer` %>" class="btn-outline-pink d-flex align-items-center" role="button"><i
                         class="lucide-i" data-lucide="plus" style="stroke-width: 1.25;"></i> Create
                     Event</a>
                 
@@ -28,7 +45,7 @@
                     class="btn-outline-pink ms-3 d-flex align-items-center"><i
                         class="pe-1 fs-6 lucide-i" data-lucide="calendar-days" style="stroke-width: 1.25;"></i>Browse Event</a>
 
-                <a href="ticket/my-ticket" role="button"
+                <a href="/ticket/my-ticket" role="button"
                     class="btn-outline-pink ms-3 d-flex align-items-center"><i
                         class="pe-1 lucide-i" data-lucide="ticket" style="stroke-width: 1.25;"></i>My
                     Ticket</a>
@@ -46,97 +63,39 @@
                     <div class="notification-wrapper mt-1">
                         <div class="notification-icon">
                           <i class="fas fa-bell fs-4 text-brand"></i>
-                          <span class="badge fw-medium">0</span>
+                          <span class="badge fw-medium" id="unreadCount1">0</span>
                         </div>
                   
                         <div class="notification-dropdown">
-                          <div class="notification-header title d-flex justify-content-between">
-                          <div>Notifications</div>
-                          <a class="fw-normal" href="#">Make as Read</a>
+                          <div class="notification-header title d-flex justify-content-between bg-brand">
+                          <div>Unread Notifications</div>
+                          <span class="fw-normal" id="unreadCount2">0</span>
                           </div>
                   
-                          <div class="notification-item px-0 no mb-3">
-                            <div class="icon-type-noti">
-                              <img src="../../../public/img/Default_pfp.jpg" alt="User Avatar" class="avatar">
-                            </div>
-                  
-                            <div class="message">
-                              <span class="user-name">Tom Jerrynie</span>
-                              <div class="content">How can i join the event?</div>
-                            </div> 
-                            <span class="icon-unread me-3"></span>
-                           <span class="time me-4">2 hours ago</span>
-                            <i class="fa-solid fa-ellipsis-vertical fs-5 text-brand"></i>
-                          </div>
-                  
-                          <div class="notification-item px-0 no mb-3">
-                            <div class="icon-type-noti">
-                              <img src="../../../public/img/Default_pfp.jpg" alt="User Avatar" class="avatar">
-                            </div>
-                  
-                            <div class="message">
-                              <span class="user-name">Tom Jerrynie</span>
-                              <div class="content">How can i join the event?</div>
-                            </div> 
-                            <!-- <span class="icon-unread me-3"></span> -->
-                           <span class="time me-4">2 hours ago</span>
-                            <i class="fa-solid fa-ellipsis-vertical fs-5 text-brand"></i>
-                          </div>
-                  
-                          <div class="notification-item px-0 no mb-3">
-                            <div class="icon-type-noti">
-                              <img src="../../../public/img/Default_pfp.jpg" alt="User Avatar" class="avatar">
-                            </div>
-                  
-                            <div class="message">
-                              <span class="user-name">Tom Jerrynie</span>
-                              <div class="content">How can i join the event?</div>
-                            </div> 
-                            <!-- <span class="icon-unread me-3"></span> -->
-                           <span class="time me-4">2 hours ago</span>
-                            <i class="fa-solid fa-ellipsis-vertical fs-5 text-brand"></i>
-                          </div>
-                  
-                          <div class="notification-item px-0 no mb-3">
-                            <div class="icon-type-noti">
-                              <img src="../../../public/img/Default_pfp.jpg" alt="User Avatar" class="avatar">
-                            </div>
-                  
-                            <div class="message">
-                              <span class="user-name">Tom Jerrynie</span>
-                              <div class="content">How can i join the event?</div>
-                            </div> 
-                            <!-- <span class="icon-unread me-3"></span> -->
-                           <span class="time me-4">2 hours ago</span>
-                            <i class="fa-solid fa-ellipsis-vertical fs-5 text-brand"></i>
-                          </div>
-                          <div class="notification-footer mt-3">
-                            <a href="/notification" class="btn btn-outline-brand border-0 w-100 ">View All Notifications</a>
+                          <div id="noti-wrapper" style="max-height: 300px; overflow-y: auto;">
                             
-                          </div>
-                  
                         </div>
                   
                       </div>
                     <div class="dropdown">
                         <a href="#"
-                            class="dropdown-toggle fs-3 text-brand d-flex align-items-center"
+                            class="dropdown-toggle fs-3 text-brand d-flex align-items-center hide-arrow"
                             role="button"
                             id="accountDropdown" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            <!-- <i class="bi bi-person-circle"></i> -->
+                           
                             <div class="userImgPf-wrapper">
                                 <img id="userImgPf"
-                                    src="http://mps2.chandalen.dev/storage/avatars/no_photo.jpg"
+                                    src="/uploads/<%= user.avatar ? user.avatar : "default.jpg"  %>"
                                     alt="pfp">
                             </div>
-                            <!-- User Icon -->
+                            
                             <span class="ps-1" id="userEmail"></span>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end"
+                        <ul class="dropdown-menu dropdown-menu-end "
                             aria-labelledby="accountDropdown">
                             <li><a class="dropdown-item"
-                                    href="/event/manage">Manage
+                                    href="<%= (user && user.role != 1) ? `/event/manage` : `/profile/organizer` %>">Manage
                                     as
                                     organizer</a></li>
                             <li><a class="dropdown-item"
@@ -147,7 +106,7 @@
                                     href="/profile/info">Account
                                     Setting</a></li>
         
-                            <li><a class="dropdown-item border-top"
+                            <li><a class="dropdown-item border-top" role="button"
                                      id="btn-logout" onclick="logOut()">Log
                                     out</a>
                             </li>
@@ -157,8 +116,128 @@
             <% } %>
 
             
-            
         </nav>
     </div>
-    <!-- <%= JSON.stringify(user) %> -->
+</header> -->
+
+<header class="border" id="header">
+  <div class="container-lg">
+    <nav class="d-flex align-items-center justify-content-between">
+      <!-- Logo -->
+      <div class="logo">
+        <a href="/">
+          <img src="/img/Prutika_Logo_text(2).png" alt="Logo">
+        </a>
+      </div>
+
+      <!-- Search Bar (Visible on Desktop) -->
+      <div class="d-none d-lg-flex align-items-center w-25 position-relative border-brand-sm">
+        <i class="fa-solid fa-magnifying-glass text-brand fs-6 position-absolute"></i>
+        <input type="text" class="form-control search-bar ps-5 w-100 shadow-none" id="searchEvent" placeholder="Search Event" />
+        <button class="btn-pink text-white">
+          <i class="fa-solid fa-magnifying-glass text-brand fs-6"></i>
+        </button>
+        <ul class="search-dropdown position-absolute" id="search-dropdown"></ul>
+      </div>
+
+      <!-- Action Buttons (Visible on Desktop) -->
+       <%= user.role  %>
+      <div class="d-none d-lg-flex align-items-center gap-3">
+        <a href="<%= (user && user.role != 1) ? `/event/create` : `/profile/organizer` %>" class="btn-outline-pink d-flex align-items-center" role="button">
+          <i class="lucide-i" data-lucide="plus" style="stroke-width: 1.25;"></i> Create Event
+        </a>
+        <a href="/event/browse" role="button" class="btn-outline-pink d-flex align-items-center">
+          <i class="pe-1 fs-6 lucide-i" data-lucide="calendar-days" style="stroke-width: 1.25;"></i> Browse Event
+        </a>
+        <a href="/ticket/my-ticket" role="button" class="btn-outline-pink d-flex align-items-center">
+          <i class="pe-1 lucide-i" data-lucide="ticket" style="stroke-width: 1.25;"></i> My Ticket
+        </a>
+      </div>
+
+      <!-- Right Side (Notification, User Dropdown, or Sign In/Sign Up) -->
+      <div class="d-flex align-items-center gap-3">
+        <% if (user) { %>
+          <!-- Notification Icon (Visible when logged in) -->
+          <div class="notification-wrapper mt-1">
+            <div class="notification-icon">
+              <i class="fas fa-bell fs-4 text-brand"></i>
+              <span class="badge fw-medium" id="unreadCount1">0</span>
+            </div>
+            <div class="notification-dropdown">
+              <div class="notification-header title d-flex justify-content-between bg-brand">
+                <div>Unread Notifications</div>
+                <span class="fw-normal" id="unreadCount2">0</span>
+              </div>
+              <div id="noti-wrapper" style="max-height: 300px; overflow-y: auto;">
+                <!-- Notification Items -->
+              </div>
+              <div class="notification-footer mt-3">
+                <a href="/notification" class="btn btn-outline-brand w-100 fw-medium">View All Notifications</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- User Dropdown (Visible when logged in) -->
+          <div class="dropdown">
+            <a href="#" class="dropdown-toggle fs-3 text-brand d-flex align-items-center hide-arrow" role="button" id="accountDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+              <div class="userImgPf-wrapper">
+                <img id="userImgPf" src="/uploads/<%= user.avatar ? user.avatar : 'default.jpg' %>" alt="pfp">
+              </div>
+              <span class="ps-1 d-none d-lg-block" id="userEmail"></span> <!-- Hide email on mobile -->
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
+              <li><a class="dropdown-item" href="<%= (user && user.role != 1) ? `/event/manage` : `/profile/organizer` %>">Manage as Organizer</a></li>
+              <li><a class="dropdown-item" href="/follow/follower">Following</a></li>
+              <li><a class="dropdown-item" href="/event/wishlist">Wishlist</a></li>
+              <li><a class="dropdown-item" href="/profile/info">Account Setting</a></li>
+              <li><a class="dropdown-item border-top" role="button" id="btn-logout" onclick="logOut()">Log Out</a></li>
+            </ul>
+          </div>
+        <% } else { %>
+          <!-- Sign In/Sign Up Buttons (Visible when logged out) -->
+          <div class="d-flex align-items-center gap-2">
+            <a href="/auth/signin" role="button" class="btn btn-brand py-2 fw-medium" style="height: auto !important;">Sign In</a>
+            <a href="/auth/signup" role="button" class="btn btn-outline-brand py-2 fw-medium" style="height: auto !important;">Sign Up</a>
+          </div>
+        <% } %>
+
+        <!-- Hamburger Menu for Mobile -->
+        <button class="btn d-lg-none p-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+          <i class="fa-solid fa-bars fs-4 text-brand"></i>
+        </button>
+      </div>
+
+      <!-- Offcanvas Menu (Visible on Mobile) -->
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <!-- Search Bar (Visible on Mobile) -->
+          <div class="d-flex align-items-center w-100 position-relative border-brand-sm mb-4">
+            <i class="fa-solid fa-magnifying-glass text-brand fs-6 position-absolute"></i>
+            <input type="text" class="form-control search-bar ps-5 w-100 shadow-none" id="searchEventMobile" placeholder="Search Event" />
+            <button class="btn-pink text-white">
+              <i class="fa-solid fa-magnifying-glass text-brand fs-6"></i>
+            </button>
+            <ul class="search-dropdown position-absolute" id="search-dropdown-mobile"></ul>
+          </div>
+
+          <!-- Action Buttons (Visible on Mobile) -->
+          <div class="action-btn d-flex flex-column">
+            <a href="<%= (user && user.role != 1) ? `/event/create` : `/profile/organizer` %>" class="btn-outline-pink d-flex align-items-center mb-3" role="button">
+              <i class="lucide-i" data-lucide="plus" style="stroke-width: 1.25;"></i> Create Event
+            </a>
+            <a href="/event/browse" role="button" class="btn-outline-pink d-flex align-items-center mb-3">
+              <i class="pe-1 fs-6 lucide-i" data-lucide="calendar-days" style="stroke-width: 1.25;"></i> Browse Event
+            </a>
+            <a href="/ticket/my-ticket" role="button" class="btn-outline-pink d-flex align-items-center mb-3">
+              <i class="pe-1 lucide-i" data-lucide="ticket" style="stroke-width: 1.25;"></i> My Ticket
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
 </header>

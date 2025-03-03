@@ -11,45 +11,41 @@
                     <%- include("../../partials/manage-event-sidebar.ejs") %>
 
                     <section class="p-4 w-100">
-                        <div class="d-flex align-items-center">
-                            <button type="button"
-                                class="btn border-0 ps-0"
-                                onclick="history.back()">
-                                <i
-                                    class="fa-solid fa-angle-left fs-2"></i>
+                
+
+                        <div id="content" class="px-md-3">
+                            <div class="d-flex align-items-center">
+                            <button onclick="history.back()" type="button" class="btn fw-medium border-0 ps-0 d-flex align-items-center mb-2">
+                                <i class="fa-solid fa-angle-left fs-6 m-0 p-0 "></i>
+                                <span class="m-0 ps-2"><a>Back to
+                                        Event</a></span>
                             </button>
-                            <h2>Check In Ticket List</h2>
+                        </div>
+                        <div class="card mb-4 p-4 border-0 shadow-light-sm">
+                            <h1 class="h3 mb-2">Check In Ticket List</h1>
+                            <h2
+                                class="h5 text-muted mb-2" id="title">{eventData.eng_name}</h2>
+                            
+                            <div class="d-flex align-items-center">
+                                <small class="me-2 text-brand"><i data-lucide="calendar-days" width="1rem"></i></small>
+                                <span id="ev-date">Thu, 5 December, 2024</span>
+                            </div>
                         </div>
 
-                        <div id="content" class>
-                            <div class="d-flex align-items-center">
-                                <div
-                                    class="my-4 d-flex w-100 justify-content-between ">
-                                    <div
-                                        class>
-                                        <h3 id="title">Hi</h3>
-                                        <div
-                                            class="d-inline-flex align-items-center">
-                                            <i
-                                                class="bi bi-calendar-event me-2"></i>
-                                            <span id="ev-date">Thhdb</span>
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div class="col-auto">
+                                <!-- <div class="col-auto">
                                     <button data-bs-toggle="modal"
                                         data-bs-target="#exampleModal"
                                         type="button"
                                         class="btn btn-brand fw-medium"
                                         style="height: auto !important;">+
                                         Check-In By Token</button>
-                                </div>
+                                </div> -->
                             </div>
                             <!-- <h5 class="mt-5 mb-3">Ticket Request</h5> -->
-                            <div class="row g-4">
-                                <div class="text-center col-4">
-                                    <div class="scanner-container">
+                            <div class="row g-4 px-md-3">
+                                <div class="text-center col-12 col-lg-4">
+                                    <div class="scanner-container card border-0" style="border: 0 !important;">
                                         <div class>
                                             <div id="reader"
                                                 class="d-flex flex-column align-items-center justify-content-center px-4 py-3">
@@ -61,8 +57,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-8">
-                                    <div class="bg-white p-3 rounded-3">
+                                <div class="col-12 col-lg-8">
+                                    <div class="card p-4 border-0 shadow-light-sm rounded-3">
                                         <div
                                             class="d-flex justify-content-between">
                                             <div class="d-flex gap-3">
@@ -100,21 +96,21 @@
                                             </div>
 
                                         </div>
-                                        <div class="table-responsive">
-                                            <table class="table"
+                                        <div class="table-container table-responsive">
+                                            <table class="custom-table w-100"
                                                 id="ticketTable">
                                                 <thead>
                                                     <tr>
-                                                        <th scope="col">#</th>
+                                                        <th >#</th>
                                                         <th
-                                                            scope="col">Avatar</th>
+                                                            >Avatar</th>
                                                         <th
-                                                            scope="col">Name</th>
+                                                            >Name</th>
                                                         <th
-                                                            scope="col">Type</th>
+                                                            >Type</th>
                                                         <th
-                                                            scope="col">Email</th>
-                                                        <th scope="col">Check-in
+                                                            >Email</th>
+                                                        <th >Check-in
                                                             Date</th>
                                                     </tr>
                                                 </thead>
@@ -289,53 +285,7 @@
                 </div>
             </div>
 
-            <script>
-    const scanner = new Html5QrcodeScanner("reader", {
-        fps: 10,
-        qrbox: { width: 400, height: 400 },
-        rememberLastUsedCamera: false
-    });
-    
-    scanner.render(success);
-    let scanningEnabled = true;
-    
-    async function success(result) {
-    if (!scanningEnabled) return; 
 
-    console.log(result);
-
-    try {
-    await axiosInstance.put("/events/check-in/", { ticketToken: result });
-
-    scanningEnabled = false; 
-    showToast(true, `Checked In Successfully.`);
-    getCheckInTicketList()
-
-    setTimeout(() => {
-        scanningEnabled = true; 
-    }, 3000); 
-
-    
-  } catch (error) {
-    console.log(error);
-    if (!(error.response && error.response.data &&  typeof error.response.data == "object")) {
-      return showToast();
-    }else{
-        showToast(false, error.response.data.message)
-    }
-
-
-  }
-    
-
-
-}
-    
-    // function error(err) {
-    //     console.error(err);
-    // }
-    
-</script>
             <%- include("../../partials/script.ejs") %>
 
             <script src="/public/js/utils/organizer-sidebar.js"></script>

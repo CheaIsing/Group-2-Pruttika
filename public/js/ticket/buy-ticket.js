@@ -55,16 +55,18 @@ const tickets = events.event_tickets
 document.getElementById("ticketType").innerHTML = "";
 tickets.forEach((ticket, i)=>{
   document.getElementById("ticketType").innerHTML += `
-  <option ${i == 0 && "selected"} value='${ticket.id}'>${ticket.type}</option>`;
+  <option ${i == 0 && "selected"} value='${ticket.id}'>${ticket.type} - $${ticket.price.toFixed(2)}</option>`;
 })
+
+calculateTotal()
 
 
 document.getElementById("event-card").innerHTML = `
 <div class="event-card shadow-light-sm">
-                               <div class="event-card-container flex-column">
+                               <div class="event-card-container event-card-container-horizontal">
                         <!-- Event Thumbnail -->
                         <div
-                            class="event-thumbnail object-fit-cover d-flex justify-content-between w-100">
+                            class="event-thumbnail object-fit-cover d-flex justify-content-between w-100" style="height: 300px !important;">
                             <img
                                 class="img-fluid object-fit-cover"
                                 src="/uploads/${events.thumbnail}"
@@ -170,6 +172,8 @@ document.getElementById("event-card").innerHTML = `
 </div>
 `
 
+document.getElementById("qrCodeImage").src = `/uploads/${events.qr_img}`
+
 document.getElementById("submitButton").addEventListener("click", async (e)=>{
     const input = document.getElementById("paymentProof");
     const fileName = document.getElementById("fileName");
@@ -180,6 +184,7 @@ document.getElementById("submitButton").addEventListener("click", async (e)=>{
     } else {
       fileName.textContent = "No file selected";
       document.getElementById("submitButton").disabled = true
+      return
     }
 
     const frmData = {
@@ -209,3 +214,26 @@ document.getElementById("submitButton").addEventListener("click", async (e)=>{
       document.getElementById("submitButton").disabled = true
     }
 })
+
+document.getElementById("ticketType").onclick = (e)=>{
+  calculateTotal()
+}
+document.getElementById("ticketQuantity").onclick = (e)=>{
+  calculateTotal()
+}
+
+function calculateTotal(){
+  const selectElement = document.querySelector("#ticketType");
+const selectedText = selectElement.options[selectElement.selectedIndex].innerText;
+const match = selectedText.match(/\d+\.\d{2}/); // Matches a number with two decimal places
+
+if (match) {
+    const price = parseFloat(match[0]); // Convert to a number
+    const subtotal = parseFloat(document.getElementById("ticketQuantity").value) * price;
+
+    document.getElementById("subTotal").innerText = `$${subtotal.toFixed(2)}`;
+
+    document.getElementById("total").innerText = `$${subtotal.toFixed(2)}`;
+
+}
+}

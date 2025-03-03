@@ -45,4 +45,24 @@ const promoteToOrganizer = async (req, res) => {
   }
 };
 
-module.exports = { promoteToOrganizer };
+const displayRequestOrganizerById = async (req, res) => {
+  try {
+    // const {id} = req.user;
+    let id = 3
+    console.log(id);
+    
+    let sql = "SELECT * FROM tbl_organizer_req WHERE user_id = ?"
+
+    const data = await executeQuery(sql, id);
+
+    if (data.length == 0) {
+      return sendResponse(res, 201, false, "No organizers request found.");
+    }
+
+    sendResponse(res, 200, true, "Display all organizers request", data);
+  } catch (error) {
+    console.error(error);
+    handleResponseError(res, error);
+  }
+};
+module.exports = { promoteToOrganizer , displayRequestOrganizerById};
