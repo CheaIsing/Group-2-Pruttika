@@ -3,11 +3,8 @@ const Joi = require('joi');
 //validate input event
 const vCreateEvent = Joi.object({
     description: Joi.string()
-        .max(2000)
-        .required()
-        .messages({
-            'string.max': `"description" must be at most {2000} characters long`,
-        }),
+        .required(),
+
     started_date: Joi.string()
         .isoDate() // You can use isoDate for date validation
         .required(),

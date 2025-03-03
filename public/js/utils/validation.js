@@ -206,9 +206,8 @@ const vEventDescription = Joi.object({
   short_description: Joi.string().trim().required().messages({
     "string.empty": "Short Description is required.",
   }),
-  description: Joi.string().trim().max(2000).required().messages({
+  description: Joi.string().trim().required().messages({
     "string.empty": "Description Detail is required.",
-    "string.max": `Description Detail must be at most 2000 characters long.`,
   }),
 }).options({ abortEarly: false });
 

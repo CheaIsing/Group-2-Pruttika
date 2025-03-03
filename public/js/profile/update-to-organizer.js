@@ -7,7 +7,29 @@ function toggleOrganizer() {
 
 document.addEventListener("DOMContentLoaded", function () {
     window.descQuill = new Quill('#editor', { theme: 'snow' , placeholder: "Enter your bio here..."});
+    getOrganizerView()
 });
+
+async function getOrganizerView() {
+  try {
+      // Fetch data from the API
+      const response = await axiosInstance.get('organizer/detail');
+
+      // Check if the request was successful
+      if (response.data.result) {
+        if(response.data.data.length > 0){
+          window.location.href = "/profile/organizer-view"
+        }
+          
+          
+      } else {
+          console.error('Failed to fetch organizer data:', response.data.message);
+          window.location.href = "/profile/organizer"
+      }
+  } catch (error) {
+      console.error('Error fetching organizer data:', error);
+  }
+}
 
 let isSubmit = false;
 
