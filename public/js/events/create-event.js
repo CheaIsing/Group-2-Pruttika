@@ -947,18 +947,32 @@ async function getCategories() {
     const categories = result.data.data;
     console.log(categories);
 
-    let categoriesHtml = ''
-    categories.forEach(c=>{
-      categoriesHtml+=`
-      <option value="${c.id}">${c.name}</option>`;
-    })
-    document.getElementById('select-category').innerHTML = categoriesHtml
+    const selectElement = document.getElementById('select-category');
+    const tomSelectInstance = selectElement.tomselect;
+
+    if (tomSelectInstance) {
+      // Remove all existing options
+      tomSelectInstance.clearOptions();
+
+      // Add new options dynamically
+      categories.forEach(c => {
+        tomSelectInstance.addOption({ value: c.id, text: c.name });
+      });
+
+      // Refresh dropdown
+      tomSelectInstance.refreshOptions(false);
+    }
+
   } catch (error) {
     console.log(error);
-    showToast()
+    showToast();
   }
 }
-getCategories()
+
+// Call function to fetch categories
+getCategories();
+
+
 
 
 let agendaIdCounter = 0;  // Keep track of the current agenda count
