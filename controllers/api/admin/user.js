@@ -16,44 +16,67 @@ const displayAllUsers = async (req, res) => {
     const perPageNum = parseInt(per_page);
 
     if (isNaN(pageNum) || pageNum < 1) {
-      return sendResponse(res, 404, false, "Invalid page number.");
+      return sendResponse(res, 400, false, "Invalid page number.");
     }
 
     if (isNaN(perPageNum) || perPageNum < 1) {
-      return sendResponse(res, 404, false, "Invalid per_page value");
+      return sendResponse(res, 400, false, "Invalid per_page value.");
+    }
+
+    const validSortColumns = ["id", "eng_name", "created_at", "email", "role"];
+    if (!validSortColumns.includes(sort_col)) {
+      sort_col = "created_at";
     }
 
     const sortDirection = sort_dir.toLowerCase() === "desc" ? "DESC" : "ASC";
 
     let query = "SELECT * FROM tbl_users";
+    let countQuery = "SELECT COUNT(*) AS total FROM tbl_users";
     const queryParams = [];
 
+    let whereClause = [];
+
     if (role) {
-      query += " WHERE role = ?";
+      whereClause.push("role = ?");
       queryParams.push(role);
     }
 
     if (search) {
-      query += role ? " AND" : " WHERE";
-      query += " eng_name LIKE ?";
+      whereClause.push("eng_name LIKE ?");
       queryParams.push(`%${search}%`);
     }
 
-    query += ` ORDER BY ${sort_col} ${sortDirection}`;
+    if (whereClause.length > 0) {
+      query += " WHERE " + whereClause.join(" AND ");
+      countQuery += " WHERE " + whereClause.join(" AND ");
+    }
 
-    query += " LIMIT ? OFFSET ?";
-
+    query += ` ORDER BY ${sort_col} ${sortDirection} LIMIT ? OFFSET ?`;
     queryParams.push(perPageNum, (pageNum - 1) * perPageNum);
 
-    const data = await executeQuery(query, queryParams);
+    const [data, countResult] = await Promise.all([
+      executeQuery(query, queryParams),
+      executeQuery(countQuery, queryParams.slice(0, queryParams.length - 2)),
+    ]);
 
     if (data.length === 0) {
       return sendResponse(res, 404, false, "No users found.");
     }
 
-    sendResponse(res, 200, true, "Display all users", data);
+    const total = countResult[0].total;
+    const totalPages = Math.ceil(total / perPageNum);
+
+    sendResponse(res, 200, true, "Display all users", {
+      users: data,
+      pagination: {
+        total,
+        current_page: pageNum,
+        per_page: perPageNum,
+        total_pages: totalPages,
+      },
+    });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     handleResponseError(res, error);
   }
 };

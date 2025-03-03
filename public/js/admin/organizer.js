@@ -27,11 +27,12 @@ async function fetchRequestOrganizers(
       },
     });
 
-    const result = response.data;
+    const result = response.data.data.data;
+    console.log(result);
     if (!result.result) {
       throw new Error(result.message || "Failed to fetch request organizers");
     }
-    displayRequestOrganizer(result.data);
+    displayRequestOrganizer(result);
   } catch (error) {
     console.error("Error fetching request organizers : ", error.message);
   }
