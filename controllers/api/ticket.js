@@ -2,10 +2,11 @@ const fs=require('fs');
 const bcrypt = require("bcrypt");
 const jwt=require('jsonwebtoken');
 const {
-    handleResponseError} = require("../../utils/handleError");
+    handleResponseError,handleValidateError} = require("../../utils/handleError");
 const { executeQuery } = require("../../utils/dbQuery");
 const {sendResponse ,sendResponse1}= require("../../utils/response");
 const {reqTicketCollection}=require("../../resource/ticket");
+const {fileValidation}=require("../../validations/event");
 const { generateQRCodeImg } = require('../../utils/generateQrImg');
 
 // const QRCode = require('qrcode');
@@ -72,6 +73,12 @@ const postRequestTicket=async(req,res)=>{
 
 const updateTransactionFile=async(req,res)=>{
     const ticketReq_id=req.params.id;
+    
+    // Validate file
+    const fileSchema = fileValidation('transaction_file');
+    const { error } = fileSchema.validate({ transaction_file: req.files ? req.files.transaction_file : undefined });
+    if (handleValidateError(error, res)) return;
+
     try {
         const sqlGetTransaction = `
             SELECT * FROM tbl_transaction WHERE id = ?
@@ -81,6 +88,7 @@ const updateTransactionFile=async(req,res)=>{
             return sendResponse(res, 404, false, "Ticket Request ID is not found");
         }
         const oldTransaction= dbResult[0].transaction_img;
+
         let file; 
         if(!req.files){
             file=oldTransaction; 
@@ -100,10 +108,10 @@ const updateTransactionFile=async(req,res)=>{
             });
             file = UploadFileName; // Set the new file name for database update    
         }
+
         const sqlUpdateTransaction=`UPDATE tbl_transaction SET transaction_img=? WHERE id=?`;
         await executeQuery(sqlUpdateTransaction,[file,ticketReq_id]);
         sendResponse(res, 200, true, "Transaction file Update successfully");
-        // const oldTN= dbQrResult[0].thumbnail;
     } catch (error) {
         handleResponseError(res,error);
     }
