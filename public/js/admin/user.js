@@ -11,7 +11,7 @@ async function fetchUsers(
   role = "",
   search = "",
   page = 1,
-  perPage = 5,
+  perPage = 4,
   sortCol = "created_at",
   sortDir = "asc"
 ) {
@@ -27,15 +27,74 @@ async function fetchUsers(
       },
     });
 
-    const result = response.data;
-    if (!result.result)
-      throw new Error(result.message || "Failed to fetch users");
+    const result = response.data.data.users;
+    const totalPages = response.data.data.pagination.total_pages;
 
-    displayUsers(result.data);
+    if (!result || result.length === 0)
+      throw new Error("No users found or failed to fetch users.");
+
+    displayUsers(result); 
+    updatePagination(page, totalPages, perPage); 
   } catch (error) {
     console.error("Error fetching users:", error.message);
   }
 }
+
+function updatePagination(currentPage, totalPages, perPage) {
+  const paginationContainer = document.querySelector(".pagination");
+  if (!paginationContainer) return;
+
+  paginationContainer.innerHTML = "";
+
+  const prevButton = document.createElement("li");
+  prevButton.classList.add("page-item");
+  if (currentPage === 1) {
+    prevButton.classList.add("disabled");
+  }
+
+  const prevUrl = new URL(window.location.href);
+  prevUrl.searchParams.set("page", currentPage - 1);
+  prevUrl.searchParams.set("per_page", perPage);
+
+  prevButton.innerHTML = `<a class="page-link" href="${prevUrl.toString()}" title="${prevUrl.toString()}">Previous</a>`;
+  paginationContainer.appendChild(prevButton);
+
+  for (let i = 1; i <= totalPages; i++) {
+    const pageItem = document.createElement("li");
+    pageItem.classList.add("page-item");
+    if (currentPage === i) {
+      pageItem.classList.add("active");
+    }
+
+    const pageUrl = new URL(window.location.href);
+    pageUrl.searchParams.set("page", i);
+    pageUrl.searchParams.set("per_page", perPage);
+
+    pageItem.innerHTML = `<a class="page-link" href="${pageUrl.toString()}" title="${pageUrl.toString()}">${i}</a>`;
+    paginationContainer.appendChild(pageItem);
+  }
+
+  const nextButton = document.createElement("li");
+  nextButton.classList.add("page-item");
+  if (currentPage === totalPages) {
+    nextButton.classList.add("disabled");
+  }
+
+  const nextUrl = new URL(window.location.href);
+  nextUrl.searchParams.set("page", currentPage + 1);
+  nextUrl.searchParams.set("per_page", perPage);
+
+  nextButton.innerHTML = `<a class="page-link" href="${nextUrl.toString()}" title="${nextUrl.toString()}">Next</a>`;
+  paginationContainer.appendChild(nextButton);
+}
+
+window.addEventListener("load", function () {
+  const urlParams = new URLSearchParams(window.location.search);
+  const page = parseInt(urlParams.get("page")); 
+  const perPage = parseInt(urlParams.get("per_page"));
+
+  fetchUsers("", "", page, perPage);
+});
 
 function displayUsers(users) {
   const tableBody = document.getElementById("usersTableBody");

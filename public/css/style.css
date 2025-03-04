@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
 
+
 :root {
   --c-brand: #ff1694;
   --c-brand-light: #ff1692ac;
@@ -2753,6 +2754,18 @@ header .dropdown-menu-end {
 }
 
 /* Browse Eevent */
+/* .home .event-details::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: 0;
+  width: 110px;
+  background: linear-gradient(to bottom, #FF1694 51%, #dd5e89 100%);
+  transform: rotate(-8deg);
+  border-top-right-radius: 100px;
+  height: 210px;
+  z-index: 1;
+} */
 
 .event-card {
   transition: all 0.3s ease;

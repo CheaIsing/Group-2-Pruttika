@@ -7,8 +7,9 @@
 //   withCredentials: true,
 // });
 
+// Fetch Events with Pagination
 async function fetchEvents(
-  status = "",
+  category_id = "",
   search = "",
   page = 1,
   perPage = 5,
@@ -22,20 +23,26 @@ async function fetchEvents(
         per_page: perPage,
         sort_col: sortCol,
         sort_dir: sortDir,
-        status,
+        category_id,
         search,
       },
     });
 
-    const result = response.data;
+    const result = response.data.data.data;
+    const totalPages = response.data.data.pagination.total_pages;
 
-    if (!result.result) {
-      throw new Error(error.message || "Failed to fetch Events");
-    }
+    if (!result || result.length === 0) throw new Error("No events found.");
 
-    displayEvents(result.data);
+    displayEvents(result);
+    updatePagination(
+      page,
+      totalPages,
+      perPage,
+      "paginationEvents",
+      fetchEvents
+    );
   } catch (error) {
-    console.error("Error fetching Events : ", error.message);
+    console.error("Error fetching Events:", error.message);
   }
 }
 
@@ -43,10 +50,22 @@ async function fetchCategories(
   search = "",
   page = 1,
   perPage = 5,
-  sortCol = "name",
+  sortCol = "name", // Default to 'name'
   sortDir = "asc"
 ) {
   try {
+    // Ensure valid parameters for the request
+    page = parseInt(page) || 1;
+    perPage = parseInt(perPage) || 5;
+
+    console.log("Fetch Categories Params:", {
+      page,
+      per_page: perPage,
+      sort_col: sortCol, 
+      sort_dir: sortDir,
+      search,
+    });
+
     const response = await axiosInstance.get("/admin/event/category/view", {
       params: {
         page,
@@ -57,17 +76,80 @@ async function fetchCategories(
       },
     });
 
-    const result = response.data;
+    const result = response.data.data.data;
+    const totalPages = response.data.data.pagination.total_pages;
 
-    if (!result.result) {
-      throw new Error(error.message || "Failed to fetch Events");
+    if (!result || result.length === 0) {
+      throw new Error("No categories found.");
     }
 
-    displayCategories(result.data);
+    displayCategories(result);
+    updatePagination(
+      page,
+      totalPages,
+      perPage,
+      "paginationCategories",
+      fetchCategories
+    );
   } catch (error) {
-    console.error("Error fetching Events : ", error.message);
+    console.error("Error fetching Categories:", error.message);
   }
 }
+
+function updatePagination(currentPage, totalPages, perPage, id, fetchFunction) {
+  const paginationContainer = document.getElementById(id);
+  if (!paginationContainer) return;
+  paginationContainer.innerHTML = "";
+
+  function createPageButton(page, label, isDisabled) {
+    const pageItem = document.createElement("li");
+    pageItem.classList.add("page-item");
+    if (isDisabled) pageItem.classList.add("disabled");
+
+    const pageLink = document.createElement("a");
+    pageLink.classList.add("page-link");
+    pageLink.href = "#";
+    pageLink.textContent = label;
+
+    pageLink.addEventListener("click", (event) => {
+      event.preventDefault();
+      if (!isDisabled) {
+        fetchFunction("", "", page, perPage);
+      }
+    });
+
+    pageItem.appendChild(pageLink);
+    return pageItem;
+  }
+
+  paginationContainer.appendChild(
+    createPageButton(currentPage - 1, "Previous", currentPage === 1)
+  );
+
+  for (let i = 1; i <= totalPages; i++) {
+    let pageItem = createPageButton(i, i, currentPage === i);
+    if (currentPage === i) pageItem.classList.add("active");
+    paginationContainer.appendChild(pageItem);
+  }
+
+  paginationContainer.appendChild(
+    createPageButton(currentPage + 1, "Next", currentPage === totalPages)
+  );
+}
+
+
+window.addEventListener("load", function () {
+  const urlParams = new URLSearchParams(window.location.search);
+
+  let pageEvent = parseInt(urlParams.get("pageEvents")) || 1;
+  let perPageEvent = parseInt(urlParams.get("per_pageEvents")) || 5;
+  let pageCategories = parseInt(urlParams.get("pageCategories")) || 1;
+  let perPageCategories = parseInt(urlParams.get("per_pageCategories")) || 5;
+
+  fetchEvents("", "", pageEvent, perPageEvent);
+  fetchCategories("", "", pageCategories, perPageCategories);
+});
+
 
 async function fetchEventDetails(id) {
   const detailContainer = document.getElementById("detailContent");
@@ -142,10 +224,9 @@ async function fetchEventDetails(id) {
 
 function displayEvents(events) {
   const tableBody = document.getElementById("tableBody");
-  tableBody.innerHTML = "";
-
-  events.forEach((event) => {
-    const row = `
+  tableBody.innerHTML = events
+    .map(
+      (event) => `
             <tr>
                 <td>${event.id}</td>
                 <td>${event.eng_name}</td>
@@ -192,17 +273,16 @@ function displayEvents(events) {
                     </div>
                 </td>
             </tr>
-        `;
-    tableBody.innerHTML += row;
-  });
+        `
+    )
+    .join("");
 }
 
 function displayCategories(categories) {
   const tableBody = document.getElementById("categoryTableBody");
-  tableBody.innerHTML = "";
-
-  categories.forEach((val) => {
-    const row = `
+  tableBody.innerHTML = categories
+    .map(
+      (val) => `
             <tr>
                 <td>${val.id}</td>
                 <td>${val.name}</td>
@@ -238,9 +318,9 @@ function displayCategories(categories) {
                     </div>
                 </td>
             </tr>
-        `;
-    tableBody.innerHTML += row;
-  });
+        `
+    )
+    .join("");
 }
 
 async function createCategory() {

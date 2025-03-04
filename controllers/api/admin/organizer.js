@@ -36,8 +36,15 @@ const displayRequestOrganizer = async (req, res) => {
       queryParams.push(`%${search}%`);
     }
 
-    query += ` ORDER BY ${sort_col} ${sortDirection}`;
+    const countQuery =
+      `SELECT COUNT(*) AS total FROM tbl_organizer_req` +
+      (status ? " WHERE status = ?" : "");
+    const countParams = status ? [status] : [];
 
+    const countResult = await executeQuery(countQuery, countParams);
+    const total = countResult[0].total;
+
+    query += ` ORDER BY ${sort_col} ${sortDirection}`;
     query += " LIMIT ? OFFSET ?";
     queryParams.push(perPageNum, (pageNum - 1) * perPageNum);
 
@@ -47,12 +54,23 @@ const displayRequestOrganizer = async (req, res) => {
       return sendResponse(res, 404, false, "No organizers request found.");
     }
 
-    sendResponse(res, 200, true, "Display all organizers request", data);
+    const totalPages = Math.ceil(total / perPageNum);
+
+    sendResponse(res, 200, true, "Display all organizers request", {
+      data: data,
+      pagination: {
+        total,
+        current_page: pageNum,
+        per_page: perPageNum,
+        total_pages: totalPages,
+      },
+    });
   } catch (error) {
     console.error(error);
     handleResponseError(res, error);
   }
 };
+
 
 const displayAllOrganizer = async (req, res) => {
   try {
@@ -74,37 +92,60 @@ const displayAllOrganizer = async (req, res) => {
 
     const sortDirection = sort_dir.toLowerCase() === "desc" ? "DESC" : "ASC";
 
+    // Base query
     let query = `SELECT * FROM tbl_organizer`;
+    let countQuery = `SELECT COUNT(*) AS total FROM tbl_organizer`;
     const queryParams = [];
+    const countParams = [];
 
+    // Apply filters
     if (status) {
       query += " WHERE status = ?";
+      countQuery += " WHERE status = ?";
       queryParams.push(status);
+      countParams.push(status);
     }
 
     if (search) {
       query += status ? " AND" : " WHERE";
       query += " organization_name LIKE ?";
+      countQuery += status ? " AND" : " WHERE";
+      countQuery += " organization_name LIKE ?";
       queryParams.push(`%${search}%`);
+      countParams.push(`%${search}%`);
     }
 
-    query += ` ORDER BY ${sort_col} ${sortDirection}`;
+    // Execute count query
+    const countResult = await executeQuery(countQuery, countParams);
+    const total = countResult[0]?.total || 0;
+    const totalPages = Math.ceil(total / perPageNum);
 
-    query += " LIMIT ? OFFSET ?";
+    // Apply sorting and pagination
+    query += ` ORDER BY ${sort_col} ${sortDirection} LIMIT ? OFFSET ?`;
     queryParams.push(perPageNum, (pageNum - 1) * perPageNum);
 
+    // Execute data query
     const data = await executeQuery(query, queryParams);
 
     if (data.length === 0) {
       return sendResponse(res, 404, false, "No organizers found.");
     }
 
-    sendResponse(res, 200, true, "Display all organizers", data);
+    sendResponse(res, 200, true, "Display all organizers", {
+      data,
+      pagination: {
+        total,
+        current_page: pageNum,
+        per_page: perPageNum,
+        total_pages: totalPages,
+      },
+    });
   } catch (error) {
     console.error(error);
     handleResponseError(res, error);
   }
 };
+
 
 const getRequestOrganizerDetails = async (req, res) => {
   const id = req.params.id;
@@ -260,7 +301,7 @@ const removeOrganizer = async (req, res) => {
 };
 
 const adminApproval = async (req, res) => {
-  const user_id=req.user.id;
+  const user_id = req.user.id;
   try {
     const requestId = req.params.id;
 
@@ -320,18 +361,18 @@ const adminApproval = async (req, res) => {
     await executeQuery(updateUserQuery, [user.user_id]);
 
     //insert notification
-    const sqlInsertNotification=`INSERT INTO tbl_notification
+    const sqlInsertNotification = `INSERT INTO tbl_notification
     (receiver_id, eng_message,kh_message,sender_id,organizer_req_id, type_id) 
-    VALUES (?,?,?,?,?,?)`
-    const paramsNotification=[
+    VALUES (?,?,?,?,?,?)`;
+    const paramsNotification = [
       user.user_id,
       `Congratulations! Your request to become an organizer has been approved. We are excited to have you on board! You can now create and manage events`,
       `អបអរសាទរ! ការដាក់ស្នើរបស់អ្នកដើម្បីក្លាយជាអ្នករៀបចំព្រឹត្តិការណ៍ត្រូវបានយល់ព្រម។ យើងរីករាយដែលមានអ្នកនៅជាមួយ! ពេលនេះអ្នកអាចបង្កើត និងគ្រប់គ្រងព្រឹត្តិការណ៍ផ្ទាល់ខ្លួនបាន​ហើយ។`,
       user_id,
       requestId,
-      3
+      3,
     ];
-    await executeQuery(sqlInsertNotification,paramsNotification);
+    await executeQuery(sqlInsertNotification, paramsNotification);
 
     sendResponse(
       res,
@@ -346,7 +387,7 @@ const adminApproval = async (req, res) => {
 };
 
 const adminRejection = async (req, res) => {
-  const sender_id=req.user.id;
+  const sender_id = req.user.id;
   try {
     const requestId = req.params.id;
     const { rejection_reason } = req.body;
@@ -378,18 +419,18 @@ const adminRejection = async (req, res) => {
     await executeQuery(updateUserQuery, [user_id]);
 
     //insert notification
-    const sqlInsertNotification=`INSERT INTO tbl_notification
+    const sqlInsertNotification = `INSERT INTO tbl_notification
     (receiver_id, eng_message,kh_message,sender_id,organizer_req_id, type_id) 
     VALUES (?,?,?,?,?,?)`;
-    const paramsNotification=[
+    const paramsNotification = [
       user_id,
       `We regret to inform you that your request to become an organizer has been rejected.Reason: ${rejection_reason}. We appreciate your interest and hope you consider applying again.`,
       `យើងសោកស្ដាយក្នុងការជូនដំណឹងដល់អ្នកថាសំណើរបស់អ្នកដើម្បីក្លាយជាអ្នករៀបចំត្រូវបានបដិសេធ។ ហេតុផល៖ ${rejection_reason}។ យើងសូមកោតសរសើរចំពោះចំណាប់អារម្មណ៍របស់អ្នក ហើយសង្ឃឹមថាអ្នកពិចារណាដាក់ពាក្យម្តងទៀត។`,
       sender_id,
       requestId,
-      4
+      4,
     ];
-    await executeQuery(sqlInsertNotification,paramsNotification);
+    await executeQuery(sqlInsertNotification, paramsNotification);
 
     sendResponse(res, 200, true, "Request rejected successfully.");
   } catch (error) {
