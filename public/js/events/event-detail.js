@@ -9,10 +9,11 @@ let eventObj = null;
 let isRedeemTicket = false;
 let isAuth = false;
 let isOnlineEvent = false;
-let userId = null
+let userId = null;
 
 async function getEventDetail() {
   try {
+    isAuth = false;
     let data3 = null;
     try {
       const { data: data33 } = await axiosInstance.get("/auth/me");
@@ -54,35 +55,61 @@ async function getEventDetail() {
 
     isOnlineEvent = eventObj.event_type === "online";
 
-    if (isAuth) {
-      const isFollowing = data2.data.some((following) => following.id == eventObj.creator.id);
+    if (isAuth && userId) {
+      const isFollowing = data2.data.some(
+        (following) => following.id == eventObj.creator.id
+      );
       const isWishlist = wishlist.some((w) => w.id == eventObj.id);
 
-      document.getElementById("buttonWish").setAttribute("onclick", `addWishlist(${eventObj.id}, this)`);
-      document.getElementById("buttonWish").classList.toggle("active", isWishlist);
+      document
+        .getElementById("buttonWish")
+        .setAttribute("onclick", `addWishlist(${eventObj.id}, this)`);
+      document
+        .getElementById("buttonWish")
+        .classList.toggle("active", isWishlist);
 
       if (eventObj.creator.id == userId) {
         document.getElementById("btnFollow").classList.add("opacity-0");
       }
-      document.getElementById("btnFollow").setAttribute("onclick", `toggleFollow(${eventObj.creator.id}, this)`);
-      document.getElementById("btnFollow").innerText = isFollowing ? "Unfollow" : "Follow";
+      document
+        .getElementById("btnFollow")
+        .setAttribute("onclick", `toggleFollow(${eventObj.creator.id}, this)`);
+      document.getElementById("btnFollow").innerText = isFollowing
+        ? "Unfollow"
+        : "Follow";
 
       isRedeemTicket = freeTicket.some(
-        (r) => r.ticket_type.ticket_event_id == eventObj.id && r.ticket_type.price == 0
+        (r) =>
+          r.ticket_type.ticket_event_id == eventObj.id &&
+          r.ticket_type.price == 0
       );
       document.getElementById("btnPurchaseTicket").disabled = isRedeemTicket;
     }
 
-    document.getElementById("event-hero-banner-img").style.backgroundImage = `url('/uploads/${eventObj.thumbnail}')`;
-    document.getElementById("event-thumbnail").src = `/uploads/${eventObj.thumbnail}`;
+    document.getElementById(
+      "event-hero-banner-img"
+    ).style.backgroundImage = `url('/uploads/${eventObj.thumbnail}')`;
+    document.getElementById(
+      "event-thumbnail"
+    ).src = `/uploads/${eventObj.thumbnail}`;
     document.getElementById("title").innerText = eventObj.eng_name;
     document.getElementById("title-event").innerText = eventObj.eng_name;
-    document.getElementById("event-type").innerText = eventObj.event_type === "online" ? "Online" : "In Person";
-    document.getElementById("snippet-date").innerText = moment(eventObj.started_date).format("ddd, MMM Do YYYY");
-    document.getElementById("created-at").innerText = moment(eventObj.updated_at).startOf("hour").fromNow();
-    document.getElementById("short-desc").innerText = eventObj.short_description;
+    document.getElementById("event-type").innerText =
+      eventObj.event_type === "online" ? "Online" : "In Person";
+    document.getElementById("snippet-date").innerText = moment(
+      eventObj.started_date
+    ).format("ddd, MMM Do YYYY");
+    document.getElementById("created-at").innerText = moment(
+      eventObj.updated_at
+    )
+      .startOf("hour")
+      .fromNow();
+    document.getElementById("short-desc").innerText =
+      eventObj.short_description;
     document.getElementById("creator-name").innerText = eventObj.creator.name;
-    document.getElementById("creator-img").src = eventObj.creator.avatar ? `/uploads/${eventObj.creator.avatar}` : `/uploads/default.jpg`;
+    document.getElementById("creator-img").src = eventObj.creator.avatar
+      ? `/uploads/${eventObj.creator.avatar}`
+      : `/uploads/default.jpg`;
 
     document.querySelectorAll(".click-profile").forEach((btn) => {
       btn.style.cursor = "pointer";
@@ -92,8 +119,13 @@ async function getEventDetail() {
       };
     });
 
-    document.getElementById("date").innerText = `${moment(eventObj.started_date).format("ll")} - ${moment(eventObj.ended_date).format("ll")}`;
-    document.getElementById("time").innerText = `${moment(eventObj.start_time, "HH:mm:ss").format("LT")} - ${moment(eventObj.end_time, "HH:mm:ss").format("LT")}`;
+    document.getElementById("date").innerText = `${moment(
+      eventObj.started_date
+    ).format("ll")} - ${moment(eventObj.ended_date).format("ll")}`;
+    document.getElementById("time").innerText = `${moment(
+      eventObj.start_time,
+      "HH:mm:ss"
+    ).format("LT")} - ${moment(eventObj.end_time, "HH:mm:ss").format("LT")}`;
 
     if (eventObj.location) {
       document.getElementById("location").innerText = eventObj.location;
@@ -101,17 +133,34 @@ async function getEventDetail() {
       document.getElementById("location-container").classList.add("d-none");
     }
 
-    document.getElementById("category").innerText = eventObj.event_categories.map((c) => c.name).join(", ");
+    document.getElementById("category").innerText = eventObj.event_categories
+      .map((c) => c.name)
+      .join(", ");
 
     if (eventObj.event_tickets.length > 0) {
-      document.getElementById("ticket-category").innerText = eventObj.event_tickets.map((t) => t.type).join(", ");
-      document.getElementById("capacity").innerText = eventObj.event_tickets.reduce((acc, t) => acc + t.ticket_opacity, 0);
+      document.getElementById("ticket-category").innerText =
+        eventObj.event_tickets.map((t) => t.type).join(", ");
+      document.getElementById("capacity").innerText =
+        eventObj.event_tickets.reduce((acc, t) => acc + t.ticket_opacity, 0);
+    } else if (
+      eventObj.event_tickets.length == 0 &&
+      eventObj.event_type == "online"
+    ) {
+
+      document.getElementById("btnPurchaseTicket").innerText = "Redeem"
     } else {
-      document.getElementById("purchase-ticket-container").classList.add("d-none");
-      document.getElementById("ticket-category-container").classList.add("d-none");
+      document
+        .getElementById("purchase-ticket-container")
+        .classList.add("d-none");
+      document
+        .getElementById("ticket-category-container")
+        .classList.add("d-none");
     }
 
-    if (eventObj.event_tickets.length === 1 && eventObj.event_tickets[0].price === 0) {
+    if (
+      eventObj.event_tickets.length === 1 &&
+      eventObj.event_tickets[0].price === 0
+    ) {
       isFreeTicket = true;
       document.getElementById("btnPurchaseTicket").innerText = "Redeem Ticket";
     }
@@ -120,20 +169,32 @@ async function getEventDetail() {
 
     if (eventObj.event_tickets.length > 1) {
       const prices = eventObj.event_tickets.map((t) => t.price);
-      document.getElementById("range-price").innerText = `$${Math.min(...prices).toFixed(2)} - $${Math.max(...prices).toFixed(2)}`;
+      document.getElementById("range-price").innerText = `$${Math.min(
+        ...prices
+      ).toFixed(2)} - $${Math.max(...prices).toFixed(2)}`;
+    } else if (eventObj.event_tickets.length == 1) {
+      document.getElementById("range-price").innerText =
+        eventObj.event_tickets[0].price > 0
+          ? `$${eventObj.event_tickets[0].price.toFixed(2)}`
+          : "Free Ticket";
     } else {
-      document.getElementById("range-price").innerText = eventObj.event_tickets[0].price > 0 ? `$${eventObj.event_tickets[0].price.toFixed(2)}` : "Free Ticket";
+      document.getElementById("range-price").innerText = "Free Ticket";
     }
 
-    let agendaHtml = eventObj.event_agenda.map((a) => `
+    let agendaHtml = eventObj.event_agenda
+      .map(
+        (a) => `
       <div class="agenda-card mb-3 rounded-4 py-3 px-4">
         <div class="agenda-content ps-4">
           <p class="text-secondary">${a.agendaEnd_time}</p>
           <h4 style="color: #333333;">${a.title}</h4>
           <p class="mb-0 text-secondary">${a.agendaDescription}</p>
         </div>
-      </div>`).join("");
-    document.getElementById("agenda-container").innerHTML = agendaHtml || document.getElementById("agenda-section").remove();
+      </div>`
+      )
+      .join("");
+    document.getElementById("agenda-container").innerHTML =
+      agendaHtml || document.getElementById("agenda-section").remove();
   } catch (error) {
     console.log(error);
     showToast();
@@ -149,10 +210,13 @@ document.getElementById("btn-copylink-event").onclick = () => {
 document
   .getElementById("btnPurchaseTicket")
   .addEventListener("click", async (e) => {
-    if(isOnlineEvent && isAuth){
+    if(!isAuth){
+      return window.location.href = "/auth/signin"
+    }
+    if (isOnlineEvent && isAuth) {
       try {
         const frmData = {
-          ticket_type_id: eventObj.event_tickets[0].id,
+          ticket_type_id: null,
           quantity: 1,
           event_id: eventObj.id,
         };
@@ -164,15 +228,15 @@ document
           "Redeem ticket has submitted. Please wait for confirmation from organizer."
         );
 
+        
       } catch (error) {
         showToast();
         console.log(error);
       } finally {
-        btnCloseLoading("submitButton", "Redeem");
-        document.getElementById("submitButton").disabled = true;
+        btnCloseLoading("btnPurchaseTicket", "Redeem");
+        document.getElementById("btnPurchaseTicket").disabled = true;
       }
-    }
-    if (isFreeTicket && !isRedeemTicket) {
+    } else if (isFreeTicket && !isRedeemTicket) {
       if (eventObj) {
         const frmData = {
           ticket_type_id: eventObj.event_tickets[0].id,
@@ -191,8 +255,8 @@ document
           showToast();
           console.log(error);
         } finally {
-          btnCloseLoading("submitButton", "Redeem");
-          document.getElementById("submitButton").disabled = true;
+          btnCloseLoading("btnPurchaseTicket", "Redeem");
+          document.getElementById("btnPurchaseTicket").disabled = true;
         }
       }
     } else {

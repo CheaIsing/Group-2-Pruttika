@@ -48,8 +48,11 @@ https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js
     // Hide the loader once the page is fully loaded
     window.addEventListener("load", function () {
         setTimeout(() => {
-            loader.classList.add("hidden"); // Add hidden class to fade out
-        }, 1200); // Matches the animation duration
+            if(loader){
+
+                loader.classList.add("hidden"); // Add hidden class to fade out
+            }
+        }, 1000); // Matches the animation duration
     });
 
     // Show loader when navigating to another page

@@ -22,6 +22,16 @@ async function getOrganizerView() {
             const statusBadge = document.getElementById('status-badge');
             statusBadge.textContent = statusInfo.text;
             statusBadge.classList.add('badge', statusInfo.class);
+                            // Show rejection reason if status is Rejected
+                            const rejectionReasonWrapper = document.getElementById('rejection-reason-wrapper');
+                            const rejectionReason = document.getElementById('rejection-reason');
+                            if (organizerData.status === 3 && organizerData.rejection_reason) {
+                                rejectionReasonWrapper.style.display = 'block'; // Show the rejection reason wrapper
+                                rejectionReason.textContent = organizerData.rejection_reason; // Set the rejection reason text
+                            } else {
+                                rejectionReasonWrapper.style.display = 'none'; // Hide the rejection reason wrapper
+                            }
+            
 
             // Populate the form fields with the fetched data
             document.getElementById('organization-name').value = organizerData.organization_name;

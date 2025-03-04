@@ -14,17 +14,21 @@ async function getOrganizerView() {
   try {
       // Fetch data from the API
       const response = await axiosInstance.get('organizer/detail');
+      console.log(response);
+      
 
       // Check if the request was successful
       if (response.data.result) {
+        console.log("true");
+        
         if(response.data.data.length > 0){
           window.location.href = "/profile/organizer-view"
         }
           
           
       } else {
-          console.error('Failed to fetch organizer data:', response.data.message);
-          window.location.href = "/profile/organizer"
+          console.log('Failed to fetch organizer data:', response.data.message);
+          // window.location.href = "/profile/organizer"
       }
   } catch (error) {
       console.error('Error fetching organizer data:', error);
@@ -127,6 +131,10 @@ frm.addEventListener(
       showToast(true, "Organizer Request Submitted. Please wait for confirmation from admin.");
 
       clearInput();
+
+      setTimeout(()=>{
+        window.location.href = "/profile/organizer-view"
+      }, 1200)
     } catch (error) {
       console.log(error);
 
@@ -141,6 +149,7 @@ frm.addEventListener(
       handleErrorMessages(errorMessages, fields);
     } finally {
       btnCloseLoading("btnSubmit", "Submit");
+      document.getElementById("btnSubmit").disabled = true
     }
   }
 
