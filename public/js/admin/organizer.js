@@ -7,34 +7,29 @@
 //   withCredentials: true,
 // });
 
+// Fetch Request Organizers
 async function fetchRequestOrganizers(
   status = "",
   search = "",
   page = 1,
-  perPage = 10,
+  perPage = 5,
   sortCol = "organization_name",
   sortDir = "asc"
 ) {
   try {
     const response = await axiosInstance.get("/admin/organizer/request", {
-      params: {
-        page,
-        per_page: perPage,
-        sort_col: sortCol,
-        sort_dir: sortDir,
-        status,
-        search,
-      },
+      params: { page, per_page: perPage, sort_col: sortCol, sort_dir: sortDir, status, search },
     });
 
     const result = response.data.data.data;
-    console.log(result);
-    if (!result.result) {
-      throw new Error(result.message || "Failed to fetch request organizers");
-    }
+    const totalPages = response.data.data.pagination.total_pages;
+
+    if (!result || result.length === 0) throw new Error("No request organizers found.");
+
     displayRequestOrganizer(result);
+    updatePagination(page, totalPages, perPage, "paginationRequestOrganizer", fetchRequestOrganizers);
   } catch (error) {
-    console.error("Error fetching request organizers : ", error.message);
+    console.error("Error fetching request organizers:", error.message);
   }
 }
 
@@ -48,27 +43,71 @@ async function fetchOrganizers(
 ) {
   try {
     const response = await axiosInstance.get("/admin/organizer/all", {
-      params: {
-        page,
-        per_page: perPage,
-        sort_col: sortCol,
-        sort_dir: sortDir,
-        status,
-        search,
-      },
+      params: { page, per_page: perPage, sort_col: sortCol, sort_dir: sortDir, status, search },
     });
 
-    const result = response.data;
+    const result = response.data.data.data;
+    const totalPages = response.data.data.pagination.total_pages;
 
-    if (!result.result) {
-      throw new Error(error.message || "Failed to fetch organizers");
-    }
+    if (!result || result.length === 0) throw new Error("No organizers found.");
 
-    displayOrganizers(result.data);
+    displayOrganizers(result);
+    updatePagination(page, totalPages, perPage, "paginationOrganizer", fetchOrganizers);
   } catch (error) {
-    console.error("Error fetching organizers : ", error.message);
+    console.error("Error fetching organizers:", error.message);
   }
 }
+
+function updatePagination(currentPage, totalPages, perPage, id, fetchFunction) {
+  const paginationContainer = document.getElementById(id);
+  if (!paginationContainer) return;
+  paginationContainer.innerHTML = "";
+
+  function createPageButton(page, label, isDisabled) {
+    const pageItem = document.createElement("li");
+    pageItem.classList.add("page-item");
+    if (isDisabled) pageItem.classList.add("disabled");
+
+    const pageLink = document.createElement("a");
+    pageLink.classList.add("page-link");
+    pageLink.href = "#";
+    pageLink.textContent = label;
+
+    pageLink.addEventListener("click", (event) => {
+      event.preventDefault();
+      if (!isDisabled) {
+        fetchFunction("", "", page, perPage);
+      }
+    });
+
+    pageItem.appendChild(pageLink);
+    return pageItem;
+  }
+
+  paginationContainer.appendChild(createPageButton(currentPage - 1, "Previous", currentPage === 1));
+
+  for (let i = 1; i <= totalPages; i++) {
+    let pageItem = createPageButton(i, i, currentPage === i);
+    if (currentPage === i) pageItem.classList.add("active");
+    paginationContainer.appendChild(pageItem);
+  }
+
+  paginationContainer.appendChild(createPageButton(currentPage + 1, "Next", currentPage === totalPages));
+}
+
+window.addEventListener("load", function () {
+  const urlParams = new URLSearchParams(window.location.search);
+  
+  let pageRequest = parseInt(urlParams.get("pageRequest")) || 1;
+  let perPageRequest = parseInt(urlParams.get("per_pageRequest")) || 5;
+  let pageOrganizer = parseInt(urlParams.get("pageOrganizer")) || 1;
+  let perPageOrganizer = parseInt(urlParams.get("per_pageOrganizer")) || 5;
+
+  fetchRequestOrganizers("", "", pageRequest, perPageRequest);
+  fetchOrganizers("", "", pageOrganizer, perPageOrganizer);
+});
+
+
 
 async function fetchRequestOrganizerDetail(id) {
   const detailContainer = document.getElementById("requestDetailContent");
@@ -117,7 +156,11 @@ async function fetchRequestOrganizerDetail(id) {
                       ${getStatusName(organizer.status)}
                   </span>
                   </p>
-                  ${organizer.status === 3 ? `<p><strong>Reject reason : </strong> ${organizer.rejection_reason}<p>` : ""}
+                  ${
+                    organizer.status === 3
+                      ? `<p><strong>Reject reason : </strong> ${organizer.rejection_reason}<p>`
+                      : ""
+                  }
               </div>
           </div>
       `;
@@ -175,10 +218,10 @@ async function fetchOrganizerDetail(id) {
 
 function displayRequestOrganizer(organizers) {
   const tableBody = document.getElementById("requestOrganizerTableBody");
-  tableBody.innerHTML = "";
 
-  organizers.forEach((organizer) => {
-    const row = `
+  tableBody.innerHTML = organizers
+    .map(
+      (organizer) => `
       <tr>
           <td>${organizer.id}</td>
           <td>${organizer.organization_name}</td>
@@ -229,18 +272,17 @@ function displayRequestOrganizer(organizers) {
                   }
               </div>
           </td>
-      </tr>
-    `;
-    tableBody.innerHTML += row;
-  });
+      </tr>`
+    )
+    .join("");
 }
 
 function displayOrganizers(organizers) {
   const tableBody = document.getElementById("organizerTableBody");
-  tableBody.innerHTML = "";
 
-  organizers.forEach((organizer) => {
-    const row = `
+  tableBody.innerHTML = organizers
+  .map(
+      (organizer) => `
             <tr>
                 <td>${organizer.id}</td>
                 <td>${organizer.organization_name}</td>
@@ -286,9 +328,9 @@ function displayOrganizers(organizers) {
                     </div>
                 </td>
             </tr>
-        `;
-    tableBody.innerHTML += row;
-  });
+        `
+    )
+    .join("");
 }
 
 async function adminApproval(id) {
