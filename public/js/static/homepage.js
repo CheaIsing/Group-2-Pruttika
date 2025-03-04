@@ -346,7 +346,7 @@ async function renderEvents(page = 1, perpage = 1000, is_published = true) {
                                       class="d-flex justify-content-between">
         
                                       <h3
-                                          class="event-title text-wrap text-white">${
+                                          class="event-title text-wrap">${
                                             event.eng_name
                                           }</h3>
                                       <span
@@ -354,7 +354,7 @@ async function renderEvents(page = 1, perpage = 1000, is_published = true) {
                                      
                                   </div>
                                   <!-- <p
-                                      class="event-description d-none text-1-line text-white">
+                                      class="event-description d-none text-1-line">
                                       Join us for an unforgettable
                                       culinary experience with the
                                       best
@@ -365,7 +365,7 @@ async function renderEvents(page = 1, perpage = 1000, is_published = true) {
                                   <div
                                       class="d-flex align-items-center justify-content-between mb-3 mt-2 mt-lg-0">
                                       <div
-                                          class="event-categories flex-nowrap text-white">
+                                          class="event-categories flex-nowrap">
                                           ${categories}
                                       </div>
                                       <div
@@ -376,14 +376,14 @@ async function renderEvents(page = 1, perpage = 1000, is_published = true) {
         
                                   <!-- Date & Location -->
                                   <div class="event-meta">
-                                      <div class="event-meta-item text-white">
+                                      <div class="event-meta-item">
                                           <i
                                               class="fas fa-calendar-alt text-brand"></i>
                                           <span>${moment(
                                             event.started_date
                                           ).format("ll")}</span>
                                       </div>
-                                      <div class="event-meta-item text-white">
+                                      <div class="event-meta-item">
                                           <i
                                               class="fas fa-clock text-brand"></i>
                                           <span>${
@@ -401,7 +401,7 @@ async function renderEvents(page = 1, perpage = 1000, is_published = true) {
         
                                   </div>
         
-                                  <div class="event-meta-item text-white ${
+                                  <div class="event-meta-item ${
                                     event.location ? "" : ""
                                   }"
                                               style="">
@@ -421,7 +421,7 @@ async function renderEvents(page = 1, perpage = 1000, is_published = true) {
                                               </div>
         
                                           </div>
-        
+                                          
                                   <!-- Event Price -->
         
                                   <!-- Creator Profile -->
