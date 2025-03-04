@@ -49,6 +49,9 @@ async function getRequestTicket( status="", page=1, perpage=25) {
           }
           
         }
+
+        
+
         const obj = {
           purchase_date: ticket.created_at,
           qty: ticket.quantity,
@@ -59,14 +62,20 @@ async function getRequestTicket( status="", page=1, perpage=25) {
           total: ticket.amount,
           class_status: classStatus
         }
+        let isOffline = ticket.event.event_type == 2;
+        console.log(isOffline);
+        
+        let showTran = isOffline ? `data-ticket='${JSON.stringify(obj)}'  onclick="showTransaction(this)" data-bs-toggle="modal" data-bs-target="#exampleModal"` : '';
+
+        console.log(showTran);
         document.getElementById("requested-ticket-container").innerHTML += `
                 <div
           class="accordion-item mb-3 rounded-4 overflow-hidden border-0 shadow-light-sm">
           <h2 class="accordion-header rounded-top-3"
             id="ticket1Header">
-            <button class="accordion-button" data-ticket='${JSON.stringify(obj)}'  onclick="showTransaction(this)"
+            <button class="accordion-button" ${showTran}
               type="button"
-              data-bs-toggle="modal" data-bs-target="#exampleModal">
+              >
               <div style="max-width: 200px;" class="me-1 d-none d-md-block">
                 <img src="/uploads/${ticket.event.thumbnail}"
                   style="max-width: 200px;" class="img-preview rounded-4"
@@ -91,7 +100,7 @@ async function getRequestTicket( status="", page=1, perpage=25) {
                       class="d-flex align-items-center fs-5 mb-2 mb-md-0">
                       <i class="text-brand" data-lucide="ticket"
                         style="stroke-width: 1.75px; width: 1.25rem;"></i>
-                      <div class="ms-2 ">${ticket.quantity} ${ticket.ticket_type.type_name}</div>
+                      <div class="ms-2 ">${ticket.quantity} ${ticket.ticket_type.type_name ? ticket.ticket_type.type_name : "ticket"}</div>
                     </div>
                   </div>
                 </div>
@@ -99,7 +108,7 @@ async function getRequestTicket( status="", page=1, perpage=25) {
                   class="d-flex align-items-center fs-5 mt-md-2 mb-2 mb-md-0 d-none d-sm-flex">
                   <i class="text-brand" data-lucide="map-pin"
                     style="stroke-width: 1.75px; width: 1.25rem;"></i>
-                  <div class="ms-2 ">${ticket.event.location}</div>
+                  <div class="ms-2 ">${ticket.event.event_type == 1 ? "Online Event" : ticket.event.location}</div>
 
                 </div>
                 <div>
@@ -114,7 +123,7 @@ async function getRequestTicket( status="", page=1, perpage=25) {
               <div
                 class="ticket-status ${classStatus} ms-auto text-nowrap d-none d-sm-block fw-semibold">${status}</div>
 
-              <a id="btnTransaction"data-bs-toggle="tooltip" data-ticket='${JSON.stringify(obj)}'  onclick="showTransaction(this)"
+              <a id="btnTransaction"data-bs-toggle="tooltip" ${showTran}
               data-bs-placement="bottom"
               title="View Transaction"
               data-bs-custom-class="custom-tooltip" class="btn btn-brand btn-icon fw-semibold ms-3 px-3 rounded-circle d-none d-sm-flex" type="button"><i data-lucide="eye"></i></a>
@@ -177,13 +186,21 @@ async function getOwnedTicket( status="", page=1, perpage=15) {
           }          
         }
 
+        let isOffline = ticket.event.event_type == 2;
+        console.log(isOffline);
+        
+        let showTran = isOffline ? `data-tickets='${JSON.stringify(ticket)}'  onclick="showTicket(this)"` : '';
+
+        console.log(showTran);
+        
+
 
         document.getElementById("owned-ticket-container").innerHTML += `
                 <div
           class="accordion-item mb-3 rounded-4 overflow-hidden border-0 shadow-light-sm">
           <h2 class="accordion-header rounded-top-3"
             id="ticket1Header">
-            <button class="accordion-button" data-tickets='${JSON.stringify(ticket)}'  onclick="showTicket(this)"
+            <button class="accordion-button" ${showTran}
               type="button"
               data-bs-toggle="modal" data-bs-target="#exampleModalTicket">
               <div style="max-width: 200px;" class="me-1 d-none d-md-block">
@@ -232,7 +249,7 @@ async function getOwnedTicket( status="", page=1, perpage=15) {
               <div
                 class="ticket-status ${classStatus} ms-auto text-nowrap d-none d-sm-block fw-semibold">${status}</div>
 
-              <a id="btnTransaction"data-bs-toggle="tooltip" data-tickets='${JSON.stringify(ticket)}'  onclick="showTicket(this)"
+              <a id="btnTransaction" data-bs-toggle="tooltip" ${showTran}
               data-bs-placement="bottom"
               title="View Transaction"
               data-bs-custom-class="custom-tooltip" class="btn btn-brand fw-semibold ms-3 rounded-circle align-items-center justify-content-center" style="width:3rem !important; height:3rem !important;"  type="button"><i data-lucide="ticket"></i><span class
@@ -393,13 +410,16 @@ function showTransaction(el) {
 
   console.log("click", obj);
 
+  let checkTran = obj.ticket_type.price == 0 ? `` : `/uploads/transaction/${obj.transaction_img}`;
+
   document.getElementById("modal-body").innerHTML = `
       <span class="ticket-status badge rounded-pill ${obj.class_status} fw-medium text-capitalize">Status: 
       ${obj.status}</span>
       <br><br>
 
       <div class="shadow-sm border rounded-4 overflow-hidden">
-        <img class="w-100 object-fit-cover" src="/uploads/transaction/${obj.transaction_img}" alt="transaction">
+      ${obj.ticket_type.price == 0 ? `` : `<img class="w-100 object-fit-cover" src="${checkTran}" alt="transaction">`}
+        
 
         <div class="bg-light p-4 border-top">
           <h5 class="fw-meduim mb-3">Ticket Detail</h5>

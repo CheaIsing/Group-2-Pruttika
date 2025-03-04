@@ -95,7 +95,9 @@ async function getProfileInfo() {
     
     const { data } = await axiosInstance.get("/auth/me");
     const { data: jsonData } = data;
-    const { eng_name, kh_name, phone, email, avatar, address, dob, gender } = jsonData[0];
+    console.log(jsonData);
+    
+    const { eng_name, kh_name, phone, email, avatar, address, dob, gender } = jsonData;
 
     khNameEle.value = kh_name;
     engNameEle.value = eng_name;

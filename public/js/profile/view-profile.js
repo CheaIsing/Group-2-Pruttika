@@ -1,4 +1,5 @@
 let userId = sessionStorage.getItem("view-profile-id") || 1
+let meId = null
 async function getOrganizer() {
   try {
     const { data } = await axiosInstance.get("/profile/display/" + userId);
@@ -14,7 +15,33 @@ async function getOrganizer() {
     const {data: result} = await axiosInstance.get("/follow/followers/" + userId);
     const {data: result2} = await axiosInstance.get("/follow/following/" + userId);
 
-    console.log(result);
+    const {data: getMe} = await axiosInstance.get("/auth/me")
+    // console.log(getMe);
+
+    meId = getMe.data.id
+    
+
+    const { data: result3 } = await axiosInstance.get(
+      `/follow/following/${meId}`
+    );
+
+    console.log(result3);
+
+    document.getElementById("btnFollow").setAttribute("onclick", `toggleFollow(${userId}, this)`)
+
+    if (result3.data.some(item => item.id === userId)){
+      document.getElementById("btnFollow").innerText = `Unfollow`
+    }else{
+      document.getElementById("btnFollow").innerText = `Follow`
+    }
+    console.log(meId, userId);
+    
+    if(meId == userId){
+      document.getElementById("btnFollow").classList.add("d-none")
+    }
+    
+
+    // console.log(result);
 
     const {data: followers} = result
     const {data: following} = result2
@@ -67,9 +94,13 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
   const eventList = document.getElementById("event-list");
   eventList.innerHTML = "";
 
-  // const location = document.getElementById("location-filter").value;
+  const dateStatus = document.getElementById("select-sort").value;
 
   let queryParams = new URLSearchParams();
+
+  if(dateStatus){
+    queryParams.append("date_status", dateStatus)
+  }
 
   queryParams.append("sort", "created_at");
 
@@ -89,6 +120,14 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
     document.getElementById('total-event').innerText = paginate.total;
     document.getElementById('total-event-2').innerText = paginate.total;
     console.log(data);
+
+    if(events.length == 0){
+      document.querySelector('.pagination-container').classList.add("d-none")
+      return eventList.innerHTML = `<div class="text-center w-100 my-5">
+              <img src="/img/noFound.png" alt="..." height="220px;">
+              <h4 class="text-center text-brand mt-2">No Event to Display</h4>
+            </div>`
+    }
 
 
 
@@ -359,4 +398,31 @@ async function changePage(newPage) {
   queryParams.set("page", newPage); // Update page parameter
 
   await renderEvents(newPage); // Call renderEvents with new page
+}
+
+async function toggleFollow(id, btn) {
+  try {
+    const { data } = await axiosInstance.get(`/follow/following/${meId}`);
+    const { data: following } = data;
+
+    const isFollowing = following.some((follower) => follower.id === id);
+    console.log(isFollowing);
+
+    if (isFollowing) {
+      await axiosInstance.delete(`/follow/unfollow/${id}`);
+      showToast(true, "Unfollowed Successfully");
+      btn.innerText = "Follow";
+    } else {
+      await axiosInstance.post(`/follow/${id}`);
+      showToast(true, "Followed Successfully");
+      btn.innerText = "Unfollow";
+    }
+  } catch (error) {
+    console.log(error);
+    showToast();
+  }
+}
+
+document.getElementById("select-sort").onchange = async (e)=>{
+  await renderEvents()
 }

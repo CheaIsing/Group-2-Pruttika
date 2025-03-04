@@ -1,7 +1,7 @@
 const fs=require('fs');
 const moment = require("moment");
 
-const {vCreateEvent, vAgendaSchema}=require("../../validations/event");
+const {vCreateEvent, vAgendaSchema,fileValidation}=require("../../validations/event");
 const {
     handleResponseError,
     handleValidateError,
@@ -334,6 +334,12 @@ const deleteEvent= async(req,res)=>{
 
 const updateEThumbnail= async(req,res)=>{
     const event_id=req.params.id;
+    
+    // Validate input file
+    const fileSchema = fileValidation('thumbnail');
+    const { error } = fileSchema.validate({ thumbnail: req.files ? req.files.thumbnail : undefined });
+    if (handleValidateError(error, res)) return;
+
     try {
         // get old thumbnail 
         const sqlGetThumbnail = `
@@ -439,6 +445,12 @@ const deleteETickType=async(req,res)=>{
 //post qr-img for payment
 const uploadEQr=async(req,res)=>{
     const event_id=req.params.id;
+
+    // Validate inputfile
+    const fileSchema = fileValidation('qr_img');
+    const { error } = fileSchema.validate({ qr_img: req.files ? req.files.qr_img : undefined });
+    if (handleValidateError(error, res)) return;
+
     try {
         // get old qr 
         const sqlGetEvent = `

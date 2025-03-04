@@ -47,8 +47,8 @@ const promoteToOrganizer = async (req, res) => {
 
 const displayRequestOrganizerById = async (req, res) => {
   try {
-    // const {id} = req.user;
-    let id = 3
+    const {id} = req.user;
+    // let id = 3
     console.log(id);
     
     let sql = "SELECT * FROM tbl_organizer_req WHERE user_id = ?"

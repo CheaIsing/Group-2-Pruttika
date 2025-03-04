@@ -35,7 +35,7 @@ const joinEventQry=`SELECT
                 tu.avatar
             FROM  
                 tbl_event te 
-            INNER JOIN 
+            LEFT JOIN 
                 tbl_organizer tor ON tor.user_id = te.creator_id
             LEFT JOIN 
                 tbl_users tu ON tu.id=te.creator_id
@@ -205,7 +205,7 @@ const eventCollection= async(userID,page=1, perpage=25, search='', sort='id', or
 
         //totalpage
         let countQueryStr=`SELECT COUNT(DISTINCT te.id) as total FROM tbl_event te
-                            INNER JOIN tbl_organizer tor ON tor.user_id = te.creator_id
+                            LEFT JOIN tbl_organizer tor ON tor.user_id = te.creator_id
                             LEFT JOIN tbl_event_category tec ON te.id = tec.event_id
                             LEFT JOIN tbl_category tc ON tc.id = tec.category_id
                             LEFT JOIN (

@@ -141,7 +141,7 @@
       </div>
 
       <!-- Action Buttons (Visible on Desktop) -->
-       <%= user.role  %>
+      
       <div class="d-none d-lg-flex align-items-center gap-3">
         <a href="<%= (user && user.role != 1) ? `/event/create` : `/profile/organizer` %>" class="btn-outline-pink d-flex align-items-center" role="button">
           <i class="lucide-i" data-lucide="plus" style="stroke-width: 1.25;"></i> Create Event

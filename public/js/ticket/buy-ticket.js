@@ -160,7 +160,7 @@ document.getElementById("event-card").innerHTML = `
                             <div class="creator-profile d-none">
                                 <div class="creator-avatar">
                                     <img
-                                        src="/public/img/Default_pfp.jpg"
+                                        src=""
                                         alt="Creator" />
                                 </div>
                                 <a href="#"
