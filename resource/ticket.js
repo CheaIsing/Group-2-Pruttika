@@ -139,7 +139,6 @@ const ownReqTicketCollection=async(userId,status=null,page=1,perpage=15,sort='id
         LEFT JOIN tbl_ticketevent_type ttt ON ttt.id=tts.ticket_event_id
         LEFT JOIN tbl_event te ON te.id=tts.event_id
         WHERE buyer_id=? `;
-
         const filterParam=[userId];
         let sqlFilter='';
 
