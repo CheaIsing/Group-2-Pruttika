@@ -155,10 +155,11 @@
       </div>
 
       <!-- Right Side (Notification, User Dropdown, or Sign In/Sign Up) -->
-      <div class="d-flex align-items-center gap-3">
+      <div class="d-flex align-items-center gap-2">
         <% if (user) { %>
+          
           <!-- Notification Icon (Visible when logged in) -->
-          <div class="notification-wrapper mt-1">
+          <div class="notification-wrapper mt-1 me-2">
             <div class="notification-icon">
               <i class="fas fa-bell fs-4 text-brand"></i>
               <span class="badge fw-medium" id="unreadCount1">0</span>
@@ -177,13 +178,14 @@
             </div>
           </div>
 
+
           <!-- User Dropdown (Visible when logged in) -->
-          <div class="dropdown">
+          <div class="dropdown me-1">
             <a href="#" class="dropdown-toggle fs-3 text-brand d-flex align-items-center hide-arrow" role="button" id="accountDropdown" data-bs-toggle="dropdown" aria-expanded="false">
               <div class="userImgPf-wrapper">
                 <img id="userImgPf" src="/uploads/<%= user.avatar ? user.avatar : 'default.jpg' %>" alt="pfp">
               </div>
-              <span class="ps-1 d-none d-lg-block" id="userEmail"></span> <!-- Hide email on mobile -->
+              
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
               <li><a class="dropdown-item" href="<%= (user && user.role != 1) ? `/event/manage` : `/profile/organizer` %>">Manage as Organizer</a></li>
@@ -193,11 +195,61 @@
               <li><a class="dropdown-item border-top" role="button" id="btn-logout" onclick="logOut()">Log Out</a></li>
             </ul>
           </div>
+          <div class="dropdown">
+            <button
+              class="btn btn-outline-brand dropdown-toggle hide-arrow py-2" style="height: auto !important;"
+              type="button"
+              id="languageDropdown"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+            <i class="fa-solid fa-globe fs-4"></i>
+              <span class="d-none d-sm-inline"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+              <li>
+                <button class="dropdown-item" >
+                  English
+                </button>
+              </li>
+              <li>
+                <button class="dropdown-item">
+                  Khmer
+                </button>
+              </li>
+              
+            </ul>
+          </div>
         <% } else { %>
           <!-- Sign In/Sign Up Buttons (Visible when logged out) -->
           <div class="d-flex align-items-center gap-2">
             <a href="/auth/signin" role="button" class="btn btn-brand py-2 fw-medium" style="height: auto !important;">Sign In</a>
             <a href="/auth/signup" role="button" class="btn btn-outline-brand py-2 fw-medium" style="height: auto !important;">Sign Up</a>
+            <div class="dropdown">
+              <button
+                class="btn btn-outline-brand dropdown-toggle hide-arrow py-2" style="height: auto !important;"
+                type="button"
+                id="languageDropdown"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+              <i class="fa-solid fa-globe fs-4"></i>
+                <span class="d-none d-sm-inline"></span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+                <li>
+                  <button class="dropdown-item" >
+                    English
+                  </button>
+                </li>
+                <li>
+                  <button class="dropdown-item">
+                    Khmer
+                  </button>
+                </li>
+                
+              </ul>
+            </div>
           </div>
         <% } %>
 

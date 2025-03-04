@@ -27,6 +27,10 @@ const getOrganizerView = (req, res) => {
   res.render("pages/profile/organizerView", {title: "Organizer View"});
 };
 
+const getChangeLanguage = (req, res) => {
+  res.render("pages/profile/change-language", {title: "Change Language"});
+};
+
 
 
 module.exports = {
@@ -36,5 +40,6 @@ module.exports = {
   getOrganizer,
   getViewOrganizerProfile,
   getManageAccount,
-  getOrganizerView
+  getOrganizerView,
+  getChangeLanguage
 };

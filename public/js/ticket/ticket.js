@@ -166,6 +166,9 @@ async function getOwnedTicket( status="", page=1, perpage=15) {
     const {data:tickets, paginate} = data;
     console.log(paginate);
 
+    console.log(tickets);
+    
+
 
     
     document.getElementById("owned-ticket-container").innerHTML = "";
@@ -186,21 +189,13 @@ async function getOwnedTicket( status="", page=1, perpage=15) {
           }          
         }
 
-        let isOffline = ticket.event.event_type == 2;
-        console.log(isOffline);
-        
-        let showTran = isOffline ? `data-tickets='${JSON.stringify(ticket)}'  onclick="showTicket(this)"` : '';
-
-        console.log(showTran);
-        
-
 
         document.getElementById("owned-ticket-container").innerHTML += `
                 <div
           class="accordion-item mb-3 rounded-4 overflow-hidden border-0 shadow-light-sm">
           <h2 class="accordion-header rounded-top-3"
             id="ticket1Header">
-            <button class="accordion-button" ${showTran}
+            <button class="accordion-button" data-tickets='${JSON.stringify(ticket)}'  onclick="showTicket(this)"
               type="button"
               data-bs-toggle="modal" data-bs-target="#exampleModalTicket">
               <div style="max-width: 200px;" class="me-1 d-none d-md-block">
@@ -249,7 +244,7 @@ async function getOwnedTicket( status="", page=1, perpage=15) {
               <div
                 class="ticket-status ${classStatus} ms-auto text-nowrap d-none d-sm-block fw-semibold">${status}</div>
 
-              <a id="btnTransaction" data-bs-toggle="tooltip" ${showTran}
+              <a id="btnTransaction" data-bs-toggle="tooltip" data-tickets='${JSON.stringify(ticket)}'  onclick="showTicket(this)"
               data-bs-placement="bottom"
               title="View Transaction"
               data-bs-custom-class="custom-tooltip" class="btn btn-brand fw-semibold ms-3 rounded-circle align-items-center justify-content-center" style="width:3rem !important; height:3rem !important;"  type="button"><i data-lucide="ticket"></i><span class

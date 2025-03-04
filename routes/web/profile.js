@@ -6,7 +6,8 @@ const {
   getOrganizer,
   getManageAccount,
   getViewOrganizerProfile,
-  getOrganizerView
+  getOrganizerView,
+  getChangeLanguage
 } = require("../../controllers/web/profile");
 const { authorize } = require("../../middlewares/web.middleware");
 
@@ -24,6 +25,7 @@ router.get("/change-password", getChangePassword);
 
 router.get("/organizer", getOrganizer);
 router.get("/organizer-view", getOrganizerView);
+router.get("/change-language", getChangeLanguage);
 
 // router.get("/privacy", getChangePassword);
 
