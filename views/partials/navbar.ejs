@@ -157,47 +157,9 @@
       <!-- Right Side (Notification, User Dropdown, or Sign In/Sign Up) -->
       <div class="d-flex align-items-center gap-2">
         <% if (user) { %>
-          
-          <!-- Notification Icon (Visible when logged in) -->
-          <div class="notification-wrapper mt-1 me-2">
-            <div class="notification-icon">
-              <i class="fas fa-bell fs-4 text-brand"></i>
-              <span class="badge fw-medium" id="unreadCount1">0</span>
-            </div>
-            <div class="notification-dropdown">
-              <div class="notification-header title d-flex justify-content-between bg-brand">
-                <div>Unread Notifications</div>
-                <span class="fw-normal" id="unreadCount2">0</span>
-              </div>
-              <div id="noti-wrapper" style="max-height: 300px; overflow-y: auto;">
-                <!-- Notification Items -->
-              </div>
-              <div class="notification-footer mt-3">
-                <a href="/notification" class="btn btn-outline-brand w-100 fw-medium">View All Notifications</a>
-              </div>
-            </div>
-          </div>
-
-
-          <!-- User Dropdown (Visible when logged in) -->
           <div class="dropdown me-1">
-            <a href="#" class="dropdown-toggle fs-3 text-brand d-flex align-items-center hide-arrow" role="button" id="accountDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-              <div class="userImgPf-wrapper">
-                <img id="userImgPf" src="/uploads/<%= user.avatar ? user.avatar : 'default.jpg' %>" alt="pfp">
-              </div>
-              
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
-              <li><a class="dropdown-item" href="<%= (user && user.role != 1) ? `/event/manage` : `/profile/organizer` %>">Manage as Organizer</a></li>
-              <li><a class="dropdown-item" href="/follow/follower">Following</a></li>
-              <li><a class="dropdown-item" href="/event/wishlist">Wishlist</a></li>
-              <li><a class="dropdown-item" href="/profile/info">Account Setting</a></li>
-              <li><a class="dropdown-item border-top" role="button" id="btn-logout" onclick="logOut()">Log Out</a></li>
-            </ul>
-          </div>
-          <div class="dropdown">
             <button
-              class="btn btn-outline-brand dropdown-toggle hide-arrow py-2" style="height: auto !important;"
+              class="btn btn-outline-brand dropdown-toggle hide-arrow p-0 border-0 " style="height: auto !important;"
               type="button"
               id="languageDropdown"
               data-bs-toggle="dropdown"
@@ -220,6 +182,47 @@
               
             </ul>
           </div>
+          
+          <!-- Notification Icon (Visible when logged in) -->
+          <div class="notification-wrapper mt-1 me-2">
+            <div class="notification-icon">
+              <i class="fas fa-bell fs-4 text-brand"></i>
+              <span class="badge fw-medium" id="unreadCount1">0</span>
+            </div>
+            <div class="notification-dropdown">
+              <div class="notification-header title d-flex justify-content-between bg-brand">
+                <div>Unread Notifications</div>
+                <span class="fw-normal" id="unreadCount2">0</span>
+              </div>
+              <div id="noti-wrapper" style="max-height: 300px; overflow-y: auto;">
+                <!-- Notification Items -->
+              </div>
+              <div class="notification-footer mt-3">
+                <a href="/notification" class="btn btn-outline-brand w-100 fw-medium">View All Notifications</a>
+              </div>
+            </div>
+          </div>
+
+          
+
+
+          <!-- User Dropdown (Visible when logged in) -->
+          <div class="dropdown">
+            <a href="#" class="dropdown-toggle fs-3 text-brand d-flex align-items-center hide-arrow" role="button" id="accountDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+              <div class="userImgPf-wrapper">
+                <img id="userImgPf" src="/uploads/<%= user.avatar ? user.avatar : 'default.jpg' %>" alt="pfp">
+              </div>
+              
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
+              <li><a class="dropdown-item" href="<%= (user && user.role != 1) ? `/event/manage` : `/profile/organizer` %>">Manage as Organizer</a></li>
+              <li><a class="dropdown-item" href="/follow/follower">Following</a></li>
+              <li><a class="dropdown-item" href="/event/wishlist">Wishlist</a></li>
+              <li><a class="dropdown-item" href="/profile/info">Account Setting</a></li>
+              <li><a class="dropdown-item border-top" role="button" id="btn-logout" onclick="logOut()">Log Out</a></li>
+            </ul>
+          </div>
+          
         <% } else { %>
           <!-- Sign In/Sign Up Buttons (Visible when logged out) -->
           <div class="d-flex align-items-center gap-2">
