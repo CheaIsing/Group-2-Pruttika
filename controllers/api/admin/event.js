@@ -4,7 +4,7 @@ const { sendResponse } = require("../../../utils/response");
 
 const viewEvent = async (req, res) => {
   try {
-    // const { category_id, search } = req.query;
+    const { category_id, search } = req.query;
     let {
       page = 1,
       per_page = 50,
@@ -22,24 +22,42 @@ const viewEvent = async (req, res) => {
 
     const sortDirection = sort_dir.toLowerCase() === "desc" ? "DESC" : "ASC";
 
-    let query = `SELECT * FROM tbl_event`;
+    let query = `
+      SELECT e.* FROM tbl_event e
+      JOIN tbl_event_category ec ON e.id = ec.event_id
+      JOIN tbl_category c ON ec.category_id = c.id`;
+
+    let countQuery = `
+      SELECT COUNT(DISTINCT e.id) AS total FROM tbl_event e
+      JOIN tbl_event_category ec ON e.id = ec.event_id
+      JOIN tbl_category c ON ec.category_id = c.id`;
 
     const queryParams = [];
+    const countParams = [];
+    let whereClause = [];
 
-    // if (category_id) {
-    //   query += " WHERE c.id = ?";
-    //   queryParams.push(category_id);
-    // }
+    if (category_id) {
+      whereClause.push("c.id = ?");
+      queryParams.push(category_id);
+      countParams.push(category_id);
+    }
 
-    // if (search) {
-    //   query += category_id ? " AND" : " WHERE";
-    //   query += " e.eng_name LIKE ?";
-    //   queryParams.push(`%${search}%`);
-    // }
+    if (search) {
+      whereClause.push("e.eng_name LIKE ?");
+      queryParams.push(`%${search}%`);
+      countParams.push(`%${search}%`);
+    }
 
-    query += ` ORDER BY ${sort_col} ${sortDirection}`;
+    if (whereClause.length > 0) {
+      query += " WHERE " + whereClause.join(" AND ");
+      countQuery += " WHERE " + whereClause.join(" AND ");
+    }
 
-    query += " LIMIT ? OFFSET ?";
+    const countResult = await executeQuery(countQuery, countParams);
+    const total = countResult[0]?.total || 0;
+    const totalPages = Math.ceil(total / perPageNum);
+
+    query += ` GROUP BY e.id ORDER BY ${sort_col} ${sortDirection} LIMIT ? OFFSET ?`;
     queryParams.push(perPageNum, (pageNum - 1) * perPageNum);
 
     const data = await executeQuery(query, queryParams);
@@ -48,7 +66,15 @@ const viewEvent = async (req, res) => {
       return sendResponse(res, 404, false, "No events found.");
     }
 
-    sendResponse(res, 200, true, "Display all events.", data);
+    sendResponse(res, 200, true, "Display all events.", {
+      data,
+      pagination: {
+        total,
+        current_page: pageNum,
+        per_page: perPageNum,
+        total_pages: totalPages,
+      },
+    });
   } catch (error) {
     console.error(error);
     handleResponseError(res, error);
@@ -101,7 +127,7 @@ const viewEventDetail = async (req, res) => {
         end_time: eventData[0].end_time,
         location: eventData[0].location,
         event_type: eventData[0].event_type,
-        event_categories: eventCategories, 
+        event_categories: eventCategories,
         qr_img: eventData[0].qr_img,
         creator: {
           id: eventData[0].creator_id,
@@ -123,44 +149,64 @@ const viewEventDetail = async (req, res) => {
 
 const viewAllEventCategory = async (req, res) => {
   try {
+    const { search } = req.query;
     let {
       page = 1,
       per_page = 50,
       sort_col = "name",
       sort_dir = "asc",
-      search,
     } = req.query;
 
-    page = parseInt(page);
-    per_page = parseInt(per_page);
+    const pageNum = parseInt(page);
+    const perPageNum = parseInt(per_page);
 
-    sort_dir = sort_dir.toLowerCase() === "desc" ? "DESC" : "ASC";
+    if (isNaN(pageNum) || pageNum < 1)
+      return sendResponse(res, 400, false, "Invalid page number.");
+    if (isNaN(perPageNum) || perPageNum < 1)
+      return sendResponse(res, 400, false, "Invalid per_page value.");
 
-    let query = "SELECT * FROM tbl_category";
-    let queryParams = [];
+    const sortDirection = sort_dir.toLowerCase() === "desc" ? "DESC" : "ASC";
+
+    let query = `SELECT * FROM tbl_category`;
+    let countQuery = `SELECT COUNT(*) AS total FROM tbl_category`;
+    const queryParams = [];
+    const countParams = [];
 
     if (search) {
-      query += " WHERE name LIKE ?";
+      query += " name LIKE ?";
+      countQuery += " name LIKE ?";
       queryParams.push(`%${search}%`);
+      countParams.push(`%${search}%`);
     }
 
-    query += ` ORDER BY ${sort_col} ${sort_dir}`;
+    const countResult = await executeQuery(countQuery, countParams);
+    const total = countResult[0]?.total || 0;
+    const totalPages = Math.ceil(total / perPageNum);
 
-    query += " LIMIT ? OFFSET ?";
-    queryParams.push(per_page, (page - 1) * per_page);
+     query += ` ORDER BY ${sort_col} ${sortDirection} LIMIT ? OFFSET ?`;
+    queryParams.push(perPageNum, (pageNum - 1) * perPageNum);
 
     const data = await executeQuery(query, queryParams);
 
     if (data.length === 0) {
-      return sendResponse(res, 404, false, "No event categories found.");
+      return sendResponse(res, 404, false, "No categories found.");
     }
 
-    sendResponse(res, 200, true, "Display all event categories", data);
+    sendResponse(res, 200, true, "Display all categories", {
+      data,
+      pagination: {
+        total,
+        current_page: pageNum,
+        per_page: perPageNum,
+        total_pages: totalPages,
+      },
+    });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     handleResponseError(res, error);
   }
 };
+
 
 const viewEventCategoryById = async (req, res) => {
   const id = req.params.id;

@@ -27,12 +27,10 @@
                 outline: 0;
                 box-shadow: none;
             }
-
         </style>
         <%- include('../../partials/admin/preloader.ejs') %>
             <div id="main-wrapper">
                 <%- include('../../partials/admin/nav-header.ejs') %>
-                    <%- include('../../partials/admin/chatbox.ejs') %>
                         <%- include('../../partials/admin/header.ejs') %>
                             <%- include('../../partials/admin/sidebar.ejs') %>
                                 <div class="content-body">
@@ -59,7 +57,7 @@
                                                                         placeholder="Search by name">
                                                                 </div>
                                                             </form>
-                                                            <table id="example6" class="display"
+                                                            <table id="example6" class="display mb-4"
                                                                 style="min-width: 845px">
                                                                 <thead>
                                                                     <tr>
@@ -78,6 +76,11 @@
 
                                                                 </tbody>
                                                             </table>
+                                                            <nav aria-label="Page navigation">
+                                                                <ul class="pagination justify-content-center">
+                                                                    <!-- Pagination items will be injected here -->
+                                                                </ul>
+                                                            </nav>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -85,62 +88,63 @@
                                         </div>
                                     </div>
                                 </div>
-                                <%- include('../../partials/admin/footer.ejs') %>
             </div>
+            <%- include('../../partials/admin/footer.ejs') %>
+                </div>
 
-            <!-- View Detail -->
-            <div class="modal fade" id="viewDetail">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="modal-title">User Detail</h3>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                        </div>
-                        <div class="modal-body text-center" id="userDetailContent">
-                            Loading...
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                <!-- View Detail -->
+                <div class="modal fade" id="viewDetail">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title">User Detail</h3>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body text-center" id="userDetailContent">
+                                Loading...
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Edit User -->
-            <div class="modal fade" id="editUser">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="modal-title">Edit User</h3>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                        </div>
-                        <div class="modal-body" id="editContent">
-                            Loading...
+                <!-- Edit User -->
+                <div class="modal fade" id="editUser">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title">Edit User</h3>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body" id="editContent">
+                                Loading...
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Required vendors -->
-            <script src="/admin/vendor/global/global.min.js"></script>
-            <script src="/admin/vendor/chart.js/Chart.bundle.min.js"></script>
-            <!-- Apex Chart -->
-            <script src="/admin/vendor/apexchart/apexchart.js"></script>
+                <!-- Required vendors -->
+                <script src="/admin/vendor/global/global.min.js"></script>
+                <script src="/admin/vendor/chart.js/Chart.bundle.min.js"></script>
+                <!-- Apex Chart -->
+                <script src="/admin/vendor/apexchart/apexchart.js"></script>
 
-            <!-- Datatable -->
-            <script src="/admin/vendor/datatables/js/jquery.dataTables.min.js"></script>
-            <script src="/admin/js/plugins-init/datatables.init.js"></script>
+                <!-- Datatable -->
+                <script src="/admin/vendor/datatables/js/jquery.dataTables.min.js"></script>
+                <script src="/admin/js/plugins-init/datatables.init.js"></script>
 
-            <script src="/admin/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                <script src="/admin/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-            <script src="/admin/js/custom.min.js"></script>
-            <script src="/admin/js/dlabnav-init.js"></script>
-            <script src="/admin/js/demo.js"></script>
-            <script src="/admin/js/styleSwitcher.js"></script>
+                <script src="/admin/js/custom.min.js"></script>
+                <script src="/admin/js/dlabnav-init.js"></script>
+                <script src="/admin/js/demo.js"></script>
+                <script src="/admin/js/styleSwitcher.js"></script>
 
-            <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-            <script src="/js/admin/user.js" defer></script>
+                <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+                <script src="/js/admin/user.js" defer></script>
 
     </body>
 
