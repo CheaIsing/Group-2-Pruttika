@@ -34,7 +34,7 @@ async function connectToSocket() {
         // console.log(response);
         
         userSocketId = response.data.data.id;
-        console.log(userSocketId);
+        // console.log(userSocketId);
         if (userSocketId) {
             // Connect to the Socket.IO server
             const socket = io(); // Replace with your server URL
@@ -44,7 +44,7 @@ async function connectToSocket() {
 
             // Listen for notifications
             socket.on('notification', (data) => {
-                console.log('New notification:', data);
+                // console.log('New notification:', data);
 
                 let status = "";
                 let msg = data.eng_message; // Default message
@@ -88,16 +88,16 @@ async function connectToSocket() {
                     borderColor = "#3B82F6"; // Blue for information
                     break;
                     case 7: // Event Access
-                    status = `<div class="d-flex align-items-center justify-content-center" style="width: 3rem;height: 3rem;border-radius: 50%; background-color: #DBEAFE; color: #3B82F6;"><i data-lucide="link" style="width: 1.5rem;height: 1.5rem;"></i></div>`;
+                    status = `<div class="d-flex align-items-center justify-content-center" style="width: 2.5rem;height: 2.5rem;border-radius: 50%; background-color: #DBEAFE; color: #3B82F6;"><i data-lucide="link" style="width: 1.2rem;height: 1.2rem;"></i></div>`;
                     title = "Join Link for Your Event";
                     borderColor = "#3B82F6"; // Blue for information
                     break;
                     default:
                     status = `<div
                                           class="d-flex align-items-center justify-content-center"
-                                          style="width: 3rem;height: 3rem;border-radius: 50%; background-color: #DCFCE7; color: #37CC6D;">
+                                          style="width: 2.5rem;height: 2.5rem;border-radius: 50%; background-color: #DCFCE7; color: #37CC6D;">
                                           <i data-lucide="check"
-                                              style="width: 1.5rem;height: 1.5rem;"></i>
+                                              style="width: 1.2rem;height: 1.2rem;"></i>
                                       </div>`;
                     borderColor = "#3B82F6"; // Default to blue
                     break;
