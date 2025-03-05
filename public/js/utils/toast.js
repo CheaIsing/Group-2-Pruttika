@@ -31,60 +31,57 @@ const showNotification = (
   msg = "Something went wrong. Please try again later.",
   link = "/ticket/my-ticket",
   gravity = "top",
-  position= "center", 
-  close = true
-  
+  position = "center",
+  close = true,
+  status = `<div
+                                          class="d-flex align-items-center justify-content-center"
+                                          style="width: 2.5rem;height: 2.5rem;border-radius: 50%; background-color: #DCFCE7; color: #37CC6D;">
+                                          <i data-lucide="check"
+                                              style="width: 1.2rem;height: 1.2rem;"></i>
+                                      </div>`, // Add status (icon HTML) parameter
+  title = "Notification Title", //add title parameter
+  borderColor = "#37CC6D" // Add borderColor parameter with default value
 ) => {
-
-  const styleBg = `#fff`
+  const styleBg = `#fff`;
+  lucide.createIcons();
 
   Toastify({
     text: `<div class="notification rounded-3 shadow-hover d-flex align-items-start me-2">
               <div class="d-flex align-items-start justify-content-between w-100">
                   <div class="d-flex">
-                      <div class="me-2">
-                      <!-- check by type -->
-                          <div
-                              class="d-flex align-items-center justify-content-center"
-                              style="width: 2.5rem;height: 2.5rem;border-radius: 50%; background-color: #DCFCE7; color: #37CC6D;">
-                              <i data-lucide="check"
-                                  style="width: 1.2rem;height: 1.2rem;"></i>
-                          </div>
+                      <div class="me-2 text-3-line">
+                          ${status} 
+                          
                       </div>
-                      </div>
-                      <div class="message px-1">
-                          <h6
-                              style="color: #333;font-size: 1rem;" class="mb-1">Notification Title</h6>
-                          <div
-                              class="d-flex align-items-center">
-                              <small class="content mb-0"
-                                  style="color: #4b5563;"
-                                  id="message">Notification Message</small>
-                          </div>
+                  </div>
+                  <div class="message px-1">
+                      <h6 style="color: #333;font-size: 1rem;" class="mb-1">${title}</h6>
+                      <div class="d-flex align-items-center">
+                          <small class="content mb-0" style="color: #4b5563;" id="message">${msg}</small>
                       </div>
                   </div>
               </div>
           </div>`,
-    duration: 5000,
-    destination: link, 
+    duration: 10000,
+    destination: link,
     newWindow: false,
-    close : true,
-    gravity, // `top` or `bottom`
-    position, // `left`, `center` or `right`
-    stopOnFocus: true, // Prevents dismissing of toast on hover
+    close: true,
+    gravity,
+    position,
+    stopOnFocus: true,
     style: {
       background: styleBg,
       boxShadow: "0px 1px 4px rgba(0, 0, 0, 0.12)",
       borderRadius: "4px",
       color: "#333",
       display: "flex",
-      borderLeft: "4px solid #37CC6D",
+      borderLeft: `4px solid ${borderColor}`, // Apply borderColor
       borderRight: "4px solid transparent",
     },
     escapeMarkup: false,
   }).showToast();
+  lucide.createIcons();
 };
-showNotification()
 
 const btnShowLoading = (id) => {
   const btnEle = document.getElementById(id);

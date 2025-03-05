@@ -3099,6 +3099,13 @@ scrollbar-color: #ccc #f1f1f1;
   overflow: hidden !important;
 }
 
+.text-3-line {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 1 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+}
+
 .event-title:hover {
   color: #ec4899;
   /* hover:text-pink-600 */
@@ -4367,6 +4374,3 @@ a#html5-qrcode-anchor-scan-type-change:hover {
   transition: opacity 1.2s ease;
 }
 
-.toast-close{
-  color: #000 !important;
-}

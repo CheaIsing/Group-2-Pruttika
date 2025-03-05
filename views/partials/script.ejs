@@ -45,8 +45,66 @@ async function connectToSocket() {
             // Listen for notifications
             socket.on('notification', (data) => {
                 console.log('New notification:', data);
-                alert(data.eng_message); // Display the notification
-            });
+
+                let status = "";
+                let msg = data.eng_message; // Default message
+                let title = "Notification"; // Default title
+                let borderColor = "#37CC6D"; // Default border color
+
+                switch (data.type_id) {
+                    case 1: // Approved ticket
+                    status = `<div
+                                          class="d-flex align-items-center justify-content-center"
+                                          style="width: 2.5rem;height: 2.5rem;border-radius: 50%; background-color: #DCFCE7; color: #37CC6D;">
+                                          <i data-lucide="check"
+                                              style="width: 1.2rem;height: 1.2rem;"></i>
+                                      </div>`;
+                    title = "Your Ticket Has Been Approved!";
+                    borderColor = "#37CC6D"; // Green for approval
+                    break;
+                    case 2: // Rejected ticket
+                    status = `<div class="d-flex align-items-center justify-content-center" style="width: 2.5rem;height: 2.5rem;border2.5radius: 50%; background-color: #FEE2E2; color: #EF4444;"><i data-lucide="x" style="width: 1.2rem;height: 1.2rem;"></i></div>`;
+                    title = "Ticket Request Denied";
+                    borderColor = "#EF4444"; // Red for rejection
+                    break;
+                    case 3: // Organizer request approved
+                    status = `<div class="d-flex align-items-center justify-content-center" style="width: 2.5rem;height: 2.5rem;border-radius: 50%; background-color: #DCFCE7; color: #37CC6D;"><i data-lucide="check" style="width: 1.2rem;height: 1.2rem;"></i></div>`;
+                    title = "Organizer Request Approved";
+                    borderColor = "#37CC6D"; // Green for approval
+                    break;
+                    case 4: // Organizer request denied
+                    status = `<div class="d-flex align-items-center justify-content-center" style="width: 2.5rem;height: 2.5rem;border-radius: 50%; background-color: #FEE2E2; color: #EF4444;"><i data-lucide="x" style="width: 1.2rem;height: 1.2rem;"></i></div>`;
+                    title = "Organizer Application Denied";
+                    borderColor = "#EF4444"; // Red for rejection
+                    break;
+                    case 5: // Event Updated
+                    status = `<div class="d-flex align-items-center justify-content-center" style="width: 2.5rem;height: 2.5rem;border-radius: 50%; background-color: #DBEAFE; color: #3B82F6;"><i data-lucide="info" style="width: 1.2rem;height: 1.2rem;"></i></div>`;
+                    title = "The event details have been updated";
+                    borderColor = "#3B82F6"; // Blue for information
+                    break;
+                    case 6: // Reminder event
+                    status = `<div class="d-flex align-items-center justify-content-center" style="width: 2.5rem;height: 2.5rem;border-radius: 50%; background-color: #DBEAFE; color: #3B82F6;"><i data-lucide="info" style="width: 1.2rem;height: 1.2rem;"></i></div>`;
+                    title = "Reminder: Upcoming Event";
+                    borderColor = "#3B82F6"; // Blue for information
+                    break;
+                    case 7: // Event Access
+                    status = `<div class="d-flex align-items-center justify-content-center" style="width: 3rem;height: 3rem;border-radius: 50%; background-color: #DBEAFE; color: #3B82F6;"><i data-lucide="link" style="width: 1.5rem;height: 1.5rem;"></i></div>`;
+                    title = "Join Link for Your Event";
+                    borderColor = "#3B82F6"; // Blue for information
+                    break;
+                    default:
+                    status = `<div
+                                          class="d-flex align-items-center justify-content-center"
+                                          style="width: 3rem;height: 3rem;border-radius: 50%; background-color: #DCFCE7; color: #37CC6D;">
+                                          <i data-lucide="check"
+                                              style="width: 1.5rem;height: 1.5rem;"></i>
+                                      </div>`;
+                    borderColor = "#3B82F6"; // Default to blue
+                    break;
+                }
+
+                showNotification(true, msg, "/ticket/my-ticket", "top", "center", true, status, title, borderColor);
+});
         } else {
             console.log("User is not authenticated. Socket.IO connection skipped.");
         }
@@ -61,6 +119,7 @@ async function connectToSocket() {
     document.addEventListener("DOMContentLoaded", function () {
         lucide.createIcons();
         connectToSocket()
+        // showNotification()
     const loader = document.getElementById("loader-overlay");
 
     // Hide the loader once the page is fully loaded
