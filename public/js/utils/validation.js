@@ -292,3 +292,30 @@ const vUpdateEventTickets = Joi.object({
     "any.required": "Ticket capacity is required.",
   }),
 }).options({ abortEarly: false });
+
+const validateFile = (file, maxSizeMB = 3) => {
+  if (!file) {
+    return { valid: true }; // No file, validation passes
+  }
+
+  const validExtensions = ['.jpg', '.jpeg', '.png'];
+  const fileName = file.name.toLowerCase();
+  const fileExtension = fileName.substring(fileName.lastIndexOf('.'));
+
+  if (!validExtensions.includes(fileExtension)) {
+    return {
+      valid: false,
+      message: 'Invalid file type. Only .jpg, .jpeg, .png are allowed.',
+    };
+  }
+
+  const maxSize = maxSizeMB * 1024 * 1024; // Convert MB to bytes
+  if (file.size > maxSize) {
+    return {
+      valid: false,
+      message: `File size exceeds the limit of ${maxSizeMB}MB.`,
+    };
+  }
+
+  return { valid: true }; // All validations passed
+};

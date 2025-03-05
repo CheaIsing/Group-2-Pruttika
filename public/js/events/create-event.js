@@ -10,34 +10,36 @@ const defaultTicket = document.getElementById("default-ticket");
 
 // Function to toggle between default and custom ticket sections
 toggleTicketBtn.addEventListener("click", function () {
-if (customTicketSection.style.display === "none" || customTicketSection.style.display === "") {
-// Switch to Custom Ticket Category Mode
-defaultTicket.style.display = "none";
-customTicketSection.style.display = "block";
-toggleTicketBtn.innerHTML = `<i class="fa-solid fa-arrow-left"></i>&nbsp; Back to Default Ticket Category`;
+  if (
+    customTicketSection.style.display === "none" ||
+    customTicketSection.style.display === ""
+  ) {
+    // Switch to Custom Ticket Category Mode
+    defaultTicket.style.display = "none";
+    customTicketSection.style.display = "block";
+    toggleTicketBtn.innerHTML = `<i class="fa-solid fa-arrow-left"></i>&nbsp; Back to Default Ticket Category`;
 
-// Add the first custom ticket category automatically
-if (ticketCount === 0) createNewTicketCategory();
-} else {
-// Switch Back to Default Ticket Category Mode
-customTicketSection.style.display = "none";
-defaultTicket.style.display = "block";
-toggleTicketBtn.innerHTML = `<i class="fa-solid fa-plus"></i>&nbsp; Create Your Own Ticket Categories`;
+    // Add the first custom ticket category automatically
+    if (ticketCount === 0) createNewTicketCategory();
+  } else {
+    // Switch Back to Default Ticket Category Mode
+    customTicketSection.style.display = "none";
+    defaultTicket.style.display = "block";
+    toggleTicketBtn.innerHTML = `<i class="fa-solid fa-plus"></i>&nbsp; Create Your Own Ticket Categories`;
 
-// Remove all custom ticket categories
-ticketWrapper.innerHTML = "";
-ticketCount = 0;
-}
+    // Remove all custom ticket categories
+    ticketWrapper.innerHTML = "";
+    ticketCount = 0;
+  }
 });
 
-
 function createNewTicketCategory() {
-ticketCount++;
-let ticketContainer = document.createElement("div");
-ticketContainer.className = "ticket-container mb-4";
-ticketContainer.id = `ticket${ticketCount}`;
+  ticketCount++;
+  let ticketContainer = document.createElement("div");
+  ticketContainer.className = "ticket-container mb-4";
+  ticketContainer.id = `ticket${ticketCount}`;
 
-ticketContainer.innerHTML = `
+  ticketContainer.innerHTML = `
 <div class="d-flex align-items-center justify-content-between mb-3 mt-4">
     <h5 class="fw-semibold text-brand mb-0">Ticket Category ${ticketCount}</h5>
     <button class="btn btn-danger" onclick="deleteTicketCategory('ticket${ticketCount}')">
@@ -79,82 +81,97 @@ ticketContainer.innerHTML = `
 </div>
 `;
 
-ticketWrapper.appendChild(ticketContainer);
+  ticketWrapper.appendChild(ticketContainer);
 }
 
 // Function to delete a ticket category
 function deleteTicketCategory(ticketId) {
-let ticketToRemove = document.getElementById(ticketId);
-if (ticketToRemove) {
-ticketToRemove.remove();
+  let ticketToRemove = document.getElementById(ticketId);
+  if (ticketToRemove) {
+    ticketToRemove.remove();
 
+    // If all custom tickets are removed, revert to Default Ticket Category mode
+    if (document.querySelectorAll(".ticket-container").length == 0) {
+      toggleTicketBtn.innerHTML = `<i class="fa-solid fa-plus"></i> Create Your Own Ticket Categories`;
+      customTicketSection.style.display = "none";
+      defaultTicket.style.display = "block";
+      ticketCount = 0;
+    } else {
+      ticketCount = document.querySelectorAll(".ticket-container").length;
 
-
-// If all custom tickets are removed, revert to Default Ticket Category mode
-if (document.querySelectorAll(".ticket-container").length == 0) {
-    toggleTicketBtn.innerHTML = `<i class="fa-solid fa-plus"></i> Create Your Own Ticket Categories`;
-    customTicketSection.style.display = "none";
-    defaultTicket.style.display = "block";
-    ticketCount = 0;
-}else{
-    ticketCount = document.querySelectorAll(".ticket-container").length
-
-    document.querySelectorAll(".ticket-container").forEach((ticket, i)=> {
+      document.querySelectorAll(".ticket-container").forEach((ticket, i) => {
         let id = ticket.id.replace("ticket", "");
-    let title = document.getElementById(`ticketCategoryName${id}`).value;
-    let price = document.getElementById(`ticketPrice${id}`).value;
-    let capacity = document.getElementById(`ticketCapacity${id}`).value;
+        let title = document.getElementById(`ticketCategoryName${id}`).value;
+        let price = document.getElementById(`ticketPrice${id}`).value;
+        let capacity = document.getElementById(`ticketCapacity${id}`).value;
 
-    ticket.id = `ticket${i+1}`;
+        ticket.id = `ticket${i + 1}`;
 
-    ticket.innerHTML = `
+        ticket.innerHTML = `
     <div class="d-flex align-items-center justify-content-between mb-3 mt-4">
-    <h5 class="fw-semibold text-brand mb-0">Ticket Category ${i+1}</h5>
-    <button class="btn btn-danger" onclick="deleteTicketCategory('ticket${i+1}')">
+    <h5 class="fw-semibold text-brand mb-0">Ticket Category ${i + 1}</h5>
+    <button class="btn btn-danger" onclick="deleteTicketCategory('ticket${
+      i + 1
+    }')">
         <i class="fa-solid fa-trash"></i>
     </button>
 </div>
 <div class="">
     <label class="form-label fw-medium mb-2">Name</label>
-    <div class="input-field input-field-setting mb-3" id="input-field-ticketCategoryName${i+1}">
+    <div class="input-field input-field-setting mb-3" id="input-field-ticketCategoryName${
+      i + 1
+    }">
         <i class="fa-regular fa-pen-to-square"></i>
-        <input type="text" id="ticketCategoryName${i+1}" value="${title}" placeholder="e.g. VIP, Normal">
+        <input type="text" id="ticketCategoryName${
+          i + 1
+        }" value="${title}" placeholder="e.g. VIP, Normal">
     </div>
-    <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_ticketCategoryName${i+1}">
+    <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_ticketCategoryName${
+      i + 1
+    }">
         <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
         <div class="ms-2 ">Invalid email.</div>
     </div>
 </div>
 <div class="">
     <label class="form-label fw-medium mb-2">Price</label>
-    <div class="input-field input-field-setting mb-3" id="input-field-ticketPrice${i+1}">
+    <div class="input-field input-field-setting mb-3" id="input-field-ticketPrice${
+      i + 1
+    }">
         <i class="fa-solid fa-dollar-sign"></i>
-        <input type="number" id="ticketPrice${i+1}" value="${price}" placeholder="Enter price ($)">
+        <input type="number" id="ticketPrice${
+          i + 1
+        }" value="${price}" placeholder="Enter price ($)">
     </div> 
-    <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_ticketPrice${i+1}">
+    <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_ticketPrice${
+      i + 1
+    }">
         <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
         <div class="ms-2 ">Invalid email.</div>
     </div>
 </div>
 <div class="">
     <label class="form-label fw-medium mb-2">Capacity</label>
-    <div class="input-field input-field-setting mb-3" id="input-field-ticketCapacity${i+1}">
+    <div class="input-field input-field-setting mb-3" id="input-field-ticketCapacity${
+      i + 1
+    }">
         <i class="fa-solid fa-ticket"></i>
-        <input type="number" id="ticketCapacity${i+1}" value="${capacity}" placeholder="Enter ticket capacity">
+        <input type="number" id="ticketCapacity${
+          i + 1
+        }" value="${capacity}" placeholder="Enter ticket capacity">
     </div>
-    <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_ticketCapacity${i+1}">
+    <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_ticketCapacity${
+      i + 1
+    }">
         <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
         <div class="ms-2 ">Invalid email.</div>
     </div>
 </div>
-    `
-    })
+    `;
+      });
+    }
+  }
 }
-}
-}
-
-
-
 
 const progress = (value) => {
   document.getElementsByClassName("progress-bar")[0].style.width = `${value}%`;
@@ -345,11 +362,10 @@ submitBtn.addEventListener("click", async () => {
 
     showToast(true, "Created Event Successfully.");
 
-return
-    setTimeout(()=>{
-
+    return;
+    setTimeout(() => {
       window.location.href = "/event/create";
-    }, 1500)
+    }, 1500);
   } catch (error) {
     showToast();
     console.error("Error:", error);
@@ -391,32 +407,18 @@ function checkStep() {
       }
 
       let file = fileUpload.files[0];
+      const validationResult = validateFile(file, 3); // 3MB limit
 
-      if (!allowPhotoType.includes(file.type)) {
-        // Invalid file type
-        thumbnailUploadSection.style.border = "2px solid red";
+      if (!validationResult.valid) {
+        // Validation failed
+        thumbnailUploadSection.style.border = "1px solid red";
         thumbnailUploadSection.scrollIntoView({
           behavior: "smooth",
           block: "center",
         });
         fileUpload.focus();
         thumbnailFileName.innerHTML = `<span class="text-danger " >
-          Invalid file type: <span class="text-black">${file.name}</span>. Only JPEG and PNG are allowed.
-        </span>`;
-        fileUpload.value = ""; // Reset input
-        return false;
-      }
-
-      if (file.size > maxSize) {
-        // File size too large
-        thumbnailUploadSection.style.border = "2px solid red";
-        thumbnailUploadSection.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-        });
-        fileUpload.focus();
-        thumbnailFileName.innerHTML = `<span class="text-danger fw-bolder">
-          File size exceeds 10MB. Please upload a smaller file.
+          ${validationResult.message}
         </span>`;
         fileUpload.value = ""; // Reset input
         return false;
@@ -568,10 +570,10 @@ function checkStep() {
 
       let resultt;
 
-      if(event_type == 1){
+      if (event_type == 1) {
         resultt = vEventDateOnline.validate(formData);
-      }else if(event_type == 2){
-        resultt = vEventDateAndLocation.validate(formData)
+      } else if (event_type == 2) {
+        resultt = vEventDateAndLocation.validate(formData);
       }
 
       // Validate using Joi schema
@@ -870,65 +872,37 @@ function checkStep() {
     }
     case 6: {
       if (isSkipStepPayment) {
-        return true;
+          return true;
       }
       let khqrPhotoUpload = document.getElementById("khqrPhotoUpload");
       let khqrPhotoName = document.getElementById("KhqrPhotoName");
       let khqrUploadSection = document.getElementById("khqr-upload-section");
-      if (khqrPhotoUpload.files.length === 0) {
-        // No file selected
-        khqrUploadSection.style.border = "1px solid var(--bs-danger)";
-        khqrUploadSection.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-        });
-        khqrPhotoUpload.focus();
-        khqrPhotoName.innerHTML = `<span class="text-danger" >
-          Qr Image is required.
-        </span>`;
-        return false;
+  
+      // Pass the file object (khqrPhotoUpload.files[0]) to validateFile
+      const validationResult = validateFile(khqrPhotoUpload.files[0], 3); // 3MB limit
+  
+      if (!validationResult.valid) {
+          // Validation failed
+          khqrUploadSection.style.border = "1px solid var(--bs-danger)";
+          khqrUploadSection.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+          });
+          khqrPhotoUpload.focus();
+          khqrPhotoName.innerHTML = `<span class="text-danger" >
+              ${validationResult.message}
+          </span>`;
+          return false;
       }
-
-      let file = khqrPhotoUpload.files[0];
-
-      if (!allowPhotoType.includes(file.type)) {
-        // Invalid file type
-        khqrUploadSection.style.border = "2px solid red";
-        khqrUploadSection.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-        });
-        khqrPhotoUpload.focus();
-        khqrPhotoName.innerHTML = `<span class="text-danger " >
-          Invalid file type: <span class="text-black">${file.name}</span>. Only JPEG and PNG are allowed.
-        </span>`;
-        khqrPhotoUpload.value = ""; // Reset input
-        return false;
-      }
-
-      if (file.size > maxSize) {
-        // File size too large
-        khqrUploadSection.style.border = "2px solid red";
-        khqrUploadSection.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-        });
-        khqrPhotoUpload.focus();
-        khqrPhotoName.innerHTML = `<span class="text-danger fw-bolder">
-          File size exceeds 10MB. Please upload a smaller file.
-        </span>`;
-        khqrPhotoUpload.value = ""; // Reset input
-        return false;
-      }
-
+  
       // Reset styles if valid
       khqrUploadSection.style.border = "none";
       khqrPhotoName.innerHTML = `<span class="text-success fw-bolder">
-        File selected: <span class="text-black">${file.name}</span>
+          File selected: <span class="text-black">${khqrPhotoUpload.files[0].name}</span>
       </span>`;
       valid = true;
       break;
-    }
+  }
     case 7: {
       return true;
       break;
@@ -943,11 +917,11 @@ function checkStep() {
 
 async function getCategories() {
   try {
-    const result = await axiosInstance.get("/admin/event/category/view");
-    const categories = result.data.data;
+    const result = await axiosInstance.get("/admin/event/category/view?per_page=100");
+    const categories = result.data.data.data;
     console.log(categories);
 
-    const selectElement = document.getElementById('select-category');
+    const selectElement = document.getElementById("select-category");
     const tomSelectInstance = selectElement.tomselect;
 
     if (tomSelectInstance) {
@@ -955,14 +929,13 @@ async function getCategories() {
       tomSelectInstance.clearOptions();
 
       // Add new options dynamically
-      categories.forEach(c => {
+      categories.forEach((c) => {
         tomSelectInstance.addOption({ value: c.id, text: c.name });
       });
 
       // Refresh dropdown
       tomSelectInstance.refreshOptions(false);
     }
-
   } catch (error) {
     console.log(error);
     showToast();
@@ -972,23 +945,22 @@ async function getCategories() {
 // Call function to fetch categories
 getCategories();
 
-
-
-
-let agendaIdCounter = 0;  // Keep track of the current agenda count
+let agendaIdCounter = 0; // Keep track of the current agenda count
 const agendaWrapper = document.getElementById("agenda-wrapper");
 
 function createNewAgenda() {
-    if(!(document.getElementById('skipAgendaMessage').classList.contains("d-none"))){
-        document.getElementById('skipAgendaMessage').classList.add('d-none')
-    }
-    agendaIdCounter += 1;  // Increment the counter to get a unique agenda ID
+  if (
+    !document.getElementById("skipAgendaMessage").classList.contains("d-none")
+  ) {
+    document.getElementById("skipAgendaMessage").classList.add("d-none");
+  }
+  agendaIdCounter += 1; // Increment the counter to get a unique agenda ID
 
-    let agendaContainer = document.createElement("div");
-    agendaContainer.className = "agenda-container mb-4";
-    agendaContainer.id = `agenda${agendaIdCounter}`;  // Use the current counter for the ID
+  let agendaContainer = document.createElement("div");
+  agendaContainer.className = "agenda-container mb-4";
+  agendaContainer.id = `agenda${agendaIdCounter}`; // Use the current counter for the ID
 
-    agendaContainer.innerHTML = `
+  agendaContainer.innerHTML = `
         <div class="d-flex align-items-center justify-content-between mb-3 mt-4">
             <h5 class="fw-semibold text-brand mb-0">Agenda ${agendaIdCounter}</h5>
             <button class="btn btn-danger" style="height:auto !important;" onclick="deleteAgenda('agenda${agendaIdCounter}')"><i class="fa-solid fa-trash"></i></button>
@@ -1040,55 +1012,71 @@ function createNewAgenda() {
             </div>
         </div>
     `;
-    
-    agendaWrapper.appendChild(agendaContainer);
+
+  agendaWrapper.appendChild(agendaContainer);
 }
 
 function deleteAgenda(agendaId) {
-    let agendaToRemove = document.getElementById(agendaId);
-    if (agendaToRemove) {
-        agendaToRemove.remove();
+  let agendaToRemove = document.getElementById(agendaId);
+  if (agendaToRemove) {
+    agendaToRemove.remove();
+  }
+
+  // After deleting all agendas, reset the agendaIdCounter to the last maximum agenda number
+  if (document.querySelectorAll(".agenda-container").length === 0) {
+    agendaIdCounter = 0; // Reset to start fresh
+    if (
+      document.getElementById("skipAgendaMessage").classList.contains("d-none")
+    ) {
+      document.getElementById("skipAgendaMessage").classList.remove("d-none");
     }
+  } else {
+    agendaIdCounter = document.querySelectorAll(".agenda-container").length;
+    document.querySelectorAll(".agenda-container").forEach((agenda, i) => {
+      let id = agenda.id.replace("agenda", "");
+      let title = document.getElementById(`agendaTitle${id}`).value;
+      let description = document.getElementById(`agendaDesc${id}`).value;
+      let startTime = document.getElementById(`agendaStarttime${id}`).value;
+      let endTime = document.getElementById(`agendaEndtime${id}`).value;
 
-    // After deleting all agendas, reset the agendaIdCounter to the last maximum agenda number
-    if (document.querySelectorAll(".agenda-container").length === 0) {
-        agendaIdCounter = 0;  // Reset to start fresh
-        if(document.getElementById('skipAgendaMessage').classList.contains("d-none")){
-            document.getElementById('skipAgendaMessage').classList.remove('d-none')
-        }
-    }else{
-        agendaIdCounter = document.querySelectorAll(".agenda-container").length
-         document.querySelectorAll(".agenda-container").forEach((agenda, i)=>{
-            let id = agenda.id.replace("agenda", "");
-            let title = document.getElementById(`agendaTitle${id}`).value;
-            let description = document.getElementById(`agendaDesc${id}`).value;
-            let startTime = document.getElementById(`agendaStarttime${id}`).value;
-            let endTime = document.getElementById(`agendaEndtime${id}`).value;
-
-            agenda.id = `agenda${i+1}`
-            agenda.innerHTML = `
+      agenda.id = `agenda${i + 1}`;
+      agenda.innerHTML = `
             <div class="d-flex align-items-center justify-content-between mb-3 mt-4">
-            <h5 class="fw-semibold text-brand mb-0">Agenda ${i+1}</h5>
-            <button class="btn btn-danger" style="height:auto !important;" onclick="deleteAgenda('agenda${i+1}')"><i class="fa-solid fa-trash"></i></button>
+            <h5 class="fw-semibold text-brand mb-0">Agenda ${i + 1}</h5>
+            <button class="btn btn-danger" style="height:auto !important;" onclick="deleteAgenda('agenda${
+              i + 1
+            }')"><i class="fa-solid fa-trash"></i></button>
         </div>
         <div class="">
             <label for class="form-label fw-medium mb-2">Title</label>
-            <div class="input-field input-field-setting agenda mb-3" id="input-field-agenda-title-${i+1}">
+            <div class="input-field input-field-setting agenda mb-3" id="input-field-agenda-title-${
+              i + 1
+            }">
                 <i class="fa-regular fa-pen-to-square"></i>
-                <input type="text" id="agendaTitle${i+1}" value="${title}" placeholder="Title">
+                <input type="text" id="agendaTitle${
+                  i + 1
+                }" value="${title}" placeholder="Title">
             </div>
-            <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_agendaTitle${i+1}">
+            <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_agendaTitle${
+              i + 1
+            }">
                 <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
                 <div class="ms-2 ">Invalid email.</div>
             </div>
         </div>
         <div class="">
             <label for class="form-label fw-medium mb-2">Description</label>
-            <div class="input-field input-field-setting agenda mb-3" id="input-field-agenda-desc-${i+1}">
+            <div class="input-field input-field-setting agenda mb-3" id="input-field-agenda-desc-${
+              i + 1
+            }">
                 <i class="fa-regular fa-pen-to-square"></i>
-                <input type="text" id="agendaDesc${i+1}" value="${description}" placeholder="Description">
+                <input type="text" id="agendaDesc${
+                  i + 1
+                }" value="${description}" placeholder="Description">
             </div>
-            <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_agendaDesc${i+1}">
+            <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_agendaDesc${
+              i + 1
+            }">
                 <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
                 <div class="ms-2 ">Invalid email.</div>
             </div>
@@ -1096,149 +1084,160 @@ function deleteAgenda(agendaId) {
         <div class="row gx-4 gy-0">
             <div class="col-6 col-lg-4 col-xxl-3">
                 <label for class="form-label fw-medium mb-2">Start Time</label>
-                <div class="input-field input-field-setting border-2" id="input-field-agenda-start-time-${i+1}">
+                <div class="input-field input-field-setting border-2" id="input-field-agenda-start-time-${
+                  i + 1
+                }">
                     <i class="fa-regular fa-pen-to-square"></i>
-                    <input type="time" id="agendaStarttime${i+1}" value="${startTime}" class="" autofocus />
+                    <input type="time" id="agendaStarttime${
+                      i + 1
+                    }" value="${startTime}" class="" autofocus />
                 </div>
-                <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_agendaStarttime${i+1}">
+                <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_agendaStarttime${
+                  i + 1
+                }">
                     <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
                     <div class="ms-2 ">Invalid email.</div>
                 </div>
             </div>
             <div class="col-6 col-lg-4 col-xl-3">
                 <label for class="form-label fw-medium mb-2">End Time</label>
-                <div class="input-field input-field-setting border-2" id="input-field-agenda-end-time-${i+1}">
+                <div class="input-field input-field-setting border-2" id="input-field-agenda-end-time-${
+                  i + 1
+                }">
                     <i class="fa-regular fa-pen-to-square fw-light"></i>
-                    <input type="time" id="agendaEndtime${i+1}" value="${endTime}" class="" autofocus />
+                    <input type="time" id="agendaEndtime${
+                      i + 1
+                    }" value="${endTime}" class="" autofocus />
                 </div>
-                <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_agendaEndtime${i+1}">
+                <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_agendaEndtime${
+                  i + 1
+                }">
                     <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
                     <div class="ms-2 ">Invalid email.</div>
                 </div>
             </div>
         </div>
             `;
-            // console.log(i);
-            
-         })
-    }
+      // console.log(i);
+    });
+  }
 }
 
-        new TomSelect("#select-category",{
-	maxItems: 3
+new TomSelect("#select-category", {
+  maxItems: 3,
 });
 //         new TomSelect("#select-type",{
 // 	maxItems: 1
 // });
 
 // Upload File in create event
-let fileInput = document.getElementById('fileUpload');
-let fileNameDisplay = document.getElementById('fileName');
-let btnRemoveImgFile = document.getElementById('btnRemoveImgFile');
-let imageDisplay = document.getElementById('imageDisplay');
+let fileInput = document.getElementById("fileUpload");
+let fileNameDisplay = document.getElementById("fileName");
+let btnRemoveImgFile = document.getElementById("btnRemoveImgFile");
+let imageDisplay = document.getElementById("imageDisplay");
 
 // Update the file name display when a file is selected
-fileInput.addEventListener('change', function () {
-    if (fileInput.files.length > 0) {
-        fileNameDisplay.textContent = fileInput.files[0].name;
+fileInput.addEventListener("change", function () {
+  if (fileInput.files.length > 0) {
+    fileNameDisplay.textContent = fileInput.files[0].name;
 
-        let reader = new FileReader();
-        reader.onload = function (event) {
-            imageDisplay.src = event.target.result; // Set the image source
-            imageDisplay.style.display = 'block';   // Display the image
-        }
-        reader.readAsDataURL(fileInput.files[0]); // Read the file as a data URL
-
-    }
-    document.getElementById('imgInputBtn').style.display = 'none';
-    document.getElementById('imgIcon').style.display = 'none';
-    btnRemoveImgFile.style.display = 'block';
+    let reader = new FileReader();
+    reader.onload = function (event) {
+      imageDisplay.src = event.target.result; // Set the image source
+      imageDisplay.style.display = "block"; // Display the image
+    };
+    reader.readAsDataURL(fileInput.files[0]); // Read the file as a data URL
+  }
+  document.getElementById("imgInputBtn").style.display = "none";
+  document.getElementById("imgIcon").style.display = "none";
+  btnRemoveImgFile.style.display = "block";
 });
 
-btnRemoveImgFile.addEventListener('click', function () {
-    fileInput.value = '';
-    imageDisplay.src ='';
-    imageDisplay.style.display = 'none';
-    fileNameDisplay.textContent = 'No file chosen';
-    btnRemoveImgFile.style.display = 'none';
-    document.getElementById('imgInputBtn').style.display = 'block';
-    document.getElementById('imgIcon').style.display = 'block';
+btnRemoveImgFile.addEventListener("click", function () {
+  fileInput.value = "";
+  imageDisplay.src = "";
+  imageDisplay.style.display = "none";
+  fileNameDisplay.textContent = "No file chosen";
+  btnRemoveImgFile.style.display = "none";
+  document.getElementById("imgInputBtn").style.display = "block";
+  document.getElementById("imgIcon").style.display = "block";
 });
 
 btnRemoveImgFile.click();
 
-// style input ts 
-document.querySelectorAll(".ts-wrapper").forEach(input=>{
-    input.classList.add("input-field", "input-field-setting", "d-flex" , "align-items-center");
-    input.id = "input-field-event-categories"
-})
-document.querySelectorAll(".ts-wrapper .ts-control").forEach(input=>{
-    input.classList.add("border-0")
-})
+// style input ts
+document.querySelectorAll(".ts-wrapper").forEach((input) => {
+  input.classList.add(
+    "input-field",
+    "input-field-setting",
+    "d-flex",
+    "align-items-center"
+  );
+  input.id = "input-field-event-categories";
+});
+document.querySelectorAll(".ts-wrapper .ts-control").forEach((input) => {
+  input.classList.add("border-0");
+});
 
 document.querySelector(".ts-wrapper .ts-control").classList.add("border-0");
 
 // console.log(document.getElementById("select-category").selectedOptions);
 
 const parent = document.querySelectorAll(".ts-wrapper.input-field"); // Get the parent element
-    console.log(parent)
-    // if (!parent) return; // Ensure the parent exists
- parent.forEach(p=>{
-     const newNode = document.createElement("i"); // Create a new element
-     newNode.classList.add("fa-solid", "fa-list")
-     newNode.style.marginBottom = "2px";
- 
-     // Insert the new node as the first child
-     p.insertBefore(newNode, p.firstChild);
- })
+console.log(parent);
+// if (!parent) return; // Ensure the parent exists
+parent.forEach((p) => {
+  const newNode = document.createElement("i"); // Create a new element
+  newNode.classList.add("fa-solid", "fa-list");
+  newNode.style.marginBottom = "2px";
+
+  // Insert the new node as the first child
+  p.insertBefore(newNode, p.firstChild);
+});
 
 // --------------------------------------------------------
 
-// Upload photo in create event in description section 
-let khqrPhotoUpload = document.getElementById('khqrPhotoUpload');
-let KhqrPhotoName = document.getElementById('KhqrPhotoName');
-let btnRemoveKhqrImg = document.getElementById('btnRemoveKhqrImg');
-let KhqrPhotoDisplay = document.getElementById('KhqrPhotoDisplay');
+// Upload photo in create event in description section
+let khqrPhotoUpload = document.getElementById("khqrPhotoUpload");
+let KhqrPhotoName = document.getElementById("KhqrPhotoName");
+let btnRemoveKhqrImg = document.getElementById("btnRemoveKhqrImg");
+let KhqrPhotoDisplay = document.getElementById("KhqrPhotoDisplay");
 
-
-btnRemoveKhqrImg.style.display = 'none';
-KhqrPhotoDisplay.style.display = 'none';
+btnRemoveKhqrImg.style.display = "none";
+KhqrPhotoDisplay.style.display = "none";
 // Upload photo in create event in Ticket section (Khqr)
-khqrPhotoUpload.addEventListener('change', function () {
-    if (khqrPhotoUpload.files.length > 0) {
-        KhqrPhotoName.textContent = khqrPhotoUpload.files[0].name;
+khqrPhotoUpload.addEventListener("change", function () {
+  if (khqrPhotoUpload.files.length > 0) {
+    KhqrPhotoName.textContent = khqrPhotoUpload.files[0].name;
 
-        let reader = new FileReader();
-        reader.onload = function (event) {
-            KhqrPhotoDisplay.src = event.target.result; // Set the image source
-            KhqrPhotoDisplay.style.display = 'block';   // Display the image
-        }
-        reader.readAsDataURL(khqrPhotoUpload.files[0]); // Read the file as a data UR-L
-        isSkipStepPayment = true;
-    }else{
-        isSkipStepPayment = false;
-    }
-    document.getElementById('khqrPhotoInputBtn').style.display = 'none';
-    document.getElementById('khqrPhotoIcon').style.display = 'none';
-    btnRemoveKhqrImg.style.display = 'block';
+    let reader = new FileReader();
+    reader.onload = function (event) {
+      KhqrPhotoDisplay.src = event.target.result; // Set the image source
+      KhqrPhotoDisplay.style.display = "block"; // Display the image
+    };
+    reader.readAsDataURL(khqrPhotoUpload.files[0]); // Read the file as a data UR-L
+    isSkipStepPayment = true;
+  } else {
+    isSkipStepPayment = false;
+  }
+  document.getElementById("khqrPhotoInputBtn").style.display = "none";
+  document.getElementById("khqrPhotoIcon").style.display = "none";
+  btnRemoveKhqrImg.style.display = "block";
 });
 
 function removeImageFile() {
-    khqrPhotoUpload.value = ''; // Clear the file input
-    KhqrPhotoName.textContent = 'No file chosen';
+  khqrPhotoUpload.value = ""; // Clear the file input
+  KhqrPhotoName.textContent = "No file chosen";
 }
 
-btnRemoveKhqrImg.addEventListener('click', function () {
-    khqrPhotoUpload.value = '';
-    KhqrPhotoDisplay.src = "";
-    KhqrPhotoDisplay.style.display = 'none';
-    KhqrPhotoName.textContent = 'No file chosen';
-    btnRemoveKhqrImg.style.display = 'none';
-    document.getElementById('khqrPhotoInputBtn').style.display = 'block';
-    document.getElementById('khqrPhotoIcon').style.display = 'block';
+btnRemoveKhqrImg.addEventListener("click", function () {
+  khqrPhotoUpload.value = "";
+  KhqrPhotoDisplay.src = "";
+  KhqrPhotoDisplay.style.display = "none";
+  KhqrPhotoName.textContent = "No file chosen";
+  btnRemoveKhqrImg.style.display = "none";
+  document.getElementById("khqrPhotoInputBtn").style.display = "block";
+  document.getElementById("khqrPhotoIcon").style.display = "block";
 });
 btnRemoveKhqrImg.click();
 // Example usage:
-
-
-   

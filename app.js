@@ -1,5 +1,7 @@
 require("dotenv").config();
 
+const http = require("http")
+const setUpSocket = require("./socket/socket")
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const fileUpload = require("express-fileupload");
@@ -43,6 +45,10 @@ const { requireAuthWeb } = require("./middlewares/web.middleware");
 const webAdminProfile = require("./routes/web/admin/profile");
 
 const app = express();
+const server = http.createServer(app);
+const io = setUpSocket(server); 
+
+app.set("io", io);
 
 app.set("view engine", "ejs");
 
@@ -93,6 +99,6 @@ app.use((req, res) => {
   res.status(404).render("pages/static/404", {title: "404"})
 });
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });

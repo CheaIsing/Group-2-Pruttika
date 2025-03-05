@@ -8,6 +8,7 @@ const {sendResponse ,sendResponse1}= require("../../utils/response");
 const {reqTicketCollection}=require("../../resource/ticket");
 const {fileValidation}=require("../../validations/event");
 const { generateQRCodeImg } = require('../../utils/generateQrImg');
+const { emitTicketApprovalNotification } = require('../../socket/socketHelper');
 
 // const QRCode = require('qrcode');
 const generateToken= (id,ticket_type,event_id) => {
@@ -147,6 +148,7 @@ const deleteTransactionFile=async (req,res)=>{
 const putApproveTicket=async(req,res)=>{
     const ticketReq_id=req.params.id;
     const user_id=req.user.id;
+    const io = req.app.get('io');
     try {
         const sqlGetTransaction = `
             SELECT 
@@ -250,6 +252,9 @@ const putApproveTicket=async(req,res)=>{
 
         // Update transaction status to approved 
         await executeQuery(`UPDATE tbl_transaction SET status = ? WHERE id = ?`, [2, ticketReq_id]);
+
+        // RealTime Implement Here
+        emitTicketApprovalNotification(io, buyer_id, event_id, eng_name, event_type); // Pass eventType
 
 
         sendResponse(res, 200, true, "Ticket Request has been approved successfully");
