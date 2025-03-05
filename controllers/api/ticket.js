@@ -209,7 +209,7 @@ const putApproveTicket=async(req,res)=>{
 
                         const qr_code_img = await generateQRCodeImg(token);
 
-                        await executeQuery(`UPDATE tbl_ticket SET qr_code = ?, qr_code_img = ? WHERE id = ?`, [token,qr_code_img, ticket_id]);
+                        await executeQuery(`UPDATE tbl_ticket SET qr_code_img = ? WHERE id = ?`, [qr_code_img, ticket_id]);
                     })()
                 );
             }
