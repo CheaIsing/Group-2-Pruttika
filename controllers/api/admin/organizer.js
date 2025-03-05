@@ -1,3 +1,4 @@
+const { emitOrganizerApprovalNotification, emitOrganizerRejectionNotification } = require("../../../socket/socketHelper");
 const { executeQuery } = require("../../../utils/dbQuery");
 const { handleResponseError } = require("../../../utils/handleError");
 const { sendResponse } = require("../../../utils/response");
@@ -374,6 +375,9 @@ const adminApproval = async (req, res) => {
     ];
     await executeQuery(sqlInsertNotification, paramsNotification);
 
+    const io = req.app.get('io');
+    emitOrganizerApprovalNotification(io, user.user_id, requestId);
+
     sendResponse(
       res,
       200,
@@ -431,6 +435,9 @@ const adminRejection = async (req, res) => {
       4,
     ];
     await executeQuery(sqlInsertNotification, paramsNotification);
+
+    const io = req.app.get('io');
+    emitOrganizerRejectionNotification(io, user_id, requestId, rejection_reason);
 
     sendResponse(res, 200, true, "Request rejected successfully.");
   } catch (error) {

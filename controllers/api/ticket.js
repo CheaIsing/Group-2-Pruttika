@@ -8,7 +8,7 @@ const {sendResponse ,sendResponse1}= require("../../utils/response");
 const {reqTicketCollection}=require("../../resource/ticket");
 const {fileValidation}=require("../../validations/event");
 const { generateQRCodeImg } = require('../../utils/generateQrImg');
-const { emitTicketApprovalNotification } = require('../../socket/socketHelper');
+const { emitTicketApprovalNotification, emitTicketRejectNotification } = require('../../socket/socketHelper');
 
 // const QRCode = require('qrcode');
 const generateToken= (id,ticket_type,event_id) => {
@@ -329,6 +329,10 @@ const putRejectTicket=async(req,res)=>{
             2
         ];
         await executeQuery(sqlInsertNotification2,paramsNotification2);
+
+        const io = req.app.get('io');
+
+        emitTicketRejectNotification(io, buyer_id, event_id, eng_name, rejected_reason)
 
         sendResponse(res,200,true,`Ticket Request ID ${ticketReq_id} has been rejected successfully`);
     } catch (error) {
