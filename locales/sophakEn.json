@@ -1,67 +1,33 @@
 {
-  "title": "Pruttika",
-  "auth": {
-    "signin": {
-      "heading": "Sign In",
-      "email": "Email",
-      "password": "Password",
-      "remember": "Remember me",
-      "forgot": "Forgot Password?",
-      "signin": "Sign In",
-      "social": "Or Sign In With Social Platforms",
-      "content": "Create amazing memories with us!"
+    "title": "Pruttika",
+    "auth": {
+      "signin": {
+        "heading": "Sign In",
+        "email": "Email",
+        "password": "Password",
+        "remember": "Remember me",
+        "forgot": "Forgot Password?",
+        "signin": "Sign In",
+        "social": "Or Sign In With Social Platforms",
+        "content": "Create amazing memories with us!"
+      },
+      "signup": {
+        "heading": "Sign Up",
+        "username": "Username",
+        "email": "Email",
+        "password": "Password",
+        "confirm": "Confirm Password",
+        "signup": "Sign Up",
+        "social": "Or Sign Up With Social Platforms",
+        "content": "Welcome back ! Let's get started Again!"
+      },
+      "forgot-password": {},
+      "verify-otp": {},
+      "reset-password": {}
     },
-    "signup": {
-      "heading": "Sign Up",
-      "username": "Username",
-      "email": "Email",
-      "password": "Password",
-      "confirm": "Confirm Password",
-      "signup": "Sign Up",
-      "social": "Or Sign Up With Social Platforms",
-      "content": "Welcome back ! Let's get started Again!"
-    },
-    "forgot-password": {},
-    "verify-otp": {},
-    "reset-password": {}
-  },
-  "event": {},
-  "profile": {
-    "accManagement":{
-      "title":"Account Management"
-    },
-    "changeLanguage":{
-      "title": "Change Language",
-      "language":"Language",
-      "eng":"English",
-      "kh":"Khmer",
-      "save-change":"Save Change",
-      "change-pw":"Change Your Password",
-      "changePw-content":"Click the button below to proceed with updating your password",
-      "delete-acc":"Delete Your Account",
-      "deleteAcc-content":"Deleting your account will remove all information from our database. This action cannot be undone.",
-      "delete-btn":"Delete Account"
-    },
-    "changePw":{
-      "title":"Change Your Password",
-      "content":"To ensure the security of your account, we recommend updating your password regularly.",
-      "current-pw":"Current Password",
-      "error-pw":"Password must be at least 6 characters.",
-      "new-pw":"New Password",
-      "cf-pw":"Confirm Password",
-      "error-cfPw":"Password must be the same as your new password.",
-      "change-pw":"Change Password"
-    },
-    "deleteAcc":{
-      "title":"Delete Account",
-      "content":"Deleting your account will be remove all information from our database. this action cannot undone"
-
-    }
-    
-
-
-  },
-  "partials":{
+    "event": {},
+    "profile": {},
+    "partial":{
         "footer":{
             "content":"Your seamless platform for event management, where creativity meets efficiency. We simplify planning, coordinate every detail, and bring your vision to life for unforgettable experiences that inspire.",
             "contact-title":"Contact Info",
@@ -77,7 +43,6 @@
             "copyright": "Copyright ©2024 All rights reserved"
         },
         "header":{
-            "search":"Search Event",
             "cEvent":"Create Event",
             "bEvent":"Browse Event",
             "myTicket":"My Ticket",
@@ -103,8 +68,8 @@
             "acc-management":"Account Management",
             "org-management": "Organizer Setting"
         }
-  },
-  "mainpage":{
+    },
+    "mainpage":{
         "pruttika" :"PRUTTIKA",
         "events":"events",
         "Event":"Event",
@@ -127,10 +92,12 @@
         "abt-h1":"Your One-Stop Platform for All Things Events!",
         "abt-p":"Pruttika is an innovative, user-friendly website designed to empower users with complete control over their events. From ideation to execution, Pruttika provides a comprehensive suite of tools to create events, manage tickets, and promote services effectively."
 
-  },
-  "ticket":{
+    },
+    "ticket":{
         "buy-ticket":{
             "request-purchase":"Request Purchase"
         }
+    }
+
   }
-}
+  

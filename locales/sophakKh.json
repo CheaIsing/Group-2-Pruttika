@@ -1,33 +1,33 @@
 {
-  "title": "Pruttika",
-  "auth": {
-    "signin": {
-      "heading": "ចូលគណនី",
-      "email": "អុីម៉ែល",
-      "password": "ពាក្យសម្ងាត់",
-      "remember": "ចងចាំខ្ញុំ",
-      "forgot": "ភ្លេចពាក្យសម្ងាត់?",
-      "signin": "ចូលគណនី",
-      "social": "ឬចូលគណនីជាមួយបណ្តាញសង្គម",
-      "content": "បង្កើតអនុស្សាវរីយ៍ដ៏អស្ចារ្យជាមួយយើង!"
+    "title": "Pruttika",
+    "auth": {
+      "signin": {
+        "heading": "Sign In",
+        "email": "Email",
+        "password": "Password",
+        "remember": "Remember me",
+        "forgot": "Forgot Password?",
+        "signin": "Sign In",
+        "social": "Or Sign In With Social Platforms",
+        "content": "Create amazing memories with us!"
+      },
+      "signup": {
+        "heading": "Sign Up",
+        "username": "Username",
+        "email": "Email",
+        "password": "Password",
+        "confirm": "Confirm Password",
+        "signup": "Sign Up",
+        "social": "Or Sign Up With Social Platforms",
+        "content": "Welcome back ! Let's get started Again!"
+      },
+      "forgot-password": {},
+      "verify-otp": {},
+      "reset-password": {}
     },
-    "signup": {
-      "heading": "បង្កើតគណនី",
-      "username": "ឈ្មោះអ្នកប្រើប្រាស់",
-      "email": "អុីម៉ែល",
-      "password": "ពាក្យសម្ងាត់",
-      "confirm": "ផ្ទៀងផ្ទាត់ពាក្យសម្ងាត់",
-      "signup": "បង្កើតគណនី",
-      "social": "ឬបង្កើតគណនីជាមួយបណ្តាញសង្គម",
-      "content": "ស្វាគមន៏ការត្រឡប់មកវិញ ! ចូលគណនីអ្នកដើម្បីបន្តជាមួយយើង"
-    },
-    "forgot-password": {},
-    "verify-otp": {},
-    "reset-password": {}
-  },
-  "event": {},
-  "profile": {},
-  "partials":{
+    "event": {},
+    "profile": {},
+    "partial":{
         "footer":{
             "content":"Your seamless platform for event management, where creativity meets efficiency. We simplify planning, coordinate every detail, and bring your vision to life for unforgettable experiences that inspire.",
             "contact-title":"ព័ត៌មានទំនាក់ទំនង",
@@ -43,7 +43,6 @@
             "copyright": "Copyright ©2024 All rights reserved"
         },
         "header":{
-            "search":"ស្វែងរកព្រឹត្តិការណ៍",
             "cEvent":"Create Event",
             "bEvent":"Browse Event",
             "myTicket":"My Ticket",
@@ -69,8 +68,8 @@
             "acc-management":"គ្រប់គ្រងគណនី",
             "org-management": "Organizer Setting"
         }
-  },
-  "mainpage":{
+    },
+    "mainpage":{
         "pruttika" :"PRUTTIKA",
         "events":"events",
         "Event":"Event",
@@ -92,10 +91,12 @@
         "abt-1":"សូមស្វាគមន៍មកកាន់",
         "abt-h1":"Your One-Stop Platform for All Things Events!",
         "abt-p":"Pruttika is an innovative, user-friendly website designed to empower users with complete control over their events. From ideation to execution, Pruttika provides a comprehensive suite of tools to create events, manage tickets, and promote services effectively."
-  },
-  "ticket":{
+    },
+    "ticket":{
         "buy-ticket":{
             "request-purchase":"Request Purchase"
         }
+    }
+
   }
-}
+  

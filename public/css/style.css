@@ -4366,3 +4366,7 @@ a#html5-qrcode-anchor-scan-type-change:hover {
   pointer-events: none;
   transition: opacity 1.2s ease;
 }
+
+.toast-close{
+  color: #000 !important;
+}

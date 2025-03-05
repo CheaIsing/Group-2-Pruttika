@@ -22,27 +22,45 @@
 <script src="
 https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js
 "></script>
+<script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+
 
 <script>
+        let userSocketId = null;
+
+async function connectToSocket() {
+    try {
+        const response = await axiosInstance.get("/auth/me");
+        // console.log(response);
+        
+        userSocketId = response.data.data.id;
+        console.log(userSocketId);
+        if (userSocketId) {
+            // Connect to the Socket.IO server
+            const socket = io(); // Replace with your server URL
+
+            // Join the room for this buyer
+            socket.emit('join', userSocketId);
+
+            // Listen for notifications
+            socket.on('notification', (data) => {
+                console.log('New notification:', data);
+                alert(data.eng_message); // Display the notification
+            });
+        } else {
+            console.log("User is not authenticated. Socket.IO connection skipped.");
+        }
+    } catch (error) {
+        userSocketId = null;
+        console.log(error);
+        
+    }
+}
+
+
     document.addEventListener("DOMContentLoaded", function () {
-    lucide.createIcons();
-    
-});
-
-
-</script>
-<script>
-    // Show preloader for 2 seconds, then reveal body content
-    // document.addEventListener("DOMContentLoaded", function () {
-    //     document.body.classList.add("d-none");
-    //     document.getElementById("preload").classList.remove("d-none")
-    //     setTimeout(() => {
-    //         document.getElementById("preload").classList.add("d-none")
-    //         document.body.classList.remove("d-none")
-    //     }, 2000);
-    // });
-
-    document.addEventListener("DOMContentLoaded", function () {
+        lucide.createIcons();
+        connectToSocket()
     const loader = document.getElementById("loader-overlay");
 
     // Hide the loader once the page is fully loaded

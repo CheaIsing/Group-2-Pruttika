@@ -223,7 +223,6 @@ const ownTicketCollection=async(userId,status=null,page=1,perpage=15,sort='id',o
             SELECT 
                 tt.id,
                 tt.transaction_id,
-                tt.qr_code,
                 tt.qr_code_img,
                 tt.status,
                 tt.created_at,
@@ -278,7 +277,6 @@ const ownTicketCollection=async(userId,status=null,page=1,perpage=15,sort='id',o
             data.push({
                 id : item.id,
                 transaction_id : item.transaction_id,
-                qr_code : item.qr_code,
                 qr_code_img: item.qr_code_img,
                 status : tStatus[item.status],
                 ticket_type: item.type_name,

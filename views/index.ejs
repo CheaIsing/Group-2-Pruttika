@@ -9,11 +9,9 @@
             <div class="carousel-inner">
                 <div class="carousel-item active d-flex align-items-center justify-content-center">
                     <div class="hero-title text-end w-50 pe-5">
-                        <h1 class="text-white fw-bold display-2 z-3">It's
-                            Time to <br> <span class="text-white display-1 fw-bold">Celebrate!</span></h1>
+                        <h1 class="text-white fw-bold display-2 z-3"><%= t('mainpage.hero-content1') %> <br> <span class="text-white display-1 fw-bold"><%= t('mainpage.hero-content2') %></span></h1>
                         <div class="hero-button">
-                            <button onclick="window.location.href = '/event/create'" class="btn-darkpink"><span class="fw-bold ">Create your event
-                                    now!</span></button>
+                            <button onclick="window.location.href = '/event/create'" class="btn-darkpink"><span class="fw-bold "><%= t('mainpage.btn-create') %></span></button>
                         </div>
                     </div>
 
@@ -33,12 +31,12 @@
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
                 data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
+                <span class="visually-hidden"><%= t('mainpage.previous') %></span>
             </button>
             <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
                 data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
+                <span class="visually-hidden"><%= t('mainpage.next') %></span>
             </button>
         </div>
         <!-- <div class="d-flex align-items-center justify-content-center mt-4 flex-column">
@@ -53,9 +51,8 @@
 
     <section class="container my-5">
         <div class="d-flex justify-content-between mb-3">
-            <h3><i class="fa-solid fa-globe text-brand me-3"></i>All Events In <span class="text-brand">Phnom
-                    Penh</span>, Cambodia</h3>
-            <a class="seeAllEvent color-style" href="/event/browse"><strong>See all Event</strong></a>
+            <h3><i class="fa-solid fa-globe text-brand me-3"></i><%= t('mainpage.all-event') %> <span class="text-brand"><%= t('mainpage.phnompenh') %> </span>, <%= t('mainpage.cambodia') %></h3>
+            <a class="seeAllEvent color-style" href="/event/browse"><strong><%= t('mainpage.see-all-event') %></strong></a>
         </div>
         <div class="row g-4" id="inperson-event">
             
@@ -63,9 +60,9 @@
     </section>
     <section class="container my-5">
         <div class="d-flex justify-content-between mb-3">
-            <h3><i class="fa-brands fa-elementor text-brand me-3"></i>Upcoming online <span
-                    class="text-brand">events</span></h3>
-            <a class="seeAllEvent color-style" href="/event/browse"><strong>See all Event</strong></a>
+            <h3><i class="fa-brands fa-elementor text-brand me-3"></i><%= t('mainpage.upcoming-online') %> <span
+                    class="text-brand"><%= t('mainpage.events') %></span></h3>
+            <a class="seeAllEvent color-style" href="/event/browse"><strong><%= t('mainpage.see-all-event') %></strong></a>
         </div>
         <div class="row" id="online-event">
             <!-- <div class="col-12 col-sm-10 col-md-6 col-lg-3 col-xl-3 mx-auto">
@@ -109,7 +106,7 @@
     <section class="container my-5">
         <h3 class="text-center text-md-start">
             <i class="fa-solid fa-layer-group text-brand me-3 mb-3"></i>
-            Explore top <span class="text-brand">Categories</span>
+            <%= t('mainpage.explore-top') %> <span class="text-brand"><%= t('mainpage.categories') %></span>
         </h3>
         <div class="row">
             <div class="col-lg-2 col-md-4 col-6">
@@ -241,15 +238,15 @@
                 <div class="row position-relative z-1">
                     <div class="col-md-4 text-center ">
                         <h2 class="count" data-target="5000" data-duration="2000">0</h2>
-                        <strong>Events Created</strong>
+                        <strong><%= t('mainpage.event-created') %></strong>
                     </div>
                     <div class="col-md-4 text-center">
                         <h2 class="count" data-target="5000" data-duration="2000">0</h2>
-                        <strong>Event Management</strong>
+                        <strong><%= t('mainpage.event-management') %></strong>
                     </div>
                     <div class="col-md-4 text-center">
                         <h2 class="count" data-target="10000" data-duration="2500">0</h2>
-                        <strong>Event Tickets</strong>
+                        <strong><%= t('mainpage.event-ticket') %></strong>
                     </div>
                 </div>
             </div>
@@ -260,13 +257,9 @@
         <div class="row align-items-center">
           
             <div class="col-12 col-md-6 text-center text-md-start px-3 px-md-0">
-            <h1>Welcome to <span class="text-brand fw-bolder">PRUTTIKA : </span></h1>
-            <h1 class="fw-bold">Your One-Stop Platform for All Things Events!</h1>
-            <p class="mt-4 fs-5">Pruttika is an innovative, user-friendly website designed to empower users
-                with
-                complete
-                control over their events. From ideation to execution, Pruttika provides a comprehensive
-                suite of tools to create events, manage tickets, and promote services effectively.</p>
+            <h1><%= t('mainpage.abt-1') %> <span class="text-brand fw-bolder"><%= t('mainpage.pruttika') %> : </span></h1>
+            <h1 class="fw-bold"><%= t('mainpage.abt-h1') %></h1>
+            <p class="mt-4 fs-5"><%= t('mainpage.abt-p') %></p>
         </div>
         <div class="col-12 col-md-6 mb-4 mb-md-0">
             <img src="/img/webpage_on_pc.png" alt="" class="img-fluid"

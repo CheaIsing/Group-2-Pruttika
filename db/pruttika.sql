@@ -748,3 +748,10 @@ ALTER TABLE `tbl_event` ADD COLUMN join_link varchar(500) NULL;
 ALTER TABLE tbl_organizer_req DROP INDEX business_email;
 ALTER TABLE tbl_organizer_req DROP INDEX business_phone;
 
+
+---Update 05-03-2025
+ALTER TABLE tbl_ticket ADD COLUMN `qr_code_img` text NOT NULL;
+ALTER TABLE tbl_ticket DROP COLUMN qr_code;
+
+ALTER TABLE tbl_event MODIFY `description` text NOT NULL;
+
