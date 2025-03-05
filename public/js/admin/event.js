@@ -45,26 +45,18 @@ async function fetchEvents(
     console.error("Error fetching Events:", error.message);
   }
 }
-
 async function fetchCategories(
   search = "",
   page = 1,
   perPage = 5,
-  sortCol = "name", // Default to 'name'
+  sortCol = "name",
   sortDir = "asc"
 ) {
   try {
-    // Ensure valid parameters for the request
     page = parseInt(page) || 1;
     perPage = parseInt(perPage) || 5;
-
-    console.log("Fetch Categories Params:", {
-      page,
-      per_page: perPage,
-      sort_col: sortCol, 
-      sort_dir: sortDir,
-      search,
-    });
+    sortCol = sortCol || "name";
+    sortDir = sortDir || "asc";
 
     const response = await axiosInstance.get("/admin/event/category/view", {
       params: {
@@ -89,7 +81,7 @@ async function fetchCategories(
       totalPages,
       perPage,
       "paginationCategories",
-      fetchCategories
+      (s, p, per, sc = "name", sd = "asc") => fetchCategories(s, p, per, sc, sd)
     );
   } catch (error) {
     console.error("Error fetching Categories:", error.message);
@@ -114,7 +106,7 @@ function updatePagination(currentPage, totalPages, perPage, id, fetchFunction) {
     pageLink.addEventListener("click", (event) => {
       event.preventDefault();
       if (!isDisabled) {
-        fetchFunction("", "", page, perPage);
+        fetchFunction("", page, perPage, "name", "asc");
       }
     });
 
@@ -137,7 +129,6 @@ function updatePagination(currentPage, totalPages, perPage, id, fetchFunction) {
   );
 }
 
-
 window.addEventListener("load", function () {
   const urlParams = new URLSearchParams(window.location.search);
 
@@ -147,9 +138,8 @@ window.addEventListener("load", function () {
   let perPageCategories = parseInt(urlParams.get("per_pageCategories")) || 5;
 
   fetchEvents("", "", pageEvent, perPageEvent);
-  fetchCategories("", "", pageCategories, perPageCategories);
+  fetchCategories("", pageCategories, perPageCategories, "name", "asc");
 });
-
 
 async function fetchEventDetails(id) {
   const detailContainer = document.getElementById("detailContent");

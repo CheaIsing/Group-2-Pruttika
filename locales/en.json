@@ -21,9 +21,25 @@
       "social": "Or Sign Up With Social Platforms",
       "content": "Welcome back ! Let's get started Again!"
     },
-    "forgot-password": {},
-    "verify-otp": {},
-    "reset-password": {}
+    "forgot-password": {
+      "heading": "Forget Password",
+      "label": "Enter Your Email Address",
+      "placeholder": "example@email.com",
+      "button": "Send"
+    },
+    "verify-otp": {
+      "heading": "OTP Verification",
+      "label": "Enter the code that we sent to your email",
+      "button": "verify",
+      "question": "Didn't receive the OTP?",
+      "resend": "Resend"
+    },
+    "reset-password": {
+      "heading": "Reset Password",
+      "new-pass": "New Password",
+      "confirm-pass": "Confirm Password",
+      "button": "Reset Password"
+    }
   },
   "event": {},
   "profile": {

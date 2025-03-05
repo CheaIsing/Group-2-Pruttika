@@ -21,9 +21,25 @@
       "social": "ឬបង្កើតគណនីជាមួយបណ្តាញសង្គម",
       "content": "ស្វាគមន៏ការត្រឡប់មកវិញ ! ចូលគណនីអ្នកដើម្បីបន្តជាមួយយើង"
     },
-    "forgot-password": {},
-    "verify-otp": {},
-    "reset-password": {}
+    "forgot-password": {
+      "heading": "ភ្លេចពាក្យសម្ងាត់",
+      "label": "បញ្ចូលអុីម៉ែលរបស់អ្នក",
+      "placeholder": "example@email.com",
+      "button": "បញ្ចូន"
+    },
+    "verify-otp": {
+      "heading": "ការផ្ទៀងផ្ទាត់ OTP",
+      "label": "បញ្ចូលលេខកូដដែលយើងផ្ញើរទៅអ៊ីមែលរបស់អ្នក",
+      "button": "ផ្ទៀងផ្ទាត់",
+      "question": "មិនទទួលបាន OTP ទេ?",
+      "resend": "ផ្ញើឡើងវិញ"
+    },
+    "reset-password": {
+      "heading": "កំណត់ពាក្យសម្ងាត់ឡើងវិញ",
+      "new-pass": "ពាក្យសម្ងាត់ថ្មី",
+      "confirm-pass": "ផ្ទៀងផ្ទាត់ពាក្យសម្ងាត់",
+      "button": "កំណត់ពាក្យសម្ងាត់ឡើងវិញ"
+    }
   },
   "event": {},
   "profile": {},

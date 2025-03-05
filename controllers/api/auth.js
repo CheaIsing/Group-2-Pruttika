@@ -23,7 +23,7 @@ const postSignUp = async (req, res) => {
   if (handleValidateError(error, res)) return;
 
   const { name, email, password } = req.body;
-  const { lang = "en" } = req.query;
+  const { lng = "en" } = req.query;
 
   try {
     const checkEmailQuery = "SELECT * FROM tbl_users WHERE email = ?";
@@ -43,9 +43,9 @@ const postSignUp = async (req, res) => {
     let eng_name = null;
     let kh_name = null;
 
-    if (lang === "en") {
+    if (lng === "en") {
       eng_name = name;
-    } else if (lang === "kh") {
+    } else if (lng === "kh") {
       kh_name = name;
     }
 
