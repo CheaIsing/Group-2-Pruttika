@@ -3,20 +3,19 @@
       <li>
           <a href="/event/manage" class="<%= active == "event" && "active"  %>">
               <i class="fas fa-menorah"></i>
-              <span class="nav-item">Event</span>
+              <span class="nav-item"><%= t('partials.sidebar.event') %></span>
           </a>
       </li>
       <li>
           <a href="/event/manage-request" class="<%= active == "request" && "active"  %>">
               <i class="fa-solid fa-ticket"></i>
-              <span class="nav-item">Request Ticket</span>
+              <span class="nav-item"><%= t('partials.sidebar.req-ticket') %></span>
           </a>
       </li>
       <li>
           <a href="/event/manage-check-in" class="<%= active == "checkin" && "active"  %>">
               <i class="fa-solid fa-qrcode"></i>
-              <span class="nav-item">Check-in
-                  Ticket</span>
+              <span class="nav-item"><%= t('partials.sidebar.checkin-ticket') %></span>
           </a>
       </li>
   </ul>

@@ -9,7 +9,7 @@
                 </a>
             </div>
             <div class="dropdown d-flex gap-4">
-                <a href="/event/create" role="button" class="btn btn-outline-brand fw-medium" style="height: auto !important;">+ Create Event</a>
+                <a href="/event/create" role="button" class="btn btn-outline-brand fw-medium" style="height: auto !important;">+ <%= t('partials.header.cEvent') %></a>
                 <a href="#"
                     class="dropdown-toggle fs-3 text-brand d-flex align-items-center hide-arrow"
                     role="button"
@@ -27,8 +27,7 @@
                 <ul class="dropdown-menu dropdown-menu-end"
                     aria-labelledby="accountDropdown">
                     <li><a class="dropdown-item"
-                            href="/">Switch to
-                            Attending</a></li>
+                            href="/"><%= t('partials.header.switch-attendee') %></a></li>
 
                 </ul>
             </div>
