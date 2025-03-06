@@ -77,7 +77,7 @@ const sendEventReminders = async () => {
 };
 
 // Schedule the job to run every day at a specific time (e.g., 9:00 AM)
-schedule.scheduleJob('0 11 * * *', sendEventReminders)
+// schedule.scheduleJob('0 11 * * *', sendEventReminders)
 
 // Schedule the job to run every day at midnight
 schedule.scheduleJob('0 0 * * *', deleteNotification);

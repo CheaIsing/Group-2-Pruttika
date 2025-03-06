@@ -40,10 +40,10 @@
                             data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body" id="modal-disapprove">
-                        <div class="mb-3">
+                        <div class="mb-">
                             <div class="input-field input-field-setting" id="input-field-reject">
                               <i class="fas fa-lock"></i>
-                              <input type="text" placeholder="Enter Reject Reason" id="reject" autofocus/>
+                              <input type="text" placeholder="Enter Reject Reason" id="reject" autocomplete="off" autofocus/>
                             </div>
                             <div
                               class="invalid_feedback text-danger d-flex align-items-center" id="invalid_feedback_reject">
@@ -53,10 +53,9 @@
                           </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary"
-                            data-bs-dismiss="modal">Close</button>
+
                         <button id="btn-disapprove" type="button"
-                            class="btn btn-primary btn-disapprove">Send</button>
+                            class="btn btn-brand btn-disapprove w-100">Send</button>
                     </div>
                 </div>
             </div>

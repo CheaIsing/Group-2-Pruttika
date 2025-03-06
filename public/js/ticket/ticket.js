@@ -70,25 +70,25 @@ async function getRequestTicket( status="", page=1, perpage=25) {
         console.log(showTran);
         document.getElementById("requested-ticket-container").innerHTML += `
                 <div
-          class="accordion-item mb-3 rounded-4 overflow-hidden border-0 shadow-light-sm">
+          class="accordion-item mb-3 rounded-3 overflow-hidden border-0 shadow-light-sm">
           <h2 class="accordion-header rounded-top-3"
             id="ticket1Header">
             <button class="accordion-button" ${showTran}
               type="button"
               >
-              <div style="max-width: 200px;" class="me-1 d-none d-md-block">
+              <div style="max-height: 100px;" class="me-1 d-none d-md-block">
                 <img src="/uploads/${ticket.event.thumbnail}"
-                  style="max-width: 200px;" class="img-preview rounded-4"
+                  style="max-height: 100px;" class="img-preview rounded-3"
                   alt="Image">
               </div>
               <!-- Left side (Title, Date, #Tickets) -->
               <div style="color: #4b5563;" class="ms-md-3">
-                <h3 class="mb-3">${ticket.event.eng_name}</h3>
-                <div class="mb-md-2 fs-5">
+                <h5 class="mb-2">${ticket.event.eng_name}</h5>
+                <div class="mb-md-2 fs-6">
                   <div
                     class="d-flex align-items-md-center flex-column flex-md-row">
                     <div
-                      class="d-flex align-items-center fs-5 me-md-4 mb-2 mb-md-0
+                      class="d-flex align-items-center fs-6 me-md-4 mb-2 mb-md-0
                 ">
                       <i class="text-brand" data-lucide="calendar"
                         style="stroke-width: 1.75px; width: 1.25rem;"></i>
@@ -97,7 +97,7 @@ async function getRequestTicket( status="", page=1, perpage=25) {
                       ).format("ll")}</div>
                     </div>
                     <div
-                      class="d-flex align-items-center fs-5 mb-2 mb-md-0">
+                      class="d-flex align-items-center fs-6 mb-2 mb-md-0">
                       <i class="text-brand" data-lucide="ticket"
                         style="stroke-width: 1.75px; width: 1.25rem;"></i>
                       <div class="ms-2 ">${ticket.quantity} ${ticket.ticket_type.type_name ? ticket.ticket_type.type_name : "ticket"}</div>
@@ -105,7 +105,7 @@ async function getRequestTicket( status="", page=1, perpage=25) {
                   </div>
                 </div>
                 <div
-                  class="d-flex align-items-center fs-5 mt-md-2 mb-2 mb-md-0 d-none d-sm-flex">
+                  class="d-flex align-items-center fs-6 mt-md-2 mb-2 mb-md-0 d-none d-sm-flex">
                   <i class="text-brand" data-lucide="map-pin"
                     style="stroke-width: 1.75px; width: 1.25rem;"></i>
                   <div class="ms-2 ">${ticket.event.event_type == 1 ? "Online Event" : ticket.event.location}</div>
@@ -126,7 +126,7 @@ async function getRequestTicket( status="", page=1, perpage=25) {
               <a id="btnTransaction"data-bs-toggle="tooltip" ${showTran}
               data-bs-placement="bottom"
               title="View Transaction"
-              data-bs-custom-class="custom-tooltip" class="btn btn-brand btn-icon fw-semibold ms-3 px-3 rounded-circle d-none d-sm-flex" type="button"><i data-lucide="eye"></i></a>
+              data-bs-custom-class="custom-tooltip" class="btn btn-brand btn-icon fw-semibold ms-3 px-3 rounded-circle d-none d-sm-flex" type="button"><i style="stroke-width: 1.75px; width: 1.25rem;" data-lucide="eye"></i></a>
             </button>
           </h2>
 
@@ -192,25 +192,25 @@ async function getOwnedTicket( status="", page=1, perpage=15) {
 
         document.getElementById("owned-ticket-container").innerHTML += `
                 <div
-          class="accordion-item mb-3 rounded-4 overflow-hidden border-0 shadow-light-sm">
+          class="accordion-item mb-3 rounded-3 overflow-hidden border-0 shadow-light-sm">
           <h2 class="accordion-header rounded-top-3"
             id="ticket1Header">
             <button class="accordion-button" data-tickets='${JSON.stringify(ticket)}'  onclick="showTicket(this)"
               type="button"
               data-bs-toggle="modal" data-bs-target="#exampleModalTicket">
-              <div style="max-width: 200px;" class="me-1 d-none d-md-block">
+              <div style="max-height: 100px;" class="me-1 d-none d-md-block">
                 <img src="/uploads/${ticket.event.thumbnail}"
-                  style="max-width: 200px;" class="img-preview rounded-4"
+                  style="max-height: 100px;" class="img-preview rounded-3"
                   alt="Image">
               </div>
               <!-- Left side (Title, Date, #Tickets) -->
               <div style="color: #4b5563;" class="ms-md-3">
-                <h3 class="mb-3">${ticket.event.eng_name}</h3>
+                <h5 class="mb-2">${ticket.event.eng_name}</h5>
                 <div class="mb-md-2 fs-5">
                   <div
                     class="d-flex align-items-md-center flex-column flex-md-row">
                     <div
-                      class="d-flex align-items-center fs-5 me-md-4 mb-2 mb-md-0
+                      class="d-flex align-items-center fs-6 me-md-4 mb-2 mb-md-0
                 ">
                       <i class="text-brand" data-lucide="calendar"
                         style="stroke-width: 1.75px; width: 1.25rem;"></i>
@@ -219,7 +219,7 @@ async function getOwnedTicket( status="", page=1, perpage=15) {
                       ).format("ll")}</div>
                     </div>
                     <div
-                      class="d-flex align-items-center fs-5 mb-2 mb-md-0">
+                      class="d-flex align-items-center fs-6 mb-2 mb-md-0">
                       <i class="text-brand" data-lucide="ticket"
                         style="stroke-width: 1.75px; width: 1.25rem;"></i>
                       <div class="ms-2 ">${ticket.ticket_type}</div>
@@ -227,7 +227,7 @@ async function getOwnedTicket( status="", page=1, perpage=15) {
                   </div>
                 </div>
                 <div
-                  class="d-flex align-items-center fs-5 mt-md-2 mb-2 mb-md-0 d-none d-sm-flex">
+                  class="d-flex align-items-center fs-6 mt-md-2 mb-2 mb-md-0 d-none d-sm-flex">
                   <i class="text-brand" data-lucide="map-pin"
                     style="stroke-width: 1.75px; width: 1.25rem;"></i>
                   <div class="ms-2 ">${ticket.event.location}</div>
@@ -246,8 +246,8 @@ async function getOwnedTicket( status="", page=1, perpage=15) {
 
               <a id="btnTransaction" data-bs-toggle="tooltip" data-tickets='${JSON.stringify(ticket)}'  onclick="showTicket(this)"
               data-bs-placement="bottom"
-              title="View Transaction"
-              data-bs-custom-class="custom-tooltip" class="btn btn-brand fw-semibold ms-3 rounded-circle align-items-center justify-content-center" style="width:3rem !important; height:3rem !important;"  type="button"><i data-lucide="ticket"></i><span class
+              title="Display Ticket"
+              data-bs-custom-class="custom-tooltip" class="btn btn-brand fw-semibold ms-3 rounded-circle align-items-center justify-content-center" style="width:2.75rem !important; height:2.75rem !important;"  type="button"><i data-lucide="ticket" style="stroke-width: 1.75px; width: 1.25rem;"></i><span class
               ="d-none"> Display Ticket</span></a>
             </button>
           </h2>

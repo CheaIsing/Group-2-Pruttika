@@ -188,7 +188,7 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
                                                         </a>
                                                     </td>
                                                     <td class="text-nowrap"><span class="badge fw-medium ${eventStatus} p-2  rounded-5">${eventText}</span></td>
-                                                    <td class="text-nowrap">${data.data.total_approved_registrations ? data.data.total_approved_registrations: "0"} Request </td>
+                                                    <td class="text-nowrap">${data.data.total_approved_registrations ? data.data.total_registration: "0"} Request </td>
                                                     
                                                 </tr>`
     }

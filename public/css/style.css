@@ -1513,7 +1513,7 @@ body.dashboard {
     left: 0;
     box-sizing: border-box;
     height: 60px;
-    width: 100%;
+    /* width: 100%; */
     background-color: var(--hover-clr);
     border-top: 1px solid var(--line-clr);
     display: flex;
@@ -1538,7 +1538,8 @@ body.dashboard {
 
   #sidebar {
     height: 60px;
-    width: 100%;
+    /* width: 100%; */
+    width: 90px;
     border-right: none;
     border-top: 1px solid var(--line-clr);
     padding: 0;
@@ -2459,7 +2460,7 @@ header {
   top: 0;
   width: 100%;
   transition: 0.4s;
-  z-index: 999;
+  z-index: 1000;
   background-color: white;
 }
 
@@ -3498,7 +3499,7 @@ tr.border-bottom:hover td {
 
 /* STATUS BADGES */
 .ticket-status {
-  font-size: 1rem;
+  font-size: 0.75rem;
   font-weight: 600;
   border-radius: 16px;
   padding: 8px 12px;
@@ -3543,7 +3544,7 @@ tr.border-bottom:hover td {
 
 .accordion-button h5 {
   margin: 0;
-  font-size: 1.125rem;
+  /* font-size: 1.125rem; */
   /* h5 default: 1.25rem, adjust as needed */
 }
 
@@ -3928,7 +3929,7 @@ tr.border-bottom:hover td {
   width: 100%;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
 }
 
 #result {
@@ -4470,3 +4471,54 @@ a#html5-qrcode-anchor-scan-type-change:hover {
     font-size: 8px!important;
   }
 } */
+
+/* Noti Modal */
+.ticket-notification {
+  max-width: 600px;
+  margin: 50px auto;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #f8f9fa;
+}
+.ticket-notification .notif-header {
+  padding: 20px;
+  border-bottom: 1px solid #dee2e6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ticket-notification .notif-header .close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+.ticket-notification .notif-content {
+  padding: 20px;
+}
+.ticket-notification .notif-footer {
+  padding: 20px;
+  border-top: 1px solid #dee2e6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ticket-notification .notif-footer .user-info {
+  display: flex;
+  align-items: center;
+}
+.ticket-notification .notif-footer .user-info img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.ticket-notification .notif-footer .event-info {
+  font-weight: bold;
+}
+.ticket-notification .success-icon {
+  color: green;
+  font-size: 2em;
+  margin-right: 10px;
+}
