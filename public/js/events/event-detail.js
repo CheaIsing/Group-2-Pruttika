@@ -11,6 +11,8 @@ let isAuth = false;
 let isOnlineEvent = false;
 let userId = null;
 
+let categories = []
+
 async function getEventDetail() {
   try {
     isAuth = false;
@@ -18,6 +20,9 @@ async function getEventDetail() {
     try {
       const { data: data33 } = await axiosInstance.get("/auth/me");
       data3 = data33;
+
+      console.log(data33);
+      
       isAuth = true;
     } catch (error) {
       console.log("unauthorized");
@@ -27,6 +32,8 @@ async function getEventDetail() {
     let wishlist = null;
     let data2 = null;
     let freeTicket = null;
+    console.log(isAuth);
+    
     if (isAuth) {
       const { data: resultFreeTicket } = await axiosInstance.get(
         "/profile/own-request-ticket"
@@ -137,6 +144,8 @@ async function getEventDetail() {
       .map((c) => c.name)
       .join(", ");
 
+      categories = eventObj.event_categories;
+
     if (eventObj.event_tickets.length > 0) {
       document.getElementById("ticket-category").innerText =
         eventObj.event_tickets.map((t) => t.type).join(", ");
@@ -201,7 +210,136 @@ async function getEventDetail() {
   }
 }
 
-getEventDetail();
+async function renderRelatedEvents(page = 1, perpage = 1000, is_published = true) {
+  await getEventDetail()
+  const relatedEventsContainer = document.getElementById("related-events");
+  relatedEventsContainer.innerHTML = ""; // Clear existing content
+
+
+  let queryParams = new URLSearchParams();
+  queryParams.append("sort", "created_at");
+  queryParams.append("page", `${page}`);
+  queryParams.append("is_published", `${is_published}`);
+  queryParams.append("perpage", `${perpage}`);
+
+  try {
+      let qryStr = queryParams.toString();
+
+      if (categories.length > 0) {
+        categories = categories.map(c=>c.id)
+        
+        let resultCate = categories.map(Number);
+        qryStr += `&cateId=[${resultCate}]`;
+      }
+
+      console.log(qryStr);
+      
+
+      const { data } = await axiosInstance.get(`/events?${qryStr}`);
+      const { data: events } = data;
+
+      // console.log(data);
+
+      if (events.length === 0) {
+          relatedEventsContainer.innerHTML = `
+              <div class="text-center w-100 my-5">
+                  <img src="/img/noFound.png" alt="No events found" height="220px;">
+                  <h4 class="text-center text-brand mt-2">No Related Events to Display</h4>
+              </div>
+          `;
+      } else {
+          events.forEach((event, index) => {
+              if(index <=7){
+                let pricing = null;
+              if (event.event_tickets.length > 1) {
+                  const numbers = event.event_tickets.map((et) => et.price);
+                  const minNumber = Math.min(...numbers);
+                  const maxNumber = Math.max(...numbers);
+                  pricing = `$${minNumber.toFixed(2)}`;
+              } else if (event.event_tickets.length === 1) {
+                  pricing = `${event.event_tickets[0].price > 0 ? `$${event.event_tickets[0].price.toFixed(2)}` : "Free"}`;
+              } else if (event.event_tickets.length === 0) {
+                  pricing = `Online`;
+              }
+
+              let categories = "";
+              event.event_categories.forEach((c) => {
+                  categories += `<span class="badge">${c.name}</span>`;
+              });
+
+              const eventCard = `
+                  <div class="swiper-slide">
+                      <div class="event-card mb-3 mb-lg-3">
+                          <img src="/uploads/${event.thumbnail}" alt="Event" class="event-images" style="cursor:pointer;" onclick="goEventDetail(${
+
+                                                event.id
+
+                                              })">
+                          <div class="event-card-hover">
+                              <div class="button-group z-2">
+                                                <div>
+                                                    <button onclick="addWishlist(${
+                                                      event.id
+                                                    }, this)" class="button ${
+        event.is_Wishlist && "active"
+      }">
+                                                        <i
+                                                            class="fa-regular fa-heart"></i>
+                                                        <!-- Wishlist Icon -->
+                                                    </button>
+                                                </div>
+                                                <button class="button" onclick="copyEventUrlToClipboard(${
+                                                  event.id
+                                                })">
+                                                    <i data-lucide="link" style="stroke-width: 2; width: 1.25rem;"></i>
+                                                    <!-- Copy Link Icon -->
+                                                </button>
+                                            </div>
+
+                          </div>
+                          <div class="event-detail" style="cursor:pointer;" onclick="goEventDetail(${
+
+                                                event.id
+
+                                              })">
+                              <div class="position-relative z-3 pt-3">
+                                  <div class="event-prices text-center">${pricing}</div>
+                                  <h5 class="fw-bold mb-3 text-center event-titles text-1-line">${event.eng_name}</h5>
+                                  <div class="event-tags mb-3 text-center">
+                                      ${categories}
+                                  </div>
+                                  <div class="event-meta px-4">
+                                      <p class="mb-1"><i class="fa-regular fa-calendar me-2"></i> ${moment(event.started_date).format("ll")} • ${moment(event.start_time, "HH:mm").format("LT")}</p>
+                                      <p class="mb-0"><i class="bi bi-geo-alt me-2"></i> ${event.event_type === "offline" ? event.location : "Online Event"}</p>
+                                  </div>
+                                  <div class="event-authors d-flex align-items-center px-4 my-3">
+                                      <img src="/uploads/${event.creator.avatar ? event.creator.avatar : "default.jpg"}" alt="Author" class="me-3 rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
+                                      <span class="fw-bold">${event.creator.name}</span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              `;
+              relatedEventsContainer.innerHTML += eventCard;
+              lucide.createIcons();
+              }
+          });
+
+      }
+  } catch (error) {
+
+    if(error.status == 401){
+      return
+    }
+      console.log(error);
+      showToast();
+  }
+}
+
+// Call the function to render related events
+// getEventDetail();
+renderRelatedEvents();
 
 document.getElementById("btn-copylink-event").onclick = () => {
   copyEventUrlToClipboard(eventId);

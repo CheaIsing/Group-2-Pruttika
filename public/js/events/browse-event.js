@@ -2,7 +2,7 @@ async function getCategories() {
   try {
     const result = await axiosInstance.get("/admin/event/category/view");
 
-    const categories = result.data.data;
+    const categories = result.data.data.data;
     console.log(categories);
 
     let categoriesHtml = "";

@@ -156,3 +156,57 @@ async function getAllNotifications() {
     console.log(error);
   }
 }
+
+let searchClicked = document.getElementById("searchEvent");
+
+if (searchClicked) {
+  searchClicked.addEventListener("focus", () => {
+    let searchEventbyName = document.getElementById("searchEvent").value;
+    if (searchEventbyName == "") {
+      document.querySelector(".search-dropdown").style.display = "none";
+    } else {
+      document.querySelector(".search-dropdown").style.display = "block";
+      document.querySelector(".overlay").style.display = "block";
+    }
+  });
+
+  searchClicked.addEventListener("blur", () => {
+    document.querySelector(".overlay").style.display = "none";
+    // document.querySelector('.search-dropdown').style.display = 'none';
+  });
+  document.getElementById("searchEvent").addEventListener("keyup", async function () {
+    let searchEventbyName = document.getElementById("searchEvent").value;
+
+    document.getElementById("search-dropdown").style.display = "block";
+    if (searchEventbyName == "") {
+      document.querySelector(".search-dropdown").style.display = "none";
+    }
+
+    try {
+      const {data} = await axiosInstance.get(`/events?search=${searchEventbyName}`);
+      const {data: events} = data;
+      let searchList = "";
+        if (events.length == 0) {
+          searchList = `<li class="search-dropdown-item">
+                                <i class="fa-solid fa-magnifying-glass text-brand fs-6 pe-2"></i>
+                                <span>No result</span>
+                            </li>`;
+        } else {
+          events.slice(0, 5).forEach((element) => {
+            searchList += `<li class="search-dropdown-item" style="cursor: pointer;" onclick="goEventDetail(${
+                                                  element.id
+                                                })">
+                                  <i class="fa-solid fa-magnifying-glass text-brand fs-6 pe-2"></i>
+                                  <span>${element.eng_name}</span>
+                              </li>`;
+          });
+        }
+        document.getElementById("search-dropdown").innerHTML = searchList;
+
+    } catch (error) {
+      console.log(error);
+      
+    }
+
+  });
+}
