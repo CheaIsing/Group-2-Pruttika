@@ -2,114 +2,7 @@
 <html lang="en">
 
     <%- include("../../partials/head.ejs") %>
-    <style>
-        
-        .dashboard {
-          min-height: 100vh;
-          background-color: #f8f9fa;
-        }
-        
-        .card {
-          border: none;
-          border-radius: 0.5rem;
-          box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-          transition: all 0.3s ease;
-        }
-        
-        .card:hover {
-          box-shadow: 0 4px 6px rgba(0,0,0,0.08);
-        }
-        
-        .stat-card {
-          padding: 1.5rem;
-        }
-        
-        .stat-title {
-          font-size: 0.875rem;
-          color: #6c757d;
-          margin-bottom: 0.25rem;
-        }
-        
-        .stat-value {
-          font-size: 1.5rem;
-          font-weight: 500;
-          margin-bottom: 0;
-        }
-        
-        .icon-blue { color: #3b82f6; }
-        .icon-green { color: #10b981; }
-        .icon-cyan { color: #06b6d4; }
-        .icon-yellow { color: #f59e0b; }
-        
-        .table-container {
-          overflow-x: auto;
-        }
-        
-        .custom-table {
-          min-width: 600px;
-          width: 100%;
-        }
-        
-        .custom-table th {
-          color: #6c757d;
-          font-weight: 500;
-          border-bottom: 2px solid #e9ecef;
-          padding: 0.75rem 1rem;
-        }
-        
-        .custom-table td {
-          padding: 0.75rem 1rem;
-          border-bottom: 1px solid #e9ecef;
-        }
-        
-        .custom-table tr:last-child td {
-          border-bottom: none;
-        }
-        
-        .share-link-container {
-          border: 1px solid var(--c-brand-light);
-          border-radius: 0.5rem;
-          padding: 0.5rem 1rem;
-        }
-        
-        .share-link-input {
-          border: none;
-          outline: none;
-          width: 100%;
-          color: #6c757d;
-        }
-        
-        .share-button {
-          color: var(--c-brand);
-          border: 1px solid var(--c-brand);
-          background: white;
-          padding: 0.5rem 1rem;
-          border-radius: 0.5rem;
-          transition: all 0.2s ease;
-        }
-        
-        .share-button:hover {
-          background-color: var(--c-brand-dark);
-          color: #fff;
-        }
-        
-        .social-button {
-          width: 2.5rem;
-          height: 2.5rem;
-          border: 1px solid #e11d48;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #e11d48;
-          background: white;
-          transition: all 0.2s ease;
-        }
-        
-        .social-button:hover {
-          background-color: #fdf2f2;
-        }
-            </style>
+
     <body class="bg-white-stain">
         <%- include("../../partials/manage-event-header.ejs") %>
         <main class="dashboard">
@@ -152,9 +45,7 @@
                                             <div
                                                 class="d-flex justify-content-between align-items-center">
                                                 <div>
-                                                    <h3
-                                                        class="stat-title">TICKETS
-                                                        SOLD</h3>
+                                                    <h3 class="stat-title">TICKETS SOLD</h3>
                                                     <p class="stat-value" id="ticket-sold">10
                                                         tickets</p>
                                                 </div>
@@ -173,9 +64,7 @@
                                             <div
                                                 class="d-flex justify-content-between align-items-center">
                                                 <div>
-                                                    <h3
-                                                        class="stat-title">TICKETS
-                                                        EARNINGS</h3>
+                                                    <h3 class="stat-title">TICKETS EARNINGS</h3>
                                                     <p
                                                         class="stat-value" id="ticket-earning">$100.00</p>
                                                 </div>
@@ -214,8 +103,7 @@
                                             <div
                                                 class="d-flex justify-content-between align-items-center">
                                                 <div>
-                                                    <h3  class="stat-title">NOT
-                                                        YET PARTICIPATE</h3>
+                                                    <h3  class="stat-title">NOT YET PARTICIPATE</h3>
                                                     <p class="stat-value" id="not-participated">0</p>
                                                 </div>
                                                 <div style="color: #F59E0B;" class={class}><i
@@ -233,16 +121,13 @@
                                                 <thead>
                                                     <tr>
                                                         <th
-                                                            class="text-start">Ticket
-                                                            Type</th>
+                                                            class="text-start">Ticket Type</th>
                                                         <th
                                                             class="text-end">Price</th>
                                                         <th
-                                                            class="text-end">Tickets
-                                                            Bought</th>
+                                                            class="text-end">Tickets Bought</th>
                                                         <th
-                                                            class="text-end">Total
-                                                            Earnings</th>
+                                                            class="text-end">Total Earnings</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody id="ticket-tbody">
@@ -285,8 +170,7 @@
                                 <div class="card p-4">
                                     <h2 class="h4 mb-4">Share</h2>
                                     <div class="mb-4">
-                                        <p class="text-muted mb-2">Event
-                                            link <i class="text-brand" data-lucide="link" width="1.25rem"></i></p>
+                                        <p class="text-muted mb-2">Event link <i class="text-brand" data-lucide="link" width="1.25rem"></i></p>
                                         <div class="d-flex gap-2">
                                             <div
                                                 class="share-link-container flex-grow-1 d-flex align-items-center">

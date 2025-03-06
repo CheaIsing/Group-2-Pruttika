@@ -21,12 +21,27 @@
       "social": "ឬបង្កើតគណនីជាមួយបណ្តាញសង្គម",
       "content": "ស្វាគមន៏ការត្រឡប់មកវិញ ! ចូលគណនីអ្នកដើម្បីបន្តជាមួយយើង"
     },
-    "forgot-password": {},
-    "verify-otp": {},
-    "reset-password": {}
+    "forgot-password": {
+      "heading": "ភ្លេចពាក្យសម្ងាត់",
+      "label": "បញ្ចូលអុីម៉ែលរបស់អ្នក",
+      "placeholder": "example@email.com",
+      "button": "បញ្ចូន"
+    },
+    "verify-otp": {
+      "heading": "ការផ្ទៀងផ្ទាត់ OTP",
+      "label": "បញ្ចូលលេខកូដដែលយើងផ្ញើរទៅអ៊ីមែលរបស់អ្នក",
+      "button": "ផ្ទៀងផ្ទាត់",
+      "question": "មិនទទួលបាន OTP ទេ?",
+      "resend": "ផ្ញើឡើងវិញ"
+    },
+    "reset-password": {
+      "heading": "កំណត់ពាក្យសម្ងាត់ឡើងវិញ",
+      "new-pass": "ពាក្យសម្ងាត់ថ្មី",
+      "confirm-pass": "ផ្ទៀងផ្ទាត់ពាក្យសម្ងាត់",
+      "button": "កំណត់ពាក្យសម្ងាត់ឡើងវិញ"
+    }
   },
-  "event": {},
-  "profile": {},
+
   "partials":{
         "footer":{
             "content":"Your seamless platform for event management, where creativity meets efficiency. We simplify planning, coordinate every detail, and bring your vision to life for unforgettable experiences that inspire.",
@@ -70,6 +85,344 @@
             "org-management": "Organizer Setting"
         }
   },
+
+  "profile": {
+    "accManagement":{
+      "title":"Account Management",
+      "language":"Language",
+      "eng":"English",
+      "kh":"Khmer",
+      "save-change":"Save Change",
+      "change-pw":"Change Your Password",
+      "changePw-content":"Click the button below to proceed with updating your password",
+      "delete-acc":"Delete Your Account",
+      "deleteAcc-content":"Deleting your account will remove all information from our database. This action cannot be undone.",
+      "delete-btn":"Delete Account"
+    },
+    "changeLanguage":{
+      "title": "Change Language"
+    },
+    "changePw":{
+      "title":"Change Your Password",
+      "content":"To ensure the security of your account, we recommend updating your password regularly.",
+      "current-pw":"Current Password",
+      "error-pw":"Password must be at least 6 characters.",
+      "new-pw":"New Password",
+      "cf-pw":"Confirm Password",
+      "error-cfPw":"Password must be the same as your new password.",
+      "change-pw":"Change Password"
+    },
+    "deleteAcc":{
+      "title":"Delete Account",
+      "content":"Deleting your account will be remove all information from our database. this action cannot undone",
+      "current-pw":"Current Password",
+      "error-pw":"Password must be at least 6 characters."
+    },
+    "organizer":{
+      "upgrade-acc":"Upgrade Account To Organizer",
+      "tip":"Tip",
+      "tip-info":"Give some information to upgrade account to organizer.",
+      "org-name":"Organization Name",
+      "enter-orgname":"Enter your organization name",
+      "bio":"Bio",
+      "phone":"Phone Number",
+      "enter-phone":"Enter your phone number",
+      "email":"Email",
+      "enter-email":"Enter your email",
+      "location":"Location",
+      "enter-location" :"Enter your location",
+      "social":"Social Media Links",
+      "submit":"Submit"
+    },
+    "org-profile":{
+      "title":"Organizer Profile",
+      "Events":"Events",
+      "follower":"Followers",
+      "following":"Following",
+      "contact":"Contact",
+      "about":"About",
+      "social":"Social Media",
+      "all":"All",
+      "upcoming":"Upcoming",
+      "showing":"Showing",
+      "past":"Past"
+    },
+    "org-view":{
+      "title":"Organizer Information",
+      "tip":"Tip",
+      "tip-info":"Some information that upgrade account to organizer.",
+      "status":"Status",
+      "rej-reason":"Rejection Reason"
+    },
+    "policy":{
+      "title":"Privacy Policy",
+      "effective-date":"Effective Date",
+      "h2-1":"1. Information We Collect",
+      "p1":"We collect two types of information",
+      "copyright":"2025@PRUTTIKA. All Rights Reserved."
+    },
+    "profile-info":{
+      "title":"Profile Information",
+      "changePf":"Change Profile",
+      "removePf":"Remove Profile",
+      "pfPic":"Profile Picture",
+      "engName":"English Username",
+      "khName":"Khmer Username",
+      "email":"Email",
+      "phone":"Phone",
+      "dob":"Date of Birth",
+      "address":"Address",
+      "gender":"Gender",
+      "male":"Male",
+      "female":"Female",
+      "saveChange":"Save Changes",
+      "save":"Save"
+    }
+  },
+
+  "follow":{
+    "title":"Follow",
+    "Followers":"Followers",
+    "Following":"Following",
+    "all-follower":"All Followers",
+    "follow-back":"Follow Back",
+    "ppl-follow":"People you follow"
+  },
+
+  "ticket":{
+    "buy-ticket":{
+        "request-purchase":"Request Purchase",
+        "ticket":"Ticket",
+        "purchase-info":"Purchase Information",
+        "type":"Ticket Type",
+        "qty":"Number of Tickets",
+        "Subtotal":"Subtotal",
+        "discount":"Dicount Fee",
+        "total":"Total",
+        "qr":"Payment QR Code",
+        "showqr":"Show QR Code",
+        "upload-payment":"Upload Payment Proof",
+        "choose-file":"Choose File",
+        "no-file":"No file selected",
+        "val-msg":"Please upload your payment transaction in .jpeg, .jpg, or png",
+        "submit":"Submit Purchase"
+    },
+
+    "myTicket":{
+      "title":"My Ticket",
+      "ownedTicket":"Owned Ticket",
+      "all-ticket":"All Tickets",
+      "reqTicket":"Requested Ticket",
+      "all":"All",
+      "issue":"Issue",
+      "used":"Used",
+      "approve":"Approved",
+      "pending":"Pending",
+      "reject":"Rejected",
+      "tts":"Ticket Transaction",
+      "status":"Status",
+      "ticket-detail":"Ticket Detail",
+      "ticket-bought":"Ticket Bought",
+      "price":"Price Per Ticket",
+      "discount":"Discount",
+      "total":"Total",
+      "Price":"Price",
+      "Start":"Start",
+      "End":"End",
+      "Phone Number":"Phone Number"
+    },
+    "req-ticket":{
+      "event":"Event",
+      "status":"Status",
+      "purchase-date":"Purchase Date",
+      "qty":"Quantity",
+      "total":"Total price",
+      "view-tts":"View Transaction",
+      "view-ticket":"View Ticket",
+      "transaction":"Transaction",
+      "view-detail":"View Details"
+    }
+  },
+
+  "notification":{
+    "title":"Notifications",
+    "make-as-read":"Mark all as read",
+    "all":"All",
+    "unread":"Unread"
+  },
+
+  "event":{
+    "Event":"Event",
+    "Status":"Status",
+    "Upcoming":"Upcoming",
+    "Showing":"Showing",
+    "Past":"Past",
+    "Any":"Any",
+    "All":"All",
+    "backToEvent":"Back to Event",
+    "eventTitle":"Event Title",
+    "lastestPost":"Latest Post",
+    "search":"Search",
+    "edit":"Edit",
+    "Delete":"Delete",
+    "View":"View",
+    "copyLink":"Copy Link",
+    "price":"Price",
+
+    "browseEvent":{
+      "title":"Browse Event",
+      "discoverEvent":"Discover Events",
+      "content-p":"Find and join amazing events near you",
+      "filter":"Filter",
+      "sort":"Sort",
+      "clear":"Clear All",
+      "Date":"Date",
+      "anyDay":"Any Day",
+      "thisWeek":"This Week",
+      "thisMonth":"This Month",
+      "anyPrice":"Any Price",
+      "Free":"Free",
+      "Categories":"Categories"
+    },
+    "checkin-ticket":{
+      "checkList":"Check In Ticket List",
+      "checkin-ticket":"Check-in Ticket",
+      "requiredToken":"Ticket token is required.",
+      "checkin":"Check In"
+    },
+
+    "event-checkin":{
+      "CheckedIn":"Checked-In",
+      "checkin-ticket":"Check In Ticket"
+    },
+
+    "create-event":{
+      "title":"Create Event",
+      "Step-1-of-6":"Step 1 of 6",
+      "uploadThumbnailText":"Upload an image as your thumbnail",
+      "tip":"Tip",
+      "tip-thumbnail":"Use photo that attracts viewers.",
+      "uploadImg":"Upload Image",
+      "no-file":"No file chosen",
+      "recmd-size":"Recommended image size",
+      "max-size":"Maximum file size",
+      "support-file":"Supported image files",
+      "eventOverview":"Event Overview",
+      "tip-overview":"Give an attractive brief paragraph about your event.",
+      "eventType":"Event Type",
+      "offline":"In Person",
+      "online":"Online",
+      "eventCate":"Event Categories",
+      "eventLink":"Event Link will be required when date is comming.",
+      "dateLocation":"Event Date and Location",
+      "startD":"Start Date",
+      "endD":"End Date",
+      "startT":"Start Time",
+      "endT":"End Time",
+      "location":"Location",
+      "event-des":"Event Description",
+      "tip-des":"Give a short attractive and full detail description about your event.",
+      "short-des":"Short Description",
+      "des-detail":"Description Detail",
+      "eventAgenda":"Event Agenda",
+      "tip-agenda":"Give agendas about your event.",
+      "addAgenda":"Add a new agenda",
+      "skipAgenda":"Don't have an agenda yet? You can skip this step and add it later!",
+      "ticketCate":"Ticket Categories",
+      "tip-ticket":"Set up tickets information and define ticket categories for your event.",
+      "generalAdmission":"General Admission",
+      "ticket-name":"Name",
+      "price":"Price",
+      "enter-price":"Enter price",
+      "Capacity":"Capacity",
+      "enterCapacity":"Enter capacity",
+      "create-ownedTicket":"Create Your Own Ticket Categories",
+      "addNewTCate":"Add a New Ticket Category",
+      "noTicketInfo":"No ticket is needed for this online event. You can continue to the next step!",
+      "paymentMethod":"Payment Method",
+      "tip-payment":"Give a KHQR image for your payment method.",
+      "noQrInfo":"No QR payment needed for free entry. You can proceed to the next step!",
+      "publishEvent":"Publish Events",
+      "tip-publish":"Publish your event in public or private.",
+      "publishQuestion":"Is your event public or private?",
+      "Public":"Public",
+      "sharePublish":"Shared on Pruttika and search engines",
+      "Private":"Private",
+      "sharePrivate":"Shared with event link to select audience",
+      "cfPost-h4":"You're all set!",
+      "cfPost-p1":"You’ve successfully completed all the steps to create your event.",
+      "cfPost-p2":"Click the submit button to finalize and publish your event.",
+      "success-content1":"Success! We'll get back to you ASAP!",
+      "success-content2":"Meanwhile, clean your hands often, use soap and water, or an alcohol-based hand rub, maintain a safe distance from anyone who is coughing or sneezing and always wear a mask when physical distancing is not possible.",
+      "goBackBegin":"Go back from the beginning",
+      "Previous":"Previous",
+      "Next":"Next",
+      "Submit":"Submit"
+    },
+    "event-req":{
+      "title":"Request Ticket",
+      "Request":"Request"
+    },
+    "event":{
+      "Participated":"Participated",
+      "Sold":"Sold",
+      "Gross":"Gross"
+    },
+    "event-detail":{
+      "Agenda":"Agenda",
+      "eventDetail":"Event Details",
+      "addWishlist":"Add to Wishlist",
+      "Type":"Type",
+      "Date":"Date",
+      "Time":"Time",
+      "Location":"Location",
+      "Categories":"Categories",
+      "ticketCategories":"Ticket Categories",
+      "ticketCapacity":"Ticket Capacity",
+      "postedBy":"Posted By",
+      "eventOrganizer":"Event Organizer",
+      "Follow":"Follow",
+      "Tickets":"Tickets",
+      "eventEntry":"Event Entry",
+      "purchaseTicket":"Purchase Ticket",
+      "Related":"Related"
+    },
+    "req-ticket":{
+      "reqTicket-list":"Request Ticket List",
+      "ticket-req":"Ticket Request",
+      "Avatar":"Avatar",
+      "Name":"Name",
+      "Amount":"Amount",
+      "Date":"Date",
+      "Action":"Action"
+    },
+    "req-transaction":{
+      "backToReq-list":"Back to Request Ticket List",
+      "Transaction":"Transaction",
+      "disapproveReq":"Disapprove request",
+      "enter-rejReason":"Enter Reject Reason",
+      "required-rejReason":"Reject Reason is required.",
+      "Close":"Close",
+      "Send":"Send"
+    },
+    "summary":{
+      "title":"Event Summary",
+      "ticketSold":"TICKETS SOLD",
+      "ticketEarning":"TICKETS EARNINGS",
+      "Participated":"PARTICIPATED",
+      "notParticipated":"NOT YET PARTICIPATE",
+      "ticketDetail":"Ticket Details",
+      "ticketType":"Ticket Type",
+      "ticketBought":"Tickets Bought",
+      "totalEarning":"Total Earnings",
+      "share":"Share",
+      "eventLink":"Event link"
+    },
+    "wishlist":{
+      "title":"Wishlist Event"
+    }
+  },
+  
   "mainpage":{
         "pruttika" :"PRUTTIKA",
         "events":"events",
@@ -92,10 +445,5 @@
         "abt-1":"សូមស្វាគមន៍មកកាន់",
         "abt-h1":"Your One-Stop Platform for All Things Events!",
         "abt-p":"Pruttika is an innovative, user-friendly website designed to empower users with complete control over their events. From ideation to execution, Pruttika provides a comprehensive suite of tools to create events, manage tickets, and promote services effectively."
-  },
-  "ticket":{
-        "buy-ticket":{
-            "request-purchase":"Request Purchase"
-        }
   }
 }
