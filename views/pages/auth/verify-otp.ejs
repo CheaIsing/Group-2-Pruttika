@@ -14,11 +14,10 @@
             <a href="/">
               <img src="/img/Pruttikar_Logo1.png" class="mb-2" height="40px" width="40px" alt="logo">
             </a>
-            <h2 class="titles mb-md-4">OTP Verification</h2>
+            <h2 class="titles mb-md-4"><%= t('auth.verify-otp.title') %></h2>
 
             <div class="mb-3" style="max-width: 380px; width: 100%;">
-              <label class="form-label mb-4 ">Enter the code that we sent to your
-                email</label>
+              <label class="form-label mb-4 "><%= t('auth.verify-otp.enter-email') %></label>
               <div id="otp-inputs"
                 class="otp-inputs mb-3 d-flex justify-content-between"
                 style="max-width: 380px; width: 100%;">
@@ -34,20 +33,20 @@
                 id="invalid_feedback_otp">
                 <i
                   class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
-                <div class="ms-2">Invalid email.</div>
+                <div class="ms-2"><%= t('auth.verify-otp.invalid-email') %></div>
               </div>
             </div>
             <div class style="max-width: 380px; width: 100%;">
 
               <!-- Changed input to button -->
-              <button type="submit" class="btn btn-brand w-100" id="btnVerify">Verify</button>
+              <button type="submit" class="btn btn-brand w-100" id="btnVerify"><%= t('auth.verify-otp.verify') %></button>
             </div>
             <div
               class="resend-otp d-flex align-items-center justify-content-center my-1"
               style="max-width: 380px; width: 100%;">
-              Didn't receive the OTP? <button type="button" id="resendBtn"
+              <%= t('auth.verify-otp.no-OTP') %> <button type="button" id="resendBtn"
                 class="fw-medium text-brand bg-transparent p-0 border-0 ps-2"
-                onclick="resendOtp(this)">Resend</button>
+                onclick="resendOtp(this)"><%= t('auth.verify-otp.resend') %></button>
             </div>
           </form>
         </div>
@@ -58,10 +57,9 @@
         <div class="panel left-panel">
           <div class="content">
             <h3>
-              Create amazing memories with us!
+              <%= t('auth.signin.content') %>
             </h3>
-            <button class="btn transparent mt-3" id="sign-up-btn">Sign
-              up</button>
+            <button class="btn transparent mt-3" id="sign-up-btn"><%= t('auth.signup.heading') %></button>
           </div>
           <img src="/img/log.svg" class="image" alt />
         </div>
