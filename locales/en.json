@@ -23,10 +23,29 @@
       "content": "Welcome back ! Let's get started Again!"
     },
     "forgot-password": {
-      "title":"Forgot Password",
-      "enter-email":"Enter Your Email Address",
-      "invalid-email":"Invalid email.",
-      "send":"Send"
+      "heading": "Forget Password",
+      "label": "Enter Your Email Address",
+      "placeholder": "example@email.com",
+      "button": "Send"
+    },
+    "verify-otp": {
+      "heading": "OTP Verification",
+      "label": "Enter the code that we sent to your email",
+      "button": "verify",
+      "question": "Didn't receive the OTP?",
+      "resend": "Resend"
+    },
+    "reset-password": {
+      "heading": "Reset Password",
+      "new-pass": "New Password",
+      "confirm-pass": "Confirm Password",
+      "button": "Reset Password"
+    }
+  },
+  "event": {},
+  "profile": {
+    "accManagement":{
+      "title":"Account Management"
     },
     "verify-otp": {
       "title":"OTP Verification",

@@ -17,15 +17,30 @@ const getSignIn = (req, res) => {
 };
 
 const getForgotPassword = (req, res) => {
-  res.render("pages/auth/forgot-password", { title: "Forgot Password" });
+  res.render("pages/auth/forgot-password", {
+    title: req.t("auth.forgot-password.heading"),
+    language: req.language,
+    req,
+    t: req.t,
+  });
 };
 
 const getVerifyOtp = (req, res) => {
-  res.render("pages/auth/verify-otp", { title: "Verify OTP" });
+  res.render("pages/auth/verify-otp", {
+    title: req.t("auth.verify-otp.heading"),
+    language: req.language,
+    req,
+    t: req.t,
+  });
 };
 
 const getResetPassword = (req, res) => {
-  res.render("pages/auth/reset-password", { title: "Reset Password" });
+  res.render("pages/auth/reset-password", {
+    title: req.t("auth.reset-password.heading"),
+    language: req.language,
+    req,
+    t: req.t,
+  });
 };
 
 module.exports = {

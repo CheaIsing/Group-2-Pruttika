@@ -9,7 +9,6 @@ i18next
   .init({
     fallbackLng: "en",
     backend: {
-      // Use absolute path for the translation files
       loadPath: path.join(__dirname, "../locales/{{lng}}.json"),
     },
     detection: {
@@ -17,7 +16,7 @@ i18next
       caches: ["cookie"],
     },
     interpolation: {
-      escapeValue: false, // Disable escaping for XSS
+      escapeValue: false, 
     },
   });
 

@@ -22,25 +22,23 @@
       "content": "ស្វាគមន៏ការត្រឡប់មកវិញ ! ចូលគណនីអ្នកដើម្បីបន្តជាមួយយើង"
     },
     "forgot-password": {
-      "title":"Forgot Password",
-      "enter-email":"Enter Your Email Address",
-      "invalid-email":"Invalid email.",
-      "send":"Send"
+      "heading": "ភ្លេចពាក្យសម្ងាត់",
+      "label": "បញ្ចូលអុីម៉ែលរបស់អ្នក",
+      "placeholder": "example@email.com",
+      "button": "បញ្ចូន"
     },
     "verify-otp": {
-      "title":"OTP Verification",
-      "enter-email":"Enter the code that we sent to your email",
-      "invalid-email":"Invalid email.",
-      "verify":"Verify",
-      "no-OTP":"Didn't receive the OTP?",
-      "resend":"Resend"
+      "heading": "ការផ្ទៀងផ្ទាត់ OTP",
+      "label": "បញ្ចូលលេខកូដដែលយើងផ្ញើរទៅអ៊ីមែលរបស់អ្នក",
+      "button": "ផ្ទៀងផ្ទាត់",
+      "question": "មិនទទួលបាន OTP ទេ?",
+      "resend": "ផ្ញើឡើងវិញ"
     },
     "reset-password": {
-      "title":"Reset Password",
-      "newpw":"New Password",
-      "cfPw":"Confirm Password",
-      "invalid-email":"Invalid email."
-      
+      "heading": "កំណត់ពាក្យសម្ងាត់ឡើងវិញ",
+      "new-pass": "ពាក្យសម្ងាត់ថ្មី",
+      "confirm-pass": "ផ្ទៀងផ្ទាត់ពាក្យសម្ងាត់",
+      "button": "កំណត់ពាក្យសម្ងាត់ឡើងវិញ"
     }
   },
 
