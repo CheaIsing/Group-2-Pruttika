@@ -341,7 +341,7 @@ async function deleteNotification(id, btn) {
 
 async function markNotification(id, btn) {
     try {
-        await axiosInstance.put("/notification/" + id);
+        await axiosInstance.put("/notification/read/" + id);
         showToast(true, "Notification marked successfully.");
         const unread = btn.closest(".notification").querySelector(".icon-unread");
         if (unread) {
