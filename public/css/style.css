@@ -4462,11 +4462,11 @@ a#html5-qrcode-anchor-scan-type-change:hover {
 }
 
 /* hero */
-@media (max-width: 600px) {
+/* @media (max-width: 600px) {
   .hero-title h1 , span {
    font-size: 26px!important;
   }
   .hero-title button{
     font-size: 8px!important;
   }
-}
+} */

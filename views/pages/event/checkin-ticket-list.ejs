@@ -17,11 +17,11 @@
                             <div class="d-flex align-items-center">
                             <button onclick="history.back()" type="button" class="btn fw-medium border-0 ps-0 d-flex align-items-center mb-2">
                                 <i class="fa-solid fa-angle-left fs-6 m-0 p-0 "></i>
-                                <span class="m-0 ps-2"><a>Back to Event</a></span>
+                                <span class="m-0 ps-2"><a><%= t('event.backToEvent') %></a></span>
                             </button>
                         </div>
                         <div class="card mb-4 p-4 border-0 shadow-light-sm">
-                            <h1 class="h3 mb-2">Check In Ticket List</h1>
+                            <h1 class="h3 mb-2"><%= t('event.checkin-ticket.checkList') %></h1>
                             <h2
                                 class="h5 text-muted mb-2" id="title">{eventData.eng_name}</h2>
                             
@@ -52,14 +52,14 @@
                                         <div
                                             class="d-flex justify-content-between">
 
-                                                <h4>Checked-In</h4>
+                                                <h4><%= t('event.checkin-ticket.CheckedIn') %></h4>
                                             </div>
                                             <div
                                                 class=" w-50 d-flex justify-content-end">
                                                 <input type="text"
                                                     id="searchInput"
                                                     class="form-control mb-3 w-75"
-                                                    placeholder="Search by name...">
+                                                    placeholder="<%= t('event.checkin-ticket.searchBy') %>...">
                                             </div>
 
                                         </div>
@@ -68,17 +68,12 @@
                                                 id="ticketTable">
                                                 <thead>
                                                     <tr>
-                                                        <th >#</th>
-                                                        <th
-                                                            >Avatar</th>
-                                                        <th
-                                                            >Name</th>
-                                                        <th
-                                                            >Type</th>
-                                                        <th
-                                                            >Email</th>
-                                                        <th >Check-in
-                                                            Date</th>
+                                                        <th>#</th>
+                                                        <th><%= t('event.checkin-ticket.avatar') %>Avatar</th>
+                                                        <th><%= t('event.checkin-ticket.name') %>Name</th>
+                                                        <th><%= t('event.checkin-ticket.type') %>Type</th>
+                                                        <th><%= t('event.checkin-ticket.email') %>Email</th>
+                                                        <th><%= t('event.checkin-ticket.CheckDate') %></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody id="request-tbody">
@@ -103,7 +98,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5"
-                            id="exampleModalLabel">Check-in Ticket</h1>
+                            id="exampleModalLabel"><%= t('event.checkin-ticket.checkin-ticket') %></h1>
                         <button type="button" class="btn-close"
                             data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
@@ -113,7 +108,7 @@
                                 id="input-field-qrcode">
                                 <i class="fas fa-lock"></i>
                                 <input type="text"
-                                    placeholder="Enter ticket token"
+                                    placeholder="<%= t('event.checkin-ticket.enter-token') %>"
                                     id="qrcode" autofocus />
                             </div>
                             <div
@@ -121,8 +116,7 @@
                                 id="invalid_feedback_qrcode">
                                 <i
                                     class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
-                                <div class="ms-2">Ticket token is
-                                    required.</div>
+                                <div class="ms-2"><%= t('event.checkin-ticket.requiredToken') %></div>
                             </div>
                         </div>
                     </div>
@@ -130,7 +124,7 @@
 
                         <button type="button"
                             class="btn btn-brand w-100"
-                            id="btn-checked-in">Check In</button>
+                            id="btn-checked-in"><%= t('event.checkin-ticket.checkin') %></button>
                     </div>
 
                 </div>

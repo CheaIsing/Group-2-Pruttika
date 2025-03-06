@@ -12,7 +12,7 @@
                 <!-- <span
                     class="badge rounded-pill text-white bg-brand fs-6 fw-medium mb-3"
                     id="snippet-date">Fri, 23 Feb 2025</span> -->
-                <h1 class="fs-2" id="title">Browse Event</h1>
+                <h1 class="fs-2" id="title"><%= t('event.browseEvent.title') %></h1>
                 <!-- <p id="short-desc">Lorem ipsum dolor sit amet consectetur
                     adipisicing elit. Nulla quas perferendis.</p> -->
 
@@ -22,13 +22,13 @@
             <div class="container-lg">
                 <div class="row align-items-center mb-4">
                     <div class="col-xxl-8">
-                        <h1 class="h2">Discover Events</h1>
-                        <p class="text-muted">Find and join amazing events near
-                            you</p>
+                        <h1 class="h2"><%= t('event.browseEvent.discoverEvent') %></h1>
+                        <p class="text-muted"><%= t('event.browseEvent.content-p') %></p>
                     </div>
                     <div class="col-xxl-4 d-flex gap-2">
                         <button class="btn btn-outline-brand d-xxl-none"
-                            onclick="showSidebar()">Filter</button>
+                            onclick="showSidebar()"><%= t('event.browseEvent.filter') %>
+                        </button>
                         <div class="input-group flex-nowrap">
                             <span
                                 class="input-group-text bg-white border-end-0 "
@@ -37,7 +37,7 @@
                             </span>
                             <input type="search" id="searchInput"
                                 class="form-control border-start-0 shadow-none fw-medium"
-                                placeholder="Search Event..." name="search">
+                                placeholder="<%= t('event.browseEvent.searchEvent') %>" name="search">
 
                         </div>
                     </div>
@@ -52,48 +52,48 @@
                             <div class="mb-4">
                                 <div
                                     class="d-flex align-items-center justify-content-between mb-3">
-                                    <h3 class="h5 mb-0">Sort</h3>
+                                    <h3 class="h5 mb-0"><%= t('event.browseEvent.sort') %></h3>
                                     <a role="button" id="btnResetFilter"
-                                        class="text-brand h6 mb-0">Clear All</a>
+                                        class="text-brand h6 mb-0"><%= t('event.browseEvent.clear') %></a>
 
                                 </div>
                                 <select id="sort-filter"
                                     class="form-select w-100 border rounded-3 fw-normal"
                                     style="background-color: #f3f4f6;">
                                     <option value>Any</option>
-                                    <option value="eng_name">Event Title</option>
-                                    <option value="created_at">Latest Post</option>
+                                    <option value="eng_name"><%= t('event.eventTitle') %></option>
+                                    <option value="created_at"><%= t('event.lastestPost') %></option>
                                 </select>
                             </div>
                             <div class="mb-4">
-                                <h3 class="h5">Status</h3>
+                                <h3 class="h5"><%= t('event.Status') %></h3>
                                 <select id="status-filter"
                                     class="form-select w-100 border rounded-3 fw-normal"
                                     style="background-color: #f3f4f6;">
-                                    <option value="">Any</option>
-                                    <option value="3">Upcoming</option>
-                                    <option value="2">Showing</option>
-                                    <option value="1">Past</option>
+                                    <option value=""><%= t('event.Any') %></option>
+                                    <option value="3"><%= t('event.Upcoming') %></option>
+                                    <option value="2"><%= t('event.Showing') %></option>
+                                    <option value="1"><%= t('event.Past') %></option>
                                 </select>
                             </div>
                             <div class="mb-4">
-                                <h3 class="h5">Date</h3>
+                                <h3 class="h5"><%= t('event.browseEvent.Date') %></h3>
                                 <select id="date-filter"
                                     class="form-select w-100 border rounded-3 fw-normal"
                                     style="background-color: #f3f4f6;">
-                                    <option value>Any Day</option>
-                                    <option value="week">This Week</option>
-                                    <option value="month">This Month</option>
+                                    <option value><%= t('event.browseEvent.anyDay') %></option>
+                                    <option value="week"><%= t('event.browseEvent.thisWeek') %></option>
+                                    <option value="month"><%= t('event.browseEvent.thisMonth') %></option>
                                 </select>
                             </div>
 
                             <div class="mb-4">
-                                <h3 class="h5">Price</h3>
+                                <h3 class="h5"><%= t('event.price') %></h3>
                                 <select id="price-filter"
                                     class="form-select w-100 border rounded-3 fw-normal"
                                     style="background-color: #f3f4f6;">
-                                    <option value>Any Price</option>
-                                    <option value="free">Free</option>
+                                    <option value><%= t('event.browseEvent.anyPrice') %></option>
+                                    <option value="free"><%= t('event.browseEvent.Free') %></option>
                                     <option value="0-50">$0 - $50</option>
                                     <option value="50-100">$50 - $100</option>
                                     <option value="100-200">$100 - $200</option>
@@ -110,7 +110,7 @@
                                 </select>
                             </div> -->
                             <div class="mb-4" id>
-                                <h3 class="h5">Categories</h3>
+                                <h3 class="h5"><%= t('event.browseEvent.Categories') %></h3>
                                 <div id="category-container">
                                     <button
                                         class="btn btn-light w-100 px-4 border-0 rounded-3 mb-2 fw-normal justify-content-between"
@@ -340,7 +340,7 @@
                     onclick="hideSidebar()"></div>
                 <div class="mobile-sidebar" id="mobile-sidebar">
                     <div class="d-flex align-items-center mb-4 border-bottom">
-                        <h4 class="mb-0">Filter</h4>
+                        <h4 class="mb-0"><%= t('event.browseEvent.filter') %></h4>
                         <button class="btn btn-link text-dark ms-auto"
                             onclick="hideSidebar()"><i
                                 data-lucide="x"></i></button>
@@ -348,48 +348,48 @@
                     <div class="mb-4">
                         <div
                             class="d-flex align-items-center justify-content-between mb-3">
-                            <h3 class="h5 mb-0">Sort</h3>
+                            <h3 class="h5 mb-0"><%= t('event.browseEvent.sort') %></h3>
                             <a role="button" id="btnResetFilterMobile"
-                                class="text-brand h6 mb-0">Clear All</a>
+                                class="text-brand h6 mb-0"><%= t('event.browseEvent.clear') %></a>
 
                         </div>
                         <select id="sort-filter-mobile"
                             class="form-select w-100 border rounded-3 fw-normal"
                             style="background-color: #f3f4f6;">
-                            <option value>Any</option>
-                            <option value="eng_name">Event Title</option>
-                            <option value="created_at">Latest Post</option>
+                            <option value><%= t('event.Any') %></option>
+                            <option value="eng_name"><%= t('event.eventTitle') %></option>
+                            <option value="created_at"><%= t('event.lastestPost') %></option>
                         </select>
                     </div>
                     <div class="mb-4">
-                        <h3 class="h5">Status</h3>
+                        <h3 class="h5"><%= t('event.Status') %></h3>
                         <select id="status-filter-mobile"
                             class="form-select w-100 border rounded-3 fw-normal"
                             style="background-color: #f3f4f6;">
-                            <option value="">Any Status</option>
-                            <option value="3">Upcoming</option>
-                            <option value="2">Showing</option>
-                            <option value="1">Past</option>
+                            <option value=""><%= t('event.Any') %></option>
+                            <option value="3"><%= t('event.Upcoming') %></option>
+                            <option value="2"><%= t('event.Showing') %></option>
+                            <option value="1"><%= t('event.Past') %></option>
                         </select>
                     </div>
                     <div class="mb-4">
-                        <h3 class="h5">Date</h3>
+                        <h3 class="h5"><%= t('event.browseEvent.Date') %></h3>
                         <select id="date-filter-mobile"
                             class="form-select w-100 border rounded-3 fw-normal"
                             style="background-color: #f3f4f6;">
-                            <option value>Any Day</option>
-                            <option value="week">This Week</option>
-                            <option value="month">This Month</option>
+                            <option value><%= t('event.browseEvent.anyDay') %></option>
+                            <option value="week"><%= t('event.browseEvent.thisWeek') %></option>
+                            <option value="month"><%= t('event.browseEvent.thisMonth') %></option>
                         </select>
                     </div>
 
                     <div class="mb-4">
-                        <h3 class="h5">Price</h3>
+                        <h3 class="h5"><%= t('event.price') %></h3>
                         <select id="price-filter-mobile"
                             class="form-select w-100 border rounded-3 fw-normal"
                             style="background-color: #f3f4f6;">
-                            <option value>Any Price</option>
-                            <option value="free">Free</option>
+                            <option value><%= t('event.browseEvent.anyPrice') %></option>
+                            <option value="free"><%= t('event.browseEvent.Free') %></option>
                             <option value="0-50">$0 - $50</option>
                             <option value="50-100">$50 - $100</option>
                             <option value="100-200">$100 - $200</option>
@@ -397,7 +397,7 @@
                         </select>
                     </div>
                     <div class="mb-4">
-                        <h3 class="h5">Categories</h3>
+                        <h3 class="h5"><%= t('event.browseEvent.Categories') %></h3>
                         <div id="categories-mobile-container">
 
                         </div>
