@@ -112,13 +112,32 @@ function toHHMMFormat(timeValue) {
 
 function copyEventUrlToClipboard(eventId) {
   const url = `${window.location.protocol}//${window.location.host}/event/detail?e=${eventId}`;
-
   console.log(url);
-  
 
-  window.navigator.clipboard.writeText(url).then(() => {
-    showToast(true, "Copied to Clipboard.");
-  });
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url)
+          .then(() => {
+              showToast(true, "Copied to Clipboard.");
+          })
+          .catch(err => {
+              console.error("Failed to copy: ", err);
+              showToast(false, "Failed to copy. Please try again.");
+          });
+  } else {
+      // Fallback method (using a temporary textarea)
+      const textArea = document.createElement("textarea");
+      textArea.value = url;
+      document.body.appendChild(textArea);
+      textArea.select();
+      try{
+          document.execCommand('copy');
+          showToast(true, "Copied to Clipboard.");
+      }catch(err){
+          showToast(false, "Copying not supported in this browser.");
+      }
+
+      document.body.removeChild(textArea);
+  }
 }
 
 async function addWishlist(id, btn) {
