@@ -45,7 +45,7 @@ async function connectToSocket() {
 
             // Listen for notifications
             socket.on('notification', (data) => {
-                // console.log('New notification:', data);
+            //    alert('New notification:', data);
 
                 let status = "";
                 let msg = data.eng_message; // Default message
@@ -64,7 +64,7 @@ async function connectToSocket() {
                     borderColor = "#37CC6D"; // Green for approval
                     break;
                     case 2: // Rejected ticket
-                    status = `<div class="d-flex align-items-center justify-content-center" style="width: 2.5rem;height: 2.5rem;border2.5radius: 50%; background-color: #FEE2E2; color: #EF4444;"><i data-lucide="x" style="width: 1.2rem;height: 1.2rem;"></i></div>`;
+                    status = `<div class="d-flex align-items-center justify-content-center" style="width: 2.5rem;height: 2.5rem;border-radius: 50%; background-color: #FEE2E2; color: #EF4444;"><i data-lucide="x" style="width: 1.2rem;height: 1.2rem;"></i></div>`;
                     title = "Ticket Request Denied";
                     borderColor = "#EF4444"; // Red for rejection
                     break;

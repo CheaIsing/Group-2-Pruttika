@@ -658,7 +658,9 @@ COMMIT;
 
 
 
------UPDATE DATABASE - CREATE Tbl_organizer (DATE: 01/30/2025)
+-- UPDATE DATABASE - CREATE Tbl_organizer (DATE: 01/30/2025)
+DROP Table tbl_organizer;
+
 CREATE TABLE `tbl_organizer` (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) UNSIGNED NOT NULL,
@@ -684,7 +686,7 @@ ALTER TABLE `tbl_users`
   CHANGE `STATUS` `status` tinyint(1) DEFAULT 1 COMMENT ' 1 for active, 2 for inactive';
 
 
---UPDATE DATABASE (02/12/2025) - alter tbl_transaction & tbl_notification
+-- UPDATE DATABASE (02/12/2025) - alter tbl_transaction & tbl_notification
 ALTER TABLE tbl_transaction MODIFY `ticket_event_id` bigint UNSIGNED NULL;
 
 ALTER TABLE tbl_transaction ADD COLUMN event_id bigint unsigned NOT null;
@@ -707,7 +709,7 @@ ALTER TABLE `tbl_notification`
 ALTER TABLE `tbl_notification` MODIFY `is_read` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1 for false, 2 for true';
 
 
-------------UPDATE DATABASE (02/17/25)- alter tbl_notification
+-- UPDATE DATABASE (02/17/25)- alter tbl_notification
 CREATE TABLE tbl_notification_type (
     id bigint PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL UNIQUE,
@@ -749,7 +751,7 @@ ALTER TABLE tbl_organizer_req DROP INDEX business_email;
 ALTER TABLE tbl_organizer_req DROP INDEX business_phone;
 
 
----Update 05-03-2025
+-- Update 05-03-2025
 ALTER TABLE tbl_ticket ADD COLUMN `qr_code_img` text NOT NULL;
 ALTER TABLE tbl_ticket DROP COLUMN qr_code;
 

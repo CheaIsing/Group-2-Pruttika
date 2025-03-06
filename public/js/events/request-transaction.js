@@ -148,7 +148,9 @@ document.getElementById("btn-disapprove").onclick = async ()=>{
           disapproveModal.hide();
         showToast(true, "Request rejected successfully.")
 
-        window.location.href = "/event/request-ticket-list"
+       setTimeout(() => {
+         window.location.href = "/event/request-ticket-list";
+       }, 1200);
       } catch (error) {
         console.log(error);
         showToast()
