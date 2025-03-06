@@ -25,7 +25,7 @@
     "forgot-password": {
       "heading": "Forget Password",
       "label": "Enter Your Email Address",
-      "placeholder": "example@email.com",
+      "placeholder": "example@gmail.com",
       "button": "Send"
     },
     "verify-otp": {
@@ -41,71 +41,6 @@
       "confirm-pass": "Confirm Password",
       "button": "Reset Password"
     }
-  },
-  "event": {},
-  "profile": {
-    "accManagement":{
-      "title":"Account Management"
-    },
-    "verify-otp": {
-      "title":"OTP Verification",
-      "enter-email":"Enter the code that we sent to your email",
-      "invalid-email":"Invalid email.",
-      "verify":"Verify",
-      "no-OTP":"Didn't receive the OTP?",
-      "resend":"Resend"
-    },
-    "reset-password": {
-      "title":"Reset Password",
-      "newpw":"New Password",
-      "cfPw":"Confirm Password",
-      "invalid-email":"Invalid email."
-      
-    }
-  },
-
-  "partials":{
-        "footer":{
-            "content":"Your seamless platform for event management, where creativity meets efficiency. We simplify planning, coordinate every detail, and bring your vision to life for unforgettable experiences that inspire.",
-            "contact-title":"Contact Info",
-            "telephone": "Tel: ",
-            "email":"Email: ",
-            "link": "Quick Links",
-            "contact": "Contact us",
-            "event": "Events",
-            "about": "About us",
-            "policy": "Our Policy",
-            "team": "Our Team",
-            "faq":"FAQs",
-            "copyright": "Copyright ©2024 All rights reserved"
-        },
-        "header":{
-            "search":"Search Event",
-            "cEvent":"Create Event",
-            "bEvent":"Browse Event",
-            "myTicket":"My Ticket",
-            "en-btn":"English",
-            "kh-btn":"Khmer",
-            "unread-noti":"Unread Notifications",
-            "all-noti":"View All Notifications",
-            "manage-org":"Manage as Organizer",
-            "following": "Following",
-            "wishlist":"Wishlist",
-            "acc-setting":"Account Setting",
-            "logout":"Log Out",
-            "sign-in":"Sign In",
-            "sign-up":"Sign Up",
-            "menu": "Menu",
-            "switch-attendee":"Switch to Attending"
-        },
-        "sidebar":{
-            "event":"Event",
-            "req-ticket":"Request Ticket",
-            "checkin-ticket":"Check-in Ticket",
-            "profile-info": "Profile Information",
-            "acc-management":"Account Management",
-            "org-management": "Organizer Setting"
-        }
   },
 
   "profile": {
@@ -202,6 +137,50 @@
     }
   },
 
+  "partials":{
+        "footer":{
+            "content":"Your seamless platform for event management, where creativity meets efficiency. We simplify planning, coordinate every detail, and bring your vision to life for unforgettable experiences that inspire.",
+            "contact-title":"Contact Info",
+            "telephone": "Tel: ",
+            "email":"Email: ",
+            "link": "Quick Links",
+            "contact": "Contact us",
+            "event": "Events",
+            "about": "About us",
+            "policy": "Our Policy",
+            "team": "Our Team",
+            "faq":"FAQs",
+            "copyright": "Copyright ©2024 All rights reserved"
+        },
+        "header":{
+            "search":"Search Event",
+            "cEvent":"Create Event",
+            "bEvent":"Browse Event",
+            "myTicket":"My Ticket",
+            "en-btn":"English",
+            "kh-btn":"Khmer",
+            "unread-noti":"Unread Notifications",
+            "all-noti":"View All Notifications",
+            "manage-org":"Manage as Organizer",
+            "following": "Following",
+            "wishlist":"Wishlist",
+            "acc-setting":"Account Setting",
+            "logout":"Log Out",
+            "sign-in":"Sign In",
+            "sign-up":"Sign Up",
+            "menu": "Menu",
+            "switch-attendee":"Switch to Attending"
+        },
+        "sidebar":{
+            "event":"Event",
+            "req-ticket":"Request Ticket",
+            "checkin-ticket":"Check-in Ticket",
+            "profile-info": "Profile Information",
+            "acc-management":"Account Management",
+            "org-management": "Organizer Setting"
+        }
+  },
+
   "follow":{
     "title":"Follow",
     "Followers":"Followers",
@@ -210,7 +189,6 @@
     "follow-back":"Follow Back",
     "ppl-follow":"People you follow"
   },
-
 
   "ticket":{
         "buy-ticket":{
@@ -445,7 +423,6 @@
     }
   },
 
-  
   "mainpage":{
     "pruttika" :"PRUTTIKA",
     "events":"events",
