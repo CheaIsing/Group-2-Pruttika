@@ -460,7 +460,7 @@ const readNotification = async (req, res) => {
   //   const selectSql = "SELECT * FROM `tbl_notification` WHERE `id` = ?;";
 
   const sql =
-    "UPDATE `tbl_notification` SET `is_read` = 1 WHERE `id` = ? AND `receiver_id` = ?;";
+    "UPDATE `tbl_notification` SET `is_read` = 2 WHERE `id` = ? AND `receiver_id` = ?;";
   const params = [notiId, userId];
 
   try {
@@ -482,7 +482,7 @@ const unreadNotification = async (req, res) => {
   const { id: notiId = 4 } = req.params;
   const { id: userId = 1 } = req.user;
   const sql =
-    "UPDATE `tbl_notification` SET `is_read` = 2 WHERE `id` = ? AND `receiver_id` = ?;";
+    "UPDATE `tbl_notification` SET `is_read` = 1 WHERE `id` = ? AND `receiver_id` = ?;";
   const params = [notiId, userId];
   try {
     const result = await executeQuery(sql, params);

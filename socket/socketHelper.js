@@ -50,6 +50,41 @@ function emitOrganizerRejectionNotification(io, receiverId, requestId, rejection
     type_id: 4, // Assuming 4 is the type_id for organizer rejection notifications
   });
 }
+
+function emitNotificationForReminder(io,buyerId, eventId, engMessage, khMessage) {
+
+
+  // You might want to fetch the user's socket ID based on their buyerId
+  // This part depends on how you store and manage socket connections
+  // Example (if you store socket IDs in a database or in-memory map):
+  // const socketId = getSocketIdFromBuyerId(buyerId);
+
+  // If you have the socketId, emit directly:
+  // io.to(socketId).emit('notification', { event_id: eventId, eng_message: engMessage, kh_message: khMessage, type_id: typeId });
+
+  // If you don't have socketId, emit to room based on buyerId
+  io.to(buyerId).emit('notification', {
+      event_id: eventId,
+      eng_message: engMessage,
+      kh_message: khMessage,
+      type_id: typeId,
+  });
+}
+
+// Example function (replace with your actual implementation)
+// async function getSocketIdFromBuyerId(buyerId) {
+//     try {
+//         const query = 'SELECT socket_id FROM user_sockets WHERE buyer_id = ?';
+//         const results = await executeQuery(query, [buyerId]);
+//         if (results && results.length > 0) {
+//             return results[0].socket_id;
+//         }
+//         return null;
+//     } catch (error) {
+//         console.error('Error fetching socket ID:', error);
+//         return null;
+//     }
+// }
   module.exports = {
     emitTicketApprovalNotification,
     emitTicketRejectNotification,

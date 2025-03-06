@@ -42,50 +42,6 @@
     }
   },
 
-  "partials":{
-        "footer":{
-            "content":"Your seamless platform for event management, where creativity meets efficiency. We simplify planning, coordinate every detail, and bring your vision to life for unforgettable experiences that inspire.",
-            "contact-title":"ព័ត៌មានទំនាក់ទំនង",
-            "telephone": "លេខទូរស័ព្ទ៖  ",
-            "email":"អ៊ីមែល៖ ",
-            "link": "តំណរលីងរហ័ស",
-            "contact": "ទំនាក់ទំនងមកកាន់យើង",
-            "event": "កម្មវិធី",
-            "about": "អំពីយើង",
-            "policy": "Our Policy",
-            "team": "ក្រុមរបស់យើង",
-            "faq":"សំណួរនិងចម្លើយ",
-            "copyright": "Copyright ©2024 All rights reserved"
-        },
-        "header":{
-            "search":"ស្វែងរកព្រឹត្តិការណ៍",
-            "cEvent":"Create Event",
-            "bEvent":"Browse Event",
-            "myTicket":"My Ticket",
-            "en-btn":"ភាសាអង់គ្លេស",
-            "kh-btn":"ភាសាខ្មែរ",
-            "unread-noti":"Unread Notifications",
-            "all-noti":"មើលការជូនដំណឹងទាំងអស់",
-            "manage-org":"Manage as Organizer",
-            "following": "Following",
-            "wishlist":"បញ្ជីប្រាថ្នា",
-            "acc-setting":"ការកំណត់គណនី",
-            "logout":"ចាកចេញពីគណនី",
-            "sign-in":"ចូលគណនី",
-            "sign-up":"ចុះឈ្មោះ",
-            "menu": "ម៉ឺនុយ",
-            "switch-attendee":"ប្តូរទៅជាអ្នកចូលរួម"
-        },
-        "sidebar":{
-            "event":"Event",
-            "req-ticket":"Request Ticket",
-            "checkin-ticket":"Check-in Ticket",
-            "profile-info": "ព័ត៌មានគណនី",
-            "acc-management":"គ្រប់គ្រងគណនី",
-            "org-management": "Organizer Setting"
-        }
-  },
-
   "profile": {
     "accManagement":{
       "title":"Account Management",
@@ -178,6 +134,50 @@
       "saveChange":"Save Changes",
       "save":"Save"
     }
+  },
+
+  "partials":{
+        "footer":{
+            "content":"Your seamless platform for event management, where creativity meets efficiency. We simplify planning, coordinate every detail, and bring your vision to life for unforgettable experiences that inspire.",
+            "contact-title":"ព័ត៌មានទំនាក់ទំនង",
+            "telephone": "លេខទូរស័ព្ទ៖  ",
+            "email":"អ៊ីមែល៖ ",
+            "link": "តំណរលីងរហ័ស",
+            "contact": "ទំនាក់ទំនងមកកាន់យើង",
+            "event": "កម្មវិធី",
+            "about": "អំពីយើង",
+            "policy": "Our Policy",
+            "team": "ក្រុមរបស់យើង",
+            "faq":"សំណួរនិងចម្លើយ",
+            "copyright": "Copyright ©2024 All rights reserved"
+        },
+        "header":{
+            "search":"ស្វែងរកព្រឹត្តិការណ៍",
+            "cEvent":"Create Event",
+            "bEvent":"Browse Event",
+            "myTicket":"My Ticket",
+            "en-btn":"ភាសាអង់គ្លេស",
+            "kh-btn":"ភាសាខ្មែរ",
+            "unread-noti":"Unread Notifications",
+            "all-noti":"មើលការជូនដំណឹងទាំងអស់",
+            "manage-org":"Manage as Organizer",
+            "following": "Following",
+            "wishlist":"បញ្ជីប្រាថ្នា",
+            "acc-setting":"ការកំណត់គណនី",
+            "logout":"ចាកចេញពីគណនី",
+            "sign-in":"ចូលគណនី",
+            "sign-up":"ចុះឈ្មោះ",
+            "menu": "ម៉ឺនុយ",
+            "switch-attendee":"ប្តូរទៅជាអ្នកចូលរួម"
+        },
+        "sidebar":{
+            "event":"Event",
+            "req-ticket":"Request Ticket",
+            "checkin-ticket":"Check-in Ticket",
+            "profile-info": "ព័ត៌មានគណនី",
+            "acc-management":"គ្រប់គ្រងគណនី",
+            "org-management": "Organizer Setting"
+        }
   },
 
   "follow":{
