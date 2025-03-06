@@ -4042,7 +4042,7 @@ tr.border-bottom:hover td {
 }
 
 .stats {
-background: url('/img/statsevent1.jpg') no-repeat center center fixed;
+background: url('/img/statsevent4.jpg') no-repeat center center fixed;
 background-size: cover;
 color:var(--c-brand); 
 text-align: center;
@@ -4054,6 +4054,7 @@ font-size: 20px;
 .stats h2 {
 font-size: 2.5rem;
 font-weight: bold;
+color: white;
 }
 .seeAllEvent:hover{
 color: var(--c-brand);
