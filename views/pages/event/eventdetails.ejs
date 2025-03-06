@@ -2,8 +2,10 @@
 <html lang="en">
 
     <%-include('../../partials/head.ejs') %>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
-    <body>
+
+    <body class="home">
         <%- include("../../partials/navbar.ejs")  %>
         <div id="event-hero-banner-img" class="event-hero-banner d-flex align-items-center justify-content-center">
             <div class="hero-overlay"></div>
@@ -357,88 +359,98 @@
                 </div>
 
             </div>
-            <h2 class="fw-bold mb-3">Related <span
-                    class="text-brand">Event</span></h2>
-            <div class="row">
-                <div class="col-12 col-md-3">
-                    <div class="card-event">
-                        <img class="position-absolute"
-                            src="https://images.pexels.com/photos/2747449/pexels-photo-2747449.jpeg?cs=srgb&dl=pexels-wolfgang-1002140-2747449.jpg&fm=jpg"
-                            alt>
-                        <section class="top"></section>
-                        <div class="event-info">
-                            <p class="price">70$</p>
-
-                            <div class="additional-info">
-                                <p class="title text-white fs-5">NY Music
-                                    Festival</p>
-                                <p class="info ">
-                                    <i class="fas fa-map-marker-alt fs-5"></i>
-                                    Palace Theather
-                                </p>
-                                <p class="info">
-                                    <i class="fas fa-calendar-alt"></i>
-                                    Sat, Sep 19, 10:00 AM
-                                </p>
-                            </div>
-                            <button class="action mt-5">Book it</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-3">
-                    <div class="card-event">
-                        <img class="position-absolute"
-                            src="https://images.pexels.com/photos/2747449/pexels-photo-2747449.jpeg?cs=srgb&dl=pexels-wolfgang-1002140-2747449.jpg&fm=jpg"
-                            alt>
-                        <section class="top"></section>
-                        <div class="event-info">
-                            <p class="price">70$</p>
-
-                            <div class="additional-info">
-                                <p class="title text-white fs-5">NY Music
-                                    Festival</p>
-                                <p class="info ">
-                                    <i class="fas fa-map-marker-alt fs-5"></i>
-                                    Palace Theather
-                                </p>
-                                <p class="info">
-                                    <i class="fas fa-calendar-alt"></i>
-                                    Sat, Sep 19, 10:00 AM
-                                </p>
-                            </div>
-                            <button class="action mt-5">Book it</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12 col-md-3">
-                    <div class="card-event">
-                        <img class="position-absolute"
-                            src="https://images.pexels.com/photos/2747449/pexels-photo-2747449.jpeg?cs=srgb&dl=pexels-wolfgang-1002140-2747449.jpg&fm=jpg"
-                            alt>
-                        <section class="top"></section>
-                        <div class="event-info">
-                            <p class="price">70$</p>
-
-                            <div class="additional-info">
-                                <p class="title text-white fs-5">NY Music
-                                    Festival</p>
-                                <p class="info ">
-                                    <i class="fas fa-map-marker-alt fs-5"></i>
-                                    Palace Theather
-                                </p>
-                                <p class="info">
-                                    <i class="fas fa-calendar-alt"></i>
-                                    Sat, Sep 19, 10:00 AM
-                                </p>
-                            </div>
-                            <button class="action mt-5">Book it</button>
-                        </div>
-                    </div>
-                </div>
-
+            <h2 class="fw-bold mb-3">Related <span class="text-brand">Event</span></h2>
+        <section class="container my-5">
+            <div class="d-flex justify-content-between mb-3">
+                <h3><i class="fa-solid fa-globe text-brand me-3"></i>All Events In <span class="text-brand">Phnom
+                        Penh</span>, Cambodia</h3>
+                <a class="seeAllEvent color-style" href="#"><strong>See all Event</strong></a>
             </div>
+
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper" id="related-events">
+                    
+                    <div class="swiper-slide">
+                        <div class="event-card mb-3 mb-lg-3">
+                            <img src="/img/hero.jpg" alt="Event" class="event-images">
+                            <div class="event-card-hover">
+                                <div class="rounded-icon mb-2">
+                                    <a href="#"><i class="fa-regular fa-heart text-brand"></i></a>
+                                </div>
+                                <div class="rounded-icon">
+                                    <a href="#"> <i class="fa-regular fa-copy text-brand"></i></a>
+                                </div>
+                            </div>
+                            <div class="event-detail">
+                                <div class="position-relative z-3 pt-3">
+                                    <div class="event-prices text-center">50$</div>
+                                    <h5 class="fw-bold mb-3 text-center event-titles text-1-line">Cybersecurity Lorem ipsum dolor sit amet consectetur adipisicing elit.</h5>
+                                    <div class="event-tags mb-3 text-center">
+                                        <span class="badge">Music</span>
+                                        <span class="badge">Technology</span>
+                                    </div>
+                                    <div class="event-meta px-4">
+                                        <p class="mb-1"><i class="fa-regular fa-calendar me-2"></i> Web, 7 December • 5:00PM</p>
+                                        <p class="mb-0"><i class="bi bi-geo-alt me-2"></i> Street 2002, Riverside, Porsenchey,
+                                            Phnom Penh</p>
+                                    </div>
+                                    <div class="event-authors d-flex align-items-center px-4 my-3">
+                                        <img src="../../../public/img/Default_pfp.jpg" alt="Author" class="me-3 rounded-circle"
+                                            style="width: 30px; height: 30px; object-fit: cover;">
+                                        <span class="fw-bold">Tom Jerranie</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         </div>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+   document.addEventListener("DOMContentLoaded", function () {
+  const swiperEl = document.querySelector(".mySwiper");
+  const swiperWrapper = swiperEl.querySelector(".swiper-wrapper");
+  const slides = swiperWrapper.querySelectorAll(".swiper-slide");
+
+  // Check if there are enough slides for loop mode
+  const minSlidesForLoop = 4; // Minimum slides required for loop mode (adjust based on your slidesPerView)
+  if (slides.length < minSlidesForLoop) {
+    console.warn("Not enough slides for loop mode. Disabling loop.");
+  }
+
+  // Initialize Swiper
+  const swiper = new Swiper(".mySwiper", {
+    slidesPerView: 1, // Default for small screens
+    spaceBetween: 10,
+    loop: slides.length >= minSlidesForLoop, // Enable loop only if there are enough slides
+    autoplay: {
+      delay: 3000,
+      disableOnInteraction: false,
+    },
+    breakpoints: {
+      576: { slidesPerView: 2, spaceBetween: 15 },
+      768: { slidesPerView: 3, spaceBetween: 25 },
+      1024: { slidesPerView: 4, spaceBetween: 35 },
+    },
+  });
+
+  // Pause autoplay on hover
+  swiperEl.addEventListener("mouseenter", function () {
+    swiper.autoplay.stop();
+  });
+
+  // Resume autoplay when mouse leaves
+  swiperEl.addEventListener("mouseleave", function () {
+    swiper.autoplay.start();
+  });
+});
+
+</script>
+
 
         <%-include('../../partials/script.ejs') %>
         <script>
@@ -450,6 +462,7 @@
         });
       </script>
         <script src="/js/events/event-detail.js"></script>
+
 
 
     </body>
