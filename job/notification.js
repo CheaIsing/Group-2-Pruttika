@@ -1,6 +1,6 @@
 const schedule = require('node-schedule');
 const {executeQuery} = require('../utils/dbQuery'); 
-// const io = require('../app').get('io');
+const io = require('../socket/socket');
 
 const deleteNotification = async () => {
     console.log("Scheduled job running..."); // Add this line
@@ -19,7 +19,6 @@ const deleteNotification = async () => {
 
 const sendEventReminders = async () => {
     console.log("Event reminder job running...");
-
 
     try {
         // Fetch events starting within the next day
@@ -78,7 +77,7 @@ const sendEventReminders = async () => {
 };
 
 // Schedule the job to run every day at a specific time (e.g., 9:00 AM)
-// schedule.scheduleJob('0 9 * * *', sendEventReminders);
+schedule.scheduleJob('0 11 * * *', sendEventReminders)
 
 // Schedule the job to run every day at midnight
 schedule.scheduleJob('0 0 * * *', deleteNotification);

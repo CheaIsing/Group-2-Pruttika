@@ -4,50 +4,53 @@
 <body class="home">
     
     <%- include("./partials/navbar.ejs")  %>
+    <div class="overlay"></div>
     <section class="hero-banner">
-        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+        <div id="carouselExampleAutoplaying" class="carousel  carousel-fade" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active d-flex align-items-center justify-content-center">
-                    <div class="hero-title text-end w-50 pe-5">
-                        <h1 class="text-white fw-bold display-2 z-3"><%= t('mainpage.hero-content1') %> <br> <span class="text-white display-1 fw-bold"><%= t('mainpage.hero-content2') %></span></h1>
+                    <div class="hero-title text-center p-5">
+                        <h1 class="text-white fw-bold display-2 mb-3">It's
+                            Time to <br> <span class="text-white display-1 fw-bold">Celebrate!</span></h1>
                         <div class="hero-button">
-                            <button onclick="window.location.href = '/event/create'" class="btn-darkpink"><span class="fw-bold "><%= t('mainpage.btn-create') %></span></button>
+                            <button class="btn-darkpink position-relative"><a class="stretched-link fw-semibold"
+                                    href="#">Create your event
+                                    now!</a></button>
                         </div>
                     </div>
-
-                    <div class="hero-img w-50 z-2">
+                    <div class="hero-img w-50 d-sm-block d-none">
                         <img src="/img/event1.jpg" alt>
-                        <img src="/img/hero.jpg" alt>
+                        <img src="/img/party1.png" alt>
                     </div>
                 </div>
-                <!-- <div class="carousel-item d-flex align-items-center justify-content-center">
-                    <img src="../../../public/img/event1.jpg" class="d-block w-100" alt="...">
-
-                </div>
                 <div class="carousel-item d-flex align-items-center justify-content-center">
-                    <img src="../../../public/img/Eco-Action.jpg" class="d-block w-100" alt="...">
-                </div> -->
+                    <div class="hero-title text-center p-5">
+                        <h1 class="text-white fw-bold display-4 mb-3">Promote your event <br> <span class="text-brand display-3 fw-bold">services</span> with Us!</h1>
+                        <div class="hero-button">
+                            <button class="btn-darkpink position-relative"><a class="stretched-link fw-semibold"
+                                    href="#">Promote yours now!</a></button>
+                        </div>
+                    </div>
+                    <div class="hero-img w-50 d-sm-block d-none ">
+                        <img src="/img/webpage_on_pc.png" alt>
+                        <img src="/img/statsevent.jpg" alt>
+                    </div>
+                </div>
+
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
                 data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden"><%= t('mainpage.previous') %></span>
+                <span class="visually-hidden">Previous</span>
             </button>
             <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
                 data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden"><%= t('mainpage.next') %></span>
+                <span class="visually-hidden">Next</span>
             </button>
         </div>
-        <!-- <div class="d-flex align-items-center justify-content-center mt-4 flex-column">
-            <h3 class="text-lightgray fw-bold">Organize your events and
-                grow your business for free</h3>
-            <div class="d-flex align-items-center">
-                <h4 class="fw-bold pe-3">with</h4>
-                <img src="../../../public/img/Prutika_Logo_text(2).png" alt style="height: 90px;">
-            </div>
-        </div> -->
     </section>
+
 
     <section class="container my-5">
         <div class="d-flex justify-content-between mb-3">
@@ -108,9 +111,9 @@
             <i class="fa-solid fa-layer-group text-brand me-3 mb-3"></i>
             <%= t('mainpage.explore-top') %> <span class="text-brand"><%= t('mainpage.categories') %></span>
         </h3>
-        <div class="row">
+        <div class="row g-4">
             <div class="col-lg-2 col-md-4 col-6">
-                <div class="card-categories text-center mb-lg-3">
+                <div class="card-categories text-center">
                     <div class="categories-icon">
                         <i class="fa-solid fa-microchip fs-3"></i>
                     </div>
@@ -120,7 +123,7 @@
                 </div>
             </div>
             <div class="col-lg-2 col-md-4 col-6 ">
-                <div class="card-categories text-center mb-lg-3 mb-md-3 mb-3">
+                <div class="card-categories text-center">
                     <div class="categories-icon">
                         <i class="fa-solid fa-medal fs-3"></i>
                     </div>
@@ -130,7 +133,7 @@
                 </div>
             </div>
             <div class="col-lg-2 col-md-4 col-6">
-                <div class="card-categories text-center mb-3">
+                <div class="card-categories text-center">
                     <div class="categories-icon">
                         <i class="fa-solid fa-hand-holding-hand fs-3"></i>
                     </div>

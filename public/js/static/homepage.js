@@ -64,7 +64,7 @@ async function renderEvents(page = 1, perpage = 1000, is_published = true) {
                   });
 
                   const eventCard = `
-                      <div class="col-12 col-sm-10 col-md-6 col-lg-3 col-xl-3">
+                      <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
                           <div class="event-card mb-3 mb-lg-3  position-relative"  >
                               <img src="/uploads/${event.thumbnail}" alt="Event" class="event-images" style="cursor: pointer;" onclick="goEventDetail(${
 

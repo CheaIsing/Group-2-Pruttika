@@ -13,7 +13,7 @@
 
                     <section class="p-4 w-100">
                         <div class="mb-3">
-                            <h2 style="color: #333;">Check In Ticket</h2>
+                            <h2 style="color: #333;"><%= t('event.event-checkin.checkin-ticket') %></h2>
                         </div>
                         <ul class="nav nav-underline gap-3" id="myTab"
                             role="tablist">
@@ -22,7 +22,7 @@
                                     data-bs-toggle="tab" data-bs-target="#all"
                                     type="button" role="tab" aria-controls="all"
                                     aria-selected="true"
-                                    style="color: #333;">All</button>
+                                    style="color: #333;"><%= t('event.All') %></button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="upcoming-tab"
@@ -30,7 +30,7 @@
                                     data-bs-target="#upcoming" type="button"
                                     role="tab" aria-controls="upcoming"
                                     aria-selected="false"
-                                    style="color: #333;">Upcoming</button>
+                                    style="color: #333;"><%= t('event.Upcoming') %></button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="showing-tab"
@@ -38,14 +38,14 @@
                                     data-bs-target="#showing" type="button"
                                     role="tab" aria-controls="showing"
                                     aria-selected="false"
-                                    style="color: #333;">Showing</button>
+                                    style="color: #333;"><%= t('event.Showing') %></button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="past-tab"
                                     data-bs-toggle="tab" data-bs-target="#past"
                                     type="button" role="tab"
                                     aria-controls="past" aria-selected="false"
-                                    style="color: #333;">Past</button>
+                                    style="color: #333;"><%= t('event.Past') %></button>
                             </li>
                         </ul>
                         
@@ -65,13 +65,11 @@
                                                 id="event-sort-filter"
                                                 aria-label="Default select example">
                                                 <option value
-                                                    selected>All</option>
+                                                    selected><%= t('event.All') %></option>
                                                 <option
-                                                    value="eng_name">Event
-                                                    Title</option>
+                                                    value="eng_name"><%= t('event.eventTitle') %></option>
                                                 <option
-                                                    value="created_at">Latest
-                                                    Post</option>
+                                                    value="created_at"><%= t('event.lastestPost') %></option>
                                             </select>
                                         </div>
 
@@ -79,7 +77,7 @@
                                             <div class="input-group">
                                                 <input type="text"
                                                     class="form-control border-brand-sm shadow-none ps-3 bg-transparent"
-                                                    placeholder="Search"
+                                                    placeholder="<%= t('event.search') %>"
                                                     id="searchEventInput">
                                             </div>
                                         </div>
@@ -97,13 +95,13 @@
                                                 <tr>
                                                     <th scope="col"
                                                         style="color: #333;"
-                                                        class="fw-semibold">Event</th>
+                                                        class="fw-semibold"><%= t('event.Event') %></th>
                                                     <th scope="col"
                                                         style="color: #333;"
-                                                        class="fw-semibold">Status</th>
+                                                        class="fw-semibold"><%= t('event.Status') %></th>
                                                     <th scope="col"
                                                         style="color: #333;"
-                                                        class="fw-semibold">Checked-In</th>
+                                                        class="fw-semibold"><%= t('event.event-checkin.CheckedIn') %></th>
                                                 </tr>
                                             </thead>
                                             <tbody id="event-tobody">
@@ -140,13 +138,11 @@
                                                 id="upcoming-event-sort-filter"
                                                 aria-label="Default select example">
                                                 <option value
-                                                    selected>All</option>
+                                                    selected><%= t('event.All') %></option>
                                                 <option
-                                                    value="eng_name">Event
-                                                    Title</option>
+                                                    value="eng_name"><%= t('event.eventTitle') %></option>
                                                 <option
-                                                    value="created_at">Latest
-                                                    Post</option>
+                                                    value="created_at"><%= t('event.lastestPost') %></option>
                                             </select>
                                         </div>
 
@@ -154,7 +150,7 @@
                                             <div class="input-group">
                                                 <input type="text"
                                                     class="form-control border-brand-sm shadow-none ps-3 bg-transparent"
-                                                    placeholder="Search"
+                                                    placeholder="<%= t('event.search') %>"
                                                     id="upcoming-searchEventInput">
                                             </div>
                                         </div>
@@ -171,13 +167,13 @@
                                                 <tr>
                                                     <th scope="col"
                                                         style="color: #333;"
-                                                        class="fw-semibold">Event</th>
+                                                        class="fw-semibold"><%= t('event.Event') %></th>
                                                     <th scope="col"
                                                         style="color: #333;"
-                                                        class="fw-semibold">Status</th>
+                                                        class="fw-semibold"><%= t('event.Status') %></th>
                                                     <th scope="col"
                                                         style="color: #333;"
-                                                        class="fw-semibold">Checked-In</th>
+                                                        class="fw-semibold"><%= t('event.event-checkin.CheckedIn') %></th>
                                                 </tr>
                                             </thead>
                                             <tbody id="upcoming-event-tbody">
@@ -213,13 +209,11 @@
                                                 id="showing-event-sort-filter"
                                                 aria-label="Default select example">
                                                 <option value
-                                                    selected>All</option>
+                                                    selected><%= t('event.All') %></option>
                                                 <option
-                                                    value="eng_name">Event
-                                                    Title</option>
+                                                    value="eng_name"><%= t('event.eventTitle') %></option>
                                                 <option
-                                                    value="created_at">Latest
-                                                    Post</option>
+                                                    value="created_at"><%= t('event.lastestPost') %></option>
                                             </select>
                                         </div>
 
@@ -227,7 +221,7 @@
                                             <div class="input-group">
                                                 <input type="text"
                                                     class="form-control border-brand-sm shadow-none ps-3 bg-transparent"
-                                                    placeholder="Search"
+                                                    placeholder="<%= t('event.search') %>"
                                                     id="showing-searchEventInput">
                                             </div>
                                         </div>
@@ -244,13 +238,13 @@
                                                 <tr>
                                                     <th scope="col"
                                                         style="color: #333;"
-                                                        class="fw-semibold">Event</th>
+                                                        class="fw-semibold"><%= t('event.Event') %></th>
                                                     <th scope="col"
                                                         style="color: #333;"
-                                                        class="fw-semibold">Status</th>
+                                                        class="fw-semibold"><%= t('event.Status') %></th>
                                                     <th scope="col"
                                                         style="color: #333;"
-                                                        class="fw-semibold">Checked-In</th>
+                                                        class="fw-semibold"><%= t('event.event-checkin.CheckedIn') %></th>
                                                 </tr>
                                             </thead>
                                             <tbody id="showing-event-tbody">
@@ -286,13 +280,11 @@
                                                 id="past-event-sort-filter"
                                                 aria-label="Default select example">
                                                 <option value
-                                                    selected>All</option>
+                                                    selected><%= t('event.All') %></option>
                                                 <option
-                                                    value="eng_name">Event
-                                                    Title</option>
+                                                    value="eng_name"><%= t('event.eventTitle') %></option>
                                                 <option
-                                                    value="created_at">Latest
-                                                    Post</option>
+                                                    value="created_at"><%= t('event.lastestPost') %></option>
                                             </select>
                                         </div>
 
@@ -300,7 +292,7 @@
                                             <div class="input-group">
                                                 <input type="text"
                                                     class="form-control border-brand-sm shadow-none ps-3 bg-transparent"
-                                                    placeholder="Search"
+                                                    placeholder="<%= t('event.search') %>"
                                                     id="past-searchEventInput" style="width: 400px !important;">
                                             </div>
                                         </div>
@@ -317,13 +309,13 @@
                                                 <tr>
                                                     <th scope="col"
                                                         style="color: #333;"
-                                                        class="fw-semibold">Event</th>
+                                                        class="fw-semibold"><%= t('event.Event') %></th>
                                                     <th scope="col"
                                                         style="color: #333;"
-                                                        class="fw-semibold">Status</th>
+                                                        class="fw-semibold"><%= t('event.Status') %></th>
                                                     <th scope="col"
                                                         style="color: #333;"
-                                                        class="fw-semibold">Checked-In</th>
+                                                        class="fw-semibold"><%= t('event.event-checkin.CheckedIn') %></th>
                                                 </tr>
                                             </thead>
                                             <tbody id="past-event-tbody">
@@ -359,7 +351,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5"
-                            id="exampleModalLabel">Check-in Ticket</h1>
+                            id="exampleModalLabel"><%= t('event.event-checkin.checkin-ticket') %></h1>
                         <button type="button" class="btn-close"
                             data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
@@ -369,7 +361,7 @@
                                 id="input-field-qrcode">
                                 <i class="fas fa-lock"></i>
                                 <input type="text"
-                                    placeholder="Enter ticket token"
+                                    placeholder="<%= t('event.checkin-ticket.enter-token') %>"
                                     id="qrcode" autofocus />
                             </div>
                             <div
@@ -377,8 +369,7 @@
                                 id="invalid_feedback_qrcode">
                                 <i
                                     class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
-                                <div class="ms-2">Ticket token is
-                                    required.</div>
+                                <div class="ms-2"><%= t('event.checkin-ticket.requiredToken') %></div>
                             </div>
                         </div>
                     </div>
@@ -386,7 +377,7 @@
 
                     <button type="button"
                         class="btn btn-brand w-100"
-                        id="btn-checked-in">Check In</button>
+                        id="btn-checked-in"><%= t('event.checkin-ticket.checkin') %></button>
                 </div>
 
             </div>

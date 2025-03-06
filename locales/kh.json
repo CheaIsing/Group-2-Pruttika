@@ -288,7 +288,15 @@
       "checkList":"Check In Ticket List",
       "checkin-ticket":"Check-in Ticket",
       "requiredToken":"Ticket token is required.",
-      "checkin":"Check In"
+      "enter-token":"Enter ticket token",
+      "checkin":"Check In",
+      "CheckedIn":"Checked-In",
+      "avatar":"Avatar",
+      "name":"Name",
+      "type":"Type",
+      "email":"Email",
+      "CheckDate":"Check-in Date",
+      "searchBy":"Search by name"
     },
 
     "event-checkin":{
