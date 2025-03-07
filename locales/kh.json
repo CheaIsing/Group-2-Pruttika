@@ -268,12 +268,17 @@
     "View":"View",
     "copyLink":"Copy Link",
     "price":"Price",
+    "Approved":"Approved",
+    "Pending":"Pending",
+    "Rejected":"Rejected",
+    "searchByName":"Search by name",
 
     "browseEvent":{
       "title":"Browse Event",
       "discoverEvent":"Discover Events",
       "content-p":"Find and join amazing events near you",
       "filter":"Filter",
+      "searchEvent":"Search Event...",
       "sort":"Sort",
       "clear":"Clear All",
       "Date":"Date",
@@ -365,7 +370,8 @@
       "goBackBegin":"Go back from the beginning",
       "Previous":"Previous",
       "Next":"Next",
-      "Submit":"Submit"
+      "Submit":"Submit",
+      "update-title":"Update Event"
     },
     "event-req":{
       "title":"Request Ticket",

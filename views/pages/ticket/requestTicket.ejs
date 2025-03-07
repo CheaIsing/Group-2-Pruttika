@@ -5,20 +5,20 @@
 
 <body>
   <div class="container py-5">
-    <h2 class="fw-bold">My Ticket</h2>
+    <h2 class="fw-bold"><%= t('ticket.myTicket.title') %></h2>
 
     <!-- Navigation Links -->
     <div class="d-flex mb-4">
-      <a class="nav-link fw-bold nav-underline fs-5 me-3" href="#">All Tickets</a>
-      <a class="nav-link fw-bold nav-underline text-brand fs-5" href="#">Request Tickets</a>
+      <a class="nav-link fw-bold nav-underline fs-5 me-3" href="#"><%= t('ticket.myTicket.all-ticket') %></a>
+      <a class="nav-link fw-bold nav-underline text-brand fs-5" href="#"><%= t('ticket.req-ticket.title') %></a>
     </div>
 
    <div class="col-2 mb-3">
       <select id="ticketType" class="form-select custom-select">
-          <option value="all">All</option>
-          <option value="aproved">Approved</option>
-          <option value="pending">Pending</option>
-          <option value="rejected">Rejected</option>
+          <option value="all"><%= t('ticket.myTicket.all') %></option>
+          <option value="aproved"><%= t('ticket.myTicket.approve') %></option>
+          <option value="pending"><%= t('ticket.myTicket.pending') %></option>
+          <option value="rejected"><%= t('ticket.myTicket.reject') %></option>
       </select>
   </div>
 
@@ -26,11 +26,11 @@
     <table class="table table-borderless align-middle">
       <thead>
         <tr class="border-bottom">
-          <th scope="col">Event</th>
-          <th scope="col">Status</th>
-          <th scope="col">Purchase Date</th>
-          <th scope="col">Quantity</th>
-          <th scope="col">Total price</th>
+          <th scope="col"><%= t('ticket.req-ticket.event') %></th>
+          <th scope="col"><%= t('ticket.req-ticket.status') %></th>
+          <th scope="col"><%= t('ticket.req-ticket.purchase-date') %></th>
+          <th scope="col"><%= t('ticket.req-ticket.qty') %></th>
+          <th scope="col"><%= t('ticket.req-ticket.total') %></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -64,7 +64,7 @@
 
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-brand" data-bs-toggle="modal" data-bs-target="#exampleModal">
-              View Transaction
+              <%= t('ticket.req-ticket.view-tts') %>
             </button>
 
             <!-- Modal -->
@@ -79,13 +79,13 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
-                    <h4 class="text-center fw-bold">View Ticket <span class="text-brand">Transaction </span></h4>
+                    <h4 class="text-center fw-bold"><%= t('ticket.req-ticket.view-ticket') %> <span class="text-brand"><%= t('ticket.req-ticket.transaction') %> </span></h4>
                     <div class="line-dash m-3"></div>
                     <div
                       class="row"
                     >
                       <div class="col-12 col-md-6">
-                       <h5> View Details</h5>
+                       <h5> <%= t('ticket.req-ticket.view-detail') %></h5>
                       <div class="text-start">
                         <p>Status : aproved</p>
                         <p>Ticket Bought : 1</p>

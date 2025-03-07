@@ -15,7 +15,7 @@
                         
                         <div class="px-md-2 pb-md-3">
                             <div class="mb-3">
-                                <h2 style="color: #333;">Event</h2>
+                                <h2 style="color: #333;"><%= t('event.Event') %></h2>
                             </div>
                             <ul class="nav nav-underline gap-3" id="myTab"
                                 role="tablist">
@@ -24,7 +24,7 @@
                                         data-bs-toggle="tab" data-bs-target="#all"
                                         type="button" role="tab" aria-controls="all"
                                         aria-selected="true"
-                                        style="color: #333;">All</button>
+                                        style="color: #333;"><%= t('event.All') %></button>
                                 </li>
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link" id="upcoming-tab"
@@ -32,7 +32,7 @@
                                         data-bs-target="#upcoming" type="button"
                                         role="tab" aria-controls="upcoming"
                                         aria-selected="false"
-                                        style="color: #333;">Upcoming</button>
+                                        style="color: #333;"><%= t('event.Upcoming') %></button>
                                 </li>
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link" id="showing-tab"
@@ -40,14 +40,14 @@
                                         data-bs-target="#showing" type="button"
                                         role="tab" aria-controls="showing"
                                         aria-selected="false"
-                                        style="color: #333;">Showing</button>
+                                        style="color: #333;"><%= t('event.Showing') %></button>
                                 </li>
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link" id="past-tab"
                                         data-bs-toggle="tab" data-bs-target="#past"
                                         type="button" role="tab"
                                         aria-controls="past" aria-selected="false"
-                                        style="color: #333;">Past</button>
+                                        style="color: #333;"><%= t('event.Past') %></button>
                                 </li>
                             </ul>
                             
@@ -67,13 +67,11 @@
                                                     id="event-sort-filter"
                                                     aria-label="Default select example">
                                                     <option value
-                                                        selected>All</option>
+                                                        selected><%= t('event.All') %></option>
                                                     <option
-                                                        value="eng_name">Event
-                                                        Title</option>
+                                                        value="eng_name"><%= t('event.eventTitle') %></option>
                                                     <option
-                                                        value="created_at">Latest
-                                                        Post</option>
+                                                        value="created_at"><%= t('event.lastestPost') %></option>
                                                 </select>
                                             </div>
     
@@ -81,7 +79,7 @@
                                                 <div class="input-group">
                                                     <input type="text"
                                                         class="form-control border-brand-sm shadow-none ps-3 bg-transparent"
-                                                        placeholder="Search"
+                                                        placeholder="<%= t('event.search') %>"
                                                         id="searchEventInput">
                                                 </div>
                                             </div>
@@ -93,7 +91,7 @@
                                                 role="button"
                                                 class="btn btn-brand fw-medium w-auto"
                                                 style="height: auto !important;">+
-                                                Create Event</a>
+                                                <%= t('event.create-event.title') %></a>
                                         </div>
                                     </div>
                                 </div>
@@ -107,19 +105,19 @@
                                                     <tr>
                                                         <th scope="col"
                                                             style="color: #333;"
-                                                            class="fw-semibold">Event</th>
+                                                            class="fw-semibold"><%= t('event.Event') %></th>
                                                         <th scope="col"
                                                             style="color: #333;"
-                                                            class="fw-semibold">Status</th>
+                                                            class="fw-semibold"><%= t('event.Status') %></th>
                                                         <th scope="col"
                                                             style="color: #333;"
-                                                            class="fw-semibold">Sold</th>
+                                                            class="fw-semibold"><%= t('event.event.Sold') %></th>
                                                         <th scope="col"
                                                             style="color: #333;"
-                                                            class="fw-semibold">Gross</th>
+                                                            class="fw-semibold"><%= t('event.event.Gross') %></th>
                                                         <th scope="col"
                                                             style="color: #333;"
-                                                            class="fw-semibold">Participated</th>
+                                                            class="fw-semibold"><%= t('event.event.Participated') %></th>
                                                         <th scope="col"
                                                             style="color: #333;"
                                                             class="fw-semibold"></th>
@@ -159,13 +157,11 @@
                                                     id="upcoming-event-sort-filter"
                                                     aria-label="Default select example">
                                                     <option value
-                                                        selected>All</option>
+                                                        selected><%= t('event.All') %></option>
                                                     <option
-                                                        value="eng_name">Event
-                                                        Title</option>
+                                                        value="eng_name"><%= t('event.eventTitle') %></option>
                                                     <option
-                                                        value="created_at">Latest
-                                                        Post</option>
+                                                        value="created_at"><%= t('event.lastestPost') %></option>
                                                 </select>
                                             </div>
     
@@ -173,7 +169,7 @@
                                                 <div class="input-group">
                                                     <input type="text"
                                                         class="form-control border-brand-sm shadow-none ps-3 bg-transparent"
-                                                        placeholder="Search"
+                                                        placeholder="<%= t('event.search') %>"
                                                         id="upcoming-searchEventInput">
                                                 </div>
                                             </div>
@@ -185,7 +181,7 @@
                                                 role="button"
                                                 class="btn btn-brand fw-medium w-auto"
                                                 style="height: auto !important;">+
-                                                Create Event</a>
+                                                <%= t('event.create-event.title') %></a>
                                         </div>
                                     </div>
                                 </div>
@@ -198,19 +194,19 @@
                                                     <tr>
                                                         <th scope="col"
                                                             style="color: #333;"
-                                                            class="fw-semibold">Event</th>
+                                                            class="fw-semibold"><%= t('event.Event') %></th>
                                                         <th scope="col"
                                                             style="color: #333;"
-                                                            class="fw-semibold">Status</th>
+                                                            class="fw-semibold"><%= t('event.Status') %></th>
                                                         <th scope="col"
                                                             style="color: #333;"
-                                                            class="fw-semibold">Sold</th>
+                                                            class="fw-semibold"><%= t('event.event.Sold') %></th>
                                                         <th scope="col"
                                                             style="color: #333;"
-                                                            class="fw-semibold">Gross</th>
+                                                            class="fw-semibold"><%= t('event.event.Gross') %></th>
                                                         <th scope="col"
                                                             style="color: #333;"
-                                                            class="fw-semibold">Participated</th>
+                                                            class="fw-semibold"><%= t('event.event.Participated') %></th>
                                                         <th scope="col"
                                                             style="color: #333;"
                                                             class="fw-semibold"></th>
@@ -249,13 +245,11 @@
                                                     id="showing-event-sort-filter"
                                                     aria-label="Default select example">
                                                     <option value
-                                                        selected>All</option>
+                                                        selected><%= t('event.All') %></option>
                                                     <option
-                                                        value="eng_name">Event
-                                                        Title</option>
+                                                        value="eng_name"><%= t('event.eventTitle') %></option>
                                                     <option
-                                                        value="created_at">Latest
-                                                        Post</option>
+                                                        value="created_at"><%= t('event.lastestPost') %></option>
                                                 </select>
                                             </div>
     
@@ -263,7 +257,7 @@
                                                 <div class="input-group">
                                                     <input type="text"
                                                         class="form-control border-brand-sm shadow-none ps-3 bg-transparent"
-                                                        placeholder="Search"
+                                                        placeholder="<%= t('event.search') %>"
                                                         id="showing-searchEventInput">
                                                 </div>
                                             </div>
@@ -275,7 +269,7 @@
                                                 role="button"
                                                 class="btn btn-brand fw-medium w-auto"
                                                 style="height: auto !important;">+
-                                                Create Event</a>
+                                                <%= t('event.create-event.title') %></a>
                                         </div>
                                     </div>
                                 </div>
@@ -288,19 +282,19 @@
                                                     <tr>
                                                         <th scope="col"
                                                             style="color: #333;"
-                                                            class="fw-semibold">Event</th>
+                                                            class="fw-semibold"><%= t('event.Event') %></th>
                                                         <th scope="col"
                                                             style="color: #333;"
-                                                            class="fw-semibold">Status</th>
+                                                            class="fw-semibold"><%= t('event.Status') %></th>
                                                         <th scope="col"
                                                             style="color: #333;"
-                                                            class="fw-semibold">Sold</th>
+                                                            class="fw-semibold"><%= t('event.event.Sold') %></th>
                                                         <th scope="col"
                                                             style="color: #333;"
-                                                            class="fw-semibold">Gross</th>
+                                                            class="fw-semibold"><%= t('event.event.Gross') %></th>
                                                         <th scope="col"
                                                             style="color: #333;"
-                                                            class="fw-semibold">Participated</th>
+                                                            class="fw-semibold"><%= t('event.event.Participated') %></th>
                                                         <th scope="col"
                                                             style="color: #333;"
                                                             class="fw-semibold"></th>
@@ -339,13 +333,11 @@
                                                     id="past-event-sort-filter"
                                                     aria-label="Default select example">
                                                     <option value
-                                                        selected>All</option>
+                                                        selected><%= t('event.All') %></option>
                                                     <option
-                                                        value="eng_name">Event
-                                                        Title</option>
+                                                        value="eng_name"><%= t('event.eventTitle') %></option>
                                                     <option
-                                                        value="created_at">Latest
-                                                        Post</option>
+                                                        value="created_at"><%= t('event.lastestPost') %></option>
                                                 </select>
                                             </div>
     
@@ -353,7 +345,7 @@
                                                 <div class="input-group">
                                                     <input type="text"
                                                         class="form-control border-brand-sm shadow-none ps-3 bg-transparent"
-                                                        placeholder="Search"
+                                                        placeholder="<%= t('event.search') %>"
                                                         id="past-searchEventInput" style="width: 400px !important;">
                                                 </div>
                                             </div>
@@ -365,7 +357,7 @@
                                                 role="button"
                                                 class="btn btn-brand fw-medium w-auto"
                                                 style="height: auto !important;">+
-                                                Create Event</a>
+                                                <%= t('event.create-event.title') %></a>
                                         </div>
                                     </div>
                                 </div>
@@ -378,19 +370,19 @@
                                                     <tr>
                                                         <th scope="col"
                                                             style="color: #333;"
-                                                            class="fw-semibold">Event</th>
+                                                            class="fw-semibold"><%= t('event.Event') %></th>
                                                         <th scope="col"
                                                             style="color: #333;"
-                                                            class="fw-semibold">Status</th>
+                                                            class="fw-semibold"><%= t('event.Status') %></th>
                                                         <th scope="col"
                                                             style="color: #333;"
-                                                            class="fw-semibold">Sold</th>
+                                                            class="fw-semibold"><%= t('event.event.Sold') %></th>
                                                         <th scope="col"
                                                             style="color: #333;"
-                                                            class="fw-semibold">Gross</th>
+                                                            class="fw-semibold"><%= t('event.event.Gross') %></th>
                                                         <th scope="col"
                                                             style="color: #333;"
-                                                            class="fw-semibold">Participated</th>
+                                                            class="fw-semibold"><%= t('event.event.Participated') %></th>
                                                         <th scope="col"
                                                             style="color: #333;"
                                                             class="fw-semibold"></th>

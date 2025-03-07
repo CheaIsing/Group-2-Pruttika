@@ -11,9 +11,9 @@
             <div class="hero-overlay"></div>
             <div class="hero-content">
                 <h5></h5>
-                <span class="badge rounded-pill text-white bg-brand fs-6 fw-medium mb-3" id="snippet-date">Fri, 23 Feb 2025</span>
-                <h1 class="fs-2" id="title">Lorem Ipsum Dolor Sit Amet</h1>
-                <p id="short-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla quas perferendis.</p>
+                <span class="badge rounded-pill text-white bg-brand fs-6 fw-medium mb-3" id="snippet-date"></span>
+                <h1 class="fs-2" id="title"></h1>
+                <p id="short-desc"></p>
                 
             </div>
         </div>
@@ -34,12 +34,11 @@
 
                     </div>
                    <div id="agenda-section">
-                    <h3 class="title fw-medium mb-3">Agenda</h3>
+                    <h3 class="title fw-medium mb-3"><%= t('event.event-detail.Agenda') %></h3>
                     <div id="agenda-container">
                         <div class="agenda-card mb-3 rounded-4 py-3 px-4">
                             <div class="agenda-content ps-4">
-                                <p class="text-secondary" id="agenda-time">
-                                    11:00</p>
+                                <p class="text-secondary" id="agenda-time"></p>
                                 <h4 id="agenda-title" style="color: #333333;"></h4>
                                 <p id="agenda-desc" class="mb-0 text-secondary"></p>
                             </div>
@@ -54,14 +53,14 @@
                         <!-- Section Heading -->
                         <div
                             class="d-flex align-items-center justify-content-between">
-                            <h5 class="fw-medium mb-0">Event Details</h5>
+                            <h5 class="fw-medium mb-0"><%= t('event.event-detail.eventDetail') %></h5>
                             <div>
                                 <!-- Heart button -->
                                 <div class="d-flex align-items-center">
                                     <div class="me-2 btn-wishlist" id="buttonWish" 
                                         data-bs-toggle="tooltip"
                                         data-bs-placement="top"
-                                        title="Add to Wishlist"
+                                        title="<%= t('event.event-detail.addWishlist') %>"
                                         data-bs-custom-class="custom-tooltip">
                                         <i class="fa-regular fa-heart fs-5"></i>
                                         </div>
@@ -69,7 +68,7 @@
                                         data-bs-toggle="tooltip"
                                         data-bs-placement="top"
                                         data-bs-custom-class="custom-tooltip"
-                                        title="Copy Link" href="#" id="btn-copylink-event"><i class="fa-regular fa-copy fs-5"></i></div>
+                                        title="<%= t('event.copyLink') %>" href="#" id="btn-copylink-event"><i class="fa-regular fa-copy fs-5"></i></div>
                                 </div>
                             </div>
                         </div>
@@ -82,7 +81,7 @@
                                     <i class="fa-solid fa-list"></i>
                                 </div>
                                 <div class=" ">
-                                    <p class="info-text">Type</p>
+                                    <p class="info-text"><%= t('event.event-detail.Type') %></p>
                                     <p id="event-type" class="info-title"></p>
                                 </div>
                             </div>
@@ -91,7 +90,7 @@
                                     <i class="fa-regular fa-calendar"></i>
                                 </div>
                                 <div class=" ">
-                                    <p class="info-text">Date</p>
+                                    <p class="info-text"><%= t('event.event-detail.Date') %></p>
                                     <p id="date" class="info-title"></p>
                                 </div>
                             </div>
@@ -100,7 +99,7 @@
                                     <i class="fa-regular fa-clock"></i>
                                 </div>
                                 <div class=" ">
-                                    <p class="info-text ">Time</p>
+                                    <p class="info-text "><%= t('event.event-detail.Time') %></p>
                                     <p id="time" class="info-title"></p>
                                 </div>
                             </div>
@@ -110,7 +109,7 @@
                                     <i class="fa-solid fa-location-dot"></i>
                                 </div>
                                 <div class=" ">
-                                    <p class="info-text ">Location</p>
+                                    <p class="info-text "><%= t('event.event-detail.Location') %></p>
                                     <p id="location" class="info-title"></p>
                                 </div>
                             </div>
@@ -119,7 +118,7 @@
                                     <i class="fa-solid fa-tag"></i>
                                 </div>
                                 <div class=" ">
-                                    <p class="info-text ">Categories</p>
+                                    <p class="info-text "><%= t('event.event-detail.Categories') %></p>
                                     <p id="category" class="info-title"></p>
                                 </div>
                             </div>
@@ -129,7 +128,7 @@
                                     <i class="fa-solid fa-ticket"></i>
                                 </div>
                                 <div class=" ">
-                                    <p class="info-text ">Ticket Categories</p>
+                                    <p class="info-text "><%= t('event.event-detail.ticketCategories') %></p>
                                     <p id="ticket-category"
                                         class="info-title">5</p>
                                 </div>
@@ -139,7 +138,7 @@
                                     <i class="fa-solid fa-user-group"></i>
                                 </div>
                                 <div class=" ">
-                                    <p class="info-text ">Ticket Capacity</p>
+                                    <p class="info-text "><%= t('event.event-detail.ticketCapacity') %></p>
                                     <p id="capacity" class="info-title">250</p>
                                 </div>
                             </div>
@@ -148,7 +147,7 @@
                     </div>
                     <div class="event-details-card mt-4">
                         <div class="d-flex click-profile">
-                            <h5 class="mb-3 " >Posted By&nbsp;</h5><p class="text-muted">&bull;&nbsp;<small  id="created-at"></small></p>
+                            <h5 class="mb-3 " ><%= t('event.event-detail.postedBy') %>&nbsp;</h5><p class="text-muted">&bull;&nbsp;<small  id="created-at"></small></p>
                         </div>
                         <div class="d-flex align-items-center justify-content-between">
 
@@ -163,10 +162,9 @@
 
                             <div class="click-profile">
                                 <h5 class="mb-0 " id="creator-name"></h5>
-                                <p class="text-muted mb-0">
-                                    Event Organizer</p>
+                                <p class="text-muted mb-0"><%= t('event.event-detail.eventOrganizer') %></p>
                             </div>
-                                <button type="button" class="btn btn-brand ms-auto px-4 text-wrap" id="btnFollow">Follow</button>
+                                <button type="button" class="btn btn-brand ms-auto px-4 text-wrap" id="btnFollow"><%= t('event.event-detail.Follow') %></button>
                             
                         </div>
                     </div>
@@ -175,8 +173,8 @@
                         id="purchase-ticket-container" style="background-color: #ffeef7e7;border: 1px solid #ffd5ec9c;box-shadow: none;">
                         <div class="d-flex align-items-center justify-content-between mb-3">
                             <div class="">
-                                <h5 class="mb-0">Tickets</h5>
-                            <p class="info-text mb-0">Event Entry</p>
+                                <h5 class="mb-0"><%= t('event.event-detail.Tickets') %></h5>
+                            <p class="info-text mb-0"><%= t('event.event-detail.eventEntry') %></p>
                             </div>
                             
                             <div class="icon-box text-brand me-2" style="width: 3rem; height: 3rem; font-size: 1.2rem;background-color: #FFD7ED;">
@@ -187,10 +185,10 @@
                             class="card-purchaseTicket rounded-2 bg-transparent">
                             <div
                                 class=" fw-semibold mb-3 text-brand">
-                                <h4 id="range-price">$0.00 - $200.00</h4>
+                                <h4 id="range-price"></h4>
                             </div>
                             <a id="btnPurchaseTicket" role="button"
-                                class="btn btn-brand w-100">Purchase Ticket</a>
+                                class="btn btn-brand w-100"><%= t('event.event-detail.purchaseTicket') %></a>
                         </div>
                         <div>
 
@@ -199,12 +197,11 @@
                                    </div>
 
             </div>
-            <h2 class="fw-bold mb-3">Related <span class="text-brand">Event</span></h2>
+            <h2 class="fw-bold mb-3"><%= t('event.event-detail.Related') %> <span class="text-brand"><%= t('event.Event') %></span></h2>
         <section class="container my-5">
             <div class="d-flex justify-content-between mb-3">
-                <h3><i class="fa-solid fa-globe text-brand me-3"></i>All Events In <span class="text-brand">Phnom
-                        Penh</span>, Cambodia</h3>
-                <a class="seeAllEvent color-style" href="#"><strong>See all Event</strong></a>
+                <h3><i class="fa-solid fa-globe text-brand me-3"></i><%= t('mainpage.all-event') %> <span class="text-brand"><%= t('mainpage.phnompenh') %></span>, <%= t('mainpage.cambodia') %></h3>
+                <a class="seeAllEvent color-style" href="#"><strong><%= t('mainpage.see-all-event') %></strong></a>
             </div>
 
             <div class="swiper mySwiper">
