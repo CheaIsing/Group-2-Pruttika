@@ -1,11 +1,11 @@
-const port = 3000;
-const url = `http://localhost:${port}/api`;
+// const port = 3000;
+// const url = `http://localhost:${port}/api`;
 
-const axiosInstance = axios.create({
-  baseURL: url,
-  timeout: 10000,
-  withCredentials: true,
-});
+// const axiosInstance = axios.create({
+//   baseURL: url,
+//   timeout: 10000,
+//   withCredentials: true,
+// });
 
 document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("btnLogout").addEventListener("click", handleLogout);
@@ -18,7 +18,7 @@ async function handleLogout(e) {
     const response = await axiosInstance.delete("/auth/logout");
 
     Swal.fire("Success", response.data.message, "success").then(() => {
-      window.location.href = "../../auth/signin";
+      window.location.href = "/auth/signin";
     });
   } catch (error) {
     Swal.fire(
