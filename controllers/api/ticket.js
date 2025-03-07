@@ -260,6 +260,7 @@ const putApproveTicket=async(req,res)=>{
         sendResponse(res, 200, true, "Ticket Request has been approved successfully");
         return
     } catch (error) {
+        console.log(error);
         handleResponseError(res,error);
     }
 }
@@ -336,6 +337,7 @@ const putRejectTicket=async(req,res)=>{
 
         sendResponse(res,200,true,`Ticket Request ID ${ticketReq_id} has been rejected successfully`);
     } catch (error) {
+        console.log(error);
         handleResponseError(res,error);
     }
 }

@@ -207,7 +207,6 @@
         "val-msg":"សូមបញ្ចូលប្រតិបត្តិការទូទាត់របស់អ្នកជា .jpeg, .jpg, ឬ png",
         "submit":"ដាក់ស្នើការទិញ"
     },
-
     "myTicket":{
       "title":"សំបុត្ររបស់ខ្ញុំ",
       "ownedTicket":"សំបុត្រផ្ទាល់ខ្លួន",
@@ -232,6 +231,7 @@
       "Phone Number":"លេខទូរស័ព្ទ"
     },
     "req-ticket":{
+      "title":"Request Tickets",
       "event":"Event",
       "status":"ស្ថានភាព",
       "purchase-date":"កាលបរិច្ឆេទទិញ",
@@ -268,6 +268,10 @@
     "View":"មើល",
     "copyLink":"ចម្លងតំណ",
     "price":"តម្លៃ",
+    "Approved":"Approved",
+    "Pending":"Pending",
+    "Rejected":"Rejected",
+    "searchByName":"Search by name",
 
     "browseEvent":{
       "title":"ស្វែងរក Event",
@@ -366,7 +370,8 @@
       "goBackBegin":"ត្រឡប់ទៅកាន់ការចាប់ផ្តើម",
       "Previous":"មុន",
       "Next":"បន្ទាប់",
-      "Submit":"ដាក់ស្នើ"
+      "Submit":"ដាក់ស្នើ",
+      "update-title":"Update Event"
     },
     "event-req":{
       "title":"ស្នើសុំសំបុត្រ",
