@@ -224,7 +224,7 @@ function displayEvents(events) {
                 <td><img class="img-preview" width="50" height="50" src="/uploads/${
                   event.thumbnail
                 }"></td>
-                <td>${event.description}</td>
+                <td class="text-1-line">${event.description}</td>
                 <td>
                     <span class="badge ${
                       event.event_type === 1 ? "badge-success" : "badge-danger"
