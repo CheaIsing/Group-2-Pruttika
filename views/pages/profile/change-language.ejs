@@ -13,7 +13,7 @@
         </div>
         <div class="col-12 col-md-8">
             <div class="card p-4 rounded-3 border-0 shadow-light-sm">
-              <h3 class="text-center mb-4">Change Language</h3>
+              <h3 class="text-center mb-4"><%= t('profile.changeLanguage.title') %></h3>
           <form action="#">
             <!-- Email -->
 
@@ -21,20 +21,20 @@
              <div class="">
 
                 <label for
-                class="form-label fw-medium mb-2">Language</label>
+                class="form-label fw-medium mb-2"><%= t('profile.accManagement.language') %></label>
                 <select class="form-select mb-3 border-brand-sm w-100" style="height: 50px;" id="language">
-                    <option selected>English</option>
-                    <option value="1">Khmer</option>
+                    <option selected><%= t('profile.accManagement.eng') %></option>
+                    <option value="1"><%= t('profile.accManagement.kh') %></option>
                 </select>
              </div>
-            <button type="submit" class="btn btn-brand w-100 mb-4">Save Change</button>
+            <button type="submit" class="btn btn-brand w-100 mb-4"><%= t('profile.accManagement.save-change') %></button>
             <div>
-              <h5>Change Your Password</h5>
-              <p>Click the button below to proceed with updating your password</p>
-              <a href="/profile/change-password" class="btn btn-brand w-100 mb-4">Change Password</a>
-              <h5>Delete Your Account</h5>
-              <p>Deleting your account will remove all information from our database. This action cannot be undone.</p>
-              <a href="/profile/delete-account" class="btn btn-danger w-100">Delete Account</a>
+              <h5><%= t('profile.accManagement.change-pw') %></h5>
+              <p><%= t('profile.accManagement.changePw-content') %></p>
+              <a href="/profile/change-password" class="btn btn-brand w-100 mb-4"><%= t('profile.changePw.change-pw') %></a>
+              <h5><%= t('profile.accManagement.delete-acc') %></h5>
+              <p><%= t('profile.accManagement.deleteAcc-content') %></p>
+              <a href="/profile/delete-account" class="btn btn-danger w-100"><%= t('profile.accManagement.delete-btn') %></a>
             </div>
 
           </form>

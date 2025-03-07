@@ -8,16 +8,16 @@
 <div class="container-lg mt-4">
     <!-- Back Arrow and Name -->
     <div class="d-flex align-items-center">
-        <h4 class="fw-medium">Follow</h4>
+        <h4 class="fw-medium"><%= t('follow.title') %></h4>
     </div>
 
     <!-- Followers & Following Tabs -->
     <ul class="nav nav-underline mt-3 border-0">
         <li class="nav-item" style="cursor: pointer;">
-            <a class="nav-link active fw-bold" id="followers-tab" data-bs-toggle="tab" data-bs-target="#followers-content">Followers</a>
+            <a class="nav-link active fw-bold" id="followers-tab" data-bs-toggle="tab" data-bs-target="#followers-content"><%= t('follow.Followers') %></a>
         </li>
         <li class="nav-item" style="cursor: pointer;">
-            <a class="nav-link fw-bold text-muted"  id="following-tab" data-bs-toggle="tab" data-bs-target="#following-content">Following</a>
+            <a class="nav-link fw-bold text-muted"  id="following-tab" data-bs-toggle="tab" data-bs-target="#following-content"><%= t('follow.Following') %></a>
         </li>
     </ul>
 
@@ -27,7 +27,7 @@
     <div class="tab-content bg-transparent mt-4 m-0">
         <!-- Followers List -->
         <div class="tab-pane fade show active" id="followers-content">
-            <h5 class="fw-medium mb-3">All Followers</h5>
+            <h5 class="fw-medium mb-3"><%= t('follow.all-follower') %></h5>
             <div class="d-flex flex-column gap-3" id="followers">
                 
             </div>
@@ -36,7 +36,7 @@
 
         <!-- Following List -->
         <div class="tab-pane fade"id="following-content" >
-            <h5 class="fw-medium mb-3">People you follow</h5>
+            <h5 class="fw-medium mb-3"><%= t('follow.ppl-follow') %></h5>
             <div class="d-flex flex-column gap-3" id="following">
                 
             </div>

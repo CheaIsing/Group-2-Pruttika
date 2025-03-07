@@ -14,13 +14,12 @@
                 <!-- Main Content -->
                 <div class="col-12 col-md-8">
                     <div class="card border-0 shadow-light-sm p-4 rounded-4">
-                      <h4 class="mb-3">Organizer Information</h4>
+                      <h4 class="mb-3"><%= t('profile.org-view.title') %></h4>
                     <div class="d-flex align-items-center mb-4">
                         <!-- <img class="tip-icon" src="../../assets/img/icon/bulb.png" alt=""> -->
                         <i class="fa-regular fa-lightbulb me-2 text-brand"></i>
-                        <p class="p-0 m-0"><span class="fw-medium">Tip:</span>
-                            Some information that upgrade account to
-                            organizer.</p>
+                        <p class="p-0 m-0"><span class="fw-medium"><%= t('profile.org-view.tip') %>:</span>
+                          <%= t('profile.org-view.tip-info') %></p>
                     </div>
 
                     <!-- <div>
@@ -32,24 +31,23 @@
 
                     <form id="frmOrganizerRequest" action="#">
                       <div class="mb-3">
-    <label for="status" class="form-label fw-medium mb-2">Status</label>
+    <label for="status" class="form-label fw-medium mb-2"><%= t('profile.org-view.status') %></label>
     <div>
         <span id="status-badge" class="badge"></span>
     </div>
 </div>
 <div id="rejection-reason-wrapper" class="mt-2" style="display: none;">
-  <label class="form-label fw-medium mb-2">Rejection Reason</label>
+  <label class="form-label fw-medium mb-2"><%= t('profile.org-view.rej-reason') %></label>
   <div class="alert alert-danger" id="rejection-reason"></div>
 </div>
                         <!-- Organization Name -->
                         <div class="mb-3">
                             <label for="organizationName"
-                                class="form-label fw-medium mb-2">Organization
-                                Name</label>
+                                class="form-label fw-medium mb-2"><%= t('profile.organizer.org-name') %></label>
                             <div class="input-field input-field-setting " id="input-field-organization-name">
                                 <i class="fas fa-user"></i>
                                 <input type="text" id="organization-name"
-                                    placeholder="Enter your organization name" />
+                                    placeholder="<%= t('profile.organizer.enter-orgname') %>" />
                             </div>
                             <div
                             class="invalid_feedback text-danger d-flex align-items-center mb-2"
@@ -62,7 +60,7 @@
 
                         <div class="mb-3">
                             <label for
-                                class="form-label fw-medium mb-2">Bio</label>
+                                class="form-label fw-medium mb-2"><%= t('profile.organizer.bio') %></label>
 
                             <div class="description mb-3 overflow-hidden" style="border: 1px solid var(--c-brand);border-radius: 8px;">
                                 <div id="editor" class="bg-white"
@@ -79,12 +77,11 @@
                         <!-- Phone Number -->
                         <div class="mb-3">
                             <label for
-                                class="form-label fw-medium mb-2">Phone
-                                Number</label>
+                                class="form-label fw-medium mb-2"><%= t('profile.organizer.phone') %></label>
                             <div class="input-field input-field-setting " id="input-field-phone">
                                 <i class="fas fa-phone"></i>
                                 <input type="tel" id="phone"
-                                    placeholder="Enter your phone number" />
+                                    placeholder="<%= t('profile.organizer.enter-phone') %>" />
                             </div>
                             <div
                             class="invalid_feedback text-danger d-flex align-items-center mb-2"
@@ -98,11 +95,11 @@
                         <!-- Email -->
                         <div class="mb-3">
                             <label for
-                                class="form-label fw-medium mb-2">Email</label>
+                                class="form-label fw-medium mb-2"><%= t('profile.organizer.email') %></label>
                             <div class="input-field input-field-setting "  id="input-field-email">
                                 <i class="fas fa-envelope"></i>
                                 <input type="email" id="email"
-                                    placeholder="Enter your email" />
+                                    placeholder="<%= t('profile.organizer.enter-email') %>" />
                             </div>
                             <div
                             class="invalid_feedback text-danger d-flex align-items-center mb-2"
@@ -116,11 +113,11 @@
                         <!-- Email -->
                         <div class="mb-3">
                             <label for
-                                class="form-label fw-medium mb-2">Location</label>
+                                class="form-label fw-medium mb-2"><%= t('profile.organizer.location') %></label>
                             <div class="input-field input-field-setting "  id="input-field-location">
                                 <i class="fa-solid fa-location-dot"></i>
                                 <input type="text" id="location"
-                                    placeholder="Enter your location" />
+                                    placeholder="<%= t('profile.organizer.enter-location') %>" />
 
                             </div>
                             <div
@@ -134,8 +131,7 @@
                         <!-- Social Media Link -->
                         <div class>
                             <label for
-                                class="form-label fw-medium mb-2">Social Media
-                                Links</label>
+                                class="form-label fw-medium mb-2"><%= t('profile.organizer.social') %></label>
                             <div class="mb-3">
                                 <div
                                     class="input-field input-field-setting "  id="input-field-facebook">

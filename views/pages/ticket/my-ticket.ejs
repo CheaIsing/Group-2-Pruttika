@@ -6,7 +6,7 @@
     <div class="container-lg py-4">
 
       <!-- Title -->
-      <h3 class="mb-3" style="color: #333 !important;">My Ticket</h3>
+      <h3 class="mb-3" style="color: #333 !important;"><%= t('ticket.myTicket.title') %></h3>
 
       <div class="my-ticket">
         <ul class="nav nav-pills mb-1 mt-2 gap-3 align-items-center"
@@ -17,7 +17,7 @@
               id="pills-home-tab" data-bs-toggle="pill"
               data-bs-target="#pills-home" type="button"
               role="tab" aria-controls="pills-home"
-              aria-selected="true">Owned Ticket</button>
+              aria-selected="true"><%= t('ticket.myTicket.ownedTicket') %></button>
           </li>
           <li
             class="nav-item nav-item-request d-flex w-auto align-items-center gap-3"
@@ -29,7 +29,7 @@
               data-bs-toggle="pill" data-bs-target="#pills-profile"
               type="button" role="tab" aria-controls="pills-profile"
               aria-selected="false">
-              Requested Ticket <span id="notiUnreadCount"></span>
+              <%= t('ticket.myTicket.reqTicket') %> <span id="notiUnreadCount"></span>
             </button>
 
             <!-- Dropdown Button -->
@@ -44,9 +44,9 @@
             <select name id="select-owned-ticket-status"
               class="form-select rounded-5 ps-3 w-auto my-3"
               style="background-color: #f3f4f6 !important;">
-              <option value>All</option>
-              <option value="1">Issue</option>
-              <option value="2">Used</option>
+              <option value><%= t('ticket.myTicket.all') %></option>
+              <option value="1"><%= t('ticket.myTicket.issue') %></option>
+              <option value="2"><%= t('ticket.myTicket.used') %></option>
             </select>
 
             <div class="accordion" id="owned-ticket-container">
@@ -73,10 +73,10 @@
             <select name id="select-request-ticket-status"
               class="form-select rounded-5 ps-3 w-auto my-3"
               style="background-color: #f3f4f6 !important;">
-              <option value>All</option>
-              <option value="2">Approved</option>
-              <option value="1">Pending</option>
-              <option value="3">Rejected</option>
+              <option value><%= t('ticket.myTicket.all') %></option>
+              <option value="2"><%= t('ticket.myTicket.approve') %></option>
+              <option value="1"><%= t('ticket.myTicket.pending') %></option>
+              <option value="3"><%= t('ticket.myTicket.reject') %></option>
             </select>
 
             <div class="row">
@@ -115,7 +115,7 @@
         <div class="modal-content rounded-5" style="color: #333;">
           <div class="modal-header border-bottom p-3">
             <h4 class="modal-title" style="color: #333;" id="exampleModalLabel">
-              Ticket Transaction
+              <%= t('ticket.myTicket.tts') %>
             </h4>
             <button type="button" class="btn-close" data-bs-dismiss="modal"
               aria-label="Close"></button>

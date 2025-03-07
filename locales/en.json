@@ -232,6 +232,7 @@
           "Phone Number":"Phone Number"
         },
         "req-ticket":{
+          "title":"Request Tickets",
           "event":"Event",
           "status":"Status",
           "purchase-date":"Purchase Date",
@@ -268,6 +269,10 @@
     "View":"View",
     "copyLink":"Copy Link",
     "price":"Price",
+    "Approved":"Approved",
+    "Pending":"Pending",
+    "Rejected":"Rejected",
+    "searchByName":"Search by name",
 
     "browseEvent":{
       "title":"Browse Event",
@@ -366,7 +371,8 @@
       "goBackBegin":"Go back from the beginning",
       "Previous":"Previous",
       "Next":"Next",
-      "Submit":"Submit"
+      "Submit":"Submit",
+      "update-title":"Update Event"
     },
     "event-req":{
       "title":"Request Ticket",

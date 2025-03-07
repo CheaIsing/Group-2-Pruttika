@@ -6,7 +6,7 @@
 <body>
     <%- include("../../partials/navbar.ejs") %>
     <div class="container-lg py-5">
-        <h3 class="fw-medium mb-3" style="color: #333;">Request Purchase <span class="text-brand">Ticket</span></h3>
+        <h3 class="fw-medium mb-3" style="color: #333;"><%= t('ticket.buy-ticket.request-purchase') %> <span class="text-brand"><%= t('ticket.buy-ticket.ticket') %></span></h3>
         <div class="row">
             <div class="col-12 col-md-6" id="event-card">
                 
@@ -17,9 +17,9 @@
                     <div class="card border-brand-sm">
                         
                         <div class="card-body">
-                            <h5 class="card-title" style="color: #333;">Purchase Information</h5>
+                            <h5 class="card-title" style="color: #333;"><%= t('ticket.buy-ticket.purchase-info') %></h5>
                             <div class="mb-3">
-                                <label for="ticketQuantity" class="form-label">Ticket Type:</label>
+                                <label for="ticketQuantity" class="form-label"><%= t('ticket.buy-ticket.type') %>:</label>
                                 <select class="form-select shadow-none border-brand-sm py-2" id="ticketType">
                                     <option selected value='1'>1</option>
                                     
@@ -29,7 +29,7 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="ticketQuantity" class="form-label">Number of Tickets:</label>
+                                <label for="ticketQuantity" class="form-label"><%= t('ticket.buy-ticket.qty') %>:</label>
                                 <select class="form-select shadow-none border-brand-sm py-2" id="ticketQuantity">
                                     <option selected value='1'>1</option>
                                     <option value='1'>2</option>
@@ -40,30 +40,30 @@
                                 </select>
                             </div>
                             <hr class="text-brand bg-brand opacity-100">
-                            <p>Subtotal: <span id="subTotal" class="float-end">$10.00</span></p>
-                            <p>Dicount Fee: <span class="float-end">$0.00</span></p>
-                            <h5 class="text-brand">Total: <span id="total" class="float-end fw-medium">$10.00</span></h5>
+                            <p><%= t('ticket.buy-ticket.Subtotal') %>: <span id="subTotal" class="float-end">$10.00</span></p>
+                            <p><%= t('ticket.buy-ticket.discount') %>: <span class="float-end">$0.00</span></p>
+                            <h5 class="text-brand"><%= t('ticket.buy-ticket.total') %>: <span id="total" class="float-end fw-medium">$10.00</span></h5>
                             <hr class="text-brand bg-brand opacity-100">
                             <div class="mb-3">
-                            <label class="form-label">Payment QR Code</label>
-                            <button class="btn btn-outline-brand w-100 fw-medium" onclick="toggleQRCode()"><i class="bi bi-qr-code"></i>&nbsp;Show QR Code</button>
+                            <label class="form-label"><%= t('ticket.buy-ticket.qr') %></label>
+                            <button class="btn btn-outline-brand w-100 fw-medium" onclick="toggleQRCode()"><i class="bi bi-qr-code"></i>&nbsp;<%= t('ticket.buy-ticket.showqr') %></button>
                             <img src="" width="200" alt="QR Code" id="qrCodeImage" class="img-fluid mt-3 d-none">
                         </div>
                         
                         <div class="mb-3">
-                            <label for="paymentProof" class="form-label">Upload Payment Proof</label>
+                            <label for="paymentProof" class="form-label"><%= t('ticket.buy-ticket.upload-payment') %></label>
                             
                             <div class=" d-flex align-items-center border border-brand-sm p- rounded">
                                 <input type="file" class="d-none" id="paymentProof" accept=".jpeg, .jpg, .pdf" onchange="previewFile()">
                                 <button class="btn text-nowrap text-brand d-flex align-items-center fw-normal fs-6 rounded-0 py-1"  style="border-right: 1px solid var(--c-brand);" onclick="document.getElementById('paymentProof').click();">
-                                    <i class="bi bi-upload me-2"></i> Choose File
+                                    <i class="bi bi-upload me-2"></i> <%= t('ticket.buy-ticket.choose-file') %>
                                 </button>
-                                <label for="paymentProof" id="fileName" class="ms-2 text-muted h-100 w-75 d-block">No file selected</label>
+                                <label for="paymentProof" id="fileName" class="ms-2 text-muted h-100 w-75 d-block"><%= t('ticket.buy-ticket.no-file') %></label>
                             </div>
                             
-                            <small class="text-muted">Please upload your payment transaction in .jpeg, .jpg, or PDF</small>
+                            <small class="text-muted"><%= t('ticket.buy-ticket.val-msg') %></small>
                         </div>
-                            <button class="btn btn-brand w-100" id="submitButton">Submit Purchase</button>
+                            <button class="btn btn-brand w-100" id="submitButton"><%= t('ticket.buy-ticket.submit') %></button>
                         </div>
                     </div>
                 </div>
