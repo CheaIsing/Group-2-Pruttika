@@ -16,22 +16,21 @@
                                 <div class="d-flex align-items-center">
                                     <button onclick="history.back()" type="button" class="btn fw-medium border-0 ps-0 d-flex align-items-center mb-2">
                                         <i class="fa-solid fa-angle-left fs-6 m-0 p-0 "></i>
-                                        <span class="m-0 ps-2"><a>Back to
-                                                Event</a></span>
+                                        <span class="m-0 ps-2"><a><%= t('event.backToEvent') %></a></span>
                                     </button>
                                 </div>
                                 <div class="card mb-4 p-4">
-                                    <h1 class="h3 mb-2">Event Summary</h1>
+                                    <h1 class="h3 mb-2"><%= t('event.summary.title') %></h1>
                                     <h2
-                                        class="h5 text-muted mb-2" id="event-title">{eventData.eng_name}</h2>
+                                        class="h5 text-muted mb-2" id="event-title"></h2>
                                     
                                     <div class="d-flex align-items-center">
                                         <small class="me-2 text-brand"><i data-lucide="locate-fixed" width="1rem"></i></small>
-                                        <span id="event-type">Thu, 5 December, 2024</span>
+                                        <span id="event-type"></span>
                                     </div>
                                     <div class="d-flex align-items-center">
                                         <small class="me-2 text-brand"><i data-lucide="calendar-days" width="1rem"></i></small>
-                                        <span id="event-date">Thu, 5 December, 2024</span>
+                                        <span id="event-date"></span>
                                     </div>
                                 </div>
                                 <div class="row g-4 mb-4">
@@ -45,9 +44,8 @@
                                             <div
                                                 class="d-flex justify-content-between align-items-center">
                                                 <div>
-                                                    <h3 class="stat-title">TICKETS SOLD</h3>
-                                                    <p class="stat-value" id="ticket-sold">10
-                                                        tickets</p>
+                                                    <h3 class="stat-title"><%= t('event.summary.ticketSold') %></h3>
+                                                    <p class="stat-value" id="ticket-sold"></p>
                                                 </div>
                                                 <div style="color: #3B82F6;"><i
                                                         data-lucide="ticket-percent"></i></div>
@@ -64,9 +62,9 @@
                                             <div
                                                 class="d-flex justify-content-between align-items-center">
                                                 <div>
-                                                    <h3 class="stat-title">TICKETS EARNINGS</h3>
+                                                    <h3 class="stat-title"><%= t('event.summary.ticketEarning') %></h3>
                                                     <p
-                                                        class="stat-value" id="ticket-earning">$100.00</p>
+                                                        class="stat-value" id="ticket-earning"></p>
                                                 </div>
                                                 <div class="" style="color: #10B981;"><i
                                                         data-lucide="circle-dollar-sign"></i></div>
@@ -84,9 +82,8 @@
                                                 class="d-flex justify-content-between align-items-center">
                                                 <div>
                                                     <h3
-                                                        class="stat-title">PARTICIPATED</h3>
-                                                    <p class="stat-value" id="participated">10
-                                                        attendant</p>
+                                                        class="stat-title"><%= t('event.summary.Participated') %></h3>
+                                                    <p class="stat-value" id="participated"></p>
                                                 </div>
                                                 <div style="color: #06B6D4;" class={class}><i
                                                         data-lucide="user-check"></i></div>
@@ -103,7 +100,7 @@
                                             <div
                                                 class="d-flex justify-content-between align-items-center">
                                                 <div>
-                                                    <h3  class="stat-title">NOT YET PARTICIPATE</h3>
+                                                    <h3  class="stat-title"><%= t('event.summary.notParticipated') %></h3>
                                                     <p class="stat-value" id="not-participated">0</p>
                                                 </div>
                                                 <div style="color: #F59E0B;" class={class}><i
@@ -115,52 +112,24 @@
                                 <div class="mb-4" id="ticket-section">
                                     <!-- <TicketDetailsSection tickets={eventData.ticket} /> -->
                                     <div class="card p-4">
-                                        <h2 class="h4 mb-4">Ticket Details</h2>
+                                        <h2 class="h4 mb-4"><%= t('event.summary.ticketDetail') %></h2>
                                         <div class="table-container">
                                             <table class="custom-table">
                                                 <thead>
                                                     <tr>
                                                         <th
-                                                            class="text-start">Ticket Type</th>
+                                                            class="text-start"><%= t('event.summary.ticketType') %></th>
                                                         <th
-                                                            class="text-end">Price</th>
+                                                            class="text-end"><%= t('event.price') %></th>
                                                         <th
-                                                            class="text-end">Tickets Bought</th>
+                                                            class="text-end"><%= t('event.summary.ticketBought') %></th>
                                                         <th
-                                                            class="text-end">Total Earnings</th>
+                                                            class="text-end"><%= t('event.summary.totalEarning') %></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody id="ticket-tbody">
-                                                    <!-- {tickets.map((ticket) => ( -->
-                                                    <tr >
-                                                        <td>{ticket.type_name}</td>
-                                                        <td
-                                                            class="text-end">${ticket.price.toFixed(2)}</td>
-                                                        <td
-                                                            class="text-end">{ticket.ticket_bought}</td>
-                                                        <td class="text-end">
-                                                        </td>
-                                                    </tr>
-                                                    
-                                                    
                                                 </tbody>
                                                 <tfoot id="ticket-tfoot">
-                                                    <tr
-                                                        class="fw-bold bg-light">
-                                                        <td>Total</td>
-                                                        <td
-                                                            class="text-end">-</td>
-                                                        <td class="text-end">
-                                                            {tickets.reduce((sum,
-                                                            ticket) => sum +
-                                                            ticket.ticket_bought,
-                                                            0)}
-                                                        </td>
-                                                        <td
-                                                            class="text-end text-success">
-                                                            ${totalEarnings.toFixed(2)}
-                                                        </td>
-                                                    </tr>
                                                 </tfoot>
                                             </table>
                                         </div>
@@ -168,9 +137,9 @@
                                 </div>
                                 <!-- <ShareSection /> -->
                                 <div class="card p-4">
-                                    <h2 class="h4 mb-4">Share</h2>
+                                    <h2 class="h4 mb-4"><%= t('event.summary.share') %></h2>
                                     <div class="mb-4">
-                                        <p class="text-muted mb-2">Event link <i class="text-brand" data-lucide="link" width="1.25rem"></i></p>
+                                        <p class="text-muted mb-2"><%= t('event.summary.eventLink') %> <i class="text-brand" data-lucide="link" width="1.25rem"></i></p>
                                         <div class="d-flex gap-2">
                                             <div
                                                 class="share-link-container flex-grow-1 d-flex align-items-center">
@@ -182,8 +151,7 @@
                                             </div>
                                             <button id="shareBtn"
                                                 class="share-button">
-                                                
-                                                Copy link
+                                                <%= t('event.copyLink') %>
                                             </button>
                                         </div>
                                     </div>

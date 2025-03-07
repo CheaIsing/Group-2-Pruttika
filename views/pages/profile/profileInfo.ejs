@@ -14,7 +14,7 @@
                 </div>
                 <div class="col-12 col-lg-8">
                     <div class="card border-0 shadow-light-sm p-4 rounded-3">
-                        <h3 class="text-center mb-4">Profile Information</h3>
+                        <h3 class="text-center mb-4"><%= t('profile.profile-info.title') %></h3>
                     <div class="avatar-upload">
                         <div class="avatar-edit">
                             <input type="file" id="imageUpload"
@@ -28,8 +28,8 @@
                             <ul class="dropdown-menu"
                                 id="changeProfileDropdown">
                                 <!-- Dropdown menu links -->
-                                <li><button onclick="document.getElementById('imageUpload').click()" class="dropdown-item">Change Profile</button></li>
-                                <li><button id="deleteImage" class="dropdown-item">Remove Profile</button></li>
+                                <li><button onclick="document.getElementById('imageUpload').click()" class="dropdown-item"><%= t('profile.profile-info.changePf') %></button></li>
+                                <li><button id="deleteImage" class="dropdown-item"><%= t('profile.profile-info.removePf') %></button></li>
                             </ul>
                         </div>
                         <div
@@ -39,7 +39,7 @@
                                 alt="Avatar Preview">
                         </div>
                     </div>
-                    <h5 class="text-center mt-3">Profile Picture</h5>
+                    <h5 class="text-center mt-3"><%= t('profile.profile-info.pfPic') %></h5>
                     <p class="text-center text-muted mt-3">PNG, JPG, Max Size:
                         3MB</p>
                     <form action="#" class id="frm"
@@ -50,13 +50,12 @@
                                 <!-- Khmer Username -->
                                 <div class="mb-3">
                                     <label for
-                                    class="form-label fw-medium mb-2">English
-                                    Username</label>
+                                    class="form-label fw-medium mb-2"><%= t('profile.profile-info.engName') %></label>
                                 <div class="input-field input-field-setting"
                                     id="input-field-eng-name">
                                     <i class="fas fa-user"></i>
                                     <input type="text"
-                                        placeholder="English Username"
+                                        placeholder="<%= t('profile.profile-info.engName') %>"
                                         id="eng-name" class
                                         autofocus />
                                 </div>
@@ -73,12 +72,12 @@
                                 <!-- English Username -->
                                 <div class="mb-3">
                                     <label for
-                                    class="form-label fw-medium mb-2">Khmer Username</label>
+                                    class="form-label fw-medium mb-2"><%= t('profile.profile-info.khName') %></label>
                                 <div class="input-field input-field-setting"
                                     id="input-field-kh-name">
                                     <i class="fas fa-user"></i>
                                     <input type="text"
-                                        placeholder="Khmer Username"
+                                        placeholder="<%= t('profile.profile-info.khName') %>"
                                         id="kh-name" class
                                         autofocus />
                                 </div>
@@ -96,11 +95,11 @@
                         <div class>
                             <div class="mb-3">
                                 <label for
-                                class="form-label fw-medium mb-2">Email</label>
+                                class="form-label fw-medium mb-2"><%= t('profile.profile-info.email') %></label>
                             <div class="input-field input-field-setting"
                                 id="input-field-email">
                                 <i class="fas fa-envelope"></i>
-                                <input type="text" placeholder="Email"
+                                <input type="text" placeholder="<%= t('profile.profile-info.email') %>"
                                     id="email" class
                                     autofocus />
                             </div>
@@ -115,11 +114,11 @@
                         </div>
                         <div class="mb-3">
                             <label for
-                                class="form-label fw-medium mb-2">Phone</label>
+                                class="form-label fw-medium mb-2"><%= t('profile.profile-info.phone') %></label>
                             <div class="input-field input-field-setting"
                                 id="input-field-phone">
                                 <i class="fas fa-phone"></i>
-                                <input type="text" placeholder="Phone"
+                                <input type="text" placeholder="<%= t('profile.profile-info.phone') %>"
                                     id="phone" class=""
                                     autofocus />
                             </div>
@@ -138,7 +137,7 @@
                         <div class="col-12">
                             <div class="mb-3">
                                 <label for
-                                                                class="form-label fw-medium mb-2">Date of Birth</label>
+                                                                class="form-label fw-medium mb-2"><%= t('profile.profile-info.dob') %></label>
                                                             <div class="input-field input-field-setting border-2"
                                                                 id="input-field-dob">
                                                                 <i class="fa-solid fa-calendar-days" style="margin-bottom: 1px;"></i>
@@ -159,11 +158,11 @@
 
                     <div class="mb-3">
                         <label for
-                            class="form-label fw-medium mb-2">Address</label>
+                            class="form-label fw-medium mb-2"><%= t('profile.profile-info.address') %></label>
                         <div class="input-field input-field-setting"
                             id="input-field-address">
                             <i class="fa-solid fa-location-dot"></i>
-                            <input type="text" placeholder="Address"
+                            <input type="text" placeholder="<%= t('profile.profile-info.address') %>"
                                 id="address" class=""
                                 autofocus />
                         </div>
@@ -179,13 +178,12 @@
                         <!-- Gender -->
                         <div class="mb-3">
                             <label for
-                            class="form-label fw-medium mb-2 d-block">Gender</label>
+                            class="form-label fw-medium mb-2 d-block"><%= t('profile.profile-info.gender') %></label>
                             <div id="input-container" class="">
-                                
                                 <input class="form-check-input" name="gender" type="radio" value="1" id="male"> 
-                                <label class="form-check-label radio-lb">&nbsp;Male</label> &nbsp;
+                                <label class="form-check-label radio-lb">&nbsp;<%= t('profile.profile-info.male') %></label> &nbsp;
                                 <input class="form-check-input" name="gender" type="radio" value="2" id="female" class=""> 
-                                <label class="form-check-label radio-lb">&nbsp;Female</label> 
+                                <label class="form-check-label radio-lb">&nbsp;<%= t('profile.profile-info.female') %></label> 
                             </div>
                         </div>
 
@@ -193,7 +191,7 @@
 
                         <button type="submit"
                             class="btn btn-brand w-100 mt-4"
-                            id="btnSaveChange">Save Changes</button>
+                            id="btnSaveChange"><%= t('profile.profile-info.saveChange') %></button>
                     </form>
 
                     </div>
@@ -210,7 +208,7 @@
             <div class="modal-dialog modal-fullscreen-md-down modal-dialog-centered" aria-hidden="true">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Change Profile</h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel"><%= t('profile.profile-info.changePf') %></h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                     <div
@@ -225,7 +223,7 @@
                             <div class="col-12">
     
                                 <button type="button" class="btn btn-brand w-100"
-                                    id="cropImageBtn">Save</button>
+                                    id="cropImageBtn"><%= t('profile.profile-info.save') %></button>
                             </div>
                         </div>
                     </div>

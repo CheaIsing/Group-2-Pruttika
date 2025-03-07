@@ -11,13 +11,13 @@
                 <div
                     class="d-flex align-items-center justify-content-between">
                     <div class="d-flex ">
-                        <h4>Notifications</h4>
+                        <h4><%= t('notification.title') %></h4>
                         
                     </div>
 
                     <div class="d-flex align-items-center">
 
-                        <div class="btn text-brand btn-sm border-0" id="btnMarkAll">Mark all as read</div>
+                        <div class="btn text-brand btn-sm border-0" id="btnMarkAll"><%= t('notification.make-as-read') %></div>
                     </div>
                 </div>
             </div>
@@ -30,7 +30,7 @@
                             id="pills-home-tab" data-bs-toggle="pill"
                             data-bs-target="#pills-home" type="button"
                             role="tab" aria-controls="pills-home"
-                            aria-selected="true">All</button>
+                            aria-selected="true"><%= t('notification.all') %></button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link active"
@@ -38,7 +38,7 @@
                             data-bs-toggle="pill"
                             data-bs-target="#pills-profile" type="button"
                             role="tab" aria-controls="pills-profile"
-                            aria-selected="false">Unread <span id="notiUnreadCount"></span></button>
+                            aria-selected="false"><%= t('notification.unread') %> <span id="notiUnreadCount"></span></button>
                     </li>
                 </ul>
                 <div class="tab-content m-0" id="pills-tabContent">

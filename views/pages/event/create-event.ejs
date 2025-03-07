@@ -15,18 +15,17 @@
                         <div class="d-flex align-items-center">
                             <button onclick="history.back()" type="button" class="btn fw-medium border-0 ps-0 d-flex align-items-center mb-2">
                                 <i class="fa-solid fa-angle-left fs-6 m-0 p-0 "></i>
-                                <span class="m-0 ps-2"><a>Back to
-                                        Event</a></span>
+                                <span class="m-0 ps-2"><a><%= t('event.backToEvent') %></a></span>
                             </button>
                         </div>
                         <!-- FORMS -->
                 <div class="px-md-3">
                     <div class="col-12 card border-0 shadow-light-sm me-0 p-4 rounded-4">
-                        <h3 class="mb-3">Create Event</h3>
+                        <h3 class="mb-3"><%= t('event.create-event.title') %></h3>
                         <div class="progress" style="background-color: #ff169232;border-radius: 32px !important;">
                             <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="50" class="progress-bar progress-bar-striped progress-bar-animated bg-brand" role="progressbar" style="width: 0%"></div>
                         </div>
-                        <p class="text-center pb-0" id="stepNumber">Step 1 of 6</p>
+                        <p class="text-center pb-0" id="stepNumber"><%= t('event.create-event.Step-1-of-6') %></p>
                         <div id="qbox-container" class="w-100 mt-3">
                             <form class="needs-validation" id="form-wrapper" method="post" name="form-wrapper" novalidate="">
                                 <div id="steps-container">
@@ -34,7 +33,7 @@
                                     <!-- Event Thumbnail -->
                                     <div class="step">
                                         <div class="sub-form-wrapper active p-sm-4 rounded-4 mt-3 ">
-                                            <h5>Upload an image as your thumbnail</h5>
+                                            <h5><%= t('event.create-event.uploadThumbnailText') %></h5>
                                             <div class="form-display active upload-cover">
                                                 <img class="icon-img" src="../../assets/img/icon/plus.png" alt="">
                                             </div>
@@ -42,17 +41,16 @@
                                                 <div class="d-flex align-items-center mb-3">
                                                     <!-- <img class="tip-icon" src="../../assets/img/icon/bulb.png" alt=""> -->
                                                     <i class="fa-regular fa-lightbulb me-2 text-brand"></i>
-                                                    <p class="p-0 m-0"><span class="fw-medium">Tip:</span> Use photo that attracts
-                                                        viewers.</p>
+                                                    <p class="p-0 m-0"><span class="fw-medium"><%= t('event.create-event.tip') %>:</span> <%= t('event.create-event.tip-thumbnail') %></p>
                                                 </div>
                                                 <div class="upload-section d-flex align-items-center rounded-3 justify-content-center p-5 flex-column"
                                                     id="thumbnail-upload-section">
                                                     <i id="imgIcon" class="fa-regular fa-image fs-1 text-secondary pb-3"></i>
                                                     <label id="imgInputBtn" for="fileUpload" class="btn-outline-pink d-flex align-items-center"><i
-                                                            class="fa-regular fa-image fs-5 text-secondary me-1"></i> Upload Image</label>
+                                                            class="fa-regular fa-image fs-5 text-secondary me-1"></i> <%= t('event.create-event.uploadImg') %> </label>
                                                     <input class="d-none" id="fileUpload" accept=".jpg, .jpeg" type="file"></input>
                                                     <div class="d-flex">
-                                                        <p id="fileName" class="text-secondary pt-3">No file chosen</p>
+                                                        <p id="fileName" class="text-secondary pt-3"><%= t('event.create-event.no-file') %></p>
                                                         <button id="btnRemoveImgFile" type="button"
                                                             class="ms-1 text-secondary bg-transparent border-0 fs-5 ">
                                                             <i class="fa-solid fa-circle-xmark"></i></button>
@@ -62,9 +60,9 @@
                                                 </div>
                                                 <div class="img-format pt-3 w-100">
                                                     <ul type="circle" class="d-flex flex-column flex-sm-row justify-content-evenly ">
-                                                        <li>Recommended image size: 2160 x 1080px</li>
-                                                        <li>Maximum file size: 10MB</li>
-                                                        <li>Supported image files: .JPEG, .PNG</li>
+                                                        <li><%= t('event.create-event.recmd-size') %>: 2160 x 1080px</li>
+                                                        <li><%= t('event.create-event.max-size') %>: 10MB</li>
+                                                        <li><%= t('event.create-event.support-file') %>: .JPEG, .PNG</li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -76,20 +74,20 @@
                                         <div class="sub-form-wrapper active p-sm-4 rounded-4 mt-3 ">
                                             
                                             <div class="main-form active">
-                                                <h5 class="">Event Overview</h5>
+                                                <h5 class=""><%= t('event.create-event.eventOverview') %></h5>
                                                 <div class="d-flex align-items-center mb-3">
                                                     <!-- <img class="tip-icon" src="../../assets/img/icon/bulb.png" alt=""> -->
                                                     <i class="fa-regular fa-lightbulb me-2 text-brand"></i>
-                                                    <p class="p-0 m-0"><span class="fw-medium">Tip:</span> Give an attractive brief paragraph about your event.</p>
+                                                    <p class="p-0 m-0"><span class="fw-medium"><%= t('event.create-event.tip') %>:</span> <%= t('event.create-event.tip-overview') %></p>
                                                 </div>
                                                 <!-- <p>Give an attractive brief paragraph about your event.</p> -->
                                                 <div class="mb-3">
                                                     <label for
-                                                        class="form-label fw-medium mb-2">Event Title</label>
+                                                        class="form-label fw-medium mb-2"><%= t('event.eventTitle') %></label>
                                                     <div class="input-field input-field-setting border-2"
                                                         id="input-field-title">
                                                         <i class="fa-regular fa-pen-to-square"></i>
-                                                        <input type="text" placeholder="Event Title"
+                                                        <input type="text" placeholder="<%= t('event.eventTitle') %>"
                                                             id="title" class=""
                                                             autofocus value="" />
                                                         
@@ -105,12 +103,12 @@
                                                 <div class="mb-4 mt-2 w-100">
                                                     <div class="mb-3">
                                                         <label for
-                                                        class="form-label fw-medium mb-2 d-block">Event Type</label>
+                                                        class="form-label fw-medium mb-2 d-block"><%= t('event.create-event.eventType') %></label>
                                                         <div id="input-container">
                                                             <input class="form-check-input" name="event_type" type="radio" id="inPerson" value="2" checked> 
-                                                            <label class="form-check-label radio-lb">In Person</label> 
+                                                            <label class="form-check-label radio-lb"><%= t('event.create-event.offline') %></label> 
                                                             <input class="form-check-input" name="event_type" type="radio" id="online" value="1"> 
-                                                            <label class="form-check-label radio-lb">Online</label> 
+                                                            <label class="form-check-label radio-lb"><%= t('event.create-event.online') %></label> 
                                                         </div>
                                                     </div>
                                                 </div>
@@ -118,7 +116,7 @@
                                                 <div class="w-100">
                                                     <div class="mb-3">
                                                         <label for
-                                                        class="form-label fw-medium mb-2">Event Categories</label>
+                                                        class="form-label fw-medium mb-2"><%= t('event.create-event.eventCate') %></label>
      <select class="tom-selected" id="select-category" name="state[]" multiple placeholder="Choose Categories" autocomplete="off">
                                                                 <!-- <option value="">Select a state...</option> -->
                                                                 <option value="1">entertainment</option>
@@ -136,7 +134,7 @@
                                             </div>
                                         </div>
                                         <div id="onlineMessage" class="text-brand mt-2 d-none">
-                                            <i class="fa-solid fa-circle-info"></i> &nbsp;Event Link will be required when date is comming.
+                                            <i class="fa-solid fa-circle-info"></i> &nbsp;<%= t('event.create-event.eventLink') %>
                                         </div>
                                     </div>
                                     <!--  -->
@@ -144,13 +142,13 @@
                                         <div class="sub-form-wrapper active p-sm-4 rounded-4 mt-3 ">
                                             
                                             <div class="main-form active">
-                                                <h4 class="mb-3" id="stepEventDateLocation">Event Date and Location</h4>
+                                                <h4 class="mb-3" id="stepEventDateLocation"><%= t('event.create-event.dateLocation') %></h4>
                                                 <div class="row gx-4 gy-1">
                                                     <div class="col-md-12 col-lg-12 col-xxl-8">
                                                         <div class="row gx-4 gy-1">
                                                             <div class="col-md-6 col-lg-7 col-xxl-8">
                                                                 <div class="mb-3">
-                                                                    <label for class="form-label fw-medium mb-2">Start Date</label>
+                                                                    <label for class="form-label fw-medium mb-2"><%= t('event.create-event.startD') %></label>
                                                                     <div class="input-field input-field-setting border-2" id="input-field-started-date">
                                                                         <i class="fa-regular fa-pen-to-square"></i>
                                                                         <input type="date" id="started-date" class="" value="" />
@@ -166,7 +164,7 @@
                                                             </div>
                                                             <div class="col-md-6 col-lg-5 col-xxl-4">
                                                                 <div class="mb-3">
-                                                                    <label for class="form-label fw-medium mb-2">Start Time</label>
+                                                                    <label for class="form-label fw-medium mb-2"><%= t('event.create-event.startT') %></label>
                                                                 <div class="input-field input-field-setting border-2" id="input-field-start-time">
                                                                     <i class="fa-regular fa-pen-to-square"></i>
                                                                     <input type="time" id="start-time" class="" value="" />
@@ -182,7 +180,7 @@
                                                             </div>
                                                             <div class="col-md-6 col-lg-7 col-xxl-8">
                                                                 <div class="mb-3">
-                                                                    <label for class="form-label fw-medium mb-2">End Date</label>
+                                                                    <label for class="form-label fw-medium mb-2"><%= t('event.create-event.endD') %></label>
                                                                 <div class="input-field input-field-setting border-2" id="input-field-ended-date">
                                                                     <i class="fa-regular fa-pen-to-square"></i>
                                                                     <input type="date" id="ended-date" class="" value="" />
@@ -198,7 +196,7 @@
                                                             </div>
                                                             <div class="col-md-6 col-lg-5 col-xxl-4">
                                                                 <div class="mb-3">
-                                                                    <label for class="form-label fw-medium mb-2">End Time</label>
+                                                                    <label for class="form-label fw-medium mb-2"><%= t('event.create-event.endT') %></label>
                                                                 <div class="input-field input-field-setting border-2" id="input-field-end-time">
                                                                     <i class="fa-regular fa-pen-to-square"></i>
                                                                     <input type="time" id="end-time" class="" value="" />
@@ -221,7 +219,7 @@
                                                     <div class="col-md-12" id="block-location">
                                                         <div class="mb-3">
                                                             <label for
-                                                            class="form-label fw-medium mb-2">Location</label>
+                                                            class="form-label fw-medium mb-2"><%= t('event.create-event.location') %></label>
                                                         <div class="input-field input-field-setting border-2"
                                                             id="input-field-location">
                                                             <i class="fa-regular fa-pen-to-square"></i>
@@ -242,24 +240,25 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="step">
                                         <div class="sub-form-wrapper active p-sm-4 rounded-4 mt-3 ">
                                             
                                             <div class="main-form active">
-                                                <h4 class="mb-0">Event Description</h4>
+                                                <h4 class="mb-0"><%= t('event.create-event.event-des') %></h4>
                                                 <div class="d-flex align-items-center mb-4">
                                                     <!-- <img class="tip-icon" src="../../assets/img/icon/bulb.png" alt=""> -->
                                                     <i class="fa-regular fa-lightbulb me-2 text-brand"></i>
-                                                    <p class="p-0 m-0"><span class="fw-medium">Tip:</span> Give a short attractive and full detail description about your event.</p>
+                                                    <p class="p-0 m-0"><span class="fw-medium"><%= t('event.create-event.tip') %>:</span> <%= t('event.create-event.tip-des') %></p>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="mb-3">
                                                         <label for
-                                                        class="form-label fw-medium mb-2">Short Description</label>
+                                                        class="form-label fw-medium mb-2"><%= t('event.create-event.short-des') %></label>
                                                     <div class="input-field input-field-setting border-2"
                                                         id="input-field-short-description">
                                                         <i class="fa-regular fa-pen-to-square"></i>
-                                                        <input type="text" placeholder="Short Description"
+                                                        <input type="text" placeholder="<%= t('event.create-event.short-des') %>"
                                                             id="short-description" class=""
                                                             autofocus />
                                                     </div>
@@ -275,7 +274,7 @@
                                                 <div class="">
                                                     <div class="mb-3">
                                                         <label for
-                                                        class="form-label fw-medium mb-2 mt-2">Description Detail</label>
+                                                        class="form-label fw-medium mb-2 mt-2"><%= t('event.create-event.des-detail') %></label>
                                                 
                                                     <div class="description mb-3 overflow-hidden" id="input-field-description" style="border: 1px solid var(--c-brand);border-radius: 8px;">
                                                         <div id="editor" class="bg-white" style="min-height: 150px;"></div>
@@ -294,14 +293,15 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="step">
                                         <div class="sub-form-wrapper active p-sm-4 rounded-4 mt-3 ">
                                             <div class="main-form active">
-                                                <h4 class="mb-0">Event Agenda</h4>
+                                                <h4 class="mb-0"><%= t('event.create-event.eventAgenda') %></h4>
                                                 <div class="d-flex align-items-center mb-4">
                                                     <!-- <img class="tip-icon" src="../../assets/img/icon/bulb.png" alt=""> -->
                                                     <i class="fa-regular fa-lightbulb me-2 text-brand"></i>
-                                                    <p class="p-0 m-0"><span class="fw-medium">Tip:</span> Give agendas about your event.</p>
+                                                    <p class="p-0 m-0"><span class="fw-medium"><%= t('event.create-event.tip') %>:</span> <%= t('event.create-tip-agenda') %></p>
                                                 </div>
                                                 <div class="description my-3 ">
                                                     <!-- <div id="agendaEditor"></div> -->
@@ -309,31 +309,32 @@
                                                         
                                                     </div>
                                                     <button type="button" class="btn btn-outline-brand fw-medium d-flex align-items-center" onclick="createNewAgenda()"><i
-                                                            class="fa-solid fa-plus"></i>&nbsp; Add a new agenda</button>
+                                                            class="fa-solid fa-plus"></i>&nbsp; <%= t('event.create-event.addAgenda') %></button>
                                                 </div>
                                             </div>
                                         </div>
                                         <div id="skipAgendaMessage" class="text-brand mt-2">
-                                            <i class="fa-solid fa-circle-info"></i> &nbsp;Don't have an agenda yet? You can skip this step and add it later!
+                                            <i class="fa-solid fa-circle-info"></i> &nbsp;<%= t('event.create-event.skipAgenda') %>
                                         </div>
                                         
                                                 
                                     </div>
+
                                     <div class="step">
                                         <div class="sub-form-wrapper active p-sm-4 rounded-4 mt-3">
                                             <div class="main-form active">
-                                                <h4 class="mb-0">Ticket Categories</h4>
+                                                <h4 class="mb-0"><%= t('event.create-event.ticketCate') %></h4>
                                                 <div class="d-flex align-items-center mb-4">
                                                     <i class="fa-regular fa-lightbulb me-2 text-brand"></i>
-                                                    <p class="p-0 m-0"><span class="fw-medium">Tip:</span> Set up tickets information and define ticket categories for your event.</p>
+                                                    <p class="p-0 m-0"><span class="fw-medium"><%= t('event.create-event.tip') %>:</span> <%= t('event.create-event.tip-ticket') %></p>
                                                 </div>
                                     
                                                 <!-- Default Ticket Category -->
                                                 <div id="default-ticket">
-                                                    <h5 class="fw-semibold text-brand mb-3">General Admission</h5>
+                                                    <h5 class="fw-semibold text-brand mb-3"><%= t('event.create-event.generalAdmission') %></h5>
                                                     <div class="row gx-4 gy-0">
                                                         <div class="d-none">
-                                                            <label class="form-label fw-medium mb-2">Name</label>
+                                                            <label class="form-label fw-medium mb-2"><%= t('event.create-event.ticket-name') %></label>
                                                             <div class="input-field input-field-setting mb-3" id="input-field-defaultTicketCategoryName">
                                                                 <i class="fa-regular fa-pen-to-square"></i>
                                                                 <input type="hidden" value="General Admission" id="defaultTicketCategoryName" placeholder="e.g. VIP, Normal">
@@ -344,10 +345,10 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-4">
-                                                            <label class="form-label fw-medium mb-2">Price</label>
+                                                            <label class="form-label fw-medium mb-2"><%= t('event.create-event.price') %></label>
                                                             <div class="input-field input-field-setting border-2" id="input-field-defaultTicketPrice">
                                                                 <i class="fa-solid fa-dollar-sign"></i>
-                                                                <input type="number" id="defaultTicketPrice" placeholder="Enter price">
+                                                                <input type="number" id="defaultTicketPrice" placeholder="<%= t('event.create-event.enter-price') %>">
                                                             </div>
                                                             <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_defaultTicketPrice">
                                                                 <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
@@ -356,10 +357,10 @@
                                                             
                                                         </div>
                                                         <div class="col-4">
-                                                            <label class="form-label fw-medium mb-2">Capacity</label>
+                                                            <label class="form-label fw-medium mb-2"><%= t('event.create-event.Capacity') %></label>
                                                             <div class="input-field input-field-setting border-2" id="input-field-defaultTicketCapacity">
                                                                 <i class="fa-solid fa-ticket"></i>
-                                                                <input type="number" id="defaultTicketCapacity" placeholder="Enter capacity">
+                                                                <input type="number" id="defaultTicketCapacity" placeholder="<%= t('event.create-event.enterCapacity') %>">
                                                             </div>
                                                             <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_defaultTicketCapacity">
                                                                 <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
@@ -371,7 +372,7 @@
                                     
                                                 <!-- Button to Toggle Between Default and Custom Ticket Categories -->
                                                 <button id="toggle-ticket-btn" class="btn btn-outline-brand fw-medium mt-3">
-                                                    <i class="fa-solid fa-plus"></i>&nbsp; Create Your Own Ticket Categories
+                                                    <i class="fa-solid fa-plus"></i>&nbsp; <%= t('event.create-event.create-ownedTicket') %>
                                                 </button>
                                     
                                                 <!-- Custom Ticket Categories Section -->
@@ -380,19 +381,19 @@
                                     
                                                     <!-- Button to Add More Custom Ticket Categories -->
                                                     <button type="button" class="btn btn-outline-brand fw-medium" onclick="createNewTicketCategory()">
-                                                        <i class="fa-solid fa-plus"></i> &nbsp; Add a New Ticket Category
+                                                        <i class="fa-solid fa-plus"></i> &nbsp; <%= t('event.create-event.addNewTCate') %>
                                                     </button>
                                                 </div>
                                             </div>
                                             
                                         </div>
                                         <div id="skipTicketMessage" class="text-brand mt-2 d-none">
-                                            <i class="fa-solid fa-circle-info"></i> &nbsp;No ticket is needed for this online event. You can continue to the next step!
+                                            <i class="fa-solid fa-circle-info"></i> &nbsp;<%= t('event.create-event.noTicketInfo') %>
                                         </div>
                                     </div>
                                     <div class="step" id="step-payment">
                                         <div class="sub-form-wrapper active p-sm-4 rounded-4 mt-3 ">
-                                            <h5>Payment Method</h5>
+                                            <h5><%= t('event.create-event.paymentMethod') %></h5>
                                             <div class="form-display active upload-cover">
                                                 <img class="icon-img" src="../../assets/img/icon/plus.png" alt="">
                                             </div>
@@ -400,17 +401,16 @@
                                                 <div class="d-flex align-items-center mb-3">
                                                     <!-- <img class="tip-icon" src="../../assets/img/icon/bulb.png" alt=""> -->
                                                     <i class="fa-regular fa-lightbulb me-2 text-brand"></i>
-                                                    <p class="p-0 m-0"><span class="fw-medium">Tip:</span> Give a KHQR image for your payment method.</p>
+                                                    <p class="p-0 m-0"><span class="fw-medium"><%= t('event.create-event.tip') %>:</span> <%= t('event.create-event.tip-payment') %></p>
                                                 </div>
                                                 <div class="upload-section d-flex align-items-center rounded-3 justify-content-center p-5 flex-column"
                                                 id="khqr-upload-section">
                                                     <i id="khqrPhotoIcon" class="fa-regular fa-image fs-1 text-secondary pb-3"></i>
                                                     <label id="khqrPhotoInputBtn" for="khqrPhotoUpload" class="btn-outline-pink d-flex align-items-center"><i
-                                                            class="fa-regular fa-image fs-5 text-secondary me-1"></i> Upload
-                                                        Image</label>
+                                                            class="fa-regular fa-image fs-5 text-secondary me-1"></i> <%= t('event.create-event.uploadImg') %></label>
                                                     <input class="d-none" id="khqrPhotoUpload" accept=".jpg, .jpeg" type="file"></input>
                                                     <div class="d-flex">
-                                                        <p id="KhqrPhotoName" class="text-secondary pt-3">No file chosen</p>
+                                                        <p id="KhqrPhotoName" class="text-secondary pt-3"><%= t('event.create-event.no-file') %></p>
                                                         <button id="btnRemoveKhqrImg" type="button"
                                                             class="ms-1 text-secondary bg-transparent border-0 fs-5 ">
                                                             <i class="fa-solid fa-circle-xmark"></i></button>
@@ -420,15 +420,15 @@
                                                 </div>
                                                 <div class="img-format pt-3 w-100">
                                                     <ul type="circle" class="d-flex flex-column flex-sm-row justify-content-evenly ">
-                                                        <li>Recommended image size: 2160 x 1080px</li>
-                                                        <li>Maximum file size: 10MB</li>
-                                                        <li>Supported image files: .JPEG, .PNG</li>
+                                                        <li><%= t('event.create-event.recmd-size') %>: 2160 x 1080px</li>
+                                                        <li><%= t('event.create-event.max-size') %>: 10MB</li>
+                                                        <li><%= t('event.create-event.support-file') %>: .JPEG, .PNG</li>
                                                     </ul>
                                                 </div>
                                             </div>
                                         </div>
                                         <div id="skipKhqrMessage" class="text-brand mt-2 d-none">
-                                            <i class="fa-solid fa-circle-info"></i> &nbsp;No QR payment needed for free entry. You can proceed to the next step!
+                                            <i class="fa-solid fa-circle-info"></i> &nbsp;<%= t('event.create-event.noQrInfo') %>
                                         </div>
                                     </div>
                                     <!-- Event Publish -->
@@ -436,27 +436,27 @@
                                         <div class="sub-form-wrapper active p-sm-4 rounded-4 mt-3 ">
                                             
                                             <div class="main-form active">
-                                                <h5 class="">Publish Events</h5>
+                                                <h5 class=""><%= t('event.create-event.publishEvent') %></h5>
                                                 
                                                 <div class="d-flex align-items-center mb-3">
                                                     <!-- <img class="tip-icon" src="../../assets/img/icon/bulb.png" alt=""> -->
                                                     <i class="fa-regular fa-lightbulb me-2 text-brand"></i>
-                                                    <p class="p-0 m-0"><span class="fw-medium">Tip:</span> Publish your event in public or private.</p>
+                                                    <p class="p-0 m-0"><span class="fw-medium"><%= t('event.create-event.tip') %>:</span> <%= t('event.create-event.tip-publish') %></p>
                                                 </div>
-                                                <p class="fw-medium">Is your event public or private?</p>
+                                                <p class="fw-medium"><%= t('event.create-event.publishQuestion') %></p>
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="publishStatus" id="publicOption">
                                                     <label class="form-check-label" for="publicOption">
-                                                        <span class="fw-medium">Public</span><br>
-                                                        <small class="text-muted">Shared on Pruttika and search engines</small>
+                                                        <span class="fw-medium"><%= t('event.create-event.Public') %></span><br>
+                                                        <small class="text-muted"><%= t('event.create-event.sharePublish') %></small>
                                                     </label>
                                                 </div>
                                             
                                                 <div class="form-check mt-2">
                                                     <input class="form-check-input" type="radio" name="publishStatus" id="privateOption" checked>
                                                     <label class="form-check-label" for="privateOption">
-                                                        <span class="fw-medium">Private</span><br>
-                                                        <small class="text-muted">Shared with event link to select audience</small>
+                                                        <span class="fw-medium"><%= t('event.create-event.Private') %></span><br>
+                                                        <small class="text-muted"><%= t('event.create-event.sharePrivate') %></small>
                                                     </label>
                                                 </div>
                                             </div>
@@ -466,9 +466,9 @@
                                     <div class="step">
                                         <div class="mt-1">
                                             <div class="closing-text">
-                                                <h4>You're all set!</h4>
-                                                <p>You’ve successfully completed all the steps to create your event.</p>
-                                                <p>Click the submit button to finalize and publish your event.</p>
+                                                <h4><%= t('event.create-event.cfPost-h4') %></h4>
+                                                <p><%= t('event.create-event.cfPost-p1') %></p>
+                                                <p><%= t('event.create-event.cfPost-p2') %></p>
                                             </div>
                                         </div>
                                     </div>
@@ -476,9 +476,9 @@
                                    
                                 </div>
                                 <div id="q-box__buttons" class="d-flex align-items-center justify-content-center" style="margin-top: 40px;">
-                                    <button id="prev-btn" type="button" class="me-2">Previous</button> 
-                                    <button id="next-btn" type="button">Next</button> 
-                                    <button id="submit-btn" type="submit">Submit</button>
+                                    <button id="prev-btn" type="button" class="me-2"><%= t('event.create-event.Previous') %></button> 
+                                    <button id="next-btn" type="button"><%= t('event.create-event.Next') %></button> 
+                                    <button id="submit-btn" type="submit"><%= t('event.create-event.Submit') %></button>
                                 </div>
                             </form>
                         </div>

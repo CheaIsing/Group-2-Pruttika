@@ -14,12 +14,12 @@
                         <div class="d-flex align-items-center">
                             <button onclick="history.back()" type="button" class="btn fw-medium border-0 ps-0 d-flex align-items-center mb-2">
                                 <i class="fa-solid fa-angle-left fs-6 m-0 p-0 "></i>
-                                <span class="m-0 ps-2"><a>Back to Request Ticket List</a></span>
+                                <span class="m-0 ps-2"><a><%= t('event.req-transaction.backToReq-list') %></a></span>
                             </button>
                         </div>
 
                         <div class="card p-4 border-0 shadow-light-sm">
-                            <h3>Transaction</h3>
+                            <h3><%= t('event.req-transaction.Transaction') %></h3>
                             <div class="row" id="row-transaction"></div>
                         </div>
     
@@ -35,7 +35,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5"
-                            id="exampleModalLabel">Disapprove request</h1>
+                            id="exampleModalLabel"><%= t('event.req-transaction.disapproveReq') %></h1>
                         <button type="button" class="btn-close"
                             data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
@@ -43,19 +43,20 @@
                         <div class="mb-">
                             <div class="input-field input-field-setting" id="input-field-reject">
                               <i class="fas fa-lock"></i>
-                              <input type="text" placeholder="Enter Reject Reason" id="reject" autocomplete="off" autofocus/>
+                              <input type="text" placeholder="<%= t('event.req-transaction.enter-rejReason') %>" id="reject" autofocus/>
                             </div>
                             <div
                               class="invalid_feedback text-danger d-flex align-items-center" id="invalid_feedback_reject">
                               <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
-                              <div class="ms-2">Reject Reason is required.</div>
+                              <div class="ms-2"><%= t('event.req-transaction.required-rejReason') %></div>
                             </div>
                           </div>
                     </div>
                     <div class="modal-footer">
-
+                        <button type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal"><%= t('event.req-transaction.Close') %></button>
                         <button id="btn-disapprove" type="button"
-                            class="btn btn-brand btn-disapprove w-100">Send</button>
+                            class="btn btn-primary btn-disapprove"><%= t('event.req-transaction.Send') %></button>
                     </div>
                 </div>
             </div>
