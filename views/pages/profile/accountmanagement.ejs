@@ -17,23 +17,13 @@
           <form action="#">
             <!-- Email -->
 
-            <!-- langauge -->
-             <div class="">
-
-                <label for
-                class="form-label fw-medium mb-2"><%= t('profile.accManagement.language') %></label>
-                <select class="form-select mb-3 border-brand-sm w-100" style="height: 50px;" id="language">
-                    <option selected><%= t('profile.accManagement.eng') %></option>
-                    <option value="1"><%= t('profile.accManagement.kh') %></option>
-                </select>
-             </div>
-            <button type="submit" class="btn btn-brand w-100 mb-4"><%= t('profile.accManagement.save-change') %></button>
+            
             <div>
               <h5><%= t('profile.accManagement.change-pw') %></h5>
-              <p><%= t('profile.accManagement.changePw-content') %></p>
+              <p class="text-muted"><%= t('profile.accManagement.changePw-content') %></p>
               <a href="/profile/change-password" class="btn btn-brand w-100 mb-4"><%= t('profile.changePw.change-pw') %></a>
               <h5><%= t('profile.accManagement.delete-acc') %></h5>
-              <p><%= t('profile.accManagement.deleteAcc-content') %></p>
+              <p class="text-muted"><%= t('profile.accManagement.deleteAcc-content') %></p>
               <a href="/profile/delete-account" class="btn btn-danger w-100"><%= t('profile.accManagement.delete-btn') %></a>
             </div>
 

@@ -13,29 +13,27 @@
         </div>
         <div class="col-12 col-md-8">
             <div class="card p-4 rounded-3 border-0 shadow-light-sm">
-              <h3 class="text-center mb-4"><%= t('profile.changeLanguage.title') %></h3>
+              <h3 class=" mb-3"><%= t('profile.changeLanguage.title') %></h3>
           <form action="#">
             <!-- Email -->
 
             <!-- langauge -->
              <div class="">
 
+                <p class="text-muted">Choose your preferred language from the options below. This will change the language across the entire application.</p>
+                
                 <label for
                 class="form-label fw-medium mb-2"><%= t('profile.accManagement.language') %></label>
-                <select class="form-select mb-3 border-brand-sm w-100" style="height: 50px;" id="language">
-                    <option selected><%= t('profile.accManagement.eng') %></option>
-                    <option value="1"><%= t('profile.accManagement.kh') %></option>
+                <select class="form-select mb-3 border-brand-sm w-100 ps-3" style="height: 50px;" id="language">
+                    <!-- <option hidden>-- Select Language --</option> -->
+                    <option><%= t('profile.accManagement.eng') %></option>
+                    <option><%= t('profile.accManagement.kh') %></option>
                 </select>
              </div>
-            <button type="submit" class="btn btn-brand w-100 mb-4"><%= t('profile.accManagement.save-change') %></button>
-            <div>
-              <h5><%= t('profile.accManagement.change-pw') %></h5>
-              <p><%= t('profile.accManagement.changePw-content') %></p>
-              <a href="/profile/change-password" class="btn btn-brand w-100 mb-4"><%= t('profile.changePw.change-pw') %></a>
-              <h5><%= t('profile.accManagement.delete-acc') %></h5>
-              <p><%= t('profile.accManagement.deleteAcc-content') %></p>
-              <a href="/profile/delete-account" class="btn btn-danger w-100"><%= t('profile.accManagement.delete-btn') %></a>
-            </div>
+             <p class="text-muted">
+                Your current language selection will be saved automatically.
+             </p>
+            <button type="submit" class="btn btn-brand w-100 mb-2"><%= t('profile.accManagement.save-change') %></button>
 
           </form>
             </div>

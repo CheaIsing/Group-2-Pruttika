@@ -148,7 +148,8 @@ const deleteTransactionFile=async (req,res)=>{
 const putApproveTicket=async(req,res)=>{
     const ticketReq_id=req.params.id;
     const user_id=req.user.id;
-    const io = req.app.get('io');
+
+    
     try {
         const sqlGetTransaction = `
             SELECT 
@@ -254,6 +255,7 @@ const putApproveTicket=async(req,res)=>{
         await executeQuery(`UPDATE tbl_transaction SET status = ? WHERE id = ?`, [2, ticketReq_id]);
 
         // RealTime Implement Here
+        const io = req.app.get('io');
         emitTicketApprovalNotification(io, buyer_id, event_id, eng_name, event_type); // Pass eventType
 
 

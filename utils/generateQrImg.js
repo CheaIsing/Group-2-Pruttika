@@ -4,8 +4,8 @@ const QRcode = require("qrcode")
 async function generateQRCodeImg(token) {
     try {
         const qrCodeDataURL = await QRcode.toDataURL(`${token}`);
-    console.log('QR Code generated successfully');
-    console.log(qrCodeDataURL);
+    // console.log('QR Code generated successfully');
+    // console.log(qrCodeDataURL);
     
     return qrCodeDataURL;
     } catch (error) {

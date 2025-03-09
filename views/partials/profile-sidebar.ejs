@@ -1,17 +1,38 @@
 <nav class="nav nav-profile flex-column rounded card border-0 p-4 rounded-3 shadow-light-sm mb-md-0">
-    <a class="nav-link active mt-2" href="/profile/info">
-        <i class="bi bi-person-lines-fill me-3 fs-4 "></i> <span class=""><%= t('partials.sidebar.profile-info') %></span>
+    <a class="nav-link <%= active == "info" && "active" %>" href="/profile/info">
+        <div class="d-flex align-items-center justify-content-start" style="width: 3rem; height: 2.5rem;">
+            <i class="bi bi-person-lines-fill fs-4"></i>
+        </div>
+        <span class=""><%= t('partials.sidebar.profile-info') %></span>
     </a>
-    <a class="nav-link" href="/profile/manage-account">
-        <i class="bi bi-person-fill me-3 fs-4 "></i> <span  class=""><%= t('partials.sidebar.acc-management') %></span>
+    <a class="nav-link <%= active == "account" && "active" %>" href="/profile/manage-account">
+        <div class="d-flex align-items-center justify-content-start" style="width: 3rem; height: 2.5rem;">
+            <i class="fa-solid fa-user-gear fs-5"></i>
+        </div>
+        <span class=""><%= t('partials.sidebar.acc-management') %></span>
     </a>
-    <a class="nav-link" href="/profile/organizer-view">
-        <i class="bi bi-gear-fill me-3 fs-4 "></i><span class=""><%= t('partials.sidebar.org-management') %></span>
+    <a class="nav-link <%= active == "organizer" && "active" %>" href="/profile/organizer-view">
+        <div class="d-flex align-items-center justify-content-start" style="width: 3rem; height: 2.5rem;">
+            <i class="bi bi-gear-fill fs-5"></i>
+        </div>
+        <span class=""><%= t('partials.sidebar.org-management') %></span>
     </a>
-    <!-- <a class="nav-link" href="/profile/notification">
-        <i class="bi bi-bell-fill me-3 fs-4 "></i><span class=""> Notification Preference</span>
+    <a class="nav-link <%= active == "language" && "active" %>" href="/profile/change-language">
+        <div class="d-flex align-items-center justify-content-start" style="width: 3rem; height: 2.5rem;">
+            <i class="fa-solid fa-language fs-5"></i>
+        </div>
+        <span class=""> Change Language</span>
     </a>
-    <a class="nav-link" href="/profile/privacy">
-        <i class="fa-solid fa-lock me-3 fs-4 "></i><span class=""> Privacy Policy</span>
-    </a> -->
+    <a class="nav-link <%= active == "terms" && "active" %>" href="/profile/term-of-service">
+        <div class="d-flex align-items-center justify-content-start" style="width: 3rem; height: 2.5rem;">
+            <i class="fa-solid fa-file-contract fs-5"></i>
+        </div>
+        <span class=""> Terms of Service</span>
+    </a>
+    <a class="nav-link <%= active == "privacy" && "active" %>" href="/profile/privacy">
+        <div class="d-flex align-items-center justify-content-start" style="width: 3rem;height: 2.5rem;">
+            <i class="fa-solid fa-user-shield fs-5"></i>
+        </div>
+        <span class=""> Privacy Policy</span>
+    </a>
 </nav>

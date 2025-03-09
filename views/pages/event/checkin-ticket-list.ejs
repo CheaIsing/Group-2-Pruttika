@@ -68,26 +68,27 @@
                                                     class="form-control mb-3 "
                                                     placeholder="<%= t('event.checkin-ticket.searchBy') %>...">
                                             </div>
+                                            <div class="table-container table-responsive">
+                                                <table class="custom-table w-100"
+                                                    id="ticketTable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th><%= t('event.checkin-ticket.avatar') %></th>
+                                                            <th><%= t('event.checkin-ticket.name') %></th>
+                                                            <th><%= t('event.checkin-ticket.type') %></th>
+                                                            <th><%= t('event.checkin-ticket.email') %></th>
+                                                            <th><%= t('event.checkin-ticket.CheckDate') %></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="request-tbody">
+                                                       
+                                                    </tbody>
+                                                </table>
+                                            </div>
 
-                                        </div>
-                                        <div class="table-container table-responsive">
-                                            <table class="custom-table w-100"
-                                                id="ticketTable">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th><%= t('event.checkin-ticket.avatar') %></th>
-                                                        <th><%= t('event.checkin-ticket.name') %></th>
-                                                        <th><%= t('event.checkin-ticket.type') %></th>
-                                                        <th><%= t('event.checkin-ticket.email') %></th>
-                                                        <th><%= t('event.checkin-ticket.CheckDate') %></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="request-tbody">
-                                                   
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                    </div>
+                                        
                                     </div>
                                 </div>
 

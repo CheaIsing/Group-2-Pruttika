@@ -10,6 +10,7 @@ const { executeQuery } = require("../../utils/dbQuery");
 const {sendResponse ,sendResponse1}= require("../../utils/response");
 const {eventCollection , eventDetail}= require("../../resource/event");
 const {checkInTicketCollection}= require("../../resource/ticket");
+const { emitNotificationForEventUpdate } = require('../../socket/socketHelper');
 
 const default_img="default-events-img.jpg";
 
@@ -191,6 +192,7 @@ const putEditEvent= async(req,res)=>{
     const user_id=req.user.id;
 
         try {
+            
             const sqlUpdateEvent=`
                 UPDATE tbl_event SET
                     eng_name=? ,
@@ -296,13 +298,20 @@ const putEditEvent= async(req,res)=>{
                 const paramsNotification=[
                     event_id,
                     dataBuyer.buyer_id,
-                    `The details of the event have been successfully updated. Please check the latest information to stay informed about any changes.`,
+                    `The details of the event ${eng_name} have been successfully updated. Please check the latest information to stay informed about any changes.`,
                     `ព័ត៌មានលម្អិតនៃព្រឹត្តិការណ៍ ${eng_name} ត្រូវបានធ្វើបច្ចុប្បន្នភាពដោយជោគជ័យ។ សូមពិនិត្យមើលព័ត៌មានចុងក្រោយបំផុត ដើម្បីដឹងអំពីការផ្លាស់ប្តូរណាមួយ។`,
                     user_id,
                     dataBuyer.ticket_event_id,
                     5
                 ];
                 await executeQuery(sqlInsertNotification, paramsNotification); 
+                                    // RealTime Implement Here
+                                    let engMsg = `The details of the event ${eng_name} have been successfully updated. Please check the latest information to stay informed about any changes.`;
+                                    let khMsg = `ព័ត៌មានលម្អិតនៃព្រឹត្តិការណ៍ ${eng_name} ត្រូវបានធ្វើបច្ចុប្បន្នភាពដោយជោគជ័យ។ សូមពិនិត្យមើលព័ត៌មានចុងក្រោយបំផុត ដើម្បីដឹងអំពីការផ្លាស់ប្តូរណាមួយ។`;
+                const io = req.app.get('io');
+                emitNotificationForEventUpdate(io,dataBuyer.buyer_id, event_id, engMsg, khMsg)
+                // Delay before sending the next notification (adjust as needed)
+                await new Promise(resolve => setTimeout(resolve, 2000)); // 100ms delay
             }
 
             sendResponse(res, 200, true, "Event Updated successfully");
@@ -572,6 +581,10 @@ const summaryData=async(req,res)=>{
                 id,
                 eng_name,
                 kh_name,
+                started_date,
+                ended_date,
+                end_time,
+                start_time,
                 thumbnail,
                 event_type
                 FROM tbl_event
@@ -643,6 +656,10 @@ const summaryData=async(req,res)=>{
             eng_name :dataEvent.eng_name,
             kh_name : dataEvent.kh_name,
             thumbnail : dataEvent.thumbnail,
+            started_date: dataEvent.started_date,
+            ended_date: dataEvent.ended_date,
+            end_time: dataEvent.end_time,
+            start_time: dataEvent.start_time,
             event_type : dataEvent.event_type,
             ticket : ticket,
             total_registration : total_registration,

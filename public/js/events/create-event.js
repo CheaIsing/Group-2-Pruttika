@@ -362,9 +362,9 @@ submitBtn.addEventListener("click", async () => {
 
     showToast(true, "Created Event Successfully.");
 
-    return;
+    // return;
     setTimeout(() => {
-      window.location.href = "/event/create";
+      window.location.href = "/event/manage";
     }, 1500);
   } catch (error) {
     showToast();

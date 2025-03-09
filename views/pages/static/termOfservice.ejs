@@ -1,25 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terms of Service</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../../public/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../../public/vendor/bootstrap-icon/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <link rel="stylesheet" href="../../../public/css/main.css">
-    <link rel="stylesheet" href="../../../public/css/style.css">
-
-</head>
+<%- include("../../partials/head.ejs")  %>
 
 <body>
+    <%- include("../../partials/navbar.ejs")  %>
     <!-- Header Section -->
-    <header class="bg-brand text-white text-center py-5">
+    <div class="bg-brand text-white text-center py-4 d-flex flex-column justify-content-center">
         <h1>Terms of Service</h1>
         <p>Last Updated: January 29, 2025</p>
-    </header>
+    </div>
 
     <!-- Terms Content Section -->
     <div class="container my-5">
@@ -99,13 +89,9 @@
         </div>
     </div>
 
-    <!-- Footer Section -->
-    <footer class="bg-dark text-white text-center py-4">
-        <p>&copy; 2025@PRUTTIKA. All Rights Reserved.</p>
-    </footer>
+    <%- include("../../partials/footer.ejs")  %>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/js/bootstrap.bundle.min.js"></script>
+    <%- include("../../partials/script.ejs")  %>
 </body>
 
 </html>

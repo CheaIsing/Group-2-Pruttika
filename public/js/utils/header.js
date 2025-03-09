@@ -20,7 +20,7 @@ if(notiWrapper){
 
 async function getAllNotifications() {
   try {
-    const { data } = await axiosInstance.get("/notification?order=asc&read=false");
+    const { data } = await axiosInstance.get("/notification?order=desc&read=false");
     const { data: json } = data;
 
     let notiUnreadHtml = ""
@@ -104,11 +104,8 @@ async function getAllNotifications() {
                             <i
                                 data-lucide="clock"
                                 style="stroke-width: 1.25; width: 1rem;" class=""></i>
-                            <small class="ms-2 me-2">${moment(
-                              noti.created_at
-                            )
-                              .startOf("day")
-                              .fromNow()}</small> 
+                            <small class="ms-2 me-2">${moment(noti.created_at)
+                                .fromNow()}</small> 
                            
                                <div
                                 class="icon-unread bg-brand"></div>

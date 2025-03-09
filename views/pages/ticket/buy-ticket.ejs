@@ -6,15 +6,12 @@
 <body>
     <%- include("../../partials/navbar.ejs") %>
     <div class="container-lg py-5">
-        <h3 class="fw-medium mb-3" style="color: #333;"><%= t('ticket.buy-ticket.request-purchase') %> <span class="text-brand"><%= t('ticket.buy-ticket.ticket') %></span></h3>
+        <h3 class="fw-medium mb-3" style="color: #333;"><%= t('ticket.buy-ticket.request-purchase') %><span class="text-brand"><%= t('ticket.buy-ticket.ticket') %></span></h3>
         <div class="row">
             <div class="col-12 col-md-6" id="event-card">
-                
             </div>
-            
-
                 <div class="col-md-6">
-                    <div class="card border-brand-sm">
+                    <div class="card border-brand-sm shadow-light-sm">
                         
                         <div class="card-body">
                             <h5 class="card-title" style="color: #333;"><%= t('ticket.buy-ticket.purchase-info') %></h5>
@@ -22,7 +19,7 @@
                                 <label for="ticketQuantity" class="form-label"><%= t('ticket.buy-ticket.type') %>:</label>
                                 <select class="form-select shadow-none border-brand-sm py-2" id="ticketType">
                                     <option selected value='1'>1</option>
-                                    
+                                    <option value='2'>2</option>
                                     <option value='3'>3</option>
                                     <option value='4'>4</option>
                                     <option value='5'>5</option>
@@ -32,7 +29,7 @@
                                 <label for="ticketQuantity" class="form-label"><%= t('ticket.buy-ticket.qty') %>:</label>
                                 <select class="form-select shadow-none border-brand-sm py-2" id="ticketQuantity">
                                     <option selected value='1'>1</option>
-                                    <option value='1'>2</option>
+                                    <option value='2'>2</option>
                                     
                                     <option value='3'>3</option>
                                     <option value='4'>4</option>
@@ -49,8 +46,19 @@
                             <button class="btn btn-outline-brand w-100 fw-medium" onclick="toggleQRCode()"><i class="bi bi-qr-code"></i>&nbsp;<%= t('ticket.buy-ticket.showqr') %></button>
                             <img src="" width="200" alt="QR Code" id="qrCodeImage" class="img-fluid mt-3 d-none">
                         </div>
+                           <!-- Upload Payment Proof -->
+                <div class="mb-4">
+                    <label for="paymentProof" class="form-label"><%= t('ticket.buy-ticket.upload-payment') %></label>
+                    <label for="paymentProof"  class="upload-box text-center border rounded p-3 position-relative">
+                        <input type="file" class="file-input" accept="image/*" id="paymentProof" onchange="previewImage()">
+                        <i class="bi bi-cloud-plus-fill fs-3 text-brand"></i>
+                        <p class="mb-0">Upload Transaction</p>
+                        <img id="preview" class="img-fluid mt-2 d-none" style="max-width: 150px; max-height: 150px;" />
+                    </label>
+                </div>
+
                         
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <label for="paymentProof" class="form-label"><%= t('ticket.buy-ticket.upload-payment') %></label>
                             
                             <div class=" d-flex align-items-center border border-brand-sm p- rounded">
@@ -62,7 +70,7 @@
                             </div>
                             
                             <small class="text-muted"><%= t('ticket.buy-ticket.val-msg') %></small>
-                        </div>
+                        </div> -->
                             <button class="btn btn-brand w-100" id="submitButton"><%= t('ticket.buy-ticket.submit') %></button>
                         </div>
                     </div>
