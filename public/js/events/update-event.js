@@ -1147,10 +1147,10 @@ submitBtn.addEventListener("click", async () => {
 
     showToast(true, "Update Event Successfully.");
 
-    // setTimeout(()=>{
+    setTimeout(()=>{
 
-    //   window.location.href = "/event/create";
-    // }, 1500)
+      window.location.href = "/event/manage";
+    }, 1500)
   } catch (error) {
     showToast();
     console.error("Error:", error);

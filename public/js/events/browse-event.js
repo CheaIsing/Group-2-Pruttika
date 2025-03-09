@@ -415,6 +415,7 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
               <h4 class="text-center text-brand mt-2">No Event to Display</h4>
             </div>`
     }
+    document.querySelector('.pagination-container').classList.remove("d-none")
 
     events.forEach((event) => {
       let pricing = null;

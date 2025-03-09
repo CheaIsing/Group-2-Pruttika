@@ -8,16 +8,17 @@ async function getAllNotifications() {
     let notiUnreadHtml = "";
     let notiUnreadCount = 0;
 
-    const notisUnread = []
+    const notisUnread = [];
 
-    document.getElementById("notiUnreadCount")
+    document.getElementById("notiUnreadCount");
 
-    if(json.length >0){
+    if (json.length > 0) {
       json.forEach((noti) => {
         const title = noti.eng_title;
         const message = noti.eng_message;
-        
-  
+
+
+
         let status = "";
         switch (noti.type.type_id) {
           case 1:
@@ -51,11 +52,11 @@ async function getAllNotifications() {
                       `;
           }
         }
-  
-        if(!noti.is_read){
+
+        if (!noti.is_read) {
           notiUnreadCount++;
-          notisUnread.push(noti)
-          notiUnreadHtml +=  `<div class="col-12">
+          notisUnread.push(noti);
+          notiUnreadHtml += `<div class="col-12">
           <div class="notification mb-3 py-3 rounded-3 shadow-hover d-flex align-items-start">
               <!-- <div class="line-style-noti me-3"></div> -->
               <div class="d-flex align-items-start justify-content-between w-100">
@@ -80,10 +81,7 @@ async function getAllNotifications() {
                               <i
                                   data-lucide="clock"
                                   style="stroke-width: 1.25; width: 1.25rem;" class=""></i>
-                              <div class="ms-2 me-3">${moment(
-                                noti.created_at
-                              )
-                                .startOf("day")
+                              <div class="ms-2 me-3">${moment(noti.created_at)
                                 .fromNow()}</div> 
                               ${
                                 noti.is_read
@@ -94,8 +92,7 @@ async function getAllNotifications() {
                           </div>
                           <!-- Online Link -->
                           <div class="mt-3 d-flex ${
-                            noti.type.type_id != 7 &&
-                            "d-none"
+                            noti.type.type_id != 7 && "d-none"
                           } w-100">
                               
                              
@@ -104,8 +101,7 @@ async function getAllNotifications() {
                                       <i class="fa-solid fa-link fs-6"></i>
                                       <input type="text" placeholder="Online Event Link"
                                       ${
-                                        noti.type
-                                          .type_id == 7 &&
+                                        noti.type.type_id == 7 &&
                                         `id="event-link-${noti.event.id}"`
                                       }
                                          />
@@ -123,7 +119,9 @@ async function getAllNotifications() {
                                   </div>
                                   
                                   
-                                      <button onclick="updateEventLink(${noti.event_id}, this)" style="height: 40px !important;border-right: 0 !important; border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important;" type="button" class="btn btn-brand fw-normal">Send</button>
+                                      <button onclick="updateEventLink(${
+                                        noti.event_id
+                                      }, this)" style="height: 40px !important;border-right: 0 !important; border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important;" type="button" class="btn btn-brand fw-normal">Send</button>
                                   
                               </div>
                               
@@ -142,7 +140,9 @@ async function getAllNotifications() {
                       </button>
                       <ul
                           class="dropdown-menu dropdown-menu-end">
-                          <li><a role="button" class="dropdown-item ${noti.is_read && "d-none"}"
+                          <li><a role="button" class="dropdown-item ${
+                            noti.is_read && "d-none"
+                          }"
                                   onclick="markNotification(${
                                     noti.id
                                   }, this)" >Mark As Read</a></li>
@@ -161,7 +161,7 @@ async function getAllNotifications() {
           </div>
       </div>`;
         }
-  
+
         notiHtml += `<div class="col-12">
                                   <div class="notification mb-3 py-3 rounded-3 shadow-hover d-flex align-items-start">
                                       <!-- <div class="line-style-noti me-3"></div> -->
@@ -187,11 +187,8 @@ async function getAllNotifications() {
                                                       <i
                                                           data-lucide="clock"
                                                           style="stroke-width: 1.25; width: 1.25rem;" class=""></i>
-                                                      <div class="ms-2 me-3">${moment(
-                                                        noti.created_at
-                                                      )
-                                                        .startOf("day")
-                                                        .fromNow()}</div> 
+                                                      <div class="ms-2 me-3">">${moment(noti.created_at)
+                                .fromNow()}</div> 
                                                       ${
                                                         noti.is_read
                                                           ? ""
@@ -212,7 +209,8 @@ async function getAllNotifications() {
                                                               <input type="text" placeholder="Online Event Link"
                                                               ${
                                                                 noti.type
-                                                                  .type_id == 7 &&
+                                                                  .type_id ==
+                                                                  7 &&
                                                                 `id="event-link-${noti.event.id}"`
                                                               }
                                                                  />
@@ -230,7 +228,9 @@ async function getAllNotifications() {
                                                           </div>
                                                           
                                                           
-                                                              <button onclick="updateEventLink(${noti.event_id}, this)" style="height: 40px !important;border-right: 0 !important; border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important;" type="button" class="btn btn-brand fw-normal">Send</button>
+                                                              <button onclick="updateEventLink(${
+                                                                noti.event_id
+                                                              }, this)" style="height: 40px !important;border-right: 0 !important; border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important;" type="button" class="btn btn-brand fw-normal">Send</button>
                                                           
                                                       </div>
                                                       
@@ -249,7 +249,9 @@ async function getAllNotifications() {
                                               </button>
                                               <ul
                                                   class="dropdown-menu dropdown-menu-end">
-                                                  <li><a role="button" class="dropdown-item ${noti.is_read && "d-none"}"
+                                                  <li><a role="button" class="dropdown-item ${
+                                                    noti.is_read && "d-none"
+                                                  }"
                                                           onclick="markNotification(${
                                                             noti.id
                                                           }, this)" >Mark As Read</a></li>
@@ -268,41 +270,42 @@ async function getAllNotifications() {
                                   </div>
                               </div>`;
       });
-    }else{
+    } else {
       notiHtml = `<div class="text-center w-100 my-5">
         <img src="/img/noFound.png" alt="..." height="220px;">
         <h4 class="text-center text-brand mt-2">No Notification to Display</h4>
-      </div>`
+      </div>`;
 
       notiUnreadHtml = `<div class="text-center w-100 my-5">
         <img src="/img/noFound.png" alt="..." height="220px;">
         <h4 class="text-center text-brand mt-2">No Notification to Display</h4>
-      </div>`
+      </div>`;
     }
-    
 
-
-    if(notiUnreadCount >0){
-        document.getElementById("notiUnreadCount").innerText = `(${notiUnreadCount})`
-        document.getElementById("pills-home").classList.remove("show", "active");
-        document.getElementById("pills-profile").classList.add("show", "active");
-        document.getElementById("pills-home-tab").classList.remove("active");
-        document.getElementById("pills-profile-tab").classList.add("active");
-
-
-    }else{
-        document.getElementById("pills-home").classList.add("show", "active");
-        document.getElementById("pills-profile").classList.remove("show", "active");
-        document.getElementById("pills-home-tab").classList.add("active");
-        document.getElementById("pills-profile-tab").classList.remove("active");
-        notiUnreadHtml = `<div class="text-center w-100 my-5">
+    if (notiUnreadCount > 0) {
+      document.getElementById(
+        "notiUnreadCount"
+      ).innerText = `(${notiUnreadCount})`;
+      document.getElementById("pills-home").classList.remove("show", "active");
+      document.getElementById("pills-profile").classList.add("show", "active");
+      document.getElementById("pills-home-tab").classList.remove("active");
+      document.getElementById("pills-profile-tab").classList.add("active");
+    } else {
+      document.getElementById("pills-home").classList.add("show", "active");
+      document
+        .getElementById("pills-profile")
+        .classList.remove("show", "active");
+      document.getElementById("pills-home-tab").classList.add("active");
+      document.getElementById("pills-profile-tab").classList.remove("active");
+      notiUnreadHtml = `<div class="text-center w-100 my-5">
         <img src="/img/noFound.png" alt="..." height="220px;">
         <h4 class="text-center text-brand mt-2">No Notification to Display</h4>
-      </div>`
+      </div>`;
     }
 
     document.getElementById("notification-container").innerHTML = notiHtml;
-    document.getElementById("notification-container-unread").innerHTML = notiUnreadHtml;
+    document.getElementById("notification-container-unread").innerHTML =
+      notiUnreadHtml;
     lucide.createIcons();
   } catch (error) {
     console.log(error);
@@ -340,37 +343,45 @@ async function deleteNotification(id, btn) {
 }
 
 async function markNotification(id, btn) {
-    try {
-        await axiosInstance.put("/notification/read/" + id);
-        showToast(true, "Notification marked successfully.");
-        const unread = btn.closest(".notification").querySelector(".icon-unread");
-        if (unread) {
-            unread.remove();
-        }
-      } catch (error) {
-        console.log(error);
-    
-        showToast();
-      }
+  try {
+    await axiosInstance.put("/notification/read/" + id);
+    showToast(true, "Notification marked successfully.");
+    const unread = btn.closest(".notification").querySelector(".icon-unread");
+    if (unread) {
+      unread.remove();
+    }
+  } catch (error) {
+    console.log(error);
+
+    showToast();
+  }
 }
 
-async function updateEventLink(id, btn){
-    const link = btn.closest(".notification").querySelector("input").value;
-    const schema = Joi.object({
-        event_link: Joi.string().uri().required()
-      });
-      const {error} = schema.validate({event_link: link});
-      if(error){
-        return btn.closest(".notification").querySelector(".input-field").classList.add("is_invalid")
-      }else{
-        btn.closest(".notification").querySelector(".input-field").classList.remove("is_invalid")
-      }
-    try {
-        await axiosInstance.post("/notification/set-link/"+id, {event_link: link})
-        showToast(true, "Event Online has sent to attendees successfully.");
-    } catch (error) {
-        console.log(error);
-        
-        showToast()
-    }
+async function updateEventLink(id, btn) {
+  const link = btn.closest(".notification").querySelector("input").value;
+  const schema = Joi.object({
+    event_link: Joi.string().uri().required(),
+  });
+  const { error } = schema.validate({ event_link: link });
+  if (error) {
+    return btn
+      .closest(".notification")
+      .querySelector(".input-field")
+      .classList.add("is_invalid");
+  } else {
+    btn
+      .closest(".notification")
+      .querySelector(".input-field")
+      .classList.remove("is_invalid");
+  }
+  try {
+    await axiosInstance.post("/notification/set-link/" + id, {
+      event_link: link,
+    });
+    showToast(true, "Event Online has sent to attendees successfully.");
+  } catch (error) {
+    console.log(error);
+
+    showToast();
+  }
 }

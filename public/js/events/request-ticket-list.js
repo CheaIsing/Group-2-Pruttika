@@ -44,9 +44,10 @@
             const { data:event } = await axiosInstance.get(`/events/${eventId}`);
 
             console.log(event);
+            const formattedDate = `${moment(event.data.started_date).format("MMM D, YYYY")} - ${moment(event.data.ended_date).format("MMM D, YYYY")}, ${moment(event.data.start_time, "HH:mm").format("LT")} - ${moment(event.data.end_time, "HH:mm").format("LT")}`;
     
             document.getElementById("title").innerText = event.data.eng_name
-            document.getElementById("ev-date").innerText = moment(event.data.started_date).format("llll")
+            document.getElementById("ev-date").innerText = formattedDate
             const {data:json, paginate} = data
             console.log(data);
 

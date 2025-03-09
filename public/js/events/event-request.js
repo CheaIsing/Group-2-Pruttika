@@ -138,7 +138,7 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
 
     for (const event of events) {
       const { data } = await axiosInstance.get("/events/summary-data/" + event.id);
-      const formattedDate = `${moment(event.started_date).format("MMM D, YYYY")} - ${moment(event.started_date).format("MMM D, YYYY")}, ${moment(event.start_time, "HH:mm").format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
+      const formattedDate = `${moment(event.started_date).format("MMM D, YYYY")} - ${moment(event.ended_date).format("MMM D, YYYY")}, ${moment(event.start_time, "HH:mm").format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
 
       let isOffline = event.event_type !== "offline";
       let eventLinkAttributes = ``;
@@ -188,7 +188,7 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
                                                         </a>
                                                     </td>
                                                     <td class="text-nowrap"><span class="badge fw-medium ${eventStatus} p-2  rounded-5">${eventText}</span></td>
-                                                    <td class="text-nowrap">${data.data.total_approved_registrations ? data.data.total_registration: "0"} Request </td>
+                                                    <td class="text-nowrap">${ data.data.total_registration ? data.data.total_registration : "0"} Request </td>
                                                     
                                                 </tr>`
     }
@@ -298,7 +298,7 @@ async function renderEventsUpcoming(page = 1, perpage = 10, is_published = null)
     let eventCard = "";
     for (const event of events) {
       const { data } = await axiosInstance.get("/events/summary-data/" + event.id);
-      const formattedDate = `${moment(event.started_date).format("MMM D, YYYY")} - ${moment(event.started_date).format("MMM D, YYYY")}, ${moment(event.start_time, "HH:mm").format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
+      const formattedDate = `${moment(event.started_date).format("MMM D, YYYY")} - ${moment(event.ended_date).format("MMM D, YYYY")}, ${moment(event.start_time, "HH:mm").format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
       
       let totalPrice = data.data.ticket.length > 0 
         ? `$${data.data.ticket.reduce((sum, item) => sum + item.price, 0).toFixed(2)}`
@@ -342,7 +342,7 @@ async function renderEventsUpcoming(page = 1, perpage = 10, is_published = null)
                                                         </a>
                                                     </td>
                                                     <td class="text-nowrap"><span class="badge fw-medium ${eventStatus} p-2  rounded-5">${eventText}</span></td>
-                                                    <td class="text-nowrap">${data.data.total_approved_registrations ? data.data.total_approved_registrations - data.data.total_approved_registrations: "0"} Pending </td>
+                                                    <td class="text-nowrap">${ data.data.total_registration ? data.data.total_registration : "0"}  Pending </td>
                                                     
                                                 </tr>`
     }
@@ -453,7 +453,7 @@ async function renderEventsShowing(page = 1, perpage = 10, is_published = null) 
     let eventCard = "";
     for (const event of events) {
       const { data } = await axiosInstance.get("/events/summary-data/" + event.id);
-      const formattedDate = `${moment(event.started_date).format("MMM D, YYYY")} - ${moment(event.started_date).format("MMM D, YYYY")}, ${moment(event.start_time, "HH:mm").format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
+      const formattedDate = `${moment(event.started_date).format("MMM D, YYYY")} - ${moment(event.ended_date).format("MMM D, YYYY")}, ${moment(event.start_time, "HH:mm").format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
       
       let totalPrice = data.data.ticket.length > 0 
         ? `$${data.data.ticket.reduce((sum, item) => sum + item.price, 0).toFixed(2)}`
@@ -497,7 +497,7 @@ async function renderEventsShowing(page = 1, perpage = 10, is_published = null) 
                                                         </a>
                                                     </td>
                                                     <td class="text-nowrap"><span class="badge fw-medium ${eventStatus} p-2  rounded-5">${eventText}</span></td>
-                                                    <td class="text-nowrap">${data.data.total_approved_registrations ? data.data.total_approved_registrations - data.data.total_approved_registrations: "0"} Pending </td>
+                                                    <td class="text-nowrap">${ data.data.total_registration ? data.data.total_registration : "0"} Pending </td>
                                                     
                                                 </tr>`
     }
@@ -599,7 +599,7 @@ async function renderEventsPast(page = 1, perpage = 10, is_published = null) {
     let eventCard = "";
     for (const event of events) {
       const { data } = await axiosInstance.get("/events/summary-data/" + event.id);
-      const formattedDate = `${moment(event.started_date).format("MMM D, YYYY")} - ${moment(event.started_date).format("MMM D, YYYY")}, ${moment(event.start_time, "HH:mm").format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
+      const formattedDate = `${moment(event.started_date).format("MMM D, YYYY")} - ${moment(event.ended_date).format("MMM D, YYYY")}, ${moment(event.start_time, "HH:mm").format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
       
       let totalPrice = data.data.ticket.length > 0 
         ? `$${data.data.ticket.reduce((sum, item) => sum + item.price, 0).toFixed(2)}`
@@ -643,7 +643,7 @@ async function renderEventsPast(page = 1, perpage = 10, is_published = null) {
                                                         </a>
                                                     </td>
                                                     <td class="text-nowrap"><span class="badge fw-medium ${eventStatus} p-2  rounded-5">${eventText}</span></td>
-                                                    <td class="text-nowrap">${data.data.total_approved_registrations ? data.data.total_approved_registrations - data.data.total_approved_registrations: "0"} Pending </td>
+                                                    <td class="text-nowrap">${ data.data.total_registration ? data.data.total_registration : "0"} Pending </td>
                                                     
                                                 </tr>`
     }
