@@ -25,14 +25,15 @@
                     <h4 class="py-4 text-brand fw-bold"><%= t('partials.footer.link') %></h4>
                     <div class="d-flex justify-content-center justify-content-md-start">
                         <div class="d-flex quick-link flex-column w-50 pe-3">
-                            <a href=""><%= t('partials.footer.contact') %></a>
-                            <a href=""><%= t('partials.footer.event') %></a>
-                            <a href=""><%= t('partials.footer.about') %></a>
+                            <a href="/contact"><%= t('partials.footer.contact') %></a>
+                            <a href="/event/browse"><%= t('partials.footer.event') %></a>
+                            <a href="/about"><%= t('partials.footer.about') %></a>
                         </div>
                         <div class="d-flex flex-column quick-link w-50">
-                            <a href=""><%= t('partials.footer.policy') %></a>
-                            <a href=""><%= t('partials.footer.team') %></a>
-                            <a href=""><%= t('partials.footer.faq') %></a>
+                            <a href="/policy"><%= t('partials.footer.policy') %></a>
+                            
+                            <a href="/term-of-service"><%= t('partials.footer.team') %></a>
+                            <a href="/faq"><%= t('partials.footer.faq') %></a>
                         </div>
                     </div>
                 </div>

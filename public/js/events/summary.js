@@ -8,11 +8,13 @@ async function getSummary() {
     (acc, t) => acc + t.price * t.ticket_bought,
     0,
   );
+  
+  const formattedDate = `${moment(json.started_date).format("MMM D, YYYY")} - ${moment(json.ended_date).format("MMM D, YYYY")}, ${moment(json.start_time, "HH:mm").format("LT")} - ${moment(json.end_time, "HH:mm").format("LT")}`;
+  // console.log(json);
+  
 
   document.getElementById("event-title").innerText = json.eng_name;
-  document.getElementById("event-date").innerText = moment(
-    json.started_date
-  ).format("LLLL");
+  document.getElementById("event-date").innerText = formattedDate
   document.getElementById("event-type").innerText = json.event_type == 1 ? "Online Event" : "In Person Event"
 
   document.getElementById("ticket-sold").innerText = json.ticket.reduce(
@@ -20,7 +22,7 @@ async function getSummary() {
     0
   );
   document.getElementById("ticket-earning").innerText = `$${totalEarnings.toFixed(2)}`
-  document.getElementById("participated").innerText = json.total_checkin + " attendant"
+  document.getElementById("participated").innerText = (json.total_checkin ? json.total_checkin : "0") + " attendant"
   document.getElementById("not-participated").innerText = (json.total_approved_registrations - json.total_checkin) + " attendant"
 
   document.getElementById("ticket-tbody").innerHTML = ''

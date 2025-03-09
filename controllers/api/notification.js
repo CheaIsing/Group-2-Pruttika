@@ -236,9 +236,9 @@ const getNotification = async (req, res) => {
   SELECT 
     -- Notification Data
     tn.id AS notification_id,
-    tn.title AS notification_title,
-    tn.message AS notification_message,
-    tn.link AS notification_link,
+    -- tn.title AS notification_title,
+    -- tn.message AS notification_message,
+    -- tn.link AS notification_link,
     tn.is_read AS notification_is_read,
     tn.created_at AS notification_created_at,
     tn.updated_at AS notification_updated_at,
@@ -370,9 +370,9 @@ const getNotification = async (req, res) => {
 
     const notification = result.map(noti => ({
       id: noti.notification_id,
-      title: noti.notification_title,
-      message: noti.notification_message,
-      link: noti.notification_link,
+      // title: noti.notification_title,
+      // message: noti.notification_message,
+      // link: noti.notification_link,
       is_read: noti.notification_is_read == 1 ? true:false,
       created_at: noti.notification_created_at,
       updated_at: noti.notification_updated_at,

@@ -192,3 +192,18 @@ async function logOut (){
 
   }
 }
+
+function convertUtcToSpecificTimezone(utcDateString, targetTimezoneOffset = 0) {
+  const utcDate = new Date(utcDateString);
+  const targetTime = new Date(utcDate.getTime() + targetTimezoneOffset * 3600000); // offset in milliseconds
+
+  const year = targetTime.getFullYear();
+  const month = String(targetTime.getMonth() + 1).padStart(2, '0');
+  const day = String(targetTime.getDate()).padStart(2, '0');
+  const hours = String(targetTime.getHours()).padStart(2, '0');
+  const minutes = String(targetTime.getMinutes()).padStart(2, '0');
+  const seconds = String(targetTime.getSeconds()).padStart(2, '0');
+
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}
+

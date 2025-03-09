@@ -136,7 +136,7 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
 
     for (const event of events) {
       const { data } = await axiosInstance.get("/events/summary-data/" + event.id);
-      const formattedDate = `${moment(event.started_date).format("MMM D, YYYY")} - ${moment(event.started_date).format("MMM D, YYYY")}, ${moment(event.start_time, "HH:mm").format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
+      const formattedDate = `${moment(event.started_date).format("MMM D, YYYY")} - ${moment(event.ended_date).format("MMM D, YYYY")}, ${moment(event.start_time, "HH:mm").format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
 
       let isOffline = event.event_type !== "offline";
       let eventLinkAttributes = ``;
@@ -309,7 +309,7 @@ async function renderEventsUpcoming(page = 1, perpage = 10, is_published = null)
     let eventCard = "";
     for (const event of events) {
       const { data } = await axiosInstance.get("/events/summary-data/" + event.id);
-      const formattedDate = `${moment(event.started_date).format("MMM D, YYYY")} - ${moment(event.started_date).format("MMM D, YYYY")}, ${moment(event.start_time, "HH:mm").format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
+      const formattedDate = `${moment(event.started_date).format("MMM D, YYYY")} - ${moment(event.ended_date).format("MMM D, YYYY")}, ${moment(event.start_time, "HH:mm").format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
       
       let totalPrice = data.data.ticket.length > 0 
         ? `$${data.data.ticket.reduce((sum, item) => sum + item.price, 0).toFixed(2)}`
@@ -478,7 +478,7 @@ async function renderEventsShowing(page = 1, perpage = 10, is_published = null) 
     let eventCard = "";
     for (const event of events) {
       const { data } = await axiosInstance.get("/events/summary-data/" + event.id);
-      const formattedDate = `${moment(event.started_date).format("MMM D, YYYY")} - ${moment(event.started_date).format("MMM D, YYYY")}, ${moment(event.start_time, "HH:mm").format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
+      const formattedDate = `${moment(event.started_date).format("MMM D, YYYY")} - ${moment(event.ended_date).format("MMM D, YYYY")}, ${moment(event.start_time, "HH:mm").format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
       
       let totalPrice = data.data.ticket.length > 0 
         ? `$${data.data.ticket.reduce((sum, item) => sum + item.price, 0).toFixed(2)}`
@@ -638,7 +638,7 @@ async function renderEventsPast(page = 1, perpage = 10, is_published = null) {
     let eventCard = "";
     for (const event of events) {
       const { data } = await axiosInstance.get("/events/summary-data/" + event.id);
-      const formattedDate = `${moment(event.started_date).format("MMM D, YYYY")} - ${moment(event.started_date).format("MMM D, YYYY")}, ${moment(event.start_time, "HH:mm").format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
+      const formattedDate = `${moment(event.started_date).format("MMM D, YYYY")} - ${moment(event.ended_date).format("MMM D, YYYY")}, ${moment(event.start_time, "HH:mm").format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
       
       let totalPrice = data.data.ticket.length > 0 
         ? `$${data.data.ticket.reduce((sum, item) => sum + item.price, 0).toFixed(2)}`

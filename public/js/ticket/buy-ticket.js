@@ -4,13 +4,28 @@ function toggleQRCode() {
 }
 function previewFile() {
   const input = document.getElementById("paymentProof");
-  const fileName = document.getElementById("fileName");
+  // const fileName = document.getElementById("fileName");
 
   if (input.files.length > 0) {
-    fileName.textContent = input.files[0].name;
+    // fileName.textContent = input.files[0].name;
     document.getElementById("submitButton").disabled = false
   } else {
-    fileName.textContent = "No file selected";
+    // fileName.textContent = "No file selected";
+    document.getElementById("submitButton").disabled = true
+  }
+}
+function previewImage() {
+  const file = document.getElementById("paymentProof").files[0];
+  if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+          const preview = document.getElementById('preview');
+          preview.src = e.target.result;
+          preview.classList.remove('d-none');
+      };
+      reader.readAsDataURL(file);
+      document.getElementById("submitButton").disabled = false
+  }else{
     document.getElementById("submitButton").disabled = true
   }
 }
@@ -25,19 +40,13 @@ const currentDate = new Date();
 let eventStatus = null;
 
 
-
 if (events.event_tickets.length > 1) {
   const numbers = events.event_tickets.map((et) => et.price);
   const minNumber = Math.min(...numbers);
   const maxNumber = Math.max(...numbers);
-
   pricing = `$${minNumber.toFixed(2)} - $${maxNumber.toFixed(2)}`;
 } else if (events.event_tickets.length == 1) {
-  pricing = `${
-    events.event_tickets[0].price > 0
-      ? `$${events.event_tickets[0].price.toFixed(2)}`
-      : "Free Ticket"
-  }`;
+  pricing = `${events.event_tickets[0].price > 0 ? `$${events.event_tickets[0].price.toFixed(2)}` : "Free Ticket"}`;
 } else if (events.event_tickets.length == 0) {
   pricing = ``;
 }
@@ -50,15 +59,35 @@ events.event_categories.forEach((c, i) => {
 });
 console.log(events);
 
-const tickets = events.event_tickets
+const tickets = events.event_tickets;
 
 document.getElementById("ticketType").innerHTML = "";
-tickets.forEach((ticket, i)=>{
-  document.getElementById("ticketType").innerHTML += `
-  <option ${i == 0 && "selected"} value='${ticket.id}'>${ticket.type} - $${ticket.price.toFixed(2)}</option>`;
-})
+let allTicketsSoldOut = true; // Assume all are sold out initially
 
-calculateTotal()
+tickets.forEach((ticket, i) => {
+    let isDisabled = "";
+    let soldOutText = "";
+
+    if (ticket.ticket_bought >= ticket.capacity) {
+        isDisabled = "disabled";
+        soldOutText = " - Sold Out";
+    } else {
+        allTicketsSoldOut = false; // At least one ticket is available
+    }
+
+    document.getElementById("ticketType").innerHTML += `
+        <option ${i == 0 && "selected"} value='${ticket.id}' ${isDisabled}>${ticket.type} - $${ticket.price.toFixed(2)}${' ' + soldOutText }</option>
+    `;
+});
+
+let submitButton = document.getElementById("submitButton"); // Assuming you have a submit button with this ID
+
+if (allTicketsSoldOut) {
+    if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = "Sold Out"; 
+    }
+}
 
 
 document.getElementById("event-card").innerHTML = `
@@ -179,10 +208,10 @@ document.getElementById("submitButton").addEventListener("click", async (e)=>{
     const fileName = document.getElementById("fileName");
   
     if (input.files.length > 0) {
-      fileName.textContent = input.files[0].name;
+      // fileName.textContent = input.files[0].name;
       document.getElementById("submitButton").disabled = false
     } else {
-      fileName.textContent = "No file selected";
+      // fileName.textContent = "No file selected";
       document.getElementById("submitButton").disabled = true
       return
     }
