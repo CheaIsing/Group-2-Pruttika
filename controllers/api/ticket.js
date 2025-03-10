@@ -145,14 +145,10 @@ const deleteTransactionFile=async (req,res)=>{
 }
 
 //approve ticket
-const putApproveTicket = async (req, res) => {
-    const ticketReq_id = req.params.id;
-    const user_id = req.user.id;
-
-    console.log("putApproveTicket - Start");
-    console.log("ticketReq_id:", ticketReq_id);
-    console.log("user_id:", user_id);
-
+const putApproveTicket=async(req,res)=>{
+    const ticketReq_id=req.params.id;
+    const user_id=req.user.id;
+    // const io = req.app.get('io');
     try {
         const sqlGetTransaction = `
             SELECT 
@@ -167,11 +163,10 @@ const putApproveTicket = async (req, res) => {
             LEFT JOIN tbl_event te ON te.id=tts.event_id
             WHERE tts.id = ? AND te.creator_id=?
         `;
-        console.log("sqlGetTransaction:", sqlGetTransaction);
-        const dbResult = await executeQuery(sqlGetTransaction, [ticketReq_id, user_id]);
-        console.log("dbResult:", dbResult);
+        const dbResult = await executeQuery(sqlGetTransaction, [ticketReq_id,user_id]);
 
-        if (dbResult.length === 0) {
+        //check if transaction exist
+        if (dbResult.length===0) {
             return sendResponse(res, 404, false, "Ticket Request ID not found or You do not have permission to Approved this ticket");
         }
 
@@ -183,52 +178,49 @@ const putApproveTicket = async (req, res) => {
             event_type,
             buyer_id,
             eng_name
-        } = dbResult[0];
+        }=dbResult[0];
 
-        console.log("Transaction details:", dbResult[0]);
-
-        const checkApprove = await executeQuery(`select * from tbl_transaction where id=? AND status=?`, [ticketReq_id, 2]);
-        console.log("checkApprove:", checkApprove);
-        if (checkApprove.length > 0) {
+        // Check if tickets have already been approved
+        const checkApprove= await executeQuery(`select * from tbl_transaction where id=? AND status=?`,[ticketReq_id,2]);
+        if(checkApprove.length>0){
             return sendResponse(res, 400, false, "This Request is already have been Approved!");
         }
 
-        if (event_type == 2) { //offline
-            console.log("Offline event");
-            const checkAvailableTicket = await executeQuery(`
-                select * from tbl_ticketevent_type 
-                where id=? AND ticket_bought < (ticket_opacity - ?)
-            `, [ticket_event_id, ticket_qty]);
-            console.log("checkAvailableTicket:", checkAvailableTicket);
+        //check if the ticket is online/offline
+        if(event_type==2){ //offline
+            //check available ticket
+            const checkAvailableTicket= await executeQuery(`
+                    select * from tbl_ticketevent_type 
+                    where id=? AND ticket_bought < (ticket_opacity- ?)
+            `,[ticket_event_id,ticket_qty]);
 
             if (checkAvailableTicket.length === 0) {
                 return sendResponse(res, 400, false, "Not enough tickets available!");
             }
-            const ticket_bought = checkAvailableTicket[0].ticket_bought;
+            const ticket_bought= checkAvailableTicket[0].ticket_bought;
 
-            console.log("Inserting tickets...");
-            const sqlInsertTicket = `INSERT INTO tbl_ticket(transaction_id,ticket_event_id) VALUES(?,?)`;
-            const promises =[];
-            for (let i = 0; i < ticket_qty; i++) {
+            //insert ticket
+            const sqlInsertTicket=`INSERT INTO tbl_ticket(transaction_id,ticket_event_id) VALUES(?,?)`;
+            const promises = [];
+            for(let i=0;i<ticket_qty;i++){
                 promises.push(
                     (async () => {
                         const resultInsert = await executeQuery(sqlInsertTicket, [ticketReq_id, ticket_event_id]);
-                        console.log("resultInsert:", resultInsert);
                         const ticket_id = resultInsert.insertId;
                         const token = await generateToken(ticket_id, ticket_event_id, event_id);
-                        console.log("token:", token);
+
                         const qr_code_img = await generateQRCodeImg(token);
-                        console.log("qr_code_img:", qr_code_img);
+
                         await executeQuery(`UPDATE tbl_ticket SET qr_code_img = ? WHERE id = ?`, [qr_code_img, ticket_id]);
                     })()
                 );
             }
 
-            console.log("Inserting notification 1...");
-            const sqlInsertNotification1 = `INSERT INTO tbl_notification
-                (event_id, receiver_id, eng_message,kh_message,sender_id,ticket_req_id, type_id) 
-                VALUES (?,?,?,?,?,?,?)`;
-            const paramsNotification1 = [
+            //insert notification
+            const sqlInsertNotification1=`INSERT INTO tbl_notification
+                    (event_id, receiver_id, eng_message,kh_message,sender_id,ticket_req_id, type_id) 
+                    VALUES (?,?,?,?,?,?,?)`
+            const paramsNotification1=[
                 event_id,
                 buyer_id,
                 `Congratulations! Your ticket for ${eng_name} has been successfully approved. Enjoy the event! Check your details here.`,
@@ -237,19 +229,16 @@ const putApproveTicket = async (req, res) => {
                 id,
                 1
             ];
-            await executeQuery(sqlInsertNotification1, paramsNotification1);
-
+            await executeQuery(sqlInsertNotification1,paramsNotification1);
+            
             await Promise.all(promises);
-            console.log("Updating ticket count...");
-            await executeQuery(`UPDATE tbl_ticketevent_type SET ticket_bought=? WHERE id=?`, [ticket_bought + ticket_qty, ticket_event_id]);
-
-        } else if (event_type == 1) {
-            console.log("Online event");
-            console.log("Inserting notification 2...");
-            const sqlInsertNotification2 = `INSERT INTO tbl_notification
-                (event_id, receiver_id, eng_message,kh_message,sender_id,ticket_req_id, type_id) 
-                VALUES (?,?,?,?,?,?,?)`;
-            const paramsNotification2 = [
+            await executeQuery(`UPDATE tbl_ticketevent_type SET ticket_bought=? WHERE id=?`,[ticket_bought+ticket_qty,ticket_event_id]);
+        }else if(event_type==1){
+            //insert notification
+            const sqlInsertNotification2=`INSERT INTO tbl_notification
+                    (event_id, receiver_id, eng_message,kh_message,sender_id,ticket_req_id, type_id) 
+                    VALUES (?,?,?,?,?,?,?)`
+            const paramsNotification2=[
                 event_id,
                 buyer_id,
                 `Congratulations! Your registration for the event ${eng_name} has been approved. Please wait until the event day, as the organizer will send the link to join the event through a notification.`,
@@ -258,21 +247,21 @@ const putApproveTicket = async (req, res) => {
                 id,
                 1
             ];
-            await executeQuery(sqlInsertNotification2, paramsNotification2);
+            await executeQuery(sqlInsertNotification2,paramsNotification2);
         }
 
-        console.log("Updating transaction status...");
+        // Update transaction status to approved 
         await executeQuery(`UPDATE tbl_transaction SET status = ? WHERE id = ?`, [2, ticketReq_id]);
 
-        const io = req.app.get('io');
-        console.log("io:", io); // Log the io object
-        emitTicketApprovalNotification(io, buyer_id, event_id, eng_name, event_type);
+        // RealTime Implement Here
+        // emitTicketApprovalNotification(io, buyer_id, event_id, eng_name, event_type); 
+
 
         sendResponse(res, 200, true, "Ticket Request has been approved successfully");
-
+        return
     } catch (error) {
-        console.error("putApproveTicket - Error:", error);
-        handleResponseError(res, error);
+        console.log(error);
+        handleResponseError(res,error);
     }
 }
 
