@@ -311,7 +311,7 @@ const putEditEvent= async(req,res)=>{
                 const io = req.app.get('io');
                 emitNotificationForEventUpdate(io,dataBuyer.buyer_id, event_id, engMsg, khMsg)
                 // Delay before sending the next notification (adjust as needed)
-                await new Promise(resolve => setTimeout(resolve, 2000)); // 100ms delay
+                await new Promise(resolve => setTimeout(resolve, 300)); // 100ms delay
             }
 
             sendResponse(res, 200, true, "Event Updated successfully");

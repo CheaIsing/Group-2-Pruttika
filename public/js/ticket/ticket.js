@@ -76,9 +76,9 @@ async function getRequestTicket( status="", page=1, perpage=25) {
             <button class="accordion-button" ${showTran}
               type="button"
               >
-              <div style="max-height: 100px;" class="me-1 d-none d-md-block">
+              <div style="max-height: 100px;width: 180px;" class="me-1 object-fit-cover d-none d-md-block">
                 <img src="/uploads/${ticket.event.thumbnail}"
-                  style="max-height: 100px;" class="img-preview rounded-3"
+                  style="max-height: 100px;width: 180px;" class="img-preview rounded-3 object-fit-cover"
                   alt="Image">
               </div>
               <!-- Left side (Title, Date, #Tickets) -->
@@ -198,9 +198,9 @@ async function getOwnedTicket( status="", page=1, perpage=15) {
             <button class="accordion-button" data-tickets='${JSON.stringify(ticket)}'  onclick="showTicket(this)"
               type="button"
               data-bs-toggle="modal" data-bs-target="#exampleModalTicket">
-              <div style="max-height: 100px;" class="me-1 d-none d-md-block">
+              <div style="max-height: 100px;width: 180px;" class="me-1 d-none d-md-block object-fit-cover">
                 <img src="/uploads/${ticket.event.thumbnail}"
-                  style="max-height: 100px;" class="img-preview rounded-3"
+                  style="max-height: 100px;width: 180px;" class="img-preview rounded-3 object-fit-cover"
                   alt="Image">
               </div>
               <!-- Left side (Title, Date, #Tickets) -->
