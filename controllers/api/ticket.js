@@ -215,16 +215,16 @@ const putApproveTicket = async (req, res) => {
                     const resultInsert = await executeQuery(sqlInsertTicket, [ticketReq_id, ticket_event_id]);
                     console.log("resultInsert:", resultInsert);
                     const ticket_id = resultInsert.insertId;
-                    const token = await generateToken(ticket_id, ticket_event_id, event_id);
+                    const token = generateToken(ticket_id, ticket_event_id, event_id);
                     console.log("token:", token);
                     const qr_code_img = await generateQRCodeImg(token);
                     console.log("qr_code_img:", qr_code_img);
                     await executeQuery(`UPDATE tbl_ticket SET qr_code_img = ? WHERE id = ?`, [qr_code_img, ticket_id]);
-                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    
                 } catch (error) {
                     console.error("Error inserting ticket:", error);
                     // Handle the error appropriately (e.g., return an error response)
-                    return sendResponse(res, 500, false, "Error inserting ticket"); 
+                    return sendResponse(res, 500, false, `Error inserting ticket ${JSON.stringify(error)}`); 
                 }
             }
 
