@@ -757,3 +757,6 @@ ALTER TABLE tbl_ticket DROP COLUMN qr_code;
 
 ALTER TABLE tbl_event MODIFY `description` text NOT NULL;
 
+-- Update 10-03-2025
+ALTER TABLE tbl_ticket MODIFY COLUMN `qr_code_img` text NULL;
+ALTER TABLE tbl_ticket add COLUMN qr_code varchar(255);

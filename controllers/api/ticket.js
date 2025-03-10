@@ -203,20 +203,20 @@ const putApproveTicket = async (req, res) => {
             const ticket_bought = checkAvailableTicket[0].ticket_bought;
 
             console.log("Inserting tickets...");
-            const sqlInsertTicket = `INSERT INTO tbl_ticket(transaction_id,ticket_event_id, qr_code_img) VALUES(?,?,?)`;
+            const sqlInsertTicket = `INSERT INTO tbl_ticket(transaction_id,ticket_event_id) VALUES(?,?)`;
             const promises =[];
             for (let i = 0; i < ticket_qty; i++) {
                 promises.push(
                     (async () => {
                         try {
-                            const resultInsert = await executeQuery(sqlInsertTicket, [ticketReq_id, ticket_event_id, '1']);
+                            const resultInsert = await executeQuery(sqlInsertTicket, [ticketReq_id, ticket_event_id]);
 
                         const ticket_id = resultInsert.insertId;
                         const token = await generateToken(ticket_id, ticket_event_id, event_id);
 
                         const qr_code_img = await generateQRCodeImg(token);
 
-                        await executeQuery(`UPDATE tbl_ticket SET qr_code_img = ? WHERE id = ?`, [qr_code_img, ticket_id]);
+                        await executeQuery(`UPDATE tbl_ticket SET qr_code = ?, qr_code_img = ? WHERE id = ?`, [token, qr_code_img, ticket_id]);
                         } catch (error) {
                             console.log(error);
                             handleResponseError(res, error);
