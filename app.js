@@ -54,7 +54,7 @@ const io = setUpSocket(server);
 app.set("io", io);
 // --- Your sendEventReminders function ---
 const sendEventReminders = async () => {
-  console.log("Event reminder job running...");
+  console.log("Event reminder job running....");
 
   try {
       // Fetch events starting within the next day
