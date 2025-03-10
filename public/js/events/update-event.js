@@ -1098,7 +1098,7 @@ submitBtn.addEventListener("click", async () => {
   // console.log(event);
   // console.log(eventThumbnail);
   // console.log(eventQRImg);
-
+  // return
   try {
     btnShowLoading("submit-btn");
 
@@ -1540,7 +1540,7 @@ function checkStep() {
         }
 
         if (isValid) {
-          tickets.push({ type: title, price, ticket_opacity: capacity });
+          tickets.push({ id: id, type: title, price:Number(price), ticket_opacity: Number(capacity) });
           if (price == 0) {
             isSkipStepPayment = true;
             document
@@ -1625,10 +1625,10 @@ function checkStep() {
 
           if (isValid) {
             tickets.push({
-              id: ticketId,
+              id: Number(ticketId) ,
               type: title,
-              price,
-              ticket_opacity: capacity,
+              price: Number(price),
+              ticket_opacity: Number(capacity),
             });
           }
         });
