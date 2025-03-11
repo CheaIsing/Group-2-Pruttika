@@ -63,6 +63,51 @@
 
             </div>
 
+            <div class="modal fade" id="notificationModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                  <div class="modal-content" id="modal-noti-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="notificationModalLabel">Notification Details</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="modal-noti">
+                        <div class="ticket-notification">
+                            <div class="notif-header">
+                                <div>
+                                    <span class="success-icon">&#10004;</span>
+                                    <strong>Your Ticket Has Been Approved!</strong><br>
+                                    <small>សំបុត្ររបស់អ្នកត្រូវបានអនុម័តជោគជ័យ!</small>
+                                </div>
+                                <div>
+                                    <small>Mar 6, 2025</small>
+                                    <button class="close-btn" onclick="closeNotification()">&times;</button>
+                                </div>
+                            </div>
+                            <div class="notif-content">
+                                <p>Congratulations! Your ticket for Test Event Offline has been successfully approved. Enjoy the event! Check your details here.</p>
+                                <p>អបអរសាទរ! សំបុត្ររបស់អ្នកសម្រាប់កម្មវិធី Test Event Offline ត្រូវបានអនុម័តដោយជោគជ័យ។ សូមរីករាយជាមួយព្រឹត្តិការណ៍នេះ! ពិនិត្យព័ត៌មានលម្អិតរបស់អ្នកនៅទីនេះ។</p>
+                            </div>
+                            <div class="notif-footer">
+                                <div class="user-info">
+                                    <img src="placeholder-profile.jpg" alt="User Profile" class="rounded-circle">
+                                    <div>
+                                        <strong>Phak123</strong><br>
+                                        សុខ រិទ្ធាន
+                                    </div>
+                                </div>
+                                <div class="event-info">
+                                    Event: Test Event Offline
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+
+
             <%- include("../../partials/script.ejs") %>
             <script src="/js/notification/notification.js"></script>
         </body>

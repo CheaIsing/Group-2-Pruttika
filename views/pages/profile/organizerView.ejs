@@ -22,20 +22,27 @@
                           <%= t('profile.org-view.tip-info') %></p>
                     </div>
 
-                    <!-- <div>
-                        <button class="btn btn-brand w-100"
+                    <div>
+                        <a href="/profile/organizer" class="btn btn-brand w-100 d-none"
                             id="btnUpdateToOrganizer"
-                            onclick="toggleOrganizer()">Upgrade to
-                            Organizer</button>
-                    </div> -->
+                            >Upgrade to
+                            Organizer</a>
+                    </div>
 
                     <form id="frmOrganizerRequest" action="#">
-                      <div class="mb-3">
-    <label for="status" class="form-label fw-medium mb-2"><%= t('profile.org-view.status') %></label>
-    <div>
-        <span id="status-badge" class="badge"></span>
-    </div>
-</div>
+                     <div class="d-flex mb-3 align-items-end justify-content-between">
+                      <div class="">
+                        <label for="status" class="form-label fw-medium mb-2"><%= t('profile.org-view.status') %></label>
+                        <div>
+                            <span id="status-badge" class="badge"></span>
+                        </div>
+                    </div>
+                   <div class="">
+                    <a href="/profile/organizer" type="button" class="btn btn-brand fw-medium d-none" id="btnRequestAgain"  style="height: auto !important;">
+                      + Request Upgrade Again
+                    </a>
+                   </div>
+                     </div>
 <div id="rejection-reason-wrapper" class="mt-2" style="display: none;">
   <label class="form-label fw-medium mb-2"><%= t('profile.org-view.rej-reason') %></label>
   <div class="alert alert-danger" id="rejection-reason"></div>
