@@ -4,6 +4,7 @@ const moment = require("moment");
 const { handleResponseError } = require("../../utils/handleError");
 const { executeQuery } = require("../../utils/dbQuery");
 const { sendResponse } = require("../../utils/response");
+const { emitNotificationForOnlineLink } = require("../../socket/socketHelper");
 
 const getNotifications = async (req, res) => {
   const { id: userId = 1 } = req.user;
@@ -51,6 +52,7 @@ const getNotifications = async (req, res) => {
     te.kh_name AS event_kh_name,
     te.short_description AS event_short_description,
     te.description AS event_description
+    -- te.creator_id AS event_creator_id
     -- te.thumbnail AS event_thumbnail,
     -- te.started_date AS event_started_date,
     -- te.ended_date AS event_ended_date,
@@ -110,6 +112,12 @@ const getNotifications = async (req, res) => {
 //   WHERE id IN (?);
 // `;
 
+//   const creatorSql = `
+//   SELECT user_id, organization_name, business_email
+//   FROM tbl_organizer 
+//   WHERE user_id = ?;
+// `;
+
 const arrData = [userId];
 
   try {
@@ -154,7 +162,19 @@ const arrData = [userId];
     //   }
     // });
 
-    // await Promise.all([...categoryPromises, ...ticketPromises]);
+    // const creatorPromises = result.map(async (notification) => {
+    //   if (notification.event_creator_id) {
+
+    //     const creator = await executeQuery(creatorSql, notification.event_creator_id);
+    //     notification.event_creator_id = creator;
+    //   } else {
+    //     notification.event_creator_id = [];
+    //   }
+    // });
+
+
+    // await Promise.all([...creatorPromises]);
+
 
     const notifications = result.map(noti => ({
       id: noti.notification_id,
@@ -561,12 +581,17 @@ const postLink=async (req,res)=>{
       const paramsNotification=[
         id,
         item.buyer_id,
-        `The link to join the event "${item.eng_name}" is: ${event_link}`,
-        `តំណភ្ជាប់ដើម្បីចូលក្នុងព្រឹត្តិការណ៍ "${item.eng_name}" គឺ៖ ${event_link}`,
+        `The link to join the event "${item.eng_name}" is: <a href="${event_link}" target="_blank">${event_link}</a>`,
+        `តំណភ្ជាប់ដើម្បីចូលក្នុងព្រឹត្តិការណ៍ "${item.eng_name}" គឺ៖ <a href="${event_link}" target="_blank">${event_link}</a>`,
         user_id,
         7
       ];
       await executeQuery(sqlInsertNotification, paramsNotification);
+      const io = req.app.get('io');
+      let engMs = `The link to join the event "${item.eng_name}" is: <a href="${event_link}" target="_blank">${event_link}</a>`
+      let khMs = `តំណភ្ជាប់ដើម្បីចូលក្នុងព្រឹត្តិការណ៍ "${item.eng_name}" គឺ៖ <a href="${event_link}" target="_blank">${event_link}</a>`
+      emitNotificationForOnlineLink(io, item.buyer_id, id, engMs, khMs );
+      await new Promise(resolve => setTimeout(resolve, 300));
     });
 
     sendResponse(res,200,true,"The Link set successfully and notifications sent to guest!")
