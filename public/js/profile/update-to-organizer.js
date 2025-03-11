@@ -21,7 +21,9 @@ async function getOrganizerView() {
       if (response.data.result) {
         console.log("true");
         
-        if(response.data.data.length > 0){
+        if(response.data.data.length > 0 && response.data.data[0].status != 3){
+          
+          
           window.location.href = "/profile/organizer-view"
         }
           

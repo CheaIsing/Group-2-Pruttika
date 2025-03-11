@@ -140,11 +140,11 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
 
       let isOffline = event.event_type !== "offline";
       let eventLinkAttributes = ``;
-      console.log(eventLinkAttributes);
+      console.log(data);
       
 
       let totalPrice = data.data.ticket.length > 0 
-        ? `$${data.data.ticket.reduce((sum, item) => sum + item.price, 0).toFixed(2)}`
+        ? `$${data.data.ticket.reduce((sum, ticket) => sum + (ticket.price * ticket.ticket_bought), 0).toFixed(2)}`
         : `Free`;
         const eventDate = new Date(event.started_date);
         const endDate = new Date(event.ended_date);

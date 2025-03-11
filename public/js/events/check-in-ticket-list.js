@@ -19,12 +19,11 @@ if (!scanningEnabled) return;
 
 console.log(result);
 
-
-
 try {
+  scanningEnabled = false; 
 await axiosInstance.put("/events/check-in/", { ticketToken: result });
 
-scanningEnabled = false; 
+
 showToast(true, `Checked In Successfully.`);
 getCheckInTicketList()
 
@@ -43,8 +42,6 @@ if (!(error.response && error.response.data &&  typeof error.response.data == "o
 
 
 }
-
-
 
 }
 

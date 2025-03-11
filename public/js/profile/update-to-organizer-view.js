@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     window.descQuill = new Quill('#editor', { theme: 'snow' , placeholder: "Enter your bio here..."});
+
 });
 async function getOrganizerView() {
     try {
@@ -31,6 +32,12 @@ async function getOrganizerView() {
                             } else {
                                 rejectionReasonWrapper.style.display = 'none'; // Hide the rejection reason wrapper
                             }
+
+            if(organizerData.status != 3){
+                document.getElementById("btnRequestAgain").classList.add("d-none")
+            }else{
+                document.getElementById("btnRequestAgain").classList.remove("d-none")
+            }
             
 
             // Populate the form fields with the fetched data
@@ -51,7 +58,9 @@ async function getOrganizerView() {
             });
         } else {
             console.error('Failed to fetch organizer data:', response.data.message);
-            window.location.href = "/profile/organizer"
+            // window.location.href = "/profile/organizer"
+            document.getElementById("frmOrganizerRequest").classList.add("d-none")
+            document.getElementById("btnUpdateToOrganizer").classList.remove("d-none")
         }
     } catch (error) {
         console.error('Error fetching organizer data:', error);
