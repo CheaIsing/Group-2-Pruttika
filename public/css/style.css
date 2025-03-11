@@ -3445,12 +3445,12 @@ scrollbar-color: #ccc #f1f1f1;
         font-size: 12px;
     }
 
-    .sidebar ul li a.active {
-        color: #20c997 !important; /* Active color */
-    }
     .sidebar ul li a {
         padding: 0.5rem !important; /* Active color */
     }
+}
+.sidebar ul li a.active {
+  color: var(--c-brand) !important; /* Active color */
 }
 
 /* Rest of the styles (same as before) */
@@ -3606,32 +3606,32 @@ tr.border-bottom:hover td {
 }
 
 /* OPTIONAL: Make the accordion panel look card-like */
-.accordion-button {
+.ticket-page .accordion-button {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.accordion-button h5 {
+.ticket-page .accordion-button h5 {
   margin: 0;
   /* font-size: 1.125rem; */
   /* h5 default: 1.25rem, adjust as needed */
 }
 
-.accordion-button small {
+.ticket-page .accordion-button small {
   color: #6c757d;
   /* text-muted */
   display: block;
 }
 
-.accordion-button::after {
+.ticket-page .accordion-button::after {
   margin-left: 1rem !important;
   margin-block: auto !important;
   display: none !important;
   background-image: none !important;
 }
 
-.accordion-button:not(.collapsed) {
+.ticket-page .accordion-button:not(.collapsed) {
   background-color: transparent !important;
 }
 
@@ -4665,4 +4665,195 @@ a#html5-qrcode-anchor-scan-type-change:hover {
 
 .link:hover{
   text-decoration: underline !important;
+}
+
+
+/* contact us */
+.Contact_us {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f8f9fa;
+  min-height: 80vh;
+  padding-bottom: 50px;
+  position: relative;
+}
+
+
+/* Pink Background */
+.PinkBG {
+  position: absolute;
+  width: 100%;
+  height: 300px;
+  background: #e11594;
+  border-bottom-left-radius: 50% 25%;
+  border-bottom-right-radius: 50% 25%;
+  /* background: url(../img/bgfix.jpg); */
+}
+
+/* Form Wrapper */
+.form-container {
+  background-color: white;
+  max-width: 800px;
+  width: 90%;
+  margin-top: 100px;
+  padding: 50px 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  position: relative;
+  z-index: 1;
+}
+
+/* Form Heading */
+.contactus-head {
+  font-size: 26px;
+  font-weight: 500;
+}
+/* label {
+  font-size: 14px;
+  color: #9c9c9c;
+} */
+.contact-social-media .icon:hover {
+  color: var(--c-brand)
+}
+
+/* team */
+
+/* Team Member Profile Card */
+.member-profile {
+  height: 430px;
+  border: 1px solid #ddd;
+  border-radius: 25px;
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 7px 13px 0px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Profile Image Container */
+.member-profile .profile {
+  text-align: center;
+  height: 360px;
+  position: relative;
+}
+
+/* Profile Image */
+.member-profile .profile img {
+  width: 90%;
+  height: 90%;
+  object-fit: cover;
+  margin-top: 20px;
+  border-radius: 10px;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Hover Effect on Image */
+.member-profile:hover .profile img {
+  transform: scale(1.05);
+}
+
+/* Profile Text */
+.profile-text {
+  height: 100px;
+  line-height: 25px;
+  color: #232323;
+  text-align: center;
+}
+
+.profile-text h4 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.profile-text p {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Social Media Icons */
+.social-media-team {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 200px;
+  height: 50px;
+  border-radius: 20px;
+  background-color: #f8f5f5;
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0 30px;
+  transition: all 0.4s ease-in-out;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 7px 13px 0px;
+  opacity: 0;
+}
+/* Show Social Media on Hover */
+.member-profile:hover .social-media-team {
+  opacity: 1;
+  bottom: 40px;
+}
+
+/* Social Media Icons Style */
+.social-media-team a {
+  text-decoration: none;
+}
+
+.social-media-team .icon-media {
+  color: #fff;
+  font-size: 16px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--c-brand);
+  text-align: center;
+  line-height: 40px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+/* Hover Effect on Icons */
+.social-media-team .icon-media:hover {
+  background-color: var(--c-brand-dark);
+}
+/* faqs */
+.faq {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  padding-bottom: 50px;
+  position: relative;
+}
+
+.faqs .accordion-button:not(.collapsed) {
+  background-color: #e11594 !important;
+  color: white !important;
+}
+
+.faqs .accordion-button:not(.collapsed):focus {
+  box-shadow: none;
+}
+
+/* about */
+.team-card img {
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.team-card {
+  border: none;
+  transition: transform 0.3s;
+}
+.team-card:hover {
+  transform: translateY(-5px);
+}
+.social-icons a {
+  color: #e91e63;
+  font-size: 18px;
+  margin-right: 10px;
+  transition: color 0.3s;
+}
+.social-icons a:hover {
+  color: #ff4081;
 }

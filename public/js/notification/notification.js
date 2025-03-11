@@ -57,6 +57,7 @@ async function getAllNotifications() {
           notiUnreadCount++;
           notisUnread.push(noti);
           notiUnreadHtml += `<div class="col-12">
+                    
           <div class="notification mb-3 py-3 rounded-3 d-flex align-items-start noti-hover" onclick='showNotificationDetail(${JSON.stringify(noti)})'>
               <!-- <div class="line-style-noti me-3"></div> -->
               <div class="d-flex align-items-start justify-content-between w-100">
@@ -90,40 +91,7 @@ async function getAllNotifications() {
                                   class="icon-unread bg-brand"></div>`
                               }
                           </div>
-                          <!-- Online Link -->
-                          <div class="mt-3 d-flex ${
-                            noti.type.type_id != 7 && "d-none"
-                          } w-100">
-                              
-                             
-                                  <div class="w-100">
-                                  <div class="input-field input-field-setting input-group px-0 d-flex" id="input-field-confirm-new-password" style="height: 40px !important;border-right: 0 !important; border-top-right-radius: 0 !important;border-bottom-right-radius: 0 !important;">
-                                      <i class="fa-solid fa-link fs-6"></i>
-                                      <input type="text" placeholder="Online Event Link"
-                                      ${
-                                        noti.type.type_id == 7 &&
-                                        `id="event-link-${noti.event.id}"`
-                                      }
-                                         />
-                                        
-                                    </div>
-                                    
-                                    <div
-                                      class="invalid_feedback text-danger d-flex align-items-center mb-2"
-                                      id="invalid_feedback_confirm_new_password">
-                                      <i
-                                        class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
-                                      <div class="ms-2">Invalid Url Link.</div>
-                                    </div>
-                                    
-                                  </div>
-                                  
-                                  
-                                      <button onclick="updateEventLink(${
-                                        noti.event_id
-                                      }, this)" style="height: 40px !important;border-right: 0 !important; border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important;" type="button" class="btn btn-brand fw-normal">Send</button>
-                                  
-                              </div>
+                          
                               
                          
                       </div>
@@ -179,7 +147,7 @@ async function getAllNotifications() {
                                                       class="d-flex align-items-center">
                                                       <p class="content mb-2 text-1-line"
                                                           style="color: #4b5563;"
-                                                          id="message">${message}</p>
+                                                          id="message">${message} </p>
                               
                                                   </div>
                                                   <div style="color: #4b5563;"
@@ -358,30 +326,38 @@ async function markNotification(id, btn) {
 }
 
 async function updateEventLink(id, btn) {
-  const link = btn.closest(".notification").querySelector("input").value;
+  const link = btn.closest(".ticket-notification").querySelector("input").value;
   const schema = Joi.object({
     event_link: Joi.string().uri().required(),
   });
   const { error } = schema.validate({ event_link: link });
   if (error) {
     return btn
-      .closest(".notification")
+      .closest(".ticket-notification")
       .querySelector(".input-field")
       .classList.add("is_invalid");
   } else {
     btn
-      .closest(".notification")
+      .closest(".ticket-notification")
       .querySelector(".input-field")
       .classList.remove("is_invalid");
   }
   try {
-    await axiosInstance.post("/notification/set-link/" + id, {
+    const result = await axiosInstance.post("/notification/set-link/" + id, {
       event_link: link,
     });
+    // console.log(result);
+    console.log(id);
+    
+    console.log(link);
+    
+    
     showToast(true, "Event Online has sent to attendees successfully.");
   } catch (error) {
     console.log(error);
-
+    if(error.response && error.response.data && error.response.data.message ){
+      return showToast(false, error.response.data.message)
+    }
     showToast();
   }
 }
@@ -401,6 +377,12 @@ async function showNotificationDetail(noti) {
       case 4: {
         link = `<p><a href="/profile/organizer-view" class="link text-brand ">Go to Organizer Setting</a></p>`
         break;
+      }
+
+      case 5: 
+      case 6:
+      case 7:{
+        link = `<p><a href="/event/detail?e=${noti.event.id}" class="link text-brand ">Go to Event Detail</a></p>`
       }
     }
     switch (noti.type.type_id) {
@@ -461,18 +443,52 @@ async function showNotificationDetail(noti) {
     
                             <div class="notif-content">
                                 <p>${noti.eng_message}</p>
+                                <!-- Online Link -->
+                          <div class="my-3 d-flex ${
+                            noti.type.type_id != 7 && "d-none"
+                          } w-100">
+                              
+                             
+                                  <div class="w-100">
+                                  <div class="input-field input-field-setting input-group px-0 d-flex" id="input-field-confirm-new-password" style="height: 40px !important;border-right: 0 !important; border-top-right-radius: 0 !important;border-bottom-right-radius: 0 !important;">
+                                      <i class="fa-solid fa-link fs-6"></i>
+                                      <input type="text" placeholder="Online Event Link"
+                                      ${
+                                        noti.type.type_id == 7 &&
+                                        `id="event-link-${noti.event.id}"`
+                                      }
+                                         />
+                                        
+                                    </div>
+                                    
+                                    <div
+                                      class="invalid_feedback text-danger d-flex align-items-center mb-2"
+                                      id="invalid_feedback_confirm_new_password">
+                                      <i
+                                        class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                                      <div class="ms-2">Invalid Url Link.</div>
+                                    </div>
+                                    
+                                  </div>
+                                  
+                                  
+                                      <button onclick="updateEventLink(${
+                                        noti.event.id
+                                      }, this)" style="height: 40px !important;border-right: 0 !important; border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important;" type="button" class="btn btn-brand fw-normal">Send</button>
+                                  
+                              </div>
                                 ${link}
                             </div>
                             <div class="notif-footer">
                                 <div class="user-info">
-                                    <img src="placeholder-profile.jpg" alt="User Profile" class="rounded-circle">
+                                    <img src="/uploads/${noti.sender.avatar ? noti.sender.avatar : "default.jpg"}" alt="User Profile" class="rounded-circle border-brand-sm">
                                     <div>
-                                        <h6 class="mb-1">Phak123</h6>
-                                        សុខ រិទ្ធាន
+                                        <h6 class="mb-1">${noti.sender.eng_name}</h6>
+                                        Event Organizer
                                     </div>
                                 </div>
                                 <div class="event-infoss">
-                                    Event: Test Event Offline
+                                    Event: ${noti.event.eng_name}
                                 </div>
                             </div>
                         </div>`
