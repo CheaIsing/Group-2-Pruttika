@@ -156,10 +156,10 @@ WHERE event_type = 1
 
             await sendEventLinkReminder(io, eventId, creatorId, eventName);
 
-          console.log(`Reminder scheduled for event ${eventId} to be sent immediately.`);
+        //   console.log(`Reminder scheduled for event ${eventId} to be sent immediately.`);
         }
       } else {
-        console.log('No online events starting in the next 10 minutes.');
+        // console.log('No online events starting in the next 10 minutes.');
       }
     } catch (error) {
       console.error('Error scheduling event link reminders:', error);
@@ -169,7 +169,7 @@ WHERE event_type = 1
 
 // Schedule the job to run every day at a specific time (e.g., 9:00 AM)
 schedule.scheduleJob('* * * * *', scheduleEventLinkReminders);
-console.log('Event link reminder scheduler started.');
+// console.log('Event link reminder scheduler started.');
 schedule.scheduleJob('0 10 * * *', sendEventReminders);
 
 app.set("view engine", "ejs");
@@ -194,7 +194,6 @@ app.use((req, res, next) => {
     // If cookie is present and supported, use it
     if (lang && i18next.options.supportedLngs.includes(lang)) {
         i18next.changeLanguage(lang);
-        res.locals.langClass = lang === 'kh' ? 'lang-kh' : 'lang-en';
         res.locals.lang = lang;
     }
 
