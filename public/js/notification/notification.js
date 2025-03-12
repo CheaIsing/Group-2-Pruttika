@@ -481,7 +481,9 @@ async function showNotificationDetail(noti) {
                             </div>
                             <div class="notif-footer">
                                 <div class="user-info">
+
                                     <img src="/uploads/${noti.sender.avatar != null ? noti.sender.avatar : "default.jpg"}" alt="User Profile" class="rounded-circle border-brand-sm">
+
                                     <div>
                                         <h6 class="mb-1">${noti.sender.eng_name}</h6>
                                         Event Organizer
