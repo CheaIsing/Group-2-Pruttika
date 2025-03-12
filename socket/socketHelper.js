@@ -72,6 +72,15 @@ function emitNotificationForOnlineLink(io,buyerId, eventId, engMessage, khMessag
       type_id: 7,
   });
 }
+function emitNotificationForInputOnlineLink(io,creatorId, eventId, engMessage, khMessage) {
+
+  io.to(creatorId).emit('notification', {
+      event_id: eventId,
+      eng_message: engMessage,
+      kh_message: khMessage,
+      type_id: 7,
+  });
+}
 function emitNotificationForEventUpdate(io,buyerId, eventId, engMessage, khMessage) {
 
   // If you don't have socketId, emit to room based on buyerId
@@ -91,5 +100,6 @@ function emitNotificationForEventUpdate(io,buyerId, eventId, engMessage, khMessa
     emitOrganizerRejectionNotification,
     emitNotificationForReminder,
     emitNotificationForEventUpdate,
-    emitNotificationForOnlineLink
+    emitNotificationForOnlineLink,
+    emitNotificationForInputOnlineLink
   };
