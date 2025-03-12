@@ -62,7 +62,7 @@ const showNotification = (
                   </div>
               </div>
           </div>`,
-    duration: 10000,
+    duration: 20000,
     destination: link,
     newWindow: false,
     close: true,
