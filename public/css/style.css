@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,100..700;1,100..700&display=swap');
 
 
 :root {
@@ -8,10 +9,19 @@
   --text-gray: #403247;
   --c-white: #fff;
 }
+[lang="en"]{
+  --font-default:'Poppins', sans-serif;
+  --font-primary:'Poppins', sans-serif;
+}
+[lang="kh"]{
+  --font-default:"Kantumruy Pro", sans-serif;
+  --font-primary:'Poppins', sans-serif;
+}
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-default); /* Default font (English) */
   background-color: #fff;
+
 }
 
 body.bg-white-stain {
@@ -25,7 +35,7 @@ body.bg-white-stain {
 
 body,
 input {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-default);
 }
 
 input {
@@ -4856,4 +4866,11 @@ a#html5-qrcode-anchor-scan-type-change:hover {
 }
 .social-icons a:hover {
   color: #ff4081;
+}
+
+#inperson-event{
+  font-family: var(--font-primary);
+}
+#online-event{
+  font-family: var(--font-primary);
 }
