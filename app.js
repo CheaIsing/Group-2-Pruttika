@@ -194,7 +194,6 @@ app.use((req, res, next) => {
     // If cookie is present and supported, use it
     if (lang && i18next.options.supportedLngs.includes(lang)) {
         i18next.changeLanguage(lang);
-        res.locals.langClass = lang === 'kh' ? 'lang-kh' : 'lang-en';
         res.locals.lang = lang;
     }
 
