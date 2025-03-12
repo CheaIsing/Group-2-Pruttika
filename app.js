@@ -9,6 +9,8 @@ const middleware = require("i18next-http-middleware");
 const i18next = require("./config/i18n");
 const { checkUser, requireAuth } = require("./middlewares/auth");
 const schedule = require('node-schedule');
+const fs = require('fs');
+const path = require('path');
 
 const { deleteNotification } = require("./job/notification"); //auto delete noti after 3 days
 
@@ -129,7 +131,30 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(middleware.handle(i18next));
 
+//change font
+app.use((req, res, next) => {
+    let lang = req.cookies.i18next;
+
+    // Check for query parameter and set cookie if present
+    if (req.query.lng && i18next.options.supportedLngs.includes(req.query.lng)) {
+        lang = req.query.lng;
+        res.cookie('i18next', lang, { maxAge: 900000, httpOnly: true });
+    }
+
+    // If cookie is present and supported, use it
+    if (lang && i18next.options.supportedLngs.includes(lang)) {
+        i18next.changeLanguage(lang);
+        res.locals.langClass = lang === 'kh' ? 'lang-kh' : 'lang-en';
+        res.locals.lang = lang;
+    }
+
+    next();
+});
+
+
 app.get("*", checkUser);
+
+
 
 // API
 app.use("/api/auth", apiAuth);
