@@ -7,85 +7,52 @@
     <%- include("../../partials/navbar.ejs")  %>
     <!-- Header Section -->
     <div class="bg-brand text-white text-center py-4 d-flex flex-column justify-content-center">
-        <h1>Terms of Service</h1>
-        <p>Last Updated: January 29, 2025</p>
+        <h1><%= t('static.termOfService.title') %></h1>
+        <p><%= t('static.termOfService.lastUpdate') %> : January 29, 2025</p>
     </div>
 
     <!-- Terms Content Section -->
     <div class="container my-5">
-        <h2 class="mb-4">1. Acceptance of Terms</h2>
-        <p>
-            Welcome to PRUTTIKA, your trusted partner for managing and organizing events efficiently. By accessing or
-            using PRUTTIKA’s services, you agree to comply with these Terms of Service. If you do not agree to any part
-            of these terms, please do not use our platform.By accessing or using our services, you agree to be bound by
-            these Terms of Service. If you do not agree, please refrain from using our website.
-        </p>
+        <h2 class="mb-4"><%= t('static.termOfService.h2-1') %></h2>
+        <p><%= t('static.termOfService.h2-p1') %></p>
 
-        <h2 class="mb-4">2. Use of Services</h2>
-        <p>
-            PRUTTIKA provides tools for event organizers, attendees, and vendors to plan, manage, and participate in
-            events. By using our services, you agree to:
-            Use the platform for lawful purposes only.
-            Avoid submitting false or misleading information during registration or event creation.
-            Refrain from using the platform for fraudulent activities, spamming, or promoting prohibited content (e.g.,
-            violence, hate speech, or illegal goods).
-            Respect the intellectual property rights of PRUTTIKA and other users.Our services are intended for personal
-            and non-commercial use only. You agree not to misuse our services or engage in activities that violate
-            applicable laws or regulations.
-        </p>
+        <h2 class="mb-4"><%= t('static.termOfService.h2-2') %></h2>
+        <p><%= t('static.termOfService.h2-p2') %></p>
 
-        <h2 class="mb-4">3. User Responsibilities</h2>
-        <p>
-            Account Security: Users are responsible for maintaining the confidentiality of their account credentials.
-            PRUTTIKA cannot be held liable for unauthorized access due to user negligence.
-            Accurate Information: All information provided during registration or event creation must be accurate and
-            up-to-date. PRUTTIKA reserves the right to suspend accounts with false or incomplete information.
-            Compliance: Users must comply with all applicable local, state, and international laws and regulations while
-            using PRUTTIKA.
-        </p>
+        <h2 class="mb-4"><%= t('static.termOfService.h2-3') %></h2>
+        <ul class="ms-4 ps-2 mb-4">
+            <li><strong><%= t('static.termOfService.content3-ls1') %> :</strong> <%= t('static.termOfService.content3-l1') %></li>
+            <li><strong><%= t('static.termOfService.content3-ls2') %> :</strong> <%= t('static.termOfService.content3-l2') %></li>
+            <li><strong><%= t('static.termOfService.content3-ls3') %> :</strong> <%= t('static.termOfService.content3-l3') %></li>
+        </ul>
 
-        <h2 class="mb-4">4. Intellectual Property</h2>
-        <p>
-            Platform Ownership: PRUTTIKA owns all rights to the platform’s design, code, and branding. Unauthorized
-            copying or distribution of platform elements is prohibited.
-            User Content: Event details, images, and other user-submitted content remain the property of the user. By
-            submitting content to PRUTTIKA, you grant us a non-exclusive, royalty-free license to display your content
-            for promotional or operational purposes.
-        </p>
+        <h2 class="mb-4"><%= t('static.termOfService.h2-4') %></h2>
+        <ul class="ms-4 ps-2 mb-4">
+            <li><strong><%= t('static.termOfService.content4-ls1') %> :</strong> <%= t('static.termOfService.content4-l1') %></li>
+            <li><strong><%= t('static.termOfService.content4-ls2') %> :</strong> <%= t('static.termOfService.content4-l2') %></li>
+        </ul>
 
-        <h2 class="mb-4">5. Limitation of Liability</h2>
-        <p>
-            PRUTTIKA is a platform that facilitates event management but does not guarantee:
+        <h2 class="mb-4"><%= t('static.termOfService.h2-5') %></h2>
+        <p><%= t('static.termOfService.h2-p5') %></p>
 
-            The accuracy or reliability of event details provided by organizers.
-            The safety or success of any event listed on the platform. Users agree that PRUTTIKA is not liable for:
-            Damages resulting from canceled or rescheduled events.
-            Any loss of data, revenue, or reputation while using the platform.
-        </p>
+        <h2 class="mb-4"><%= t('static.termOfService.h2-6') %></h2>
+        <p><%= t('static.termOfService.h2-p6') %></p>
 
-        <h2 class="mb-4">6. Changes to Terms</h2>
-        <p>
-            We reserve the right to modify these Terms of Service at any time. Any changes will be effective immediately
-            upon posting on this page. Your continued use of the website signifies your acceptance of the updated terms.
-        </p>
-        <h2 class="mb-4">7. Payment and Refund Policy</h2>
-        <p>
-            Service Fees: PRUTTIKA may charge a service fee for certain features (e.g., ticketing). Details of fees will
-            be displayed clearly during the transaction process.
-            Refunds: PRUTTIKA is not responsible for refunds related to events. Refunds must be handled by the event
-            organizer based on their refund policy.
-            Disputes: In case of disputes, PRUTTIKA acts only as an intermediary and does not guarantee resolution.
-        </p>
+        <h2 class="mb-4"><%= t('static.termOfService.h2-7') %></h2>
+        <ul class="ms-4 ps-2 mb-4">
+            <li><strong><%= t('static.termOfService.content7-ls1') %> :</strong> <%= t('static.termOfService.content7-l1') %></li>
+            <li><strong><%= t('static.termOfService.content7-ls2') %> :</strong> <%= t('static.termOfService.content7-l2') %></li>
+            <li><strong><%= t('static.termOfService.content7-ls3') %> :</strong> <%= t('static.termOfService.content7-l3') %></li>
+        </ul>
 
-        <h2 class="mb-4">8. Contact Us</h2>
-        <p>
-            If you have any questions about these terms, please contact us at <a
-                href="mailto:support@example.com">support@pruttika.com</a>.
+        <h2 class="mb-4"><%= t('static.termOfService.h2-8') %></h2>
+        <p><%= t('static.termOfService.h2-p8') %>
+            <a href="mailto:support@example.com">support@pruttika.com</a>.
         </p>
 
         <!-- Back to Top Button -->
         <div class="text-center mt-5">
-            <a href="#top" class="btn btn-brand">Back to Top</a>
+            <a href="#top" class="btn btn-brand"><%= t('static.termOfService.backToTop') %></a>
         </div>
     </div>
 

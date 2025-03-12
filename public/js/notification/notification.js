@@ -161,7 +161,7 @@ async function getAllNotifications() {
                                                         noti.is_read
                                                           ? ""
                                                           : `<div
-                                                          class="icon-unread bg-brand"></div>`
+                                                          class="icon-unread bg-brand" id="noti-read-${noti.id}"></div>`
                                                       }
                                                   </div>
                                                   <!-- Online Link -->
@@ -481,7 +481,9 @@ async function showNotificationDetail(noti) {
                             </div>
                             <div class="notif-footer">
                                 <div class="user-info">
-                                    <img src="/uploads/${noti.sender.avatar ? noti.sender.avatar : "default.jpg"}" alt="User Profile" class="rounded-circle border-brand-sm">
+
+                                    <img src="/uploads/${noti.sender.avatar != null ? noti.sender.avatar : "default.jpg"}" alt="User Profile" class="rounded-circle border-brand-sm">
+
                                     <div>
                                         <h6 class="mb-1">${noti.sender.eng_name}</h6>
                                         Event Organizer
@@ -496,6 +498,10 @@ async function showNotificationDetail(noti) {
     // Show the modal
     const modal = new bootstrap.Modal(document.getElementById('notificationModal'));
     modal.show();
+
+    await axiosInstance.put("/notification/read/"+noti.id)
+
+    document.getElementById(`noti-read-${noti.id}`).remove();
   } catch (error) {
     console.error("Error marking notification as read:", error);
   }
