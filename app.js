@@ -128,7 +128,7 @@ async function sendEventLinkReminder(io, eventId, creatorId, eventName) {
   
       await executeQuery(insertNotificationQuery, [eventId, creatorId, message, khMessage, 1, 7]);
   
-      emitNotificationForInputOnlineLink(io, creatorId, message, khMessage, 7);
+      emitNotificationForInputOnlineLink(io, creatorId, eventId, message, khMessage);
       console.log(`Reminder sent to creator ${creatorId} for event ${eventId}.`);
   
     } catch (error) {
@@ -139,10 +139,10 @@ async function sendEventLinkReminder(io, eventId, creatorId, eventName) {
   async function scheduleEventLinkReminders() {
     try {
       const eventsQuery = `
-        SELECT id, creator_id, eng_name, started_date, start_time
+SELECT id, creator_id, eng_name, started_date, start_time
 FROM tbl_event
 WHERE event_type = 1
-  AND CONCAT(started_date, ' ', start_time) = DATE_ADD(NOW(), INTERVAL 10 MINUTE)
+  AND DATE_FORMAT(CONCAT(started_date, ' ', start_time), '%Y-%m-%d %H:%i') = DATE_FORMAT(DATE_ADD(NOW(), INTERVAL 10 MINUTE), '%Y-%m-%d %H:%i')
       `;
   
       const events = await executeQuery(eventsQuery);
@@ -153,9 +153,9 @@ WHERE event_type = 1
           const creatorId = event.creator_id;
           const eventName = event.eng_name;
   
-          schedule.scheduleJob(new Date(), async () => {
+
             await sendEventLinkReminder(io, eventId, creatorId, eventName);
-          });
+
           console.log(`Reminder scheduled for event ${eventId} to be sent immediately.`);
         }
       } else {
@@ -203,7 +203,6 @@ app.use((req, res, next) => {
 
 
 app.get("*", checkUser);
-
 
 
 // API
