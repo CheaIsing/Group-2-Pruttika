@@ -1,0 +1,2201 @@
+{
+	"info": {
+		"_postman_id": "f4639e9a-ed79-4aa0-b87a-8ca35cddd1ee",
+		"name": "Pruttika Main",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38882722"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "phak@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "111111",
+									"type": "text"
+								},
+								{
+									"key": "rememberMe",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{pruttika}}/auth/signin",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Chris",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "chris@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "chris123",
+									"type": "text"
+								},
+								{
+									"key": "confirmPassword",
+									"value": "chris123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{pruttika}}/auth/signup",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{pruttika}}/auth/logout",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "sokrithean341@gmail.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{pruttika}}/api/auth/forgot-password",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"forgot-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "thean@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "otp",
+									"value": "505539",
+									"type": "text"
+								},
+								{
+									"key": "newPassword",
+									"value": "Thean123",
+									"type": "text"
+								},
+								{
+									"key": "confirmNewPassword",
+									"value": "Thean123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{pruttika}}/auth/reset-password",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"auth",
+								"reset-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Me",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{pruttika}}/auth/me",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"auth",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify OTP",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "thean@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "verifyOtp",
+									"value": "505539",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{pruttika}}/api/auth/verify-otp",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"verify-otp"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Profile",
+			"item": [
+				{
+					"name": "Get all profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{pruttika}}/api/profile/display",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"display"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get profile detail by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{pruttika}}/profile/display/1",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"profile",
+								"display",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update own info",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"kh_name\": \"ទ្ធាន\",\r\n    \"eng_name\": \"Thean\",\r\n    \"email\": \"sokrithean098@gmail.com\",\r\n    \"phone\": \"0967670880\",\r\n    \"dob\": \"2003-12-09\",\r\n    \"gender\": 1,\r\n    \"address\": \"Phnom Penh\",\r\n    \"role\": 1\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{pruttika}}/api/profile/info",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update own password",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"oldPass\": \"Thean123\",\r\n    \"newPass\": \"Thean098098\",\r\n    \"newPassConfirm\": \"Thean098098\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{pruttika}}/api/profile/pass",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"pass"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update own profile image",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{pruttika}}/api/profile/avatar",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"avatar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete own profile image",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{pruttika}}/api/profile/avatar",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"avatar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete own account",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "currentPass",
+									"value": "Thean098098",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{pruttika}}/api/profile/delete-acc",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"delete-acc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get own request tickets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{pruttika}}/profile/own-request-ticket/",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"profile",
+								"own-request-ticket",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "per_page",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": null,
+									"description": "[id,created_at]",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": null,
+									"description": "ASC/DESC",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": null,
+									"description": "[1:pending, 2:approved, 3:rejected]",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Own tickets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{pruttika}}/profile/own-ticket",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"profile",
+								"own-ticket"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "per_page",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": null,
+									"description": "[id,created_at",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": null,
+									"description": "[DESC, ASC]",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "2",
+									"description": "[1:issue , 2: used]",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Events",
+			"item": [
+				{
+					"name": "Get all event",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{pruttika}}/events?cateId=[1]",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"events"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "perpage",
+									"value": "50",
+									"description": "default=25",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "",
+									"description": "event_name",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "",
+									"description": "[id,created_at,eng_name]",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "",
+									"description": "ASC/DESC",
+									"disabled": true
+								},
+								{
+									"key": "start_date",
+									"value": "",
+									"description": "YYYY-MM-DD",
+									"disabled": true
+								},
+								{
+									"key": "end_date",
+									"value": "",
+									"description": "YYYY-MM-DD",
+									"disabled": true
+								},
+								{
+									"key": "min_price",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "max_price",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "is_published",
+									"value": "true",
+									"disabled": true
+								},
+								{
+									"key": "creator",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "date_status",
+									"value": "3",
+									"description": "[1:Past, 2: Ongoing, 3:Upcoming]",
+									"disabled": true
+								},
+								{
+									"key": "cateId",
+									"value": "[1]"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get event detail by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{pruttika}}/events/2",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"events",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add new event",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"eng_name\": \"event role2\",\r\n        \"kh_name\": null,\r\n        \"short_description\": \"bye\",\r\n        \"description\": \"bye hello\",\r\n        \"started_date\": \"202-04-03\",\r\n        \"ended_date\": \"2024-04-03\",\r\n        \"start_time\": \"12:12\",\r\n        \"end_time\": \"13:12\",\r\n        \"location\": null,\r\n        \"event_type\": 1,\r\n        \"event_categories\": [1,2],\r\n        \"event_tickets\": [],\r\n        \"agenda\": [\r\n            {\r\n                \"title\": \"agenda1\",\r\n                \"description\": \"hello this is agenda 1\",\r\n                \"start_time\": \"12:40\",\r\n                \"end_time\": \"19:50\"\r\n            },\r\n            {\r\n                \"title\": \"agenda 2\",\r\n                \"description\": \"hello this is agenda 2\",\r\n                \"start_time\": \"19:40\",\r\n                \"end_time\": \"20:11\"\r\n            }\r\n        ],\r\n        \"is_published\": 1\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{pruttika}}/events/",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"events",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update event info",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"eng_name\": \"event role2\",\r\n        \"kh_name\": null,\r\n        \"short_description\": \"bye\",\r\n        \"description\": \"bye hello\",\r\n        \"started_date\": \"2024-04-03\",\r\n        \"ended_date\": \"2024-04-03\",\r\n        \"start_time\": \"12:12\",\r\n        \"end_time\": \"13:12\",\r\n        \"location\": null,\r\n        \"event_type\": 2,\r\n        \"event_categories\": [1,2],\r\n        \"event_tickets\": [\r\n            {\r\n                \"id\":\"\",\r\n                \"type\": \"VIP2\",\r\n                \"price\": 20.5,\r\n                \"ticket_opacity\": 50\r\n            },\r\n            {\r\n                \"id\":\"3\",\r\n                \"type\": \"Normal2\",\r\n                \"price\": 10,\r\n                \"ticket_opacity\": 40\r\n            } \r\n        ],\r\n        \"agenda\": [\r\n            {\r\n                \"id\":2,\r\n                \"title\": \"agenda1\",\r\n                \"description\": \"hello this is agenda 1\",\r\n                \"start_time\": \"12:40\",\r\n                \"end_time\": \"19:50\"\r\n            },\r\n            {\r\n                \"id\":null,\r\n                \"title\": \"agenda 2\",\r\n                \"description\": \"hello this is agenda 2\",\r\n                \"start_time\": \"19:40\",\r\n                \"end_time\": \"20:11\"\r\n            }\r\n        ],\r\n        \"is_published\": 1\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{pruttika}}/events/Info/1",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"events",
+								"Info",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete event",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{pruttika}}/events/3",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"events",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update thumbnail",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "thumbnail",
+									"type": "file",
+									"src": "/C:/Users/ASUS/Downloads/file.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{pruttika}}/events/thumbnail/22",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"events",
+								"thumbnail",
+								"22"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete thumbnail",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{pruttika}}/events/thumbnail/22",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"events",
+								"thumbnail",
+								"22"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Organizer Qr",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "qr_img",
+									"type": "file",
+									"src": "/C:/Users/ASUS/Downloads/checked.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{pruttika}}/events/org-qr-img/1",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"events",
+								"org-qr-img",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Organizer Qr",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{pruttika}}/events/org-qr-img/2",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"events",
+								"org-qr-img",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete agenda",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{pruttika}}/events/agenda/26",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"events",
+								"agenda",
+								"26"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete event ticket-type",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{pruttika}}/events/event-ticket-type/24",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"events",
+								"event-ticket-type",
+								"24"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check in",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "ticketToken",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aWNrZXRfaWQiOjEsInRpY2tldF90eXBlX2lkIjoxLCJldmVudF9pZCI6MSwiaWF0IjoxNzM5MjM5ODE3fQ.CgVjQiMACdRikJwcXcMBrSe_7FZ83wJwDKu9LVaYh9E",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{pruttika}}/events/check-in/",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"events",
+								"check-in",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get summary data",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{pruttika}}/events/summary-data/:id",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"events",
+								"summary-data",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Wishlist",
+			"item": [
+				{
+					"name": "Get all wishlist item",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{pruttika}}/wishlist/display",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"wishlist",
+								"display"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get wishlist by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{pruttika}}/api/wishlist/display/1",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"api",
+								"wishlist",
+								"display",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete item in wishlist",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{pruttika}}/api/wishlist/delete/1",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"api",
+								"wishlist",
+								"delete",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store new event to wishlist",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"event_id\" : 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{pruttika}}/wishlist/create",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"wishlist",
+								"create"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Folllow",
+			"item": [
+				{
+					"name": "Follow",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{pruttika}}/follow/3",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"follow",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unfollow",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{pruttika}}/follow/unfollow/1",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"follow",
+								"unfollow",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Follower",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{pruttika}}/follow/remove-follower/:id",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"follow",
+								"remove-follower",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Follower",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{pruttika}}/follow/followers",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"follow",
+								"followers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Following",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{pruttika}}/follow/following",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"follow",
+								"following"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Organizer",
+			"item": [
+				{
+					"name": "Promote to organizer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"organization_name\": \"test1\",\r\n \"bio\": \"Welcome\",\r\n \"business_email\": \"test1@email.com\",\r\n \"business_phone\": \"0234567890\",\r\n \"location\": \"Phnom Penh\",\r\n \"facebook\": \"test\",\r\n \"telegram\": \"+855234567890\",\r\n \"tiktok\": \"test001\",\r\n \"linkin\": \"test001\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{pruttika}}/organizer/promote",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"organizer",
+								"promote"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get organizer request detail",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"organization_name\": \"test1\",\r\n \"bio\": \"Welcome\",\r\n \"business_email\": \"test1@email.com\",\r\n \"business_phone\": \"0234567890\",\r\n \"location\": \"Phnom Penh\",\r\n \"facebook\": \"test\",\r\n \"telegram\": \"+855234567890\",\r\n \"tiktok\": \"test001\",\r\n \"linkin\": \"test001\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{pruttika}}/organizer/detail",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"organizer",
+								"detail"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Process buy Ticket",
+			"item": [
+				{
+					"name": "Get all request to buy ticket",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{pruttika}}/tickets/request-ticket?event_id=27",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"tickets",
+								"request-ticket"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "per_page",
+									"value": "",
+									"description": "default=25",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "id",
+									"description": "[id, event_id, status, created_at]",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "",
+									"description": "[ASC,DESC]",
+									"disabled": true
+								},
+								{
+									"key": "ticket_type_id",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "2",
+									"description": "[1:pending,2:approved,3:reject]",
+									"disabled": true
+								},
+								{
+									"key": "event_id",
+									"value": "27"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Request ticket",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "ticket_type_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "quantity",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "event_id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{pruttika}}/tickets/request-ticket",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"tickets",
+								"request-ticket"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Transaction file",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "transaction_file",
+									"type": "file",
+									"src": "/C:/Users/ASUS/Downloads/images.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{pruttika}}/tickets/transaction-file/1",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"tickets",
+								"transaction-file",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete transaction file",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{pruttika}}/tickets/transaction-file/1",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"tickets",
+								"transaction-file",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Approve requested tickets",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{pruttika}}/tickets/approve-req-ticket/:id",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"tickets",
+								"approve-req-ticket",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "8",
+									"description": "transaction_id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reject requested tickets",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "rejected_reason",
+									"value": "i don't know",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{pruttika}}/tickets/reject-req-ticket/:id",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"tickets",
+								"reject-req-ticket",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all check-in",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{pruttika}}/events/check-in-data/:id",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"events",
+								"check-in-data",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notification",
+			"item": [
+				{
+					"name": "Get All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{pruttika}}/notification?order=asc&read=false",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"notification"
+							],
+							"query": [
+								{
+									"key": "order",
+									"value": "asc",
+									"description": "asc/desc"
+								},
+								{
+									"key": "read",
+									"value": "false",
+									"description": "true/false"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{pruttika}}/notification/2",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"notification",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mark Single as Read",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{pruttika}}/notification/read/1",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"notification",
+								"read",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mark All as Read Copy",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{pruttika}}/notification/read",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"notification",
+								"read"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mark Single as UnRead",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{pruttika}}/notification/unread/1",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"notification",
+								"unread",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mark Single as UnRead Copy",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{pruttika}}/notification/1",
+							"host": [
+								"{{pruttika}}"
+							],
+							"path": [
+								"notification",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "User Management",
+					"item": [
+						{
+							"name": "Get User Details By Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{pruttika}}/admin/user/userDetail/11",
+									"host": [
+										"{{pruttika}}"
+									],
+									"path": [
+										"admin",
+										"user",
+										"userDetail",
+										"11"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit User",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"kh_name\" : \"រិទ្ធាន\",\r\n    \"eng_name\": \"Rithean\",\r\n    \"email\": \"sokrithean098@gmail.com\",\r\n    \"phone\": \"061215340\",\r\n    \"dob\": \"2003-12-09\",\r\n    \"gender\": 1,\r\n    \"address\": \"Phnom Penh\",\r\n    \"role\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{pruttika}}/api/admin/user/editUser/2",
+									"host": [
+										"{{pruttika}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"user",
+										"editUser",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Display All Users",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{pruttika}}/api/admin/user/display?page=1&per_page=50&sort_col=created_at&sort_dir=asc&role=2&search=T",
+									"host": [
+										"{{pruttika}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"user",
+										"display"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "50"
+										},
+										{
+											"key": "sort_col",
+											"value": "created_at"
+										},
+										{
+											"key": "sort_dir",
+											"value": "asc"
+										},
+										{
+											"key": "role",
+											"value": "2"
+										},
+										{
+											"key": "search",
+											"value": "T"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove User",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{pruttika}}/api/admin/user/remove/1",
+									"host": [
+										"{{pruttika}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"user",
+										"remove",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Organizer Management",
+					"item": [
+						{
+							"name": "Display All Organizers",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{pruttika}}/admin/organizer/all?page=1&per_page=50&sort_col=organization_name&sort_dir=asc",
+									"host": [
+										"{{pruttika}}"
+									],
+									"path": [
+										"admin",
+										"organizer",
+										"all"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "50"
+										},
+										{
+											"key": "sort_col",
+											"value": "organization_name"
+										},
+										{
+											"key": "sort_dir",
+											"value": "asc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Admin Approval",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{pruttika}}/admin/organizer/approve/10",
+									"host": [
+										"{{pruttika}}"
+									],
+									"path": [
+										"admin",
+										"organizer",
+										"approve",
+										"10"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Display all request organizers",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{pruttika}}/admin/organizer/request?page=1&per_page=50&sort_col=organization_name&sort_dir=asc&status=3",
+									"host": [
+										"{{pruttika}}"
+									],
+									"path": [
+										"admin",
+										"organizer",
+										"request"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "50"
+										},
+										{
+											"key": "sort_col",
+											"value": "organization_name"
+										},
+										{
+											"key": "sort_dir",
+											"value": "asc"
+										},
+										{
+											"key": "status",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Admin Rejection",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"rejection_reason\": \"Unknown organization name\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{pruttika}}/api/admin/organizer/reject/4",
+									"host": [
+										"{{pruttika}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"organizer",
+										"reject",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit Organizer",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{pruttika}}/api/admin/organizer/update/1",
+									"host": [
+										"{{pruttika}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"organizer",
+										"update",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Organizer Details",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{pruttika}}/api/admin/organizer/details/3",
+									"host": [
+										"{{pruttika}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"organizer",
+										"details",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove Organizer",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{pruttika}}/api/admin/organizer/remove/3",
+									"host": [
+										"{{pruttika}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"organizer",
+										"remove",
+										"3"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Event Management",
+					"item": [
+						{
+							"name": "Event Category",
+							"item": [
+								{
+									"name": "View All Categories",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{pruttika}}/api/admin/event/category/view?page=1&per_page=50&sort_col=name&sort_dir=asc&search",
+											"host": [
+												"{{pruttika}}"
+											],
+											"path": [
+												"api",
+												"admin",
+												"event",
+												"category",
+												"view"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "1"
+												},
+												{
+													"key": "per_page",
+													"value": "50"
+												},
+												{
+													"key": "sort_col",
+													"value": "name"
+												},
+												{
+													"key": "sort_dir",
+													"value": "asc"
+												},
+												{
+													"key": "search",
+													"value": null
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create category",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Charity\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{pruttika}}/api/admin/event/category/create",
+											"host": [
+												"{{pruttika}}"
+											],
+											"path": [
+												"api",
+												"admin",
+												"event",
+												"category",
+												"create"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "View Category By Id",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{pruttika}}/api/admin/event/category/view/2",
+											"host": [
+												"{{pruttika}}"
+											],
+											"path": [
+												"api",
+												"admin",
+												"event",
+												"category",
+												"view",
+												"2"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update category",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Festivals\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{pruttika}}/api/admin/event/category/update/1",
+											"host": [
+												"{{pruttika}}"
+											],
+											"path": [
+												"api",
+												"admin",
+												"event",
+												"category",
+												"update",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete category",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{pruttika}}/api/admin/event/category/delete/1",
+											"host": [
+												"{{pruttika}}"
+											],
+											"path": [
+												"api",
+												"admin",
+												"event",
+												"category",
+												"delete",
+												"1"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "View Event",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{pruttika}}/admin/event/view?page=1&per_page=50",
+									"host": [
+										"{{pruttika}}"
+									],
+									"path": [
+										"admin",
+										"event",
+										"view"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "50"
+										},
+										{
+											"key": "sort_col",
+											"value": "eng_name",
+											"disabled": true
+										},
+										{
+											"key": "sort_dir",
+											"value": "asc",
+											"disabled": true
+										},
+										{
+											"key": "category_id",
+											"value": "2",
+											"disabled": true
+										},
+										{
+											"key": "search",
+											"value": "c",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "View Event Detail",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{pruttika}}/api/admin/event/detail/1",
+									"host": [
+										"{{pruttika}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"event",
+										"detail",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Account Setting",
+					"item": [
+						{
+							"name": "Change own info",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"sokrithean341@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{pruttika}}/api/admin/setting/info",
+									"host": [
+										"{{pruttika}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"setting",
+										"info"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Change Password",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"oldPass\" : \"Thean123\",\r\n    \"newPass\" : \"Thean456\",\r\n    \"passConfirm\" : \"Thean456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{pruttika}}/api/admin/setting/pass",
+									"host": [
+										"{{pruttika}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"setting",
+										"pass"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Logout",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{pruttika}}/api/admin/setting/logout",
+									"host": [
+										"{{pruttika}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"setting",
+										"logout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Change avatar",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "avatar",
+											"type": "file",
+											"src": []
+										}
+									]
+								},
+								"url": {
+									"raw": "{{pruttika}}/api/admin/setting/avatar",
+									"host": [
+										"{{pruttika}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"setting",
+										"avatar"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Post Link event",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "event_link",
+							"value": "https://app.zoom.us/wc/join",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{pruttika}}/notification/set-link/:id",
+					"host": [
+						"{{pruttika}}"
+					],
+					"path": [
+						"notification",
+						"set-link",
+						":id"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

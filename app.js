@@ -136,35 +136,35 @@ async function sendEventLinkReminder(io, eventId, creatorId, eventName) {
     }
   }
 
-  async function scheduleEventLinkReminders() {
-    try {
-      const eventsQuery = `
+async function scheduleEventLinkReminders() {
+  try {
+    const eventsQuery = `
 SELECT id, creator_id, eng_name, started_date, start_time
 FROM tbl_event
 WHERE event_type = 1
-  AND DATE_FORMAT(CONCAT(started_date, ' ', start_time), '%Y-%m-%d %H:%i') = DATE_FORMAT(DATE_ADD(NOW(), INTERVAL 10 MINUTE), '%Y-%m-%d %H:%i')
-      `;
-  
-      const events = await executeQuery(eventsQuery);
-  
-      if (events && events.length > 0) {
-        for (const event of events) {
-          const eventId = event.id;
-          const creatorId = event.creator_id;
-          const eventName = event.eng_name;
-  
+AND DATE_FORMAT(CONCAT(started_date, ' ', start_time), '%Y-%m-%d %H:%i') = DATE_FORMAT(DATE_ADD(NOW(), INTERVAL 10 MINUTE), '%Y-%m-%d %H:%i')
+    `;
 
-            await sendEventLinkReminder(io, eventId, creatorId, eventName);
+    const events = await executeQuery(eventsQuery);
 
-        //   console.log(`Reminder scheduled for event ${eventId} to be sent immediately.`);
-        }
-      } else {
-        // console.log('No online events starting in the next 10 minutes.');
+    if (events && events.length > 0) {
+      for (const event of events) {
+        const eventId = event.id;
+        const creatorId = event.creator_id;
+        const eventName = event.eng_name;
+
+
+          await sendEventLinkReminder(io, eventId, creatorId, eventName);
+
+      //   console.log(`Reminder scheduled for event ${eventId} to be sent immediately.`);
       }
-    } catch (error) {
-      console.error('Error scheduling event link reminders:', error);
+    } else {
+      // console.log('No online events starting in the next 10 minutes.');
     }
+  } catch (error) {
+    console.error('Error scheduling event link reminders:', error);
   }
+}
 // --- End of sendEventReminders function ---
 
 // Schedule the job to run every day at a specific time (e.g., 9:00 AM)

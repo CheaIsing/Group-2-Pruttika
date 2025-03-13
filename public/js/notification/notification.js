@@ -17,8 +17,6 @@ async function getAllNotifications() {
         const title = noti.eng_title;
         const message = noti.eng_message;
 
-
-
         let status = "";
         switch (noti.type.type_id) {
           case 1:
@@ -58,9 +56,9 @@ async function getAllNotifications() {
           notisUnread.push(noti);
           notiUnreadHtml += `<div class="col-12">
                     
-          <div class="notification mb-3 py-3 rounded-3 d-flex align-items-start noti-hover" onclick='showNotificationDetail(${JSON.stringify(noti)})'>
+          <div class="notification mb-3 py-3 rounded-3 d-flex align-items-start noti-hover" >
               <!-- <div class="line-style-noti me-3"></div> -->
-              <div class="d-flex align-items-start justify-content-between w-100">
+              <div class="d-flex align-items-start justify-content-between w-100" onclick='showNotificationDetail(${JSON.stringify(noti)})'>
                   <div class="d-flex">
                       <div class="me-2">
                           ${status}
@@ -88,7 +86,7 @@ async function getAllNotifications() {
                                 noti.is_read
                                   ? ""
                                   : `<div
-                                  class="icon-unread bg-brand"></div>`
+                                  class="icon-unread bg-brand"  id="noti-read-${noti.id}"></div>`
                               }
                           </div>
                           
@@ -131,9 +129,9 @@ async function getAllNotifications() {
         }
 
         notiHtml += `<div class="col-12">
-                                  <div class="notification mb-3 py-3 rounded-3 d-flex align-items-start noti-hover" onclick='showNotificationDetail(${JSON.stringify(noti)})'>
+                                  <div class="notification mb-3 py-3 rounded-3 d-flex align-items-start noti-hover">
                                       <!-- <div class="line-style-noti me-3"></div> -->
-                                      <div class="d-flex align-items-start justify-content-between w-100">
+                                      <div class="d-flex align-items-start justify-content-between w-100" onclick='showNotificationDetail(${JSON.stringify(noti)})'>
                                           <div class="d-flex">
                                               <div class="me-2">
                                                   ${status}
@@ -155,53 +153,15 @@ async function getAllNotifications() {
                                                       <i
                                                           data-lucide="clock"
                                                           style="stroke-width: 1.25; width: 1.25rem;" class=""></i>
-                                                      <div class="ms-2 me-3">">${moment(noti.created_at)
+                                                      <div class="ms-2 me-3">${moment(noti.created_at)
                                 .fromNow()}</div> 
                                                       ${
                                                         noti.is_read
                                                           ? ""
                                                           : `<div
-                                                          class="icon-unread bg-brand" id="noti-read-${noti.id}"></div>`
+                                                          class="icon-unread bg-brand"></div>`
                                                       }
                                                   </div>
-                                                  <!-- Online Link -->
-                                                  <div class="mt-3 d-flex ${
-                                                    noti.type.type_id != 7 &&
-                                                    "d-none"
-                                                  } w-100">
-                                                      
-                                                     
-                                                          <div class="w-100">
-                                                          <div class="input-field input-field-setting input-group px-0 d-flex" id="input-field-confirm-new-password" style="height: 40px !important;border-right: 0 !important; border-top-right-radius: 0 !important;border-bottom-right-radius: 0 !important;">
-                                                              <i class="fa-solid fa-link fs-6"></i>
-                                                              <input type="text" placeholder="Online Event Link"
-                                                              ${
-                                                                noti.type
-                                                                  .type_id ==
-                                                                  7 &&
-                                                                `id="event-link-${noti.event.id}"`
-                                                              }
-                                                                 />
-                                                                
-                                                            </div>
-                                                            
-                                                            <div
-                                                              class="invalid_feedback text-danger d-flex align-items-center mb-2"
-                                                              id="invalid_feedback_confirm_new_password">
-                                                              <i
-                                                                class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
-                                                              <div class="ms-2">Invalid Url Link.</div>
-                                                            </div>
-                                                            
-                                                          </div>
-                                                          
-                                                          
-                                                              <button onclick="updateEventLink(${
-                                                                noti.event_id
-                                                              }, this)" style="height: 40px !important;border-right: 0 !important; border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important;" type="button" class="btn btn-brand fw-normal">Send</button>
-                                                          
-                                                      </div>
-                                                      
                                                  
                                               </div>
                                           </div>
@@ -501,8 +461,12 @@ async function showNotificationDetail(noti) {
 
     await axiosInstance.put("/notification/read/"+noti.id)
 
+    console.log(document.getElementById(`noti-read-${noti.id}`));
+    
+
     document.getElementById(`noti-read-${noti.id}`).remove();
   } catch (error) {
     console.error("Error marking notification as read:", error);
+    showToast();
   }
 }

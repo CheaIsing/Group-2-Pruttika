@@ -59,6 +59,8 @@ async function getOrganizer() {
       console.log(document.getElementById("event-list").innerHTML);
       document.getElementById("select-sort").classList.add("d-none")
       document.getElementById("pagination").classList.add("d-none")
+      document.getElementById("contactModal").classList.add("d-none");
+      document.getElementById("openModalBtn").classList.add("d-none")
     }else{
       document.getElementById("contact-phone").innerText = user.Organizer_info.phone
       document.getElementById("contact-email").innerText = user.Organizer_info.email
@@ -80,6 +82,105 @@ async function getOrganizer() {
                 </a>`
 
                 renderEvents();
+
+      document.getElementById("contactModal").innerHTML = `
+      <div class="close-button-container">
+            <a href="#" class="close-button">
+                <i data-lucide="x"></i>
+            </a>
+        </div>
+        
+        <div class="modal-header mb-4 d-flex flex-column align-items-start">
+            <h2 class="modal-title">Contact</h2>
+            <p class="modal-subtitle">Get in touch with ${user.Organizer_info.name}</p>
+        </div>
+        
+        <div class="contact-list">
+            <div class="contact-item-container">
+                <div class="contact-item has-link" onclick="window.open('tel:${user.Organizer_info.phone}', '_blank')">
+                    <div class="social-icon social-icon-phone">
+                        <i class="fa-solid fa-phone"></i>
+                    </div>
+                    <div class="contact-item-content">
+                        <p class="contact-item-label">Phone</p>
+                        <p class="contact-item-value mb-0">${user.Organizer_info.phone}</p>
+                    </div>
+                    <div class="contact-item-icon">
+                        <i data-lucide="external-link"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-item-container">
+                <div class="contact-item has-link" onclick="window.open('mailto:${user.Organizer_info.email}', '_blank')">
+                    <div class="social-icon social-icon-email">
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+                    <div class="contact-item-content">
+                        <p class="contact-item-label">Email</p>
+                        <p class="contact-item-value mb-0">${user.Organizer_info.email}</p>
+                    </div>
+                    <div class="contact-item-icon">
+                        <i data-lucide="external-link"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-item-container ${!(user.Organizer_info.facebook) && "d-none"}">
+                <div class="contact-item has-link" onclick="window.open('${user.Organizer_info.facebook}', '_blank')">
+                    <div class="social-icon social-icon-facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </div>
+                    <div class="contact-item-content">
+                        <p class="contact-item-label">Facebook</p>
+                        <p class="contact-item-value mb-0">${user.Organizer_info.facebook}</p>
+                    </div>
+                    <div class="contact-item-icon">
+                        <i data-lucide="external-link"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-item-container ${!(user.Organizer_info.telegram) && "d-none"}">
+                <div class="contact-item has-link" onclick="window.open('${user.Organizer_info.telegram}', '_blank')">
+                    <div class="social-icon social-icon-instagram">
+                        <i class="fab fa-telegram"></i>
+                    </div>
+                    <div class="contact-item-content">
+                        <p class="contact-item-label">Telegram</p>
+                        <p class="contact-item-value mb-0">${user.Organizer_info.telegram}</p>
+                    </div>
+                    <div class="contact-item-icon">
+                        <i data-lucide="external-link"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-item-container ${!(user.Organizer_info.linkin) && "d-none"}">
+                <div class="contact-item has-link" onclick="window.open('${user.Organizer_info.linkin}', '_blank')">
+                    <div class="social-icon social-icon-linkedin">
+                        <i class="fab fa-linkedin-in"></i>
+                    </div>
+                    <div class="contact-item-content">
+                        <p class="contact-item-label">LinkedIn</p>
+                        <p class="contact-item-value mb-0">${user.Organizer_info.linkin}</p>
+                    </div>
+                    <div class="contact-item-icon">
+                        <i data-lucide="external-link"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-item-container ${!(user.Organizer_info.tiktok) && "d-none"}">
+                <div class="contact-item has-link" onclick="window.open('${user.Organizer_info.tiktok}', '_blank')">
+                    <div class="social-icon social-icon-tiktok">
+                        <i class="fab fa-tiktok"></i>
+                    </div>
+                    <div class="contact-item-content">
+                        <p class="contact-item-label">TikTok</p>
+                        <p class="contact-item-value mb-0">${user.Organizer_info.tiktok}</p>
+                    </div>
+                    <div class="contact-item-icon">
+                        <i data-lucide="external-link"></i>
+                    </div>
+                </div>
+            </div>
+        </div>`
     }
     
 
