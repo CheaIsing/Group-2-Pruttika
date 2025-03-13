@@ -5049,3 +5049,8 @@ a#html5-qrcode-anchor-scan-type-change:hover {
 .organizer .contact-modal::-webkit-scrollbar-thumb:hover {
   background-color: #adb5bd;
 }
+
+#languageDropdown:hover{
+  color: var(--c-brand-dark) !important;
+  background-color: transparent !important;
+}

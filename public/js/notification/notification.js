@@ -407,8 +407,6 @@ async function showNotificationDetail(noti) {
                           <div class="my-3 d-flex ${
                             noti.type.type_id != 7 && "d-none"
                           } w-100">
-                              
-                             
                                   <div class="w-100">
                                   <div class="input-field input-field-setting input-group px-0 d-flex" id="input-field-confirm-new-password" style="height: 40px !important;border-right: 0 !important; border-top-right-radius: 0 !important;border-bottom-right-radius: 0 !important;">
                                       <i class="fa-solid fa-link fs-6"></i>
@@ -439,7 +437,7 @@ async function showNotificationDetail(noti) {
                               </div>
                                 ${link}
                             </div>
-                            <div class="notif-footer">
+                            <div class="notif-footer ${(noti.type.type_id == 3 || noti.type.type_id == 4) && "d-none"}">
                                 <div class="user-info">
 
                                     <img src="/uploads/${noti.sender.avatar != null ? noti.sender.avatar : "default.jpg"}" alt="User Profile" class="rounded-circle border-brand-sm">

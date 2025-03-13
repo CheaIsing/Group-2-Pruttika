@@ -27,6 +27,10 @@
 
 <script>
         let userSocketId = null;
+        let isEnglish = document.querySelector("html").lang == "en"
+
+
+
 
 async function connectToSocket() {
     try {
@@ -120,6 +124,9 @@ async function connectToSocket() {
     document.addEventListener("DOMContentLoaded", function () {
         lucide.createIcons();
         connectToSocket()
+        
+        
+        
         // showNotification()
     const loader = document.getElementById("loader-overlay");
 
@@ -135,6 +142,7 @@ async function connectToSocket() {
 
     // Show loader when navigating to another page
     
-});
+    });
 
+    
 </script>
