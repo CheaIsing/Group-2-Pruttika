@@ -181,7 +181,6 @@ const putApproveTicket = async (req, res) => {
             eng_name
         } = dbResult[0];
 
-        console.log("Transaction details:", dbResult[0]);
 
         const checkApprove = await executeQuery(`select * from tbl_transaction where id=? AND status=?`, [ticketReq_id, 2]);
 
@@ -202,7 +201,6 @@ const putApproveTicket = async (req, res) => {
             }
             const ticket_bought = checkAvailableTicket[0].ticket_bought;
 
-            console.log("Inserting tickets...");
             const sqlInsertTicket = `INSERT INTO tbl_ticket(transaction_id,ticket_event_id) VALUES(?,?)`;
             const promises =[];
             for (let i = 0; i < ticket_qty; i++) {
@@ -246,8 +244,6 @@ const putApproveTicket = async (req, res) => {
             await executeQuery(`UPDATE tbl_ticketevent_type SET ticket_bought=? WHERE id=?`, [ticket_bought + ticket_qty, ticket_event_id]);
 
         } else if (event_type == 1) {
-            console.log("Online event");
-            console.log("Inserting notification 2...");
             const sqlInsertNotification2 = `INSERT INTO tbl_notification
                 (event_id, receiver_id, eng_message,kh_message,sender_id,ticket_req_id, type_id) 
                 VALUES (?,?,?,?,?,?,?)`;
@@ -263,11 +259,9 @@ const putApproveTicket = async (req, res) => {
             await executeQuery(sqlInsertNotification2, paramsNotification2);
         }
 
-        console.log("Updating transaction status...");
         await executeQuery(`UPDATE tbl_transaction SET status = ? WHERE id = ?`, [2, ticketReq_id]);
 
         const io = req.app.get('io');
-        console.log("io:", io); // Log the io object
         emitTicketApprovalNotification(io, buyer_id, event_id, eng_name, event_type);
 
         sendResponse(res, 200, true, "Ticket Request has been approved successfully");

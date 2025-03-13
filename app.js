@@ -9,6 +9,7 @@ const middleware = require("i18next-http-middleware");
 const i18next = require("./config/i18n");
 const { checkUser, requireAuth } = require("./middlewares/auth");
 const schedule = require('node-schedule');
+const moment = require('moment');
 
 const { deleteNotification } = require("./job/notification"); //auto delete noti after 3 days
 
@@ -45,7 +46,7 @@ const webAdminSetting = require("./routes/web/admin/setting");
 const { requireAuthWeb } = require("./middlewares/web.middleware");
 const webAdminProfile = require("./routes/web/admin/profile");
 const { executeQuery } = require("./utils/dbQuery");
-const { emitNotificationForReminder } = require("./socket/socketHelper");
+const { emitNotificationForReminder, emitNotificationForInputOnlineLink } = require("./socket/socketHelper");
 
 const app = express();
 const server = http.createServer(app);
@@ -115,9 +116,60 @@ const sendEventReminders = async () => {
       console.error("Error sending event reminders:", error);
   }
 };
+async function sendEventLinkReminder(io, eventId, creatorId, eventName) {
+    try {
+      const message = `Reminder: Please input the event link for "${eventName}" which starts in 10 minutes.`;
+      const khMessage = `ការរំលឹក: សូមបញ្ចូលតំណភ្ជាប់ព្រឹត្តិការណ៍សម្រាប់ "${eventName}" ដែលនឹងចាប់ផ្តើមក្នុងរយៈពេល 10 នាទី។`;
+  
+      const insertNotificationQuery = `
+        INSERT INTO tbl_notification (event_id, receiver_id, eng_message, kh_message, sender_id, type_id)
+        VALUES (?, ?, ?, ?, ?, ?)
+      `;
+  
+      await executeQuery(insertNotificationQuery, [eventId, creatorId, message, khMessage, 1, 7]);
+  
+      emitNotificationForInputOnlineLink(io, creatorId, eventId, message, khMessage);
+      console.log(`Reminder sent to creator ${creatorId} for event ${eventId}.`);
+  
+    } catch (error) {
+      console.error(`Error sending event link reminder:`, error);
+    }
+  }
+
+async function scheduleEventLinkReminders() {
+  try {
+    const eventsQuery = `
+SELECT id, creator_id, eng_name, started_date, start_time
+FROM tbl_event
+WHERE event_type = 1
+AND DATE_FORMAT(CONCAT(started_date, ' ', start_time), '%Y-%m-%d %H:%i') = DATE_FORMAT(DATE_ADD(NOW(), INTERVAL 10 MINUTE), '%Y-%m-%d %H:%i')
+    `;
+
+    const events = await executeQuery(eventsQuery);
+
+    if (events && events.length > 0) {
+      for (const event of events) {
+        const eventId = event.id;
+        const creatorId = event.creator_id;
+        const eventName = event.eng_name;
+
+
+          await sendEventLinkReminder(io, eventId, creatorId, eventName);
+
+      //   console.log(`Reminder scheduled for event ${eventId} to be sent immediately.`);
+      }
+    } else {
+      // console.log('No online events starting in the next 10 minutes.');
+    }
+  } catch (error) {
+    console.error('Error scheduling event link reminders:', error);
+  }
+}
 // --- End of sendEventReminders function ---
 
 // Schedule the job to run every day at a specific time (e.g., 9:00 AM)
+schedule.scheduleJob('* * * * *', scheduleEventLinkReminders);
+// console.log('Event link reminder scheduler started.');
 schedule.scheduleJob('0 10 * * *', sendEventReminders);
 
 app.set("view engine", "ejs");
@@ -129,7 +181,28 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(middleware.handle(i18next));
 
+//change font
+app.use((req, res, next) => {
+    let lang = req.cookies.i18next;
+
+    // Check for query parameter and set cookie if present
+    if (req.query.lng && i18next.options.supportedLngs.includes(req.query.lng)) {
+        lang = req.query.lng;
+        res.cookie('i18next', lang, { maxAge: 900000, httpOnly: true });
+    }
+
+    // If cookie is present and supported, use it
+    if (lang && i18next.options.supportedLngs.includes(lang)) {
+        i18next.changeLanguage(lang);
+        res.locals.lang = lang;
+    }
+
+    next();
+});
+
+
 app.get("*", checkUser);
+
 
 // API
 app.use("/api/auth", apiAuth);

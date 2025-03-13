@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= lang %>">
     <%- include("../../partials/head.ejs") %>
 
     <body>
@@ -18,8 +18,8 @@
 
             </div>
         </div> 
-        <div class=" min-vh-100 py-4 mt-4">
-            <div class="container-lg">
+        <div class=" min-vh-100 pt-4 mt-4">
+            <div class="container-lg mb-4">
                 <div class="row align-items-center mb-4">
                     <div class="col-xxl-8">
                         <h1 class="h2"><%= t('event.browseEvent.discoverEvent') %></h1>
@@ -404,6 +404,7 @@
                     </div>
                 </div>
 
+                <%- include("../../partials/footer.ejs")  %>
                 <%- include("../../partials/script.ejs") %>
                 <script src="/js/events/browse-event.js"></script>
 

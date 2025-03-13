@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= lang %>">
     <%- include("../../partials/head.ejs") %>
 <body>
     <%- include("../../partials/navbar.ejs")  %>
@@ -26,8 +26,8 @@
                 class="form-label fw-medium mb-2"><%= t('profile.accManagement.language') %></label>
                 <select class="form-select mb-3 border-brand-sm w-100 ps-3" style="height: 50px;" id="language">
                     <!-- <option hidden>-- Select Language --</option> -->
-                    <option><%= t('profile.accManagement.eng') %></option>
-                    <option><%= t('profile.accManagement.kh') %></option>
+                    <option value="en"><%= t('profile.accManagement.eng') %></option>
+                    <option value="kh"><%= t('profile.accManagement.kh') %></option>
                 </select>
              </div>
              <p class="text-muted">
@@ -47,5 +47,18 @@
   
 
     <%- include("../../partials/script.ejs")  %>
+    <script>
+        let selectLang = document.getElementById("language")
+        if(isEnglish){
+
+            selectLang.querySelector("option[value='en']").setAttribute("selected", "")
+        }else{
+            selectLang.querySelector("option[value='kh']").setAttribute("selected", "")
+        }
+
+        selectLang.addEventListener("change", (e)=>{
+            window.location.href = `?lng=${e.target.value}`;
+        })
+    </script>
 </body>
 </html>

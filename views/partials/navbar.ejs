@@ -152,14 +152,15 @@
         <a href="/ticket/my-ticket" role="button" class="btn-outline-pink d-flex align-items-center">
           <i class="pe-1 lucide-i" data-lucide="ticket" style="stroke-width: 1.25;"></i> <%= t('partials.header.myTicket') %>
         </a>
+        
       </div>
 
       <!-- Right Side (Notification, User Dropdown, or Sign In/Sign Up) -->
       <div class="d-flex align-items-center gap-2">
         <% if (user) { %>
-          <div class="dropdown me-1">
+          <div class="dropdown me-1 d-none d-lg-block">
             <button
-              class="btn btn-outline-brand dropdown-toggle hide-arrow p-0 border-0 " style="height: auto !important;"
+              class="btn btn-outline-brand text-brand dropdown-toggle hide-arrow p-0 border-0 " style="height: auto !important;"
               type="button"
               id="languageDropdown"
               data-bs-toggle="dropdown"
@@ -184,7 +185,7 @@
           </div>
           
           <!-- Notification Icon (Visible when logged in) -->
-          <div class="notification-wrapper mt-1 me-2">
+          <div class="notification-wrapper mt-1 me-2 d-none d-lg-block">
             <div class="notification-icon">
               <i class="fas fa-bell fs-4 text-brand"></i>
               <span class="badge fw-medium" id="unreadCount1">0</span>
@@ -257,13 +258,13 @@
         <% } %>
 
         <!-- Hamburger Menu for Mobile -->
-        <button class="btn d-lg-none p-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+        <button class="btn d-lg-none p-0 border-0 ms-1 btn-lg" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
           <i class="fa-solid fa-bars fs-4 text-brand"></i>
         </button>
       </div>
 
       <!-- Offcanvas Menu (Visible on Mobile) -->
-      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas offcanvas-end vh-100" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
         <div class="offcanvas-header">
           <h5 class="offcanvas-title" id="offcanvasNavbarLabel"><%= t('partials.header.menu') %></h5>
           <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -289,6 +290,11 @@
             </a>
             <a href="/ticket/my-ticket" role="button" class="btn-outline-pink d-flex align-items-center mb-3">
               <i class="pe-1 lucide-i" data-lucide="ticket" style="stroke-width: 1.25;"></i> <%= t('partials.header.myTicket') %>
+            </a>
+            <a href="/ticket/my-ticket" role="button" class="btn-outline-pink d-flex align-items-center justify-content-between mb-3">
+              <div>
+                <i class="pe-1 lucide-i" data-lucide="bell" style="stroke-width: 1.25;"></i> Notification
+              </div>  <span class="badge text-white bg-brand" id="noti-count-3">4</span>
             </a>
           </div>
           <div class="dropdown ">

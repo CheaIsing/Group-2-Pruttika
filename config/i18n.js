@@ -18,6 +18,7 @@ i18next
     interpolation: {
       escapeValue: false, 
     },
+    supportedLngs: ["en", "kh"]
   });
 
 module.exports = i18next;

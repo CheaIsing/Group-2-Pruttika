@@ -309,12 +309,12 @@ async function renderRelatedEvents(page = 1, perpage = 1000, is_published = true
                                       ${categories}
                                   </div>
                                   <div class="event-meta px-4 d-block">
-                                      <p class="mb-1"><i class="fa-regular fa-calendar me-2"></i> ${moment(event.started_date).format("ll")} • ${moment(event.start_time, "HH:mm").format("LT")}</p>
-                                      <p class="mb-0"><i class="bi bi-geo-alt me-2"></i> ${event.event_type === "offline" ? event.location : "Online Event"}</p>
+                                      <p class="mb-1 text-1-line"><i class="fa-regular fa-calendar me-2"></i> ${moment(event.started_date).format("ll")} • ${moment(event.start_time, "HH:mm").format("LT")}</p>
+                                      <p class="mb-0 text-1-line"><i class="bi bi-geo-alt me-2"></i> ${event.event_type === "offline" ? event.location : "Online Event"}</p>
                                   </div>
                                   <div class="event-authors d-flex align-items-center px-4 my-3">
                                       <img src="/uploads/${event.creator.avatar ? event.creator.avatar : "default.jpg"}" alt="Author" class="me-3 rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
-                                      <span class="fw-bold">${event.creator.name}</span>
+                                      <span class="fw-bold text-1-line">${event.creator.name}</span>
                                   </div>
                               </div>
                           </div>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= lang %>">
 
 <%- include("../../partials/head.ejs")  %>
 
 
-<body>
+<body class="faqs">
     <%- include("../../partials/navbar.ejs")  %>
     <div class="faq">
         <!-- Pink Background -->
@@ -13,19 +13,19 @@
         <div class="form-container">
             <h2 class="contactus-head text-center text-brand mb-4">
                 <i class="bi bi-stars"></i>
-                FAQs
+                <%= t('static.faq.title') %>
             </h2>
             <div class="accordion accordion-flush" id="accordionFlushExample">
               <div class="accordion-item">
                   <h2 class="accordion-header">
                       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                           data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                          <h5>What is the event schedule?</h5>
+                          <h5><%= t('static.faq.q1') %></h5>
                       </button>
                   </h2>
                   <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                       <div class="accordion-body">
-                          The event schedule, including session times and breaks, can be found on our event page.
+                        <%= t('static.faq.ans1') %>
                       </div>
                   </div>
               </div>
@@ -34,12 +34,12 @@
                   <h2 class="accordion-header">
                       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                           data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                          <h5>Is there a registration fee?</h5>
+                          <h5><%= t('static.faq.q2') %></h5>
                       </button>
                   </h2>
                   <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                       <div class="accordion-body">
-                          Details on any fees or free entry options can be found in the registration section.
+                        <%= t('static.faq.ans2') %>
                       </div>
                   </div>
               </div>
@@ -48,12 +48,12 @@
                   <h2 class="accordion-header">
                       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                           data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                          <h5>What if I cannot attend after registering?</h5>
+                          <h5><%= t('static.faq.q3') %></h5>
                       </button>
                   </h2>
                   <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                       <div class="accordion-body">
-                          Please contact us in advance if you cannot attend. This allows us to manage our participant list.
+                        <%= t('static.faq.ans3') %>
                       </div>
                   </div>
               </div>
@@ -62,12 +62,12 @@
                   <h2 class="accordion-header">
                       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                           data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
-                          <h5>Can I transfer my registration to someone else?</h5>
+                          <h5><%= t('static.faq.q4') %></h5>
                       </button>
                   </h2>
                   <div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                       <div class="accordion-body">
-                          Yes, but please inform us beforehand to transfer the registration and update participant information.
+                        <%= t('static.faq.ans4') %>
                       </div>
                   </div>
               </div>
@@ -76,12 +76,12 @@
                   <h2 class="accordion-header">
                       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                           data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
-                          <h5>What should I do if I experience technical difficulties?</h5>
+                          <h5><%= t('static.faq.q5') %></h5>
                       </button>
                   </h2>
                   <div id="flush-collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                       <div class="accordion-body">
-                          Please contact us in advance if you cannot attend. This allows us to manage our participant list.
+                        <%= t('static.faq.ans5') %>
                       </div>
                   </div>
               </div>

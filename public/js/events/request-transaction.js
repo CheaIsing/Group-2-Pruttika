@@ -42,7 +42,7 @@ async function getTransaction() {
     <div class="mt-4 d-flex w-100 align-items-center justify-content-between">
         <div class="d-flex align-content-center">
             <div class="me-3 mb-4">
-                <img src="/uploads/${result.buyer.avatar ? result.buyer.avatar : 'default.png'}" alt class="object-fit-cover rounded-circle" width="75" height="75" id="requester-avarta">
+                <img src="/uploads/${result.buyer.avatar ? result.buyer.avatar : 'default.jpg'}" alt class="object-fit-cover rounded-circle" width="75" height="75" id="requester-avarta">
             </div>
             <div>
                 <h5 class="mb-0" id="requester">${result.buyer.eng_name}</h5>

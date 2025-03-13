@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= lang %>" >
 <%- include("./partials/head.ejs")  %>
 <body class="home">
     
@@ -51,7 +51,7 @@
         </div>
     </section>
 
-    <section class="container my-5">
+    <section class="container-lg my-5">
         <div class="d-flex justify-content-between mb-3">
             <h3><i class="fa-solid fa-globe text-brand me-3"></i><%= t('mainpage.all-event') %> <span class="text-brand"><%= t('mainpage.phnompenh') %> </span>, <%= t('mainpage.cambodia') %></h3>
             <a class="seeAllEvent color-style" href="/event/browse"><strong><%= t('mainpage.see-all-event') %></strong></a>
@@ -60,7 +60,7 @@
             
         </div>
     </section>
-    <section class="container my-5">
+    <section class="container-lg my-5">
         <div class="d-flex justify-content-between mb-3">
             <h3><i class="fa-brands fa-elementor text-brand me-3"></i><%= t('mainpage.upcoming-online') %> <span
                     class="text-brand"><%= t('mainpage.events') %></span></h3>
@@ -105,14 +105,14 @@
     </section>
 
 
-    <section class="container my-5">
+    <section class="container-lg my-5">
         <h3 class="text-center text-md-start">
             <i class="fa-solid fa-layer-group text-brand me-3 mb-3"></i>
             <%= t('mainpage.explore-top') %> <span class="text-brand"><%= t('mainpage.categories') %></span>
         </h3>
-        <div class="row">
+        <div class="row g-4">
             <div class="col-lg-2 col-md-4 col-6">
-                <div class="card-categories text-center mb-lg-3">
+                <div class="card-categories text-center">
                     <div class="categories-icon">
                         <i class="fa-solid fa-microchip fs-3"></i>
                     </div>
@@ -122,7 +122,7 @@
                 </div>
             </div>
             <div class="col-lg-2 col-md-4 col-6 ">
-                <div class="card-categories text-center mb-lg-3 mb-md-3 mb-3">
+                <div class="card-categories text-center">
                     <div class="categories-icon">
                         <i class="fa-solid fa-medal fs-3"></i>
                     </div>
@@ -132,7 +132,7 @@
                 </div>
             </div>
             <div class="col-lg-2 col-md-4 col-6">
-                <div class="card-categories text-center mb-3">
+                <div class="card-categories text-center">
                     <div class="categories-icon">
                         <i class="fa-solid fa-hand-holding-hand fs-3"></i>
                     </div>
@@ -236,7 +236,7 @@
 
          <!-- Stats Section -->
          <section class="stats">
-            <div class="container">
+            <div class="container-lg">
                 <div class="row position-relative z-1">
                     <div class="col-md-4 text-center ">
                         <h2 class="count" data-target="5000" data-duration="2000">0</h2>
@@ -255,7 +255,7 @@
         </section>
 
      <!-- About Section -->
-     <section class="container my-5">
+     <section class="container-lg my-5">
         <div class="row align-items-center">
           
             <div class="col-12 col-md-6 text-center text-md-start px-3 px-md-0">
