@@ -3,7 +3,7 @@
 
     <%- include("../../partials/head.ejs") %>
 
-    <body>
+    <body class="organizer">
         <%- include("../../partials/navbar.ejs") %>
 
         <div class="container-lg  py-4">
@@ -49,9 +49,9 @@
                         type="button" style="height: auto !important;">
                         <%= t('profile.org-profile.following') %>
                     </button>
-                    <button type="submit"
+                    <a role="button" href="#modalBackdrop" id="openModalBtn"
                         class="btn btn-outline-brand fw-medium px-4 py-2 rounded-5"
-                        style="height: auto !important;"><%= t('profile.org-profile.contact') %></button>
+                        style="height: auto !important;"><%= t('profile.org-profile.contact') %></a>
                 </div>
             </div>
             <div class="d-flex flex-column" id="organizer-info">
@@ -137,6 +137,110 @@
             </div>
 
         </div>
+
+        <!-- Modal Structure -->
+<div id="modalBackdrop" class="modal-backdrop">
+    <div id="contactModal" class="contact-modal">
+        <div class="close-button-container">
+            <a href="#" class="close-button">
+                <i data-lucide="x"></i>
+            </a>
+        </div>
+        
+        <div class="modal-header mb-4 d-flex flex-column align-items-start">
+            <h2 class="modal-title">Contact</h2>
+            <p class="modal-subtitle">Get in touch with sophak12</p>
+        </div>
+        
+        <div class="contact-list">
+            <div class="contact-item-container">
+                <div class="contact-item has-link" onclick="window.open('tel:012321321', '_blank')">
+                    <div class="social-icon social-icon-phone">
+                        <i class="fa-solid fa-phone"></i>
+                    </div>
+                    <div class="contact-item-content">
+                        <p class="contact-item-label">Phone</p>
+                        <p class="contact-item-value mb-0">012321321</p>
+                    </div>
+                    <div class="contact-item-icon">
+                        <i data-lucide="external-link"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-item-container">
+                <div class="contact-item has-link" onclick="window.open('mailto:phak@gmail.com', '_blank')">
+                    <div class="social-icon social-icon-email">
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+                    <div class="contact-item-content">
+                        <p class="contact-item-label">Email</p>
+                        <p class="contact-item-value mb-0">phak@gmail.com</p>
+                    </div>
+                    <div class="contact-item-icon">
+                        <i data-lucide="external-link"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-item-container">
+                <div class="contact-item has-link" onclick="window.open('https://facebook.com/sophak12', '_blank')">
+                    <div class="social-icon social-icon-facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </div>
+                    <div class="contact-item-content">
+                        <p class="contact-item-label">Facebook</p>
+                        <p class="contact-item-value mb-0">facebook.com/sophak12</p>
+                    </div>
+                    <div class="contact-item-icon">
+                        <i data-lucide="external-link"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-item-container">
+                <div class="contact-item has-link" onclick="window.open('https://instagram.com/sophak12', '_blank')">
+                    <div class="social-icon social-icon-instagram">
+                        <i class="fab fa-telegram"></i>
+                    </div>
+                    <div class="contact-item-content">
+                        <p class="contact-item-label">Telegram</p>
+                        <p class="contact-item-value mb-0">@sophak12</p>
+                    </div>
+                    <div class="contact-item-icon">
+                        <i data-lucide="external-link"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-item-container">
+                <div class="contact-item has-link" onclick="window.open('https://linkedin.com/in/sophak12', '_blank')">
+                    <div class="social-icon social-icon-linkedin">
+                        <i class="fab fa-linkedin-in"></i>
+                    </div>
+                    <div class="contact-item-content">
+                        <p class="contact-item-label">LinkedIn</p>
+                        <p class="contact-item-value mb-0">linkedin.com/in/sophak12</p>
+                    </div>
+                    <div class="contact-item-icon">
+                        <i data-lucide="external-link"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-item-container">
+                <div class="contact-item has-link" onclick="window.open('https://tiktok.com/@sophak12', '_blank')">
+                    <div class="social-icon social-icon-tiktok">
+                        <i class="fab fa-tiktok"></i>
+                    </div>
+                    <div class="contact-item-content">
+                        <p class="contact-item-label">TikTok</p>
+                        <p class="contact-item-value mb-0">@sophak12</p>
+                    </div>
+                    <div class="contact-item-icon">
+                        <i data-lucide="external-link"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        
 
         <%- include("../../partials/script.ejs") %>
 

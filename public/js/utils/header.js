@@ -28,6 +28,7 @@ async function getAllNotifications() {
 
     document.getElementById("unreadCount1").innerText = unreadCount
     document.getElementById("unreadCount2").innerText = unreadCount
+    document.getElementById("noti-count-3").innerText =  unreadCount
 
     if(json.length <= 0){
 
@@ -155,6 +156,9 @@ async function getAllNotifications() {
 }
 
 let searchClicked = document.getElementById("searchEvent");
+let searchMobileClicked = document.getElementById("searchEventMobile");
+
+
 
 if (searchClicked) {
   searchClicked.addEventListener("focus", () => {
@@ -199,6 +203,57 @@ if (searchClicked) {
           });
         }
         document.getElementById("search-dropdown").innerHTML = searchList;
+
+    } catch (error) {
+      console.log(error);
+      
+    }
+
+  });
+}
+if (searchMobileClicked) {
+  searchMobileClicked.addEventListener("focus", () => {
+    let searchEventbyName = document.getElementById("searchEventMobile").value;
+    if (searchEventbyName == "") {
+      document.querySelector(".search-dropdown-mobile").style.display = "none";
+    } else {
+      document.querySelector(".search-dropdown-mobile").style.display = "block";
+      document.querySelector(".overlay").style.display = "block";
+    }
+  });
+
+  searchMobileClicked.addEventListener("blur", () => {
+    // document.querySelector(".overlay").style.display = "none";
+    document.getElementById('search-dropdown-mobile').style.display = 'none';
+  });
+  document.getElementById("searchEventMobile").addEventListener("keyup", async function () {
+    let searchEventbyName = document.getElementById("searchEventMobile").value;
+
+    document.getElementById("search-dropdown-mobile").style.display = "block";
+    if (searchEventbyName == "") {
+      document.querySelector(".search-dropdown-mobile").style.display = "none";
+    }
+
+    try {
+      const {data} = await axiosInstance.get(`/events?search=${searchEventbyName}`);
+      const {data: events} = data;
+      let searchList = "";
+        if (events.length == 0) {
+          searchList = `<li class="search-dropdown-item">
+                                <i class="fa-solid fa-magnifying-glass text-brand fs-6 pe-2"></i>
+                                <span>No result</span>
+                            </li>`;
+        } else {
+          events.slice(0, 5).forEach((element) => {
+            searchList += `<li class="search-dropdown-item" style="cursor: pointer;" onclick="goEventDetail(${
+                                                  element.id
+                                                })">
+                                  <i class="fa-solid fa-magnifying-glass text-brand fs-6 pe-2"></i>
+                                  <span>${element.eng_name}</span>
+                              </li>`;
+          });
+        }
+        document.getElementById("search-dropdown-mobile").innerHTML = searchList;
 
     } catch (error) {
       console.log(error);
