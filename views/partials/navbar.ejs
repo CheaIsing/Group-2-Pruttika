@@ -126,8 +126,8 @@
       <!-- Logo -->
       <div class="logo">
         <a href="/">
-          <img src="/img/Prutika_Logo_text(2).png" alt="Logo" class="d-xl-none d-xxl-block">
-          <img src="/img/Pruttikar_Logo1.png" alt="Logo" style="width: 36px !important;height: 36px;" class="d-none d-xl-block d-xxl-none">
+          <img src="/img/Prutika_Logo_text(2).png" alt="Logo" class="d-none d-sm-block d-xl-none d-xxl-block">
+          <img src="/img/Pruttikar_Logo1.png" alt="Logo" style="width: 36px !important;height: 36px;" class="d-sm-none d-xl-block d-xxl-none">
         </a>
       </div>
 
@@ -159,7 +159,7 @@
       <!-- Right Side (Notification, User Dropdown, or Sign In/Sign Up) -->
       <div class="d-flex align-items-center gap-2">
         <% if (user) { %>
-          <div class="dropdown me-1 d-none d-lg-block">
+          <div class="dropdown me-1 d-none d-xl-block">
             <button
               class="btn btn-outline-brand text-brand dropdown-toggle hide-arrow p-0 border-0 " style="height: auto !important;"
               type="button"
@@ -230,7 +230,7 @@
           <div class="d-flex align-items-center gap-2">
             <a href="/auth/signin" role="button" class="btn btn-brand py-2 fw-medium" style="height: auto !important;"><%= t('partials.header.sign-in') %></a>
             <a href="/auth/signup" role="button" class="btn btn-outline-brand py-2 fw-medium" style="height: auto !important;"><%= t('partials.header.sign-up') %></a>
-            <div class="dropdown d-none d-lg-block">
+            <div class="dropdown d-none d-xl-block">
               <button
                 class="btn btn-outline-brand dropdown-toggle hide-arrow py-2 border-brand-sm text-brand" style="height: auto !important;"
                 type="button"
@@ -292,7 +292,7 @@
             <a href="/ticket/my-ticket" role="button" class="btn-outline-pink d-flex align-items-center mb-3">
               <i class="pe-1 lucide-i" data-lucide="ticket" style="stroke-width: 1.25;"></i> <%= t('partials.header.myTicket') %>
             </a>
-            <a href="/ticket/my-ticket" role="button" class="btn-outline-pink d-flex align-items-center justify-content-between mb-3">
+            <a href="/notification" role="button" class="btn-outline-pink d-flex align-items-center justify-content-between mb-3">
               <div>
                 <i class="pe-1 lucide-i" data-lucide="bell" style="stroke-width: 1.25;"></i> Notification
               </div>  <span class="badge text-white bg-brand" id="noti-count-3">4</span>

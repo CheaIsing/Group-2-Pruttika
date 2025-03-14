@@ -95,7 +95,7 @@ async function getProfileInfo() {
     
     const { data } = await axiosInstance.get("/auth/me");
     const { data: jsonData } = data;
-    console.log(jsonData);
+    // console.log(jsonData);
     
     const { eng_name, kh_name, phone, email, avatar, address, dob, gender } = jsonData;
 
@@ -125,9 +125,9 @@ async function getProfileInfo() {
       btnChangeProfile.setAttribute("data-bs-toggle", "dropdown");
     }
     
-    console.log(jsonData);
+    // console.log(jsonData);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
 
     if (
       error.response &&
@@ -158,11 +158,11 @@ frm.addEventListener("submit", async (e) => {
   formData.address = addressEle.value;
   formData.gender = maleEle.checked ? "1" : femaleEle.checked ? "2" : "";
 
-  console.log(formData);
+  // console.log(formData);
   
 
   const { error } = vProfileInfo.validate(formData);
-  console.log(error);
+  // console.log(error);
   
 
   if (error) {
@@ -177,7 +177,7 @@ frm.addEventListener("submit", async (e) => {
   
 
   if (!isValid) return;
-  console.log("run here");
+  // console.log("run here");
   
   try {
     btnShowLoading("btnSaveChange");
@@ -221,6 +221,12 @@ document.addEventListener("DOMContentLoaded", function () {
   // Handle image upload
   imageUpload.addEventListener("change", function (event) {
     if (event.target.files && event.target.files[0]) {
+      const validateResult = validateFile(event.target.files[0], 3);
+
+      if(!(validateResult.valid)){
+        showToast(false, validateResult.message)
+        return;
+      }
       const reader = new FileReader();
       reader.onload = function (e) {
         // Show image in modal for cropping
@@ -268,7 +274,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   async function uploadCroppedImage() {
     const formData = new FormData();
-    console.log(imageUpload.files[0]);
+    // console.log(imageUpload.files[0]);
 
     formData.append("avatar", imageUpload.files[0]); // You can use the base64 string or convert it to a blob
     // console.log(croppedImage);
@@ -277,7 +283,7 @@ document.addEventListener("DOMContentLoaded", function () {
       btnShowLoading("cropImageBtn")
       const response = await axiosInstance.post("/profile/avatar", formData);
 
-      console.log(response);
+      // console.log(response);
       // Hide modal
       
       showToast(true, "Profile Upload Successfully.");
@@ -293,7 +299,7 @@ document.addEventListener("DOMContentLoaded", function () {
     try {
       const response = await axiosInstance.delete("/profile/avatar");
 
-      console.log(response);
+      // console.log(response);
       showToast(true, "Profile Delete Successfully.");
 
       getProfileInfo();

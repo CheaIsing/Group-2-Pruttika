@@ -57,7 +57,7 @@ events.event_categories.forEach((c, i) => {
     c.name
   }</span>`;
 });
-console.log(events);
+// console.log(events);
 
 const tickets = events.event_tickets;
 
@@ -222,8 +222,22 @@ document.getElementById("submitButton").addEventListener("click", async (e)=>{
         event_id : events.id
     }
 
+    const validateResult = validateFile(input.files[0], 3);
+
+
+    if(!(validateResult.valid)){
+      document.querySelector(".upload-box").style.border = "2px dashed var(--bs-danger) !important";
+      document.getElementById("invalid-qr-msg").classList.remove("d-none");
+      document.querySelector("#invalid-qr-msg span").innerText = validateResult.message;
+      return
+    }
+
+    document.querySelector(".upload-box").style.border = "2px dashed var(--c-brand) !important";
+    document.getElementById("invalid-qr-msg").classList.add("d-none");
+
     const transactionFile = new FormData();
     transactionFile.append("transaction_file", input.files[0]);
+
 
     try {
       btnShowLoading("submitButton")
@@ -234,6 +248,10 @@ document.getElementById("submitButton").addEventListener("click", async (e)=>{
         await axiosInstance.post("/tickets/transaction-file/"+id, transactionFile);
 
         showToast(true, "Purchase ticket has submitted. Please wait for confirmation from organizer.")
+
+        setTimeout(()=>{
+          window.location.href = "/event/detail"
+        }, 1200)
     } catch (error) {
         showToast();
         console.log(error);

@@ -21,18 +21,18 @@ async function getEventDetail() {
       const { data: data33 } = await axiosInstance.get("/auth/me");
       data3 = data33;
 
-      console.log(data33);
+      // console.log(data33);
       
       isAuth = true;
     } catch (error) {
-      console.log("unauthorized");
+      // console.log("unauthorized");
       isAuth = false;
     }
 
     let wishlist = null;
     let data2 = null;
     let freeTicket = null;
-    console.log(isAuth);
+    // console.log(isAuth);
     
     if (isAuth) {
       const { data: resultFreeTicket } = await axiosInstance.get(
@@ -71,9 +71,12 @@ async function getEventDetail() {
       document
         .getElementById("buttonWish")
         .setAttribute("onclick", `addWishlist(${eventObj.id}, this)`);
+        
       document
         .getElementById("buttonWish")
         .classList.toggle("active", isWishlist);
+
+        document.getElementById("buttonWish").classList.add("active");
 
       if (eventObj.creator.id == userId) {
         document.getElementById("btnFollow").classList.add("opacity-0");
@@ -232,7 +235,7 @@ async function renderRelatedEvents(page = 1, perpage = 1000, is_published = true
         qryStr += `&cateId=[${resultCate}]`;
       }
 
-      console.log(qryStr);
+      // console.log(qryStr);
       
 
       const { data } = await axiosInstance.get(`/events?${qryStr}`);
@@ -263,8 +266,11 @@ async function renderRelatedEvents(page = 1, perpage = 1000, is_published = true
               }
 
               let categories = "";
-              event.event_categories.forEach((c) => {
-                  categories += `<span class="badge">${c.name}</span>`;
+              event.event_categories.forEach((c, i) => {
+                  if(i<2){
+
+                    categories += `<span class="badge">${c.name}</span>`;
+                  }
               });
 
               const eventCard = `
@@ -411,7 +417,7 @@ async function toggleFollow(id, btn) {
     const { data: following } = data;
 
     const isFollowing = following.some((follower) => follower.id === id);
-    console.log(isFollowing);
+    // console.log(isFollowing);
 
     if (isFollowing) {
       await axiosInstance.delete(`/follow/unfollow/${id}`);

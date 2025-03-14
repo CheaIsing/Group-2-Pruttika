@@ -3,19 +3,19 @@ async function getFollower() {
     // let userId = sessionStorage.getItem("view-follow-id") || 1;
     try {
         const {data: data3} = await axiosInstance.get("/auth/me");
-        console.log(data3);
+        // console.log(data3);
         const {data: user} = data3
         
         userId = user.id
 
-        console.log(userId);
+        // console.log(userId);
         
 
         const {data} = await axiosInstance.get(`/follow/followers/${userId}`)
         const {data: data2} = await axiosInstance.get("/follow/following/"+userId)
 
 
-        console.log(data2);
+        // console.log(data2);
     
         const {data: followers} = data
         const {data: following} = data2
@@ -97,7 +97,7 @@ async function toggleFollow(id, btn){
         const {data: following} = data
         
         const isFollowing = following.some(follower => follower.id === id);
-        console.log(isFollowing);
+        // console.log(isFollowing);
         
         
         if (isFollowing) {

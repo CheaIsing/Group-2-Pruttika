@@ -20,7 +20,7 @@ const promoteToOrganizer = async (req, res) => {
     const checkExistRequestQuery = `select * from tbl_organizer_req where user_id = ?`;
 
     const isExistRequest = await executeQuery(checkExistRequestQuery, user_id);
-    console.log(isExistRequest);
+    // console.log(isExistRequest);
     
 
     if(isExistRequest.length > 0){

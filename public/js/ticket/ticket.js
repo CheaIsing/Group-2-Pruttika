@@ -22,7 +22,7 @@ async function getRequestTicket( status="", page=1, perpage=25) {
   try {
     const {data} = await axiosInstance.get(`/profile/own-request-ticket?${queryParams.toString()}`);
     const {data:tickets, paginate} = data;
-    console.log(tickets);
+    // console.log(tickets);
 
 
     
@@ -63,11 +63,11 @@ async function getRequestTicket( status="", page=1, perpage=25) {
           class_status: classStatus
         }
         let isOffline = ticket.event.event_type == 2;
-        console.log(isOffline);
+        // console.log(isOffline);
         
         let showTran = isOffline ? `data-ticket='${JSON.stringify(obj)}'  onclick="showTransaction(this)" data-bs-toggle="modal" data-bs-target="#exampleModal"` : '';
 
-        console.log(showTran);
+        // console.log(showTran);
         document.getElementById("requested-ticket-container").innerHTML += `
                 <div
           class="accordion-item mb-3 rounded-3 overflow-hidden border-0 shadow-light-sm">
@@ -159,14 +159,14 @@ async function getOwnedTicket( status="", page=1, perpage=15) {
     queryParams.append("status", status);
   }
 
-  console.log(queryParams.toString());
+  // console.log(queryParams.toString());
   
   try {
     const {data} = await axiosInstance.get(`/profile/own-ticket?${queryParams.toString()}`);
     const {data:tickets, paginate} = data;
-    console.log(paginate);
+    // console.log(paginate);
 
-    console.log(tickets);
+    // console.log(tickets);
     
 
 
@@ -403,7 +403,7 @@ function showTransaction(el) {
   // Get the object from the data attribute
   const obj = JSON.parse(el.getAttribute("data-ticket"));
 
-  console.log("click", obj);
+  // console.log("click", obj);
 
   let checkTran = obj.ticket_type.price == 0 ? `` : `/uploads/transaction/${obj.transaction_img}`;
 
@@ -447,7 +447,7 @@ function showTicket(el) {
   // Get the object from the data attribute
   const obj = JSON.parse(el.getAttribute("data-tickets"));
 
-  console.log("click", obj);
+  // console.log("click", obj);
 
 
 

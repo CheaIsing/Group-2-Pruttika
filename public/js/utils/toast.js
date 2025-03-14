@@ -85,7 +85,7 @@ const showNotification = (
 
 const btnShowLoading = (id) => {
   const btnEle = document.getElementById(id);
-  console.log(btnEle);
+  // console.log(btnEle);
   
   btnEle.disabled = true;
   btnEle.innerHTML = `<div class="spinner-border" role="status">
@@ -112,7 +112,7 @@ function toHHMMFormat(timeValue) {
 
 function copyEventUrlToClipboard(eventId) {
   const url = `${window.location.protocol}//${window.location.host}/event/detail?e=${eventId}`;
-  console.log(url);
+  // console.log(url);
 
   if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(url)

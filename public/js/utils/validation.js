@@ -295,7 +295,7 @@ const vUpdateEventTickets = Joi.object({
 
 const validateFile = (file, maxSizeMB = 3) => {
   if (!file) {
-    return { valid: false, message: 'Invalid file type. Only .jpg, .jpeg, .png are allowed.' }; // No file, validation passes
+    return { valid: false, message: 'Invalid file type. Only JPG, JPEG, PNG are allowed.' }; // No file, validation passes
   }
 
   const validExtensions = ['.jpg', '.jpeg', '.png'];
@@ -305,7 +305,7 @@ const validateFile = (file, maxSizeMB = 3) => {
   if (!(validExtensions.includes(fileExtension))) {
     return {
       valid: false,
-      message: 'Invalid file type. Only .jpg, .jpeg, .png are allowed.',
+      message: 'Invalid file type. Only JPG, JPEG, PNG are allowed.',
     };
   }
 
@@ -322,19 +322,19 @@ const validateFile = (file, maxSizeMB = 3) => {
 
 const validateFileQR = (file, maxSizeMB = 3) => {
   if (!file) {
-    return { valid: false, message: 'Payment Qr Image .' }; // No file, validation passes
+    return { valid: false, message: 'Payment Qr Image is required.' }; // No file, validation passes
   }
 
   const validExtensions = ['.jpg', '.jpeg', '.png'];
   const fileName = file.name.toLowerCase();
   const fileExtension = fileName.substring(fileName.lastIndexOf('.'));
-  console.log(file);
-  console.log(fileExtension);
+  // console.log(file);
+  // console.log(fileExtension);
   
   if (!(validExtensions.includes(fileExtension))) {
     return {
       valid: false,
-      message: 'Invalid file type. Only .jpg, .jpeg, .png are allowed.',
+      message: 'Invalid file type. Only JPG, JPEG, PNG are allowed.',
     };
   }
 

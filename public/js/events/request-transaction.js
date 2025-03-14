@@ -74,7 +74,7 @@ async function getTransaction() {
 `
 
 
-        console.log(result); 
+        // console.log(result); 
 
         document.getElementById("row-transaction").innerHTML = transactionHtml
 
