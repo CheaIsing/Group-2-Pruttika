@@ -2516,8 +2516,8 @@ header.is-sticky {
 
 .userImgPf-wrapper img {
   outline: 2px solid #ff1694 !important;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   object-fit: cover;
   border-radius: 100%;
 }
@@ -4712,7 +4712,7 @@ a#html5-qrcode-anchor-scan-type-change:hover {
   background-color: white;
   max-width: 800px;
   width: 90%;
-  margin-top: 100px;
+  margin-top: 170px;
   padding: 50px 40px;
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
@@ -5060,3 +5060,36 @@ a#html5-qrcode-anchor-scan-type-change:hover {
   color: var(--c-brand-dark) !important;
   background-color: transparent !important;
 }
+.card-categories{
+  background-color: white;
+  text-align: center;
+  border-radius: 8px;
+  padding:25px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+.categories-icon{
+color: var(--c-brand);
+}
+.categories-title strong{
+  color: #4d4c4e;
+}
+.card-categories:hover{
+  color:#f7f9ff;
+  background-color: var(--c-brand);
+}
+.card-categories:hover .categories-icon{
+  color:#f7f9ff;
+}
+.card-categories:hover .categories-title strong{
+  color:#f7f9ff;
+}
+@media (max-width:400px) {
+  .card-categories.rsm {
+    background-color: white;
+    text-align: center;
+    border-radius: 8px;
+    padding:15px!important;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+}
+
