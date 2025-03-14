@@ -48,7 +48,7 @@
                                                     <i id="imgIcon" class="fa-regular fa-image fs-1 text-secondary pb-3"></i>
                                                     <label id="imgInputBtn" for="fileUpload" class="btn-outline-pink d-flex align-items-center"><i
                                                             class="fa-regular fa-image fs-5 text-secondary me-1"></i> <%= t('event.create-event.uploadImg') %> </label>
-                                                    <input class="d-none" id="fileUpload" accept=".jpg, .jpeg" type="file"></input>
+                                                    <input class="d-none" id="fileUpload" accept=".png, .jpg, .jpeg" type="file"></input>
                                                     <div class="d-flex">
                                                         <p id="fileName" class="text-secondary pt-3"><%= t('event.create-event.no-file') %></p>
                                                         <button id="btnRemoveImgFile" type="button"
@@ -106,9 +106,9 @@
                                                         class="form-label fw-medium mb-2 d-block"><%= t('event.create-event.eventType') %></label>
                                                         <div id="input-container">
                                                             <input class="form-check-input" name="event_type" type="radio" id="inPerson" value="2" checked> 
-                                                            <label class="form-check-label radio-lb"><%= t('event.create-event.offline') %></label> 
+                                                            <label for="inPerson" class="form-check-label radio-lb"><%= t('event.create-event.offline') %></label> 
                                                             <input class="form-check-input" name="event_type" type="radio" id="online" value="1"> 
-                                                            <label class="form-check-label radio-lb"><%= t('event.create-event.online') %></label> 
+                                                            <label  for="online" class="form-check-label radio-lb"><%= t('event.create-event.online') %></label> 
                                                         </div>
                                                     </div>
                                                 </div>
@@ -408,7 +408,7 @@
                                                     <i id="khqrPhotoIcon" class="fa-regular fa-image fs-1 text-secondary pb-3"></i>
                                                     <label id="khqrPhotoInputBtn" for="khqrPhotoUpload" class="btn-outline-pink d-flex align-items-center"><i
                                                             class="fa-regular fa-image fs-5 text-secondary me-1"></i> <%= t('event.create-event.uploadImg') %></label>
-                                                    <input class="d-none" id="khqrPhotoUpload" accept=".jpg, .jpeg" type="file"></input>
+                                                    <input class="d-none" id="khqrPhotoUpload" accept=".png, .jpg, .jpeg" type="file"></input>
                                                     <div class="d-flex">
                                                         <p id="KhqrPhotoName" class="text-secondary pt-3"><%= t('event.create-event.no-file') %></p>
                                                         <button id="btnRemoveKhqrImg" type="button"

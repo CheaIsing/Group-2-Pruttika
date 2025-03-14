@@ -312,7 +312,7 @@ async function renderEventsUpcoming(page = 1, perpage = 10, is_published = null)
       const formattedDate = `${moment(event.started_date).format("MMM D, YYYY")} - ${moment(event.ended_date).format("MMM D, YYYY")}, ${moment(event.start_time, "HH:mm").format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
       
       let totalPrice = data.data.ticket.length > 0 
-        ? `$${data.data.ticket.reduce((sum, item) => sum + item.price, 0).toFixed(2)}`
+        ? `$${data.data.ticket.reduce((sum, ticket) => sum + (ticket.price * ticket.ticket_bought), 0).toFixed(2)}`
         : `Free`;
 
         const eventDate = new Date(event.started_date);
@@ -481,7 +481,7 @@ async function renderEventsShowing(page = 1, perpage = 10, is_published = null) 
       const formattedDate = `${moment(event.started_date).format("MMM D, YYYY")} - ${moment(event.ended_date).format("MMM D, YYYY")}, ${moment(event.start_time, "HH:mm").format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
       
       let totalPrice = data.data.ticket.length > 0 
-        ? `$${data.data.ticket.reduce((sum, item) => sum + item.price, 0).toFixed(2)}`
+        ? `$${data.data.ticket.reduce((sum, ticket) => sum + (ticket.price * ticket.ticket_bought), 0).toFixed(2)}`
         : `Free`;
         const eventDate = new Date(event.started_date);
         const endDate = new Date(event.ended_date);
@@ -641,7 +641,7 @@ async function renderEventsPast(page = 1, perpage = 10, is_published = null) {
       const formattedDate = `${moment(event.started_date).format("MMM D, YYYY")} - ${moment(event.ended_date).format("MMM D, YYYY")}, ${moment(event.start_time, "HH:mm").format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
       
       let totalPrice = data.data.ticket.length > 0 
-        ? `$${data.data.ticket.reduce((sum, item) => sum + item.price, 0).toFixed(2)}`
+        ? `$${data.data.ticket.reduce((sum, ticket) => sum + (ticket.price * ticket.ticket_bought), 0).toFixed(2)}`
         : `Free`;
         const eventDate = new Date(event.started_date);
         const endDate = new Date(event.ended_date);

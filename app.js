@@ -184,6 +184,7 @@ app.use(middleware.handle(i18next));
 //change font
 app.use((req, res, next) => {
     let lang = req.cookies.i18next;
+    res.locals.lang = "en";
 
     // Check for query parameter and set cookie if present
     if (req.query.lng && i18next.options.supportedLngs.includes(req.query.lng)) {
