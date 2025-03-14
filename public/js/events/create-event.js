@@ -259,6 +259,9 @@ nextBtn.addEventListener("click", () => {
 prevBtn.addEventListener("click", () => {
   if (current_step > 0) {
     current_step--;
+    document.getElementById("stepNumber").innerText = `Step ${
+      current_step + 1
+    } of ${stepCount + 1}`;
     let previous_step = current_step + 1;
     prevBtn.classList.add("d-none");
     prevBtn.classList.add("d-inline-block");
@@ -879,9 +882,13 @@ function checkStep() {
       let khqrUploadSection = document.getElementById("khqr-upload-section");
   
       // Pass the file object (khqrPhotoUpload.files[0]) to validateFile
-      const validationResult = validateFile(khqrPhotoUpload.files[0], 3); // 3MB limit
+      const validationResultQR = validateFileQR(khqrPhotoUpload.files[0], 3); // 3MB limit
+
+      console.log(validationResultQR);
+      console.log(validationResultQR.valid);
+      
   
-      if (!validationResult.valid) {
+      if (!(validationResultQR.valid)) {
           // Validation failed
           khqrUploadSection.style.border = "1px solid var(--bs-danger)";
           khqrUploadSection.scrollIntoView({
@@ -890,7 +897,7 @@ function checkStep() {
           });
           khqrPhotoUpload.focus();
           khqrPhotoName.innerHTML = `<span class="text-danger" >
-              ${validationResult.message}
+              ${validationResultQR.message}
           </span>`;
           return false;
       }
@@ -900,7 +907,8 @@ function checkStep() {
       khqrPhotoName.innerHTML = `<span class="text-success fw-bolder">
           File selected: <span class="text-black">${khqrPhotoUpload.files[0].name}</span>
       </span>`;
-      valid = true;
+      // valid = true;
+      return true
       break;
   }
     case 7: {
@@ -1216,9 +1224,9 @@ khqrPhotoUpload.addEventListener("change", function () {
       KhqrPhotoDisplay.style.display = "block"; // Display the image
     };
     reader.readAsDataURL(khqrPhotoUpload.files[0]); // Read the file as a data UR-L
-    isSkipStepPayment = true;
+    // isSkipStepPayment = true;
   } else {
-    isSkipStepPayment = false;
+    // isSkipStepPayment = false;
   }
   document.getElementById("khqrPhotoInputBtn").style.display = "none";
   document.getElementById("khqrPhotoIcon").style.display = "none";
