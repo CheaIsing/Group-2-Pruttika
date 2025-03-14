@@ -1,3 +1,4 @@
+let notiUnreadCount = 0;
 async function getAllNotifications() {
   try {
     const { data } = await axiosInstance.get("/notification");
@@ -6,7 +7,7 @@ async function getAllNotifications() {
 
     let notiHtml = "";
     let notiUnreadHtml = "";
-    let notiUnreadCount = 0;
+    
 
     const notisUnread = [];
 
@@ -278,6 +279,9 @@ async function markNotification(id, btn) {
     if (unread) {
       unread.remove();
     }
+    document.getElementById(
+      "notiUnreadCount"
+    ).innerText = `(${notiUnreadCount - 1})`;
   } catch (error) {
     console.log(error);
 

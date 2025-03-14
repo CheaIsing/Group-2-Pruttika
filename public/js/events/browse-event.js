@@ -12,7 +12,7 @@ async function getCategories() {
                                     class="btn btn-light filter-button w-100 px-3 border-0 rounded-3 mb-2 fw-normal justify-content-between text-capitalize"
                                     style="background-color: #f3f4f6;justify-content: space-between !important;">
                                     <div> ${c.name} </div>
-                                    <div>(10)</div>
+                                    <!-- <div>(10)</div> -->
                                 </button>`;
     });
     document.getElementById("category-container").innerHTML = categoriesHtml;
@@ -134,6 +134,9 @@ function clearFilter() {
   document.getElementById("price-filter-mobile").value = "";
   document.getElementById("sort-filter").value = "";
   document.getElementById("sort-filter-mobile").value = "";
+  document.getElementById("status-filter").value = "";
+  document.getElementById("status-filter-mobile").value = "";
+
   selectedCategories = [];
   document.querySelectorAll("#category-container button").forEach((button) => {
     button.classList.remove("active");

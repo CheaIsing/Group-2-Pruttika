@@ -1297,6 +1297,10 @@ input[type="radio"]:hover {
   color: #fff !important;
 }
 
+.btn-outline-pink:hover i {
+  color: #fff !important;
+}
+
 .btn-outline-pink:hover label {
   color: #fff !important;
 }
@@ -3895,10 +3899,12 @@ tr.border-bottom:hover td {
   left: 50px;
 }
 
-
+.form-control:focus{
+  border-color: var(--c-brand);
+}
 
 .border-style {
-  border: 1.6px solid var(--c-brand);
+  border: 1px solid var(--c-brand);
   border-radius: 8px;
 }
 
