@@ -128,7 +128,7 @@ const eventCollection= async(userID,page=1, perpage=25, search='', sort='id', or
         // Filter by category
         if (Array.isArray(cate_ids) && cate_ids.length > 0) {
             const placeholders = cate_ids.map(() => '?').join(', ');
-            console.log(placeholders);
+            // console.log(placeholders);
             sqlQuery += ` AND te.id IN (
                 SELECT tec.event_id 
                 FROM tbl_event_category tec 

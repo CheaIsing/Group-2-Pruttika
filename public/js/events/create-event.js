@@ -348,7 +348,7 @@ submitBtn.addEventListener("click", async () => {
   try {
     btnShowLoading("submit-btn");
     const response1 = await axiosInstance.post("/events", event);
-    console.log("Response 1:", response1);
+    // console.log("Response 1:", response1);
     const eventId = response1.data.data.event_id;
 
     const uploadRequests = [
@@ -884,8 +884,8 @@ function checkStep() {
       // Pass the file object (khqrPhotoUpload.files[0]) to validateFile
       const validationResultQR = validateFileQR(khqrPhotoUpload.files[0], 3); // 3MB limit
 
-      console.log(validationResultQR);
-      console.log(validationResultQR.valid);
+      // console.log(validationResultQR);
+      // console.log(validationResultQR.valid);
       
   
       if (!(validationResultQR.valid)) {
@@ -927,7 +927,7 @@ async function getCategories() {
   try {
     const result = await axiosInstance.get("/admin/event/category/view?per_page=100");
     const categories = result.data.data.data;
-    console.log(categories);
+    // console.log(categories);
 
     const selectElement = document.getElementById("select-category");
     const tomSelectInstance = selectElement.tomselect;
@@ -1192,7 +1192,7 @@ document.querySelector(".ts-wrapper .ts-control").classList.add("border-0");
 // console.log(document.getElementById("select-category").selectedOptions);
 
 const parent = document.querySelectorAll(".ts-wrapper.input-field"); // Get the parent element
-console.log(parent);
+// console.log(parent);
 // if (!parent) return; // Ensure the parent exists
 parent.forEach((p) => {
   const newNode = document.createElement("i"); // Create a new element

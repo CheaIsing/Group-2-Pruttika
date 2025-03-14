@@ -81,7 +81,7 @@ async function getAllNotifications() {
 
       
         notiUnreadHtml +=  `<div>
-        <div class="notification pt-3 rounded-3 shadow-hover d-flex align-items-start">
+        <div class="notification pt-3 rounded-3 shadow-hover d-flex align-items-start" onclick="showNoti()" style="cursor: pointer;">
             <!-- <div class="line-style-noti me-3"></div> -->
             <div class="d-flex align-items-start justify-content-between w-100">
                 <div class="d-flex">
@@ -261,4 +261,8 @@ if (searchMobileClicked) {
     }
 
   });
+}
+
+function showNoti(){
+  window.location.href = "/notification";
 }

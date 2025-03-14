@@ -3,7 +3,7 @@ let meId = null
 async function getOrganizer() {
   try {
     const { data } = await axiosInstance.get("/profile/display/" + userId);
-    console.log(data);
+    // console.log(data);
 
 
     const {data: user} = data
@@ -25,7 +25,7 @@ async function getOrganizer() {
       `/follow/following/${meId}`
     );
 
-    console.log(result3);
+    // console.log(result3);
 
     document.getElementById("btnFollow").setAttribute("onclick", `toggleFollow(${userId}, this)`)
 
@@ -34,7 +34,7 @@ async function getOrganizer() {
     }else{
       document.getElementById("btnFollow").innerText = `Follow`
     }
-    console.log(meId, userId);
+    // console.log(meId, userId);
     
     if(meId == userId){
       document.getElementById("btnFollow").classList.add("d-none")
@@ -56,7 +56,7 @@ async function getOrganizer() {
       
       document.getElementById("event-list").innerHTML = `<div class="col-12">No event to show.</div>`
       document.getElementById("event-list").classList.add("h-auto");
-      console.log(document.getElementById("event-list").innerHTML);
+      // console.log(document.getElementById("event-list").innerHTML);
       document.getElementById("select-sort").classList.add("d-none")
       document.getElementById("pagination").classList.add("d-none")
       document.getElementById("contactModal").classList.add("d-none");
@@ -214,13 +214,13 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
   try {
     let qryStr = queryParams.toString();
 
-    console.log(qryStr);
+    // console.log(qryStr);
 
     const { data } = await axiosInstance.get(`/events?${qryStr}`);
     const { data: events, paginate } = data;
     document.getElementById('total-event').innerText = paginate.total;
     document.getElementById('total-event-2').innerText = paginate.total;
-    console.log(data);
+    // console.log(data);
 
     if(events.length == 0){
       document.querySelector('.pagination-container').classList.add("d-none")
@@ -507,7 +507,7 @@ async function toggleFollow(id, btn) {
     const { data: following } = data;
 
     const isFollowing = following.some((follower) => follower.id === id);
-    console.log(isFollowing);
+    // console.log(isFollowing);
 
     if (isFollowing) {
       await axiosInstance.delete(`/follow/unfollow/${id}`);

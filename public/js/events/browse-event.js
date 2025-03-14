@@ -3,7 +3,7 @@ async function getCategories() {
     const result = await axiosInstance.get("/admin/event/category/view");
 
     const categories = result.data.data.data;
-    console.log(categories);
+    // console.log(categories);
 
     let categoriesHtml = "";
     categories.forEach((c) => {
@@ -403,11 +403,11 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
       let resultCate = selectedCategories.map(Number);
       qryStr += `&cateId=[${resultCate}]`;
     }
-    console.log(qryStr);
+    // console.log(qryStr);
 
     const { data } = await axiosInstance.get(`/events?${qryStr}`);
     const { data: events, paginate } = data;
-    console.log(data);
+    // console.log(data);
 
     let html = ''
 

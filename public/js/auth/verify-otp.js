@@ -30,7 +30,7 @@ if (userEmail) {
 
   // Select all OTP input fields
   const otpInputs = document.querySelectorAll(".otp-inputs input");
-  console.log(otpInputs);
+  // console.log(otpInputs);
 
   verifyOtpForm.addEventListener(
     "submit",
