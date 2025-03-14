@@ -1,5 +1,5 @@
 function toggleOrganizer() {
-    console.log(document.getElementById('btnUpdateToOrganizer'));
+    // console.log(document.getElementById('btnUpdateToOrganizer'));
     
     document.getElementById('btnUpdateToOrganizer').remove();
     document.getElementById('frmOrganizerRequest').classList.remove("d-none");
@@ -14,12 +14,12 @@ async function getOrganizerView() {
   try {
       // Fetch data from the API
       const response = await axiosInstance.get('organizer/detail');
-      console.log(response);
+      // console.log(response);
       
 
       // Check if the request was successful
       if (response.data.result) {
-        console.log("true");
+        // console.log("true");
         
         if(response.data.data.length > 0 && response.data.data[0].status != 3){
           
@@ -29,7 +29,7 @@ async function getOrganizerView() {
           
           
       } else {
-          console.log('Failed to fetch organizer data:', response.data.message);
+          // console.log('Failed to fetch organizer data:', response.data.message);
           // window.location.href = "/profile/organizer"
       }
   } catch (error) {

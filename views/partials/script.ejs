@@ -111,11 +111,11 @@ async function connectToSocket() {
 });            
 
         } else {
-            console.log("User is not authenticated. Socket.IO connection skipped.");
+            // console.log("User is not authenticated. Socket.IO connection skipped.");
         }
     } catch (error) {
         userSocketId = null;
-        console.log(error);
+        // console.log(error);
         
     }
 }

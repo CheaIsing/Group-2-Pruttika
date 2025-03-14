@@ -14,7 +14,7 @@ function emitTicketApprovalNotification(io, buyerId, eventId, engName, eventType
       return; // Or throw an error
     }
 
-    console.log("approve ticket run here");
+    // console.log("approve ticket run here");
     
   
     io.to(buyerId).emit('notification', {

@@ -23,7 +23,7 @@ const getAllProfile = async (req, res) => {
 
     sendResponse(res, 200, true, "Display all users profile.", data);
   } catch (error) {
-    console.log(data);
+    console.log(error);
     handleResponseError(res, error);
   }
 };

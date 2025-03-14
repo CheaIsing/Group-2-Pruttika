@@ -140,7 +140,7 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
 
       let isOffline = event.event_type !== "offline";
       let eventLinkAttributes = ``;
-      console.log(data);
+      // console.log(data);
       
 
       let totalPrice = data.data.ticket.length > 0 
@@ -174,7 +174,7 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
                               <div class="text-center text-brand fw-bold">${moment(event.started_date).format("MMM ")}</div>
                               <div class="text-center text-brand fw-bold">${moment(event.started_date).format("DD")}</div>
                             </div>
-                            <img src="/uploads/default-events-img.jpg" alt="Event Image" class="rounded object-fit-cover" width="150" height="85">
+                            <img src="${event.thumbnail ? `/uploads/${event.thumbnail}` : `/uploads/default-events-img.jpg`}" alt="Event Image" class="rounded object-fit-cover" width="150" height="85">
                             <div class="ms-3 text-nowrap">
                               <h5 class="mb-0 text-wrap">${event.eng_name}</h5>
                               <p class="text-muted mb-0 w-75">${event.location || "Online Event"}</p>
@@ -343,7 +343,7 @@ async function renderEventsUpcoming(page = 1, perpage = 10, is_published = null)
                               <div class="text-center text-brand fw-bold">${moment(event.started_date).format("MMM ")}</div>
                               <div class="text-center text-brand fw-bold">${moment(event.started_date).format("DD")}</div>
                             </div>
-                            <img src="/uploads/default-events-img.jpg" alt="Event Image" class="rounded object-fit-cover" width="150" height="85">
+                           <img src="${event.thumbnail ? `/uploads/${event.thumbnail}` : `/uploads/default-events-img.jpg`}" alt="Event Image" class="rounded object-fit-cover" width="150" height="85">
                             <div class="ms-3 text-nowrap">
                               <h5 class="mb-0 text-wrap">${event.eng_name}</h5>
                               <p class="text-muted mb-0 w-75">${event.location || "Online Event"}</p>
@@ -458,21 +458,21 @@ async function renderEventsShowing(page = 1, perpage = 10, is_published = null) 
     const { data: user } = resultUser;
     const userId = user.id;
     queryParams.append("creator", userId);
-    console.log(queryParams.toString());
+    // console.log(queryParams.toString());
     const { data } = await axiosInstance.get(`/events?${queryParams.toString()}`);
     const { data: events, paginate } = data;
 
-    console.log(events);
+    // console.log(events);
     
     
 
     if (events.length <= 0) {
-      console.log(true);
+      // console.log(true);
       eventList.innerHTML = noEvent;
       return ;
     }
 
-    console.log("Hi");
+    // console.log("Hi");
     
 
     let eventCard = "";
@@ -512,7 +512,7 @@ async function renderEventsShowing(page = 1, perpage = 10, is_published = null) 
                               <div class="text-center text-brand fw-bold">${moment(event.started_date).format("MMM ")}</div>
                               <div class="text-center text-brand fw-bold">${moment(event.started_date).format("DD")}</div>
                             </div>
-                            <img src="/uploads/default-events-img.jpg" alt="Event Image" class="rounded object-fit-cover" width="150" height="85">
+                            <img src="${event.thumbnail ? `/uploads/${event.thumbnail}` : `/uploads/default-events-img.jpg`}" alt="Event Image" class="rounded object-fit-cover" width="150" height="85">
                             <div class="ms-3 text-nowrap">
                               <h5 class="mb-0 text-wrap">${event.eng_name}</h5>
                               <p class="text-muted mb-0 w-75">${event.location || "Online Event"}</p>
@@ -671,7 +671,7 @@ async function renderEventsPast(page = 1, perpage = 10, is_published = null) {
                               <div class="text-center text-brand fw-bold">${moment(event.started_date).format("MMM ")}</div>
                               <div class="text-center text-brand fw-bold">${moment(event.started_date).format("DD")}</div>
                             </div>
-                            <img src="/uploads/default-events-img.jpg" alt="Event Image" class="rounded object-fit-cover" width="150" height="85">
+                            <img src="${event.thumbnail ? `/uploads/${event.thumbnail}` : `/uploads/default-events-img.jpg`}" alt="Event Image" class="rounded object-fit-cover" width="150" height="85">
                             <div class="ms-3 text-nowrap">
                               <h5 class="mb-0 text-wrap">${event.eng_name}</h5>
                               <p class="text-muted mb-0 w-75">${event.location || "Online Event"}</p>

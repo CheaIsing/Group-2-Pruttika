@@ -10,6 +10,7 @@ const scanner = new Html5QrcodeScanner("reader", {
     rememberLastUsedCamera: false
 });
 
+
 scanner.render(success);
 document.getElementById("reader").style.border = "0px solid transparent";
 let scanningEnabled = true;
@@ -17,7 +18,7 @@ let scanningEnabled = true;
 async function success(result) {
 if (!scanningEnabled) return; 
 
-console.log(result);
+// console.log(result);
 
 try {
   scanningEnabled = false; 
@@ -79,7 +80,7 @@ let eventId = sessionStorage.getItem("event-check-in-ticket-list");
 
 async function getCheckInTicketList(page=1, perpage=25) {
     let queryParams = new URLSearchParams()
-    console.log(queryParams);
+    // console.log(queryParams);
     queryParams.append("page", page)
     queryParams.append("per_page", perpage)
 
@@ -89,13 +90,13 @@ async function getCheckInTicketList(page=1, perpage=25) {
         const {data} = await axiosInstance.get(`/events/check-in-data/`+eventId);
         const { data:event } = await axiosInstance.get(`/events/${eventId}`);
 
-        console.log(event);
+        // console.log(event);
         const formattedDate = `${moment(event.data.started_date).format("MMM D, YYYY")} - ${moment(event.data.ended_date).format("MMM D, YYYY")}, ${moment(event.data.start_time, "HH:mm").format("LT")} - ${moment(event.data.end_time, "HH:mm").format("LT")}`;
 
         document.getElementById("title").innerText = event.data.eng_name
         document.getElementById("ev-date").innerText = formattedDate
         const {data:json} = data
-        console.log(data);
+        // console.log(data);
 
         if(json.length ==0 ){
           return document.getElementById("request-tbody").innerHTML = `<tr><td colspan="6"><div class="text-center w-100 my-5">

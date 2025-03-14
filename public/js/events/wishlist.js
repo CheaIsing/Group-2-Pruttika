@@ -9,7 +9,7 @@ async function renderEvents() {
         `/wishlist/display`
       );
       const { data: events} = data;
-      console.log(data);
+      // console.log(data);
 
       if(events.length == 0){
         return eventList.innerHTML = `<div class="text-center w-100 my-5">

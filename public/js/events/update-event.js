@@ -46,8 +46,8 @@ toggleTicketBtn.addEventListener("click", function () {
       arrTicketCategoryCustom.forEach((ticket) => {
         createExistingTicketCategory(ticket);
       });
-    }else{
-      createNewTicketCategory()
+    } else {
+      createNewTicketCategory();
     }
   }
 });
@@ -872,15 +872,17 @@ async function getEventDetail() {
     if (select.tomselect) {
       let selectedValues = json.event_categories.map((ec) => ec.id);
 
-      console.log("Setting values:", selectedValues);
+      // console.log("Setting values:", selectedValues);
 
       select.tomselect.setValue(selectedValues);
     }
 
-    document.getElementById("started-date").value = extractDate(
-      json.started_date
-    );
-    document.getElementById("ended-date").value = extractDate(json.ended_date);
+    // console.log(json.started_date);
+    // console.log(moment(json.started_date).format('YYYY-MM-DD'));
+    
+
+    document.getElementById("started-date").value = moment(json.started_date).format('YYYY-MM-DD')
+    document.getElementById("ended-date").value = moment(json.ended_date).format('YYYY-MM-DD')
     document.getElementById("start-time").value = json.start_time;
     document.getElementById("end-time").value = json.end_time;
     document.getElementById("location").value = json.location;
@@ -900,8 +902,7 @@ async function getEventDetail() {
     arrTicketCategory = json.event_tickets;
 
     // Decide whether to show default or custom tickets
-    if(tickets.length > 0){
-
+    if (tickets.length > 0) {
       populateTickets(tickets);
     }
 
@@ -927,7 +928,7 @@ async function getEventDetail() {
       privateOption.checked = true;
     }
 
-    console.log(json);
+    // console.log(json);
   } catch (error) {
     showToast();
     console.log(error);
@@ -1093,7 +1094,7 @@ submitBtn.addEventListener("click", async () => {
     eventQRImg.append("qr_img", qr_img);
   }
 
-  console.log(event);
+  // console.log(event);
 
   // console.log(event);
   // console.log(eventThumbnail);
@@ -1106,7 +1107,7 @@ submitBtn.addEventListener("click", async () => {
       `/events/info/${updateEventId}`,
       event
     );
-    console.log("Response 1:", response1);
+    // console.log("Response 1:", response1);
 
     const uploadRequests = [];
     if (thumbnail) {
@@ -1123,34 +1124,39 @@ submitBtn.addEventListener("click", async () => {
 
     await Promise.all(uploadRequests);
 
-    if(arrDeleteAgenda.length > 0){
-      arrDeleteAgenda.forEach(async (id)=>{
+    if (arrDeleteAgenda.length > 0) {
+      arrDeleteAgenda.forEach(async (id) => {
         await axiosInstance.delete(`/events/agenda/${id}`);
-      })
+      });
     }
 
-    if(arrDeleteTicketCategory.length > 0){
-      arrDeleteTicketCategory.forEach(async (id)=>{
+    if (arrDeleteTicketCategory.length > 0) {
+      arrDeleteTicketCategory.forEach(async (id) => {
         await axiosInstance.delete(`/events/event-ticket-type/${id}`);
-      })
+      });
     }
 
-    if(customTicketSection.style.display === "none" && arrTicketCategoryCustom.length >0){
-      arrTicketCategoryCustom.forEach(async(custom)=>{
-        await axiosInstance.delete(`/events/event-ticket-type/${custom.id}`)
-      })
-    }else if(defaultTicket.style.display === "none" && arrTicketCategoryDefault.length > 0){
-      arrTicketCategoryDefault.forEach(async(def)=>{
-        await axiosInstance.delete(`/events/event-ticket-type/${def.id}`)
-      })
+    if (
+      customTicketSection.style.display === "none" &&
+      arrTicketCategoryCustom.length > 0
+    ) {
+      arrTicketCategoryCustom.forEach(async (custom) => {
+        await axiosInstance.delete(`/events/event-ticket-type/${custom.id}`);
+      });
+    } else if (
+      defaultTicket.style.display === "none" &&
+      arrTicketCategoryDefault.length > 0
+    ) {
+      arrTicketCategoryDefault.forEach(async (def) => {
+        await axiosInstance.delete(`/events/event-ticket-type/${def.id}`);
+      });
     }
 
     showToast(true, "Update Event Successfully.");
 
-    setTimeout(()=>{
-
+    setTimeout(() => {
       window.location.href = "/event/manage";
-    }, 1500)
+    }, 1500);
   } catch (error) {
     showToast();
     console.error("Error:", error);
@@ -1177,6 +1183,29 @@ function checkStep() {
 
   switch (current_step) {
     case 0: {
+      if (fileUpload.files[0]) {
+        const validateResult = validateFile(fileUpload.files[0]);
+        if (!validateResult.valid) {
+          // Validation failed
+          thumbnailUploadSection.style.border = "1px solid red";
+          thumbnailUploadSection.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+          fileUpload.focus();
+          thumbnailFileName.innerHTML = `<span class="text-danger " >
+          ${validationResult.message}
+        </span>`;
+          fileUpload.value = ""; // Reset input
+          return false;
+        } else {
+          thumbnailUploadSection.style.border = "none";
+          thumbnailFileName.innerHTML = `<span class="text-success fw-bolder">
+        File selected: <span class="text-black">${file.name}</span>
+      </span>`;
+          valid = true;
+        }
+      }
       return true;
     }
 
@@ -1311,10 +1340,10 @@ function checkStep() {
         location,
       };
 
-      if(eventType == 1){
+      if (eventType == 1) {
         resultt = vEventDateOnline.validate(formData);
-      }else if(eventType == 2){
-        resultt = vEventDateAndLocation.validate(formData)
+      } else if (eventType == 2) {
+        resultt = vEventDateAndLocation.validate(formData);
       }
 
       // Validate using Joi schema
@@ -1540,7 +1569,12 @@ function checkStep() {
         }
 
         if (isValid) {
-          tickets.push({ id: id, type: title, price:Number(price), ticket_opacity: Number(capacity) });
+          tickets.push({
+            id: id,
+            type: title,
+            price: Number(price),
+            ticket_opacity: Number(capacity),
+          });
           if (price == 0) {
             isSkipStepPayment = true;
             document
@@ -1625,7 +1659,7 @@ function checkStep() {
 
           if (isValid) {
             tickets.push({
-              id: Number(ticketId) ,
+              id: Number(ticketId),
               type: title,
               price: Number(price),
               ticket_opacity: Number(capacity),
@@ -1648,6 +1682,34 @@ function checkStep() {
       break;
     }
     case 6: {
+      let khqrPhotoUpload = document.getElementById("khqrPhotoUpload");
+      let khqrPhotoName = document.getElementById("KhqrPhotoName");
+      let khqrUploadSection = document.getElementById("khqr-upload-section");
+      if (khqrPhotoUpload.files[0]) {
+        // Pass the file object (khqrPhotoUpload.files[0]) to validateFile
+        const validationResultQR = validateFileQR(khqrPhotoUpload.files[0], 3); // 3MB limit
+        if (!validationResultQR.valid) {
+          // Validation failed
+          khqrUploadSection.style.border = "1px solid var(--bs-danger)";
+          khqrUploadSection.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+          khqrPhotoUpload.focus();
+          khqrPhotoName.innerHTML = `<span class="text-danger" >
+              ${validationResultQR.message}
+          </span>`;
+          return false;
+        } else {
+          // Reset styles if valid
+          khqrUploadSection.style.border = "none";
+          khqrPhotoName.innerHTML = `<span class="text-success fw-bolder">
+          File selected: <span class="text-black">${khqrPhotoUpload.files[0].name}</span>
+      </span>`;
+          // valid = true;
+          return true;
+        }
+      }
       return true;
     }
     case 7: {

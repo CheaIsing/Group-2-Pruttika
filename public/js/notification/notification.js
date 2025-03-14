@@ -3,7 +3,7 @@ async function getAllNotifications() {
   try {
     const { data } = await axiosInstance.get("/notification");
     const { data: json } = data;
-    console.log(json);
+    // console.log(json);
 
     let notiHtml = "";
     let notiUnreadHtml = "";
@@ -311,9 +311,9 @@ async function updateEventLink(id, btn) {
       event_link: link,
     });
     // console.log(result);
-    console.log(id);
+    // console.log(id);
     
-    console.log(link);
+    // console.log(link);
     
     
     showToast(true, "Event Online has sent to attendees successfully.");
@@ -327,7 +327,7 @@ async function updateEventLink(id, btn) {
 }
 async function showNotificationDetail(noti) {
   try {
-    console.log(noti);
+    // console.log(noti);
     let status = "";
     let link = ""
     switch (noti.type.type_id) {
@@ -463,7 +463,7 @@ async function showNotificationDetail(noti) {
 
     await axiosInstance.put("/notification/read/"+noti.id)
 
-    console.log(document.getElementById(`noti-read-${noti.id}`));
+    // console.log(document.getElementById(`noti-read-${noti.id}`));
     
 
     document.getElementById(`noti-read-${noti.id}`).remove();

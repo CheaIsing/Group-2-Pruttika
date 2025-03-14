@@ -2,7 +2,7 @@ async function getSummary() {
   let eventId = sessionStorage.getItem("event-summary");
 
   const { data } = await axiosInstance.get("/events/summary-data/" + eventId);
-  console.log(data);
+  // console.log(data);
   const {data:json} = data
   const totalEarnings = json.ticket.reduce(
     (acc, t) => acc + t.price * t.ticket_bought,
