@@ -65,7 +65,7 @@ async function getEventDetail() {
     const { data } = await axiosInstance.get(`/events/${eventId}`);
     eventObj = data.data;
 
-    console.log(eventObj);
+    // console.log(eventObj);
     
 
     isOnlineEvent = eventObj.event_type === "online";
@@ -98,10 +98,19 @@ async function getEventDetail() {
 
       isRedeemTicket = freeTicket.some(
         (r) =>
-          r.ticket_type.ticket_event_id == eventObj.id &&
+          r.event.id == eventId &&
           r.ticket_type.price == 0
       );
-      document.getElementById("btnPurchaseTicket").disabled = isRedeemTicket;
+      // console.log(isRedeemTicket);
+      // console.log(freeTicket);
+      
+      if(isRedeemTicket){
+        console.log(true);
+        
+        // document.getElementById("btnPurchaseTicket").setAttribute("disabled", "");
+        document.getElementById("btnPurchaseTicket").classList.add("disabled");
+      }
+      
     }
 
     document.getElementById(
@@ -365,6 +374,10 @@ document
   .addEventListener("click", async (e) => {
     if(!isAuth){
       return window.location.href = "/auth/signin"
+    }
+    if(isRedeemTicket){
+      showToast(false, "You've already redeem this ticket.")
+      return
     }
     if (isOnlineEvent && isAuth) {
       try {

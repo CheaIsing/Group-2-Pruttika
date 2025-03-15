@@ -6,6 +6,15 @@ const tooltipTriggerList = [].slice.call(
       return new bootstrap.Tooltip(tooltipTriggerEl);
     });
 
+    const ticketDataManager = {
+      tickets: {},
+      addTicket(id, data) {
+          this.tickets[id] = data;
+      },
+      getTicket(id) {
+          return this.tickets[id];
+      }
+  };
     
 
 async function getRequestTicket( status="", page=1, perpage=25) {
@@ -63,9 +72,11 @@ async function getRequestTicket( status="", page=1, perpage=25) {
           class_status: classStatus
         }
         let isOffline = ticket.event.event_type == 2;
+
+        ticketDataManager.addTicket(ticket.id, obj);
         // console.log(isOffline);
         
-        let showTran = isOffline ? `data-ticket='${JSON.stringify(obj)}'  onclick="showTransaction(this)" data-bs-toggle="modal" data-bs-target="#exampleModal"` : '';
+        let showTran = ticket.event.event_type == 2 ? `data-ticket-id='${ticket.id}' onclick="showTransaction(this)" data-bs-toggle="modal" data-bs-target="#exampleModal"` : '';
 
         // console.log(showTran);
         document.getElementById("requested-ticket-container").innerHTML += `
@@ -400,8 +411,8 @@ document.getElementById("select-request-ticket-status").addEventListener("change
 })
 
 function showTransaction(el) {
-  // Get the object from the data attribute
-  const obj = JSON.parse(el.getAttribute("data-ticket"));
+    const ticketId = el.getAttribute("data-ticket-id");
+    const obj = ticketDataManager.getTicket(ticketId);
 
   // console.log("click", obj);
 

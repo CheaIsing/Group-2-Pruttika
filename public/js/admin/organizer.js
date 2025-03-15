@@ -258,6 +258,11 @@ function displayRequestOrganizer(organizers) {
                     organizer.status === 1
                       ? `
                         <div class="dropdown-menu dropdown-menu-end">
+                        <a href="javascript:void(0)" class="dropdown-item" role="button"
+                                onclick="fetchRequestOrganizerDetail(${organizer.id})" 
+                                data-bs-toggle="modal" data-bs-target="#viewRequestDetail">
+                                View details
+                            </a>
                             <a class="dropdown-item" href="javascript:void(0)" role="button" onclick="adminApproval(${organizer.id})">Approve</a>
                             <a class="dropdown-item" href="javascript:void(0)" role="button" onclick="adminRejection(${organizer.id})">Reject</a>
                         </div>
@@ -385,7 +390,7 @@ async function adminRejection(id) {
   try {
     const { value: rejection_reason } = await Swal.fire({
       title: "Enter Rejection Reason",
-      input: "text",
+      input: "textarea",
       inputPlaceholder: "Enter reason for rejection...",
       showCancelButton: true,
       confirmButtonColor: "#d33",
@@ -428,6 +433,7 @@ async function adminRejection(id) {
         });
         fetchRequestOrganizers();
       } else {
+
         console.error(
           "Rejection failed:",
           response.data.message || "Unknown error"
@@ -442,7 +448,7 @@ async function adminRejection(id) {
       }
     }
   } catch (error) {
-    console.error("Error rejecting organizer:", error.message);
+    console.error("Error rejecting organizer:", error);
     Swal.fire({
       icon: "error",
       title: "Error",

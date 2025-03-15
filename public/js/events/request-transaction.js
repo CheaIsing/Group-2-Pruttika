@@ -41,9 +41,11 @@ async function getTransaction() {
                         break;
                     }
                 }
+                // console.log(json);
+                
 
         let transactionHtml = `<div class="col-12">
-    <div class="mt-4 d-flex w-100 align-items-center justify-content-between">
+    <div class="mt-4 d-flex w-100 align-items-center justify-content-between flex-wrap mb-3 mb-md-0">
         <div class="d-flex align-content-center">
             <div class="me-3 mb-4">
                 <img src="/uploads/${result.buyer.avatar ? result.buyer.avatar : 'default.jpg'}" alt class="object-fit-cover rounded-circle" width="75" height="75" id="requester-avarta">
@@ -69,11 +71,11 @@ async function getTransaction() {
 <div class="col-12">
     <span class="badge fw-medium ${statusClass} rounded-5 mb-3 d-inline-block" style="font-size: 16px !important;">Status: ${result.status}</span>
     <p>Ticket Request Quantity : <span id="amount">${result.ticket_qty} tickets</span></p>
-    <p>Price per ticket: <span id="price-unit">$${result.price.toFixed(2)}</span></p>
+    <p>Price per ticket: <span id="price-unit">$${result.price ? result.price.toFixed(2): "0.00"}</span></p>
     <p>Total: <span id="total">$${result.total_amount.toFixed(2)}</span></p>
     <p id="label-Reject" class="w-25 ${!result.rejection_reason && "d-none"}">Reject Reason: ${result.rejection_reason}</p>
     <h5>Transaction File:</h5>
-    <img src="${result.transaction_img ? `/uploads/transaction/${result.transaction_img}` : "/uploads/transaction/no-photo.png"}" class="border border-2" alt="transaction-img" id="transaction-img" width="400">
+    <img src="${result.transaction_img ? `/uploads/transaction/${result.transaction_img}` : "/uploads/transaction/no-photo.png"}" class="border border-2 w-100" alt="transaction-img" id="transaction-img" style="max-width: 400px">
 </div>
 `
 
@@ -102,7 +104,11 @@ async function approveRequest(id, btn){
             window.location.href = "/event/request-ticket-list"
         }, 1200)
     } catch (error) {
+
         console.log(error);
+        if(error?.response?.data?.message){
+            return showToast(false, error?.response?.data?.message);
+        }
         showToast()
         
     }finally{
@@ -156,6 +162,9 @@ document.getElementById("btn-disapprove").onclick = async ()=>{
          window.location.href = "/event/request-ticket-list";
        }, 1200);
       } catch (error) {
+        if(error?.response?.data?.message){
+            return showToast(false, error?.response?.data?.message);
+        }
         console.log(error);
         showToast()
       }

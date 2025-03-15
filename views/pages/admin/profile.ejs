@@ -60,7 +60,7 @@
                                         <div class="row justify-content-center">
                                             <div class="col-md-8">
                                                 <div class="profile-card">
-                                                    <img src="/uploads/<%= user.avatar %>" alt="Profile Avatar"
+                                                    <img src="/uploads/<%= user.avatar ? user.avatar : "default.jpg" %>" alt="Profile Avatar"
                                                         class="profile-avatar">
                                                     <h2>
                                                         <%= user.eng_name %>
@@ -118,7 +118,7 @@
                                                             </div>
                                                         </div>
                                                         <h4><strong>Address : </strong>
-                                                            <%= user.address %>
+                                                            <%= user.address ? user.address : "N/A" %>
                                                         </h4>
                                                     </div>
 
