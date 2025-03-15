@@ -198,14 +198,14 @@ async function renderEvents(page = 1, perpage = 1000, is_published = true) {
   
                     const eventCard = `
                         <div class="col-12 col-md-6 col-lg-3 col-xl-3">
-                            <div class="event-card mb-3 mb-lg-3"  >
+                            <div class="event-card mb-3 mb-lg-3  position-relative"  >
                                 <img src="/uploads/${event.thumbnail}" alt="Event" class="event-images" style="cursor:pointer;" onclick="goEventDetail(${
   
                                                   event.id
   
                                                 })">
                                 <div class="event-card-hover">
-                                    <div class="button-group z-3" style="z-index: 999 !important;">
+                                    <div class="button-group z-2" style="z-index: 999 !important;">
                                                   <div>
                                                       <button onclick="addWishlist(${
                                                         event.id
