@@ -1,4 +1,7 @@
-let userId = sessionStorage.getItem("view-profile-id") || 1
+let userId = sessionStorage.getItem("view-profile-id")
+if(!userId){
+  window.location.href = "/event/browse"
+}
 let meId = null
 async function getOrganizer() {
   try {
@@ -29,7 +32,7 @@ async function getOrganizer() {
 
     document.getElementById("btnFollow").setAttribute("onclick", `toggleFollow(${userId}, this)`)
 
-    if (result3.data.some(item => item.id === userId)){
+    if (result3.data.some(item => item.id == userId)){
       document.getElementById("btnFollow").innerText = `Unfollow`
     }else{
       document.getElementById("btnFollow").innerText = `Follow`

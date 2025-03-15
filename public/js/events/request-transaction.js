@@ -4,6 +4,10 @@
 
 let eventId = sessionStorage.getItem("event_transaction_id");
 let transactionId = sessionStorage.getItem("transaction_id");
+
+if(!eventId || !transactionId){
+     window.location.href = "/event/manage-request"
+}
 async function getTransaction() {
 
 

@@ -137,6 +137,8 @@ async function sendEventLinkReminder(io, eventId, creatorId, eventName) {
   }
 
 async function scheduleEventLinkReminders() {
+  console.log(new Date());
+  
   try {
     const eventsQuery = `
 SELECT id, creator_id, eng_name, started_date, start_time
@@ -156,10 +158,10 @@ AND DATE_FORMAT(CONCAT(started_date, ' ', start_time), '%Y-%m-%d %H:%i') = DATE_
 
           await sendEventLinkReminder(io, eventId, creatorId, eventName);
 
-      //   console.log(`Reminder scheduled for event ${eventId} to be sent immediately.`);
+        console.log(`Reminder scheduled for event ${eventId} to be sent immediately.`);
       }
     } else {
-      // console.log('No online events starting in the next 10 minutes.');
+      console.log('No online events starting in the next 10 minutes.');
     }
   } catch (error) {
     console.error('Error scheduling event link reminders:', error);

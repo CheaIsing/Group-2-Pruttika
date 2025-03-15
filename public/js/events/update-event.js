@@ -1,3 +1,7 @@
+let updateEventId = sessionStorage.getItem("event-update-id");
+if(!updateEventId){
+  window.location.href = "/event/manage"
+}
 let ticketCount = 0;
 const ticketWrapper = document.getElementById("ticket-wrapper");
 const toggleTicketBtn = document.getElementById("toggle-ticket-btn");
@@ -11,7 +15,7 @@ let defaultTicketId = null;
 let arrTicketCategoryCustom = [];
 let arrTicketCategoryDefault = [];
 let eventType = null;
-let updateEventId = sessionStorage.getItem("event-update-id") || 61;
+
 
 // Function to toggle between default and custom ticket sections
 toggleTicketBtn.addEventListener("click", function () {

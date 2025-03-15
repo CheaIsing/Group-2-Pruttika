@@ -1,3 +1,8 @@
+let events = JSON.parse(sessionStorage.getItem("event_obj")) 
+if(!events){
+  window.location.href = "/event/browse"
+}
+
 function toggleQRCode() {
   const qrCodeImage = document.getElementById("qrCodeImage");
   qrCodeImage.classList.toggle("d-none");
@@ -31,7 +36,6 @@ function previewImage() {
 }
 document.getElementById("submitButton").disabled = true
 
-let events = JSON.parse(sessionStorage.getItem("event_obj")) 
 // console.log(event);
 let pricing = null;
 // Get the current date and time
@@ -253,12 +257,16 @@ document.getElementById("submitButton").addEventListener("click", async (e)=>{
           window.location.href = "/event/detail"
         }, 1200)
     } catch (error) {
+      if(error?.response?.data?.message){
+        showToast(false, error?.response?.data?.message)
+        return
+      }
         showToast();
         console.log(error);
         
     }finally{
       btnCloseLoading("submitButton", "Submit Purchase")
-      document.getElementById("submitButton").disabled = true
+      // document.getElementById("submitButton").disabled = true
     }
 })
 

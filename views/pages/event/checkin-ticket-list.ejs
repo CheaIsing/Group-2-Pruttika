@@ -61,12 +61,16 @@
 
                                                 <h4><%= t('event.checkin-ticket.CheckedIn') %></h4>
                                         </div>
-                                            <div
-                                                class=" w-50 d-flex justify-content-end">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div
+                                                class=" d-flex justify-content-end">
                                                 <input type="text"
                                                     id="searchInput"
                                                     class="form-control mb-3 "
                                                     placeholder="<%= t('event.checkin-ticket.searchBy') %>...">
+                                            </div>
+                                                </div>
                                             </div>
                                             <div class="table-container table-responsive">
                                                 <table class="custom-table w-100"
@@ -137,11 +141,12 @@
 
                 </div>
             </div>
+            <div class="height-mobile"></div>
 
 
             <%- include("../../partials/script.ejs") %>
 
-            <script src="/public/js/utils/organizer-sidebar.js"></script>
+            <script src="/js/utils/organizer-sidebar.js"></script>
 
             <script src="/js/events/check-in-ticket-list.js">
 

@@ -115,7 +115,7 @@ if (userEmail) {
 
   
 } else {
-  location.href = "/forgot-password";
+  location.href = "/auth/forgot-password";
 }
 
 }
