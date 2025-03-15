@@ -157,7 +157,7 @@ async function fetchEventDetails(id) {
               <img src="/uploads/${
                 event.thumbnail
               }" class="img-fluid mx-auto mb-3" style="width: 100%; height: 200px; object-fit: contain;" >
-              <h4 class="fw-bold">${event.eng_name} (${event.kh_name})</h4>
+              <h4 class="fw-bold">${event.eng_name} (${event.kh_name ? event.kh_name : "N/A"})</h4>
               <hr>
               <div class="row text-start">
                 <div class="col-6">
@@ -220,7 +220,7 @@ function displayEvents(events) {
             <tr>
                 <td>${event.id}</td>
                 <td>${event.eng_name}</td>
-                <td>${event.kh_name}</td>
+                <td>${event.kh_name ? event.kh_name : "N/A"}</td>
                 <td><img class="img-preview" width="50" height="50" src="/uploads/${
                   event.thumbnail
                 }"></td>
@@ -239,7 +239,7 @@ function displayEvents(events) {
                         ${event.is_published === 1 ? "Private" : "Public"}
                     </span>
                 </td> 
-                <td>${event.location}</td>        
+                <td>${event.location ? event.location : "Online"}</td>        
                 <td>
                     <div class="dropdown ms-auto text-center">
                         <div class="btn-link" data-bs-toggle="dropdown">

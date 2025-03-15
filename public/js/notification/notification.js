@@ -461,12 +461,14 @@ async function showNotificationDetail(noti) {
     const modal = new bootstrap.Modal(document.getElementById('notificationModal'));
     modal.show();
 
-    await axiosInstance.put("/notification/read/"+noti.id)
+
 
     // console.log(document.getElementById(`noti-read-${noti.id}`));
     
-
-    document.getElementById(`noti-read-${noti.id}`).remove();
+    if(document.getElementById(`noti-read-${noti.id}`)){
+      await axiosInstance.put("/notification/read/"+noti.id)
+      document.getElementById(`noti-read-${noti.id}`).remove();
+    }
   } catch (error) {
     console.error("Error marking notification as read:", error);
     showToast();
