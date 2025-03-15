@@ -133,7 +133,7 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
     }
 
     let eventCard = "";
-    // console.log(events);
+    console.log(events);
     
 
     for (const event of events) {

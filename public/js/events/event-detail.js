@@ -15,6 +15,7 @@ let isRedeemTicket = false;
 let isAuth = false;
 let isOnlineEvent = false;
 let userId = null;
+let isOnlineRedeemTicket = false
 
 let categories = []
 
@@ -74,7 +75,7 @@ async function getEventDetail() {
       const isFollowing = data2.data.some(
         (following) => following.id == eventObj.creator.id
       );
-      const isWishlist = wishlist.some((w) => w.id == eventObj.id);
+      const isWishlist = wishlist.some((w) => w.event_id == eventObj.id);
 
       document
         .getElementById("buttonWish")
@@ -83,8 +84,17 @@ async function getEventDetail() {
       document
         .getElementById("buttonWish")
         .classList.toggle("active", isWishlist);
+        console.log(isWishlist);
+        
 
-        document.getElementById("buttonWish").classList.add("active");
+        console.log(wishlist);
+        console.log(eventObj);
+        
+        if(isWishlist){
+
+          document.getElementById("buttonWish").classList.add("active");
+        }
+
 
       if (eventObj.creator.id == userId) {
         document.getElementById("btnFollow").classList.add("opacity-0");
@@ -103,12 +113,16 @@ async function getEventDetail() {
       );
       // console.log(isRedeemTicket);
       // console.log(freeTicket);
-      
+      isOnlineRedeemTicket = freeTicket.some(r=>r.event.id == eventId && r.event.event_type ==1)
+      // console.log(isOnlineRedeemTicket);
+      if(isOnlineRedeemTicket){
+        document.getElementById("btnPurchaseTicket").classList.add("disabled");
+      }
       if(isRedeemTicket){
         console.log(true);
         
         // document.getElementById("btnPurchaseTicket").setAttribute("disabled", "");
-        document.getElementById("btnPurchaseTicket").classList.add("disabled");
+        // document.getElementById("btnPurchaseTicket").classList.add("disabled");
       }
       
     }
@@ -177,7 +191,14 @@ async function getEventDetail() {
       eventObj.event_type == "online"
     ) {
 
-      document.getElementById("btnPurchaseTicket").innerText = "Redeem"
+      document.getElementById("capacity-container").classList.add("d-none")
+      document.getElementById("remain-capacity-container").classList.add("d-none")
+      document.getElementById("remain-capacity-container").classList.add("d-none")
+      document.getElementById("ticket-category-container").classList.add("d-none")
+
+      document.getElementById("btnPurchaseTicket").innerText = "Redeem";
+
+
     } else {
       document
         .getElementById("purchase-ticket-container")
@@ -375,7 +396,7 @@ document
     if(!isAuth){
       return window.location.href = "/auth/signin"
     }
-    if(isRedeemTicket){
+    if(isRedeemTicket || isOnlineRedeemTicket){
       showToast(false, "You've already redeem this ticket.")
       return
     }
@@ -394,6 +415,7 @@ document
           getText("redeemSubmitted")
         );
 
+        isOnlineRedeemTicket = true
         
       } catch (error) {
         showToast();
@@ -417,12 +439,14 @@ document
             true,
             getText("redeemSubmitted")
           );
+
+          isRedeemTicket = true
         } catch (error) {
           showToast();
           console.log(error);
         } finally {
           btnCloseLoading("btnPurchaseTicket", "Redeem");
-          document.getElementById("btnPurchaseTicket").disabled = true;
+          document.getElementById("btnPurchaseTicket").classList.add("disabled");
         }
       }
     } else {
