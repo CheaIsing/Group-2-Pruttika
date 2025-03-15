@@ -92,7 +92,7 @@ let loadingHtml = `
 
   let noEvent = `<tr><td colspan="6"><div class="text-center w-100 my-5">
               <img src="/img/noFound.png" alt="..." height="220px;">
-              <h4 class="text-center text-brand mt-2">No Event to Display</h4>
+              <h4 class="text-center text-brand mt-2">${getText("noEvent")}</h4>
             </div></td></tr>`
 async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
   const eventList = document.getElementById("event-tobody");
@@ -157,13 +157,13 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
   
         if (currentDate < eventDate) {
           eventStatus = "pill5";
-          eventText = "Upcoming"
+          eventText = getText("upcoming")
         } else if (currentDate >= eventDate && currentDate <= endDate) {
           eventStatus = "pill2";
-          eventText = "Showing"
+          eventText = getText("showing")
         } else {
           eventStatus = `pill3`;
-          eventText = "Past"
+          eventText = getText("past")
         } 
 
       eventCard += `<tr class="border-bottom position-relative">
@@ -326,13 +326,13 @@ async function renderEventsUpcoming(page = 1, perpage = 10, is_published = null)
   
         if (currentDate < eventDate) {
           eventStatus = "pill5";
-          eventText = "Upcoming"
+          eventText = getText("upcoming")
         } else if (currentDate >= eventDate && currentDate <= endDate) {
           eventStatus = "pill2";
-          eventText = "Showing"
+          eventText = getText("showing")
         } else {
           eventStatus = `pill3`;
-          eventText = "Past"
+          eventText = getText("past")
         } 
   
       eventCard += `<tr class="border-bottom position-relative">
@@ -494,13 +494,13 @@ async function renderEventsShowing(page = 1, perpage = 10, is_published = null) 
   
         if (currentDate < eventDate) {
           eventStatus = "pill5";
-          eventText = "Upcoming"
+          eventText = getText("upcoming")
         } else if (currentDate >= eventDate && currentDate <= endDate) {
           eventStatus = "pill2";
-          eventText = "Showing"
+          eventText = getText("showing")
         } else {
           eventStatus = `pill3`;
-          eventText = "Past"
+          eventText = getText("past")
         } 
 
 
@@ -654,13 +654,13 @@ async function renderEventsPast(page = 1, perpage = 10, is_published = null) {
   
         if (currentDate < eventDate) {
           eventStatus = "pill5";
-          eventText = "Upcoming"
+          eventText = getText("upcoming")
         } else if (currentDate >= eventDate && currentDate <= endDate) {
           eventStatus = "pill2";
-          eventText = "Showing"
+          eventText = getText("showing")
         } else {
           eventStatus = `pill3`;
-          eventText = "Past"
+          eventText = getText("past")
         } 
 
       eventCard += `<tr class="border-bottom position-relative">

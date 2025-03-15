@@ -113,5 +113,5 @@ if (userEmail && userOtp) {
   //   handleFieldChange("sign-up-password", "password", formData, vSignUp, fields);
   // handleFieldChange("sign-up-confirm-password", "confirmPassword", formData, vSignUp, fields);
 } else {
-  location.href = "/forgot-password";
+  location.href = "/auth/forgot-password";
 }

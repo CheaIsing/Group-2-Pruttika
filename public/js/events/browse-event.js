@@ -415,7 +415,7 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
       document.querySelector('.pagination-container').classList.add("d-none")
       return eventList.innerHTML = `<div class="text-center w-100 my-5">
               <img src="/img/noFound.png" alt="..." height="220px;">
-              <h4 class="text-center text-brand mt-2">No Event to Display</h4>
+              <h4 class="text-center text-brand mt-2">${getText("noEvent")}</h4>
             </div>`
     }
     document.querySelector('.pagination-container').classList.remove("d-none")
@@ -432,11 +432,11 @@ currentDate.setHours(0, 0, 0, 0);
       
 
       if (currentDate < eventDate) {
-        eventStatus = "Upcoming";
+        eventStatus = getText("upcoming")
       } else if (currentDate >= eventDate && currentDate <= endDate) {
-        eventStatus = "Showing";
+        eventStatus =  getText("showing")
       } else {
-        eventStatus = "Past";
+        eventStatus =  getText("past")
       } 
 
       if (event.event_tickets.length > 1) {
@@ -449,11 +449,11 @@ currentDate.setHours(0, 0, 0, 0);
         pricing = `${
           event.event_tickets[0].price > 0
             ? `$${event.event_tickets[0].price.toFixed(2)}`
-            : "Free Ticket"
+            :  getText("free")
         }`;
       } else if (event.event_tickets.length == 0) {
         if (event.event_type == "online") {
-          pricing = `Free`;
+          pricing = getText("free")
         }
       }
 
@@ -590,7 +590,7 @@ currentDate.setHours(0, 0, 0, 0);
                                                       event.event_type ==
                                                       "offline"
                                                         ? event.location
-                                                        : "Online Event"
+                                                        : getText("onlineEvent")
                                                     }</p>
                                                 <div
                                                     class=" text-brand fw-medium"
