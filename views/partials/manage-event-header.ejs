@@ -3,13 +3,16 @@
         <nav class="d-flex align-items-center justify-content-between">
             <div class="logo border-0">
                 <a href="/">
-                    <img
+                    <img class="d-none d-sm-block"
                         src="/img/Prutika_Logo_text(2).png"
+                        alt>
+                    <img class="d-sm-none" style="width: 36px !important; height: 36px !important;"
+                        src="/img/Pruttikar_Logo1.png"
                         alt>
                 </a>
             </div>
             <div class="dropdown d-flex gap-4">
-                <a href="/event/create" role="button" class="btn btn-outline-brand fw-medium d-none d-sm-flex" style="height: auto !important;">+ <%= t('partials.header.cEvent') %></a>
+                <a href="/event/create" role="button" class="btn btn-outline-brand fw-medium" style="height: auto !important;">+ <%= t('partials.header.cEvent') %></a>
                 <a href="#"
                     class="dropdown-toggle fs-3 text-brand d-flex align-items-center hide-arrow"
                     role="button"

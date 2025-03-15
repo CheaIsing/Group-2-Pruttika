@@ -92,7 +92,7 @@ let loadingHtml = `
 
   let noEvent = `<tr><td colspan="3"><div class="text-center w-100 my-5">
               <img src="/img/noFound.png" alt="..." height="220px;">
-              <h4 class="text-center text-brand mt-2">No Event to Display</h4>
+              <h4 class="text-center text-brand mt-2">${getText("noEvent")}</h4>
             </div></td></tr>`
 async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
   const eventList = document.getElementById("event-tobody");
@@ -153,17 +153,17 @@ currentDate.setHours(0, 0, 0, 0);
 
       if (currentDate < eventDate) {
         eventStatus = "pill5";
-        eventText = "Upcoming"
+        eventText = getText("upcoming")
       } else if (currentDate >= eventDate && currentDate <= endDate) {
         eventStatus = "pill2";
-        eventText = "Showing"
+        eventText = getText("showing")
       } else {
         eventStatus = `pill3`;
-        eventText = "Past"
+        eventText = getText("past")
       } 
       let totalPrice = data.data.ticket.length > 0 
         ? `$${data.data.ticket.reduce((sum, item) => sum + item.price, 0).toFixed(2)}`
-        : `Free`;
+        : getText("free");
 
       eventCard +=`<tr class="border-bottom position-relative">
                                                     <td>
@@ -176,7 +176,7 @@ currentDate.setHours(0, 0, 0, 0);
                                                                <img src="${event.thumbnail ? `/uploads/${event.thumbnail}` : `/uploads/default-events-img.jpg`}" alt="Event Image" class="rounded object-fit-cover" width="150" height="85">
                                                                 <div class="ms-3 text-nowrap">
                                                                     <h5 class="mb-0 text-wrap">${event.eng_name}</h5>
-                                                                    <p class="text-muted mb-0 w-75">${event.location ? event.location : "Online Event"}</p>
+                                                                    <p class="text-muted mb-0 w-75">${event.location ? event.location : getText("onlineEvent")}</p>
                                                                     <p class="text-muted mb-0 small">${formattedDate}</p>
                                                                 </div>
                                                             </div>
@@ -295,9 +295,8 @@ async function renderEventsUpcoming(page = 1, perpage = 10, is_published = null)
       const { data } = await axiosInstance.get("/events/summary-data/" + event.id);
       const formattedDate = `${moment(event.started_date).format("MMM D, YYYY")} - ${moment(event.ended_date).format("MMM D, YYYY")}, ${moment(event.start_time, "HH:mm").format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
       
-      let totalPrice = data.data.ticket.length > 0 
-        ? `$${data.data.ticket.reduce((sum, item) => sum + item.price, 0).toFixed(2)}`
-        : `Free`;
+
+
         const eventDate = new Date(event.started_date);
         const endDate = new Date(event.ended_date);
   
@@ -306,17 +305,20 @@ async function renderEventsUpcoming(page = 1, perpage = 10, is_published = null)
         let eventStatus = null;
         let eventText = null
         
-  
+
         if (currentDate < eventDate) {
           eventStatus = "pill5";
-          eventText = "Upcoming"
+          eventText = getText("upcoming")
         } else if (currentDate >= eventDate && currentDate <= endDate) {
           eventStatus = "pill2";
-          eventText = "Showing"
+          eventText = getText("showing")
         } else {
           eventStatus = `pill3`;
-          eventText = "Past"
+          eventText = getText("past")
         } 
+        let totalPrice = data.data.ticket.length > 0 
+        ? `$${data.data.ticket.reduce((sum, item) => sum + item.price, 0).toFixed(2)}`
+        : getText("free");
 
       eventCard +=`<tr class="border-bottom position-relative">
                                                     <td>
@@ -449,9 +451,7 @@ async function renderEventsShowing(page = 1, perpage = 10, is_published = null) 
       const { data } = await axiosInstance.get("/events/summary-data/" + event.id);
       const formattedDate = `${moment(event.started_date).format("MMM D, YYYY")} - ${moment(event.ended_date).format("MMM D, YYYY")}, ${moment(event.start_time, "HH:mm").format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
       
-      let totalPrice = data.data.ticket.length > 0 
-        ? `$${data.data.ticket.reduce((sum, item) => sum + item.price, 0).toFixed(2)}`
-        : `Free`;
+
         const eventDate = new Date(event.started_date);
         const endDate = new Date(event.ended_date);
   
@@ -463,14 +463,17 @@ async function renderEventsShowing(page = 1, perpage = 10, is_published = null) 
   
         if (currentDate < eventDate) {
           eventStatus = "pill5";
-          eventText = "Upcoming"
+          eventText = getText("upcoming")
         } else if (currentDate >= eventDate && currentDate <= endDate) {
           eventStatus = "pill2";
-          eventText = "Showing"
+          eventText = getText("showing")
         } else {
           eventStatus = `pill3`;
-          eventText = "Past"
+          eventText = getText("past")
         } 
+        let totalPrice = data.data.ticket.length > 0 
+        ? `$${data.data.ticket.reduce((sum, item) => sum + item.price, 0).toFixed(2)}`
+        : getText("free");
 
       eventCard += `<tr class="border-bottom position-relative">
                                                     <td>
@@ -594,9 +597,7 @@ async function renderEventsPast(page = 1, perpage = 10, is_published = null) {
       const { data } = await axiosInstance.get("/events/summary-data/" + event.id);
       const formattedDate = `${moment(event.started_date).format("MMM D, YYYY")} - ${moment(event.ended_date).format("MMM D, YYYY")}, ${moment(event.start_time, "HH:mm").format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
       
-      let totalPrice = data.data.ticket.length > 0 
-        ? `$${data.data.ticket.reduce((sum, item) => sum + item.price, 0).toFixed(2)}`
-        : `Free`;
+
         const eventDate = new Date(event.started_date);
         const endDate = new Date(event.ended_date);
   
@@ -608,14 +609,17 @@ async function renderEventsPast(page = 1, perpage = 10, is_published = null) {
   
         if (currentDate < eventDate) {
           eventStatus = "pill5";
-          eventText = "Upcoming"
+          eventText = getText("upcoming")
         } else if (currentDate >= eventDate && currentDate <= endDate) {
           eventStatus = "pill2";
-          eventText = "Showing"
+          eventText = getText("showing")
         } else {
           eventStatus = `pill3`;
-          eventText = "Past"
+          eventText = getText("past")
         } 
+        let totalPrice = data.data.ticket.length > 0 
+        ? `$${data.data.ticket.reduce((sum, item) => sum + item.price, 0).toFixed(2)}`
+        : getText("free");
 
       eventCard += `<tr class="border-bottom position-relative">
                                                     <td>

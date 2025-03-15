@@ -3,7 +3,12 @@ const urlParams = new URLSearchParams(window.location.search);
 let isFreeTicket = false;
 let eventId = urlParams.has("e")
   ? urlParams.get("e")
-  : sessionStorage.getItem("event-detail-id") || 28;
+  : sessionStorage.getItem("event-detail-id");
+
+  if(!eventId){
+     window.location.href = "/event/browse"
+     
+  }
 
 let eventObj = null;
 let isRedeemTicket = false;
@@ -59,6 +64,9 @@ async function getEventDetail() {
 
     const { data } = await axiosInstance.get(`/events/${eventId}`);
     eventObj = data.data;
+
+    console.log(eventObj);
+    
 
     isOnlineEvent = eventObj.event_type === "online";
 
@@ -154,6 +162,7 @@ async function getEventDetail() {
         eventObj.event_tickets.map((t) => t.type).join(", ");
       document.getElementById("capacity").innerText =
         eventObj.event_tickets.reduce((acc, t) => acc + t.ticket_opacity, 0);
+        document.getElementById("remain-capacity").innerText = eventObj.event_tickets.reduce((acc, t) => acc + t.ticket_opacity, 0) - eventObj.event_tickets.reduce((acc, t) => acc + t.ticket_bought, 0)
     } else if (
       eventObj.event_tickets.length == 0 &&
       eventObj.event_type == "online"
@@ -247,7 +256,7 @@ async function renderRelatedEvents(page = 1, perpage = 1000, is_published = true
           relatedEventsContainer.innerHTML = `
               <div class="text-center w-100 my-5">
                   <img src="/img/noFound.png" alt="No events found" height="220px;">
-                  <h4 class="text-center text-brand mt-2">No Related Events to Display</h4>
+                  <h4 class="text-center text-brand mt-2">${getText("noEvent")}</h4>
               </div>
           `;
       } else {
@@ -262,7 +271,7 @@ async function renderRelatedEvents(page = 1, perpage = 1000, is_published = true
               } else if (event.event_tickets.length === 1) {
                   pricing = `${event.event_tickets[0].price > 0 ? `$${event.event_tickets[0].price.toFixed(2)}` : "Free"}`;
               } else if (event.event_tickets.length === 0) {
-                  pricing = `Online`;
+                  pricing = getText("online");
               }
 
               let categories = "";
@@ -369,7 +378,7 @@ document
 
         showToast(
           true,
-          "Redeem ticket has submitted. Please wait for confirmation from organizer."
+          getText("redeemSubmitted")
         );
 
         
@@ -393,7 +402,7 @@ document
 
           showToast(
             true,
-            "Redeem ticket has submitted. Please wait for confirmation from organizer."
+            getText("redeemSubmitted")
           );
         } catch (error) {
           showToast();
@@ -421,12 +430,12 @@ async function toggleFollow(id, btn) {
 
     if (isFollowing) {
       await axiosInstance.delete(`/follow/unfollow/${id}`);
-      showToast(true, "Unfollowed successfully");
-      btn.innerText = "Follow";
+      showToast(true, getText("unfollowSuccess"));
+      btn.innerText = getText("follow");
     } else {
       await axiosInstance.post(`/follow/${id}`);
-      showToast(true, "Followed successfully");
-      btn.innerText = "Unfollow";
+      showToast(true, getText("followSuccess"));
+      btn.innerText = getText("unfollow");
     }
   } catch (error) {
     console.log(error);

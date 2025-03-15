@@ -1,4 +1,8 @@
 // const moment = require("moment");
+let eventId = sessionStorage.getItem("event-request-ticket-list");
+if(!eventId){
+   window.location.href = "/event/browse"
+}
 
     document.getElementById('searchInput').addEventListener('keyup', filterTable);
     // document.getElementById('dateFilter').addEventListener('change', filterTable);
@@ -28,7 +32,7 @@
         });
     }
 
-    let eventId = sessionStorage.getItem("event-request-ticket-list");
+
 
     async function getRequestTicketList(page=1, perpage=25) {
         let queryParams = new URLSearchParams()

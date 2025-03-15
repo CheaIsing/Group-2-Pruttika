@@ -133,7 +133,7 @@ const getFollowing = async (req, res) => {
     const query = `
       SELECT f.followee_id , u.eng_name AS user_name, u.email AS user_email ,u.role,u.avatar , tor.organization_name ,tor.business_email
       FROM tbl_follower f
-      INNER JOIN tbl_users u ON f.follower_id = u.id
+      INNER JOIN tbl_users u ON f.followee_id = u.id
       LEFT JOIN tbl_organizer tor ON u.id=tor.user_id
       WHERE f.follower_id = ? AND f.followee_id != ?`; 
 

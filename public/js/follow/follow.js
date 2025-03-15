@@ -29,8 +29,8 @@ async function getFollower() {
             followers.forEach(f=>{
                html += `
         <div class="list-group bg-white p-3 rounded-3 shadow-light-sm" >
-                        <a class="d-flex align-items-center justify-content-between" onclick="showProfile(${f.id})" role="button">
-                            <div class="d-flex align-items-center"> 
+                        <a class="d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center" onclick="showProfile(${f.id})" role="button"> 
                                 <img src="/uploads/${f.avatar ? f.avatar : 'default.jpg' }" alt="profile" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
                                 <div class="ms-3">
                                     <h6 class="mb-0"> ${f.organizer.name ? f.organizer.name : f.name}</h6>
@@ -54,6 +54,8 @@ async function getFollower() {
         document.getElementById("following").innerHTML = ``
         
         if(following.length > 0){
+            console.log(following);
+            
             following.forEach(f=>{
                html2 += `
         <div class="list-group bg-white p-3 rounded-3 shadow-light-sm" >
@@ -119,10 +121,12 @@ async function toggleFollow(id, btn){
 }
 
 async function removeFollowByOther(id, list){
+
+    
     try {
         await axiosInstance.delete(`/follow/remove-follower/${id}`);
         showToast(true, "Remove follow successfully.")
-        list.closest("list-group").remove()
+        list.closest(".list-group").remove()
     } catch (error) {
         console.log(error);
         showToast()

@@ -1,5 +1,9 @@
+let eventId = sessionStorage.getItem("event-summary");
+if(!eventId){
+   window.location.href = "/event/manage"
+   
+}
 async function getSummary() {
-  let eventId = sessionStorage.getItem("event-summary");
 
   const { data } = await axiosInstance.get("/events/summary-data/" + eventId);
   // console.log(data);

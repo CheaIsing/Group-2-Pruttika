@@ -222,10 +222,10 @@ if (searchMobileClicked) {
     }
   });
 
-  searchMobileClicked.addEventListener("blur", () => {
-    // document.querySelector(".overlay").style.display = "none";
-    document.getElementById('search-dropdown-mobile').style.display = 'none';
-  });
+  // searchMobileClicked.addEventListener("blur", () => {
+  //   // document.querySelector(".overlay").style.display = "none";
+  //   document.getElementById('search-dropdown-mobile').style.display = 'none';
+  // });
   document.getElementById("searchEventMobile").addEventListener("keyup", async function () {
     let searchEventbyName = document.getElementById("searchEventMobile").value;
 
