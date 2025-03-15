@@ -63,7 +63,7 @@ const sendEventReminders = async () => {
       const eventsQuery = `
           SELECT e.id AS event_id, e.eng_name, e.event_type, e.started_date
           FROM tbl_event e
-          WHERE e.started_date BETWEEN CURDATE() AND CURDATE() + INTERVAL 1 DAY
+          WHERE e.started_date = CURDATE() + INTERVAL 1 DAY
       `;
       const events = await executeQuery(eventsQuery);
 
