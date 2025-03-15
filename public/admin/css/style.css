@@ -29161,3 +29161,21 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
   -webkit-box-orient: vertical !important;
   overflow: hidden !important;
 }
+
+#main-wrapper.menu-toggle .nav-header .brand-logo img:nth-child(1){
+  display: block;
+}
+#main-wrapper.menu-toggle .nav-header .brand-logo img:nth-child(2) {
+  display: none !important;
+}
+
+#main-wrapper .nav-header .brand-logo img:nth-child(1){
+  display: none;
+}
+#main-wrapper .nav-header .brand-logo img:nth-child(2) {
+  display: block !important;
+}
+
+/* #main-wrapper.menu-toggle .nav-header .brand-logo:nth-child(2){
+  display: none !important;
+} */

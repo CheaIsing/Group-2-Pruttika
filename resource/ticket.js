@@ -9,7 +9,8 @@ const reqTicketCollection=async(userId,event_id=null,ticket_type_id=null,req_sta
         let sqlGetReq=`SELECT 
                 tts.id AS transaction_id,
                 tts.event_id,
-                tts.ticket_event_id ,
+                te.event_type,
+                tts.ticket_event_id,
                 ttt.price,
                 tts.rejection_reason,
                 ttt.type_name AS ticket_type,
@@ -65,6 +66,7 @@ const reqTicketCollection=async(userId,event_id=null,ticket_type_id=null,req_sta
             data.push({
                 transaction_id : item.transaction_id,
                 event_id : item.event_id,
+                event_type : item.event_type,
                 rejection_reason: item.rejection_reason,
                 ticket_type_id: item.ticket_event_id,
                 price: item.price,

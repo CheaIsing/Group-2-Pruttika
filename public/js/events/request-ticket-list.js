@@ -17,8 +17,8 @@ if(!eventId){
 
         rows.forEach(row => {
             const nameCell = row.cells[2].textContent.toLowerCase();
-            const dateCell = row.cells[5].textContent;
-            const statusCell = row.cells[6].textContent.trim();
+            const dateCell = row.cells[6].textContent;
+            const statusCell = row.cells[7].textContent.trim();
 
             const matchesName = nameCell.includes(nameFilter);
             // const matchesDate = dateFilter ? dateCell.startsWith(dateFilter) : true;
@@ -53,16 +53,17 @@ if(!eventId){
             document.getElementById("title").innerText = event.data.eng_name
             document.getElementById("ev-date").innerText = formattedDate
             const {data:json, paginate} = data
-            // console.log(data);
+            console.log(data);
 
             if(json.length ==0){
-              document.getElementById("request-tbody").innerHTML = `<tr><td colspan="8"><div class="text-center w-100 my-5">
+              document.getElementById("request-tbody").innerHTML = `<tr><td colspan="7"><div class="text-center w-100 my-5">
               <img src="/img/noFound.png" alt="..." height="220px;">
               <h4 class="text-center text-brand mt-2">No Request to Display</h4>
             </div></td></tr>`
             }
             
-
+            console.log(json);
+            
             json.forEach((r, i)=>{
                 let statusClass = ""
                 switch(r.status){
@@ -80,13 +81,14 @@ if(!eventId){
                     }
                 }
                 document.getElementById("request-tbody").innerHTML += `<tr>
-                    <td colspan="1" class="text-nowrap">${i+1}</td>
-                    <td colspan="1" class="text-nowrap"><img width="60px" height="60px" class="border-brand rounded-circle" src="/uploads/${r.buyer.avatar ? r.buyer.avatar :"default.jpg"}"></img></td>
+                    <td colspan="1">${i+1}</td>
+                    <td colspan="1"><img width="60px" height="60px" class="border-brand rounded-circle" src="/uploads/${r.buyer.avatar ? r.buyer.avatar :"default.jpg"}"></img></td>
                     <td colspan="1" class="">${r.buyer.eng_name}</td>
-                    <td colspan="1" class="text-nowrap">${r.ticket_qty} tickets</td>
-                    <td colspan="1" class="text-nowrap">$${r.total_amount.toFixed(2)}</td>
-                    <td colspan="1" class="text-nowrap">${moment(r.created_at).format('llll')}</td>
-                    <td colspan="1" class="text-nowrap"><span class="badge ${statusClass}">${r.status}</span></td>
+                    <td colspan="1">${r.event_type == 2 ? r.ticket_type: "Online"}</td>
+                    <td colspan="1">${r.ticket_qty} tickets</td>
+                    <td colspan="1">$${r.total_amount.toFixed(2)}</td>
+                    <td colspan="1">${moment(r.created_at).format('llll')}</td>
+                    <td colspan="1"><span class="badge ${statusClass}">${r.status}</span></td>
                     <td style="max-width: 340px;">
                         <div>
                             <button onclick="showTransaction(${r.transaction_id}, ${r.event_id})" type="button" class="btn btn-brand views-transaction" style="height: auto !important;"><i class="fa-solid fa-eye"></i></button>

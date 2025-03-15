@@ -176,7 +176,7 @@ AND DATE_FORMAT(CONCAT(started_date, ' ', start_time), '%Y-%m-%d %H:%i') = DATE_
 // Schedule the job to run every day at a specific time (e.g., 9:00 AM)
 schedule.scheduleJob('* * * * *', scheduleEventLinkReminders);
 // console.log('Event link reminder scheduler started.');
-schedule.scheduleJob('0 10 * * *', sendEventReminders);
+schedule.scheduleJob('10 14 * * *', sendEventReminders);
 
 app.set("view engine", "ejs");
 

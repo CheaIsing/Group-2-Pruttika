@@ -181,7 +181,7 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
                                                                 <img src="${event.thumbnail ? `/uploads/${event.thumbnail}` : `/uploads/default-events-img.jpg`}" alt="Event Image" class="rounded object-fit-cover" width="150" height="85">
                                                                 <div class="ms-3 text-nowrap">
                                                                     <h5 class="mb-0 text-wrap">${event.eng_name}</h5>
-                                                                    <p class="text-muted mb-0 w-75">${event.location ? event.location : getText("noEvent")}</p>
+                                                                    <p class="text-muted mb-0 w-75">${event.location ? event.location : getText("onlineEvent")}</p>
                                                                     <p class="text-muted mb-0 small">${formattedDate}</p>
                                                                 </div>
                                                             </div>

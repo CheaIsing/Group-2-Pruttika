@@ -105,12 +105,12 @@ function displayUsers(users) {
           <tr>
               <td>${user.id}</td>
               <td><img class="rounded-circle" width="35" height="35" src="/uploads/${
-                user.avatar
+                user.avatar? user.avatar : "default.jpg"
               }"></td>
-              <td>${user.kh_name}</td>
+              <td>${user.kh_name ? user.kh_name : "N/A"}</td>
               <td>${user.eng_name}</td>
               <td>${user.email}</td>
-              <td>${user.phone}</td>
+              <td>${user.phone ? user.phone : "N/A"}</td>
               <td>
                   <span class="badge ${
                     user.status === 1 ? "badge-success" : "badge-danger"
@@ -185,18 +185,18 @@ async function fetchUserDetail(userId) {
               <img src="/uploads/${
                 user.avatar
               }" class="rounded-circle mx-auto mb-3" width="120" height="120">
-              <h4 class="fw-bold">${user.eng_name} (${user.kh_name})</h4>
+              <h4 class="fw-bold">${user.eng_name} (${user.kh_name && user.kh_name})</h4>
               <p class="text-muted">${user.email}</p>
               <hr>
               <div class="text-start">
-                  <p><strong>Phone : </strong> ${user.phone}</p>
-                  <p><strong>Date of Birth : </strong> ${new Date(
+                  <p><strong>Phone : </strong> ${user.phone ? user.phone : "N/A"}</p>
+                  <p><strong>Date of Birth : </strong> ${ user.dob ? new Date(
                     user.dob
-                  ).toLocaleDateString("en-CA")}</p>
+                  ).toLocaleDateString("en-CA"): "N/A" }</p>
                   <p><strong>Gender:</strong> ${
-                    user.gender === 0 ? "Male" : "Female"
+                    user.gender === 1 ? "Male" : "Female"
                   }</p>
-                  <p><strong>Address : </strong> ${user.address}</p>
+                  <p><strong>Address : </strong> ${user.address ? user.address : "N/A"}</p>
                   <p><strong>Role : </strong> <span class="badge bg-primary">${getRoleName(
                     user.role
                   )}</span></p>
