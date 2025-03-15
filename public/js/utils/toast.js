@@ -29,16 +29,16 @@ const showToast = (
 const showNotification = (
   result = false,
   msg = "Something went wrong. Please try again later.",
-  link = "/ticket/my-ticket",
+  link = "/notification",
   gravity = "top",
   position = "center",
   close = true,
   status = `<div
-                                          class="d-flex align-items-center justify-content-center"
-                                          style="width: 2.5rem;height: 2.5rem;border-radius: 50%; background-color: #DCFCE7; color: #37CC6D;">
-                                          <i data-lucide="check"
-                                              style="width: 1.2rem;height: 1.2rem;"></i>
-                                      </div>`, // Add status (icon HTML) parameter
+                class="d-flex align-items-center justify-content-center"
+                style="width: 2.5rem;height: 2.5rem;border-radius: 50%; background-color: #DCFCE7; color: #37CC6D;">
+                <i data-lucide="check"
+                    style="width: 1.2rem;height: 1.2rem;"></i>
+            </div>`, // Add status (icon HTML) parameter
   title = "Notification Title", //add title parameter
   borderColor = "#37CC6D" // Add borderColor parameter with default value
 ) => {
@@ -51,7 +51,6 @@ const showNotification = (
                   <div class="d-flex">
                       <div class="me-2 text-3-line">
                           ${status} 
-                          
                       </div>
                   </div>
                   <div class="message px-1">

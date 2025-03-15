@@ -136,6 +136,7 @@ async function sendEventLinkReminder(io, eventId, creatorId, eventName) {
       console.error(`Error sending event link reminder:`, error);
     }
   }
+console.log(moment(new Date).format("YYYY-MM-DD HH:mm:ss"));
 
 async function scheduleEventLinkReminders() {
   try {
@@ -143,7 +144,7 @@ async function scheduleEventLinkReminders() {
 SELECT id, creator_id, eng_name, started_date, start_time
 FROM tbl_event
 WHERE event_type = 1
-AND DATE_FORMAT(CONCAT(started_date, ' ', start_time), '%Y-%m-%d %H:%i') = DATE_FORMAT(DATE_ADD("${moment(new Date).format("YYYY-MM-DD hh:mm:ss")}", INTERVAL 10 MINUTE), '%Y-%m-%d %H:%i')
+AND DATE_FORMAT(CONCAT(started_date, ' ', start_time), '%Y-%m-%d %H:%i') = DATE_FORMAT(DATE_ADD("${moment(new Date).format("YYYY-MM-DD HH:mm:ss")}", INTERVAL 10 MINUTE), '%Y-%m-%d %H:%i')
     `;
 
     const events = await executeQuery(eventsQuery);
@@ -162,7 +163,7 @@ AND DATE_FORMAT(CONCAT(started_date, ' ', start_time), '%Y-%m-%d %H:%i') = DATE_
         console.log(`Reminder scheduled for event ${eventId} to be sent immediately.`);
       }
     } else {
-      // console.log('No online events starting in the next 10 minutes.');
+      console.log('No online events starting in the next 10 minutes.');
     }
   } catch (error) {
     console.error('Error scheduling event link reminders:', error);
@@ -173,7 +174,7 @@ AND DATE_FORMAT(CONCAT(started_date, ' ', start_time), '%Y-%m-%d %H:%i') = DATE_
 
 // Schedule the job to run every day at a specific time (e.g., 9:00 AM)
 schedule.scheduleJob('* * * * *', scheduleEventLinkReminders);
-// console.log('Event link reminder scheduler started.');
+console.log('Event link reminder scheduler started.');
 schedule.scheduleJob('10 14 * * *', sendEventReminders);
 
 app.set("view engine", "ejs");
