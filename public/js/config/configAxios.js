@@ -1,6 +1,7 @@
 const port = 3000;
 
-const url = `https://test.pruttika.run.place/api`
+// const url = `https://test.pruttika.run.place/api`
+const url = `${window.location.protocol}//${window.location.host}/api`
 
 const axiosInstance = axios.create({
   baseURL: url,
