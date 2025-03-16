@@ -99,6 +99,17 @@
                             </div>
 
                             <div class="mb-4">
+                                <h3 class="h5">Type</h3>
+                                <select id="type-filter"
+                                    class="form-select w-100 border rounded-3 fw-normal"
+                                    style="background-color: #f3f4f6;">
+                                    <option value><%= t('event.Any') %></option>
+                                    <option value="2">In Person</option>
+                                    <option value="1">Online</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-4">
                                 <h3 class="h5"><%= t('event.price') %></h3>
                                 <select id="price-filter"
                                     class="form-select w-100 border rounded-3 fw-normal"
@@ -391,6 +402,16 @@
                             <option value><%= t('event.browseEvent.anyDay') %></option>
                             <option value="week"><%= t('event.browseEvent.thisWeek') %></option>
                             <option value="month"><%= t('event.browseEvent.thisMonth') %></option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <h3 class="h5">Type</h3>
+                        <select id="type-filter-mobile"
+                            class="form-select w-100 border rounded-3 fw-normal"
+                            style="background-color: #f3f4f6;">
+                            <option value><%= t('event.Any') %></option>
+                            <option value="2">In Person</option>
+                            <option value="1">Online</option>
                         </select>
                     </div>
 

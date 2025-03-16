@@ -184,7 +184,7 @@ if (searchClicked) {
     }
 
     try {
-      const {data} = await axiosInstance.get(`/events?search=${searchEventbyName}`);
+      const {data} = await axiosInstance.get(`/events?search=${searchEventbyName}&is_published=true`);
       const {data: events} = data;
       let searchList = "";
         if (events.length == 0) {
@@ -235,7 +235,7 @@ if (searchMobileClicked) {
     }
 
     try {
-      const {data} = await axiosInstance.get(`/events?search=${searchEventbyName}`);
+      const {data} = await axiosInstance.get(`/events?search=${searchEventbyName}&is_published=true`);
       const {data: events} = data;
       let searchList = "";
         if (events.length == 0) {

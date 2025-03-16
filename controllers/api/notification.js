@@ -584,7 +584,7 @@ const postLink=async (req,res)=>{
         `The link to join the event "${item.eng_name}" is: <a href="${event_link}" target="_blank">${event_link}</a>`,
         `តំណភ្ជាប់ដើម្បីចូលក្នុងព្រឹត្តិការណ៍ "${item.eng_name}" គឺ៖ <a href="${event_link}" target="_blank">${event_link}</a>`,
         user_id,
-        7
+        8
       ];
       await executeQuery(sqlInsertNotification, paramsNotification);
       const io = req.app.get('io');
