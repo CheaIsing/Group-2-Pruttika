@@ -28,46 +28,46 @@
         </div>
         <!-- Contact Form Container -->
         <div class="form-container">
-            <h2 class="contactus-head text-center mb-4">Get in Touch</h2>
+            <h2 class="contactus-head text-center mb-4"><%= t('static.contact.title') %></h2>
             <form>
                 <div class="row">
                     <div class="col-12 col-md-6 mb-3">
                         <!-- English Username -->
-                        <label for="sign-up-name" class="form-label fw-medium text-start">English Username</label>
+                        <label for="sign-up-name" class="form-label fw-medium text-start"><%= t('static.contact.engName') %></label>
                         <div class="input-field input-field-setting">
                             <i class="fas fa-user"></i>
-                            <input type="text" placeholder="English Username" id="sign-up-name" />
+                            <input type="text" placeholder="<%= t('static.contact.engName') %>" id="sign-up-name" />
                         </div>
                     </div>
                     <div class="col-12 col-md-6 mb-3">
                         <!-- Khmer Username -->
-                        <label for="sign-up-khname" class="form-label fw-medium">Khmer Username</label>
+                        <label for="sign-up-khname" class="form-label fw-medium"><%= t('static.contact.khName') %></label>
                         <div class="input-field input-field-setting">
                             <i class="fas fa-user"></i>
-                            <input type="text" placeholder="Khmer Username" id="sign-up-khname" />
+                            <input type="text" placeholder="<%= t('static.contact.khName') %>" id="sign-up-khname" />
                         </div>
                     </div>
                     <div class="col-12 col-md-6">
                         <!-- Phone Number -->
-                        <label for="contact" class="form-label fw-medium ">Phone Number</label>
+                        <label for="contact" class="form-label fw-medium "><%= t('static.contact.phone') %></label>
                         <div class="input-field input-field-setting mb-4">
                             <i class="fas fa-phone"></i>
-                            <input type="tel" id="contact" placeholder="Enter your phone number" />
+                            <input type="tel" id="contact" placeholder="<%= t('static.contact.enterPhone') %>" />
                         </div>
                     </div>
                     <div class="col-12 col-md-6">
                         <!-- Email -->
-                        <label for="email" class="form-label fw-medium ">Email</label>
+                        <label for="email" class="form-label fw-medium "><%= t('static.contact.email') %></label>
                         <div class="input-field input-field-setting">
                             <i class="fas fa-envelope"></i>
-                            <input type="email" id="email" placeholder="Enter your email" />
+                            <input type="email" id="email" placeholder="<%= t('static.contact.enterEmail') %>" />
                         </div>
                     </div>
                 </div>
                 <!-- Comment -->
-                <label for="address" class="form-label mt-0 fw-medium ">Comment</label>
-                <textarea class="form-control border-brand-sm mb-4" id="address" rows="3" placeholder="Enter your comment"></textarea>
-                <button type="submit" class="btn btn-brand w-100 mb-3">Save Change</button>
+                <label for="address" class="form-label mt-0 fw-medium "><%= t('static.contact.Comment') %></label>
+                <textarea class="form-control border-brand-sm mb-4" id="address" rows="3" placeholder="<%= t('static.contact.enterComment') %>"></textarea>
+                <button type="submit" class="btn btn-brand w-100 mb-3"><%= t('static.contact.saveChange') %></button>
                  <!-- Social Media Icons -->
             <div class="social-media contact-social-media fs-2 d-flex justify-content-center gap-3">
                 <a href="#"><i class="fa-brands fa-facebook icon"></i></a>
