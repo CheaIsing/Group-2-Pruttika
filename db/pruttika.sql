@@ -762,3 +762,7 @@ ALTER TABLE tbl_ticket MODIFY COLUMN `qr_code_img` text NULL;
 ALTER TABLE tbl_ticket add COLUMN qr_code varchar(255);
 ALTER TABLE `tbl_ticket`
   ADD UNIQUE KEY `qr_code` (`qr_code`);
+
+-- Update 16/3/2025
+INSERT INTO `tbl_notification_type` (`id`, `name`, `kh_title`, `eng_title`, `created_at`, `updated_at`) VALUES
+(8, 'Join Event', 'តំណភ្ជាប់សម្រាប់ព្រឹត្តិការណ៍របស់អ្នក', 'Join Link for Your Event', '2025-03-16 06:08:26', '2025-03-16 06:08:26');

@@ -423,7 +423,7 @@ function showTransaction(el) {
       ${obj.status}</span>
       <br><br>
 
-      <div class="alert alert-danger mb-2">${obj.reject_reason ? "Reject Reason" + obj.reject_reason : ""}</div>
+      <div class="alert alert-danger mb-2">${obj.reject_reason ? "Reject Reason: " + obj.reject_reason : ""}</div>
 
       
 

@@ -69,7 +69,7 @@ function emitNotificationForOnlineLink(io,buyerId, eventId, engMessage, khMessag
       event_id: eventId,
       eng_message: engMessage,
       kh_message: khMessage,
-      type_id: 7,
+      type_id: 8,
   });
 }
 

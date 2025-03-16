@@ -97,6 +97,11 @@ async function connectToSocket() {
                     title = "Join Link for Your Event";
                     borderColor = "#3B82F6"; // Blue for information
                     break;
+                    case 8: // Event Access
+                    status = `<div class="d-flex align-items-center justify-content-center" style="width: 2.5rem;height: 2.5rem;border-radius: 50%; background-color: #DBEAFE; color: #3B82F6;"><i data-lucide="link" style="width: 1.2rem;height: 1.2rem;"></i></div>`;
+                    title = "Join Link for the Event";
+                    borderColor = "#3B82F6"; // Blue for information
+                    break;
                     default:
                     status = `<div
                                           class="d-flex align-items-center justify-content-center"
@@ -108,7 +113,7 @@ async function connectToSocket() {
                     break;
                 }
 
-                showNotification(true, msg, "/ticket/my-ticket", "top", "center", true, status, title, borderColor);
+                showNotification(true, msg, "/notification", "top", "center", true, status, title, borderColor);
 });            
 
         } else {
