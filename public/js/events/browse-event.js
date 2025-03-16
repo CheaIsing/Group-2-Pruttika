@@ -137,6 +137,9 @@ function clearFilter() {
   document.getElementById("status-filter").value = "";
   document.getElementById("status-filter-mobile").value = "";
 
+  document.getElementById("type-filter").value = ""
+  document.getElementById("type-filter-mobile").value = ""
+
   selectedCategories = [];
   document.querySelectorAll("#category-container button").forEach((button) => {
     button.classList.remove("active");
@@ -178,6 +181,16 @@ document
 
 document
   .getElementById("status-filter-mobile")
+  .addEventListener("change", (e) => {
+    renderEvents();
+  });
+document
+  .getElementById("type-filter-mobile")
+  .addEventListener("change", (e) => {
+    renderEvents();
+  });
+document
+  .getElementById("type-filter")
   .addEventListener("change", (e) => {
     renderEvents();
   });
@@ -335,6 +348,8 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
     document.getElementById("status-filter").value ||
     document.getElementById("status-filter-mobile").value;
   const search = document.getElementById("searchInput").value;
+
+  const type = document.getElementById("type-filter").value || document.getElementById("type-filter-mobile").value
   // const location = document.getElementById("location-filter").value;
 
   let queryParams = new URLSearchParams();
@@ -354,6 +369,9 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
 
   if (status) {
     queryParams.append("date_status", status);
+  }
+  if (type) {
+    queryParams.append("event_type", type);
   }
 
   // Handle date filter
