@@ -20,8 +20,6 @@ const sendPasswordResetEmail = async (email, otp) => {
       <p>Use the following OTP to reset your password:</p>
       <p>OTP: ${otp}</p>
       <p>If you didn't request a password reset, please ignore this email.</p>
-      <p>Or click the following link to reset your password:</p>
-      <p><a href="${resetLink}">Reset Password</a></p>
     `,
   };
 

@@ -33,7 +33,7 @@
              <p class="text-muted">
                 <%= t('profile.changeLanguage.content2') %>
              </p>
-            <button type="submit" class="btn btn-brand w-100 mb-2"><%= t('profile.accManagement.save-change') %></button>
+            <button type="button" id="change-lng-btn"class="btn btn-brand w-100 mb-2"><%= t('profile.accManagement.save-change') %></button>
 
           </form>
             </div>
@@ -57,8 +57,13 @@
         }
 
         selectLang.addEventListener("change", (e)=>{
-            window.location.href = `?lng=${e.target.value}`;
+            // window.location.href = `?lng=${e.target.value}`;
         })
+
+        document.getElementById("change-lng-btn").onclick = ()=>{
+            window.location.href = `?lng=${selectLang.value}`;
+        }
+
     </script>
 </body>
 </html>

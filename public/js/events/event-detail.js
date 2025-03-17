@@ -213,7 +213,7 @@ async function getEventDetail() {
       eventObj.event_tickets[0].price === 0
     ) {
       isFreeTicket = true;
-      document.getElementById("btnPurchaseTicket").innerText = "Redeem Ticket";
+      document.getElementById("btnPurchaseTicket").innerText = getText("redeem") + getText("ticket")
     }
 
     document.getElementById("desc").innerHTML = eventObj.description;
@@ -227,9 +227,9 @@ async function getEventDetail() {
       document.getElementById("range-price").innerText =
         eventObj.event_tickets[0].price > 0
           ? `$${eventObj.event_tickets[0].price.toFixed(2)}`
-          : "Free Ticket";
+          : "Free "+ getText("ticket");
     } else {
-      document.getElementById("range-price").innerText = "Free Ticket";
+      document.getElementById("range-price").innerText = "Free "+getText("ticket");
     }
 
     let agendaHtml = eventObj.event_agenda
@@ -393,11 +393,12 @@ document.getElementById("btn-copylink-event").onclick = () => {
 document
   .getElementById("btnPurchaseTicket")
   .addEventListener("click", async (e) => {
+    let msgBtn = document.getElementById("btnPurchaseTicket").innerText
     if(!isAuth){
       return window.location.href = "/auth/signin"
     }
     if(isRedeemTicket || isOnlineRedeemTicket){
-      showToast(false, "You've already redeem this ticket.")
+      showToast(false, getText("redeemedAlready"))
       return
     }
     if (isOnlineEvent && isAuth) {
@@ -421,7 +422,7 @@ document
         showToast();
         console.log(error);
       } finally {
-        btnCloseLoading("btnPurchaseTicket", "Redeem");
+        btnCloseLoading("btnPurchaseTicket", msgBtn);
         document.getElementById("btnPurchaseTicket").disabled = true;
       }
     } else if (isFreeTicket && !isRedeemTicket) {
@@ -445,7 +446,7 @@ document
           showToast();
           console.log(error);
         } finally {
-          btnCloseLoading("btnPurchaseTicket", "Redeem");
+          btnCloseLoading("btnPurchaseTicket", msgBtn);
           document.getElementById("btnPurchaseTicket").classList.add("disabled");
         }
       }

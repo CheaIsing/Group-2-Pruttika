@@ -140,7 +140,7 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
 
       let isOffline = event.event_type !== "offline";
       let eventLinkAttributes = ``;
-      // console.log(data);
+      console.log(data);
       
 
       let totalPrice = data.data.ticket.length > 0 
