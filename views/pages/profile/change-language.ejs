@@ -20,7 +20,7 @@
             <!-- langauge -->
              <div class="">
 
-                <p class="text-muted">Choose your preferred language from the options below. This will change the language across the entire application.</p>
+                <p class="text-muted"><%= t('profile.changeLanguage.content1') %></p>
                 
                 <label for
                 class="form-label fw-medium mb-2"><%= t('profile.accManagement.language') %></label>
@@ -31,7 +31,7 @@
                 </select>
              </div>
              <p class="text-muted">
-                Your current language selection will be saved automatically.
+                <%= t('profile.changeLanguage.content2') %>
              </p>
             <button type="submit" class="btn btn-brand w-100 mb-2"><%= t('profile.accManagement.save-change') %></button>
 
