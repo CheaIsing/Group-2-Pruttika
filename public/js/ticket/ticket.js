@@ -16,6 +16,31 @@ const tooltipTriggerList = [].slice.call(
       }
   };
     
+function setPlaceholder(){
+  let content=`<div class="container">
+    <div class="row d-flex align-items-center w-100 px-2 mb-3 rounded-3 overflow-hidden border-0 shadow-light-sm" >
+        <div class="col-2 skeleton" style="height: 100px; background-color: #e0e0e0; border-radius: 4px;"></div>
+        <div class="col-7" >
+          <h5 class="skeleton" style="height: 20px; width: 40%; background-color: #e0e0e0; border-radius: 4px; margin: 10px 0;"></h5>
+          <p class="skeleton" style="height: 15px; width: 60%; background-color: #e0e0e0; border-radius: 4px;"></p>
+          <p class="skeleton" style="height: 15px; width: 50%; background-color: #e0e0e0; border-radius: 4px;"></p>
+          
+        </div>
+        <div class="col-3 skeleton d-flex align-items-center" style="height: 30px; background-color: #e0e0e0; border-radius: 4px;"></div>
+    </div>
+    <div class="row d-flex align-items-center w-100 px-2  mb-3 rounded-3 overflow-hidden border-0 shadow-light-sm" >
+        <div class="col-2 skeleton" style="height: 100px; background-color: #e0e0e0; border-radius: 4px;"></div>
+        <div class="col-7" >
+          <h5 class="skeleton" style="height: 20px; width: 40%; background-color: #e0e0e0; border-radius: 4px; margin: 10px 0;"></h5>
+          <p class="skeleton" style="height: 15px; width: 60%; background-color: #e0e0e0; border-radius: 4px;"></p>
+          <p class="skeleton" style="height: 15px; width: 50%; background-color: #e0e0e0; border-radius: 4px;"></p>
+          
+        </div>
+        <div class="col-3 skeleton d-flex align-items-center" style="height: 30px; background-color: #e0e0e0; border-radius: 4px;"></div>
+    </div>
+</div>`;
+  return content;
+}
 
 async function getRequestTicket( status="", page=1, perpage=25) {
   let queryParams = new URLSearchParams();
@@ -35,7 +60,7 @@ async function getRequestTicket( status="", page=1, perpage=25) {
 
 
     
-    document.getElementById("requested-ticket-container").innerHTML = "";
+    document.getElementById("requested-ticket-container").innerHTML = setPlaceholder();
     if(tickets.length>0){
       tickets.forEach(ticket=>{
         let status = ""
@@ -182,7 +207,7 @@ async function getOwnedTicket( status="", page=1, perpage=15) {
 
 
     
-    document.getElementById("owned-ticket-container").innerHTML = "";
+    document.getElementById("owned-ticket-container").innerHTML = setPlaceholder();
     if(tickets.length>0){
       tickets.forEach(ticket=>{
         let status = ""

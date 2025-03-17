@@ -2,8 +2,60 @@ let userId = sessionStorage.getItem("view-profile-id")
 if(!userId){
   window.location.href = "/event/browse"
 }
-let meId = null
+let meId = null;
+
+function setPlaceholder(){
+  document.querySelector(".placeholder-content").innerHTML=`
+    <h4 class="skeleton" style="height: 40px; width: 100%; background-color: #e0e0e0; border-radius: 4px; margin: 10px 0;"></h4>
+            <div class="d-flex justify-content-between align-content-center flex-column flex-md-row mb-3">
+                <div class="col-12 col-md-8 d-flex my-3 align-items-center gap-3">
+                    <div class="orgainerAcount me-1 skeleton border-0" style="border-radius: 100%;">
+                    </div>
+                    <div class="">
+                        <div class="w-100 mb-2">
+                            <h5 class="skeleton" style="height: 20px; width: 200px; background-color: #e0e0e0; border-radius: 4px; margin: 10px 0;"></h5>
+                            <h5 class="skeleton" style="height: 20px; width: 200px; background-color: #e0e0e0; border-radius: 4px; margin: 10px 0;"></h5>
+                        </div>
+                        <div class="w-100 row d-flex mt-2">
+                            <div class="col-4">
+                                <h5 class="skeleton" style="height: 20px; width: 50px; background-color: #e0e0e0; border-radius: 4px; margin: 10px 0;"></h5>
+                                <h5 class="skeleton" style="height: 20px; width: 50px; background-color: #e0e0e0; border-radius: 4px; margin: 10px 0;"></h5>
+                            </div>
+                            <div class="col-4">
+                                <h5 class="skeleton" style="height: 20px; width: 50px; background-color: #e0e0e0; border-radius: 4px; margin: 10px 0;"></h5>
+                                <h5 class="skeleton" style="height: 20px; width: 50px; background-color: #e0e0e0; border-radius: 4px; margin: 10px 0;"></h5>
+                            </div>
+                            <div class="col-4">
+                                <h5 class="skeleton" style="height: 20px; width: 50px; background-color: #e0e0e0; border-radius: 4px; margin: 10px 0;"></h5>
+                                <h5 class="skeleton" style="height: 20px; width: 50px; background-color: #e0e0e0; border-radius: 4px; margin: 10px 0;"></h5>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                </div>
+                <div class="col-12 col-md-4 d-flex align-items-center gap-3 ">
+                    <div class="skeleton" style="width: 50%;height: 20px;"></div>
+                    <div class="skeleton" style="width: 50%;height: 20px;"></div>
+                    
+                </div>
+            </div>
+            <div class="d-flex flex-column">
+                <div class="skeleton" style="width: 50%;height: 20px;"></div>
+                <div class="skeleton" style="width: 50%;height: 20px;"></div>
+                <div class="skeleton" style="width: 50%;height: 20px;"></div>  
+            </div>
+            <div class="d-flex flex-column" >
+                <div class="skeleton" style="width: 100%;height: 300px;"></div>
+                <div class="skeleton" style="width: 50%;height: 20px;"></div>
+                <div class="skeleton" style="width: 50%;height: 20px;"></div>  
+            </div>
+  `;
+  document.querySelector(".pf-content").classList.add('d-none');
+}
 async function getOrganizer() {
+  //placeholder:
+  setPlaceholder();
   try {
     const { data } = await axiosInstance.get("/profile/display/" + userId);
     // console.log(data);
@@ -187,7 +239,8 @@ async function getOrganizer() {
     }
     
 
-    
+    document.querySelector(".pf-content").classList.remove('d-none');
+    document.querySelector(".placeholder-content").classList.add('hidden');
   } catch (error) {
     console.log(error);
     showToast();
