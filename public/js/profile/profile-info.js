@@ -250,6 +250,26 @@ document.addEventListener("DOMContentLoaded", function () {
           minContainerWidth: 400,
           minContainerHeight: 200,
         });
+      //   cropper = new Cropper(cropperImage, {
+      //     aspectRatio: 1,
+      //     viewMode: 1,
+      //     autoCropArea: 0.9,
+      //     responsive: true,
+      //     dragMode: 'move',
+      //     minContainerWidth: 500,
+      //     minContainerHeight: 500,
+      //     minCropBoxWidth: 250,
+      //     minCropBoxHeight: 250,
+      //     strict: true,
+      //     guides: true,
+      //     center: true,
+      //     highlight: true,
+      //     background: true,
+      //     scalable: true,
+      //     zoomable: true,
+      //     minZoom: 0.1,
+      //     maxZoom: 2
+      // });
       };
       reader.readAsDataURL(event.target.files[0]);
     }
@@ -273,26 +293,33 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   async function uploadCroppedImage() {
-    const formData = new FormData();
-    // console.log(imageUpload.files[0]);
-
-    formData.append("avatar", imageUpload.files[0]); // You can use the base64 string or convert it to a blob
-    // console.log(croppedImage);
-
-    try {
-      btnShowLoading("cropImageBtn")
-      const response = await axiosInstance.post("/profile/avatar", formData);
-
-      // console.log(response);
-      // Hide modal
+    if (cropper) {
+      const croppedCanvas = cropper.getCroppedCanvas();
       
-      showToast(true, "Profile Upload Successfully.");
-    } catch (error) {
-      console.log(error);
-      showToast();
-    }finally{
-      btnCloseLoading("cropImageBtn", "Save");
-      cropImageModal.hide();
+      // Convert the cropped canvas to a Blob
+      croppedCanvas.toBlob(async (blob) => {
+        if (blob) {
+          // Create a File object from the Blob
+          const file = new File([blob], "cropped-image.jpg", { type: "image/jpeg" });
+  
+          // Create a FormData object and append the cropped image
+          const formData = new FormData();
+          formData.append("avatar", file);
+  
+          try {
+            btnShowLoading("cropImageBtn");
+            const response = await axiosInstance.post("/profile/avatar", formData);
+  
+            showToast(true, "Profile Upload Successfully.");
+          } catch (error) {
+            console.log(error);
+            showToast();
+          } finally {
+            btnCloseLoading("cropImageBtn", "Save");
+            cropImageModal.hide();
+          }
+        }
+      }, "image/jpeg");
     }
   }
   async function deleteProfile() {

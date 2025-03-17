@@ -29,7 +29,7 @@ const translations = {
     step: { en: "step", kh: "ជំហាន" },
     of: { en: "of", kh: "នៃ" },
     
-
+    ticket: {en: "Ticket", kh: "សំបុត្រ"},
     // New Translations
     ticketCategory: { en: "Ticket Category", kh: "ប្រភេទសំបុត្រ" },
     enterTicketCategory: { en: "Enter ticket category", kh: "បញ្ចូលប្រភេទសំបុត្រ" },
@@ -62,8 +62,14 @@ const translations = {
 
         redeemSubmitted: { 
             en: "Redeem ticket has submitted. Please wait for confirmation from organizer.", 
-            kh: "ការស្នើសុំដោះសំបុត្របានបញ្ជូន។ សូមរង់ចាំការបញ្ជាក់ពីអ្នករៀបចំ។" 
-        }
+            kh: "ការស្នើសុំសំបុត្របានបញ្ជូន។ សូមរង់ចាំការបញ្ជាក់ពីអ្នករៀបចំ។" 
+        },
+        redeemedAlready : {
+            en: "You've already redeem this ticket",
+            kh: "អ្នកបានស្នើសុំសំបុត្រនេះរួចហើយ"
+        },
+
+        redeem : {en: "Redeem", kh: "ស្នើ"}
 };
 
 

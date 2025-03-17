@@ -588,6 +588,10 @@
 								{
 									"key": "cateId",
 									"value": "[1]"
+								},
+								{
+									"key": "event_type",
+									"value": "1"
 								}
 							]
 						}

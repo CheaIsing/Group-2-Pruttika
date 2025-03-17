@@ -1,6 +1,6 @@
 const showToast = (
   result = false,
-  msg = "Something went wrong. Please try again later.",
+  msg = isEnglish ? 'Something went wrong. Please try again later.':'មានអ្វីមួយខុសប្រក្រតី សូមព្យាយាមម្តងទៀតនៅពេលក្រោយ' ,
   gravity = "top",
   position= "center", 
   close = true
@@ -28,7 +28,7 @@ const showToast = (
 
 const showNotification = (
   result = false,
-  msg = "Something went wrong. Please try again later.",
+  msg = isEnglish ? 'Something went wrong. Please try again later.':'មានអ្វីមួយខុសប្រក្រតី សូមព្យាយាមម្តងទៀតនៅពេលក្រោយ'  ,
   link = "/notification",
   gravity = "top",
   position = "center",
@@ -116,7 +116,7 @@ function copyEventUrlToClipboard(eventId) {
   if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(url)
           .then(() => {
-              showToast(true, "Copied to Clipboard.");
+              showToast(true, isEnglish ? "Copied to Clipboard.": "បានចម្លង");
           })
           .catch(err => {
               console.error("Failed to copy: ", err);
@@ -130,9 +130,9 @@ function copyEventUrlToClipboard(eventId) {
       textArea.select();
       try{
           document.execCommand('copy');
-          showToast(true, "Copied to Clipboard.");
+          showToast(true, isEnglish ? "Copied to Clipboard.": "បានចម្លង");
       }catch(err){
-          showToast(false, "Copying not supported in this browser.");
+          showToast(false, isEnglish ? "Copying not supported in this browser." : "ការចម្លងមិនត្រូវបានគាំទ្រនៅក្នុង Browser នេះទេ");
       }
 
       document.body.removeChild(textArea);
@@ -149,12 +149,12 @@ async function addWishlist(id, btn) {
     if(data.result){
       await axiosInstance.delete(`wishlist/delete/${id}`);
       btn.classList.remove("active")
-      showToast(true, "Event removed from wishlist.")
+      showToast(true, isEnglish ? "Event removed from wishlist." : "ព្រឹត្តិការណ៍ត្រូវបានដកចេញពីបញ្ជីប្រាថ្នា")
     }else{
       
       await axiosInstance.post("/wishlist/create", {event_id: id});
       btn.classList.add("active")
-      showToast(true, "Event added to wishlist.")
+      showToast(true, isEnglish ? "Event added to wishlist." : "ព្រឹត្តិការណ៍ត្រូវបានបន្ថែមទៅបញ្ជីប្រាថ្នា")
     }
 
   } catch (error) {
@@ -178,7 +178,7 @@ async function logOut (){
   try {
 
     await axiosInstance.delete("/auth/logout")
-    showToast(true, "Logged out successfully.")
+    showToast(true, isEnglish ? "Logged out successfully." : "ចាកចេញពីគណនីដោយជោគជ័យ")
 
     setTimeout(()=>{
       window.location.href = "/"

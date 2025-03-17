@@ -595,19 +595,22 @@ const summaryData=async(req,res)=>{
 
         let total_registration=0;
         let total_approved_registrations=0;
+        let total_rejected_registrations=0;
         let total_checkin=0;
         const ticket=[];
 
         //event_online
         if(dataEvent.event_type==1){ 
             const sqlGetSummary1=`SELECT  
-	            COUNT(id) AS total_registrations,
-                SUM(CASE WHEN status = 2 THEN 1 ELSE 0 END) AS total_app_regis
+              COUNT(id) AS total_registrations,
+                SUM(CASE WHEN status = 2 THEN 1 ELSE 0 END) AS total_app_regis,
+                SUM(CASE WHEN status = 3 THEN 1 ELSE 0 END) AS total_rejected_tickets
                 FROM tbl_transaction 
                 WHERE event_id=?`;
             const dataResult=await executeQuery(sqlGetSummary1,[id]);
             total_registration=dataResult[0].total_registrations;
             total_approved_registrations=dataResult[0].total_app_regis;
+            total_rejected_registrations=dataResult[0].total_rejected_tickets;
             total_checkin=null
         }else{
             const sqlGetSummary2=`
@@ -618,7 +621,8 @@ const summaryData=async(req,res)=>{
                     ttt.ticket_opacity,
                     ttt.ticket_bought,
                     COALESCE(t.checkin_ticket, 0) AS checkin_ticket,
-                    COALESCE(tts.total_registrations, 0) AS total_registrations
+                    COALESCE(tts.total_registrations, 0) AS total_registrations,
+                    COALESCE(tts.rejected_tickets, 0) AS total_rejected
                 FROM tbl_ticketevent_type ttt
                 LEFT JOIN (
                     SELECT ticket_event_id, 
@@ -628,7 +632,8 @@ const summaryData=async(req,res)=>{
                 ) t ON ttt.id = t.ticket_event_id
                 LEFT JOIN (
                     SELECT ticket_event_id, 
-                        SUM(ticket_qty) AS total_registrations
+                        SUM(ticket_qty) AS total_registrations,
+                        SUM(CASE WHEN status = 3 THEN ticket_qty ELSE 0 END) AS rejected_tickets
                     FROM tbl_transaction
                     GROUP BY ticket_event_id
                 ) tts ON ttt.id = tts.ticket_event_id
@@ -644,11 +649,14 @@ const summaryData=async(req,res)=>{
                     ticket_opacity: item.ticket_opacity,
                     ticket_bought: item.ticket_bought,
                     checkin_ticket: item.checkin_ticket,
-                    total_register: item.total_registrations
+                    total_register: item.total_registrations,
+                    total_rejected: item.total_rejected,
+
                 })
                 total_registration+=item.total_registrations;
                 total_approved_registrations+=item.ticket_bought;
                 total_checkin+=item.checkin_ticket;
+                total_rejected_registrations+=item.total_rejected;
             }
         }
         const data={
@@ -664,13 +672,16 @@ const summaryData=async(req,res)=>{
             ticket : ticket,
             total_registration : total_registration,
             total_approved_registrations : total_approved_registrations,
+            total_rejected_registrations : total_rejected_registrations,
             total_checkin : total_checkin
+            
         }
         sendResponse(res,200,true,`Get summary data of event ID ${id} Successfully`,data);
     } catch (error) {
         handleResponseError(res,error);
     }
 }
+
 
 //get all checkin
 const getAllCheckInTicket=async(req,res)=>{
