@@ -496,7 +496,7 @@ function showTicket(el) {
     <div class="col-12 col-md-8 m-0">
       <div class="ticket-body">
         <div class="ticket-section d-flex flex-wrap">
-          <img src="/img/Prutika_Logo_text(3).png"
+          <img src="/img/Prutika_Logo_text(2).png"
             alt="PRUTTIKA logo" class="img-fluid me-3"
             style="width: 150px;">
           <div class="ticket-info">

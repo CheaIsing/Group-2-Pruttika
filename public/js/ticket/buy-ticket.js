@@ -61,7 +61,7 @@ events.event_categories.forEach((c, i) => {
     c.name
   }</span>`;
 });
-// console.log(events);
+console.log(events);
 
 const tickets = events.event_tickets;
 
@@ -80,8 +80,11 @@ tickets.forEach((ticket, i) => {
     }
 
     document.getElementById("ticketType").innerHTML += `
-        <option ${i == 0 && "selected"} value='${ticket.id}' ${isDisabled}>${ticket.type} - $${ticket.price.toFixed(2)}${' ' + soldOutText }</option>
+        <option data-remain="${ticket.ticket_opacity - ticket.ticket_bought}" ${i == 0 && "selected"} value='${ticket.id}' ${isDisabled}>${ticket.type} - $${ticket.price.toFixed(2)}${' ' + soldOutText }</option>
     `;
+    if(i==0){
+      document.getElementById("remain-ticket").innerText = ticket.ticket_opacity - ticket.ticket_bought
+    }
 });
 
 let submitButton = document.getElementById("submitButton"); // Assuming you have a submit button with this ID
@@ -270,7 +273,14 @@ document.getElementById("submitButton").addEventListener("click", async (e)=>{
     }
 })
 
-document.getElementById("ticketType").onclick = (e)=>{
+document.getElementById("ticketType").onchange = (e)=>{
+  const selectedOption = e.target.options[e.target.selectedIndex];
+  // console.log(selectedOption);
+  
+  document.getElementById("remain-ticket").innerText = selectedOption.dataset.remain
+  // console.log(e.target.querySelector("option[selected]").dataset.remain);
+
+  
   calculateTotal()
 }
 document.getElementById("ticketQuantity").onclick = (e)=>{

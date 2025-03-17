@@ -16,7 +16,10 @@
                         <div class="card-body">
                             <h5 class="card-title" style="color: #333;"><%= t('ticket.buy-ticket.purchase-info') %></h5>
                             <div class="mb-3">
-                                <label for="ticketQuantity" class="form-label"><%= t('ticket.buy-ticket.type') %>:</label>
+                                <label for="ticketQuantity" class="form-label d-flex justify-content-between">
+                                    <div><%= t('ticket.buy-ticket.type') %>:</div>
+                                    <div>Remain: <span id="remain-ticket"></span></div>
+                                </label>
                                 <select class="form-select shadow-none border-brand-sm py-2" id="ticketType">
                                     <option selected value='1'>1</option>
                                     <option value='2'>2</option>

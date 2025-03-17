@@ -15,8 +15,8 @@ async function getAllNotifications() {
 
     if (json.length > 0) {
       json.forEach((noti) => {
-        const title = noti.eng_title;
-        const message = noti.eng_message;
+        const title = isEnglish ? noti.eng_title : (noti.kh_title ? noti.kh_title : noti.eng_title);
+        const message = isEnglish ? noti.eng_message : (noti.kh_message ? noti.kh_message : noti.eng_message);;
 
         let status = "";
         switch (noti.type.type_id) {
