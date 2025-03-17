@@ -21,18 +21,18 @@
         <div class="d-flex align-items-center justify-content-start" style="width: 3rem; height: 2.5rem;">
             <i class="fa-solid fa-language fs-5"></i>
         </div>
-        <span class=""> Change Language</span>
+        <span class=""><%= t('partials.sidebar.changeLang') %></span>
     </a>
     <a class="nav-link <%= active == "terms" && "active" %>" href="/profile/term-of-service">
         <div class="d-flex align-items-center justify-content-start" style="width: 3rem; height: 2.5rem;">
             <i class="fa-solid fa-file-contract fs-5"></i>
         </div>
-        <span class=""> Terms of Service</span>
+        <span class=""><%= t('partials.sidebar.termService') %></span>
     </a>
     <a class="nav-link <%= active == "privacy" && "active" %>" href="/profile/privacy">
         <div class="d-flex align-items-center justify-content-start" style="width: 3rem;height: 2.5rem;">
             <i class="fa-solid fa-user-shield fs-5"></i>
         </div>
-        <span class=""> Privacy Policy</span>
+        <span class=""><%= t('partials.sidebar.policy') %></span>
     </a>
 </nav>
