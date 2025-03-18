@@ -2,6 +2,7 @@ const translations = {
     noEvent: { en: "No Event to Display", kh: "គ្មាន Event សម្រាប់បង្ហាញ" },
     noCheckin: { en: "No Check-in to Display", kh: "គ្មាន Check-in សម្រាប់បង្ហាញ" },
     noRequest: { en: "No Request to Display", kh: "គ្មាន Request សម្រាប់បង្ហាញ" },
+    noNoti: { en: "No Notification to Display", kh: "គ្មានការជូនដំណឹងសម្រាប់បង្ហាញ" },
     upcoming: { en: "Upcoming", kh: "នាពេលខាងមុខ" },
     showing: { en: "Showing", kh: "កំពុងបង្ហាញ" },
     past: { en: "Past", kh: "អតីតកាល" },
