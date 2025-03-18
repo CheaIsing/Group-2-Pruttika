@@ -1,10 +1,10 @@
 window.onload = ()=>{
   const userEmail = sessionStorage.getItem("email");
   const isForgotPass = sessionStorage.getItem('isForgotPass');
-
+  let btnText = document.getElementById("btnVerify").innerText
 if (userEmail) {
   if(isForgotPass == "true"){
-    showToast(true, "Password reset OTP has sent to your email.");
+    showToast(true, getText("msgOtp"));
     sessionStorage.removeItem('isForgotPass')
   }
 
@@ -78,7 +78,7 @@ if (userEmail) {
 
         handleErrorMessages(errorMessages, fields);
       }finally{
-        btnCloseLoading("btnVerify", "Verify");
+        btnCloseLoading("btnVerify", btnText);
       }
     }
 

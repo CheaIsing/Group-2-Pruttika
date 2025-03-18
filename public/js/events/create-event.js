@@ -48,7 +48,7 @@ function createNewTicketCategory() {
         </button>
     </div>
     <div class="">
-        <label class="form-label fw-medium mb-2">${getText("ticketCategory")}</label>
+        <label class="form-label fw-medium mb-2">${getText("name")}</label>
         <div class="input-field input-field-setting mb-3" id="input-field-ticketCategoryName${ticketCount}">
             <i class="fa-regular fa-pen-to-square"></i>
             <input type="text" id="ticketCategoryName${ticketCount}" placeholder="${getText("enterTicketCategory")}">
@@ -117,7 +117,7 @@ function deleteTicketCategory(ticketId) {
         </button>
     </div>
     <div class="">
-        <label class="form-label fw-medium mb-2">${getText("ticketCategory")}</label>
+        <label class="form-label fw-medium mb-2">${getText("name")}</label>
         <div class="input-field input-field-setting mb-3" id="input-field-ticketCategoryName${i + 1}">
             <i class="fa-regular fa-pen-to-square"></i>
             <input type="text" id="ticketCategoryName${i + 1}" value="${title}" placeholder="${getText("enterTicketCategory")}">
@@ -269,7 +269,7 @@ prevBtn.addEventListener("click", () => {
   }
   progress((100 / stepCount) * current_step);
 });
-
+let btnText = document.getElementById("submit-btn").innerText
 submitBtn.addEventListener("click", async () => {
   // preloader.classList.add("d-block");
 
@@ -353,11 +353,11 @@ submitBtn.addEventListener("click", async () => {
     showToast();
     console.error("Error:", error);
   } finally {
-    btnCloseLoading("submit-btn", "Submit");
+    btnCloseLoading("submit-btn", btnText);
   }
 });
 
-let agendas = [];
+let agendas = []; 
 let tickets = [];
 
 function checkStep() {
@@ -512,6 +512,20 @@ function checkStep() {
           isInvalidClass: "is_invalid",
         },
       ];
+      const fieldsEventOverviewKh = [
+        {
+          name: isEnglish ? "title": "ចំណងជើងព្រឹត្តិការណ៍",
+          id: "input-field-title",
+          textErrorElement: "#invalid_feedback_title div",
+          isInvalidClass: "is_invalid",
+        },
+        {
+          name: isEnglish ? "one category" : "មួយcategory",
+          id: "input-field-event-categories",
+          textErrorElement: "#invalid_feedback_event_categories div",
+          isInvalidClass: "is_invalid",
+        },
+      ];
 
       // Validate input data
       const { error } = vEventOverview.validate({
@@ -523,11 +537,11 @@ function checkStep() {
       // Show validation errors
       if (error) {
         const errorMessages = error.details.map((detail) => detail.message);
-        handleErrorMessages(errorMessages, fieldsEventOverview);
+        handleErrorMessages(errorMessages, fieldsEventOverviewKh);
         return false;
       }
 
-      handleErrorMessages([], fieldsEventOverview);
+      handleErrorMessages([], fieldsEventOverviewKh);
 
       return true;
     }
@@ -595,15 +609,47 @@ function checkStep() {
           isInvalidClass: "is_invalid",
         },
       ];
+      const fieldsEventDateLocationKh = [
+        {
+          name: isEnglish ? "start date" : "កាលបរិច្ឆេទចាប់ផ្តើម",
+          id: "input-field-started-date",
+          textErrorElement: "#invalid_feedback_started_date div",
+          isInvalidClass: "is_invalid",
+        },
+        {
+          name: isEnglish ? "end date":"កាលបរិច្ឆេទបញ្ចប់",
+          id: "input-field-ended-date",
+          textErrorElement: "#invalid_feedback_ended_date div",
+          isInvalidClass: "is_invalid",
+        },
+        {
+          name: isEnglish ? "start time":"ម៉ោងចាប់ផ្តើម" ,
+          id: "input-field-start-time",
+          textErrorElement: "#invalid_feedback_start_time div",
+          isInvalidClass: "is_invalid",
+        },
+        {
+          name: isEnglish ? "end time": "ម៉ោងបញ្ចប់",
+          id: "input-field-end-time",
+          textErrorElement: "#invalid_feedback_end_time div",
+          isInvalidClass: "is_invalid",
+        },
+        {
+          name: isEnglish ? "location":"ទីតាំង",
+          id: "input-field-location",
+          textErrorElement: "#invalid_feedback_location div",
+          isInvalidClass: "is_invalid",
+        },
+      ];
 
       // Show validation errors
       if (error) {
         const errorMessages = error.details.map((detail) => detail.message);
-        handleErrorMessages(errorMessages, fieldsEventDateLocation);
+        handleErrorMessages(errorMessages, fieldsEventDateLocationKh);
         return false;
       }
 
-      handleErrorMessages([], fieldsEventDateLocation);
+      handleErrorMessages([], fieldsEventDateLocationKh);
 
       return true;
     }
@@ -634,13 +680,27 @@ function checkStep() {
           isInvalidClass: "is_invalid",
         },
       ];
+      const fieldsEventDescriptionKh = [
+        {
+          name: isEnglish ? "short description":"ការពិពណ៌នាខ្លី",
+          id: "input-field-short-description",
+          textErrorElement: "#invalid_feedback_short_description div",
+          isInvalidClass: "is_invalid",
+        },
+        {
+          name:isEnglish ? "description detail": "ព័ត៌មានពិពណ៌នាដែលលម្អិត",
+          id: "input-field-description",
+          textErrorElement: "#invalid_feedback_description div",
+          isInvalidClass: "is_invalid",
+        },
+      ];
 
       if (error) {
         const errorMessages = error.details.map((detail) => detail.message);
-        handleErrorMessages(errorMessages, fieldsEventDescription);
+        handleErrorMessages(errorMessages, fieldsEventDescriptionKh);
         return false;
       }
-      handleErrorMessages([], fieldsEventDescription);
+      handleErrorMessages([], fieldsEventDescriptionKh);
       return true;
     }
 
@@ -686,6 +746,32 @@ function checkStep() {
             isInvalidClass: "is_invalid",
           },
         ];
+        const fieldsEventAgendaKh = [
+          {
+            name: isEnglish ? "title" : "ចំណងជើង",
+            id: `input-field-agenda-title-${id}`,
+            textErrorElement: `#invalid_feedback_agendaTitle${id} div`,
+            isInvalidClass: "is_invalid",
+          },
+          {
+            name:isEnglish ? "description": "ព័ត៌មានពិពណ៌នា",
+            id: `input-field-agenda-desc-${id}`,
+            textErrorElement: `#invalid_feedback_agendaDesc${id} div`,
+            isInvalidClass: "is_invalid",
+          },
+          {
+            name: isEnglish ?"start time": "ម៉ោងចាប់ផ្តើម",
+            id: `input-field-agenda-start-time-${id}`,
+            textErrorElement: `#invalid_feedback_agendaStarttime${id} div`,
+            isInvalidClass: "is_invalid",
+          },
+          {
+            name: isEnglish ?"end time":"ម៉ោងបញ្ចប់",
+            id: `input-field-agenda-end-time-${id}`,
+            textErrorElement: `#invalid_feedback_agendaEndtime${id} div`,
+            isInvalidClass: "is_invalid",
+          },
+        ];
 
         // Clear previous errors
         // document.getElementById(`invalid_feedback_agendaTitle${id}`).style.display = "none";
@@ -693,8 +779,10 @@ function checkStep() {
 
         // Show validation errors
         if (error) {
+          console.log(error);
+          
           const errorMessages = error.details.map((detail) => detail.message);
-          handleErrorMessages(errorMessages, fieldsEventAgenda);
+          handleErrorMessages(errorMessages, fieldsEventAgendaKh);
           isValid = false;
         }
 
@@ -752,10 +840,30 @@ function checkStep() {
             isInvalidClass: "is_invalid",
           },
         ];
+        const fieldsEventTicketKh = [
+          {
+            name: isEnglish ? "ticket type":"ប្រភេទសំបុត្រ",
+            id: `input-field-defaultTicketCategoryName`,
+            textErrorElement: `#invalid_feedback_defaultTicketCategoryName div`,
+            isInvalidClass: "is_invalid",
+          },
+          {
+            name: isEnglish ?  "ticket price":"តម្លៃសំបុត្រ",
+            id: `input-field-defaultTicketPrice`,
+            textErrorElement: `#invalid_feedback_defaultTicketPrice div`,
+            isInvalidClass: "is_invalid",
+          },
+          {
+            name: isEnglish ?  "ticket capacity":"ចំនួនសំបុត្រ",
+            id: `input-field-defaultTicketCapacity`,
+            textErrorElement: `#invalid_feedback_defaultTicketCapacity div`,
+            isInvalidClass: "is_invalid",
+          },
+        ];
 
         if (error) {
           const errorMessages = error.details.map((detail) => detail.message);
-          handleErrorMessages(errorMessages, fieldsEventTicket);
+          handleErrorMessages(errorMessages, fieldsEventTicketKh);
           isValid = false;
         }
 
@@ -827,10 +935,30 @@ function checkStep() {
               isInvalidClass: "is_invalid",
             },
           ];
+          const fieldsEventTicketKh = [
+            {
+              name: isEnglish ? "ticket type":"ប្រភេទសំបុត្រ",
+              id: `input-field-ticketCategoryName${id}`,
+              textErrorElement: `#invalid_feedback_ticketCategoryName${id} div`,
+              isInvalidClass: "is_invalid",
+            },
+            {
+              name: isEnglish ?  "ticket price":"តម្លៃសំបុត្រ",
+              id: `input-field-ticketPrice${id}`,
+              textErrorElement: `#invalid_feedback_ticketPrice${id} div`,
+              isInvalidClass: "is_invalid",
+            },
+            {
+              name: isEnglish ?  "ticket capacity":"ចំនួនសំបុត្រ",
+              id: `input-field-ticketCapacity${id}`,
+              textErrorElement: `#invalid_feedback_ticketCapacity${id} div`,
+              isInvalidClass: "is_invalid",
+            },
+          ];
 
           if (error) {
             const errorMessages = error.details.map((detail) => detail.message);
-            handleErrorMessages(errorMessages, fieldsEventTicket);
+            handleErrorMessages(errorMessages, fieldsEventTicketKh);
             isValid = false;
           }
 
@@ -961,6 +1089,10 @@ function createNewAgenda() {
             <i class="fa-regular fa-pen-to-square"></i>
             <input type="text" id="agendaTitle${agendaIdCounter}" placeholder="${getText("agendaTitle")}">
         </div>
+        <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_agendaTitle${agendaIdCounter}">
+                <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                <div class="ms-2 ">Invalid email.</div>
+            </div>
     </div>
     <div class="">
         <label class="form-label fw-medium mb-2">${getText("agendaDescription")}</label>
@@ -968,6 +1100,10 @@ function createNewAgenda() {
             <i class="fa-regular fa-pen-to-square"></i>
             <input type="text" id="agendaDesc${agendaIdCounter}" placeholder="${getText("agendaDescription")}">
         </div>
+        <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_agendaDesc${agendaIdCounter}">
+                <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                <div class="ms-2 ">Invalid email.</div>
+            </div>
     </div>
     <div class="row gx-4 gy-0">
         <div class="col-6 col-lg-4 col-xxl-3">
@@ -976,6 +1112,10 @@ function createNewAgenda() {
                 <i class="fa-regular fa-pen-to-square"></i>
                 <input type="time" id="agendaStarttime${agendaIdCounter}" class="" autofocus />
             </div>
+            <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_agendaStarttime${agendaIdCounter}">
+                    <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                    <div class="ms-2 ">Invalid email.</div>
+                </div>
         </div>
         <div class="col-6 col-lg-4 col-xl-3">
             <label class="form-label fw-medium mb-2">${getText("agendaEndTime")}</label>
@@ -983,6 +1123,10 @@ function createNewAgenda() {
                 <i class="fa-regular fa-pen-to-square fw-light"></i>
                 <input type="time" id="agendaEndtime${agendaIdCounter}" class="" autofocus />
             </div>
+             <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_agendaEndtime${agendaIdCounter}">
+                    <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
+                    <div class="ms-2 ">Invalid email.</div>
+                </div>
         </div>
     </div>
 `;

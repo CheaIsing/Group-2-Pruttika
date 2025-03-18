@@ -1,9 +1,9 @@
 const isResetedPass = sessionStorage.getItem("isResetedPass");
-
+let btnText = document.getElementById("btnSignIn").innerText
 if (isResetedPass == "true") {
   showToast(
     true,
-    "Password reset successful! Please sign in with your new password."
+    getText("msgResetPass")
   );
   sessionStorage.removeItem("isResetedPass");
 }
@@ -33,6 +33,21 @@ const fields = [
   },
 ];
 
+const fieldsKh = [
+  {
+    name: isEnglish ? "email" : "អ៊ីមែល",
+    id: "input-field-email",
+    textErrorElement: "#invalid_feedback_email div",
+    isInvalidClass: "is_invalid",
+  },
+  {
+    name: isEnglish ? "password" : "ពាក្យសម្ងាត់",
+    id: "input-field-password",
+    textErrorElement: "#invalid_feedback_password div",
+    isInvalidClass: "is_invalid",
+  },
+];
+
 signInForm.addEventListener(
   "submit",
   async (e) => {
@@ -54,11 +69,11 @@ signInForm.addEventListener(
 
     if (error) {
       const errorMessages = error.details.map((detail) => detail.message);
-      handleErrorMessages(errorMessages, fields);
+      handleErrorMessages(errorMessages, fieldsKh);
       return;
     }
 
-    handleErrorMessages([], fields);
+    handleErrorMessages([], fieldsKh);
 
     isValid = true;
 
@@ -68,7 +83,7 @@ signInForm.addEventListener(
       btnShowLoading("btnSignIn");
       await axiosInstance.post("/auth/signin", formData);
 
-      showToast(true, "Sign In Successfully.");
+      showToast(true, getText("msgSignIn"));
 
       setTimeout(()=>{
         window.location.href = "/"
@@ -86,13 +101,13 @@ signInForm.addEventListener(
 
       handleErrorMessages(errorMessages, fields);
     } finally {
-      btnCloseLoading("btnSignIn", "Sign In");
+      btnCloseLoading("btnSignIn", btnText);
     }
   }
 
   //
 );
 
-handleFieldChange("sign-in-email", "email", formData, vSignIn, fields);
-handleFieldChange("sign-in-password", "password", formData, vSignIn, fields);
+handleFieldChange("sign-in-email", "email", formData, vSignIn, fieldsKh);
+handleFieldChange("sign-in-password", "password", formData, vSignIn, fieldsKh);
 

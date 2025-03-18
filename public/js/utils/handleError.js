@@ -4,8 +4,16 @@ const handleErrorMessages = (errorMessages, fields) => {
       msg.toLowerCase().includes(field.name.toLowerCase())
     );
 
+    // console.log(fieldMessage);
+    
+
+
     const fieldElement = document.getElementById(field.id);
+    // console.log(fieldElement);
+    
     const fieldError = document.querySelector(field.textErrorElement);
+    // console.log(fieldError);
+    
     if (fieldMessage) {
       fieldError.innerText = fieldMessage;
       fieldElement.classList.add(field.isInvalidClass);

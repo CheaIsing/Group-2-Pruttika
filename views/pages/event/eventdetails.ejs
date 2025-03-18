@@ -7,8 +7,9 @@
 
     <body class="home">
         <%- include("../../partials/navbar.ejs")  %>
-        <div id="event-hero-banner-img" class="event-hero-banner d-flex align-items-center justify-content-center">
-            <div class="hero-overlay"></div>
+        <div class="placeholer-content"></div>
+        <div id="event-hero-banner-img" class="before-skeleton event-hero-banner d-flex align-items-center justify-content-center">
+            <div class="hero-overlay "></div>
             <div class="hero-content">
                 <h5></h5>
                 <span class="badge rounded-pill text-white bg-brand fs-6 fw-medium mb-3" id="snippet-date"></span>
@@ -17,21 +18,17 @@
                 
             </div>
         </div>
-        <div class="container py-5">
+        <div class="container-lg py-5 before-skeleton">
             <div class="row g-4">
                 <div class="col-12 col-lg-8 order-2 order-lg-1">
                     <div class="event-image">
                         <img id="event-thumbnail" class="rounded-3"
-                            src="https://images.pexels.com/photos/2747449/pexels-photo-2747449.jpeg?cs=srgb&dl=pexels-wolfgang-1002140-2747449.jpg&fm=jpg"
+                            src=""
                             alt="event-img">
 
                     </div>
                     <h3 class="title fw-medium mt-3 text-capitalize" id="title-event"></h3>
                     <div class="event-descriptions fs-18 py-3 mb-3" id="desc">
-                       
-
-
-
                     </div>
                    <div id="agenda-section">
                     <h3 class="title fw-medium mb-3"><%= t('event.event-detail.Agenda') %></h3>
@@ -164,7 +161,7 @@
                             <img
                                 src="/uploads/default.jpg"
                                 alt="Organizer"
-                                class="rounded-circle me-3 click-profile"
+                                class="rounded-circle me-3 click-profile object-fit-cover"
                                 width="50"
                                 height="50" id="creator-img"/>
                             <!-- Organizer name & role -->
@@ -207,7 +204,7 @@
 
             </div>
             <h2 class="fw-bold mb-3"><%= t('event.event-detail.Related') %> <span class="text-brand"><%= t('event.Event') %></span></h2>
-        <section class="container my-5">
+        <section class="container-lg gy-5">
             <div class="d-flex justify-content-between mb-3">
                 <h3><i class="fa-solid fa-globe text-brand me-3"></i><%= t('mainpage.all-event') %> <span class="text-brand"><%= t('mainpage.phnompenh') %></span>, <%= t('mainpage.cambodia') %></h3>
                 <a class="seeAllEvent color-style" href="#"><strong><%= t('mainpage.see-all-event') %></strong></a>
@@ -250,7 +247,7 @@
     },
     breakpoints: {
       576: { slidesPerView: 2, spaceBetween: 15 },
-      768: { slidesPerView: 3, spaceBetween: 25 },
+      768: { slidesPerView: 2, spaceBetween: 25 },
       1024: { slidesPerView: 4, spaceBetween: 35 },
     },
   });

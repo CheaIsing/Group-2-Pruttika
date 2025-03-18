@@ -2,12 +2,13 @@ const userEmail = sessionStorage.getItem("email");
 const userOtp = sessionStorage.getItem("otp");
 const isVerifiedOtp = sessionStorage.getItem("isVerifiedOtp");
 let isSubmit = false;
+let btnText = document.getElementById("btnResetPass").innerText
 
 if (userEmail && userOtp) {
   if(isVerifiedOtp == "true"){
     showToast(
       true,
-      "OTP Verified Successfully. You can now reset your password."
+      getText("msgReset")
     );
     sessionStorage.removeItem('isVerifiedOtp')
   }
@@ -35,6 +36,21 @@ if (userEmail && userOtp) {
       isInvalidClass: "is_invalid",
     },
   ];
+  const fieldsKh = [
+    {
+      name: isEnglish ? "password" : "ពាក្យសម្ងាត់",
+      id: "input-field-new-password",
+      textErrorElement: "#invalid_feedback_new_password div",
+      isInvalidClass: "is_invalid",
+    },
+    {
+      name: isEnglish ? "must match" : "ត្រូវតែត្រួតពិនិត្យគ្ន",
+      id: "input-field-confirm-new-password",
+      textErrorElement: "#invalid_feedback_confirm_new_password div",
+      isInvalidClass: "is_invalid",
+    }
+
+  ];
 
   resetPasswordForm.addEventListener(
     "submit",
@@ -58,11 +74,11 @@ if (userEmail && userOtp) {
 
       if (error) {
         const errorMessages = error.details.map((detail) => detail.message);
-        handleErrorMessages(errorMessages, fields);
+        handleErrorMessages(errorMessages, fieldsKh);
         return;
       }
 
-      handleErrorMessages([], fields);
+      handleErrorMessages([], fieldsKh);
 
       isValid = true;
 
@@ -90,7 +106,7 @@ if (userEmail && userOtp) {
 
         handleErrorMessages(errorMessages, fields);
       }finally{
-        btnCloseLoading("btnResetPass", "Reset Password");
+        btnCloseLoading("btnResetPass", btnText);
       }
     }
 
@@ -102,13 +118,13 @@ if (userEmail && userOtp) {
     confirmNewPassword: formData.newPassword,
   }
 
-  handleFieldChange("newPassword", "newPassword", frmData, vResetPass, fields);
+  handleFieldChange("newPassword", "newPassword", frmData, vResetPass, fieldsKh);
   handleFieldChange(
     "confirmNewPassword",
     "confirmNewPassword",
     frmData,
     vResetPass,
-    fields
+    fieldsKh
   );
   //   handleFieldChange("sign-up-password", "password", formData, vSignUp, fields);
   // handleFieldChange("sign-up-confirm-password", "confirmPassword", formData, vSignUp, fields);

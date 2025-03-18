@@ -202,12 +202,12 @@ async function getAllNotifications() {
     } else {
       notiHtml = `<div class="text-center w-100 my-5">
         <img src="/img/noFound.png" alt="..." height="220px;">
-        <h4 class="text-center text-brand mt-2">No Notification to Display</h4>
+        <h4 class="text-center text-brand mt-2">${getText("noNoti")}</h4>
       </div>`;
 
       notiUnreadHtml = `<div class="text-center w-100 my-5">
         <img src="/img/noFound.png" alt="..." height="220px;">
-        <h4 class="text-center text-brand mt-2">No Notification to Display</h4>
+        <h4 class="text-center text-brand mt-2">${getText("noNoti")}</h4>
       </div>`;
     }
 
@@ -228,7 +228,7 @@ async function getAllNotifications() {
       document.getElementById("pills-profile-tab").classList.remove("active");
       notiUnreadHtml = `<div class="text-center w-100 my-5">
         <img src="/img/noFound.png" alt="..." height="220px;">
-        <h4 class="text-center text-brand mt-2">No Notification to Display</h4>
+        <h4 class="text-center text-brand mt-2">${getText("noNoti")}</h4>
       </div>`;
     }
 
@@ -245,7 +245,7 @@ getAllNotifications();
 document.getElementById("btnMarkAll").addEventListener("click", async (e) => {
   try {
     await axiosInstance.put("/notification/read");
-    showToast(true, "Marked all notification successfully.");
+    showToast(true, isEnglish ? "Marked all notification successfully." : "សម្គាល់ការជូនដំណឹងទាំងអស់ដោយជោគជ័យ");
     document.querySelectorAll(".icon-unread").forEach((btn) => {
       btn.remove();
     });
@@ -259,7 +259,7 @@ document.getElementById("btnMarkAll").addEventListener("click", async (e) => {
 async function deleteNotification(id, btn) {
   try {
     await axiosInstance.delete("/notification/" + id);
-    showToast(true, "Notification deleted successfully.");
+    showToast(true, isEnglish ? "Notification deleted successfully.": "ការជូនដំណឹងត្រូវបានលុបដោយជោគជ័យ");
     const notification = btn.closest(".notification");
     if (notification && notification.parentElement) {
       notification.parentElement.remove();
@@ -316,7 +316,7 @@ async function updateEventLink(id, btn) {
     // console.log(link);
     
     
-    showToast(true, "Event Online has sent to attendees successfully.");
+    showToast(true, isEnglish ? "Event online has sent to attendees successfully.": "Event online បានផ្ញើទៅកាន់អ្នកចូលរួមដោយជោគជ័យ");
   } catch (error) {
     console.log(error);
     if(error.response && error.response.data && error.response.data.message ){
@@ -333,20 +333,20 @@ async function showNotificationDetail(noti) {
     switch (noti.type.type_id) {
       case 1:
       case 2: {
-        link = `<p><a href="/ticket/my-ticket" class="link text-brand ">Go to My Ticket</a></p>`
+        link = `<p><a href="/ticket/my-ticket" class="link text-brand ">${isEnglish ? "Go to My Ticket":"ចូលទៅកាន់សំបុត្ររបស់ខ្ញុំ"}</a></p>`
         break;
       }
 
       case 3:
       case 4: {
-        link = `<p><a href="/profile/organizer-view" class="link text-brand ">Go to Organizer Setting</a></p>`
+        link = `<p><a href="/profile/organizer-view" class="link text-brand ">${isEnglish ? "Go to Organizer Setting":"ចូលទៅកាន់ការកំណត់អ្នករៀបចំ"}</a></p>`
         break;
       }
 
       case 5: 
       case 6:
       case 7:{
-        link = `<p><a href="/event/detail?e=${noti.event.id}" class="link text-brand ">Go to Event Detail</a></p>`
+        link = `<p><a href="/event/detail?e=${noti.event.id}" class="link text-brand ">${isEnglish ? "Go to Event Detail":"ចូលទៅកាន់ព័ត៌មានលម្អិតអំពីព្រឹត្តិការណ៍"}</a></p>`
       }
     }
     switch (noti.type.type_id) {
@@ -394,7 +394,7 @@ async function showNotificationDetail(noti) {
     <div class="modal-header d-flex justify-content-between mb-3">
                       <div class="d-flex align-items-center">
                           ${status}
-                          <h5 class="modal-title mb-0 ms-2" style="font-size: 1rem;" id="notificationModalLabel">${noti.eng_title}</h5>
+                          <h5 class="modal-title mb-0 ms-2" style="font-size: 1rem;" id="notificationModalLabel">${isEnglish ? noti.eng_title : noti.kh_title}</h5>
                       </div>
                       
                       <div class="d-flex align-items-center">
@@ -406,7 +406,7 @@ async function showNotificationDetail(noti) {
     <div class="ticket-notification">
     
                             <div class="notif-content">
-                                <p>${noti.eng_message}</p>
+                                <p>${isEnglish ? noti.eng_message : noti.kh_message}</p>
                                 <!-- Online Link -->
                           <div class="my-3 d-flex ${
                             noti.type.type_id != 7 && "d-none"
@@ -428,7 +428,7 @@ async function showNotificationDetail(noti) {
                                       id="invalid_feedback_confirm_new_password">
                                       <i
                                         class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
-                                      <div class="ms-2">Invalid Url Link.</div>
+                                      <div class="ms-2">${isEnglish ? "Invalid Url Link.":"តំណមិនត្រឹមត្រូវ"}</div>
                                     </div>
                                     
                                   </div>
@@ -436,7 +436,7 @@ async function showNotificationDetail(noti) {
                                   
                                       <button onclick="updateEventLink(${
                                         noti.event.id
-                                      }, this)" style="height: 40px !important;border-right: 0 !important; border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important;" type="button" class="btn btn-brand fw-normal">Send</button>
+                                      }, this)" style="height: 40px !important;border-right: 0 !important; border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important;" type="button" class="btn btn-brand fw-normal">${isEnglish ? "Send":"ផ្ញើ"}</button>
                                   
                               </div>
                                 ${link}

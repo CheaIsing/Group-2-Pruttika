@@ -4,16 +4,19 @@
 const Joi = joi; // Change this to false for Khmer messages
 
 const messages = {
-  emailRequired: isEnglish ? "Email is required." : "អ៊ីមែល ត្រូវបានទាមទារ។",
+  emailRequired: isEnglish ? "Email is required." : "អ៊ីមែលត្រូវបានទាមទារ។",
   emailInvalid: isEnglish ? "Invalid Email." : "អ៊ីមែលមិនត្រឹមត្រូវ។",
-  passwordRequired: isEnglish ? "Password is required." : "ពាក្យសម្ងាត់ ត្រូវបានទាមទារ។",
+  passwordRequired: isEnglish ? "Password is required." : "ពាក្យសម្ងាត់ត្រូវបានទាមទារ។",
   passwordMin: isEnglish ? "Password must be at least 6 characters." : "ពាក្យសម្ងាត់ត្រូវមានយ៉ាងហោចណាស់ 6 តួអក្សរ។",
+  newPasswordRequired: isEnglish ? "New Password is required." : "ពាក្យសម្ងាត់ថ្មីត្រូវបានទាមទារ។",
+  newPasswordMin: isEnglish ? "New Password must be at least 6 characters." : "ពាក្យសម្ងាត់ថ្មីត្រូវមានយ៉ាងហោចណាស់ 6 តួអក្សរ។",
   otpRequired: isEnglish ? "Otp Code is required." : "កូដ OTP ត្រូវបានទាមទារ។",
   otpInvalid: isEnglish ? "Otp Code must be exactly 6 digits." : "កូដ OTP ត្រូវតែមាន 6 ខ្ទង់។",
   usernameRequired: isEnglish ? "Username is required." : "ឈ្មោះអ្នកប្រើ ត្រូវបានទាមទារ។",
   usernameMin: isEnglish ? "Username must be at least 4 characters." : "ឈ្មោះអ្នកប្រើត្រូវមានយ៉ាងហោចណាស់ 4 តួអក្សរ។",
   passwordsMatch: isEnglish ? "Passwords must match." : "ពាក្យសម្ងាត់ត្រូវតែត្រួតពិនិត្យគ្នា។",
   currentPassRequired: isEnglish ? "Current Password is required to delete account." : "ពាក្យសម្ងាត់​បច្ចុប្បន្ន​ត្រូវបានទាមទារ​សម្រាប់លុបគណនី។",
+  oldPassRequired: isEnglish ? "Old Password is required." : "ពាក្យសម្ងាត់ចាស់ត្រូវបានទាមទារ។",
   organizationNameRequired: isEnglish ? "Organization Name is required." : "ឈ្មោះអង្គការត្រូវបានទាមទារ។",
   locationRequired: isEnglish ? "Location is required." : "ទីតាំងត្រូវបានទាមទារ។",
   facebookRequired: isEnglish ? "Facebook is required." : "Facebook ត្រូវបានទាមទារ។",
@@ -24,11 +27,18 @@ const messages = {
   startTimeRequired: isEnglish ? "Start time is required." : "ម៉ោងចាប់ផ្តើមត្រូវបានទាមទារ។",
   endTimeRequired: isEnglish ? "End time is required." : "ម៉ោងបញ្ចប់ត្រូវបានទាមទារ។",
   shortDescriptionRequired: isEnglish ? "Short Description is required." : "ការពិពណ៌នាខ្លី ត្រូវបានទាមទារ។",
+  titleRequired: isEnglish ? "Event title is required." : "ចំណងជើងព្រឹត្តិការណ៍ត្រូវបានទាមទារ",
+  titleMin: isEnglish ? "Event title is required." : "ចំណងជើងព្រឹត្តិការណ៍ត្រូវបានទាមទារ",
+  agendaTitleRequired: isEnglish ? "Title is required." : "ចំណងជើងត្រូវបានទាមទារ",
+  agendaTitleMin: isEnglish ? "Title must be at least 3 characters." : "ចំណងជើងត្រូវមានយ៉ាងហោចណាស់ 3 តួអក្សរ។",
+  agendaTitleMax: isEnglish ? "Title must be at most 50 characters." : "ចំណងជើងត្រូវមានភាគច្រើន 50 តួអក្សរ។",
   descriptionRequired: isEnglish ? "Description Detail is required." : "ព័ត៌មានពិពណ៌នាដែលលម្អិត ត្រូវបានទាមទារ។",
+  descriptionMin: isEnglish ? "Description Detail must be at least 5 characters." : "ព័ត៌មានពិពណ៌នាដែលលម្អិត ត្រូវមានយ៉ាងហោចណាស់ 5 តួអក្សរ។",
+  descriptionMax: isEnglish ? "Description Detail must be at most 100 characters." : "ព័ត៌មានពិពណ៌នាដែលលម្អិត ត្រូវមានភាគច្រើន 100 តួអក្សរ។",
   ticketTypeRequired: isEnglish ? "Ticket type is required." : "ប្រភេទសំបុត្រត្រូវបានទាមទារ។",
   ticketPriceRequired: isEnglish ? "Ticket price is required." : "តម្លៃសំបុត្រត្រូវបានទាមទារ។",
-  ticketCapacityRequired: isEnglish ? "Ticket capacity is required." : "សមត្ថភាពសំបុត្រត្រូវបានទាមទារ។",
-  ticketCapacityMin: isEnglish ? "Ticket capacity must be at least 1." : "សមត្ថភាពសំបុត្រត្រូវតែមានយ៉ាងហោចណាស់ 1។",
+  ticketCapacityRequired: isEnglish ? "Ticket capacity is required." : "ចំនួនសំបុត្រត្រូវបានទាមទារ។",
+  ticketCapacityMin: isEnglish ? "Ticket capacity must be at least 1." : "ចំនួនសំបុត្រត្រូវតែមានយ៉ាងហោចណាស់ 1។",
   fileTypeInvalid: isEnglish ? "Invalid file type. Only JPG, JPEG, PNG are allowed." : "ប្រភេទឯកសារមិនត្រឹមត្រូវ។ អនុញ្ញាតឱ្យមានតែ JPG, JPEG, PNG ប៉ុណ្ណោះ។",
   fileSizeExceeded: (maxSizeMB) => isEnglish 
     ? `File size exceeds the limit of ${maxSizeMB}MB.` 
@@ -95,8 +105,8 @@ const vVerifyOtp = Joi.object({
 
 const vResetPass = Joi.object({
   newPassword: Joi.string().min(6).required().messages({
-    "string.empty": messages.passwordRequired,
-    "string.min": messages.passwordMin,
+    "string.empty": messages.newPasswordRequired,
+    "string.min": messages.newPasswordMin,
   }),
   confirmNewPassword: Joi.string()
     .valid(Joi.ref("newPassword"))
@@ -130,7 +140,7 @@ const vProfileInfo = Joi.object({
       "string.pattern.base": messages.phoneNumberInvalid,
     }),
   dob: Joi.date().max("now").allow("").optional().messages({
-    "string.max": "Invalid Date of Birth.", // Adjust this message as needed
+    "string.max": isEnglish ? "Invalid Date of Birth." : "ថ្ងៃខែឆ្នាំកំណើតមិនត្រឹមត្រូវ", // Adjust this message as needed
   }),
   address: Joi.string().allow("").optional(),
   gender: Joi.string().allow("").optional(),
@@ -138,10 +148,10 @@ const vProfileInfo = Joi.object({
 
 const vChangePass = Joi.object({
   oldPass: Joi.string().required().messages({
-    "string.empty": messages.currentPassRequired,
+    "string.empty": messages.oldPassRequired,
   }),
   newPass: Joi.string().required().messages({
-    "string.empty": messages.passwordRequired,
+    "string.empty": messages.newPasswordRequired,
   }),
   newPassConfirm: Joi.string().valid(Joi.ref("newPass")).required().messages({
     "any.only": messages.passwordsMatch,
@@ -189,14 +199,14 @@ const vOrganizerRequest = Joi.object({
 
 const vEventOverview = Joi.object({
   eng_name: Joi.string().trim().min(6).required().messages({
-    "string.empty": messages.shortDescriptionRequired,
-    "string.min": messages.shortDescriptionRequired,
+    "string.empty": messages.titleRequired,
+    "string.min": messages.titleMin,
   }),
   event_type: Joi.string().valid("1", "2").required().messages({
     "any.only": "Invalid event type selected.", // Adjust as needed
   }),
   event_categories: Joi.array().min(1).items(Joi.string()).required().messages({
-    "array.min": "Please select at least one category.", // Adjust as needed
+    "array.min": isEnglish ? "Please select at least one category.": "សូមជ្រើសរើសយ៉ាងហោចណាស់មួយcategory", // Adjust as needed
   }),
 }).options({ abortEarly: false });
 
@@ -247,14 +257,14 @@ const vEventDescription = Joi.object({
 
 const vEventAgenda = Joi.object({
   title: Joi.string().trim().min(3).max(50).required().messages({
-    "string.empty": messages.shortDescriptionRequired,
-    "string.min": messages.shortDescriptionRequired,
-    "string.max": `Title must be at most 50 characters long`, // Adjust as needed
+    "string.empty": messages.agendaTitleRequired,
+    "string.min": messages.agendaTitleMin,
+    "string.max": messages.agendaTitleMax, // Adjust as needed
   }),
   description: Joi.string().trim().min(5).max(100).required().messages({
     "string.empty": messages.descriptionRequired,
     "string.min": messages.descriptionRequired,
-    "string.max": `Title must be at most 100 characters long`, // Adjust as needed
+    "string.max": messages.descriptionMax, // Adjust as needed
   }),
   start_time: Joi.string().trim().required().messages({
     "string.empty": messages.startTimeRequired,
@@ -270,14 +280,14 @@ const vUpdateEventAgenda = Joi.object({
     Joi.string().valid('')
   ),
   title: Joi.string().trim().min(3).max(50).required().messages({
-    "string.empty": messages.shortDescriptionRequired,
-    "string.min": messages.shortDescriptionRequired,
-    "string.max": `Title must be at most 50 characters long`, // Adjust as needed
+    "string.empty": messages.agendaTitleRequired,
+    "string.min": messages.agendaTitleMin,
+    "string.max": messages.agendaTitleMax, // Adjust as needed
   }),
   description: Joi.string().trim().min(5).max(100).required().messages({
     "string.empty": messages.descriptionRequired,
     "string.min": messages.descriptionRequired,
-    "string.max": `Title must be at most 100 characters long`, // Adjust as needed
+    "string.max": messages.descriptionMax, // Adjust as needed
   }),
   start_time: Joi.string().trim().required().messages({
     "string.empty": messages.startTimeRequired,
@@ -290,16 +300,16 @@ const vUpdateEventAgenda = Joi.object({
 const vEventTickets = Joi.object({
   type: Joi.string().trim().min(3).max(100).required().messages({
     "string.empty": messages.ticketTypeRequired,
-    "string.min": messages.ticketTypeRequired,
+    "string.min": isEnglish ? "Ticket type must be at least 3 characters." : "ប្រភេទសំបុត្រត្រូវមានយ៉ាងហោចណាស់ 3 តួអក្សរ។",
   }),
   price: Joi.number().min(0).required().messages({
-    "number.base": "Ticket price must be a number.", // Adjust as needed
-    "number.min": "Ticket price cannot be negative.", // Adjust as needed
+    "number.base": isEnglish ? "Ticket price must be a number." : "តម្លៃសំបុត្រត្រូវមានជាចំនួនគត់។",
+    "number.min": isEnglish ? "Ticket price cannot be negative." : "តម្លៃសំបុត្រត្រូវមិនអាចអវិជ្ជមានបានទេ។",
     "any.required": messages.ticketPriceRequired,
   }),
   ticket_opacity: Joi.number().integer().min(1).required().messages({
-    "number.base": "Ticket capacity must be a number.", // Adjust as needed
-    "number.integer": "Ticket capacity must be an integer.", // Adjust as needed
+    "number.base": isEnglish ? "Ticket capacity must be a number." : "ចំនួនសំបុត្រត្រូវមានជាតារាង។",
+    "number.integer": isEnglish ? "Ticket capacity must be an integer." : "ចំនួនសំបុត្រត្រូវមានជាចំនួនគត់។",
     "number.min": messages.ticketCapacityMin,
     "any.required": messages.ticketCapacityRequired,
   }),
@@ -312,16 +322,16 @@ const vUpdateEventTickets = Joi.object({
   ),
   type: Joi.string().trim().min(3).max(100).required().messages({
     "string.empty": messages.ticketTypeRequired,
-    "string.min": messages.ticketTypeRequired,
+    "string.min": isEnglish ? "Ticket type must be at least 3 characters." : "ប្រភេទសំបុត្រត្រូវមានយ៉ាងហោចណាស់ 3 តួអក្សរ។",
   }),
   price: Joi.number().min(0).required().messages({
-    "number.base": "Ticket price must be a number.", // Adjust as needed
-    "number.min": "Ticket price cannot be negative.", // Adjust as needed
+    "number.base": isEnglish ? "Ticket price must be a number." : "តម្លៃសំបុត្រត្រូវមានជាចំនួនគត់។",
+    "number.min": isEnglish ? "Ticket price cannot be negative." : "តម្លៃសំបុត្រត្រូវមិនអាចអវិជ្ជមានបានទេ។",
     "any.required": messages.ticketPriceRequired,
   }),
   ticket_opacity: Joi.number().integer().min(1).required().messages({
-    "number.base": "Ticket capacity must be a number.", // Adjust as needed
-    "number.integer": "Ticket capacity must be an integer.", // Adjust as needed
+    "number.base": isEnglish ? "Ticket capacity must be a number." : "ចំនួនសំបុត្រត្រូវមានជាតារាង។",
+    "number.integer": isEnglish ? "Ticket capacity must be an integer." : "ចំនួនសំបុត្រត្រូវមានជាចំនួនគត់។",
     "number.min": messages.ticketCapacityMin,
     "any.required": messages.ticketCapacityRequired,
   }),
@@ -354,9 +364,9 @@ const validateFile = (file, maxSizeMB = 3) => {
   return { valid: true }; // All validations passed
 };
 
-const validateFileQR = (file, maxSizeMB = 3) => {
+const validateFileQR = (file, maxSizeMB = 3) => { 
   if (!file) {
-    return { valid: false, message: messages.fileTypeInvalid }; // No file, validation fails
+    return { valid: false, message: isEnglish ? "Payment Qr Image is required." : "ការបង់ប្រាក់ Qr រូបភាពត្រូវបានទាមទារ" }; // No file, validation fails
   }
 
   const validExtensions = ['.jpg', '.jpeg', '.png'];

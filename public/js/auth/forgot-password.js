@@ -1,7 +1,7 @@
 const forgotPassForm = document.getElementById("forgot-password-form");
 
 let isSubmit = false;
-
+let btnText = document.getElementById("btnForgotPass").innerText
 const formData = {
   email: ""
 };
@@ -9,6 +9,14 @@ const formData = {
 const fields = [
   {
     name: "email",
+    id: "input-field-email",
+    textErrorElement: "#invalid_feedback_email div",
+    isInvalidClass: "is_invalid",
+  }
+];
+const fieldsKh = [
+  {
+    name: isEnglish ? "email" : "អ៊ីមែល",
     id: "input-field-email",
     textErrorElement: "#invalid_feedback_email div",
     isInvalidClass: "is_invalid",
@@ -31,11 +39,11 @@ forgotPassForm.addEventListener(
 
     if (error) {
       const errorMessages = error.details.map((detail) => detail.message);
-      handleErrorMessages(errorMessages, fields);
+      handleErrorMessages(errorMessages, fieldsKh);
       return;
     }
 
-    handleErrorMessages([], fields);
+    handleErrorMessages([], fieldsKh);
 
     isValid = true;
 
@@ -62,11 +70,11 @@ forgotPassForm.addEventListener(
 
       handleErrorMessages(errorMessages, fields);
     }finally{
-      btnCloseLoading("btnForgotPass", "Send");
+      btnCloseLoading("btnForgotPass", btnText);
     }
   }
 
   //
 );
 
-handleFieldChange("email", "email", formData, vSignIn, fields);
+handleFieldChange("email", "email", formData, vSignIn, fieldsKh);
