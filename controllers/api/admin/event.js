@@ -4,7 +4,7 @@ const { sendResponse } = require("../../../utils/response");
 
 const viewEvent = async (req, res) => {
   try {
-    const { category_id, search } = req.query;
+    const { category_id=null, search=null } = req.query;
     let {
       page = 1,
       per_page = 50,
@@ -62,9 +62,9 @@ const viewEvent = async (req, res) => {
 
     const data = await executeQuery(query, queryParams);
 
-    if (data.length === 0) {
-      return sendResponse(res, 404, false, "No events found.");
-    }
+    // if (data.length === 0) {
+    //   return sendResponse(res, 404, false, "No events found.");
+    // }
 
     sendResponse(res, 200, true, "Display all events.", {
       data,
@@ -173,8 +173,8 @@ const viewAllEventCategory = async (req, res) => {
     const countParams = [];
 
     if (search) {
-      query += " name LIKE ?";
-      countQuery += " name LIKE ?";
+      query += " WHERE name LIKE ?";
+      countQuery += " WHERE name LIKE ?";
       queryParams.push(`%${search}%`);
       countParams.push(`%${search}%`);
     }
@@ -186,11 +186,13 @@ const viewAllEventCategory = async (req, res) => {
      query += ` ORDER BY ${sort_col} ${sortDirection} LIMIT ? OFFSET ?`;
     queryParams.push(perPageNum, (pageNum - 1) * perPageNum);
 
+    console.log(query);
+    
     const data = await executeQuery(query, queryParams);
 
-    if (data.length === 0) {
-      return sendResponse(res, 404, false, "No categories found.");
-    }
+    // if (data.length === 0) {
+    //   return sendResponse(res, 404, false, "No categories found.");
+    // }
 
     sendResponse(res, 200, true, "Display all categories", {
       data,

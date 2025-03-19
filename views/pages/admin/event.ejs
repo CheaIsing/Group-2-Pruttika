@@ -14,6 +14,9 @@
             #search {
                 width: 200px !important;
             }
+            #search2 {
+                width: 200px !important;
+            }
 
             .form-select {
                 display: inline;
@@ -41,30 +44,29 @@
                                             <div class="card">
                                                 <div class="card-header">
                                                     <h4 class="card-title">Display all event</h4>
+                                                    <input class="form-control" type="text" id="search"
+                                                                    placeholder="Search by name">
                                                 </div>
-                                                <div class="card-body">
-                                                    <div class="table-responsive">
-                                                        <form id="searchForm">
+                                                <div class="card-body pt-0">
+                                                    <div class="table-responsive mb-4">
+                                                        <div id="searchForm">
                                                             <div
-                                                                class="d-flex justify-content-between align-items-center">
-                                                                <select id="role" class="form-select">
+                                                                class="d-flex justify-content-end align-items-center">
+                                                                <!-- <select id="role" class="form-select">
                                                                     <option value="">All Roles</option>
                                                                     <option value="1">Guest</option>
                                                                     <option value="2">Organizer</option>
                                                                     <option value="3">Admin</option>
-                                                                </select>
-                                                                <input class="form-control" type="text" id="search"
-                                                                    placeholder="Search by name">
+                                                                </select> -->
+                                                                
                                                             </div>
-                                                        </form>
+                                                        </div>
                                                         <table id="example6" class="display" style="min-width: 845px">
                                                             <thead>
-                                                                <tr>
+                                                                <tr style="pointer-events: none !important;">
                                                                     <th>ID</th>
-                                                                    <th>Eng_name</th>
-                                                                    <th>Kh_name</th>
+                                                                    <th>Title</th>
                                                                     <th>Thumbnail</th>
-                                                                    <th>Description</th>
                                                                     <th>Event Type</th>
                                                                     <th>Is published</th>
                                                                     <th>Location</th>
@@ -75,12 +77,13 @@
 
                                                             </tbody>
                                                         </table>
-                                                        <nav aria-label="Page navigation">
-                                                            <ul id="paginationEvents"
-                                                                class="pagination justify-content-center">
-                                                            </ul>
-                                                        </nav>
+                                                        
                                                     </div>
+                                                    <nav aria-label="Page navigation">
+                                                        <ul id="paginationEvents"
+                                                            class="pagination justify-content-center">
+                                                        </ul>
+                                                    </nav>
                                                 </div>
                                             </div>
                                         </div>
@@ -91,21 +94,21 @@
                                                 </div>
                                                 <div class="card-body">
                                                     <div class="table-responsive">
-                                                        <form id="searchForm">
+                                                        <div id="searchForm2">
                                                             <div
                                                                 class="d-flex justify-content-between align-items-center">
                                                                 <button type="button" class="btn btn-primary btn-sm"
                                                                     data-bs-toggle="modal"
                                                                     data-bs-target="#createCategory">
-                                                                    Create New
+                                                                    + Create New
                                                                 </button>
-                                                                <input class="form-control" type="text" id="search"
+                                                                <input class="form-control" type="text" id="search2"
                                                                     placeholder="Search by name">
                                                             </div>
-                                                        </form>
+                                                        </div>
                                                         <table id="example5" class="display" style="min-width: 845px">
                                                             <thead>
-                                                                <tr>
+                                                                <tr style="pointer-events: none !important;">
                                                                     <th>ID</th>
                                                                     <th>Name</th>
                                                                     <th>Created At</th>
@@ -117,11 +120,12 @@
 
                                                             </tbody>
                                                         </table>
-                                                        <nav aria-label="Page navigation">
-                                                            <ul id="paginationCategories" class="pagination justify-content-center">
-                                                            </ul>
-                                                        </nav>
+                                                       
                                                     </div>
+                                                    <nav aria-label="Page navigation">
+                                                        <ul id="paginationCategories" class="pagination justify-content-center">
+                                                        </ul>
+                                                    </nav>
                                                 </div>
                                             </div>
                                         </div>

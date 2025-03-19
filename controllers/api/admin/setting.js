@@ -86,14 +86,15 @@ const changePassword = async (req, res) => {
     }
 
     const storedHashedPass = data[0].password;
-    const isMatch = bcrypt.compare(oldPass, storedHashedPass);
-
+    const isMatch = await bcrypt.compare(oldPass, storedHashedPass);
+    // console.log(isMatch);
+    
     if (!isMatch) {
-      sendResponse(res, 401, false, "Old password is incorrect.");
+     return sendResponse(res, 401, false, "Old password is incorrect.");
     }
 
     if (newPass !== passConfirm) {
-      sendResponse(res, 401, false, "Password do not match.");
+     return sendResponse(res, 401, false, "Password do not match.");
     }
 
     const newHashedPass = await bcrypt.hash(newPass, 10);

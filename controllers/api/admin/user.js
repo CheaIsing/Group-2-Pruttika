@@ -4,7 +4,7 @@ const { sendResponse } = require("../../../utils/response");
 
 const displayAllUsers = async (req, res) => {
   try {
-    const { role, search } = req.query;
+    const { role=null, search=null } = req.query;
     let {
       page = 1,
       per_page = 50,
@@ -59,9 +59,9 @@ const displayAllUsers = async (req, res) => {
       executeQuery(countQuery, queryParams.slice(0, queryParams.length - 2)),
     ]);
 
-    if (data.length === 0) {
-      return sendResponse(res, 404, false, "No users found.");
-    }
+    // if (data.length === 0) {
+    //   return sendResponse(res, 404, false, "No users found.");
+    // }
 
     const total = countResult[0].total;
     const totalPages = Math.ceil(total / perPageNum);

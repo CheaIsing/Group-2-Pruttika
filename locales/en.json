@@ -30,7 +30,7 @@
     "verify-otp": {
       "heading": "OTP Verification",
       "label": "Enter the code that we sent to your email",
-      "button": "verify",
+      "button": "Verify",
       "question": "Didn't receive the OTP?",
       "resend": "Resend"
     },
