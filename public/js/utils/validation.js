@@ -7,9 +7,10 @@ const messages = {
   emailRequired: isEnglish ? "Email is required." : "អ៊ីមែលត្រូវបានទាមទារ។",
   emailInvalid: isEnglish ? "Invalid Email." : "អ៊ីមែលមិនត្រឹមត្រូវ។",
   passwordRequired: isEnglish ? "Password is required." : "ពាក្យសម្ងាត់ត្រូវបានទាមទារ។",
-  passwordMin: isEnglish ? "Password must be at least 6 characters." : "ពាក្យសម្ងាត់ត្រូវមានយ៉ាងហោចណាស់ 6 តួអក្សរ។",
+  passwordMin: isEnglish ? "Password must be at least 8 characters." : "ពាក្យសម្ងាត់ត្រូវមានយ៉ាងហោចណាស់ 8 តួអក្សរ។",
+  passwordStrong: isEnglish ? "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character." : "ពាក្យសម្ងាត់ត្រូវតែមានយ៉ាងហោចណាស់ 8 តួអក្សរ អក្សរធំមួយ អក្សរតូចមួយ លេខមួយ និងតួអក្សរពិសេសមួយ",
   newPasswordRequired: isEnglish ? "New Password is required." : "ពាក្យសម្ងាត់ថ្មីត្រូវបានទាមទារ។",
-  newPasswordMin: isEnglish ? "New Password must be at least 6 characters." : "ពាក្យសម្ងាត់ថ្មីត្រូវមានយ៉ាងហោចណាស់ 6 តួអក្សរ។",
+  newPasswordMin: isEnglish ? "New Password must be at least 8 characters." : "ពាក្យសម្ងាត់ថ្មីត្រូវមានយ៉ាងហោចណាស់ 8 តួអក្សរ។",
   otpRequired: isEnglish ? "Otp Code is required." : "កូដ OTP ត្រូវបានទាមទារ។",
   otpInvalid: isEnglish ? "Otp Code must be exactly 6 digits." : "កូដ OTP ត្រូវតែមាន 6 ខ្ទង់។",
   usernameRequired: isEnglish ? "Username is required." : "ឈ្មោះអ្នកប្រើ ត្រូវបានទាមទារ។",
@@ -28,7 +29,7 @@ const messages = {
   endTimeRequired: isEnglish ? "End time is required." : "ម៉ោងបញ្ចប់ត្រូវបានទាមទារ។",
   shortDescriptionRequired: isEnglish ? "Short Description is required." : "ការពិពណ៌នាខ្លី ត្រូវបានទាមទារ។",
   titleRequired: isEnglish ? "Event title is required." : "ចំណងជើងព្រឹត្តិការណ៍ត្រូវបានទាមទារ",
-  titleMin: isEnglish ? "Event title is required." : "ចំណងជើងព្រឹត្តិការណ៍ត្រូវបានទាមទារ",
+  titleMin: isEnglish ? "Event title is at least 6 characters." : "ចំណងជើងព្រឹត្តិការណ៍ត្រូវមានយ៉ាងហោចណាស់ 6 តួអក្សរ",
   agendaTitleRequired: isEnglish ? "Title is required." : "ចំណងជើងត្រូវបានទាមទារ",
   agendaTitleMin: isEnglish ? "Title must be at least 3 characters." : "ចំណងជើងត្រូវមានយ៉ាងហោចណាស់ 3 តួអក្សរ។",
   agendaTitleMax: isEnglish ? "Title must be at most 50 characters." : "ចំណងជើងត្រូវមានភាគច្រើន 50 តួអក្សរ។",
@@ -72,9 +73,11 @@ const vSignUp = Joi.object({
       "string.empty": messages.emailRequired,
       "string.pattern.base": messages.emailInvalid,
     }),
-  password: Joi.string().min(6).trim().required().messages({
+  password: Joi.string().min(8).trim().required().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/) // Strong password regex
+  .messages({
     "string.empty": messages.passwordRequired,
     "string.min": messages.passwordMin,
+    "string.pattern.base": messages.passwordStrong, // Add a message for strong password requirement
   }),
   confirmPassword: Joi.string().valid(Joi.ref("password")).required().messages({
     "any.only": messages.passwordsMatch,
@@ -104,9 +107,11 @@ const vVerifyOtp = Joi.object({
 }).options({ abortEarly: false });
 
 const vResetPass = Joi.object({
-  newPassword: Joi.string().min(6).required().messages({
+  newPassword: Joi.string().min(8).required().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/) // Strong password regex
+  .messages({
     "string.empty": messages.newPasswordRequired,
     "string.min": messages.newPasswordMin,
+    "string.pattern.base": messages.passwordStrong, // Add a message for strong password requirement
   }),
   confirmNewPassword: Joi.string()
     .valid(Joi.ref("newPassword"))
@@ -150,8 +155,10 @@ const vChangePass = Joi.object({
   oldPass: Joi.string().required().messages({
     "string.empty": messages.oldPassRequired,
   }),
-  newPass: Joi.string().required().messages({
+  newPass: Joi.string().trim().min(8).required().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/).messages({
     "string.empty": messages.newPasswordRequired,
+    "string.min": messages.newPasswordMin,
+    "string.pattern.base": messages.passwordStrong, // Add a message for strong password requirement
   }),
   newPassConfirm: Joi.string().valid(Joi.ref("newPass")).required().messages({
     "any.only": messages.passwordsMatch,
