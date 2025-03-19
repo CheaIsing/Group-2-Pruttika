@@ -23,13 +23,12 @@ async function fetchRequestOrganizers(
 
     const result = response.data.data.data;
     const totalPages = response.data.data.pagination.total_pages;
-
-    if (!result || result.length === 0) throw new Error("No request organizers found.");
+    console.log(result);
 
     displayRequestOrganizer(result);
     updatePagination(page, totalPages, perPage, "paginationRequestOrganizer", fetchRequestOrganizers);
   } catch (error) {
-    console.error("Error fetching request organizers:", error.message);
+    console.error("Error fetching request organizers:", error);
   }
 }
 
@@ -49,12 +48,12 @@ async function fetchOrganizers(
     const result = response.data.data.data;
     const totalPages = response.data.data.pagination.total_pages;
 
-    if (!result || result.length === 0) throw new Error("No organizers found.");
+    // if (!result || result.length === 0) throw new Error("No organizers found.");
 
     displayOrganizers(result);
     updatePagination(page, totalPages, perPage, "paginationOrganizer", fetchOrganizers);
   } catch (error) {
-    console.error("Error fetching organizers:", error.message);
+    console.error("Error fetching organizers:", error);
   }
 }
 
@@ -71,7 +70,7 @@ function updatePagination(currentPage, totalPages, perPage, id, fetchFunction) {
     const pageLink = document.createElement("a");
     pageLink.classList.add("page-link");
     pageLink.href = "#";
-    pageLink.textContent = label;
+    pageLink.innerHTML = label;
 
     pageLink.addEventListener("click", (event) => {
       event.preventDefault();
@@ -84,7 +83,7 @@ function updatePagination(currentPage, totalPages, perPage, id, fetchFunction) {
     return pageItem;
   }
 
-  paginationContainer.appendChild(createPageButton(currentPage - 1, "Previous", currentPage === 1));
+  paginationContainer.appendChild(createPageButton(currentPage - 1, `<i class="fa-solid fa-chevron-left"></i>`, currentPage === 1));
 
   for (let i = 1; i <= totalPages; i++) {
     let pageItem = createPageButton(i, i, currentPage === i);
@@ -92,7 +91,7 @@ function updatePagination(currentPage, totalPages, perPage, id, fetchFunction) {
     paginationContainer.appendChild(pageItem);
   }
 
-  paginationContainer.appendChild(createPageButton(currentPage + 1, "Next", currentPage === totalPages));
+  paginationContainer.appendChild(createPageButton(currentPage + 1, `<i class="fa-solid fa-chevron-right"></i>`, currentPage === totalPages));
 }
 
 window.addEventListener("load", function () {
@@ -218,12 +217,20 @@ async function fetchOrganizerDetail(id) {
 
 function displayRequestOrganizer(organizers) {
   const tableBody = document.getElementById("requestOrganizerTableBody");
+  // console.log(organizers);
 
+  if(organizers.length ==0){
+    return tableBody.innerHTML = `
+    <tr>
+    <td colspan="7" class="text-center">No Request Organizer Found</td>
+    </tr>`
+  }
+  
   tableBody.innerHTML = organizers
     .map(
-      (organizer) => `
+      (organizer, i) => `
       <tr>
-          <td>${organizer.id}</td>
+          <td>${i+1}</td>
           <td>${organizer.organization_name}</td>
           <td>${organizer.business_email}</td>
           <td>${organizer.business_phone}</td>
@@ -243,94 +250,84 @@ function displayRequestOrganizer(organizers) {
               </span>
           </td>                
           <td>
-              <div class="dropdown ms-auto text-center">
-                  <div class="btn-link" data-bs-toggle="dropdown">
-                      <svg width="24px" height="24px" viewbox="0 0 24 24" version="1.1">
-                          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                              <rect x="0" y="0" width="24" height="24"></rect>
-                              <circle fill="#000000" cx="5" cy="12" r="2"></circle>
-                              <circle fill="#000000" cx="12" cy="12" r="2"></circle>
-                              <circle fill="#000000" cx="19" cy="12" r="2"></circle>
-                          </g>
-                      </svg>
-                  </div>
-                  ${
-                    organizer.status === 1
-                      ? `
-                        <div class="dropdown-menu dropdown-menu-end">
-                        <a href="javascript:void(0)" class="dropdown-item" role="button"
-                                onclick="fetchRequestOrganizerDetail(${organizer.id})" 
-                                data-bs-toggle="modal" data-bs-target="#viewRequestDetail">
-                                View details
-                            </a>
-                            <a class="dropdown-item" href="javascript:void(0)" role="button" onclick="adminApproval(${organizer.id})">Approve</a>
-                            <a class="dropdown-item" href="javascript:void(0)" role="button" onclick="adminRejection(${organizer.id})">Reject</a>
-                        </div>
-                      `
-                      : `<div class="dropdown-menu dropdown-menu-end">
-                            <a href="javascript:void(0)" class="dropdown-item" role="button"
-                                onclick="fetchRequestOrganizerDetail(${organizer.id})" 
-                                data-bs-toggle="modal" data-bs-target="#viewRequestDetail">
-                                View details
-                            </a>
-                      </div>`
-                  }
-              </div>
+              <div class="d-inline-block">
+    ${
+        organizer.status === 1
+        ? `
+            <button type="button" class="btn btn-primary  py-1 px-2 btn-icon " style="height: auto !important;border-radius: 4px;" 
+                    data-bs-placement="top" title="View details" 
+                    onclick="fetchRequestOrganizerDetail(${organizer.id})" 
+                    data-bs-toggle="modal" data-bs-target="#viewRequestDetail">
+                <i class="fa-regular fa-eye"></i>
+            </button>
+            <button type="button" class="btn btn-success py-1 px-2 btn-icon " style="height: auto !important;border-radius: 4px;" 
+                    data-bs-placement="top" title="Approve" 
+                    onclick="adminApproval(${organizer.id})">
+                <i class="fa-solid fa-check"></i>
+            </button>
+            <button type="button" class="btn btn-danger py-1 px-2 btn-icon " style="height: auto !important;border-radius: 4px;"
+                    data-bs-placement="top" title="Reject" 
+                    onclick="adminRejection(${organizer.id})">
+                <i class="fa-solid fa-xmark" style="margin-inline: 2px;"></i>
+            </button>
+        `
+        : `
+            <button type="button" class="btn btn-primary py-1 px-2 btn-icon " style="height: auto !important;border-radius: 4px;"
+                    data-bs-placement="top" title="View details" 
+                    onclick="fetchRequestOrganizerDetail(${organizer.id})" 
+                    data-bs-toggle="modal" data-bs-target="#viewRequestDetail">
+                <i class="fa-regular fa-eye"></i>
+            </button>
+        `
+    }
+</div>
           </td>
       </tr>`
     )
     .join("");
+
+
 }
 
 function displayOrganizers(organizers) {
   const tableBody = document.getElementById("organizerTableBody");
-
+  if(organizers.length ==0){
+    return tableBody.innerHTML = `
+    <tr>
+    <td colspan="7" class="text-center">No Organizer Found</td>
+    </tr>`
+  }
   tableBody.innerHTML = organizers
   .map(
-      (organizer) => `
+      (organizer, i) => `
             <tr>
-                <td>${organizer.id}</td>
+                <td>${i+1}</td>
                 <td>${organizer.organization_name}</td>
                 <td>${organizer.business_email}</td>
                 <td>${organizer.business_phone}</td>
                 <td>${organizer.location}</td>
+                    
                 <td>
-                    <span class="badge ${
-                      organizer.status === 1 ? "badge-success" : "badge-danger"
-                    }">
-                        ${organizer.status === 1 ? "Active" : "Inactive"}
-                    </span>
-                </td>         
-                <td>
-                    <div class="dropdown ms-auto text-center">
-                        <div class="btn-link" data-bs-toggle="dropdown">
-                            <svg width="24px" height="24px" viewbox="0 0 24 24" version="1.1">
-                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <rect x="0" y="0" width="24" height="24"></rect>
-                                    <circle fill="#000000" cx="5" cy="12" r="2"></circle>
-                                    <circle fill="#000000" cx="12" cy="12" r="2"></circle>
-                                    <circle fill="#000000" cx="19" cy="12" r="2"></circle>
-                                </g>
-                            </svg>
-                        </div>
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <a href="javascript:void(0)" class="dropdown-item" role="button"
+                 <div class="d-flex gap-1">
+                  <a class="btn btn-primary py-1 px-2 btn-icon " style="height: auto !important;border-radius: 4px;" role="button"
                              onclick="fetchOrganizerDetail(${organizer.id})" 
                              data-bs-toggle="modal" data-bs-target="#viewDetail">
-                             View details
-                          </a>
-                          <a href="javascript:void(0)" class="dropdown-item" role="button"
-                             onclick="editOrganizer(${organizer.id})" 
-                             data-bs-toggle="modal" data-bs-target="#editOrganizer">
-                             Edit organizer
-                          </a>
-                          <a href="javascript:void(0)" class="dropdown-item" role="button"
-                             onclick="removeOrganizer(${organizer.id})">
-                             Remove organizer
+                             <i class="fa-regular fa-eye"></i>
                           </a>
 
-                        </div>
-                    </div>
+                          <a  class="btn btn-success py-1 px-2 btn-icon " style="height: auto !important;border-radius: 4px;" role="button"
+                             onclick="editOrganizer(${organizer.id})" 
+                             data-bs-toggle="modal" data-bs-target="#editOrganizer">
+                             <i class="fa-regular fa-pen-to-square"></i>
+                          </a>
+                          <a  class="btn btn-danger py-1 px-2 btn-icon " style="height: auto !important;border-radius: 4px;" role="button"
+                             onclick="removeOrganizer(${organizer.id})">
+                             <i class="fa-regular fa-trash-can"></i>
+                          </a>
+                          
+                </div>
+                    
+                       
                 </td>
             </tr>
         `
@@ -654,16 +651,16 @@ document.getElementById("status").addEventListener("change", function () {
 });
 
 document.getElementById("search2").addEventListener("keyup", function () {
-  const status = document.getElementById("status2").value;
+  // const status = document.getElementById("status2").value;
   const search = this.value;
   fetchOrganizers(status, search);
 });
 
-document.getElementById("status2").addEventListener("change", function () {
-  const status = this.value;
-  const search = document.getElementById("search2").value;
-  fetchOrganizers(status, search);
-});
+// document.getElementById("status2").addEventListener("change", function () {
+//   const status = this.value;
+//   const search = document.getElementById("search2").value;
+//   fetchOrganizers(status, search);
+// });
 
 document.getElementById("example6_paginate").style.display = "none";
 

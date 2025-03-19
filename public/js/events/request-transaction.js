@@ -64,7 +64,7 @@ async function getTransaction() {
         </div>
         <div class="d-flex">
             <button ${disble && "disabled"} id="btnApproved" type="button" class="btn btn-brand me-2" onclick="approveRequest(${result.transaction_id}, 'btnApproved')">Approve</button>
-            <button ${disble && "disabled"} type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Disapprove</button>
+            <button ${disble && "disabled"} type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Reject</button>
         </div>
     </div>
 </div>
@@ -98,7 +98,7 @@ async function approveRequest(id, btn){
         btnShowLoading(btn)
         await axiosInstance.put("/tickets/approve-req-ticket/"+ id)
 
-        showToast(true, "Request Approved Successfully.")
+        showToast(true, isEnglish ? "Request Approved Successfully.": "សំណើត្រូវបានអនុម័តដោយជោគជ័យ")
 
         setTimeout(()=>{
             window.location.href = "/event/request-ticket-list"
@@ -133,9 +133,9 @@ document.getElementById("btn-disapprove").onclick = async ()=>{
             .trim()
             .required()
             .messages({
-                "string.min": "Reject Reason must be at least 10 characters long.",
-                "string.empty": "Reject Reason is required.",
-                "any.required": "Reject Reason is required."
+                "string.min": isEnglish ? "Reject Reason must be at least 10 characters long." : "ហេតុផលបដិសេធត្រូវតែមានយ៉ាងហោចណាស់ 10 តួអក្សរ",
+                "string.empty": isEnglish ?  "Reject Reason is required." : "ហេតុផលបដិសេធត្រូវបានទាមទារ",
+                "any.required": isEnglish ?  "Reject Reason is required." : "ហេតុផលបដិសេធត្រូវបានទាមទារ"
             })
     });
 
@@ -156,7 +156,7 @@ document.getElementById("btn-disapprove").onclick = async ()=>{
             document.getElementById("exampleModal")
           );
           disapproveModal.hide();
-        showToast(true, "Request rejected successfully.")
+        showToast(true, isEnglish ? "Request rejected successfully.": "សំណើត្រូវបានបដិសេធដោយជោគជ័យ")
 
        setTimeout(() => {
          window.location.href = "/event/request-ticket-list";

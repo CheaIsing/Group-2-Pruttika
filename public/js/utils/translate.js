@@ -1,6 +1,8 @@
 const translations = {
     noEvent: { en: "No Event to Display", kh: "គ្មាន Event សម្រាប់បង្ហាញ" },
     noCheckin: { en: "No Check-in to Display", kh: "គ្មាន Check-in សម្រាប់បង្ហាញ" },
+    noRequest: { en: "No Request to Display", kh: "គ្មាន Request សម្រាប់បង្ហាញ" },
+    noNoti: { en: "No Notification to Display", kh: "គ្មានការជូនដំណឹងសម្រាប់បង្ហាញ" },
     upcoming: { en: "Upcoming", kh: "នាពេលខាងមុខ" },
     showing: { en: "Showing", kh: "កំពុងបង្ហាញ" },
     past: { en: "Past", kh: "អតីតកាល" },
@@ -29,7 +31,7 @@ const translations = {
     step: { en: "step", kh: "ជំហាន" },
     of: { en: "of", kh: "នៃ" },
     
-
+    ticket: {en: "Ticket", kh: "សំបុត្រ"},
     // New Translations
     ticketCategory: { en: "Ticket Category", kh: "ប្រភេទសំបុត្រ" },
     enterTicketCategory: { en: "Enter ticket category", kh: "បញ្ចូលប្រភេទសំបុត្រ" },
@@ -62,8 +64,21 @@ const translations = {
 
         redeemSubmitted: { 
             en: "Redeem ticket has submitted. Please wait for confirmation from organizer.", 
-            kh: "ការស្នើសុំដោះសំបុត្របានបញ្ជូន។ សូមរង់ចាំការបញ្ជាក់ពីអ្នករៀបចំ។" 
-        }
+            kh: "ការស្នើសុំសំបុត្របានបញ្ជូន។ សូមរង់ចាំការបញ្ជាក់ពីអ្នករៀបចំ។" 
+        },
+        redeemedAlready : {
+            en: "You've already redeem this ticket",
+            kh: "អ្នកបានស្នើសុំសំបុត្រនេះរួចហើយ"
+        },
+        name: {en: "Name", kh: "ឈ្មោះ"},
+
+        redeem : {en: "Redeem", kh: "ស្នើ"},
+        msgResetPass:{en: "Password reset successful! Please sign in with your new password.", kh:"ការកំណត់ពាក្យសម្ងាត់ឡើងវិញបានជោគជ័យ! សូមចូលគណនីដោយប្រើពាក្យសម្ងាត់ថ្មីរបស់អ្នក" } ,
+        msgSignIn: {en: "Sign In Successfully.", kh: "ចូលគណនីដោយជោគជ័យ"},
+        msgSignUp: {en: "Sign Up Successfully.", kh: "ចុះឈ្មោះដោយជោគជ័យ"},
+        msgOtp: {en: "Password reset OTP has sent to your email.", kh: "កំណត់ពាក្យសម្ងាត់ឡើងវិញ OTP បានផ្ញើទៅអ៊ីមែលរបស់អ្នក"},
+        msgReset: {en: "OTP Verified Successfully. You can now reset your password.", kh: "OTP បានផ្ទៀងផ្ទាត់ដោយជោគជ័យ។ ឥឡូវនេះ អ្នកអាចកំណត់ពាក្យសម្ងាត់របស់អ្នកឡើងវិញបាន"},
+        msgUpdateEvent: {en: "Update Event Successfully.", kh: "ធ្វើបច្ចុប្បន្នភាពព្រឹត្តិការណ៍ដោយជោគជ័យ"},
 };
 
 

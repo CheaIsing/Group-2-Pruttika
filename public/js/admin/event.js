@@ -31,7 +31,7 @@ async function fetchEvents(
     const result = response.data.data.data;
     const totalPages = response.data.data.pagination.total_pages;
 
-    if (!result || result.length === 0) throw new Error("No events found.");
+    // if (!result || result.length === 0) throw new Error("No events found.");
 
     displayEvents(result);
     updatePagination(
@@ -42,7 +42,7 @@ async function fetchEvents(
       fetchEvents
     );
   } catch (error) {
-    console.error("Error fetching Events:", error.message);
+    console.error("Error fetching Events:", error);
   }
 }
 async function fetchCategories(
@@ -70,10 +70,12 @@ async function fetchCategories(
 
     const result = response.data.data.data;
     const totalPages = response.data.data.pagination.total_pages;
+    // console.log(result);
+    
 
-    if (!result || result.length === 0) {
-      throw new Error("No categories found.");
-    }
+    // if (!result || result.length === 0) {
+    //   throw new Error("No categories found.");
+    // }
 
     displayCategories(result);
     updatePagination(
@@ -101,7 +103,7 @@ function updatePagination(currentPage, totalPages, perPage, id, fetchFunction) {
     const pageLink = document.createElement("a");
     pageLink.classList.add("page-link");
     pageLink.href = "#";
-    pageLink.textContent = label;
+    pageLink.innerHTML = label;
 
     pageLink.addEventListener("click", (event) => {
       event.preventDefault();
@@ -115,7 +117,7 @@ function updatePagination(currentPage, totalPages, perPage, id, fetchFunction) {
   }
 
   paginationContainer.appendChild(
-    createPageButton(currentPage - 1, "Previous", currentPage === 1)
+    createPageButton(currentPage - 1, `<i class="fa-solid fa-chevron-left"></i>`, currentPage === 1)
   );
 
   for (let i = 1; i <= totalPages; i++) {
@@ -125,7 +127,7 @@ function updatePagination(currentPage, totalPages, perPage, id, fetchFunction) {
   }
 
   paginationContainer.appendChild(
-    createPageButton(currentPage + 1, "Next", currentPage === totalPages)
+    createPageButton(currentPage + 1,`<i class="fa-solid fa-chevron-right"></i>`, currentPage === totalPages)
   );
 }
 
@@ -153,58 +155,48 @@ async function fetchEventDetails(id) {
     const event = response.data.data.data;
 
     detailContainer.innerHTML = `
-          <div class="card p-3 border-0 shadow-sm">
-              <img src="/uploads/${
-                event.thumbnail
-              }" class="img-fluid mx-auto mb-3" style="width: 100%; height: 200px; object-fit: contain;" >
-              <h4 class="fw-bold">${event.eng_name} (${event.kh_name ? event.kh_name : "N/A"})</h4>
-              <hr>
-              <div class="row text-start">
-                <div class="col-6">
-                    <p><strong>Short description : </strong>${
-                      event.short_description
-                    }</p>
-                </div>
-                <div class="col-6">
-                    <p><strong>Description : </strong>${event.description}</p>
-                </div>
-              </div>
-              <div class="row text-start">
-                <div class="col-6">
-                    <p><strong>Started Date : </strong> ${new Date(
-                      event.started_date
-                    ).toLocaleDateString("en-CA")}</p>    
-                </div>
-                <div class="col-6">
-                    <p><strong>Ended Date : </strong> ${new Date(
-                      event.ended_date
-                    ).toLocaleDateString("en-CA")}</p>
-                </div>
-              </div>
-              <div class="row text-start">
-                    <div class="col-6">
-                        <p><strong>Start Time : </strong>${event.start_time}</p>
-                    </div>
-                    <div class="col-6">
-                        <p><strong>End Time : </strong>${event.end_time}</p>
-                    </div>
-              </div>
-              <div class="row text-start ">
-                    <div class="col-6">
-                      <p><strong>Location : </strong> ${event.location}</p>
-                    </div>
-                    <div class="col-6">
-                      <p><strong>Event Type : </strong> 
-                      <span class="badge ${
-                        event.event_type === 1 ? "bg-success" : "bg-danger"
-                      }">
-                          ${event.event_type === 1 ? "Online" : "Offline"}
-                      </span>
-                  </p>
-                    </div>
-              </div>
-              </div>
-          </div>
+<div class="card p-0 border-0 shadow-none text-start mb-0">
+    <img src="/uploads/${event.thumbnail}" class="img-fluid mb-3" style="width: 100%; height: 200px; object-fit: cover;">
+    <h4 class="fw-bold mb-3"><i class="fas fa-calendar-alt me-2 text-primary"></i> ${event.eng_name}</h4>
+    <hr class="my-3">
+    <div class="row mb-3 ">
+        <div class="col-md-12">
+            <p class="pb-0 mb-1"> ${event.short_description}</p>
+        </div>
+        <div class="col-md-12">
+            <p> ${event.description}</p>
+        </div>
+    </div>
+    <div class="row mb-3 justify-content-between">
+        <div class="col-auto">
+            <p><i class="fas fa-calendar-check me-2 text-primary"></i> ${new Date(event.started_date).toLocaleDateString("en-CA")}</p>
+        </div>
+        <div class="col-auto">
+            <p> ${new Date(event.ended_date).toLocaleDateString("en-CA")} <i class="fas fa-calendar-times ms-2 text-primary"></i></p>
+        </div>
+    </div>
+    <div class="row mb-3 justify-content-between">
+        <div class="col-auto">
+            <p><i class="fas fa-clock me-2 text-primary"></i> ${event.start_time} </p>
+        </div>
+        <div class="col-auto">
+            <p> ${event.end_time} <i class="fas fa-clock ms-2 text-primary"></i></p>
+        </div>
+    </div>
+    <div class="row  justify-content-between">
+        <div class="col-auto">
+            <p><i class="fas fa-map-marker-alt me-2 text-primary"></i> ${event.location}</p>
+        </div>
+        <div class="col-auto">
+            <p>
+                <span class="badge ${event.event_type === 1 ? "bg-success" : "bg-danger"}">
+                    ${event.event_type === 1 ? "Online" : "Offline"}
+                </span>
+                <i class="fas fa-tags ms-2 text-primary"></i> 
+            </p>
+        </div>
+    </div>
+</div>
       `;
   } catch (error) {
     detailContainer.innerHTML = "Failed to load user details.";
@@ -214,17 +206,20 @@ async function fetchEventDetails(id) {
 
 function displayEvents(events) {
   const tableBody = document.getElementById("tableBody");
+  if(events.length == 0){
+    return tableBody.innerHTML = `<tr>
+    <td colspan="9" class="text-center">No Event Found</td>
+    </tr>`
+  }
   tableBody.innerHTML = events
     .map(
-      (event) => `
+      (event, i) => `
             <tr>
-                <td>${event.id}</td>
+                <td>${i+1}</td>
                 <td>${event.eng_name}</td>
-                <td>${event.kh_name ? event.kh_name : "N/A"}</td>
-                <td><img class="img-preview" width="50" height="50" src="/uploads/${
+                <td><img class="img-preview object-fit-cover" width="70" height="50" src="/uploads/${
                   event.thumbnail
                 }"></td>
-                <td class="text-1-line">${event.description}</td>
                 <td>
                     <span class="badge ${
                       event.event_type === 1 ? "badge-success" : "badge-danger"
@@ -241,26 +236,14 @@ function displayEvents(events) {
                 </td> 
                 <td>${event.location ? event.location : "Online"}</td>        
                 <td>
-                    <div class="dropdown ms-auto text-center">
-                        <div class="btn-link" data-bs-toggle="dropdown">
-                            <svg width="24px" height="24px" viewbox="0 0 24 24" version="1.1">
-                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <rect x="0" y="0" width="24" height="24"></rect>
-                                    <circle fill="#000000" cx="5" cy="12" r="2"></circle>
-                                    <circle fill="#000000" cx="12" cy="12" r="2"></circle>
-                                    <circle fill="#000000" cx="19" cy="12" r="2"></circle>
-                                </g>
-                            </svg>
-                        </div>
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <a href="javascript:void(0)" class="dropdown-item" role="button" onclick="fetchEventDetails(${
+
+                           <a class="btn btn-primary py-1 px-2 btn-icon " style="height: auto !important;border-radius: 4px;" role="button" onclick="fetchEventDetails(${
                               event.id
                             })"
                              data-bs-toggle="modal" data-bs-target="#viewDetail">
-                             View details
+                             <i class="fa-regular fa-eye"></i>
                           </a>
-                        </div>
-                    </div>
+                    
                 </td>
             </tr>
         `
@@ -270,11 +253,18 @@ function displayEvents(events) {
 
 function displayCategories(categories) {
   const tableBody = document.getElementById("categoryTableBody");
+  console.log(categories);
+  
+  if(categories.length == 0){
+    return tableBody.innerHTML = `<tr>
+      <td colspan="9" class="text-center">No Categories Found</td>
+      </tr>`
+  }
   tableBody.innerHTML = categories
     .map(
-      (val) => `
+      (val, i) => `
             <tr>
-                <td>${val.id}</td>
+                <td>${i+1}</td>
                 <td>${val.name}</td>
                 <td>
                   <p>${new Date(val.created_at).toLocaleDateString("en-CA")}</p>
@@ -283,29 +273,19 @@ function displayCategories(categories) {
                   ${new Date(val.updated_at).toLocaleDateString("en-CA")}
                 </td>
                 <td>
-                    <div class="dropdown ms-auto">
-                        <div class="btn-link" data-bs-toggle="dropdown">
-                            <svg width="24px" height="24px" viewbox="0 0 24 24" version="1.1">
-                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <rect x="0" y="0" width="24" height="24"></rect>
-                                    <circle fill="#000000" cx="5" cy="12" r="2"></circle>
-                                    <circle fill="#000000" cx="12" cy="12" r="2"></circle>
-                                    <circle fill="#000000" cx="19" cy="12" r="2"></circle>
-                                </g>
-                            </svg>
-                        </div>
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <a href="javascript:void(0)" class="dropdown-item" role="button"
+                   <div class="d-flex gap-1">
+                   <a class="btn btn-success py-1 px-2 btn-icon " style="height: auto !important;border-radius: 4px;" role="button"
                              onclick="editCategory(${val.id})" 
                              data-bs-toggle="modal" data-bs-target="#editCategory">
-                             Edit Category
+                             <i class="fa-regular fa-pen-to-square"></i>
                           </a>
-                          <a href="javascript:void(0)" class="dropdown-item" role="button"
+                          <a class="btn btn-danger py-1 px-2 btn-icon " style="height: auto !important;border-radius: 4px;" role="button"
                              onclick="removeCategory(${val.id})">
-                             Remove Category
+                             <i class="fa-regular fa-trash-can"></i>
                           </a>
-                        </div>
-                    </div>
+                          
+                </div>
+
                 </td>
             </tr>
         `
@@ -519,6 +499,13 @@ const removeCategory = async (categoryId) => {
 
 fetchEvents();
 fetchCategories();
+
+document.getElementById("search").addEventListener("keyup", (e)=>{
+  fetchEvents("", e.target.value);
+})
+document.getElementById("search2").addEventListener("keyup", (e)=>{
+  fetchCategories(e.target.value);
+})
 
 document.getElementById("example6_paginate").style.display = "none";
 document.getElementById("example5_paginate").style.display = "none";

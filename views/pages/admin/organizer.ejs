@@ -47,7 +47,7 @@
                                                     </div>
                                                     <div class="card-body">
                                                         <div class="table-responsive">
-                                                            <form id="searchForm">
+                                                            <div id="searchForm">
                                                                 <div
                                                                     class="d-flex justify-content-between align-items-center">
                                                                     <select id="status" class="form-select">
@@ -59,11 +59,11 @@
                                                                     <input class="form-control" type="text" id="search"
                                                                         placeholder="Search by name">
                                                                 </div>
-                                                            </form>
+                                                            </div>
                                                             <table id="example6" class="display mb-4"
                                                                 style="min-width: 845px">
                                                                 <thead>
-                                                                    <tr>
+                                                                    <tr style="pointer-events: none !important;">
                                                                         <th>ID</th>
                                                                         <th>Organization_name</th>
                                                                         <th>Email</th>
@@ -87,31 +87,31 @@
                                                 <div class="card">
                                                     <div class="card-header">
                                                         <h4 class="card-title">Display all Organizers</h4>
+                                                        <input class="form-control" type="text" id="search2"
+                                                                        placeholder="Search by name">
                                                     </div>
                                                     <div class="card-body">
                                                         <div class="table-responsive">
-                                                            <form id="searchForm">
+                                                            <div id="searchForm2">
                                                                 <div
-                                                                    class="d-flex justify-content-between align-items-center">
-                                                                    <select id="status2" class="form-select">
+                                                                    class="d-flex justify-content-end align-items-center">
+                                                                    <!-- <select id="status2" class="form-select">
                                                                         <option value="">All Status</option>
                                                                         <option value="1">Active</option>
                                                                         <option value="2">Inactive</option>
-                                                                    </select>
-                                                                    <input class="form-control" type="text" id="search2"
-                                                                        placeholder="Search by name">
+                                                                    </select> -->
+                                                                    
                                                                 </div>
-                                                            </form>
+                                                            </div>
                                                             <table id="example5" class="display"
                                                                 style="min-width: 845px">
                                                                 <thead>
-                                                                    <tr>
+                                                                    <tr style="pointer-events: none !important;">
                                                                         <th>ID</th>
                                                                         <th>Organization_name</th>
                                                                         <th>Email</th>
                                                                         <th>Phone</th>
                                                                         <th>Location</th>
-                                                                        <th>Status</th>
                                                                         <th>Action</th>
                                                                     </tr>
                                                                 </thead>

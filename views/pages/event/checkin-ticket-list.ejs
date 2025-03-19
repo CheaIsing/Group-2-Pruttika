@@ -62,13 +62,21 @@
                                                 <h4><%= t('event.checkin-ticket.CheckedIn') %></h4>
                                         </div>
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-6 ms-auto">
                                                     <div
                                                 class=" d-flex justify-content-end">
-                                                <input type="text"
+                                                <!-- <input type="text"
                                                     id="searchInput"
                                                     class="form-control mb-3 "
-                                                    placeholder="<%= t('event.checkin-ticket.searchBy') %>...">
+                                                    placeholder="<%= t('event.checkin-ticket.searchBy') %>..."> -->
+                                                    <div class="d-flex align-items-center position-relative w-100 mb-3">
+                                                        <i class="fa-solid fa-magnifying-glass text-brand fs-6 ms-3 position-absolute"></i>
+                                                        <input name="search" type="text" class="form-control search-bar border-style ps-5 shadow-none" id="searchInput"
+                                                            placeholder="<%= t('event.checkin-ticket.searchBy') %>..." />
+                                                        <!-- <button class="btn-pink position-absolute"><i
+                                                                class="fa-solid fa-magnifying-glass fs-6"></i></button> -->
+                                                        
+                                                    </div>
                                             </div>
                                                 </div>
                                             </div>

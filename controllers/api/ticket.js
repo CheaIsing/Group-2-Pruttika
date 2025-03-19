@@ -192,7 +192,7 @@ const putApproveTicket = async (req, res) => {
 
             const checkAvailableTicket = await executeQuery(`
                 select * from tbl_ticketevent_type 
-                where id=? AND ticket_bought < (ticket_opacity - ?)
+                where id=? AND ticket_bought <= (ticket_opacity - ?)
             `, [ticket_event_id, ticket_qty]);
 
 

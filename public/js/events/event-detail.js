@@ -17,10 +17,47 @@ let isOnlineEvent = false;
 let userId = null;
 let isOnlineRedeemTicket = false
 
-let categories = []
+let categories = [];
+function setPlaceholder(){
+  document.querySelector(".placeholer-content").innerHTML=`
+    <div class="skeleton after-skeleton" style="height: 200px;"></div>
+        <div class="container py-5 after-skeleton">
+            <div class="row g-4">
+                <div class="col-12 col-lg-8 order-2 order-lg-1">
+                    <!-- <div class="event-image"></div> -->
+                    <div class="skeleton" style="height: 150px; width: 100%;"></div>
+                    <h1 class="skeleton" style="height: 30px; width: 100%; margin: 10px 0;"></h1>
+                    <p class="skeleton" style="height: 20px; width: 100%; margin: 10px 0;"></p>
+                    <div class="skeleton" style="height: 100px; width: 100%;"></div>
+                    <div class="skeleton" style="height: 20px; width: 100%; margin: 10px 0;"></div>
+                </div>
+                <div class="col-12 col-lg-4 order-1 order-lg-2">
+                    <div class="event-details-card">
+                        <h1 class="skeleton" style="height: 30px; width: 100%; margin: 10px 0;"></h1>
+                        <p class="skeleton" style="height: 20px; width: 100%; margin: 10px 0;"></p>
+                        <div class="skeleton" style="height: 100px; width: 100%;"></div>
+                        <div class="skeleton" style="height: 20px; width: 100%; margin: 10px 0;"></div>
+                    </div>
+                    <div class="event-details-card mt-4">
+                        <h1 class="skeleton" style="height: 30px; width: 100%; margin: 10px 0;"></h1>
+                        <p class="skeleton" style="height: 20px; width: 100%; margin: 10px 0;"></p>
+                    </div>
+                    <div class="event-details-card mt-4">
+                        <h1 class="skeleton" style="height: 30px; width: 100%; margin: 10px 0;"></h1>
+                        <p class="skeleton" style="height: 20px; width: 100%; margin: 10px 0;"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+  `;
+  document.querySelectorAll('.before-skeleton').forEach(el => el.classList.add('d-none'));
+}
 
 async function getEventDetail() {
+  // Show skeletons while loading
+  setPlaceholder();
   try {
+
     isAuth = false;
     let data3 = null;
     try {
@@ -103,8 +140,8 @@ async function getEventDetail() {
         .getElementById("btnFollow")
         .setAttribute("onclick", `toggleFollow(${eventObj.creator.id}, this)`);
       document.getElementById("btnFollow").innerText = isFollowing
-        ? "Unfollow"
-        : "Follow";
+        ? getText("unfollow")
+        : getText("follow");
 
       isRedeemTicket = freeTicket.some(
         (r) =>
@@ -196,7 +233,7 @@ async function getEventDetail() {
       document.getElementById("remain-capacity-container").classList.add("d-none")
       document.getElementById("ticket-category-container").classList.add("d-none")
 
-      document.getElementById("btnPurchaseTicket").innerText = "Redeem";
+      document.getElementById("btnPurchaseTicket").innerText = getText("redeem");
 
 
     } else {
@@ -213,7 +250,7 @@ async function getEventDetail() {
       eventObj.event_tickets[0].price === 0
     ) {
       isFreeTicket = true;
-      document.getElementById("btnPurchaseTicket").innerText = "Redeem Ticket";
+      document.getElementById("btnPurchaseTicket").innerText = getText("redeem") + getText("ticket")
     }
 
     document.getElementById("desc").innerHTML = eventObj.description;
@@ -227,9 +264,9 @@ async function getEventDetail() {
       document.getElementById("range-price").innerText =
         eventObj.event_tickets[0].price > 0
           ? `$${eventObj.event_tickets[0].price.toFixed(2)}`
-          : "Free Ticket";
+          : "Free "+ getText("ticket");
     } else {
-      document.getElementById("range-price").innerText = "Free Ticket";
+      document.getElementById("range-price").innerText = "Free "+getText("ticket");
     }
 
     let agendaHtml = eventObj.event_agenda
@@ -246,6 +283,10 @@ async function getEventDetail() {
       .join("");
     document.getElementById("agenda-container").innerHTML =
       agendaHtml || document.getElementById("agenda-section").remove();
+    
+    // Hide skeletons after loading is complete
+    document.querySelector('.placeholer-content').classList.add('d-none');
+    document.querySelectorAll('.before-skeleton').forEach(el => el.classList.remove('d-none'));
   } catch (error) {
     console.log(error);
     showToast();
@@ -393,11 +434,12 @@ document.getElementById("btn-copylink-event").onclick = () => {
 document
   .getElementById("btnPurchaseTicket")
   .addEventListener("click", async (e) => {
+    let msgBtn = document.getElementById("btnPurchaseTicket").innerText
     if(!isAuth){
       return window.location.href = "/auth/signin"
     }
     if(isRedeemTicket || isOnlineRedeemTicket){
-      showToast(false, "You've already redeem this ticket.")
+      showToast(false, getText("redeemedAlready"))
       return
     }
     if (isOnlineEvent && isAuth) {
@@ -421,7 +463,7 @@ document
         showToast();
         console.log(error);
       } finally {
-        btnCloseLoading("btnPurchaseTicket", "Redeem");
+        btnCloseLoading("btnPurchaseTicket", msgBtn);
         document.getElementById("btnPurchaseTicket").disabled = true;
       }
     } else if (isFreeTicket && !isRedeemTicket) {
@@ -445,7 +487,7 @@ document
           showToast();
           console.log(error);
         } finally {
-          btnCloseLoading("btnPurchaseTicket", "Redeem");
+          btnCloseLoading("btnPurchaseTicket", msgBtn);
           document.getElementById("btnPurchaseTicket").classList.add("disabled");
         }
       }

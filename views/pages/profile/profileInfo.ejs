@@ -24,12 +24,12 @@
                                 class="bg-brand text-white d-flex align-items-center justify-content-center "
                                 data-bs-toggle="dropdown"
                                 aria-expanded="false" id="btnChangeProfile"><i
-                                    class="fa-solid fa-pen" ></i></label>
+                                class="fa-solid fa-pen" ></i></label>
                             <ul class="dropdown-menu"
                                 id="changeProfileDropdown">
                                 <!-- Dropdown menu links -->
-                                <li><button onclick="document.getElementById('imageUpload').click()" class="dropdown-item"><%= t('profile.profile-info.changePf') %></button></li>
-                                <li><button id="deleteImage" class="dropdown-item"><%= t('profile.profile-info.removePf') %></button></li>
+                                <li><button onclick="document.getElementById('imageUpload').click()" class="dropdown-item"><i data-lucide="camera" style="stroke-width: 1.5;width: 20px;"></i> &nbsp;<%= t('profile.profile-info.changePf') %></button></li>
+                                <li><button id="deleteImage" class="dropdown-item"><i data-lucide="trash-2" style="stroke-width: 1.5;width: 20px;"></i> &nbsp;<%= t('profile.profile-info.removePf') %></button></li>
                             </ul>
                         </div>
                         <div

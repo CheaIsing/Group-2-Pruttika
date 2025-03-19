@@ -5101,3 +5101,28 @@ color: var(--c-brand);
     /* background-color: black; */
   }
 }
+
+
+/* placeholder  */
+/* Skeleton loading styles */
+.skeleton {
+  background-color: #e0e0e0; /* Light gray background */
+  border-radius: 4px;       /* Rounded corners */
+  margin: 10px 0;           /* Margin for spacing */
+  animation: shimmer 1.5s infinite; /* Shimmering effect */
+}
+
+@keyframes shimmer {
+  0% {
+      background-color: #e0e0e0; /* Start color */
+  }
+  50% {
+      background-color: #f0f0f0; /* Middle color */
+  }
+  100% {
+      background-color: #e0e0e0; /* End color */
+  }
+}
+.hidden {
+  display: none; /* Hide elements */
+}

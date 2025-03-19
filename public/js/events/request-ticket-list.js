@@ -56,9 +56,9 @@ if(!eventId){
             console.log(data);
 
             if(json.length ==0){
-              document.getElementById("request-tbody").innerHTML = `<tr><td colspan="7"><div class="text-center w-100 my-5">
+              document.getElementById("request-tbody").innerHTML = `<tr><td colspan="9"><div class="text-center w-100 my-5">
               <img src="/img/noFound.png" alt="..." height="220px;">
-              <h4 class="text-center text-brand mt-2">No Request to Display</h4>
+              <h4 class="text-center text-brand mt-2">${getText("noRequest")}</h4>
             </div></td></tr>`
             }
             

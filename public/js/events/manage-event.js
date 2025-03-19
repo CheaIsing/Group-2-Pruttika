@@ -140,7 +140,7 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
 
       let isOffline = event.event_type !== "offline";
       let eventLinkAttributes = ``;
-      // console.log(data);
+      console.log(data);
       
 
       let totalPrice = data.data.ticket.length > 0 
@@ -193,10 +193,10 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
                             <i class="bi bi-three-dots"></i>
                           </button>
                           <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a role="button" class="dropdown-item edit-event-btn" onclick="updateEvent(${event.id})">Update</a></li>
-                            <li><a role="button" class="dropdown-item delete-event-btn" onclick="deleteEvent(${event.id}, this)">Delete</a></li>
-                            <li><a class="dropdown-item views-event-detail" href="/event/detail?e=${event.id}">View</a></li>
-                            <li><a role="button" class="dropdown-item" onclick="copyEventUrlToClipboard(${event.id})">Copy Link</a></li>
+                            <li><a role="button" class="dropdown-item d-flex align-items-center edit-event-btn" onclick="updateEvent(${event.id})"><i data-lucide="pencil" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;Update</a></li>
+                            <li><a role="button" class="dropdown-item d-flex align-items-center delete-event-btn" onclick="deleteEvent(${event.id}, this)"><i data-lucide="trash-2" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;Delete</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center views-event-detail" href="/event/detail?e=${event.id}"><i data-lucide="eye" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;View</a></li>
+                            <li><a role="button" class="dropdown-item d-flex align-items-center" onclick="copyEventUrlToClipboard(${event.id})"><i data-lucide="link" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;Copy Link</a></li>
                           </ul>
                         </div>
                       </td>
@@ -362,10 +362,10 @@ async function renderEventsUpcoming(page = 1, perpage = 10, is_published = null)
                             <i class="bi bi-three-dots"></i>
                           </button>
                           <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a role="button" class="dropdown-item edit-event-btn" onclick="updateEvent(${event.id})">Update</a></li>
-                            <li><a role="button" class="dropdown-item delete-event-btn" onclick="deleteEvent(${event.id}, this)">Delete</a></li>
-                            <li><a class="dropdown-item views-event-detail" href="/event/detail?e=${event.id}">View</a></li>
-                            <li><a role="button" class="dropdown-item" onclick="copyEventUrlToClipboard(${event.id})">Copy Link</a></li>
+                            <li><a role="button" class="dropdown-item d-flex align-items-center edit-event-btn" onclick="updateEvent(${event.id})"><i data-lucide="pencil" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;Update</a></li>
+                            <li><a role="button" class="dropdown-item d-flex align-items-center delete-event-btn" onclick="deleteEvent(${event.id}, this)"><i data-lucide="trash-2" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;Delete</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center views-event-detail" href="/event/detail?e=${event.id}"><i data-lucide="eye" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;View</a></li>
+                            <li><a role="button" class="dropdown-item d-flex align-items-center" onclick="copyEventUrlToClipboard(${event.id})"><i data-lucide="link" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;Copy Link</a></li>
                           </ul>
                         </div>
                       </td>
@@ -531,10 +531,10 @@ async function renderEventsShowing(page = 1, perpage = 10, is_published = null) 
                             <i class="bi bi-three-dots"></i>
                           </button>
                           <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a role="button" class="dropdown-item edit-event-btn" onclick="updateEvent(${event.id})">Update</a></li>
-                            <li><a role="button" class="dropdown-item delete-event-btn" onclick="deleteEvent(${event.id}, this)">Delete</a></li>
-                            <li><a class="dropdown-item views-event-detail" href="/event/detail?e=${event.id}">View</a></li>
-                            <li><a role="button" class="dropdown-item" onclick="copyEventUrlToClipboard(${event.id})">Copy Link</a></li>
+                            <li><a role="button" class="dropdown-item d-flex align-items-center edit-event-btn" onclick="updateEvent(${event.id})"><i data-lucide="pencil" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;Update</a></li>
+                            <li><a role="button" class="dropdown-item d-flex align-items-center delete-event-btn" onclick="deleteEvent(${event.id}, this)"><i data-lucide="trash-2" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;Delete</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center views-event-detail" href="/event/detail?e=${event.id}"><i data-lucide="eye" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;View</a></li>
+                            <li><a role="button" class="dropdown-item d-flex align-items-center" onclick="copyEventUrlToClipboard(${event.id})"><i data-lucide="link" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;Copy Link</a></li>
                           </ul>
                         </div>
                       </td>
@@ -690,10 +690,10 @@ async function renderEventsPast(page = 1, perpage = 10, is_published = null) {
                             <i class="bi bi-three-dots"></i>
                           </button>
                           <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a role="button" class="dropdown-item edit-event-btn" onclick="updateEvent(${event.id})">Update</a></li>
-                            <li><a role="button" class="dropdown-item delete-event-btn" onclick="deleteEvent(${event.id}, this)">Delete</a></li>
-                            <li><a class="dropdown-item views-event-detail" href="/event/detail?e=${event.id}">View</a></li>
-                            <li><a role="button" class="dropdown-item" onclick="copyEventUrlToClipboard(${event.id})">Copy Link</a></li>
+                            <li><a role="button" class="dropdown-item d-flex align-items-center edit-event-btn" onclick="updateEvent(${event.id})"><i data-lucide="pencil" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;Update</a></li>
+                            <li><a role="button" class="dropdown-item d-flex align-items-center delete-event-btn" onclick="deleteEvent(${event.id}, this)"><i data-lucide="trash-2" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;Delete</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center views-event-detail" href="/event/detail?e=${event.id}"><i data-lucide="eye" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;View</a></li>
+                            <li><a role="button" class="dropdown-item d-flex align-items-center" onclick="copyEventUrlToClipboard(${event.id})"><i data-lucide="link" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;Copy Link</a></li>
                           </ul>
                         </div>
                       </td>

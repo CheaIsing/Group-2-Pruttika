@@ -11,10 +11,6 @@
 
                 <section class="p-4 w-100">
 
-
-
-
-                    
                     <div class="px-md-3">
                         <div id="content">
                             <div class="d-flex align-items-center">
@@ -40,12 +36,13 @@
                             <div class="d-flex gap-3">
                                 <div class="">
                                     <!-- <label for="statusFilter" class="form-label">Filter by Status:</label> -->
-                                    <select id="statusFilter" class="form-select mb-3">
+                                    <select id="statusFilter" class="form-select mb-3 form-select rounded-5 ps-3 w-auto border-brand-sm" style="">
                                         <option value=""><%= t('event.All') %></option>
                                         <option value="Approved"><%= t('event.Approved') %></option>
                                         <option value="Pending"><%= t('event.Pending') %></option>
                                         <option value="Rejected"><%= t('event.Rejected') %></option>
                                     </select>
+
                                 </div>
                                 <!-- <div class="">
                                     <label for="dateFilter" class="form-label">Filter by Date:</label>
@@ -54,9 +51,15 @@
                                 
                                 
                             </div>
-                            <div class=" w-50 d-flex justify-content-end">
-                                <input type="text" id="searchInput" class="form-control mb-3 w-75" placeholder="<%= t('event.searchByName') %>...">
+                            <div class="d-flex align-items-center position-relative w-50 mb-3">
+                                <i class="fa-solid fa-magnifying-glass text-brand fs-6 ms-3 position-absolute"></i>
+                                <input name="search" type="text" class="form-control search-bar border-style ps-5 shadow-none" id="searchInput"
+                                    placeholder="<%= t('event.searchByName') %>..." />
+                                <!-- <button class="btn-pink position-absolute"><i
+                                        class="fa-solid fa-magnifying-glass fs-6"></i></button> -->
+                                
                             </div>
+
                     
                     
                         </div>

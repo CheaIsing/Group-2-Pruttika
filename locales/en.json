@@ -30,7 +30,7 @@
     "verify-otp": {
       "heading": "OTP Verification",
       "label": "Enter the code that we sent to your email",
-      "button": "verify",
+      "button": "Verify",
       "question": "Didn't receive the OTP?",
       "resend": "Resend"
     },
@@ -56,7 +56,9 @@
       "delete-btn":"Delete Account"
     },
     "changeLanguage":{
-      "title": "Change Language"
+      "title": "Change Language",
+      "content1":"Choose your preferred language from the options below. This will change the language across the entire application.",
+      "content2":"Your current language selection will be saved automatically."
     },
     "changePw":{
       "title":"Change Your Password",
@@ -142,7 +144,7 @@
             "policy": "Our Policy",
             "team": "Term Of Service",
             "faq":"FAQs",
-            "copyright": "Copyright ©2024 All rights reserved"
+            "copyright": "Copyright PRUTTIKA ©2024 All rights reserved"
         },
         "header":{
             "search":"Search Event",
@@ -169,7 +171,10 @@
             "checkin-ticket":"Check-in Ticket",
             "profile-info": "Profile Information",
             "acc-management":"Account Management",
-            "org-management": "Organizer Setting"
+            "org-management": "Organizer Setting",
+            "changeLang":"Change Language",
+            "termService":"Terms of Service",
+            "policy":"Privacy Policy"
         }
   },
 
@@ -401,7 +406,8 @@
       "Name":"Name",
       "Amount":"Amount",
       "Date":"Date",
-      "Action":"Action"
+      "Action":"Action",
+      "type":"Type"
     },
     "req-transaction":{
       "backToReq-list":"Back to Request Ticket List",
@@ -436,6 +442,10 @@
     "Event":"Event",
     "hero-content1":"It's Time to",
     "hero-content2":"Celebrate!",
+    "hero2-content1":"Promote your event",
+    "hero2-content2":"services",
+    "hero2-content3":"with Us!",
+    "btn-promote":"Promote yours now!",
     "btn-create":"Create your event now!",
     "previous":"Previous",
     "next":"Next",
@@ -447,12 +457,13 @@
     "explore-top": "Explore top",
     "categories":"Categories",
     "event-created":"Events Created",
-    "event-management":"Event Management",
-    "event-ticket":"Event Tickets",
+    "event-management":"Organizers Count",
+    "event-ticket":"Users Count",
     "abt-1":"Welcome to",
     "abt-h1":"Your One-Stop Platform for All Things Events!",
     "abt-p":"Pruttika is an innovative, user-friendly website designed to empower users with complete control over their events. From ideation to execution, Pruttika provides a comprehensive suite of tools to create events, manage tickets, and promote services effectively."
   },
+
   "static":{
     "policy":{
       "title":"Privacy Policy",
@@ -536,7 +547,7 @@
     },
     "aboutUs":{
       "Welcome":"Welcome!",
-      "introduce":"We are students in the IT field, recipients of a scholarship at ANT Technology Training Center, studying web development.",
+      "introduce":"We are information technology students, scholarship recipients at ANT Technology Training Center, specializing in web development.",
       "gratitude":"Statement of Gratitude",
       "gratitude1":"We express our sincere gratitude to the",
       "ministry":"Ministry of Post and Telecommunications",
@@ -545,13 +556,25 @@
       "and":"and",
       "ant":"ANT Technology Training",
       "gratitude2":"for the web development scholarship.",
-      "gratitude3":"This opportunity has significantly eased our educational journey, and we are committed to using our skills to contribute to society.",
+      "gratitude3":"This invaluable opportunity has substantially alleviated the financial burdens of our educational pursuits. We are dedicated to leveraging the acquired skills to contribute meaningfully to societal advancement.",
       "team":"Our Team",
-      "team1-content":"3rd Year IT Student at RUPP, studying Web Development at ANT Technology Training.",
-      "team2-content":"3rd Year IT Student at RULE, studying Web Development at ANT Technology Training.",
-      "team3-content":"3rd Year CS Student at RUPP, studying Web Development at ANT Technology Training.",
-      "team4-content":"4rd Year CS Student at RUPP, studying Web Development at ANT Technology Training.",
-      "team5-content":"3rd Year IT Student at SETEC, studying Web Development at ANT Technology Training."
+      "team1-content":"A third-year student of Computer Science at the Royal University of Phnom Penh (RUPP)",
+      "team2-content":"A third-year student of Informatics Economics at the Royal University of Law and Economics.",
+      "team3-content":"A third-year student of Computer Science at the Royal University of Phnom Penh (RUPP)",
+      "team4-content":"A fourth-year student of Computer Science at the Royal University of Phnom Penh (RUPP)",
+      "team5-content":"A third-year student specializing in Information Technology (IT) at SETEC Institute ."
+    },
+    "contact":{
+      "title":"Get in Touch",
+      "engName":"English Username",
+      "khName":"Khmer Username",
+      "phone":"Phone Number",
+      "enterPhone":"Enter your phone number",
+      "email":"Email",
+      "enterEmail":"Enter your email",
+      "Comment":"Comment",
+      "enterComment":"Enter your comment",
+      "saveChange":"Save Changes"
     }
     
   }

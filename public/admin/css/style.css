@@ -53,12 +53,12 @@
         _page-user-lock
 
 */
-@import url("../../css2.css");
+/* @import url("../../css2.css");
 @import url("../../css.css");
 @import url("../../css-1.css");
 @import url("../../css-2.css");
 @import url("../../css-3.css");
-@import url("../../css-4.css");
+@import url("../../css-4.css"); */
 @import url("../icons/simple-line-icons/css/simple-line-icons.css");
 @import url("../icons/font-awesome/css/all.min.css");
 @import url("../icons/material-design-iconic-font/css/materialdesignicons.min.css");
@@ -74,20 +74,20 @@
 @import url(../vendor/perfect-scrollbar/css/perfect-scrollbar.css);
 @import url(../vendor/metismenu/css/metisMenu.min.css);
 :root {
-  --primary: #886CC0;
+  --primary: #ff1694;
   --secondary: #FFA7D7;
   --primary-light: #a590cf;
-  --primary-hover: #6c4bae;
-  --primary-dark: #402c67;
-  --rgba-primary-1: rgba(136, 108, 192, 0.1);
-  --rgba-primary-2: rgba(136, 108, 192, 0.2);
-  --rgba-primary-3: rgba(136, 108, 192, 0.3);
-  --rgba-primary-4: rgba(136, 108, 192, 0.4);
-  --rgba-primary-5: rgba(136, 108, 192, 0.5);
-  --rgba-primary-6: rgba(136, 108, 192, 0.6);
-  --rgba-primary-7: rgba(136, 108, 192, 0.7);
-  --rgba-primary-8: rgba(136, 108, 192, 0.8);
-  --rgba-primary-9: rgba(136, 108, 192, 0.9);
+  --primary-hover: #ff1692c7;
+  --primary-dark: #f00080;
+  --rgba-primary-1: rgba(255, 22, 148, 0.1);
+  --rgba-primary-2: rgba(255, 22, 148, 0.2);
+  --rgba-primary-3: rgba(255, 22, 148, 0.3);
+  --rgba-primary-4: rgba(255, 22, 148, 0.4);
+  --rgba-primary-5: rgba(255, 22, 148, 0.5);
+  --rgba-primary-6: rgba(255, 22, 148, 0.6);
+  --rgba-primary-7: rgba(255, 22, 148, 0.7);
+  --rgba-primary-8: rgba(255, 22, 148, 0.8);
+  --rgba-primary-9: rgba(255, 22, 148, 0.9);
   --font-family-base: Roboto, sans-serif;
   --font-family-title: Roboto, sans-serif;
   --title: #000;
@@ -29179,3 +29179,22 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
 /* #main-wrapper.menu-toggle .nav-header .brand-logo:nth-child(2){
   display: none !important;
 } */
+
+@media(min-width: 768px) and (max-width: 1024px){
+
+  #main-wrapper .nav-header .brand-logo img:nth-child(1){
+    display: block;
+  }
+  #main-wrapper .nav-header .brand-logo img:nth-child(2) {
+    display: none !important;
+  }
+}
+@media(max-width: 768px) {
+
+  #main-wrapper .nav-header .brand-logo img:nth-child(1){
+    display: block;
+  }
+  #main-wrapper .nav-header .brand-logo img:nth-child(2) {
+    display: none !important;
+  }
+}

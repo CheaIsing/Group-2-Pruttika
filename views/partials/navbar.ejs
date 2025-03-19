@@ -217,11 +217,11 @@
               
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
-              <li><a class="dropdown-item" href="<%= (user && user.role != 1) ? `/event/manage` : `/profile/organizer` %>"><%= t('partials.header.manage-org') %></a></li>
-              <li><a class="dropdown-item" href="/follow/follower"><%= t('partials.header.following') %></a></li>
-              <li><a class="dropdown-item" href="/event/wishlist"><%= t('partials.header.wishlist') %></a></li>
-              <li><a class="dropdown-item" href="/profile/info"><%= t('partials.header.acc-setting') %></a></li>
-              <li><a class="dropdown-item border-top" role="button" id="btn-logout" onclick="logOut()"><%= t('partials.header.logout') %></a></li>
+              <li><a class="dropdown-item" href="<%= (user && user.role != 1) ? `/event/manage` : `/profile/organizer` %>"><i data-lucide="user-round-cog" style="stroke-width: 1.5;width: 24px;"></i> &nbsp;<%= t('partials.header.manage-org') %></a></li>
+              <li><a class="dropdown-item" href="/follow/follower"><i data-lucide="user-plus" style="stroke-width: 1.5;width: 24px;"></i> &nbsp;<%= t('partials.header.following') %></a></li>
+              <li><a class="dropdown-item" href="/event/wishlist"><i data-lucide="heart" style="stroke-width: 1.5;width: 24px;"></i> &nbsp;<%= t('partials.header.wishlist') %></a></li>
+              <li><a class="dropdown-item" href="/profile/info"><i data-lucide="settings" style="stroke-width: 1.5;width: 24px;"></i> &nbsp;<%= t('partials.header.acc-setting') %></a></li>
+              <li><a class="dropdown-item border-top" role="button" id="btn-logout" onclick="logOut()"><i data-lucide="log-out" style="stroke-width: 1.5;width: 24px;"></i> &nbsp;<%= t('partials.header.logout') %></a></li>
             </ul>
           </div>
           
