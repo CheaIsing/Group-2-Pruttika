@@ -5,7 +5,7 @@ const { sendResponse } = require("../../../utils/response");
 
 const displayRequestOrganizer = async (req, res) => {
   try {
-    const { status, search } = req.query;
+    const { status=null, search } = req.query;
     let {
       page = 1,
       per_page = 50,
@@ -51,9 +51,9 @@ const displayRequestOrganizer = async (req, res) => {
 
     const data = await executeQuery(query, queryParams);
 
-    if (data.length === 0) {
-      return sendResponse(res, 404, false, "No organizers request found.");
-    }
+    // if (data.length === 0) {
+    //   return sendResponse(res, 404, false, "No organizers request found.");
+    // }
 
     const totalPages = Math.ceil(total / perPageNum);
 
@@ -75,7 +75,7 @@ const displayRequestOrganizer = async (req, res) => {
 
 const displayAllOrganizer = async (req, res) => {
   try {
-    const { status, search } = req.query;
+    const { status=null, search=null } = req.query;
     let {
       page = 1,
       per_page = 50,
@@ -128,9 +128,9 @@ const displayAllOrganizer = async (req, res) => {
     // Execute data query
     const data = await executeQuery(query, queryParams);
 
-    if (data.length === 0) {
-      return sendResponse(res, 404, false, "No organizers found.");
-    }
+    // if (data.length === 0) {
+    //   return sendResponse(res, 404, false, "No organizers found.");
+    // }
 
     sendResponse(res, 200, true, "Display all organizers", {
       data,

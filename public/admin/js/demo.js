@@ -78,7 +78,7 @@ function deleteAllCookie(reload = true)
 		typography: "poppins",
 		version: "light",
 		layout: "vertical",
-		primary: "color_1",
+		primary: "color_15",
 		headerBg: "color_1",
 		navheaderBg: "color_1",
 		sidebarBg: "color_1",

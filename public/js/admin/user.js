@@ -33,14 +33,14 @@ async function fetchUsers(
     const result = response.data.data.users;
     const totalPages = response.data.data.pagination.total_pages;
 
-    if (!result || result.length === 0) {
-      throw new Error("No users found or failed to fetch users.");
-    }
+    // if (!result || result.length === 0) {
+    //   throw new Error("No users found or failed to fetch users.");
+    // }
 
     displayUsers(result);
     updatePagination(page, totalPages, perPage, fetchUsers);
   } catch (error) {
-    console.error("Error fetching users:", error.message);
+    console.error("Error fetching users:", error);
   }
 }
 
@@ -58,7 +58,7 @@ function updatePagination(currentPage, totalPages, perPage, fetchFunction) {
     const pageLink = document.createElement("a");
     pageLink.classList.add("page-link");
     pageLink.href = "#";
-    pageLink.textContent = label;
+    pageLink.innerHTML = label;
 
     pageLink.addEventListener("click", (event) => {
       event.preventDefault();
@@ -72,7 +72,7 @@ function updatePagination(currentPage, totalPages, perPage, fetchFunction) {
   }
 
   paginationContainer.appendChild(
-    createPageButton(currentPage - 1, "Previous", currentPage === 1)
+    createPageButton(currentPage - 1, `<i class="fa-solid fa-chevron-left"></i>`, currentPage === 1)
   );
 
   for (let i = 1; i <= totalPages; i++) {
@@ -82,7 +82,7 @@ function updatePagination(currentPage, totalPages, perPage, fetchFunction) {
   }
 
   paginationContainer.appendChild(
-    createPageButton(currentPage + 1, "Next", currentPage === totalPages)
+    createPageButton(currentPage + 1, `<i class="fa-solid fa-chevron-right"></i>`, currentPage === totalPages)
   );
 }
 
@@ -99,25 +99,26 @@ function displayUsers(users) {
   const tableBody = document.getElementById("usersTableBody");
   if (!tableBody) return;
 
+  if(users.length ==0){
+    return tableBody.innerHTML = `
+    <tr>
+    <td colspan="9" class="text-center">No User Found</td>
+    </tr>`
+  }
+
   tableBody.innerHTML = users
     .map(
-      (user) => `
+      (user, i) => `
           <tr>
-              <td>${user.id}</td>
-              <td><img class="rounded-circle" width="35" height="35" src="/uploads/${
+              <td>${i+1}</td>
+              <td><img class="rounded-circle object-fit-cover" width="35" height="35" src="/uploads/${
                 user.avatar? user.avatar : "default.jpg"
               }"></td>
               <td>${user.kh_name ? user.kh_name : "N/A"}</td>
-              <td>${user.eng_name}</td>
+              <td>${user.eng_name ? user.eng_name : "N/A"}</td>
               <td>${user.email}</td>
               <td>${user.phone ? user.phone : "N/A"}</td>
-              <td>
-                  <span class="badge ${
-                    user.status === 1 ? "badge-success" : "badge-danger"
-                  }">
-                      ${user.status === 1 ? "Active" : "Inactive"}
-                  </span>
-              </td>
+              
               <td>
                 <span class="badge ${
                   user.role === 1
@@ -133,34 +134,21 @@ function displayUsers(users) {
               </td>
 
               <td>
-                  <div class="dropdown ms-auto text-center">
-                      <div class="btn-link" data-bs-toggle="dropdown">
-                          <svg width="24px" height="24px" viewbox="0 0 24 24">
-                              <g stroke="none" stroke-width="1" fill="none">
-                                  <rect x="0" y="0" width="24" height="24"></rect>
-                                  <circle fill="#000000" cx="5" cy="12" r="2"></circle>
-                                  <circle fill="#000000" cx="12" cy="12" r="2"></circle>
-                                  <circle fill="#000000" cx="19" cy="12" r="2"></circle>
-                              </g>
-                          </svg>
-                      </div>
-                      <div class="dropdown-menu dropdown-menu-end">
-                          <a href="javascript:void(0)" class="dropdown-item" role="button"
+               <div class="d-flex gap-1"><a class="btn btn-primary py-1 px-2 btn-icon " style="height: auto !important;border-radius: 4px;" role="button"
                              onclick="fetchUserDetail(${user.id})" 
                              data-bs-toggle="modal" data-bs-target="#viewDetail">
-                             View details
+                             <i class="fa-regular fa-eye"></i>
                           </a>
-                           <a href="javascript:void(0)" class="dropdown-item" role="button"
+                          <a  class="btn btn-success py-1 px-2 btn-icon " style="height: auto !important;border-radius: 4px;" role="button"
                              onclick="editUser(${user.id})" 
                              data-bs-toggle="modal" data-bs-target="#editUser">
-                             Edit User
+                             <i class="fa-regular fa-pen-to-square"></i>
                           </a>
-                          <a href="javascript:void(0)" class="dropdown-item" role="button"
+                          <a class="btn btn-danger py-1 px-2 btn-icon " style="height: auto !important;border-radius: 4px;" role="button"
                              onclick="removeUser(${user.id})">
-                             Remove User
+                             <i class="fa-regular fa-trash-can"></i>
                           </a>
-                      </div>
-                  </div>
+                </div>
               </td>
           </tr>
           `
@@ -185,7 +173,7 @@ async function fetchUserDetail(userId) {
               <img src="/uploads/${
                 user.avatar
               }" class="rounded-circle mx-auto mb-3" width="120" height="120">
-              <h4 class="fw-bold">${user.eng_name} (${user.kh_name && user.kh_name})</h4>
+              <h4 class="fw-bold">${user.eng_name} </h4>
               <p class="text-muted">${user.email}</p>
               <hr>
               <div class="text-start">
@@ -200,13 +188,7 @@ async function fetchUserDetail(userId) {
                   <p><strong>Role : </strong> <span class="badge bg-primary">${getRoleName(
                     user.role
                   )}</span></p>
-                  <p><strong>Status : </strong> 
-                      <span class="badge ${
-                        user.status === 1 ? "bg-success" : "bg-danger"
-                      }">
-                          ${user.status === 1 ? "Active" : "Inactive"}
-                      </span>
-                  </p>
+                  
               </div>
           </div>
       `;
