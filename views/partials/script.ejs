@@ -52,7 +52,7 @@ async function connectToSocket() {
             //    alert('New notification:', data);
 
                 let status = "";
-                let msg = data.eng_message; // Default message
+                let msg = isEnglish ? data.eng_message : data.kh_message; // Default message
                 let title = "Notification"; // Default title
                 let borderColor = "#37CC6D"; // Default border color
 
@@ -64,42 +64,42 @@ async function connectToSocket() {
                                           <i data-lucide="check"
                                               style="width: 1.2rem;height: 1.2rem;"></i>
                                       </div>`;
-                    title = "Your Ticket Has Been Approved!";
+                    title = isEnglish ? "Your Ticket Has Been Approved!" : "សំបុត្ររបស់អ្នកត្រូវបានអនុម័តហើយ";
                     borderColor = "#37CC6D"; // Green for approval
                     break;
                     case 2: // Rejected ticket
                     status = `<div class="d-flex align-items-center justify-content-center" style="width: 2.5rem;height: 2.5rem;border-radius: 50%; background-color: #FEE2E2; color: #EF4444;"><i data-lucide="x" style="width: 1.2rem;height: 1.2rem;"></i></div>`;
-                    title = "Ticket Request Denied";
+                    title = isEnglish ? "Ticket Request Denied" : "សំណើសំបុត្រត្រូវបានបដិសេធ";
                     borderColor = "#EF4444"; // Red for rejection
                     break;
                     case 3: // Organizer request approved
                     status = `<div class="d-flex align-items-center justify-content-center" style="width: 2.5rem;height: 2.5rem;border-radius: 50%; background-color: #DCFCE7; color: #37CC6D;"><i data-lucide="check" style="width: 1.2rem;height: 1.2rem;"></i></div>`;
-                    title = "Organizer Request Approved";
+                    title = isEnglish ? "Organizer Request Approved" : "សំណើរបស់អ្នករៀបចំត្រូវបានអនុម័ត";
                     borderColor = "#37CC6D"; // Green for approval
                     break;
                     case 4: // Organizer request denied
                     status = `<div class="d-flex align-items-center justify-content-center" style="width: 2.5rem;height: 2.5rem;border-radius: 50%; background-color: #FEE2E2; color: #EF4444;"><i data-lucide="x" style="width: 1.2rem;height: 1.2rem;"></i></div>`;
-                    title = "Organizer Application Denied";
+                    title = isEnglish ? "Organizer Request Denied" : "សំណើសំបុត្រត្រូវបានបដិសេធ";
                     borderColor = "#EF4444"; // Red for rejection
                     break;
                     case 5: // Event Updated
                     status = `<div class="d-flex align-items-center justify-content-center" style="width: 2.5rem;height: 2.5rem;border-radius: 50%; background-color: #DBEAFE; color: #3B82F6;"><i data-lucide="info" style="width: 1.2rem;height: 1.2rem;"></i></div>`;
-                    title = "The event details have been updated";
+                    title = isEnglish ? "The event details have been updated": "ព័ត៌មានលម្អិតនៃព្រឹត្តិការណ៍ត្រូវបានធ្វើបច្ចុប្បន្នភាព";
                     borderColor = "#3B82F6"; // Blue for information
                     break;
                     case 6: // Reminder event
                     status = `<div class="d-flex align-items-center justify-content-center" style="width: 2.5rem;height: 2.5rem;border-radius: 50%; background-color: #DBEAFE; color: #3B82F6;"><i data-lucide="info" style="width: 1.2rem;height: 1.2rem;"></i></div>`;
-                    title = "Reminder: Upcoming Event";
+                    title = isEnglish ? "Reminder: Upcoming Event" : "រំលឹក៖ ព្រឹត្តិការណ៍នាពេលខាងមុខ";
                     borderColor = "#3B82F6"; // Blue for information
                     break;
                     case 7: // Event Access
                     status = `<div class="d-flex align-items-center justify-content-center" style="width: 2.5rem;height: 2.5rem;border-radius: 50%; background-color: #DBEAFE; color: #3B82F6;"><i data-lucide="link" style="width: 1.2rem;height: 1.2rem;"></i></div>`;
-                    title = "Join Link for Your Event";
+                    title = isEnglish ? "Join Link for Your Event" : "ភ្ជាប់តំណភ្ជាប់សម្រាប់ព្រឹត្តិការណ៍របស់អ្នក";
                     borderColor = "#3B82F6"; // Blue for information
                     break;
                     case 8: // Event Access
                     status = `<div class="d-flex align-items-center justify-content-center" style="width: 2.5rem;height: 2.5rem;border-radius: 50%; background-color: #DBEAFE; color: #3B82F6;"><i data-lucide="link" style="width: 1.2rem;height: 1.2rem;"></i></div>`;
-                    title = "Join Link for the Event";
+                    title = isEnglish ? "Join Link for the Event" : "ភ្ជាប់តំណភ្ជាប់សម្រាប់ព្រឹត្តិការណ៍";
                     borderColor = "#3B82F6"; // Blue for information
                     break;
                     default:
