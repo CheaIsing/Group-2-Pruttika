@@ -35,26 +35,26 @@ async function getAllNotifications() {
       document.getElementById("noti-wrapper").innerHTML =  `
       <div class="notification text-center w-100 my-4 d-flex flex-column">
               <img src="/img/noFound.png" alt="..." height="180px;">
-              <h4 class="text-center text-brand mt-2">No Notification to Display</h4>
+              <h4 class="text-center text-brand mt-2">${getText("noNoti")}</h4>
             </div>`
 
       return 
     }
 
     json.forEach((noti) => {
-      const title = noti.eng_title;
-      const message = noti.eng_message;
+      const title = isEnglish ? noti.eng_title : (noti.kh_title ? noti.kh_title : noti.eng_title);
+      const message = isEnglish ? noti.eng_message : noti.kh_message;
 
       let status = "";
       switch (noti.type.type_id) {
         case 1:
         case 3: {
           status = `<div
-                                        class="d-flex align-items-center justify-content-center"
-                                        style="width: 2rem;height: 2rem;border-radius: 50%; background-color: #DCFCE7; color: #37CC6D;">
-                                        <i data-lucide="check"
-                                            style="width: 1rem;height: 1rem;"></i>
-                                    </div>`;
+                        class="d-flex align-items-center justify-content-center"
+                        style="width: 2rem;height: 2rem;border-radius: 50%; background-color: #DCFCE7; color: #37CC6D;">
+                        <i data-lucide="check"
+                            style="width: 1rem;height: 1rem;"></i>
+                    </div>`;
           break;
         }
         case 2:
