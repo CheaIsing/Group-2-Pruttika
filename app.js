@@ -163,7 +163,7 @@ AND DATE_FORMAT(CONCAT(started_date, ' ', start_time), '%Y-%m-%d %H:%i') = DATE_
         console.log(`Reminder scheduled for event ${eventId} to be sent immediately.`);
       }
     } else {
-      console.log('No online events starting in the next 10 minutes.');
+      // console.log('No online events starting in the next 10 minutes.');
     }
   } catch (error) {
     console.error('Error scheduling event link reminders:', error);

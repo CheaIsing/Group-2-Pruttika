@@ -766,3 +766,10 @@ ALTER TABLE `tbl_ticket`
 -- Update 16/3/2025
 INSERT INTO `tbl_notification_type` (`id`, `name`, `kh_title`, `eng_title`, `created_at`, `updated_at`) VALUES
 (8, 'Join Event', 'តំណភ្ជាប់សម្រាប់ព្រឹត្តិការណ៍របស់អ្នក', 'Join Link for Your Event', '2025-03-16 06:08:26', '2025-03-16 06:08:26');
+
+
+-- update 20-03-2025
+Update `tbl_notification_type` SET `kh_title`= 'សំណើរបស់អ្នករៀបចំត្រូវបានអនុម័ត' where id = 3;
+Update `tbl_notification_type` SET `kh_title`= 'សំណើរបស់អ្នករៀបចំត្រូវបានបដិសេធ' where id = 4;
+Update `tbl_notification_type` SET `kh_title`= 'ព្រឹត្តិការណ៍បានធ្វើបច្ចុប្បន្នភាព' where id = 5;
+Update `tbl_notification_type` SET `kh_title`= 'ការរំលឹក៖ ព្រឹត្តិការណ៍នាពេលខាងមុខ' where id = 6;
