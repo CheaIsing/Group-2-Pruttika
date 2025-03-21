@@ -6,7 +6,8 @@
 //   timeout: 10000,
 //   withCredentials: true,
 // });
-
+let currentPage1 = 1
+let currentPage2 = 1
 // Fetch Request Organizers
 async function fetchRequestOrganizers(
   status = "",
@@ -23,7 +24,8 @@ async function fetchRequestOrganizers(
 
     const result = response.data.data.data;
     const totalPages = response.data.data.pagination.total_pages;
-    console.log(result);
+    currentPage1 = response.data.data.pagination.current_page;
+    // console.log(result);
 
     displayRequestOrganizer(result);
     updatePagination(page, totalPages, perPage, "paginationRequestOrganizer", fetchRequestOrganizers);
@@ -47,6 +49,7 @@ async function fetchOrganizers(
 
     const result = response.data.data.data;
     const totalPages = response.data.data.pagination.total_pages;
+    currentPage2 = response.data.data.pagination.current_page;
 
     // if (!result || result.length === 0) throw new Error("No organizers found.");
 
@@ -230,7 +233,7 @@ function displayRequestOrganizer(organizers) {
     .map(
       (organizer, i) => `
       <tr>
-          <td>${i+1}</td>
+          <td>${(currentPage1 - 1) * 5 + (i + 1)}</td>
           <td>${organizer.organization_name}</td>
           <td>${organizer.business_email}</td>
           <td>${organizer.business_phone}</td>
@@ -301,7 +304,7 @@ function displayOrganizers(organizers) {
   .map(
       (organizer, i) => `
             <tr>
-                <td>${i+1}</td>
+                <td>${(currentPage2 - 1) * 5 + (i + 1)}</td>
                 <td>${organizer.organization_name}</td>
                 <td>${organizer.business_email}</td>
                 <td>${organizer.business_phone}</td>
