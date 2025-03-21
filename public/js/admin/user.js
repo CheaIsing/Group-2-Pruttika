@@ -6,6 +6,7 @@
 //   timeout: 10000,
 //   withCredentials: true,
 // });
+let currentPage = 1;
 
 async function fetchUsers(
   role = "",
@@ -32,10 +33,13 @@ async function fetchUsers(
 
     const result = response.data.data.users;
     const totalPages = response.data.data.pagination.total_pages;
+    currentPage = response.data.data.pagination.current_page;
 
     // if (!result || result.length === 0) {
     //   throw new Error("No users found or failed to fetch users.");
     // }
+
+
 
     displayUsers(result);
     updatePagination(page, totalPages, perPage, fetchUsers);
@@ -57,7 +61,7 @@ function updatePagination(currentPage, totalPages, perPage, fetchFunction) {
 
     const pageLink = document.createElement("a");
     pageLink.classList.add("page-link");
-    pageLink.href = "#";
+    pageLink.href = "";
     pageLink.innerHTML = label;
 
     pageLink.addEventListener("click", (event) => {
@@ -99,6 +103,8 @@ function displayUsers(users) {
   const tableBody = document.getElementById("usersTableBody");
   if (!tableBody) return;
 
+  // users = users.filter((user => user.role != 3));
+
   if(users.length ==0){
     return tableBody.innerHTML = `
     <tr>
@@ -108,9 +114,11 @@ function displayUsers(users) {
 
   tableBody.innerHTML = users
     .map(
-      (user, i) => `
+      (user, i) => {
+        const serialNumber = (currentPage - 1) * 4 + (i + 1);
+        return`
           <tr>
-              <td>${i+1}</td>
+              <td>${serialNumber}</td>
               <td><img class="rounded-circle object-fit-cover" width="35" height="35" src="/uploads/${
                 user.avatar? user.avatar : "default.jpg"
               }"></td>
@@ -151,7 +159,7 @@ function displayUsers(users) {
                 </div>
               </td>
           </tr>
-          `
+              `}
     )
     .join("");
 }
