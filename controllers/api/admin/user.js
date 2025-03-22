@@ -4,7 +4,7 @@ const { sendResponse } = require("../../../utils/response");
 
 const displayAllUsers = async (req, res) => {
   try {
-    const { role=null, search=null } = req.query;
+    const { role = null, search = null } = req.query;
     let {
       page = 1,
       per_page = 50,
@@ -30,25 +30,28 @@ const displayAllUsers = async (req, res) => {
 
     const sortDirection = sort_dir.toLowerCase() === "desc" ? "DESC" : "ASC";
 
-    let query = "SELECT * FROM tbl_users";
-    let countQuery = "SELECT COUNT(*) AS total FROM tbl_users";
-    const queryParams = [];
+    let query = "SELECT * FROM tbl_users WHERE role != 3";
+    let countQuery = "SELECT COUNT(*) AS total FROM tbl_users WHERE role != 3";
+    let queryParams = [];
+    let countQueryParams = []; // Separate query params for count query
 
     let whereClause = [];
 
-    if (role) {
+    if (role && role != 3) {
       whereClause.push("role = ?");
       queryParams.push(role);
+      countQueryParams.push(role); // Add to count query params
     }
 
     if (search) {
       whereClause.push("eng_name LIKE ?");
       queryParams.push(`%${search}%`);
+      countQueryParams.push(`%${search}%`); // Add to count query params
     }
 
     if (whereClause.length > 0) {
-      query += " WHERE " + whereClause.join(" AND ");
-      countQuery += " WHERE " + whereClause.join(" AND ");
+      query += " AND " + whereClause.join(" AND ");
+      countQuery += " AND " + whereClause.join(" AND ");
     }
 
     query += ` ORDER BY ${sort_col} ${sortDirection} LIMIT ? OFFSET ?`;
@@ -56,12 +59,8 @@ const displayAllUsers = async (req, res) => {
 
     const [data, countResult] = await Promise.all([
       executeQuery(query, queryParams),
-      executeQuery(countQuery, queryParams.slice(0, queryParams.length - 2)),
+      executeQuery(countQuery, countQueryParams), // Use countQueryParams
     ]);
-
-    // if (data.length === 0) {
-    //   return sendResponse(res, 404, false, "No users found.");
-    // }
 
     const total = countResult[0].total;
     const totalPages = Math.ceil(total / perPageNum);

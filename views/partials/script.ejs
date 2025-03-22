@@ -1,5 +1,41 @@
 <script>
-    let isEnglish = document.querySelector("html").lang == "en"
+    let isEnglish = document.querySelector("html").lang == "en";
+
+    
+    // Update the language selection checkmarks
+    updateLanguageCheckmarks(isEnglish);
+    
+    // Function to update language checkmarks based on current language
+    function updateLanguageCheckmarks(isEnglish) {
+      // Hide all checkmarks first
+      const enCheckmarks = document.querySelectorAll('.check-en');
+      const khCheckmarks = document.querySelectorAll('.check-kh');
+      
+      enCheckmarks.forEach(check => {
+        check.style.display = isEnglish ? 'block' : 'none';
+      });
+      
+      khCheckmarks.forEach(check => {
+        check.style.display = isEnglish ? 'none' : 'block';
+      });
+      
+      // Re-initialize Lucide icons if needed
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+    }
+    
+    // Add listeners for language change links if you want immediate UI update
+    const languageLinks = document.querySelectorAll('a[href^="?lng="]');
+    languageLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        const newLang = this.getAttribute('href').split('=')[1];
+        const newIsEnglish = newLang === 'en';
+        
+        // Update UI immediately (optional, as page will likely reload)
+        updateLanguageCheckmarks(newIsEnglish);
+      });
+    });
 </script>
 <script src="/vendor/momentjs/moment.min.js"></script>
 <script src="/vendor/ToasifyJs/toastify-js.js"></script>

@@ -8,6 +8,8 @@
 // });
 
 // Fetch Events with Pagination
+let currentPage1 = 1
+let currentPage2 = 1
 async function fetchEvents(
   category_id = "",
   search = "",
@@ -30,16 +32,17 @@ async function fetchEvents(
 
     const result = response.data.data.data;
     const totalPages = response.data.data.pagination.total_pages;
+    currentPage1 = response.data.data.pagination.current_page;
 
-    // if (!result || result.length === 0) throw new Error("No events found.");
-
-    displayEvents(result);
+    displayEvents(result, perPage); // Pass perPage here
     updatePagination(
       page,
       totalPages,
       perPage,
       "paginationEvents",
-      fetchEvents
+      (s, p, per, sc, sd) => fetchEvents(category_id, s, p, per, sc, sd), // Pass sort parameters
+      sortCol,
+      sortDir
     );
   } catch (error) {
     console.error("Error fetching Events:", error);
@@ -70,6 +73,7 @@ async function fetchCategories(
 
     const result = response.data.data.data;
     const totalPages = response.data.data.pagination.total_pages;
+    currentPage2 = response.data.data.pagination.current_page;
     // console.log(result);
     
 
@@ -215,7 +219,7 @@ function displayEvents(events) {
     .map(
       (event, i) => `
             <tr>
-                <td>${i+1}</td>
+                <td>${(currentPage1 - 1) * 5   + (i + 1)}</td>
                 <td>${event.eng_name}</td>
                 <td><img class="img-preview object-fit-cover" width="70" height="50" src="/uploads/${
                   event.thumbnail
@@ -264,7 +268,7 @@ function displayCategories(categories) {
     .map(
       (val, i) => `
             <tr>
-                <td>${i+1}</td>
+                <td>${(currentPage2 - 1) * 5 + (i + 1)}</td>
                 <td>${val.name}</td>
                 <td>
                   <p>${new Date(val.created_at).toLocaleDateString("en-CA")}</p>
