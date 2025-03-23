@@ -775,5 +775,5 @@ Update `tbl_notification_type` SET `kh_title`= 'ព្រឹត្តិកា�
 Update `tbl_notification_type` SET `kh_title`= 'ការរំលឹក៖ ព្រឹត្តិការណ៍នាពេលខាងមុខ' where id = 6;
 
 -- update 23-03-2025
-ALTER table tbl_organizer_req modify bio varchar(1000);
-ALTER table tbl_organizer modify bio varchar(1000);
+ALTER table tbl_organizer_req modify bio text;
+ALTER table tbl_organizer modify bio text;
