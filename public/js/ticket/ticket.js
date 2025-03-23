@@ -61,7 +61,7 @@ async function getRequestTicket( status="", page=1, perpage=25) {
 
 
     
-    document.getElementById("requested-ticket-container").innerHTML = setPlaceholder();
+    document.getElementById("requested-ticket-container").innerHTML = "";
     if(tickets.length>0){
       tickets.forEach(ticket=>{
         let status = ""
@@ -213,7 +213,7 @@ async function getOwnedTicket( status="", page=1, perpage=15) {
 
 
     
-    document.getElementById("owned-ticket-container").innerHTML = setPlaceholder();
+    document.getElementById("owned-ticket-container").innerHTML = "";
     if(tickets.length>0){
       tickets.forEach(ticket=>{
         let status = ""
