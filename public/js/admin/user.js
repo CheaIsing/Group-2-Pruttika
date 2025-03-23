@@ -259,11 +259,11 @@ async function editUser(userId) {
           <div class="col-6">
             <label for="editGender" class="form-label">Gender</label>
             <select id="editGender" class="form-select">
-              <option value="Male" ${
-                user.gender === "1" ? "selected" : ""
+              <option value="1" ${
+                user.gender == 1 ? "selected" : ""
               }>Male</option>
               <option value="2" ${
-                user.gender === "Female" ? "selected" : ""
+                user.gender == 2 ? "selected" : ""
               }>Female</option>
             </select>
           </div>
