@@ -1207,7 +1207,7 @@ function checkStep() {
         } else {
           thumbnailUploadSection.style.border = "none";
           thumbnailFileName.innerHTML = `<span class="text-success fw-bolder">
-        File selected: <span class="text-black">${file.name}</span>
+        File selected: <span class="text-black">${fileUpload.files[0].name}</span>
       </span>`;
           valid = true;
         }

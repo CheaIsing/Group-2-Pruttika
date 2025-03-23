@@ -12,6 +12,7 @@ const {
   getRequestTransaction,
   getCheckInEventList,
   getSummaryData,
+  getEventManageDetail,
 } = require("../../controllers/web/event");
 const { checkOrganizer } = require("../../middlewares/event");
 const { requireAuth } = require("../../middlewares/auth");
@@ -27,6 +28,7 @@ router.use(authorize([2, 3]));
 router.get("/create", getCreateEvent);
 router.get("/update-event", getUpdateEvent);
 router.get("/manage", getEventList);
+router.get("/manage/detail", getEventManageDetail);
 router.get("/manage-request", getRequestEventList);
 router.get("/manage-check-in", getCheckInEventList);
 router.get("/request-ticket-list", getRequestTicketList);
