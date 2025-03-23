@@ -44,6 +44,12 @@ const getSummaryData = (req, res) => {
   res.render("pages/event/summary", {title: "Summary Event", active : "event"});
 }
 
+const getEventManageDetail = (req, res) => {
+  res.render("pages/event/event-manage-detail", {title: "Event Detail"});
+}
+
+
+
 module.exports = {
   getCreateEvent,
   getUpdateEvent,
@@ -56,5 +62,6 @@ module.exports = {
   getCheckInTicketList,
   getRequestTransaction,
   getCheckInEventList,
-  getSummaryData
+  getSummaryData,
+  getEventManageDetail
 };
