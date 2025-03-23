@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+
+    <%-include('../../partials/head.ejs') %>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+
+    <body class="home">
+        <%- include("../../partials/manage-event-header.ejs")  %>
+
+        <div class="placeholer-content"></div>
+        <div id="event-hero-banner-img" class="before-skeleton event-hero-banner d-flex align-items-center justify-content-center">
+            <div class="hero-overlay "></div>
+            <div class="hero-content">
+                <h5></h5>
+                <span class="badge rounded-pill text-white bg-brand fs-6 fw-medium mb-3" id="snippet-date"></span>
+                <h1 class="fs-2" id="title"></h1>
+                <p id="short-desc"></p>
+                
+            </div>
+        </div>
+        <div class="container-lg pb-5 before-skeleton">
+            <div class="d-flex align-items-center">
+                <button onclick="history.back()" type="button" class="btn fw-medium border-0 ps-0 d-flex align-items-center mb-2">
+                    <i class="fa-solid fa-angle-left fs-6 m-0 p-0 "></i>
+                    <span class="m-0 ps-2"><a><%= t('event.backToEvent') %></a></span>
+                </button>
+            </div>
+            <div class="row g-4">
+                <div class="col-12 col-lg-8 order-2 order-lg-1">
+                    <div class="event-image">
+                        <img id="event-thumbnail" class="rounded-3"
+                            src=""
+                            alt="event-img">
+
+                    </div>
+                    <h3 class="title fw-medium mt-3 text-capitalize" id="title-event"></h3>
+                    <div class="event-descriptions fs-18 py-3 mb-3" id="desc">
+                    </div>
+                   <div id="agenda-section">
+                    <h3 class="title fw-medium mb-3"><%= t('event.event-detail.Agenda') %></h3>
+                    <div id="agenda-container">
+                        <div class="agenda-card mb-3 rounded-4 py-3 px-4">
+                            <div class="agenda-content ps-4">
+                                <p class="text-secondary" id="agenda-time"></p>
+                                <h4 id="agenda-title" style="color: #333333;"></h4>
+                                <p id="agenda-desc" class="mb-0 text-secondary"></p>
+                            </div>
+                        </div>
+                    </div>
+                   </div>
+                </div>
+                <div class="col-12 col-lg-4 order-1 order-lg-2">
+                    <div class="event-details-card">
+                        <!-- Organizer Info -->
+
+                        <!-- Section Heading -->
+                        <div
+                            class="d-flex align-items-center justify-content-between">
+                            <h5 class="fw-medium mb-0"><%= t('event.event-detail.eventDetail') %></h5>
+                            <div>
+                                <!-- Heart button -->
+                                <div class="d-flex align-items-center">
+                                    <div class="me-2 btn-wishlist" id="buttonWish" 
+                                        data-bs-toggle="tooltip"
+                                        data-bs-placement="top"
+                                        title="<%= t('event.event-detail.addWishlist') %>"
+                                        data-bs-custom-class="custom-tooltip">
+                                        <i class="fa-regular fa-heart fs-5"></i>
+                                        </div>
+                                    <div class="btn-copy active ms-1" 
+                                        data-bs-toggle="tooltip"
+                                        data-bs-placement="top"
+                                        data-bs-custom-class="custom-tooltip"
+                                        title="<%= t('event.copyLink') %>" href="#" id="btn-copylink-event"><i class="fa-regular fa-copy fs-5"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+
+                        <!-- Details with icons -->
+                        <div class="row text-start">
+                            <div class="col-12 d-flex align-items-center mb-3">
+                                <div class="icon-box text-brand me-2">
+                                    <i class="fa-solid fa-list"></i>
+                                </div>
+                                <div class=" ">
+                                    <p class="info-text"><%= t('event.event-detail.Type') %></p>
+                                    <p id="event-type" class="info-title"></p>
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex align-items-center mb-3">
+                                <div class="icon-box text-brand me-2">
+                                    <i class="fa-regular fa-calendar"></i>
+                                </div>
+                                <div class=" ">
+                                    <p class="info-text"><%= t('event.event-detail.Date') %></p>
+                                    <p id="date" class="info-title"></p>
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex align-items-center mb-3">
+                                <div class="icon-box text-brand me-2">
+                                    <i class="fa-regular fa-clock"></i>
+                                </div>
+                                <div class=" ">
+                                    <p class="info-text "><%= t('event.event-detail.Time') %></p>
+                                    <p id="time" class="info-title"></p>
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex align-items-center mb-3"
+                                id="location-container">
+                                <div class="icon-box text-brand me-2">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <div class=" ">
+                                    <p class="info-text "><%= t('event.event-detail.Location') %></p>
+                                    <p id="location" class="info-title"></p>
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex align-items-center mb-3">
+                                <div class="icon-box text-brand me-2">
+                                    <i class="fa-solid fa-tag"></i>
+                                </div>
+                                <div class=" ">
+                                    <p class="info-text "><%= t('event.event-detail.Categories') %></p>
+                                    <p id="category" class="info-title"></p>
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex align-items-center mb-3"
+                                id="ticket-category-container">
+                                <div class="icon-box text-brand me-2">
+                                    <i class="fa-solid fa-ticket"></i>
+                                </div>
+                                <div class=" ">
+                                    <p class="info-text "><%= t('event.event-detail.ticketCategories') %></p>
+                                    <p id="ticket-category"
+                                        class="info-title">5</p>
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex align-items-center mb-3" id="capacity-container">
+                                <div class="icon-box text-brand me-2">
+                                    <i class="fa-solid fa-user-group"></i>
+                                </div>
+                                <div class=" ">
+                                    <p class="info-text "><%= t('event.event-detail.ticketCapacity') %></p>
+                                    <p id="capacity" class="info-title">250</p>
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex align-items-center " id="remain-capacity-container">
+                                <div class="icon-box text-brand me-2">
+                                    <i class="fa-solid fa-user-group"></i>
+                                </div>
+                                <div class=" ">
+                                    <p class="info-text ">Remain Ticket Capacity</p>
+                                    <p id="remain-capacity" class="info-title">250</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="event-details-card mt-4">
+                        <div class="d-flex click-profile">
+                            <h5 class="mb-3 " ><%= t('event.event-detail.postedBy') %>&nbsp;</h5><p class="text-muted">&bull;&nbsp;<small  id="created-at"></small></p>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between">
+
+                            <!-- Organizer avatar -->
+                            <img
+                                src="/uploads/default.jpg"
+                                alt="Organizer"
+                                class="rounded-circle me-3 click-profile object-fit-cover"
+                                width="50"
+                                height="50" id="creator-img"/>
+                            <!-- Organizer name & role -->
+
+                            <div class="click-profile">
+                                <h5 class="mb-0 " id="creator-name"></h5>
+                                <p class="text-muted mb-0"><%= t('event.event-detail.eventOrganizer') %></p>
+                            </div>
+                                <button type="button" class="btn btn-brand ms-auto px-4 text-wrap" id="btnFollow"><%= t('event.event-detail.Follow') %></button>
+                            
+                        </div>
+                    </div>
+
+                    <div class="card card-style mt-4 d-none"
+                        id="purchase-ticket-container" style="background-color: #ffeef7e7;border: 1px solid #ffd5ec9c;box-shadow: none;">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <div class="">
+                                <h5 class="mb-0"><%= t('event.event-detail.Tickets') %></h5>
+                            <p class="info-text mb-0"><%= t('event.event-detail.eventEntry') %></p>
+                            </div>
+                            
+                            <div class="icon-box text-brand me-2" style="width: 3rem; height: 3rem; font-size: 1.2rem;background-color: #FFD7ED;">
+                                <i class="fa-solid fa-dollar-sign"></i>
+                            </div>
+                        </div>
+                        <div
+                            class="card-purchaseTicket rounded-2 bg-transparent">
+                            <div
+                                class=" fw-semibold mb-3 text-brand">
+                                <h4 id="range-price"></h4>
+                            </div>
+                            <a id="btnPurchaseTicket" role="button"
+                                class="btn btn-brand w-100"><%= t('event.event-detail.purchaseTicket') %></a>
+                        </div>
+                        <div>
+
+                        </div>
+                    </div>
+                                   </div>
+
+            </div>
+
+        </div>
+        <%- include("../../partials/footer.ejs")  %>
+        
+
+
+
+
+        <%-include('../../partials/script.ejs') %>
+        <script>
+        const tooltipTriggerList = [].slice.call(
+          document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        );
+        const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+          return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+      </script>
+        <script src="/js/events/event-detail.js"></script>
+
+
+
+    </body>
+
+</html>

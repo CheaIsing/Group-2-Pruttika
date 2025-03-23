@@ -17,7 +17,7 @@ const tooltipTriggerList = [].slice.call(
   };
     
 function setPlaceholder(){
-  let content=`<div class="container">
+  document.querySelector(".placeholder-content").innerHTML=`
     <div class="row d-flex align-items-center w-100 px-2 mb-3 rounded-3 overflow-hidden border-0 shadow-light-sm" >
         <div class="col-2 skeleton" style="height: 100px; background-color: #e0e0e0; border-radius: 4px;"></div>
         <div class="col-7" >
@@ -38,8 +38,7 @@ function setPlaceholder(){
         </div>
         <div class="col-3 skeleton d-flex align-items-center" style="height: 30px; background-color: #e0e0e0; border-radius: 4px;"></div>
     </div>
-</div>`;
-  return content;
+  `;
 }
 
 async function getRequestTicket( status="", page=1, perpage=25) {
@@ -53,6 +52,8 @@ async function getRequestTicket( status="", page=1, perpage=25) {
   if (status) {
     queryParams.append("status", status);
   }
+  setPlaceholder();
+  document.getElementById("requested-ticket-container").classList.add('d-none');
   try {
     const {data} = await axiosInstance.get(`/profile/own-request-ticket?${queryParams.toString()}`);
     const {data:tickets, paginate} = data;
@@ -60,7 +61,7 @@ async function getRequestTicket( status="", page=1, perpage=25) {
 
 
     
-    document.getElementById("requested-ticket-container").innerHTML = setPlaceholder();
+    document.getElementById("requested-ticket-container").innerHTML = "";
     if(tickets.length>0){
       tickets.forEach(ticket=>{
         let status = ""
@@ -175,6 +176,9 @@ async function getRequestTicket( status="", page=1, perpage=25) {
               <h4 class="text-center text-brand mt-2">No Request Ticket to Display</h4>
             </div>`
     }
+    
+    document.getElementById("requested-ticket-container").classList.remove('d-none');
+    document.querySelector(".placeholder-content").classList.add('d-none');
 
     renderPaginationRequest(paginate)
     
@@ -196,7 +200,9 @@ async function getOwnedTicket( status="", page=1, perpage=15) {
   }
 
   // console.log(queryParams.toString());
-  
+  setPlaceholder();
+  document.getElementById("owned-ticket-container").classList.add('d-none');
+
   try {
     const {data} = await axiosInstance.get(`/profile/own-ticket?${queryParams.toString()}`);
     const {data:tickets, paginate} = data;
@@ -207,7 +213,7 @@ async function getOwnedTicket( status="", page=1, perpage=15) {
 
 
     
-    document.getElementById("owned-ticket-container").innerHTML = setPlaceholder();
+    document.getElementById("owned-ticket-container").innerHTML = "";
     if(tickets.length>0){
       tickets.forEach(ticket=>{
         let status = ""
@@ -298,6 +304,8 @@ async function getOwnedTicket( status="", page=1, perpage=15) {
             </div>`
     }
 
+    document.getElementById("owned-ticket-container").classList.remove('d-none');
+    document.querySelector(".placeholder-content").classList.add('d-none');
     renderPaginationOwned(paginate)
     
   } catch (error) {

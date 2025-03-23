@@ -90,13 +90,13 @@ let loadingHtml = `
   
   `;
 
-  let noEvent = `<tr><td colspan="6"><div class="text-center w-100 my-5">
+let noEvent = `<tr><td colspan="6"><div class="text-center w-100 my-5">
               <img src="/img/noFound.png" alt="..." height="220px;">
               <h4 class="text-center text-brand mt-2">${getText("noEvent")}</h4>
-            </div></td></tr>`
+            </div></td></tr>`;
 async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
   const eventList = document.getElementById("event-tobody");
-  eventList.innerHTML = loadingHtml
+  eventList.innerHTML = loadingHtml;
 
   const sort = document.getElementById("event-sort-filter")?.value;
   const search = document.getElementById("searchEventInput")?.value;
@@ -121,89 +121,126 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
     const { data: user } = resultUser;
 
     // console.log(user);
-    
+
     const userId = user.id;
     queryParams.append("creator", userId);
 
-    const { data } = await axiosInstance.get(`/events?${queryParams.toString()}`);
+    const { data } = await axiosInstance.get(
+      `/events?${queryParams.toString()}`
+    );
     const { data: events, paginate } = data;
 
     if (events.length <= 0) {
-      return eventList.innerHTML = noEvent
+      return (eventList.innerHTML = noEvent);
     }
 
     let eventCard = "";
 
     for (const event of events) {
-      const { data } = await axiosInstance.get("/events/summary-data/" + event.id);
-      const formattedDate = `${moment(event.started_date).format("MMM D, YYYY")} - ${moment(event.ended_date).format("MMM D, YYYY")}, ${moment(event.start_time, "HH:mm").format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
+      const { data } = await axiosInstance.get(
+        "/events/summary-data/" + event.id
+      );
+      const formattedDate = `${moment(event.started_date).format(
+        "MMM D, YYYY"
+      )} - ${moment(event.ended_date).format("MMM D, YYYY")}, ${moment(
+        event.start_time,
+        "HH:mm"
+      ).format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
 
       let isOffline = event.event_type !== "offline";
       let eventLinkAttributes = ``;
       console.log(data);
-      
 
-      let totalPrice = data.data.ticket.length > 0 
-        ? `$${data.data.ticket.reduce((sum, ticket) => sum + (ticket.price * ticket.ticket_bought), 0).toFixed(2)}`
-        : `Free`;
-        const eventDate = new Date(event.started_date);
-        const endDate = new Date(event.ended_date);
-  
-        const currentDate = new Date();
-  currentDate.setHours(0, 0, 0, 0);
-        let eventStatus = null;
-        let eventText = null
-        
-  
-        if (currentDate < eventDate) {
-          eventStatus = "pill5";
-          eventText = getText("upcoming")
-        } else if (currentDate >= eventDate && currentDate <= endDate) {
-          eventStatus = "pill2";
-          eventText = getText("showing")
-        } else {
-          eventStatus = `pill3`;
-          eventText = getText("past")
-        } 
+      let totalPrice =
+        data.data.ticket.length > 0
+          ? `$${data.data.ticket
+              .reduce(
+                (sum, ticket) => sum + ticket.price * ticket.ticket_bought,
+                0
+              )
+              .toFixed(2)}`
+          : `Free`;
+      const eventDate = new Date(event.started_date);
+      const endDate = new Date(event.ended_date);
+
+      const currentDate = new Date();
+      currentDate.setHours(0, 0, 0, 0);
+      let eventStatus = null;
+      let eventText = null;
+
+      if (currentDate < eventDate) {
+        eventStatus = "pill5";
+        eventText = getText("upcoming");
+      } else if (currentDate >= eventDate && currentDate <= endDate) {
+        eventStatus = "pill2";
+        eventText = getText("showing");
+      } else {
+        eventStatus = `pill3`;
+        eventText = getText("past");
+      }
 
       eventCard += `<tr class="border-bottom position-relative">
                       <td>
-                        <a role="button" onclick="showSummary(${event.id})" class="stretched-link text-decoration-none bg-transparent link-event-details" style="color: inherit;">
+                        <a role="button" onclick="showSummary(${
+                          event.id
+                        })" class="stretched-link text-decoration-none bg-transparent link-event-details" style="color: inherit;">
                           <div class="d-flex align-items-center">
                             <div class="me-3">
-                              <div class="text-center text-brand fw-bold">${moment(event.started_date).format("MMM ")}</div>
-                              <div class="text-center text-brand fw-bold">${moment(event.started_date).format("DD")}</div>
+                              <div class="text-center text-brand fw-bold">${moment(
+                                event.started_date
+                              ).format("MMM ")}</div>
+                              <div class="text-center text-brand fw-bold">${moment(
+                                event.started_date
+                              ).format("DD")}</div>
                             </div>
-                            <img src="${event.thumbnail ? `/uploads/${event.thumbnail}` : `/uploads/default-events-img.jpg`}" alt="Event Image" class="rounded object-fit-cover" width="150" height="85">
+                            <img src="${
+                              event.thumbnail
+                                ? `/uploads/${event.thumbnail}`
+                                : `/uploads/default-events-img.jpg`
+                            }" alt="Event Image" class="rounded object-fit-cover" width="150" height="85">
                             <div class="ms-3 text-nowrap">
                               <h5 class="mb-0 text-wrap">${event.eng_name}</h5>
-                              <p class="text-muted mb-0 w-75">${event.location || "Online Event"}</p>
+                              <p class="text-muted mb-0 w-75">${
+                                event.location || "Online Event"
+                              }</p>
                               <p class="text-muted mb-0 small">${formattedDate}</p>
                             </div>
                           </div>
                         </a>
                       </td>
                       <td class="text-nowrap"><span class="badge fw-medium ${eventStatus} p-2  rounded-5">${eventText}</span></td>
-                      <td class="text-nowrap">${data.data.total_approved_registrations || "0"} tickets</td>
+                      <td class="text-nowrap">${
+                        data.data.total_approved_registrations || "0"
+                      } tickets</td>
                       <td class="text-nowrap">${totalPrice}</td>
-                      <td class="text-nowrap">${data.data.total_checkin || "0"} participated</td>
+                      <td class="text-nowrap">${
+                        data.data.total_checkin || "0"
+                      } participated</td>
                       <td>
                         <div class="dropstart position-relative z-3">
                           <button class="btn btn-brand" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-three-dots"></i>
                           </button>
                           <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a role="button" class="dropdown-item d-flex align-items-center edit-event-btn" onclick="updateEvent(${event.id})"><i data-lucide="pencil" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;Update</a></li>
-                            <li><a role="button" class="dropdown-item d-flex align-items-center delete-event-btn" onclick="deleteEvent(${event.id}, this)"><i data-lucide="trash-2" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;Delete</a></li>
-                            <li><a class="dropdown-item d-flex align-items-center views-event-detail" href="/event/detail?e=${event.id}"><i data-lucide="eye" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;View</a></li>
-                            <li><a role="button" class="dropdown-item d-flex align-items-center" onclick="copyEventUrlToClipboard(${event.id})"><i data-lucide="link" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;Copy Link</a></li>
+                            <li><a role="button" class="dropdown-item d-flex align-items-center edit-event-btn" onclick="updateEvent(${
+                              event.id
+                            })"><i data-lucide="pencil" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;Update</a></li>
+                            <li><a role="button" class="dropdown-item d-flex align-items-center delete-event-btn" onclick="deleteEvent(${
+                              event.id
+                            }, this)"><i data-lucide="trash-2" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;Delete</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center views-event-detail" href="/event/manage/detail?e=${
+                              event.id
+                            }"><i data-lucide="eye" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;View</a></li>
+                            <li><a role="button" class="dropdown-item d-flex align-items-center" onclick="copyEventUrlToClipboard(${
+                              event.id
+                            })"><i data-lucide="link" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;Copy Link</a></li>
                           </ul>
                         </div>
                       </td>
                     </tr>`;
     }
 
-    // console.log(eventCard); 
+    // console.log(eventCard);
 
     eventList.innerHTML = eventCard;
     lucide.createIcons();
@@ -275,9 +312,13 @@ async function changePageAll(newPage) {
 renderEventsAll();
 
 // Upcoming
-async function renderEventsUpcoming(page = 1, perpage = 10, is_published = null) {
+async function renderEventsUpcoming(
+  page = 1,
+  perpage = 10,
+  is_published = null
+) {
   const eventList = document.getElementById("upcoming-event-tbody");
-  eventList.innerHTML = loadingHtml
+  eventList.innerHTML = loadingHtml;
 
   const sort = document.getElementById("upcoming-event-sort-filter")?.value;
   const search = document.getElementById("upcoming-searchEventInput")?.value;
@@ -296,76 +337,112 @@ async function renderEventsUpcoming(page = 1, perpage = 10, is_published = null)
     const { data: user } = resultUser;
     const userId = user.id;
     queryParams.append("creator", userId);
-    
-    
-    const { data } = await axiosInstance.get(`/events?${queryParams.toString()}`);
+
+    const { data } = await axiosInstance.get(
+      `/events?${queryParams.toString()}`
+    );
     const { data: events, paginate } = data;
 
     if (events.length <= 0) {
-      return eventList.innerHTML = noEvent
+      return (eventList.innerHTML = noEvent);
     }
-
 
     let eventCard = "";
     for (const event of events) {
-      const { data } = await axiosInstance.get("/events/summary-data/" + event.id);
-      const formattedDate = `${moment(event.started_date).format("MMM D, YYYY")} - ${moment(event.ended_date).format("MMM D, YYYY")}, ${moment(event.start_time, "HH:mm").format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
-      
-      let totalPrice = data.data.ticket.length > 0 
-        ? `$${data.data.ticket.reduce((sum, ticket) => sum + (ticket.price * ticket.ticket_bought), 0).toFixed(2)}`
-        : `Free`;
+      const { data } = await axiosInstance.get(
+        "/events/summary-data/" + event.id
+      );
+      const formattedDate = `${moment(event.started_date).format(
+        "MMM D, YYYY"
+      )} - ${moment(event.ended_date).format("MMM D, YYYY")}, ${moment(
+        event.start_time,
+        "HH:mm"
+      ).format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
 
-        const eventDate = new Date(event.started_date);
-        const endDate = new Date(event.ended_date);
-  
-        const currentDate = new Date();
-  currentDate.setHours(0, 0, 0, 0);
-        let eventStatus = null;
-        let eventText = null
-        
-  
-        if (currentDate < eventDate) {
-          eventStatus = "pill5";
-          eventText = getText("upcoming")
-        } else if (currentDate >= eventDate && currentDate <= endDate) {
-          eventStatus = "pill2";
-          eventText = getText("showing")
-        } else {
-          eventStatus = `pill3`;
-          eventText = getText("past")
-        } 
-  
+      let totalPrice =
+        data.data.ticket.length > 0
+          ? `$${data.data.ticket
+              .reduce(
+                (sum, ticket) => sum + ticket.price * ticket.ticket_bought,
+                0
+              )
+              .toFixed(2)}`
+          : `Free`;
+
+      const eventDate = new Date(event.started_date);
+      const endDate = new Date(event.ended_date);
+
+      const currentDate = new Date();
+      currentDate.setHours(0, 0, 0, 0);
+      let eventStatus = null;
+      let eventText = null;
+
+      if (currentDate < eventDate) {
+        eventStatus = "pill5";
+        eventText = getText("upcoming");
+      } else if (currentDate >= eventDate && currentDate <= endDate) {
+        eventStatus = "pill2";
+        eventText = getText("showing");
+      } else {
+        eventStatus = `pill3`;
+        eventText = getText("past");
+      }
+
       eventCard += `<tr class="border-bottom position-relative">
                       <td>
-                        <a role="button" onclick="showSummary(${event.id})" class="stretched-link text-decoration-none bg-transparent link-event-details" style="color: inherit;">
+                        <a role="button" onclick="showSummary(${
+                          event.id
+                        })" class="stretched-link text-decoration-none bg-transparent link-event-details" style="color: inherit;">
                           <div class="d-flex align-items-center">
                             <div class="me-3">
-                              <div class="text-center text-brand fw-bold">${moment(event.started_date).format("MMM ")}</div>
-                              <div class="text-center text-brand fw-bold">${moment(event.started_date).format("DD")}</div>
+                              <div class="text-center text-brand fw-bold">${moment(
+                                event.started_date
+                              ).format("MMM ")}</div>
+                              <div class="text-center text-brand fw-bold">${moment(
+                                event.started_date
+                              ).format("DD")}</div>
                             </div>
-                           <img src="${event.thumbnail ? `/uploads/${event.thumbnail}` : `/uploads/default-events-img.jpg`}" alt="Event Image" class="rounded object-fit-cover" width="150" height="85">
+                           <img src="${
+                             event.thumbnail
+                               ? `/uploads/${event.thumbnail}`
+                               : `/uploads/default-events-img.jpg`
+                           }" alt="Event Image" class="rounded object-fit-cover" width="150" height="85">
                             <div class="ms-3 text-nowrap">
                               <h5 class="mb-0 text-wrap">${event.eng_name}</h5>
-                              <p class="text-muted mb-0 w-75">${event.location || "Online Event"}</p>
+                              <p class="text-muted mb-0 w-75">${
+                                event.location || "Online Event"
+                              }</p>
                               <p class="text-muted mb-0 small">${formattedDate}</p>
                             </div>
                           </div>
                         </a>
                       </td>
                       <td class="text-nowrap"><span class="badge fw-medium ${eventStatus} p-2  rounded-5">${eventText}</span></td>
-                      <td class="text-nowrap">${data.data.total_approved_registrations || "0"} tickets</td>
+                      <td class="text-nowrap">${
+                        data.data.total_approved_registrations || "0"
+                      } tickets</td>
                       <td class="text-nowrap">${totalPrice}</td>
-                      <td class="text-nowrap">${data.data.total_checkin || "0"} participated</td>
+                      <td class="text-nowrap">${
+                        data.data.total_checkin || "0"
+                      } participated</td>
                       <td>
                         <div class="dropstart position-relative z-3">
                           <button class="btn btn-brand" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-three-dots"></i>
                           </button>
                           <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a role="button" class="dropdown-item d-flex align-items-center edit-event-btn" onclick="updateEvent(${event.id})"><i data-lucide="pencil" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;Update</a></li>
-                            <li><a role="button" class="dropdown-item d-flex align-items-center delete-event-btn" onclick="deleteEvent(${event.id}, this)"><i data-lucide="trash-2" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;Delete</a></li>
-                            <li><a class="dropdown-item d-flex align-items-center views-event-detail" href="/event/detail?e=${event.id}"><i data-lucide="eye" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;View</a></li>
-                            <li><a role="button" class="dropdown-item d-flex align-items-center" onclick="copyEventUrlToClipboard(${event.id})"><i data-lucide="link" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;Copy Link</a></li>
+                            <li><a role="button" class="dropdown-item d-flex align-items-center edit-event-btn" onclick="updateEvent(${
+                              event.id
+                            })"><i data-lucide="pencil" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;Update</a></li>
+                            <li><a role="button" class="dropdown-item d-flex align-items-center delete-event-btn" onclick="deleteEvent(${
+                              event.id
+                            }, this)"><i data-lucide="trash-2" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;Delete</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center views-event-detail" href="/event/detail?e=${
+                              event.id
+                            }"><i data-lucide="eye" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;View</a></li>
+                            <li><a role="button" class="dropdown-item d-flex align-items-center" onclick="copyEventUrlToClipboard(${
+                              event.id
+                            })"><i data-lucide="link" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;Copy Link</a></li>
                           </ul>
                         </div>
                       </td>
@@ -382,7 +459,9 @@ async function renderEventsUpcoming(page = 1, perpage = 10, is_published = null)
 }
 
 function renderPaginationUpcoming(paginate) {
-  const paginationNumbers = document.getElementById("pagination-numbers-upcoming");
+  const paginationNumbers = document.getElementById(
+    "pagination-numbers-upcoming"
+  );
   paginationNumbers.innerHTML = "";
 
   const totalPages = paginate.total_page;
@@ -418,15 +497,18 @@ function renderPaginationUpcoming(paginate) {
     if (currentPage < totalPages - 2) {
       paginationNumbers.appendChild(document.createTextNode("..."));
     }
-    
+
     paginationNumbers.appendChild(createPageButton(totalPages));
   }
 
   document.getElementById("prevUpcomingBtn").disabled = currentPage === 1;
-  document.getElementById("nextUpcomingBtn").disabled = currentPage === totalPages;
+  document.getElementById("nextUpcomingBtn").disabled =
+    currentPage === totalPages;
 
-  document.getElementById("prevUpcomingBtn").onclick = () => changePageUpcoming(currentPage - 1);
-  document.getElementById("nextUpcomingBtn").onclick = () => changePageUpcoming(currentPage + 1);
+  document.getElementById("prevUpcomingBtn").onclick = () =>
+    changePageUpcoming(currentPage - 1);
+  document.getElementById("nextUpcomingBtn").onclick = () =>
+    changePageUpcoming(currentPage + 1);
 }
 
 async function changePageUpcoming(newPage) {
@@ -437,7 +519,11 @@ async function changePageUpcoming(newPage) {
 renderEventsUpcoming();
 
 // showing
-async function renderEventsShowing(page = 1, perpage = 10, is_published = null) {
+async function renderEventsShowing(
+  page = 1,
+  perpage = 10,
+  is_published = null
+) {
   const eventList = document.getElementById("showing-event-tbody");
   eventList.innerHTML = loadingHtml;
 
@@ -459,82 +545,116 @@ async function renderEventsShowing(page = 1, perpage = 10, is_published = null) 
     const userId = user.id;
     queryParams.append("creator", userId);
     // console.log(queryParams.toString());
-    const { data } = await axiosInstance.get(`/events?${queryParams.toString()}`);
+    const { data } = await axiosInstance.get(
+      `/events?${queryParams.toString()}`
+    );
     const { data: events, paginate } = data;
 
     // console.log(events);
-    
-    
 
     if (events.length <= 0) {
       // console.log(true);
       eventList.innerHTML = noEvent;
-      return ;
+      return;
     }
 
     // console.log("Hi");
-    
 
     let eventCard = "";
     for (const event of events) {
-      const { data } = await axiosInstance.get("/events/summary-data/" + event.id);
-      const formattedDate = `${moment(event.started_date).format("MMM D, YYYY")} - ${moment(event.ended_date).format("MMM D, YYYY")}, ${moment(event.start_time, "HH:mm").format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
-      
-      let totalPrice = data.data.ticket.length > 0 
-        ? `$${data.data.ticket.reduce((sum, ticket) => sum + (ticket.price * ticket.ticket_bought), 0).toFixed(2)}`
-        : `Free`;
-        const eventDate = new Date(event.started_date);
-        const endDate = new Date(event.ended_date);
-  
-        const currentDate = new Date();
-  currentDate.setHours(0, 0, 0, 0);
-        let eventStatus = null;
-        let eventText = null
-        
-  
-        if (currentDate < eventDate) {
-          eventStatus = "pill5";
-          eventText = getText("upcoming")
-        } else if (currentDate >= eventDate && currentDate <= endDate) {
-          eventStatus = "pill2";
-          eventText = getText("showing")
-        } else {
-          eventStatus = `pill3`;
-          eventText = getText("past")
-        } 
+      const { data } = await axiosInstance.get(
+        "/events/summary-data/" + event.id
+      );
+      const formattedDate = `${moment(event.started_date).format(
+        "MMM D, YYYY"
+      )} - ${moment(event.ended_date).format("MMM D, YYYY")}, ${moment(
+        event.start_time,
+        "HH:mm"
+      ).format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
 
+      let totalPrice =
+        data.data.ticket.length > 0
+          ? `$${data.data.ticket
+              .reduce(
+                (sum, ticket) => sum + ticket.price * ticket.ticket_bought,
+                0
+              )
+              .toFixed(2)}`
+          : `Free`;
+      const eventDate = new Date(event.started_date);
+      const endDate = new Date(event.ended_date);
+
+      const currentDate = new Date();
+      currentDate.setHours(0, 0, 0, 0);
+      let eventStatus = null;
+      let eventText = null;
+
+      if (currentDate < eventDate) {
+        eventStatus = "pill5";
+        eventText = getText("upcoming");
+      } else if (currentDate >= eventDate && currentDate <= endDate) {
+        eventStatus = "pill2";
+        eventText = getText("showing");
+      } else {
+        eventStatus = `pill3`;
+        eventText = getText("past");
+      }
 
       eventCard += `<tr class="border-bottom position-relative">
                       <td>
-                        <a role="button" onclick="showSummary(${event.id})"  class="stretched-link text-decoration-none bg-transparent link-event-details" style="color: inherit;">
+                        <a role="button" onclick="showSummary(${
+                          event.id
+                        })"  class="stretched-link text-decoration-none bg-transparent link-event-details" style="color: inherit;">
                           <div class="d-flex align-items-center">
                             <div class="me-3">
-                              <div class="text-center text-brand fw-bold">${moment(event.started_date).format("MMM ")}</div>
-                              <div class="text-center text-brand fw-bold">${moment(event.started_date).format("DD")}</div>
+                              <div class="text-center text-brand fw-bold">${moment(
+                                event.started_date
+                              ).format("MMM ")}</div>
+                              <div class="text-center text-brand fw-bold">${moment(
+                                event.started_date
+                              ).format("DD")}</div>
                             </div>
-                            <img src="${event.thumbnail ? `/uploads/${event.thumbnail}` : `/uploads/default-events-img.jpg`}" alt="Event Image" class="rounded object-fit-cover" width="150" height="85">
+                            <img src="${
+                              event.thumbnail
+                                ? `/uploads/${event.thumbnail}`
+                                : `/uploads/default-events-img.jpg`
+                            }" alt="Event Image" class="rounded object-fit-cover" width="150" height="85">
                             <div class="ms-3 text-nowrap">
                               <h5 class="mb-0 text-wrap">${event.eng_name}</h5>
-                              <p class="text-muted mb-0 w-75">${event.location || "Online Event"}</p>
+                              <p class="text-muted mb-0 w-75">${
+                                event.location || "Online Event"
+                              }</p>
                               <p class="text-muted mb-0 small">${formattedDate}</p>
                             </div>
                           </div>
                         </a>
                       </td>
                       <td class="text-nowrap"><span class="badge fw-medium ${eventStatus} p-2  rounded-5">${eventText}</span></td>
-                      <td class="text-nowrap">${data.data.total_approved_registrations || "0"} tickets</td>
+                      <td class="text-nowrap">${
+                        data.data.total_approved_registrations || "0"
+                      } tickets</td>
                       <td class="text-nowrap">${totalPrice}</td>
-                      <td class="text-nowrap">${data.data.total_checkin || "0"} participated</td>
+                      <td class="text-nowrap">${
+                        data.data.total_checkin || "0"
+                      } participated</td>
                       <td>
                         <div class="dropstart position-relative z-3">
                           <button class="btn btn-brand" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-three-dots"></i>
                           </button>
                           <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a role="button" class="dropdown-item d-flex align-items-center edit-event-btn" onclick="updateEvent(${event.id})"><i data-lucide="pencil" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;Update</a></li>
-                            <li><a role="button" class="dropdown-item d-flex align-items-center delete-event-btn" onclick="deleteEvent(${event.id}, this)"><i data-lucide="trash-2" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;Delete</a></li>
-                            <li><a class="dropdown-item d-flex align-items-center views-event-detail" href="/event/detail?e=${event.id}"><i data-lucide="eye" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;View</a></li>
-                            <li><a role="button" class="dropdown-item d-flex align-items-center" onclick="copyEventUrlToClipboard(${event.id})"><i data-lucide="link" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;Copy Link</a></li>
+                            <li><a role="button" class="dropdown-item d-flex align-items-center edit-event-btn" onclick="updateEvent(${
+                              event.id
+                            })"><i data-lucide="pencil" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;Update</a></li>
+                            <li><a role="button" class="dropdown-item d-flex align-items-center delete-event-btn" onclick="deleteEvent(${
+                              event.id
+                            }, this)"><i data-lucide="trash-2" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;Delete</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center views-event-detail" href="/event/detail?e=${
+                              event.id
+                            }"><i data-lucide="eye" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;View</a></li>
+                            <li><a role="button" class="dropdown-item d-flex align-items-center" onclick="copyEventUrlToClipboard(${
+                              event.id
+                            })"><i data-lucide="link" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;Copy Link</a></li>
                           </ul>
                         </div>
                       </td>
@@ -551,7 +671,9 @@ async function renderEventsShowing(page = 1, perpage = 10, is_published = null) 
 }
 
 function renderPaginationShowing(paginate) {
-  const paginationNumbers = document.getElementById("pagination-numbers-showing");
+  const paginationNumbers = document.getElementById(
+    "pagination-numbers-showing"
+  );
   paginationNumbers.innerHTML = "";
 
   const totalPages = paginate.total_page;
@@ -587,15 +709,18 @@ function renderPaginationShowing(paginate) {
     if (currentPage < totalPages - 2) {
       paginationNumbers.appendChild(document.createTextNode("..."));
     }
-    
+
     paginationNumbers.appendChild(createPageButton(totalPages));
   }
 
   document.getElementById("prevShowingBtn").disabled = currentPage === 1;
-  document.getElementById("nextShowingBtn").disabled = currentPage === totalPages;
+  document.getElementById("nextShowingBtn").disabled =
+    currentPage === totalPages;
 
-  document.getElementById("prevShowingBtn").onclick = () => changePageShowing(currentPage - 1);
-  document.getElementById("nextShowingBtn").onclick = () => changePageShowing(currentPage + 1);
+  document.getElementById("prevShowingBtn").onclick = () =>
+    changePageShowing(currentPage - 1);
+  document.getElementById("nextShowingBtn").onclick = () =>
+    changePageShowing(currentPage + 1);
 }
 
 async function changePageShowing(newPage) {
@@ -628,7 +753,9 @@ async function renderEventsPast(page = 1, perpage = 10, is_published = null) {
     const userId = user.id;
     queryParams.append("creator", userId);
 
-    const { data } = await axiosInstance.get(`/events?${queryParams.toString()}`);
+    const { data } = await axiosInstance.get(
+      `/events?${queryParams.toString()}`
+    );
     const { data: events, paginate } = data;
 
     if (events.length <= 0) {
@@ -637,63 +764,99 @@ async function renderEventsPast(page = 1, perpage = 10, is_published = null) {
 
     let eventCard = "";
     for (const event of events) {
-      const { data } = await axiosInstance.get("/events/summary-data/" + event.id);
-      const formattedDate = `${moment(event.started_date).format("MMM D, YYYY")} - ${moment(event.ended_date).format("MMM D, YYYY")}, ${moment(event.start_time, "HH:mm").format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
-      
-      let totalPrice = data.data.ticket.length > 0 
-        ? `$${data.data.ticket.reduce((sum, ticket) => sum + (ticket.price * ticket.ticket_bought), 0).toFixed(2)}`
-        : `Free`;
-        const eventDate = new Date(event.started_date);
-        const endDate = new Date(event.ended_date);
-  
-        const currentDate = new Date();
-  currentDate.setHours(0, 0, 0, 0);
-        let eventStatus = null;
-        let eventText = null
-        
-  
-        if (currentDate < eventDate) {
-          eventStatus = "pill5";
-          eventText = getText("upcoming")
-        } else if (currentDate >= eventDate && currentDate <= endDate) {
-          eventStatus = "pill2";
-          eventText = getText("showing")
-        } else {
-          eventStatus = `pill3`;
-          eventText = getText("past")
-        } 
+      const { data } = await axiosInstance.get(
+        "/events/summary-data/" + event.id
+      );
+      const formattedDate = `${moment(event.started_date).format(
+        "MMM D, YYYY"
+      )} - ${moment(event.ended_date).format("MMM D, YYYY")}, ${moment(
+        event.start_time,
+        "HH:mm"
+      ).format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
+
+      let totalPrice =
+        data.data.ticket.length > 0
+          ? `$${data.data.ticket
+              .reduce(
+                (sum, ticket) => sum + ticket.price * ticket.ticket_bought,
+                0
+              )
+              .toFixed(2)}`
+          : `Free`;
+      const eventDate = new Date(event.started_date);
+      const endDate = new Date(event.ended_date);
+
+      const currentDate = new Date();
+      currentDate.setHours(0, 0, 0, 0);
+      let eventStatus = null;
+      let eventText = null;
+
+      if (currentDate < eventDate) {
+        eventStatus = "pill5";
+        eventText = getText("upcoming");
+      } else if (currentDate >= eventDate && currentDate <= endDate) {
+        eventStatus = "pill2";
+        eventText = getText("showing");
+      } else {
+        eventStatus = `pill3`;
+        eventText = getText("past");
+      }
 
       eventCard += `<tr class="border-bottom position-relative">
                       <td>
-                        <a role="button" onclick="showSummary(${event.id})"  class="stretched-link text-decoration-none bg-transparent link-event-details" style="color: inherit;">
+                        <a role="button" onclick="showSummary(${
+                          event.id
+                        })"  class="stretched-link text-decoration-none bg-transparent link-event-details" style="color: inherit;">
                           <div class="d-flex align-items-center">
                             <div class="me-3">
-                              <div class="text-center text-brand fw-bold">${moment(event.started_date).format("MMM ")}</div>
-                              <div class="text-center text-brand fw-bold">${moment(event.started_date).format("DD")}</div>
+                              <div class="text-center text-brand fw-bold">${moment(
+                                event.started_date
+                              ).format("MMM ")}</div>
+                              <div class="text-center text-brand fw-bold">${moment(
+                                event.started_date
+                              ).format("DD")}</div>
                             </div>
-                            <img src="${event.thumbnail ? `/uploads/${event.thumbnail}` : `/uploads/default-events-img.jpg`}" alt="Event Image" class="rounded object-fit-cover" width="150" height="85">
+                            <img src="${
+                              event.thumbnail
+                                ? `/uploads/${event.thumbnail}`
+                                : `/uploads/default-events-img.jpg`
+                            }" alt="Event Image" class="rounded object-fit-cover" width="150" height="85">
                             <div class="ms-3 text-nowrap">
                               <h5 class="mb-0 text-wrap">${event.eng_name}</h5>
-                              <p class="text-muted mb-0 w-75">${event.location || "Online Event"}</p>
+                              <p class="text-muted mb-0 w-75">${
+                                event.location || "Online Event"
+                              }</p>
                               <p class="text-muted mb-0 small">${formattedDate}</p>
                             </div>
                           </div>
                         </a>
                       </td>
                       <td class="text-nowrap"><span class="badge fw-medium ${eventStatus} p-2  rounded-5">${eventText}</span></td>
-                      <td class="text-nowrap">${data.data.total_approved_registrations || "0"} tickets</td>
+                      <td class="text-nowrap">${
+                        data.data.total_approved_registrations || "0"
+                      } tickets</td>
                       <td class="text-nowrap">${totalPrice}</td>
-                      <td class="text-nowrap">${data.data.total_checkin || "0"} participated</td>
+                      <td class="text-nowrap">${
+                        data.data.total_checkin || "0"
+                      } participated</td>
                       <td>
                         <div class="dropstart position-relative z-3">
                           <button class="btn btn-brand" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-three-dots"></i>
                           </button>
                           <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a role="button" class="dropdown-item d-flex align-items-center edit-event-btn" onclick="updateEvent(${event.id})"><i data-lucide="pencil" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;Update</a></li>
-                            <li><a role="button" class="dropdown-item d-flex align-items-center delete-event-btn" onclick="deleteEvent(${event.id}, this)"><i data-lucide="trash-2" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;Delete</a></li>
-                            <li><a class="dropdown-item d-flex align-items-center views-event-detail" href="/event/detail?e=${event.id}"><i data-lucide="eye" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;View</a></li>
-                            <li><a role="button" class="dropdown-item d-flex align-items-center" onclick="copyEventUrlToClipboard(${event.id})"><i data-lucide="link" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;Copy Link</a></li>
+                            <li><a role="button" class="dropdown-item d-flex align-items-center edit-event-btn" onclick="updateEvent(${
+                              event.id
+                            })"><i data-lucide="pencil" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;Update</a></li>
+                            <li><a role="button" class="dropdown-item d-flex align-items-center delete-event-btn" onclick="deleteEvent(${
+                              event.id
+                            }, this)"><i data-lucide="trash-2" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;Delete</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center views-event-detail" href="/event/detail?e=${
+                              event.id
+                            }"><i data-lucide="eye" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;View</a></li>
+                            <li><a role="button" class="dropdown-item d-flex align-items-center" onclick="copyEventUrlToClipboard(${
+                              event.id
+                            })"><i data-lucide="link" style="stroke-width: 1.5;width: 18px;"></i> &nbsp;&nbsp;Copy Link</a></li>
                           </ul>
                         </div>
                       </td>
@@ -746,29 +909,46 @@ function renderPaginationPast(paginate) {
     if (currentPage < totalPages - 2) {
       paginationNumbers.appendChild(document.createTextNode("..."));
     }
-    
+
     paginationNumbers.appendChild(createPageButton(totalPages));
   }
 
   document.getElementById("prevShowingBtn").disabled = currentPage === 1;
-  document.getElementById("nextShowingBtn").disabled = currentPage === totalPages;
+  document.getElementById("nextShowingBtn").disabled =
+    currentPage === totalPages;
 
-  document.getElementById("prevShowingBtn").onclick = () => changePagePast(currentPage - 1);
-  document.getElementById("nextShowingBtn").onclick = () => changePagePast(currentPage + 1);
+  document.getElementById("prevShowingBtn").onclick = () =>
+    changePagePast(currentPage - 1);
+  document.getElementById("nextShowingBtn").onclick = () =>
+    changePagePast(currentPage + 1);
 }
 
 async function changePagePast(newPage) {
   await renderEventsPast(newPage);
 }
 
-
 renderEventsPast();
 
 async function deleteEvent(id, btn) {
   try {
-    await axiosInstance.delete("/events/" + id);
-    showToast(true, "Event Deleted Successfully.");
-    btn.closest("tr").remove();
+    const result = await Swal.fire({
+      title: isEnglish ? "Are you sure?" : "តើអ្នកពិតជាចង់លុបមែនទេ?",
+      text: isEnglish
+        ? "You won't be able to revert this!"
+        : "អ្នកនឹងមិនអាចធ្វើវារវិញបានទេ!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "var(--c-brand)",
+      cancelButtonColor: "var(--bs-danger)",
+      confirmButtonText: isEnglish ? "Yes, delete it!" : "បាទ/ចាស, លុបវា!",
+      cancelButtonText: isEnglish ? "Cancel" : "បោះបង់",
+    });
+
+    if (result.isConfirmed) {
+      await axiosInstance.delete("/events/" + id);
+      showToast(true, "Event Deleted Successfully.");
+      btn.closest("tr").remove();
+    }
   } catch (error) {
     showToast();
     console.log(error);

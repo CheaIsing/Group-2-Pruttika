@@ -425,7 +425,12 @@ async function renderRelatedEvents(page = 1, perpage = 1000, is_published = true
 
 // Call the function to render related events
 // getEventDetail();
-renderRelatedEvents();
+if(document.getElementById("related-events")){
+
+  renderRelatedEvents();
+}else{
+  getEventDetail()
+}
 
 document.getElementById("btn-copylink-event").onclick = () => {
   copyEventUrlToClipboard(eventId);
