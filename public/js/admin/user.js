@@ -20,13 +20,16 @@ async function fetchUsers(
     page = parseInt(page) || 1;
     perPage = parseInt(perPage) || 4;
 
+    const roles = document.getElementById("role").value;
+    
+
     const response = await axiosInstance.get("/admin/user/display", {
       params: {
         page,
         per_page: perPage,
         sort_col: sortCol,
         sort_dir: sortDir,
-        role,
+        role : (role ? role : roles),
         search,
       },
     });
@@ -257,14 +260,11 @@ async function editUser(userId) {
             <label for="editGender" class="form-label">Gender</label>
             <select id="editGender" class="form-select">
               <option value="Male" ${
-                user.gender === "Male" ? "selected" : ""
+                user.gender === "1" ? "selected" : ""
               }>Male</option>
-              <option value="Female" ${
+              <option value="2" ${
                 user.gender === "Female" ? "selected" : ""
               }>Female</option>
-              <option value="Other" ${
-                user.gender === "Other" ? "selected" : ""
-              }>Other</option>
             </select>
           </div>
         </div>

@@ -773,3 +773,7 @@ Update `tbl_notification_type` SET `kh_title`= 'សំណើរបស់អ្�
 Update `tbl_notification_type` SET `kh_title`= 'សំណើរបស់អ្នករៀបចំត្រូវបានបដិសេធ' where id = 4;
 Update `tbl_notification_type` SET `kh_title`= 'ព្រឹត្តិការណ៍បានធ្វើបច្ចុប្បន្នភាព' where id = 5;
 Update `tbl_notification_type` SET `kh_title`= 'ការរំលឹក៖ ព្រឹត្តិការណ៍នាពេលខាងមុខ' where id = 6;
+
+-- update 23-03-2025
+ALTER table tbl_organizer_req modify bio varchar(1000);
+ALTER table tbl_organizer modify bio varchar(1000);
