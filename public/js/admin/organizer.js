@@ -18,8 +18,9 @@ async function fetchRequestOrganizers(
   sortDir = "asc"
 ) {
   try {
+    const statuss = document.getElementById("status").value
     const response = await axiosInstance.get("/admin/organizer/request", {
-      params: { page, per_page: perPage, sort_col: sortCol, sort_dir: sortDir, status, search },
+      params: { page, per_page: perPage, sort_col: sortCol, sort_dir: sortDir, status : (status? status : statuss), search },
     });
 
     const result = response.data.data.data;
@@ -253,7 +254,7 @@ function displayRequestOrganizer(organizers) {
               </span>
           </td>                
           <td>
-              <div class="d-inline-block">
+              <div class="d-flex gap-1">
     ${
         organizer.status === 1
         ? `
