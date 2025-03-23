@@ -82,7 +82,7 @@ function createNewTicketCategory() {
     </div>
     `;
 
-    document.getElementById("ticketContainerParent").appendChild(ticketContainer);
+    ticketWrapper.appendChild(ticketContainer);
 }
 
 
