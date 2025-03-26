@@ -457,6 +457,14 @@ form.sign-in-form {
   pointer-events: all;
 }
 
+@media (min-width: 576px) and (max-width: 768px){
+  .signin-signup {
+
+    top: 85%;
+
+  }
+}
+
 @media (max-width: 870px) {
   .container-form {
     min-height: 800px;
@@ -465,7 +473,7 @@ form.sign-in-form {
 
   .signin-signup {
     width: 100%;
-    top: 75%;
+    top: 80%;
     transform: translate(-50%, -100%);
     transition: 1s 0.8s ease-in-out;
   }
@@ -5125,4 +5133,9 @@ color: var(--c-brand);
 }
 .hidden {
   display: none; /* Hide elements */
+}
+
+#creator-img:hover + .click-profile > #creator-name,
+.click-profile:hover #creator-name{
+  color: var(--c-brand);
 }

@@ -30,11 +30,11 @@ const vCreateEvent = Joi.object({
 
 //validate input agenda
 const vAgendaSchema = Joi.object({
-    title: Joi.string().max(50).required().messages({
-        'string.max': `"title" must be at most {50} characters long`,
+    title: Joi.string().max(255).required().messages({
+        'string.max': `"title" must be at most {255} characters long`,
     }),
-    description: Joi.string().max(100).messages({
-        'string.max': `"title" must be at most {100} characters long`,
+    description: Joi.string().max(1000).messages({
+        'string.max': `"title" must be at most {1000} characters long`,
     }),
     start_time: Joi.string()
         .pattern(/^\d{2}:\d{2}$/) // Validates time format HH:MM

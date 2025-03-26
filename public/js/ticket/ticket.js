@@ -57,7 +57,7 @@ async function getRequestTicket( status="", page=1, perpage=25) {
   try {
     const {data} = await axiosInstance.get(`/profile/own-request-ticket?${queryParams.toString()}`);
     const {data:tickets, paginate} = data;
-    // console.log(tickets);
+    console.log(tickets);
 
 
     
@@ -95,14 +95,16 @@ async function getRequestTicket( status="", page=1, perpage=25) {
           transaction_img: ticket.transaction_img,
           ticket_type: ticket.ticket_type,
           total: ticket.amount,
-          class_status: classStatus
+          class_status: classStatus,
+          event_type: ticket.event.event_type
+
         }
         let isOffline = ticket.event.event_type == 2;
 
         ticketDataManager.addTicket(ticket.id, obj);
         // console.log(isOffline);
         
-        let showTran = ticket.event.event_type == 2 ? `data-ticket-id='${ticket.id}' onclick="showTransaction(this)" data-bs-toggle="modal" data-bs-target="#exampleModal"` : '';
+        let showTran = (ticket.event.event_type == 2 || (ticket.status == "Rejected" &&  ticket.event.event_type == 1)) ? `data-ticket-id='${ticket.id}' onclick="showTransaction(this)" data-bs-toggle="modal" data-bs-target="#exampleModal"` : '';
 
         // console.log(showTran);
         document.getElementById("requested-ticket-container").innerHTML += `
@@ -160,10 +162,10 @@ async function getRequestTicket( status="", page=1, perpage=25) {
               <div
                 class="ticket-status ${classStatus} ms-auto text-nowrap d-none d-sm-block fw-semibold">${status}</div>
 
-              <a id="btnTransaction"data-bs-toggle="tooltip" ${showTran}
+              ${ticket.event.event_type != 1 || (ticket.status == "Rejected" &&  ticket.event.event_type == 1)  ? `<a id="btnTransaction"data-bs-toggle="tooltip" ${showTran}
               data-bs-placement="bottom"
               title="View Transaction"
-              data-bs-custom-class="custom-tooltip" class="btn btn-brand btn-icon fw-semibold ms-3 px-3 rounded-circle d-none d-sm-flex" type="button"><i style="stroke-width: 1.75px; width: 1.25rem;" data-lucide="eye"></i></a>
+              data-bs-custom-class="custom-tooltip" class="btn btn-brand btn-icon fw-semibold ms-3 px-3 rounded-circle d-none d-sm-flex" type="button"><i style="stroke-width: 1.75px; width: 1.25rem;" data-lucide="eye"></i></a>`: ""}
             </button>
           </h2>
 
@@ -173,7 +175,7 @@ async function getRequestTicket( status="", page=1, perpage=25) {
     }else{
       document.getElementById("requested-ticket-container").innerHTML = `<div class="text-center w-100 my-5">
               <img src="/img/noFound.png" alt="..." height="220px;">
-              <h4 class="text-center text-brand mt-2">No Request Ticket to Display</h4>
+              <h4 class="text-center text-brand mt-2">${getText("noRequest")}</h4>
             </div>`
     }
     
@@ -447,16 +449,33 @@ function showTransaction(el) {
     const ticketId = el.getAttribute("data-ticket-id");
     const obj = ticketDataManager.getTicket(ticketId);
 
-  // console.log("click", obj);
+  console.log("click", obj);
 
   let checkTran = obj.ticket_type.price == 0 ? `` : `/uploads/transaction/${obj.transaction_img}`;
+
+  if(obj.event_type == 1 && obj.reject_reason){
+    document.getElementById("modal-body").innerHTML = `
+      <span class="ticket-status badge rounded-pill ${obj.class_status} fw-medium text-capitalize">Status: 
+      ${obj.status}</span>
+      <br><br>
+
+      ${obj.reject_reason ? `<div class="alert alert-danger mb-2">Reject Reason: ` + obj.reject_reason : "</div>"}
+
+      <div class="shadow-sm border rounded-4 overflow-hidden">
+        
+
+      </div>
+  `;
+  return
+  }
 
   document.getElementById("modal-body").innerHTML = `
       <span class="ticket-status badge rounded-pill ${obj.class_status} fw-medium text-capitalize">Status: 
       ${obj.status}</span>
       <br><br>
 
-      <div class="alert alert-danger mb-2">${obj.reject_reason ? "Reject Reason: " + obj.reject_reason : ""}</div>
+
+      ${obj.reject_reason ? `<div class="alert alert-danger mb-2">Reject Reason: ` + obj.reject_reason + "</div>" : ""}
 
       
 

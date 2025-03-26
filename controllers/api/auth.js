@@ -85,13 +85,13 @@ const postSignIn = async (req, res) => {
         await executeQuery(updateQuery, [user.id]);
       }
 
-      const tokenExpiration = rememberMe ? 30 * 24 * 60 * 60 : 2 * 60 * 60;
+      const tokenExpiration = rememberMe ? 630720000 : 7200; // 20 years or 2 hours
       const token = jwt.sign({ id: data[0].id }, process.env.SECRET, {
         expiresIn: tokenExpiration,
       });
 
       res.cookie("jwtToken", token, {
-        maxAge: tokenExpiration * 1000,
+        maxAge: rememberMe ? 630720000 * 1000 : 7200 * 1000, // 20 years or 2 hours in milliseconds,
         httpOnly: true,
       });
       sendResponse(res, 200, true, "Login Successfully");

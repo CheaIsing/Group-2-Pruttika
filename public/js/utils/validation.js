@@ -8,7 +8,7 @@ const messages = {
   emailInvalid: isEnglish ? "Invalid Email." : "អ៊ីមែលមិនត្រឹមត្រូវ។",
   passwordRequired: isEnglish ? "Password is required." : "ពាក្យសម្ងាត់ត្រូវបានទាមទារ។",
   passwordMin: isEnglish ? "Password must be at least 8 characters." : "ពាក្យសម្ងាត់ត្រូវមានយ៉ាងហោចណាស់ 8 តួអក្សរ។",
-  passwordStrong: isEnglish ? "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character." : "ពាក្យសម្ងាត់ត្រូវតែមានយ៉ាងហោចណាស់ 8 តួអក្សរ អក្សរធំមួយ អក្សរតូចមួយ លេខមួយ និងតួអក្សរពិសេសមួយ",
+  passwordStrong: isEnglish ? "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character." : "ពាក្យសម្ងាត់ត្រូវតែមានយ៉ាងហោចណាស់ អក្សរធំមួយ អក្សរតូចមួយ លេខមួយ និងតួអក្សរពិសេសមួយ",
   newPasswordRequired: isEnglish ? "New Password is required." : "ពាក្យសម្ងាត់ថ្មីត្រូវបានទាមទារ។",
   newPasswordMin: isEnglish ? "New Password must be at least 8 characters." : "ពាក្យសម្ងាត់ថ្មីត្រូវមានយ៉ាងហោចណាស់ 8 តួអក្សរ។",
   otpRequired: isEnglish ? "Otp Code is required." : "កូដ OTP ត្រូវបានទាមទារ។",
@@ -32,10 +32,10 @@ const messages = {
   titleMin: isEnglish ? "Event title is at least 6 characters." : "ចំណងជើងព្រឹត្តិការណ៍ត្រូវមានយ៉ាងហោចណាស់ 6 តួអក្សរ",
   agendaTitleRequired: isEnglish ? "Title is required." : "ចំណងជើងត្រូវបានទាមទារ",
   agendaTitleMin: isEnglish ? "Title must be at least 3 characters." : "ចំណងជើងត្រូវមានយ៉ាងហោចណាស់ 3 តួអក្សរ។",
-  agendaTitleMax: isEnglish ? "Title must be at most 50 characters." : "ចំណងជើងត្រូវមានភាគច្រើន 50 តួអក្សរ។",
+  agendaTitleMax: isEnglish ? "Title must be at most 255 characters." : "ចំណងជើងត្រូវមានភាគច្រើន 255 តួអក្សរ។",
   descriptionRequired: isEnglish ? "Description Detail is required." : "ព័ត៌មានពិពណ៌នាដែលលម្អិត ត្រូវបានទាមទារ។",
   descriptionMin: isEnglish ? "Description Detail must be at least 5 characters." : "ព័ត៌មានពិពណ៌នាដែលលម្អិត ត្រូវមានយ៉ាងហោចណាស់ 5 តួអក្សរ។",
-  descriptionMax: isEnglish ? "Description Detail must be at most 100 characters." : "ព័ត៌មានពិពណ៌នាដែលលម្អិត ត្រូវមានភាគច្រើន 100 តួអក្សរ។",
+  descriptionMax: isEnglish ? "Description Detail must be at most 1000 characters." : "ព័ត៌មានពិពណ៌នាដែលលម្អិត ត្រូវមានភាគច្រើន 1000 តួអក្សរ។",
   ticketTypeRequired: isEnglish ? "Ticket type is required." : "ប្រភេទសំបុត្រត្រូវបានទាមទារ។",
   ticketPriceRequired: isEnglish ? "Ticket price is required." : "តម្លៃសំបុត្រត្រូវបានទាមទារ។",
   ticketCapacityRequired: isEnglish ? "Ticket capacity is required." : "ចំនួនសំបុត្រត្រូវបានទាមទារ។",
@@ -263,12 +263,12 @@ const vEventDescription = Joi.object({
 }).options({ abortEarly: false });
 
 const vEventAgenda = Joi.object({
-  title: Joi.string().trim().min(3).max(50).required().messages({
+  title: Joi.string().trim().min(3).max(255).required().messages({
     "string.empty": messages.agendaTitleRequired,
     "string.min": messages.agendaTitleMin,
     "string.max": messages.agendaTitleMax, // Adjust as needed
   }),
-  description: Joi.string().trim().min(5).max(100).required().messages({
+  description: Joi.string().trim().min(5).max(1000).required().messages({
     "string.empty": messages.descriptionRequired,
     "string.min": messages.descriptionRequired,
     "string.max": messages.descriptionMax, // Adjust as needed
@@ -286,14 +286,14 @@ const vUpdateEventAgenda = Joi.object({
     Joi.number().integer().min(0), 
     Joi.string().valid('')
   ),
-  title: Joi.string().trim().min(3).max(50).required().messages({
+  title: Joi.string().trim().min(3).max(255).required().messages({
     "string.empty": messages.agendaTitleRequired,
     "string.min": messages.agendaTitleMin,
     "string.max": messages.agendaTitleMax, // Adjust as needed
   }),
-  description: Joi.string().trim().min(5).max(100).required().messages({
+  description: Joi.string().trim().min(5).max(1000).required().messages({
     "string.empty": messages.descriptionRequired,
-    "string.min": messages.descriptionRequired,
+    "string.min": messages.descriptionMin,
     "string.max": messages.descriptionMax, // Adjust as needed
   }),
   start_time: Joi.string().trim().required().messages({

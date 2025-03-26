@@ -121,11 +121,11 @@ async function getEventDetail() {
       document
         .getElementById("buttonWish")
         .classList.toggle("active", isWishlist);
-        console.log(isWishlist);
+        // console.log(isWishlist);
         
 
-        console.log(wishlist);
-        console.log(eventObj);
+        // console.log(wishlist);
+        // console.log(eventObj);
         
         if(isWishlist){
 
@@ -135,6 +135,8 @@ async function getEventDetail() {
 
       if (eventObj.creator.id == userId) {
         document.getElementById("btnFollow").classList.add("opacity-0");
+        document.getElementById("btnPurchaseTicket").classList.add("disabled")
+        document.getElementById("btnPurchaseTicket").innerText = "Owned Event"
       }
       document
         .getElementById("btnFollow")
@@ -156,12 +158,21 @@ async function getEventDetail() {
         document.getElementById("btnPurchaseTicket").classList.add("disabled");
       }
       if(isRedeemTicket){
-        console.log(true);
+        // console.log(true);
         
         // document.getElementById("btnPurchaseTicket").setAttribute("disabled", "");
         // document.getElementById("btnPurchaseTicket").classList.add("disabled");
       }
       
+    }else{
+      document
+      .getElementById("buttonWish").onclick = ()=>{
+        window.location.href = "/auth/signin"
+      }
+      document
+      .getElementById("btnFollow").onclick = ()=>{
+        window.location.href = "/auth/signin"
+      }
     }
 
     document.getElementById(
@@ -179,9 +190,7 @@ async function getEventDetail() {
     ).format("ddd, MMM Do YYYY");
     document.getElementById("created-at").innerText = moment(
       eventObj.updated_at
-    )
-      .startOf("hour")
-      .fromNow();
+    ).fromNow();
     document.getElementById("short-desc").innerText =
       eventObj.short_description;
     document.getElementById("creator-name").innerText = eventObj.creator.name;
@@ -196,6 +205,12 @@ async function getEventDetail() {
         window.location.href = "/profile/view-profile";
       };
     });
+
+    if(moment(eventObj.ended_date).isBefore(moment())){
+      // console.log("true");
+      document.getElementById("btnPurchaseTicket").innerText = isEnglish ? "Already Finished":"រួចរាល់ហើយ";
+      document.getElementById("btnPurchaseTicket").classList.add("disabled")
+    }
 
     document.getElementById("date").innerText = `${moment(
       eventObj.started_date
@@ -223,6 +238,11 @@ async function getEventDetail() {
       document.getElementById("capacity").innerText =
         eventObj.event_tickets.reduce((acc, t) => acc + t.ticket_opacity, 0);
         document.getElementById("remain-capacity").innerText = eventObj.event_tickets.reduce((acc, t) => acc + t.ticket_opacity, 0) - eventObj.event_tickets.reduce((acc, t) => acc + t.ticket_bought, 0)
+
+        if(document.getElementById("remain-capacity").innerText == 0){
+          document.getElementById("btnPurchaseTicket").innerText = isEnglish ? "Sold Out":"លក់អស់";
+          document.getElementById("btnPurchaseTicket").classList.add("disabled")
+        }
     } else if (
       eventObj.event_tickets.length == 0 &&
       eventObj.event_type == "online"
@@ -274,7 +294,7 @@ async function getEventDetail() {
         (a) => `
       <div class="agenda-card mb-3 rounded-4 py-3 px-4">
         <div class="agenda-content ps-4">
-          <p class="text-secondary">${a.agendaEnd_time}</p>
+          <p class="text-secondary">${moment(a.agendaStart_time, "HH:mm:ss").format("hh:mm A")} - ${moment(a.agendaEnd_time, "HH:mm:ss").format("hh:mm A")}</p>
           <h4 style="color: #333333;">${a.title}</h4>
           <p class="mb-0 text-secondary">${a.agendaDescription}</p>
         </div>
