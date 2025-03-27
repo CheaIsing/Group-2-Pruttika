@@ -788,6 +788,7 @@ function checkStep() {
 
         if (isValid) {
           agendas.push({ title, description, start_time, end_time });
+          handleErrorMessages([], fieldsEventAgendaKh);
         }
       });
 
@@ -869,6 +870,7 @@ function checkStep() {
 
         if (isValid) {
           tickets.push({ type: title, price, ticket_opacity: capacity });
+          handleErrorMessages([], fieldsEventTicketKh);
           if (price == 0) {
             isSkipStepPayment = true;
             document
@@ -964,6 +966,7 @@ function checkStep() {
 
           if (isValid) {
             tickets.push({ type: title, price, ticket_opacity: capacity });
+            handleErrorMessages([], fieldsEventTicketKh);
           }
         });
 

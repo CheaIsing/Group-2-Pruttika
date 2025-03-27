@@ -207,7 +207,7 @@
         <section class="container-lg gy-5">
             <div class="d-flex justify-content-between mb-3">
                 <h3><i class="fa-solid fa-globe text-brand me-3"></i><%= t('mainpage.all-event') %> <span class="text-brand"><%= t('mainpage.phnompenh') %></span>, <%= t('mainpage.cambodia') %></h3>
-                <a class="seeAllEvent color-style" href="#"><strong><%= t('mainpage.see-all-event') %></strong></a>
+                <a class="seeAllEvent color-style" href="/event/browse"><strong><%= t('mainpage.see-all-event') %></strong></a>
             </div>
 
             <div class="swiper mySwiper">
@@ -248,7 +248,8 @@
     breakpoints: {
       576: { slidesPerView: 2, spaceBetween: 15 },
       768: { slidesPerView: 2, spaceBetween: 25 },
-      1024: { slidesPerView: 4, spaceBetween: 35 },
+      992: { slidesPerView: 3, spaceBetween: 30 },
+      1400: { slidesPerView: 4, spaceBetween: 35 },
     },
   });
 

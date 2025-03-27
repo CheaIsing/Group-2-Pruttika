@@ -1,7 +1,27 @@
+async function resendOtp(){
+  try {
+    // document.getElementById("resendBtn").classList.add("disabled");
+    btnShowLoading("resendBtn")
+    
+    await axiosInstance.post("/auth/forgot-password", {email : sessionStorage.getItem("email")});
+    showToast(true, isEnglish ? "OTP Resend Successfully. Please check your email.":"OTP ផ្ញើឡើងវិញដោយជោគជ័យ។ សូមពិនិត្យមើលអ៊ីមែលរបស់អ្នក")
+  } catch (error) {
+    console.log(error);
+    showToast()
+  }finally{
+    document.getElementById("resendBtn").classList.remove("disabled");
+    btnCloseLoading("resendBtn", isEnglish ? "Resend": "ផ្ញើឡើងវិញ");
+  }
+
+}
+document.getElementById("resendBtn").onclick = ()=>{
+  resendOtp()
+}
 window.onload = ()=>{
   const userEmail = sessionStorage.getItem("email");
   const isForgotPass = sessionStorage.getItem('isForgotPass');
   let btnText = document.getElementById("btnVerify").innerText
+
 if (userEmail) {
   if(isForgotPass == "true"){
     showToast(true, getText("msgOtp"));
@@ -119,3 +139,4 @@ if (userEmail) {
 }
 
 }
+

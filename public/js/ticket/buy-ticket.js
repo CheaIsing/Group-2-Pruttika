@@ -74,7 +74,7 @@ tickets.forEach((ticket, i) => {
 
     if (ticket.ticket_bought >= ticket.capacity) {
         isDisabled = "disabled";
-        soldOutText = " - Sold Out";
+        soldOutText = isEnglish ? " - Sold Out" : " - លក់អស់";
     } else {
         allTicketsSoldOut = false; // At least one ticket is available
     }
@@ -92,7 +92,7 @@ let submitButton = document.getElementById("submitButton"); // Assuming you have
 if (allTicketsSoldOut) {
     if (submitButton) {
         submitButton.disabled = true;
-        submitButton.textContent = "Sold Out"; 
+        submitButton.textContent = isEnglish ? "Sold Out" : "លក់អស់"; 
     }
 }
 
@@ -254,7 +254,7 @@ document.getElementById("submitButton").addEventListener("click", async (e)=>{
         
         await axiosInstance.post("/tickets/transaction-file/"+id, transactionFile);
 
-        showToast(true, "Purchase ticket has submitted. Please wait for confirmation from organizer.")
+        showToast(true, isEnglish ? "Purchase ticket has submitted. Please wait for confirmation from organizer." : "ការទិញសំបុត្រត្រូវបានដាក់ស្នើ។ សូមរង់ចាំការបញ្ជាក់ពីអ្នករៀបចំ")
 
         setTimeout(()=>{
           window.location.href = "/event/detail"
@@ -268,7 +268,7 @@ document.getElementById("submitButton").addEventListener("click", async (e)=>{
         console.log(error);
         
     }finally{
-      btnCloseLoading("submitButton", "Submit Purchase")
+      btnCloseLoading("submitButton", isEnglish ? "Submit Purchase" : "ដាក់ស្នើការទិញ")
       // document.getElementById("submitButton").disabled = true
     }
 })

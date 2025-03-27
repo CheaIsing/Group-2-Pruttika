@@ -86,7 +86,7 @@ document
           selectedCategories.push(categoryId); // Add the new category
           // Update the active class for the buttons accordingly
           const allButtons = document.querySelectorAll(
-            "#category-container button"
+            "#categories-mobile-container button"
           );
           allButtons.forEach((btn) => {
             if (
@@ -362,6 +362,7 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
   queryParams.append("page", `${page}`);
   queryParams.append("is_published", `${is_published}`);
   queryParams.append("perpage", `${perpage}`);
+  
 
   if (search) {
     queryParams.append("search", search);
@@ -387,6 +388,7 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
 
   if (sort == "eng_name") {
     queryParams.append("sort", "eng_name");
+    queryParams.append("order", `asc`);
   } else if (sort == "created_at") {
     queryParams.append("sort", "created_at");
   }

@@ -777,3 +777,7 @@ Update `tbl_notification_type` SET `kh_title`= 'ការរំលឹក៖ ព�
 -- update 23-03-2025
 ALTER table tbl_organizer_req modify bio text;
 ALTER table tbl_organizer modify bio text;
+
+-- update 25-03-2025
+alter table tbl_agenda modify description varchar(1000);
+alter table tbl_agenda modify title varchar(255);
