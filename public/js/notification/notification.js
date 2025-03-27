@@ -307,6 +307,10 @@ async function updateEventLink(id, btn) {
       .classList.remove("is_invalid");
   }
   try {
+    btn.disabled = true;
+  btn.innerHTML = `<div class="spinner-border" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>`;
     const result = await axiosInstance.post("/notification/set-link/" + id, {
       event_link: link,
     });
@@ -323,6 +327,9 @@ async function updateEventLink(id, btn) {
       return showToast(false, error.response.data.message)
     }
     showToast();
+  }finally{
+    btn.disabled = false;
+    btn.innerHTML = isEnglish ?"Send":"ផ្ងេី";
   }
 }
 async function showNotificationDetail(noti) {

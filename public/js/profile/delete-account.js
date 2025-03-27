@@ -15,6 +15,15 @@ const fields = [
   },
 ];
 
+const fieldsKh = [
+  {
+    name: isEnglish ? "current password" : "ពាក្យសម្ងាត់​បច្ចុប្បន្ន​",
+    id: "input-field-current-password",
+    textErrorElement: "#invalid_feedback_current_password div",
+    isInvalidClass: "is_invalid",
+  },
+];
+
 frm.addEventListener(
   "submit",
   async (e) => {
@@ -32,11 +41,11 @@ frm.addEventListener(
 
     if (error) {
       const errorMessages = error.details.map((detail) => detail.message);
-      handleErrorMessages(errorMessages, fields);
+      handleErrorMessages(errorMessages, fieldsKh);
       return;
     }
 
-    handleErrorMessages([], fields);
+    handleErrorMessages([], fieldsKh);
 
     isValid = true;
 
@@ -48,15 +57,20 @@ frm.addEventListener(
 
       await axiosInstance.post("/profile/delete-acc", formData);
 
-      showToast(true, "Account Deleted Successfully.");
+      showToast(true, isEnglish ? "Account Deleted Successfully." : "គណនីត្រូវបានលុបដោយជោគជ័យ");
+
+      setTimeout(()=>{
+        window.location.href = "/"
+      }, 1000)
 
       // clearInput();
     } catch (error) {
       console.log(error);
 
-      if (typeof error.response.data == "string") {
+      if (!(error.response && error.response.data &&  typeof error.response.data == "object")) {
         return showToast();
       }
+
 
       const messages = error.response.data.message;
 
@@ -64,7 +78,7 @@ frm.addEventListener(
 
       handleErrorMessages(errorMessages, fields);
     } finally {
-      btnCloseLoading("btnDeleteAccount", "Delete Account");
+      btnCloseLoading("btnDeleteAccount", isEnglish ? "Delete Account" : "លុបគណនី");
     }
   }
 

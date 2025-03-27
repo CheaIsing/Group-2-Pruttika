@@ -85,9 +85,9 @@ async function getOrganizer() {
     document.getElementById("btnFollow").setAttribute("onclick", `toggleFollow(${userId}, this)`)
 
     if (result3.data.some(item => item.id == userId)){
-      document.getElementById("btnFollow").innerText = `Unfollow`
+      document.getElementById("btnFollow").innerText = getText("unfollow")
     }else{
-      document.getElementById("btnFollow").innerText = `Follow`
+      document.getElementById("btnFollow").innerText = getText("follow")
     }
     // console.log(meId, userId);
     
@@ -109,7 +109,7 @@ async function getOrganizer() {
       document.getElementById('name').innerText = user.eng_name;
       document.getElementById("organizer-info").classList.add("d-none")
       
-      document.getElementById("event-list").innerHTML = `<div class="col-12">No event to show.</div>`
+      document.getElementById("event-list").innerHTML = `<div class="col-12">${isEnglish ? "No event to show": "គ្មានព្រឹត្តិការណ៍ដែលត្រូវបង្ហាញទេ"}</div>`
       document.getElementById("event-list").classList.add("h-auto");
       // console.log(document.getElementById("event-list").innerHTML);
       document.getElementById("select-sort").classList.add("d-none")
@@ -146,8 +146,8 @@ async function getOrganizer() {
         </div>
         
         <div class="modal-header mb-4 d-flex flex-column align-items-start">
-            <h2 class="modal-title">Contact</h2>
-            <p class="modal-subtitle">Get in touch with ${user.Organizer_info.name}</p>
+            <h2 class="modal-title">${isEnglish ? "Contact":"ទំនាក់ទំនង"}</h2>
+            <p class="modal-subtitle">${isEnglish ? "Get in touch with":"ទាក់ទងជាមួយ"} ${user.Organizer_info.name}</p>
         </div>
         
         <div class="contact-list">
@@ -567,12 +567,12 @@ async function toggleFollow(id, btn) {
 
     if (isFollowing) {
       await axiosInstance.delete(`/follow/unfollow/${id}`);
-      showToast(true, "Unfollowed Successfully");
-      btn.innerText = "Follow";
+      showToast(true, getText("unfollowSuccess"));
+      btn.innerText = getText("follow");
     } else {
       await axiosInstance.post(`/follow/${id}`);
-      showToast(true, "Followed Successfully");
-      btn.innerText = "Unfollow";
+      showToast(true, getText("followSuccess"));
+      btn.innerText = getText("unfollow");
     }
   } catch (error) {
     console.log(error);

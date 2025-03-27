@@ -48,6 +48,38 @@ const fields = [
     isInvalidClass: "is_invalid",
   },
 ];
+const fieldsKh = [
+  {
+    name: isEnglish ? "english username" : "ឈ្មោះអ្នកប្រើអង់គ្លេស",
+    id: "input-field-eng-name",
+    textErrorElement: "#invalid_feedback_eng_name div",
+    isInvalidClass: "is_invalid",
+  },
+  {
+    name: isEnglish ? "khmer username" : "ឈ្មោះអ្នកប្រើខ្មែរ",
+    id: "input-field-kh-name",
+    textErrorElement: "#invalid_feedback_kh_name div",
+    isInvalidClass: "is_invalid",
+  },
+  {
+    name: isEnglish ? "email": "អ៊ីមែល",
+    id: "input-field-email",
+    textErrorElement: "#invalid_feedback_email div",
+    isInvalidClass: "is_invalid",
+  },
+  {
+    name: isEnglish ? "phone" : "លេខទូរស័ព្ទ",
+    id: "input-field-phone",
+    textErrorElement: "#invalid_feedback_phone div",
+    isInvalidClass: "is_invalid",
+  },
+  {
+    name: isEnglish ? "dob" : "dob",
+    id: "input-field-dob",
+    textErrorElement: "#invalid_feedback_dob div",
+    isInvalidClass: "is_invalid",
+  },
+];
 
 
 const khNameEle = document.getElementById("kh-name");
@@ -167,11 +199,11 @@ frm.addEventListener("submit", async (e) => {
 
   if (error) {
     const errorMessages = error.details.map((detail) => detail.message);
-    handleErrorMessages(errorMessages, fields);
+    handleErrorMessages(errorMessages, fieldsKh);
     return;
   }
 
-  handleErrorMessages([], fields);
+  handleErrorMessages([], fieldsKh);
 
   isValid = true;
   
@@ -183,7 +215,7 @@ frm.addEventListener("submit", async (e) => {
     btnShowLoading("btnSaveChange");
     await axiosInstance.put("/profile/info", formData);
 
-    showToast(true, "Update Profile Info Successfully.");
+    showToast(true, isEnglish ? "Update Profile Info Successfully." : "ធ្វើបច្ចុប្បន្នភាពព័ត៌មានព័ត៌មានដោយជោគជ័យ");
     getProfileInfo()
   } catch (error) {
     console.log(error);
@@ -198,7 +230,7 @@ frm.addEventListener("submit", async (e) => {
 
     handleErrorMessages(errorMessages, fields);
   } finally {
-    btnCloseLoading("btnSaveChange", "Save Changes");
+    btnCloseLoading("btnSaveChange", isEnglish ? "Save Changes":"រក្សាទុកការផ្លាស់ប្តូរ");
   }
 });
 
@@ -310,12 +342,15 @@ document.addEventListener("DOMContentLoaded", function () {
             btnShowLoading("cropImageBtn");
             const response = await axiosInstance.post("/profile/avatar", formData);
   
-            showToast(true, "Profile Upload Successfully.");
+            showToast(true, isEnglish ? "Profile Upload Successfully." : "បង្ហោះរូបភាពដោយជោគជ័យ");
+
+            
+            document.getElementById("userImgPf").src = document.getElementById("imagePreview").src
           } catch (error) {
             console.log(error);
             showToast();
           } finally {
-            btnCloseLoading("cropImageBtn", "Save");
+            btnCloseLoading("cropImageBtn", isEnglish ? "Save": "រក្សាទុក");
             cropImageModal.hide();
           }
         }
@@ -327,7 +362,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const response = await axiosInstance.delete("/profile/avatar");
 
       // console.log(response);
-      showToast(true, "Profile Delete Successfully.");
+      showToast(true, isEnglish ? "Profile Delete Successfully." : "លុបប្រវត្តិរូបដោយជោគជ័យ");
 
       getProfileInfo();
     } catch (error) {

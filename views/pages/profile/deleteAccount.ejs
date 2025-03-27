@@ -10,7 +10,7 @@
         </div>
         <div class="col-12 col-md-8">
             <div class="card border-0 shadow-light-sm p-4 rounded-3">
-                <a href="#"> <h4><i class="bi bi-caret-left-fill text-brand"></i>&nbsp;<%= t('profile.deleteAcc.title') %></h4></a>
+                <a  onclick="history.back()" role="button"> <h4><i class="bi bi-caret-left-fill text-brand"></i>&nbsp;<%= t('profile.deleteAcc.title') %></h4></a>
             <form id="frm" class="mt-3">
                 <p><%= t('profile.deleteAcc.content') %></p>
                 <div class="mb-3">
@@ -19,7 +19,7 @@
                     <i class="fas fa-lock "></i>
                     <input type="password" placeholder="<%= t('profile.deleteAcc.current-pw') %>"
                       id="current-password" />
-                      <i class="fa-solid fa-eye"></i>
+                      <!-- <i class="fa-solid fa-eye"></i> -->
                   </div>
                   <div
                     class="invalid_feedback text-danger d-flex align-items-center mb-2"

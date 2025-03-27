@@ -59,7 +59,7 @@ const postRequestTicket=async(req,res)=>{
                 return sendResponse(res,400,false,`Event Ticket Type id ${ticketTypeId} is not found`);
             }
             if((checkTicket.ticket_bought+qty) > checkTicket.ticket_opacity){
-                return sendResponse(res,400,false,`This Event Ticket is not available to buy.`);
+                return sendResponse(res,400,false,`This tickets are sold out or the number of tickets you requested exceeds the remaining availability.`);
             }
             const amount=checkTicket.price*qty;
             const sqlInsertReq=`INSERT INTO tbl_transaction(buyer_id, ticket_event_id, ticket_qty, total_amount,event_id) VALUES(?,?,?,?,?)`;
@@ -359,7 +359,7 @@ const getAllRequestTicket=async(req,res)=>{
             req.query.event_id , req.query.ticket_type_id,
             req.query.status,
             req.query.page, req.query.per_page,
-            req.query.sort, req.query.order
+            req.query.sort, req.query.order, req.query.search
         );
         sendResponse1(res,200,true,"Get all user request ticket successfully",data.rows,data.paginate)
     } catch (error) {

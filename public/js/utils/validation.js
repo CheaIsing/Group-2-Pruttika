@@ -8,13 +8,18 @@ const messages = {
   emailInvalid: isEnglish ? "Invalid Email." : "អ៊ីមែលមិនត្រឹមត្រូវ។",
   passwordRequired: isEnglish ? "Password is required." : "ពាក្យសម្ងាត់ត្រូវបានទាមទារ។",
   passwordMin: isEnglish ? "Password must be at least 8 characters." : "ពាក្យសម្ងាត់ត្រូវមានយ៉ាងហោចណាស់ 8 តួអក្សរ។",
-  passwordStrong: isEnglish ? "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character." : "ពាក្យសម្ងាត់ត្រូវតែមានយ៉ាងហោចណាស់ 8 តួអក្សរ អក្សរធំមួយ អក្សរតូចមួយ លេខមួយ និងតួអក្សរពិសេសមួយ",
+  passwordStrong: isEnglish ? "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character." : "ពាក្យសម្ងាត់ត្រូវតែមានយ៉ាងហោចណាស់ អក្សរធំមួយ អក្សរតូចមួយ លេខមួយ និងតួអក្សរពិសេសមួយ",
+  newPasswordStrong: isEnglish ? "New Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character." : "ពាក្យសម្ងាត់ថ្មីត្រូវតែមានយ៉ាងហោចណាស់ អក្សរធំមួយ អក្សរតូចមួយ លេខមួយ និងតួអក្សរពិសេសមួយ",
   newPasswordRequired: isEnglish ? "New Password is required." : "ពាក្យសម្ងាត់ថ្មីត្រូវបានទាមទារ។",
   newPasswordMin: isEnglish ? "New Password must be at least 8 characters." : "ពាក្យសម្ងាត់ថ្មីត្រូវមានយ៉ាងហោចណាស់ 8 តួអក្សរ។",
   otpRequired: isEnglish ? "Otp Code is required." : "កូដ OTP ត្រូវបានទាមទារ។",
   otpInvalid: isEnglish ? "Otp Code must be exactly 6 digits." : "កូដ OTP ត្រូវតែមាន 6 ខ្ទង់។",
   usernameRequired: isEnglish ? "Username is required." : "ឈ្មោះអ្នកប្រើ ត្រូវបានទាមទារ។",
   usernameMin: isEnglish ? "Username must be at least 4 characters." : "ឈ្មោះអ្នកប្រើត្រូវមានយ៉ាងហោចណាស់ 4 តួអក្សរ។",
+  enusernameRequired: isEnglish ? "English username is required." : "ឈ្មោះអ្នកប្រើអង់គ្លេស ត្រូវបានទាមទារ។",
+  enusernameMin: isEnglish ? "English username must be at least 4 characters." : "ឈ្មោះអ្នកប្រើអង់គ្លេសត្រូវមានយ៉ាងហោចណាស់ 4 តួអក្សរ។",
+  khusernameRequired: isEnglish ? "Khmer username is required." : "ឈ្មោះអ្នកប្រើខ្មែរ ត្រូវបានទាមទារ។",
+  khusernameMin: isEnglish ? "Khmer username must be at least 4 characters." : "ឈ្មោះអ្នកប្រើខ្មែរត្រូវមានយ៉ាងហោចណាស់ 4 តួអក្សរ។",
   passwordsMatch: isEnglish ? "Passwords must match." : "ពាក្យសម្ងាត់ត្រូវតែត្រួតពិនិត្យគ្នា។",
   currentPassRequired: isEnglish ? "Current Password is required to delete account." : "ពាក្យសម្ងាត់​បច្ចុប្បន្ន​ត្រូវបានទាមទារ​សម្រាប់លុបគណនី។",
   oldPassRequired: isEnglish ? "Old Password is required." : "ពាក្យសម្ងាត់ចាស់ត្រូវបានទាមទារ។",
@@ -32,10 +37,10 @@ const messages = {
   titleMin: isEnglish ? "Event title is at least 6 characters." : "ចំណងជើងព្រឹត្តិការណ៍ត្រូវមានយ៉ាងហោចណាស់ 6 តួអក្សរ",
   agendaTitleRequired: isEnglish ? "Title is required." : "ចំណងជើងត្រូវបានទាមទារ",
   agendaTitleMin: isEnglish ? "Title must be at least 3 characters." : "ចំណងជើងត្រូវមានយ៉ាងហោចណាស់ 3 តួអក្សរ។",
-  agendaTitleMax: isEnglish ? "Title must be at most 50 characters." : "ចំណងជើងត្រូវមានភាគច្រើន 50 តួអក្សរ។",
+  agendaTitleMax: isEnglish ? "Title must be at most 255 characters." : "ចំណងជើងត្រូវមានភាគច្រើន 255 តួអក្សរ។",
   descriptionRequired: isEnglish ? "Description Detail is required." : "ព័ត៌មានពិពណ៌នាដែលលម្អិត ត្រូវបានទាមទារ។",
   descriptionMin: isEnglish ? "Description Detail must be at least 5 characters." : "ព័ត៌មានពិពណ៌នាដែលលម្អិត ត្រូវមានយ៉ាងហោចណាស់ 5 តួអក្សរ។",
-  descriptionMax: isEnglish ? "Description Detail must be at most 100 characters." : "ព័ត៌មានពិពណ៌នាដែលលម្អិត ត្រូវមានភាគច្រើន 100 តួអក្សរ។",
+  descriptionMax: isEnglish ? "Description Detail must be at most 1000 characters." : "ព័ត៌មានពិពណ៌នាដែលលម្អិត ត្រូវមានភាគច្រើន 1000 តួអក្សរ។",
   ticketTypeRequired: isEnglish ? "Ticket type is required." : "ប្រភេទសំបុត្រត្រូវបានទាមទារ។",
   ticketPriceRequired: isEnglish ? "Ticket price is required." : "តម្លៃសំបុត្រត្រូវបានទាមទារ។",
   ticketCapacityRequired: isEnglish ? "Ticket capacity is required." : "ចំនួនសំបុត្រត្រូវបានទាមទារ។",
@@ -124,11 +129,11 @@ const vResetPass = Joi.object({
 
 const vProfileInfo = Joi.object({
   eng_name: Joi.string().trim().min(4).required().messages({
-    "string.empty": messages.usernameRequired,
-    "string.min": messages.usernameMin,
+    "string.empty": messages.enusernameRequired,
+    "string.min": messages.enusernameMin,
   }),
   kh_name: Joi.string().trim().allow("").optional().min(4).messages({
-    "string.min": messages.usernameMin,
+    "string.min": messages.khusernameMin,
   }),
   email: Joi.string()
     .regex(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/)
@@ -158,7 +163,7 @@ const vChangePass = Joi.object({
   newPass: Joi.string().trim().min(8).required().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/).messages({
     "string.empty": messages.newPasswordRequired,
     "string.min": messages.newPasswordMin,
-    "string.pattern.base": messages.passwordStrong, // Add a message for strong password requirement
+    "string.pattern.base": messages.newPasswordStrong, // Add a message for strong password requirement
   }),
   newPassConfirm: Joi.string().valid(Joi.ref("newPass")).required().messages({
     "any.only": messages.passwordsMatch,
@@ -263,14 +268,14 @@ const vEventDescription = Joi.object({
 }).options({ abortEarly: false });
 
 const vEventAgenda = Joi.object({
-  title: Joi.string().trim().min(3).max(50).required().messages({
+  title: Joi.string().trim().min(3).max(255).required().messages({
     "string.empty": messages.agendaTitleRequired,
     "string.min": messages.agendaTitleMin,
     "string.max": messages.agendaTitleMax, // Adjust as needed
   }),
-  description: Joi.string().trim().min(5).max(100).required().messages({
+  description: Joi.string().trim().min(5).max(1000).required().messages({
     "string.empty": messages.descriptionRequired,
-    "string.min": messages.descriptionRequired,
+    "string.min": messages.descriptionMin,
     "string.max": messages.descriptionMax, // Adjust as needed
   }),
   start_time: Joi.string().trim().required().messages({
@@ -286,14 +291,14 @@ const vUpdateEventAgenda = Joi.object({
     Joi.number().integer().min(0), 
     Joi.string().valid('')
   ),
-  title: Joi.string().trim().min(3).max(50).required().messages({
+  title: Joi.string().trim().min(3).max(255).required().messages({
     "string.empty": messages.agendaTitleRequired,
     "string.min": messages.agendaTitleMin,
     "string.max": messages.agendaTitleMax, // Adjust as needed
   }),
-  description: Joi.string().trim().min(5).max(100).required().messages({
+  description: Joi.string().trim().min(5).max(1000).required().messages({
     "string.empty": messages.descriptionRequired,
-    "string.min": messages.descriptionRequired,
+    "string.min": messages.descriptionMin,
     "string.max": messages.descriptionMax, // Adjust as needed
   }),
   start_time: Joi.string().trim().required().messages({

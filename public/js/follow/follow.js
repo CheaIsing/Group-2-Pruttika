@@ -30,15 +30,15 @@ async function getFollower() {
                html += `
         <div class="list-group bg-white p-3 rounded-3 shadow-light-sm" >
                         <a class="d-flex align-items-center justify-content-between">
-                            <div class="d-flex align-items-center" onclick="showProfile(${f.id})" role="button"> 
+                            <div class="d-flex align-items-center flex-grow-1 h-hover" onclick="showProfile(${f.id})" role="button"> 
                                 <img src="/uploads/${f.avatar ? f.avatar : 'default.jpg' }" alt="profile" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
-                                <div class="ms-3">
+                                <div class="ms-3 w-100">
                                     <h6 class="mb-0"> ${f.organizer.name ? f.organizer.name : f.name}</h6>
                                     <small class="text-muted">${f.name + " &bull; "}${f.role}</small>
                                 </div>
                             </div>
                             
-                            <button class="btn btn-outline-brand bg-transparent px-3 fw-medium" style="height: auto !important;" onclick="removeFollowByOther(${f.id}, this)">Remove</button>
+                            <button class="btn btn-outline-brand bg-transparent px-3 fw-medium" style="height: auto !important;" onclick="removeFollowByOther(${f.id}, this)">${isEnglish ? "Remove":"ដកចេញ"}</button>
                         </a>
                     </div>`
             })
@@ -47,7 +47,7 @@ async function getFollower() {
         }else{
             document.getElementById("followers").innerHTML = `<div class="text-center w-100 my-5">
               <img src="/img/noFound.png" alt="..." height="220px;">
-              <h4 class="text-center text-brand mt-2">No Follower to Display</h4>
+              <h4 class="text-center text-brand mt-2">${isEnglish ? "No Follower to Display": "គ្មានអ្នកតាមដានដើម្បីបង្ហាញ"}</h4>
             </div>`
         }
 
@@ -60,15 +60,15 @@ async function getFollower() {
                html2 += `
         <div class="list-group bg-white p-3 rounded-3 shadow-light-sm" >
                         <div class="d-flex align-items-center justify-content-between" >
-                            <div class="d-flex align-items-center" onclick="showProfile(${f.id})" role="button"> 
+                            <div class="d-flex align-items-center flex-grow-1 h-hover" onclick="showProfile(${f.id})" role="button"> 
                                 <img src="/uploads/${f.avatar ? f.avatar : 'default.jpg' }" alt="profile" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
-                                <div class="ms-3">
+                                <div class="ms-3 w-100">
                                     <h6 class="mb-0"> ${f.organizer.name ? f.organizer.name : f.name}</h6>
                                     <small class="text-muted">${f.name + " &bull; "}${f.role}</small>
                                 </div>
                             </div>
                             
-                            <button class="btn btn-outline-brand bg-transparent px-3 fw-medium" style="height: auto !important;" onclick="toggleFollow(${f.id}, this)">Unfollow</button>
+                            <button class="btn btn-outline-brand bg-transparent px-3 fw-medium" style="height: auto !important;" onclick="toggleFollow(${f.id}, this)">${getText("unfollow")}</button>
                         </div>
                     </div>`
             })
@@ -77,7 +77,7 @@ async function getFollower() {
         }else{
             document.getElementById("following").innerHTML = `<div class="text-center w-100 my-5">
               <img src="/img/noFound.png" alt="..." height="220px;">
-              <h4 class="text-center text-brand mt-2">No Following to Display</h4>
+              <h4 class="text-center text-brand mt-2">${isEnglish ? "No Following to Display": "គ្មានការតាមដានដើម្បីបង្ហាញ"}</h4>
             </div>`
         }
 
@@ -103,16 +103,14 @@ async function toggleFollow(id, btn){
         
         
         if (isFollowing) {
-            
             await axiosInstance.delete(`/follow/unfollow/${id}`);
-            showToast(true, 'Unfollowed successfully');
-            btn.innerText = "Follow"
-        } else {
-            
+            showToast(true, getText("unfollowSuccess"));
+            btn.innerText = getText("follow");
+          } else {
             await axiosInstance.post(`/follow/${id}`);
-            showToast(true, 'Followed successfully');
-            btn.innerText = "Unfollow"
-        }
+            showToast(true, getText("followSuccess"));
+            btn.innerText = getText("unfollow");
+          }
         
     } catch (error) {
         console.log(error);
@@ -125,7 +123,7 @@ async function removeFollowByOther(id, list){
     
     try {
         await axiosInstance.delete(`/follow/remove-follower/${id}`);
-        showToast(true, "Remove follow successfully.")
+        showToast(true, isEnglish ? "Remove follow successfully." : "លុបការតាមដានដោយជោគជ័យ")
         list.closest(".list-group").remove()
     } catch (error) {
         console.log(error);

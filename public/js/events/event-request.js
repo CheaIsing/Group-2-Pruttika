@@ -112,9 +112,8 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
   }
   if (sort === "eng_name") {
     queryParams.append("sort", "eng_name");
-  } else if (sort === "created_at") {
-    queryParams.append("sort", "created_at");
-  }
+    queryParams.append("order", "asc");
+  } else if (sort === "created_at") queryParams.append("sort", "created_at");
 
   try {
     const { data: resultUser } = await axiosInstance.get("/auth/me");
@@ -278,8 +277,10 @@ async function renderEventsUpcoming(page = 1, perpage = 10, is_published = null)
   if (is_published) queryParams.append("is_published", `${is_published}`);
   queryParams.append("perpage", `${perpage}`);
   if (search) queryParams.append("search", search);
-  if (sort === "eng_name") queryParams.append("sort", "eng_name");
-  else if (sort === "created_at") queryParams.append("sort", "created_at");
+  if (sort === "eng_name") {
+    queryParams.append("sort", "eng_name");
+    queryParams.append("order", "asc");
+  } else if (sort === "created_at") queryParams.append("sort", "created_at");
 
   try {
     const { data: resultUser } = await axiosInstance.get("/auth/me");
@@ -424,8 +425,10 @@ async function renderEventsShowing(page = 1, perpage = 10, is_published = null) 
   if (is_published) queryParams.append("is_published", `${is_published}`);
   queryParams.append("perpage", `${perpage}`);
   if (search) queryParams.append("search", search);
-  if (sort === "eng_name") queryParams.append("sort", "eng_name");
-  else if (sort === "created_at") queryParams.append("sort", "created_at");
+  if (sort === "eng_name") {
+    queryParams.append("sort", "eng_name");
+    queryParams.append("order", "asc");
+  } else if (sort === "created_at") queryParams.append("sort", "created_at");
 
   try {
     const { data: resultUser } = await axiosInstance.get("/auth/me");
@@ -578,8 +581,10 @@ async function renderEventsPast(page = 1, perpage = 10, is_published = null) {
   if (is_published) queryParams.append("is_published", `${is_published}`);
   queryParams.append("perpage", `${perpage}`);
   if (search) queryParams.append("search", search);
-  if (sort === "eng_name") queryParams.append("sort", "eng_name");
-  else if (sort === "created_at") queryParams.append("sort", "created_at");
+  if (sort === "eng_name") {
+    queryParams.append("sort", "eng_name");
+    queryParams.append("order", "asc");
+  } else if (sort === "created_at") queryParams.append("sort", "created_at");
 
   try {
     const { data: resultUser } = await axiosInstance.get("/auth/me");

@@ -1,6 +1,6 @@
 const { executeQuery }=require('../utils/dbQuery');
 
-const reqTicketCollection=async(userId,event_id=null,ticket_type_id=null,req_status=null,page=1, perpage=25, sort='id', order='ASC')=>{
+const reqTicketCollection=async(userId,event_id=null,ticket_type_id=null,req_status=null,page=1, perpage=25, sort='id', order='ASC', search='')=>{
     try {
         page=parseInt(page);
         perpage=parseInt(perpage);
@@ -29,10 +29,11 @@ const reqTicketCollection=async(userId,event_id=null,ticket_type_id=null,req_sta
             LEFT JOIN tbl_ticketevent_type ttt ON ttt.id=tts.ticket_event_id
             LEFT JOIN tbl_event te ON te.id=tts.event_id
             LEFT JOIN tbl_users tu ON tu.id= tts.buyer_id
-            WHERE te.creator_id=? 
+            WHERE te.creator_id=? AND tu.eng_name LIKE ? 
         `;
+        const searchPattern=`%${search}%`;
         let filterQry='';
-        const filterParam=[userId];
+        const filterParam=[userId,searchPattern];
         if(event_id){
             filterQry +=` AND te.id=?`;
             filterParam.push(event_id);

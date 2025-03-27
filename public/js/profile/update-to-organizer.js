@@ -91,6 +91,44 @@ const fields = [
     isInvalidClass: "is_invalid",
   }
 ];
+const fieldsKh = [
+  {
+    name: isEnglish ? "organization name" : "ឈ្មោះអង្គការ",
+    id: "input-field-organization-name",
+    textErrorElement: "#invalid_feedback_organization_name div",
+    isInvalidClass: "is_invalid",
+  },
+  {
+    name: isEnglish ? "email": "អ៊ីមែល",
+    id: "input-field-email",
+    textErrorElement: "#invalid_feedback_email div",
+    isInvalidClass: "is_invalid",
+  },
+  {
+    name: isEnglish ? "phone": "លេខទូរស័ព្ទ ",
+    id: "input-field-phone",
+    textErrorElement: "#invalid_feedback_phone div",
+    isInvalidClass: "is_invalid",
+  },
+  {
+    name: isEnglish ? "location":"ទីតាំង",
+    id: "input-field-location",
+    textErrorElement: "#invalid_feedback_location div",
+    isInvalidClass: "is_invalid",
+  },
+  {
+    name: "facebook",
+    id: "input-field-facebook",
+    textErrorElement: "#invalid_feedback_facebook div",
+    isInvalidClass: "is_invalid",
+  },
+  {
+    name: "bio",
+    id: "editor",
+    textErrorElement: "#invalid_feedback_bio div",
+    isInvalidClass: "is_invalid",
+  }
+];
 
 frm.addEventListener(
   "submit",
@@ -114,11 +152,11 @@ frm.addEventListener(
 
     if (error) {
       const errorMessages = error.details.map((detail) => detail.message);
-      handleErrorMessages(errorMessages, fields);
+      handleErrorMessages(errorMessages, fieldsKh);
       return;
     }
 
-    handleErrorMessages([], fields);
+    handleErrorMessages([], fieldsKh);
 
     isValid = true;
 
@@ -130,7 +168,7 @@ frm.addEventListener(
 
       await axiosInstance.post("/organizer/promote", formData);
 
-      showToast(true, "Organizer Request Submitted. Please wait for confirmation from admin.");
+      showToast(true, isEnglish ? "Organizer Request Submitted. Please wait for confirmation from admin." : "សំណើអ្នករៀបចំត្រូវបានបញ្ជូន។ សូមរង់ចាំការបញ្ជាក់ពីអ្នកគ្រប់គ្រង");
 
       clearInput();
 
@@ -140,7 +178,7 @@ frm.addEventListener(
     } catch (error) {
       console.log(error);
 
-      if (typeof error.response.data == "string") {
+      if (!(error.response && error.response.data &&  typeof error.response.data == "object")) {
         return showToast();
       }
 

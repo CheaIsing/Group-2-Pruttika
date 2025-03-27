@@ -38,6 +38,8 @@ async function getOrganizerView() {
             }else{
                 document.getElementById("btnRequestAgain").classList.remove("d-none")
             }
+
+            document.getElementById("editor").style.pointerEvents = "none";
             
 
             // Populate the form fields with the fetched data
