@@ -120,7 +120,7 @@ const eventCollection= async(userID,page=1, perpage=25, search='', sort='id', or
                 // Attempt to parse as JSON
                 cate_ids = JSON.parse(cate_ids);
             } catch (error) {
-                console.error('Error parsing cate_ids:', error);
+                // console.error('Error parsing cate_ids:', error);
                 cate_ids = []; // Fallback to an empty array
             }
         }

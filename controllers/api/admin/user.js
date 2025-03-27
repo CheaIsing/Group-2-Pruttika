@@ -75,7 +75,7 @@ const displayAllUsers = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     handleResponseError(res, error);
   }
 };

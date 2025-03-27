@@ -33,7 +33,7 @@ async function getOrganizerView() {
           // window.location.href = "/profile/organizer"
       }
   } catch (error) {
-      console.error('Error fetching organizer data:', error);
+      // console.error('Error fetching organizer data:', error);
   }
 }
 

@@ -47,7 +47,7 @@ async function fetchUsers(
     displayUsers(result);
     updatePagination(page, totalPages, perPage, fetchUsers);
   } catch (error) {
-    console.error("Error fetching users:", error);
+    // console.error("Error fetching users:", error);
   }
 }
 
@@ -205,7 +205,7 @@ async function fetchUserDetail(userId) {
       `;
   } catch (error) {
     detailContainer.innerHTML = "Failed to load user details.";
-    console.error("Error fetching user detail:", error.message);
+    // console.error("Error fetching user detail:", error.message);
   }
 }
 
@@ -371,7 +371,7 @@ async function editUser(userId) {
               confirmButtonText: "OK",
             });;
           }
-          console.error("Error updating user:", error);
+          // console.error("Error updating user:", error);
           Swal.fire({
             icon: "error",
             title: "Error",
@@ -382,7 +382,7 @@ async function editUser(userId) {
       });
   } catch (error) {
     editContainer.innerHTML = "Failed to load user details.";
-    console.error("Error fetching user details:", error.message);
+    // console.error("Error fetching user details:", error.message);
   }
 }
 
@@ -411,10 +411,10 @@ const removeUser = async (userId) => {
         });
         fetchUsers();
       } else {
-        console.error(
-          "Deletion failed:",
-          response.data.message || "Unknown error"
-        );
+        // console.error(
+        //   "Deletion failed:",
+        //   response.data.message || "Unknown error"
+        // );
         Swal.fire({
           icon: "error",
           title: "Error Deleting User",
@@ -424,7 +424,7 @@ const removeUser = async (userId) => {
       }
     }
   } catch (error) {
-    console.error("Error deleting user:", error.message);
+    // console.error("Error deleting user:", error.message);
     Swal.fire({
       icon: "error",
       title: "Error",

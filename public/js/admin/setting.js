@@ -39,7 +39,7 @@ async function loadUserProfile() {
       // Set gender radio button
 
   } catch (error) {
-      console.error("Failed to load profile:", error);
+      // console.error("Failed to load profile:", error);
       Swal.fire("Error", "Failed to load profile data", "error");
   }
 }

@@ -150,7 +150,7 @@ const updateOwnProfileImage = async (req, res) => {
 
     avatar.mv(filePath, async (err) => {
       if (err) {
-        console.error("File upload failed:", err);
+        // console.error("File upload failed:", err);
         return sendResponse(res, 500, false, "File upload failed.");
       }
 
@@ -165,7 +165,7 @@ const updateOwnProfileImage = async (req, res) => {
       if (oldAvatar && oldAvatar !== defaultAvatar) {
         fs.unlink(`${uploadPath}${oldAvatar}`, (err) => {
           if (err) {
-            console.error("Error deleting old avatar:", err);
+            // console.error("Error deleting old avatar:", err);
             return sendResponse(res, 400, false, "Error deleting old avatar");
           }
         });
@@ -174,7 +174,7 @@ const updateOwnProfileImage = async (req, res) => {
       sendResponse(res, 200, true, "Avatar updated successfully.", avatarName);
     });
   } catch (error) {
-    console.error("Error updating profile image:", error);
+    // console.error("Error updating profile image:", error);
     handleResponseError(res, error);
   }
 };

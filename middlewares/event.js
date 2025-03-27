@@ -36,7 +36,7 @@ const checkEventOwner = async (req, res, next) => {
         next();
 
     } catch (error) {
-        console.error("Error in checkEventOwner:", error);
+        // console.error("Error in checkEventOwner:", error);
         return sendResponse(res, 500, false, "An error occurred while checking event ownerevent.");
     }
 };
