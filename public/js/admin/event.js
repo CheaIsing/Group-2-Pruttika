@@ -45,7 +45,7 @@ async function fetchEvents(
       sortDir
     );
   } catch (error) {
-    console.error("Error fetching Events:", error);
+    // console.error("Error fetching Events:", error);
   }
 }
 async function fetchCategories(
@@ -90,7 +90,7 @@ async function fetchCategories(
       (s, p, per, sc = "name", sd = "asc") => fetchCategories(s, p, per, sc, sd)
     );
   } catch (error) {
-    console.error("Error fetching Categories:", error.message);
+    // console.error("Error fetching Categories:", error.message);
   }
 }
 
@@ -204,7 +204,7 @@ async function fetchEventDetails(id) {
       `;
   } catch (error) {
     detailContainer.innerHTML = "Failed to load user details.";
-    console.error("Error fetching user detail:", error.message);
+    // console.error("Error fetching user detail:", error.message);
   }
 }
 
@@ -355,7 +355,7 @@ async function createCategory() {
             });
           }
         } catch (error) {
-          console.error("Error creating category:", error.message);
+          // console.error("Error creating category:", error.message);
           Swal.fire({
             icon: "error",
             title: "Error",
@@ -366,7 +366,7 @@ async function createCategory() {
       });
   } catch (error) {
     createContainer.innerHTML = "Failed to load category creation form.";
-    console.error("Error displaying form:", error.message);
+    // console.error("Error displaying form:", error.message);
   }
 }
 
@@ -438,7 +438,7 @@ async function editCategory(categoryId) {
             });
           }
         } catch (error) {
-          console.error("Error updating organizer:", error.message);
+          // console.error("Error updating organizer:", error.message);
           Swal.fire({
             icon: "error",
             title: "Error",
@@ -449,7 +449,7 @@ async function editCategory(categoryId) {
       });
   } catch (error) {
     editContainer.innerHTML = "Failed to load organizer details.";
-    console.error("Error fetching organizer details:", error.message);
+    // console.error("Error fetching organizer details:", error.message);
   }
 }
 
@@ -478,10 +478,10 @@ const removeCategory = async (categoryId) => {
         });
         fetchCategories();
       } else {
-        console.error(
-          "Deletion failed:",
-          response.data.message || "Unknown error"
-        );
+        // console.error(
+        //   "Deletion failed:",
+        //   response.data.message || "Unknown error"
+        // );
         Swal.fire({
           icon: "error",
           title: "Error Deleting Category",
@@ -492,7 +492,7 @@ const removeCategory = async (categoryId) => {
       }
     }
   } catch (error) {
-    console.error("Error deleting category:", error.message);
+    // console.error("Error deleting category:", error.message);
     Swal.fire({
       icon: "error",
       title: "Error",

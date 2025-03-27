@@ -10,7 +10,7 @@ function emitTicketApprovalNotification(io, buyerId, eventId, engName, eventType
       khMessage = `អបអរសាទរ! សំបុត្ររបស់អ្នកសម្រាប់កម្មវិធី ${engName} ត្រូវបានអនុម័តដោយជោគជ័យ។ សូមរីករាយជាមួយព្រឹត្តិការណ៍នេះ! ពិនិត្យព័ត៌មានលម្អិតរបស់អ្នកនៅទីនេះ។`;
     } else {
       // Handle other event types or throw an error
-      console.error(`Unknown event type: ${eventType}`);
+      // console.error(`Unknown event type: ${eventType}`);
       return; // Or throw an error
     }
 

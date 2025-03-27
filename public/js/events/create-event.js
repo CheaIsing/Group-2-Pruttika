@@ -351,7 +351,7 @@ submitBtn.addEventListener("click", async () => {
     }, 1500);
   } catch (error) {
     showToast();
-    console.error("Error:", error);
+    // console.error("Error:", error);
   } finally {
     btnCloseLoading("submit-btn", btnText);
   }

@@ -243,7 +243,7 @@ const getMe = async (req, res) => {
 
     sendResponse(res, 200, true, "Get user profile.", data[0]); // Send single user object
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     handleResponseError(res, error);
   }
 };

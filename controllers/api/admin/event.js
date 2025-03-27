@@ -76,7 +76,7 @@ const viewEvent = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     handleResponseError(res, error);
   }
 };
@@ -204,7 +204,7 @@ const viewAllEventCategory = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     handleResponseError(res, error);
   }
 };

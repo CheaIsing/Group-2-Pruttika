@@ -34,7 +34,7 @@ const followUser = async (req, res) => {
 
     sendResponse(res, 200, true, "User followed successfully.");
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     handleResponseError(res, error);
   }
 };

@@ -267,7 +267,7 @@ const putApproveTicket = async (req, res) => {
         sendResponse(res, 200, true, "Ticket Request has been approved successfully");
 
     } catch (error) {
-        console.error("putApproveTicket - Error:", error);
+        // console.error("putApproveTicket - Error:", error);
         handleResponseError(res, error);
     }
 }

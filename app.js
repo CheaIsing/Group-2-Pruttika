@@ -95,7 +95,7 @@ const sendEventReminders = async () => {
                           khMessage = `ការរំលឹក: ព្រឹត្តិការណ៍ក្រៅបណ្តាញ ${event.eng_name} នឹងចាប់ផ្តើមនៅថ្ងៃស្អែក!`;
                       } else {
                           // Handle other event types or log an error
-                          console.error("Unknown event type:", event.event_type);
+                          // console.error("Unknown event type:", event.event_type);
                           continue; // Skip to the next buyer
                       }
 
@@ -114,7 +114,7 @@ const sendEventReminders = async () => {
       console.log("Event reminders sent successfully.");
 
   } catch (error) {
-      console.error("Error sending event reminders:", error);
+      // console.error("Error sending event reminders:", error);
   }
 };
 async function sendEventLinkReminder(io, eventId, creatorId, eventName) {
@@ -133,7 +133,7 @@ async function sendEventLinkReminder(io, eventId, creatorId, eventName) {
       console.log(`Reminder sent to creator ${creatorId} for event ${eventId}.`);
   
     } catch (error) {
-      console.error(`Error sending event link reminder:`, error);
+      // console.error(`Error sending event link reminder:`, error);
     }
   }
 console.log(moment(new Date).format("YYYY-MM-DD HH:mm:ss"));
@@ -168,7 +168,7 @@ AND DATE_FORMAT(CONCAT(started_date, ' ', start_time), '%Y-%m-%d %H:%i') = DATE_
       // console.log('No online events starting in the next 10 minutes.');
     }
   } catch (error) {
-    console.error('Error scheduling event link reminders:', error);
+    // console.error('Error scheduling event link reminders:', error);
   }
 }
 // console.log();
