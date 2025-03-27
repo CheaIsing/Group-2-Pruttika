@@ -227,13 +227,13 @@ async function editUser(userId) {
           <div class="col-6">
             <label for="editKhName" class="form-label">Khmer Name</label>
             <input type="text" id="editKhName" class="form-control" value="${
-              user.kh_name
+              user.kh_name ? user.kh_name : ""
             }">
           </div>
           <div class="col-6">
             <label for="editEngName" class="form-label">English Name</label>
             <input type="text" id="editEngName" class="form-control" value="${
-              user.eng_name
+              user.eng_name ?  user.eng_name: ""
             }">
           </div>
         </div>
@@ -247,14 +247,14 @@ async function editUser(userId) {
           <div class="col-6">
             <label for="editPhone" class="form-label">Phone</label>
             <input type="text" id="editPhone" class="form-control" value="${
-              user.phone
+              user.phone ? user.phone : ""
             }">
           </div>
         </div>
         <div class="mb-3 row">
           <div class="col-6">
             <label for="editDob" class="form-label">Date of Birth</label>
-            <input type="date" id="editDob" class="form-control" value="${dobFormatted}">
+            <input type="date" id="editDob" class="form-control" value="${dobFormatted ? dobFormatted : ""}">
           </div>
           <div class="col-6">
             <label for="editGender" class="form-label">Gender</label>
@@ -271,7 +271,7 @@ async function editUser(userId) {
         <div class="mb-3">
           <label for="editAddress" class="form-label">Address</label>
           <input type="text" id="editAddress" class="form-control" value="${
-            user.address
+            user.address ? user.address : ""
           }">
         </div>
         <div class="text-end">
@@ -284,6 +284,45 @@ async function editUser(userId) {
       .getElementById("editUserForm")
       .addEventListener("submit", async (event) => {
         event.preventDefault();
+        const email = document.getElementById("editEmail").value;
+      const phone = document.getElementById("editPhone").value;
+
+      // Validate email
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        return Swal.fire({
+          icon: "error",
+          title: "Invalid Email",
+          text: "Please enter a valid email address.",
+          confirmButtonText: "OK",
+        });
+      }
+
+      // Validate phone number (basic validation)
+
+      const phonePattern = /^\d{9,10}$/; // Adjust the pattern as needed
+      // console.log(phone);
+      
+      if(phone){
+        if (!phonePattern.test(phone) ) {
+          return Swal.fire({
+            icon: "error",
+            title: "Invalid Phone Number",
+            text: "Please enter a valid phone number (9-10 digits).",
+            confirmButtonText: "OK",
+          });
+        }
+      }
+
+      if(document.getElementById("editEngName").value.trim() == ""){
+        return Swal.fire({
+          icon: "error",
+          title: "Invalid Username",
+          text: "Please enter a valid username.",
+          confirmButtonText: "OK",
+        });
+      }
+
 
         const updatedUser = {
           kh_name: document.getElementById("editKhName").value,
@@ -324,11 +363,19 @@ async function editUser(userId) {
             });
           }
         } catch (error) {
-          console.error("Error updating user:", error.message);
+          if (!(error.response && error.response.data &&  typeof error.response.data == "object")) {
+            return  Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: "An error occurred while updating the user."+ error?.response?.data?.message,
+              confirmButtonText: "OK",
+            });;
+          }
+          console.error("Error updating user:", error);
           Swal.fire({
             icon: "error",
             title: "Error",
-            text: "An error occurred while updating the user.",
+            text: "An error occurred while updating the user. " + error?.response?.data?.message,
             confirmButtonText: "OK",
           });
         }

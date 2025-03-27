@@ -23,7 +23,7 @@ const requireAuthWeb = async (req, res, next) => {
     req.user.role = user[0].role;
     next();
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     
     req.user = null;
     next();

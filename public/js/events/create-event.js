@@ -779,7 +779,7 @@ function checkStep() {
 
         // Show validation errors
         if (error) {
-          console.log(error);
+          // console.log(error);
           
           const errorMessages = error.details.map((detail) => detail.message);
           handleErrorMessages(errorMessages, fieldsEventAgendaKh);
@@ -1056,7 +1056,7 @@ async function getCategories() {
       tomSelectInstance.refreshOptions(false);
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     showToast();
   }
 }

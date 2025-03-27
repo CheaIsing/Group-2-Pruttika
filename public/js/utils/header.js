@@ -151,7 +151,7 @@ async function getAllNotifications() {
     document.getElementById("noti-wrapper").innerHTML = notiUnreadHtml;
     lucide.createIcons();
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 }
 
@@ -205,7 +205,7 @@ if (searchClicked) {
         document.getElementById("search-dropdown").innerHTML = searchList;
 
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       
     }
 
@@ -256,7 +256,7 @@ if (searchMobileClicked) {
         document.getElementById("search-dropdown-mobile").innerHTML = searchList;
 
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       
     }
 

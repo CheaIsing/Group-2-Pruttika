@@ -106,7 +106,7 @@ function updatePagination(currentPage, totalPages, perPage, id, fetchFunction) {
 
     const pageLink = document.createElement("a");
     pageLink.classList.add("page-link");
-    pageLink.href = "#";
+    pageLink.href = "";
     pageLink.innerHTML = label;
 
     pageLink.addEventListener("click", (event) => {
@@ -257,7 +257,7 @@ function displayEvents(events) {
 
 function displayCategories(categories) {
   const tableBody = document.getElementById("categoryTableBody");
-  console.log(categories);
+  // console.log(categories);
   
   if(categories.length == 0){
     return tableBody.innerHTML = `<tr>

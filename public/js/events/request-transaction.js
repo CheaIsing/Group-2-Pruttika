@@ -85,7 +85,7 @@ async function getTransaction() {
         document.getElementById("row-transaction").innerHTML = transactionHtml
 
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         showToast();
     }
 }
@@ -105,7 +105,7 @@ async function approveRequest(id, btn){
         }, 1200)
     } catch (error) {
 
-        console.log(error);
+        // console.log(error);
         if(error?.response?.data?.message){
             return showToast(false, error?.response?.data?.message);
         }
@@ -165,7 +165,7 @@ document.getElementById("btn-disapprove").onclick = async ()=>{
         if(error?.response?.data?.message){
             return showToast(false, error?.response?.data?.message);
         }
-        console.log(error);
+        // console.log(error);
         showToast()
       }
 }

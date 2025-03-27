@@ -105,7 +105,7 @@ const fieldsKh = [
     isInvalidClass: "is_invalid",
   },
   {
-    name: isEnglish ? "phone": "លេខទូរស័ព្ទ ",
+    name: isEnglish ? "phone": "លេខទូរស័ព្ទ",
     id: "input-field-phone",
     textErrorElement: "#invalid_feedback_phone div",
     isInvalidClass: "is_invalid",
@@ -176,7 +176,7 @@ frm.addEventListener(
         window.location.href = "/profile/organizer-view"
       }, 1200)
     } catch (error) {
-      console.log(error);
+      // console.log(error);
 
       if (!(error.response && error.response.data &&  typeof error.response.data == "object")) {
         return showToast();

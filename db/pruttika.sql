@@ -781,3 +781,7 @@ ALTER table tbl_organizer modify bio text;
 -- update 25-03-2025
 alter table tbl_agenda modify description varchar(1000);
 alter table tbl_agenda modify title varchar(255);
+
+-- update 27-03-2025
+
+alter table tbl_ticketevent_type modify ticket_opacity smallint unsigned;

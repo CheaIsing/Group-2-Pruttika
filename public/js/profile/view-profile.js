@@ -242,7 +242,7 @@ async function getOrganizer() {
     document.querySelector(".pf-content").classList.remove('d-none');
     document.querySelector(".placeholder-content").classList.add('hidden');
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     showToast();
   }
 }
@@ -491,7 +491,7 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
     // Initialize pagination on load
     renderPagination(paginate);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     showToast();
   }
 }
@@ -575,7 +575,7 @@ async function toggleFollow(id, btn) {
       btn.innerText = getText("unfollow");
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     showToast();
   }
 }

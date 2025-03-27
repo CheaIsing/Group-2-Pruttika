@@ -57,7 +57,7 @@ async function getRequestTicket( status="", page=1, perpage=25) {
   try {
     const {data} = await axiosInstance.get(`/profile/own-request-ticket?${queryParams.toString()}`);
     const {data:tickets, paginate} = data;
-    console.log(tickets);
+    // console.log(tickets);
 
 
     
@@ -185,7 +185,7 @@ async function getRequestTicket( status="", page=1, perpage=25) {
     renderPaginationRequest(paginate)
     
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     showToast();
   }
 }
@@ -311,7 +311,7 @@ async function getOwnedTicket( status="", page=1, perpage=15) {
     renderPaginationOwned(paginate)
     
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     showToast();
   }
 }
@@ -449,7 +449,7 @@ function showTransaction(el) {
     const ticketId = el.getAttribute("data-ticket-id");
     const obj = ticketDataManager.getTicket(ticketId);
 
-  console.log("click", obj);
+  // console.log("click", obj);
 
   let checkTran = obj.ticket_type.price == 0 ? `` : `/uploads/transaction/${obj.transaction_img}`;
 
