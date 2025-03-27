@@ -478,7 +478,7 @@ async function showNotificationDetail(noti) {
       document.getElementById(`noti-read-${noti.id}`).remove();
     }
   } catch (error) {
-    console.error("Error marking notification as read:", error);
+    // console.error("Error marking notification as read:", error);
     showToast();
   }
 }

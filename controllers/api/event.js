@@ -175,7 +175,7 @@ const postCreateEvent = async (req, res) => {
       event_id: eventId,
     });
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     // res.status(500).json({ message: 'Error creating event', error });
     handleResponseError(res, error);
   }

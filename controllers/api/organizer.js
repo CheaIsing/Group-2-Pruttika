@@ -53,7 +53,7 @@ const promoteToOrganizer = async (req, res) => {
       result
     );
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     handleResponseError(res, error);
   }
 };
@@ -74,7 +74,7 @@ const displayRequestOrganizerById = async (req, res) => {
 
     sendResponse(res, 200, true, "Display all organizers request", data);
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     handleResponseError(res, error);
   }
 };

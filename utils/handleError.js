@@ -1,9 +1,9 @@
 const handleResponseError = (res, error) => {
-  console.error("Database error occurred");
-  console.error("Error : ", error);
+  // console.error("Database error occurred");
+  // console.error("Error : ", error);
   res
     .status(500)
-    .json({ result: false, message: "Internal server error", error: error });
+    .json({ result: false, message: "Internal server error"});
 };
 
 const handleValidateError = (error, res) => {

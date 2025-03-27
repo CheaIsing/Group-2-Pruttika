@@ -14,7 +14,7 @@ const deleteNotification = async () => {
     await executeQuery(queryDelete);
     console.log("Delete notification successfully.");
   } catch (error) {
-    console.error("Error Remove notifications:", error);
+    // console.error("Error Remove notifications:", error);
   }
 };
 

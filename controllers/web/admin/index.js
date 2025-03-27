@@ -43,7 +43,7 @@ const getAdminDashboard = async (req, res) => {
       ticketCategories: ticketCategories || [],
     });
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     res.redirect("/login?error=true");
   }
 };

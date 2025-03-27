@@ -67,7 +67,7 @@ const displayRequestOrganizer = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     handleResponseError(res, error);
   }
 };
@@ -142,7 +142,7 @@ const displayAllOrganizer = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     handleResponseError(res, error);
   }
 };
@@ -385,7 +385,7 @@ const adminApproval = async (req, res) => {
       "Request approved successfully. User promoted to organizer and added to tbl_organizer."
     );
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     handleResponseError(res, error);
   }
 };
@@ -441,7 +441,7 @@ const adminRejection = async (req, res) => {
 
     sendResponse(res, 200, true, "Request rejected successfully.");
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     handleResponseError(res, error);
   }
 };

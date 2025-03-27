@@ -59,13 +59,13 @@ async function getOrganizerView() {
                 input.disabled = true;
             });
         } else {
-            console.error('Failed to fetch organizer data:', response.data.message);
+            // console.error('Failed to fetch organizer data:', response.data.message);
             // window.location.href = "/profile/organizer"
             document.getElementById("frmOrganizerRequest").classList.add("d-none")
             document.getElementById("btnUpdateToOrganizer").classList.remove("d-none")
         }
     } catch (error) {
-        console.error('Error fetching organizer data:', error);
+        // console.error('Error fetching organizer data:', error);
     }
 }
 

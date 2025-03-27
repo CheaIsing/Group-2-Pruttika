@@ -31,7 +31,7 @@ async function fetchRequestOrganizers(
     displayRequestOrganizer(result);
     updatePagination(page, totalPages, perPage, "paginationRequestOrganizer", fetchRequestOrganizers);
   } catch (error) {
-    console.error("Error fetching request organizers:", error);
+    // console.error("Error fetching request organizers:", error);
   }
 }
 
@@ -57,7 +57,7 @@ async function fetchOrganizers(
     displayOrganizers(result);
     updatePagination(page, totalPages, perPage, "paginationOrganizer", fetchOrganizers);
   } catch (error) {
-    console.error("Error fetching organizers:", error);
+    // console.error("Error fetching organizers:", error);
   }
 }
 
@@ -169,7 +169,7 @@ async function fetchRequestOrganizerDetail(id) {
       `;
   } catch (error) {
     detailContainer.innerHTML = "Failed to load organizer details.";
-    console.error("Error fetching organizer detail:", error.message);
+    // console.error("Error fetching organizer detail:", error.message);
   }
 }
 
@@ -215,7 +215,7 @@ async function fetchOrganizerDetail(id) {
       `;
   } catch (error) {
     detailContainer.innerHTML = "Failed to load organizer details.";
-    console.error("Error fetching organizer detail:", error.message);
+    // console.error("Error fetching organizer detail:", error.message);
   }
 }
 
@@ -364,10 +364,10 @@ async function adminApproval(id) {
         });
         fetchRequestOrganizers();
       } else {
-        console.error(
-          "Apporval failed:",
-          response.data.message || "Unknown error"
-        );
+        // console.error(
+        //   "Apporval failed:",
+        //   response.data.message || "Unknown error"
+        // );
         Swal.fire({
           icon: "error",
           title: "Error Aprroving Organizer",
@@ -378,7 +378,7 @@ async function adminApproval(id) {
       }
     }
   } catch (error) {
-    console.error("Error approving organizer:", error.message);
+    // console.error("Error approving organizer:", error.message);
     Swal.fire({
       icon: "error",
       title: "Error",
@@ -435,10 +435,10 @@ async function adminRejection(id) {
         fetchRequestOrganizers();
       } else {
 
-        console.error(
-          "Rejection failed:",
-          response.data.message || "Unknown error"
-        );
+        // console.error(
+        //   "Rejection failed:",
+        //   response.data.message || "Unknown error"
+        // );
         Swal.fire({
           icon: "error",
           title: "Error Rejecting Organizer",
@@ -449,7 +449,7 @@ async function adminRejection(id) {
       }
     }
   } catch (error) {
-    console.error("Error rejecting organizer:", error);
+    // console.error("Error rejecting organizer:", error);
     Swal.fire({
       icon: "error",
       title: "Error",
@@ -622,7 +622,7 @@ async function editOrganizer(organizerId) {
             });
           }
         } catch (error) {
-          console.error("Error updating organizer:", error);
+          // console.error("Error updating organizer:", error);
           Swal.fire({
             icon: "error",
             title: "Error",
@@ -633,7 +633,7 @@ async function editOrganizer(organizerId) {
       });
   } catch (error) {
     editContainer.innerHTML = "Failed to load organizer details.";
-    console.error("Error fetching organizer details:", error.message);
+    // console.error("Error fetching organizer details:", error.message);
   }
 }
 
@@ -662,10 +662,10 @@ const removeOrganizer = async (organizerId) => {
         });
         fetchOrganizers();
       } else {
-        console.error(
-          "Deletion failed:",
-          response.data.message || "Unknown error"
-        );
+        // console.error(
+        //   "Deletion failed:",
+        //   response.data.message || "Unknown error"
+        // );
         Swal.fire({
           icon: "error",
           title: "Error Deleting organizer",
@@ -676,7 +676,7 @@ const removeOrganizer = async (organizerId) => {
       }
     }
   } catch (error) {
-    console.error("Error deleting organizer:", error.message);
+    // console.error("Error deleting organizer:", error.message);
     Swal.fire({
       icon: "error",
       title: "Error",

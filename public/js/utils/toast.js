@@ -119,7 +119,7 @@ function copyEventUrlToClipboard(eventId) {
               showToast(true, isEnglish ? "Copied to Clipboard.": "បានចម្លង");
           })
           .catch(err => {
-              console.error("Failed to copy: ", err);
+              // console.error("Failed to copy: ", err);
               showToast(false, "Failed to copy. Please try again.");
           });
   } else {
@@ -158,7 +158,7 @@ async function addWishlist(id, btn) {
     }
 
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     if (error.response && error.response.status == 401) {
       return window.location.href = "/auth/signin"
     }
