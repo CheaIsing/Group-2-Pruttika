@@ -82,7 +82,7 @@ const displayAllUsers = async (req, res) => {
 
 const editUser = async (req, res) => {
   const id = req.params.id;
-  const { kh_name, eng_name, email, phone, dob, gender, adddress } = req.body;
+  const { kh_name, eng_name, email, phone, dob, gender, address } = req.body;
 
   try {
     const checkQuery = `
@@ -122,9 +122,9 @@ const editUser = async (req, res) => {
       updateQuery += `gender = ?, `;
       params.push(gender);
     }
-    if (adddress) {
-      updateQuery += `adddress = ?, `;
-      params.push(adddress);
+    if (address) {
+      updateQuery += `address = ?, `;
+      params.push(address);
     }
 
     updateQuery = updateQuery.slice(0, -2);

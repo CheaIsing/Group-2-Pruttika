@@ -590,7 +590,7 @@ async function editOrganizer(organizerId) {
           telegram: document.getElementById("editTg").value,
           tiktok: document.getElementById("editTt").value,
           linkin: document.getElementById("editLl").value,
-          address: document.getElementById("editAddress").value,
+          location: document.getElementById("editAddress").value,
         };
 
         try {
