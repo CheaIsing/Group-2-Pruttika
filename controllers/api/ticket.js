@@ -358,7 +358,7 @@ const getAllRequestTicket=async(req,res)=>{
             req.query.event_id , req.query.ticket_type_id,
             req.query.status,
             req.query.page, req.query.per_page,
-            req.query.sort, req.query.order
+            req.query.sort, req.query.order, req.query.search
         );
         sendResponse1(res,200,true,"Get all user request ticket successfully",data.rows,data.paginate)
     } catch (error) {
