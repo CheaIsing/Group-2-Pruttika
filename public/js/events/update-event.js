@@ -935,7 +935,7 @@ async function getEventDetail() {
     // console.log(json);
   } catch (error) {
     showToast();
-    console.log(error);
+    // console.log(error);
   }
 }
 getEventDetail();
@@ -959,7 +959,7 @@ async function getCategories() {
     // Refresh the options so they show up in the dropdown
     selectInstance.refreshOptions(false);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     showToast();
   }
 }
@@ -1582,7 +1582,7 @@ function checkStep() {
 
         // Show validation errors
         if (error) {
-          console.log(error);
+          // console.log(error);
 
           const errorMessages = error.details.map((detail) => detail.message);
           handleErrorMessages(errorMessages, fieldsEventAgendaKh);
@@ -1675,7 +1675,7 @@ function checkStep() {
         ];
 
         if (error) {
-          console.log(error);
+          // console.log(error);
 
           const errorMessages = error.details.map((detail) => detail.message);
           handleErrorMessages(errorMessages, fieldsEventTicketKh);
@@ -1786,7 +1786,7 @@ function checkStep() {
           ];
 
           if (error) {
-            console.log(error);
+            // console.log(error);
             const errorMessages = error.details.map((detail) => detail.message);
             handleErrorMessages(errorMessages, fieldsEventTicketKh);
             isValid = false;

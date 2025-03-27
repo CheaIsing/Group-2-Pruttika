@@ -19,7 +19,7 @@ async function getCategories() {
     document.getElementById("categories-mobile-container").innerHTML =
       categoriesHtml;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     showToast();
   }
 }
@@ -423,11 +423,11 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
       let resultCate = selectedCategories.map(Number);
       qryStr += `&cateId=[${resultCate}]`;
     }
-    console.log(qryStr);
+    // console.log(qryStr);
 
     const { data } = await axiosInstance.get(`/events?${qryStr}`);
     const { data: events, paginate } = data;
-    console.log(data);
+    // console.log(data);
 
     let html = ''
 
@@ -658,7 +658,7 @@ currentDate.setHours(0, 0, 0, 0);
     // Initialize pagination on load
     renderPagination(paginate);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     showToast();
   }
 }

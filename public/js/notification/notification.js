@@ -220,6 +220,7 @@ async function getAllNotifications() {
       document.getElementById("pills-home-tab").classList.remove("active");
       document.getElementById("pills-profile-tab").classList.add("active");
     } else {
+      document.getElementById("btnMarkAll").classList.add("opacity-0")
       document.getElementById("pills-home").classList.add("show", "active");
       document
         .getElementById("pills-profile")
@@ -237,7 +238,7 @@ async function getAllNotifications() {
       notiUnreadHtml;
     lucide.createIcons();
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 }
 getAllNotifications();
@@ -250,7 +251,7 @@ document.getElementById("btnMarkAll").addEventListener("click", async (e) => {
       btn.remove();
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
 
     showToast();
   }
@@ -265,7 +266,7 @@ async function deleteNotification(id, btn) {
       notification.parentElement.remove();
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
 
     showToast();
   }
@@ -283,7 +284,7 @@ async function markNotification(id, btn) {
       "notiUnreadCount"
     ).innerText = `(${notiUnreadCount - 1})`;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
 
     showToast();
   }
@@ -322,7 +323,7 @@ async function updateEventLink(id, btn) {
     
     showToast(true, isEnglish ? "Event online has sent to attendees successfully.": "Event online បានផ្ញើទៅកាន់អ្នកចូលរួមដោយជោគជ័យ");
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     if(error.response && error.response.data && error.response.data.message ){
       return showToast(false, error.response.data.message)
     }

@@ -186,7 +186,7 @@ async function logOut (){
 
   } catch (error) {
     
-    console.log(error);
+    // console.log(error);
     showToast();
 
   }

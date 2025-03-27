@@ -9,7 +9,7 @@ async function generateQRCodeImg(token) {
     
     return qrCodeDataURL;
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         return null
     }
     

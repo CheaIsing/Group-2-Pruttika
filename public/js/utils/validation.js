@@ -27,7 +27,7 @@ const messages = {
   locationRequired: isEnglish ? "Location is required." : "ទីតាំងត្រូវបានទាមទារ។",
   facebookRequired: isEnglish ? "Facebook is required." : "Facebook ត្រូវបានទាមទារ។",
   phoneNumberRequired: isEnglish ? "Phone number is required." : "លេខទូរស័ព្ទ ត្រូវបានទាមទារ។",
-  phoneNumberInvalid: isEnglish ? "Phone number must be between 9 and 10 digits." : "លេខទូរស័ព្ទត្រូវតែមានចន្លោះពី 9 ទៅ 10 ខ្ទង់។",
+  phoneNumberInvalid: isEnglish ? "Phone number must be between 9 and 10 digits." : "លេខទូរស័ព្ទ ត្រូវតែមានចន្លោះពី 9 ទៅ 10 ខ្ទង់។",
   startDateRequired: isEnglish ? "Start date is required." : "កាលបរិច្ឆេទចាប់ផ្តើមត្រូវបានទាមទារ។",
   endDateRequired: isEnglish ? "End date is required." : "កាលបរិច្ឆេទបញ្ចប់ត្រូវបានទាមទារ។",
   startTimeRequired: isEnglish ? "Start time is required." : "ម៉ោងចាប់ផ្តើមត្រូវបានទាមទារ។",
@@ -59,9 +59,8 @@ const vSignIn = Joi.object({
       "string.empty": messages.emailRequired,
       "string.pattern.base": messages.emailInvalid,
     }),
-  password: Joi.string().min(6).trim().required().messages({
+  password: Joi.string().trim().required().messages({
     "string.empty": messages.passwordRequired,
-    "string.min": messages.passwordMin,
   }),
   rememberMe: Joi.boolean().required(),
 }).options({ abortEarly: false });

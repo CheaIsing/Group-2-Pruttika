@@ -6,7 +6,7 @@ async function resendOtp(){
     await axiosInstance.post("/auth/forgot-password", {email : sessionStorage.getItem("email")});
     showToast(true, isEnglish ? "OTP Resend Successfully. Please check your email.":"OTP ផ្ញើឡើងវិញដោយជោគជ័យ។ សូមពិនិត្យមើលអ៊ីមែលរបស់អ្នក")
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     showToast()
   }finally{
     document.getElementById("resendBtn").classList.remove("disabled");
@@ -86,7 +86,7 @@ if (userEmail) {
         sessionStorage.setItem("isVerifiedOtp", true);
         location.href = "/auth/reset-password";
       } catch (error) {
-        console.log(error);
+        // console.log(error);
 
         if (!(error.response && error.response.data &&  typeof error.response.data == "object")) {
           return showToast();

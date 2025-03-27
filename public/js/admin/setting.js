@@ -25,7 +25,7 @@ async function loadUserProfile() {
       // console.log(data.data);
       const me = data.data.id;
       const {data: data2} = await axiosInstance.get("/profile/display/"+ me);
-      console.log(data2);
+    //   console.log(data2);
       const profileData = data2.data; // Assuming your API returns profile data
 
       // Populate form fields
@@ -46,6 +46,26 @@ async function loadUserProfile() {
 
 async function handleChangeInfo(e) {
   e.preventDefault();
+
+  if(!document.getElementById("eng_name").value){
+    Swal.fire({
+        icon: "error",
+        title: "Invalid Username",
+        text: "Please enter a valid username.",
+        confirmButtonText: "OK",
+      });
+    return;
+  }
+
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailPattern.test(document.getElementById("email").value)) {
+    return Swal.fire({
+      icon: "error",
+      title: "Invalid Email",
+      text: "Please enter a valid email address.",
+      confirmButtonText: "OK",
+    });
+  }
 
   const profileData = {
       eng_name: document.getElementById("eng_name").value,
@@ -97,7 +117,7 @@ async function handleChangePassword(e) {
 
   try {
       const response = await axiosInstance.put("/admin/setting/pass", passwordData);
-      console.log(response);
+    //   console.log(response);
       
       Swal.fire("Success", response.data.message, "success");
       // Clear input fields on success (optional)

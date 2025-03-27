@@ -260,7 +260,7 @@ async function renderEvents(page = 1, perpage = 1000, is_published = true) {
         lucide.createIcons();
   
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         showToast();
     }
   }

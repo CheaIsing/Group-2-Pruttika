@@ -132,7 +132,7 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
     }
 
     let eventCard = "";
-    console.log(events);
+    // console.log(events);
     
 
     for (const event of events) {
@@ -141,7 +141,7 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
 
       let isOffline = event.event_type !== "offline";
       let eventLinkAttributes = ``;
-      console.log(data);
+      // console.log(data);
 
       
 
@@ -198,7 +198,7 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
     lucide.createIcons();
     renderPaginationAll(paginate);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     showToast();
   }
 }
@@ -351,7 +351,7 @@ async function renderEventsUpcoming(page = 1, perpage = 10, is_published = null)
     lucide.createIcons();
     renderPaginationUpcoming(paginate);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     showToast();
   }
 }
@@ -507,7 +507,7 @@ async function renderEventsShowing(page = 1, perpage = 10, is_published = null) 
     lucide.createIcons();
     renderPaginationShowing(paginate);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     showToast();
   }
 }
@@ -654,7 +654,7 @@ async function renderEventsPast(page = 1, perpage = 10, is_published = null) {
     lucide.createIcons();
     renderPaginationPast(paginate);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     showToast();
   }
 }
@@ -721,7 +721,7 @@ async function deleteEvent(id, btn) {
     btn.closest("tr").remove();
   } catch (error) {
     showToast();
-    console.log(error);
+    // console.log(error);
   }
 }
 

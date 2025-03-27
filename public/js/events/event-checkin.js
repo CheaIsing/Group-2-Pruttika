@@ -193,7 +193,7 @@ currentDate.setHours(0, 0, 0, 0);
     lucide.createIcons();
     renderPaginationAll(paginate);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     showToast();
   }
 }
@@ -348,7 +348,7 @@ async function renderEventsUpcoming(page = 1, perpage = 10, is_published = null)
     lucide.createIcons();
     renderPaginationUpcoming(paginate);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     showToast();
   }
 }
@@ -505,7 +505,7 @@ async function renderEventsShowing(page = 1, perpage = 10, is_published = null) 
     lucide.createIcons();
     renderPaginationShowing(paginate);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     showToast();
   }
 }
@@ -653,7 +653,7 @@ async function renderEventsPast(page = 1, perpage = 10, is_published = null) {
     lucide.createIcons();
     renderPaginationPast(paginate);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     showToast();
   }
 }
@@ -720,7 +720,7 @@ async function deleteEvent(id, btn) {
     btn.closest("tr").remove();
   } catch (error) {
     showToast();
-    console.log(error);
+    // console.log(error);
   }
 }
 

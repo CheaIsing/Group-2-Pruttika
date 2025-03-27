@@ -218,7 +218,7 @@ frm.addEventListener("submit", async (e) => {
     showToast(true, isEnglish ? "Update Profile Info Successfully." : "ធ្វើបច្ចុប្បន្នភាពព័ត៌មានព័ត៌មានដោយជោគជ័យ");
     getProfileInfo()
   } catch (error) {
-    console.log(error);
+    // console.log(error);
 
     if (typeof error.response.data == "string") {
       return showToast();
@@ -347,7 +347,7 @@ document.addEventListener("DOMContentLoaded", function () {
             
             document.getElementById("userImgPf").src = document.getElementById("imagePreview").src
           } catch (error) {
-            console.log(error);
+            // console.log(error);
             showToast();
           } finally {
             btnCloseLoading("cropImageBtn", isEnglish ? "Save": "រក្សាទុក");
@@ -366,7 +366,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       getProfileInfo();
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       showToast();
     }
   }

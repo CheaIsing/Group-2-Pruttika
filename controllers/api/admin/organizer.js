@@ -161,7 +161,7 @@ const getRequestOrganizerDetails = async (req, res) => {
 
     sendResponse(res, 200, true, "Display request organizer details", data[0]);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     sendResponse(res, error);
   }
 };
@@ -179,7 +179,7 @@ const getOrganizerDetails = async (req, res) => {
 
     sendResponse(res, 200, true, "Display organizer details", data[0]);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     sendResponse(res, error);
   }
 };
@@ -275,7 +275,7 @@ const editOrganizer = async (req, res) => {
 
     sendResponse(res, 200, true, "Organizer updated successfully.");
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     handleResponseError(res, error);
   }
 };
@@ -296,7 +296,7 @@ const removeOrganizer = async (req, res) => {
 
     sendResponse(res, 200, true, "Remove organizer sucessfully.");
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     handleResponseError(res, error);
   }
 };

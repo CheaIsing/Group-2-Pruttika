@@ -67,7 +67,7 @@ const postRequestTicket=async(req,res)=>{
             sendResponse(res,200,true,`Request Ticket Successfully`, result);
         }
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         handleResponseError(res,error);
     }
 }
@@ -100,7 +100,7 @@ const updateTransactionFile=async(req,res)=>{
             let uploadPath='./public/uploads/transaction/' + UploadFileName; 
             UploadFile.mv(uploadPath, (err)=> {
                 if (err){
-                    console.log(err);
+                    // console.log(err);
                 }
                 const oldPathTran='./public/uploads/transaction/'+oldTransaction;
                 if (fs.existsSync(oldPathTran)) {
@@ -216,7 +216,7 @@ const putApproveTicket = async (req, res) => {
 
                         await executeQuery(`UPDATE tbl_ticket SET qr_code = ?, qr_code_img = ? WHERE id = ?`, [token, qr_code_img, ticket_id]);
                         } catch (error) {
-                            console.log(error);
+                            // console.log(error);
                             handleResponseError(res, error);
                         }
                         
@@ -345,7 +345,7 @@ const putRejectTicket=async(req,res)=>{
 
         sendResponse(res,200,true,`Ticket Request ID ${ticketReq_id} has been rejected successfully`);
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         handleResponseError(res,error);
     }
 }

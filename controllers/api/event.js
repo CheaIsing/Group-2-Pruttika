@@ -670,7 +670,7 @@ const putCheckIn = async (req, res) => {
     await executeQuery(sqlUpdateStatus, result[0].id);
     sendResponse(res, 200, true, "Ticket Check in successfully");
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     handleResponseError(res, error);
   }
 };
