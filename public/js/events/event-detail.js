@@ -205,12 +205,22 @@ async function getEventDetail() {
         window.location.href = "/profile/view-profile";
       };
     });
+    const endDate = new Date(eventObj.ended_date);
 
-    if(moment(eventObj.ended_date).isBefore(moment())){
-      // console.log("true");
+    const currentDate = new Date();
+currentDate.setHours(0, 0, 0, 0);
+endDate.setHours(0, 0, 0, 0);
+    
+
+    if (currentDate < endDate) {
+      // eventStatus = getText("upcoming")
+    } else if (currentDate >= endDate && currentDate <= endDate) {
+      // eventStatus =  getText("showing")
+    } else {
       document.getElementById("btnPurchaseTicket").innerText = isEnglish ? "Already Finished":"កន្លងផុតហើយ";
       document.getElementById("btnPurchaseTicket").classList.add("disabled")
-    }
+    } 
+
 
     document.getElementById("date").innerText = `${moment(
       eventObj.started_date
