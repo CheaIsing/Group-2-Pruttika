@@ -291,8 +291,15 @@ const removeOrganizer = async (req, res) => {
       return sendResponse(res, 404, false, "Organizer not found.");
     }
 
+
     const deleteQuery = "DELETE FROM tbl_organizer WHERE id = ?";
     await executeQuery(deleteQuery, [id]);
+
+    const updateStatus = "Update tbl_users set role = 1 where id = ?"
+    await executeQuery(updateStatus, [data[0].user_id]);
+
+    const deleteReq = "DELETE FROM tbl_organizer_req where user_id = ?"
+    await executeQuery(deleteReq, [data[0].user_id]);
 
     sendResponse(res, 200, true, "Remove organizer sucessfully.");
   } catch (error) {

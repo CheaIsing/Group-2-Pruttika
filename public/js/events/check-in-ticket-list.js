@@ -4,7 +4,7 @@ if (!eventId) {
   window.location.href = "/event/manage-check-in";
 }
 
-document.getElementById("searchInput").addEventListener("keyup", filterTable);
+// document.getElementById("searchInput").addEventListener("keyup", filterTable);
 // document.getElementById('dateFilter').addEventListener('change', filterTable);
 // document.getElementById('statusFilter').addEventListener('change', filterTable);
 
@@ -46,29 +46,7 @@ async function success(result) {
 //     console.error(err);
 // }
 
-function filterTable() {
-  const nameFilter = document.getElementById("searchInput").value.toLowerCase();
-  const dateFilter = document.getElementById("dateFilter").value;
-  const statusFilter = document.getElementById("statusFilter").value;
 
-  const rows = document.querySelectorAll("#ticketTable tbody tr");
-
-  rows.forEach((row) => {
-    const nameCell = row.cells[2].textContent.toLowerCase();
-    // const dateCell = row.cells[5].textContent;
-    // const statusCell = row.cells[6].textContent.trim();
-
-    const matchesName = nameCell.includes(nameFilter);
-    // const matchesDate = dateFilter ? dateCell.startsWith(dateFilter) : true;
-    // const matchesStatus = statusFilter ? statusCell.includes(statusFilter) : true;
-
-    if (matchesName) {
-      row.classList.remove("d-none");
-    } else {
-      row.classList.add("d-none");
-    }
-  });
-}
 
 async function getCheckInTicketList(page = 1, perpage = 25) {
   let queryParams = new URLSearchParams();
