@@ -463,7 +463,7 @@ const getNotification = async (req, res) => {
 const readNotifications = async (req, res) => {
   const { id: userId = 1 } = req.user;
   const sql =
-    "UPDATE `tbl_notification` SET `is_read` = 1 WHERE `receiver_id` = ?";
+    "UPDATE `tbl_notification` SET `is_read` = 2 WHERE `receiver_id` = ?";
   try {
     const result = await executeQuery(sql, userId);
     //   console.log(res);

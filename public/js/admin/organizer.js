@@ -196,12 +196,12 @@ async function fetchOrganizerDetail(id) {
                     organizer.facebook
                   }<a/></p>
                   <p><strong>Telegram : </strong> <a href="#">
-                  ${organizer.telegram}</a></p>
+                  ${organizer.telegram ? organizer.telegram : "N/A"}</a></p>
                   <p><strong>Tiktok : </strong> <a href="#">${
-                    organizer.tiktok
+                    organizer.tiktok ? organizer.tiktok : "N/A"
                   }<a/></p>
                   <p><strong>Linkin : </strong> <a href="#">${
-                    organizer.linkin
+                    organizer.linkin ? organizer.linkin : "N/A"
                   }<a/></p>
                   <p><strong>Status : </strong> 
                       <span class="badge ${
@@ -359,7 +359,7 @@ async function adminApproval(id) {
       if (response.data && response.data.result) {
         Swal.fire({
           icon: "success",
-          title: "organizer Approved Successfully!",
+          title: "Organizer Approved Successfully!",
           text: "The organizer has been apporved",
         });
         fetchRequestOrganizers();

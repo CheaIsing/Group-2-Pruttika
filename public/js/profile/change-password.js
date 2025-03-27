@@ -28,6 +28,26 @@ const fields = [
     isInvalidClass: "is_invalid",
   },
 ];
+const fieldsKh = [
+  {
+    name: isEnglish ? "old password" : "ពាក្យសម្ងាត់ចាស់",
+    id: "input-field-current-password",
+    textErrorElement: "#invalid_feedback_current_password div",
+    isInvalidClass: "is_invalid",
+  },
+  {
+    name: isEnglish ? "new password" : "ពាក្យសម្ងាត់ថ្មី",
+    id: "input-field-new-password",
+    textErrorElement: "#invalid_feedback_new_password div",
+    isInvalidClass: "is_invalid",
+  },
+  {
+    name: isEnglish ? "must match":"ត្រូវតែត្រួតពិនិត្យគ្នា",
+    id: "input-field-confirm-new-password",
+    textErrorElement: "#invalid_feedback_confirm_new_password div",
+    isInvalidClass: "is_invalid",
+  },
+];
 
 frm.addEventListener(
   "submit",
@@ -51,11 +71,11 @@ frm.addEventListener(
 
     if (error) {
       const errorMessages = error.details.map((detail) => detail.message);
-      handleErrorMessages(errorMessages, fields);
+      handleErrorMessages(errorMessages, fieldsKh);
       return;
     }
 
-    handleErrorMessages([], fields);
+    handleErrorMessages([], fieldsKh);
 
     isValid = true;
 
@@ -67,13 +87,13 @@ frm.addEventListener(
 
       await axiosInstance.put("/profile/pass", formData);
 
-      showToast(true, "Change Password Successfully.");
+      showToast(true, isEnglish ? "Change Password Successfully.": "ផ្លាស់ប្តូរពាក្យសម្ងាត់ដោយជោគជ័យ");
 
       clearInput();
     } catch (error) {
       console.log(error);
 
-      if (typeof error.response.data == "string") {
+      if (!(error.response && error.response.data &&  typeof error.response.data == "object")) {
         return showToast();
       }
 
@@ -83,7 +103,7 @@ frm.addEventListener(
 
       handleErrorMessages(errorMessages, fields);
     } finally {
-      btnCloseLoading("btnChangePassword", "Change Password");
+      btnCloseLoading("btnChangePassword", isEnglish ? "Change Password" : "ផ្លាស់ប្តូរពាក្យសម្ងាត់");
     }
   }
 

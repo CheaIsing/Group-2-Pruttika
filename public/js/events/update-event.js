@@ -1597,6 +1597,7 @@ function checkStep() {
             start_time,
             end_time,
           });
+          handleErrorMessages([], fieldsEventAgendaKh);
         }
       });
 
@@ -1688,6 +1689,7 @@ function checkStep() {
             price: Number(price),
             ticket_opacity: Number(capacity),
           });
+          handleErrorMessages([], fieldsEventTicketKh);
           if (price == 0) {
             isSkipStepPayment = true;
             document
@@ -1797,6 +1799,7 @@ function checkStep() {
               price: Number(price),
               ticket_opacity: Number(capacity),
             });
+            handleErrorMessages([], fieldsEventTicketKh);
           }
         });
 

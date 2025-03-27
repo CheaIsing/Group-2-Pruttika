@@ -302,7 +302,7 @@ async function getOwnedTicket( status="", page=1, perpage=15) {
     }else{
       document.getElementById("owned-ticket-container").innerHTML = `<div class="text-center w-100 my-5">
               <img src="/img/noFound.png" alt="..." height="220px;">
-              <h4 class="text-center text-brand mt-2">No Owned Ticket to Display</h4>
+              <h4 class="text-center text-brand mt-2">${isEnglish ? "No Owned Ticket to Display": "មិនមានសំបុត្រដើម្បីបង្ហាញទេ"}</h4>
             </div>`
     }
 
@@ -475,7 +475,7 @@ function showTransaction(el) {
       <br><br>
 
 
-      ${obj.reject_reason ? `<div class="alert alert-danger mb-2">Reject Reason: ` + obj.reject_reason + "</div>" : ""}
+      ${obj.reject_reason ? `<div class="alert alert-danger mb-2">${isEnglish ? "Reject Reason":"ហេតុផលបដិសេធ"}: ` + obj.reject_reason + "</div>" : ""}
 
       
 
@@ -484,25 +484,25 @@ function showTransaction(el) {
         
 
         <div class="bg-light p-4 border-top">
-          <h5 class="fw-meduim mb-3">Ticket Detail</h5>
+          <h5 class="fw-meduim mb-3">${isEnglish ? "Ticket Detail":"ព័ត៌មានលម្អិតអំពីសំបុត្រ"}</h5>
 
           <div class="card-text fs-5 d-flex align-items-center justify-content-between mb-2">
-            <small>Purchase Date</small>
+            <small>${isEnglish ? "Purchase Date":"កាលបរិច្ឆេទទិញ"}</small>
             <small class="fw-medium">${moment(
               obj.purchase_date
             ).format("lll")}</small>
           </div>
           <div class="card-text fs-5 d-flex align-items-center justify-content-between mb-2">
-            <small>Ticket Bought</small>
+            <small>${isEnglish ? "Ticket Bought":"បរិមាណសំបុត្រ"}</small>
             <small class="fw-medium">${obj.qty}</small>
           </div>
           <div class="card-text fs-5 d-flex align-items-center justify-content-between mb-2">
-            <small>Ticket Price</small>
+            <small>${isEnglish ? "Ticket Price" : "តម្លៃសំបុត្រ"}</small>
             <small class="fw-medium">$${obj.ticket_type.price.toFixed(2)}</small>
           </div>
           <hr>
           <div class="card-text fs-5 d-flex align-items-center justify-content-between mb-2">
-            <small>Total</small>
+            <small>${isEnglish ? "Total":"សរុប"}</small>
             <small class="fw-medium">$${obj.total.toFixed(2)}</small>
           </div>
         </div>

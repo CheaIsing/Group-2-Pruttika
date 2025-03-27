@@ -239,7 +239,7 @@ const deleteOwnAccount = async (req, res) => {
       return sendResponse(res, 401, false, "Current password is incorrect.");
 
     const avatarPath = data[0].avatar;
-    if (avatarPath) {
+    if (avatarPath && avatarPath != "default.jpg") {
       fs.unlink(`./public/uploads/${avatarPath}`, (err) => {
         if (err)
           return sendResponse(
