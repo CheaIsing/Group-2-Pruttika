@@ -220,6 +220,7 @@ async function getAllNotifications() {
       document.getElementById("pills-home-tab").classList.remove("active");
       document.getElementById("pills-profile-tab").classList.add("active");
     } else {
+      document.getElementById("btnMarkAll").classList.add("opacity-0")
       document.getElementById("pills-home").classList.add("show", "active");
       document
         .getElementById("pills-profile")

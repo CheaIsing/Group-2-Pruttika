@@ -47,6 +47,26 @@ async function loadUserProfile() {
 async function handleChangeInfo(e) {
   e.preventDefault();
 
+  if(!document.getElementById("eng_name").value){
+    Swal.fire({
+        icon: "error",
+        title: "Invalid Username",
+        text: "Please enter a valid username.",
+        confirmButtonText: "OK",
+      });
+    return;
+  }
+
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailPattern.test(document.getElementById("email").value)) {
+    return Swal.fire({
+      icon: "error",
+      title: "Invalid Email",
+      text: "Please enter a valid email address.",
+      confirmButtonText: "OK",
+    });
+  }
+
   const profileData = {
       eng_name: document.getElementById("eng_name").value,
       kh_name: document.getElementById("kh_name").value,

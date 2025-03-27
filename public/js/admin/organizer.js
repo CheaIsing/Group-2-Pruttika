@@ -73,7 +73,7 @@ function updatePagination(currentPage, totalPages, perPage, id, fetchFunction) {
 
     const pageLink = document.createElement("a");
     pageLink.classList.add("page-link");
-    pageLink.href = "#";
+    pageLink.href = "";
     pageLink.innerHTML = label;
 
     pageLink.addEventListener("click", (event) => {
@@ -128,7 +128,7 @@ async function fetchRequestOrganizerDetail(id) {
           <div class="card p-3 border-0 shadow-sm">
               <h4 class="fw-bold">${organizer.organization_name}</h4>
               <p class="text-muted">${organizer.business_email}</p>
-              <p class="text-muted">${organizer.bio}</p>
+              <p class="text-muted">${organizer.bio ? organizer.bio : ""}</p>
               <hr>
               <div class="text-start">
                   <p><strong>Phone : </strong> ${organizer.business_phone}</p>
@@ -137,12 +137,12 @@ async function fetchRequestOrganizerDetail(id) {
                     organizer.facebook
                   }<a/></p>
                   <p><strong>Telegram : </strong> <a href="#">
-                  ${organizer.telegram}</a></p>
+                  ${organizer.telegram ? organizer.telegram : "N/A"}</a></p>
                   <p><strong>Tiktok : </strong> <a href="#">${
-                    organizer.tiktok
+                    organizer.tiktok ? organizer.tiktok : "N/A"
                   }<a/></p>
                   <p><strong>Linkin : </strong> <a href="#">${
-                    organizer.linkin
+                    organizer.linkin ? organizer.linkin : "N/A"
                   }<a/></p>
                   <p>
                     <strong>Status : </strong>
@@ -429,7 +429,7 @@ async function adminRejection(id) {
       if (response.data && response.data.result) {
         Swal.fire({
           icon: "success",
-          title: "organizer Rejected Successfully!",
+          title: "Organizer Rejected Successfully!",
           text: "The organizer has been rejected.",
         });
         fetchRequestOrganizers();
@@ -467,17 +467,19 @@ async function editOrganizer(organizerId) {
       `/admin/organizer/details/${organizerId}`
     );
     const organizer = response.data.data;
+    console.log(organizer);
+    
 
     editContainer.innerHTML = `
       <form id="editOrganizerForm">
         <div class="mb-3 row">
-          <div class="col-6">
+          <div class="col-12">
             <label for="editName" class="form-label">Organization Name</label>
             <input type="text" id="editName" class="form-control" value="${organizer.organization_name}">
           </div>
-          <div class="col-6">
+          <div class="col-12">
             <label for="editBio" class="form-label">Bio</label>
-            <input type="text" id="editBio" class="form-control" value="${organizer.bio}">
+            <input type="text" id="editBio" class="form-control" value="${organizer.bio ? organizer.bio : ""}">
           </div>
         </div>
         <div class="mb-3 row">
@@ -497,22 +499,22 @@ async function editOrganizer(organizerId) {
           </div>
           <div class="col-6">
             <label for="editTg" class="form-label">Telegram</label>
-            <input type="text" id="editTg" class="form-control" value="${organizer.telegram}">
+            <input type="text" id="editTg" class="form-control" value="${organizer.telegram ? organizer.telegram  : ""}">
           </div>
         </div>
         <div class="mb-3 row">
           <div class="col-6">
             <label for="editTt" class="form-label">Tiktok</label>
-            <input type="text" id="editTt" class="form-control" value="${organizer.tiktok}">
+            <input type="text" id="editTt" class="form-control" value="${organizer.tiktok ? organizer.tiktok:""}">
           </div>
           <div class="col-6">
             <label for="editLl" class="form-label">Linkin</label>
-            <input type="text" id="editLl" class="form-control" value="${organizer.linkin}">
+            <input type="text" id="editLl" class="form-control" value="${organizer.linkin ? organizer.linkin : ""}">
           </div>
         </div>
         <div class="mb-3">
-          <label for="editAddress" class="form-label">Address</label>
-          <input type="text" id="editAddress" class="form-control" value="${organizer.address}">
+          <label for="editAddress" class="form-label">Location</label>
+          <input type="text" id="editAddress" class="form-control" value="${organizer.location ? organizer.location : ""}">
         </div>
         <div class="text-end">
           <button type="submit" class="btn btn-primary">Update Organizer</button>
@@ -524,6 +526,60 @@ async function editOrganizer(organizerId) {
       .getElementById("editOrganizerForm")
       .addEventListener("submit", async (event) => {
         event.preventDefault();
+
+        const email = document.getElementById("editEmail").value;
+      const phone = document.getElementById("editPhone").value;
+      const name = document.getElementById("editName").value;
+        const facebook = document.getElementById("editFb").value;
+        const address = document.getElementById("editAddress").value;
+
+        if (!name) {
+          return Swal.fire({
+            icon: "error",
+            title: "Invalid Organization Name",
+            text: "Please enter a valid organization name.",
+            confirmButtonText: "OK",
+          });
+        }
+        if (!address) {
+          return Swal.fire({
+            icon: "error",
+            title: "Invalid location",
+            text: "Please enter a valid location.",
+            confirmButtonText: "OK",
+          });
+        }
+        if (!facebook) {
+          return Swal.fire({
+            icon: "error",
+            title: "Invalid Facebook Link",
+            text: "Please enter a valid Facebook Link.",
+            confirmButtonText: "OK",
+          });
+        }
+
+
+      // Validate email
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        return Swal.fire({
+          icon: "error",
+          title: "Invalid Email",
+          text: "Please enter a valid email address.",
+          confirmButtonText: "OK",
+        });
+      }
+
+      // Validate phone number (basic validation)
+      const phonePattern = /^\d{9,10}$/; // Adjust the pattern as needed
+      if (!phonePattern.test(phone)) {
+        return Swal.fire({
+          icon: "error",
+          title: "Invalid Phone Number",
+          text: "Please enter a valid phone number (9-10 digits).",
+          confirmButtonText: "OK",
+        });
+      }
 
         const updatedOrganizer = {
           organization_name: document.getElementById("editName").value,
@@ -546,7 +602,7 @@ async function editOrganizer(organizerId) {
           if (updateResponse.data.result) {
             Swal.fire({
               icon: "success",
-              title: "organizer Updated Successfully!",
+              title: "Organizer Updated Successfully!",
               text: "The organizer has been updated.",
             });
 
@@ -566,11 +622,11 @@ async function editOrganizer(organizerId) {
             });
           }
         } catch (error) {
-          console.error("Error updating organizer:", error.message);
+          console.error("Error updating organizer:", error);
           Swal.fire({
             icon: "error",
             title: "Error",
-            text: "An error occurred while updating the organizer.",
+            text: "An error occurred while updating the organizer. "+ error?.response?.data?.message,
             confirmButtonText: "OK",
           });
         }

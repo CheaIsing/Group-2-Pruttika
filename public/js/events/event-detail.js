@@ -136,7 +136,7 @@ async function getEventDetail() {
       if (eventObj.creator.id == userId) {
         document.getElementById("btnFollow").classList.add("opacity-0");
         document.getElementById("btnPurchaseTicket").classList.add("disabled")
-        document.getElementById("btnPurchaseTicket").innerText = "Owned Event"
+        document.getElementById("btnPurchaseTicket").innerText = isEnglish ? "Owned Event" : "ព្រឹត្តិការណ៍របស់អ្នក។"
       }
       document
         .getElementById("btnFollow")
@@ -208,7 +208,7 @@ async function getEventDetail() {
 
     if(moment(eventObj.ended_date).isBefore(moment())){
       // console.log("true");
-      document.getElementById("btnPurchaseTicket").innerText = isEnglish ? "Already Finished":"រួចរាល់ហើយ";
+      document.getElementById("btnPurchaseTicket").innerText = isEnglish ? "Already Finished":"កន្លងផុតហើយ";
       document.getElementById("btnPurchaseTicket").classList.add("disabled")
     }
 
