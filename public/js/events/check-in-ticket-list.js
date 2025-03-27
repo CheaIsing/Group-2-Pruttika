@@ -125,7 +125,7 @@ async function getCheckInTicketList(page = 1, perpage = 25) {
     // renderPagination(paginate)
   } catch (error) {
     showToast();
-    console.log(error);
+    // console.log(error);
   }
 }
 
@@ -231,7 +231,7 @@ document.getElementById("btn-checked-in").onclick = async () => {
     disapproveModal.hide();
     showToast(true, getText("checkInSuccess"));
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     if (
       !(
         error.response &&

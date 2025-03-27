@@ -176,7 +176,7 @@ frm.addEventListener(
         window.location.href = "/profile/organizer-view"
       }, 1200)
     } catch (error) {
-      console.log(error);
+      // console.log(error);
 
       if (!(error.response && error.response.data &&  typeof error.response.data == "object")) {
         return showToast();

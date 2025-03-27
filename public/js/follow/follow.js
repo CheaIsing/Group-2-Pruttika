@@ -54,7 +54,7 @@ async function getFollower() {
         document.getElementById("following").innerHTML = ``
         
         if(following.length > 0){
-            console.log(following);
+            // console.log(following);
             
             following.forEach(f=>{
                html2 += `
@@ -86,7 +86,7 @@ async function getFollower() {
 
 
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         showToast()
     }
 
@@ -113,7 +113,7 @@ async function toggleFollow(id, btn){
           }
         
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         showToast()
     }
 }
@@ -126,7 +126,7 @@ async function removeFollowByOther(id, list){
         showToast(true, isEnglish ? "Remove follow successfully." : "លុបការតាមដានដោយជោគជ័យ")
         list.closest(".list-group").remove()
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         showToast()
     }
 }

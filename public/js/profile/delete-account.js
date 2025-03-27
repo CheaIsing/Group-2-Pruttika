@@ -65,7 +65,7 @@ frm.addEventListener(
 
       // clearInput();
     } catch (error) {
-      console.log(error);
+      // console.log(error);
 
       if (!(error.response && error.response.data &&  typeof error.response.data == "object")) {
         return showToast();

@@ -257,7 +257,7 @@ function displayEvents(events) {
 
 function displayCategories(categories) {
   const tableBody = document.getElementById("categoryTableBody");
-  console.log(categories);
+  // console.log(categories);
   
   if(categories.length == 0){
     return tableBody.innerHTML = `<tr>

@@ -61,7 +61,7 @@ events.event_categories.forEach((c, i) => {
     c.name
   }</span>`;
 });
-console.log(events);
+// console.log(events);
 
 const tickets = events.event_tickets;
 
@@ -265,7 +265,7 @@ document.getElementById("submitButton").addEventListener("click", async (e)=>{
         return
       }
         showToast();
-        console.log(error);
+        // console.log(error);
         
     }finally{
       btnCloseLoading("submitButton", isEnglish ? "Submit Purchase" : "ដាក់ស្នើការទិញ")

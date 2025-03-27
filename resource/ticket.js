@@ -108,7 +108,7 @@ const reqTicketCollection=async(userId,event_id=null,ticket_type_id=null,req_sta
         } 
         return ticketReqObj;
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         // throw error;
     }
 }
@@ -212,7 +212,7 @@ const ownReqTicketCollection=async(userId,status=null,page=1,perpage=15,sort='id
         } 
         return ticketReqObj;
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         throw error;
     }
 }
@@ -326,7 +326,7 @@ const ownTicketCollection=async(userId,status=null,page=1,perpage=15,sort='id',o
         } 
         return ticketObj;
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         throw error;
     }
 }
@@ -352,7 +352,7 @@ const checkInTicketCollection= async (id)=>{
         return result;
 
     } catch (error) {
-        console.log(error);
+        // console.log(error);
     }
 }
 

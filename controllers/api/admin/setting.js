@@ -105,7 +105,7 @@ const changePassword = async (req, res) => {
 
     sendResponse(res, 200, true, "Updated password successfully");
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     handleResponseError(res, error);
   }
 };

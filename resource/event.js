@@ -236,7 +236,7 @@ const eventCollection= async(userID,page=1, perpage=25, search='', sort='id', or
         }        
         return eventObj;
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         // throw error;
     }
 }
@@ -246,7 +246,7 @@ const eventDetail=async(user_id,id)=>{
     const data=await executeQuery(sqlQuery,[user_id,id]);
     
     if(!data[0] || !data[0].id){
-        console.log('error');
+        // console.log('error');
         return null;
     }
     const eventData=data[0];

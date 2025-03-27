@@ -467,7 +467,7 @@ async function editOrganizer(organizerId) {
       `/admin/organizer/details/${organizerId}`
     );
     const organizer = response.data.data;
-    console.log(organizer);
+    // console.log(organizer);
     
 
     editContainer.innerHTML = `

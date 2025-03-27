@@ -308,7 +308,7 @@ async function getEventDetail() {
     document.querySelector('.placeholer-content').classList.add('d-none');
     document.querySelectorAll('.before-skeleton').forEach(el => el.classList.remove('d-none'));
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     showToast();
   }
 }
@@ -438,7 +438,7 @@ async function renderRelatedEvents(page = 1, perpage = 1000, is_published = true
     if(error.status == 401){
       return
     }
-      console.log(error);
+      // console.log(error);
       showToast();
   }
 }
@@ -486,7 +486,7 @@ document
         
       } catch (error) {
         showToast();
-        console.log(error);
+        // console.log(error);
       } finally {
         btnCloseLoading("btnPurchaseTicket", msgBtn);
         document.getElementById("btnPurchaseTicket").disabled = true;
@@ -510,7 +510,7 @@ document
           isRedeemTicket = true
         } catch (error) {
           showToast();
-          console.log(error);
+          // console.log(error);
         } finally {
           btnCloseLoading("btnPurchaseTicket", msgBtn);
           document.getElementById("btnPurchaseTicket").classList.add("disabled");
@@ -542,7 +542,7 @@ async function toggleFollow(id, btn) {
       btn.innerText = getText("unfollow");
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     showToast();
   }
 }

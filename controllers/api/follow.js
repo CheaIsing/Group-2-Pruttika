@@ -54,7 +54,7 @@ const unfollowUser = async (req, res) => {
 
     sendResponse(res, 200, true, "User unfollowed successfully.");
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     handleResponseError(res, error);
   }
 };
@@ -74,7 +74,7 @@ const removeFollower = async (req, res) => {
 
     sendResponse(res, 200, true, "Remove this user from follower successfully.");
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     handleResponseError(res, error);
   }
 };
@@ -121,7 +121,7 @@ const getFollowers = async (req, res) => {
       followerList
     );
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     handleResponseError(res, error);
   }
 };
@@ -172,7 +172,7 @@ const getFollowing = async (req, res) => {
       followingList
     );
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     handleResponseError(res, error);
   }
 };
