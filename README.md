@@ -4,7 +4,7 @@ Link Website https://test.pruttika.run.place
 
 Award for best overall project out of 5 team
 
-![Alt text](./public/img/pruttika reward.jpg)
+![Alt text](public/img/pruttikareward.jpg)
 
 Features:
 1. Authentication (Role Based 1. Guest, 2. Organizer, 3. Admin)
