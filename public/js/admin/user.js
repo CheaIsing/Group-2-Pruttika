@@ -21,7 +21,6 @@ async function fetchUsers(
     perPage = parseInt(perPage) || 4;
 
     const roles = document.getElementById("role").value;
-    
 
     const response = await axiosInstance.get("/admin/user/display", {
       params: {
@@ -29,7 +28,7 @@ async function fetchUsers(
         per_page: perPage,
         sort_col: sortCol,
         sort_dir: sortDir,
-        role : (role ? role : roles),
+        role: role ? role : roles,
         search,
       },
     });
@@ -41,8 +40,6 @@ async function fetchUsers(
     // if (!result || result.length === 0) {
     //   throw new Error("No users found or failed to fetch users.");
     // }
-
-
 
     displayUsers(result);
     updatePagination(page, totalPages, perPage, fetchUsers);
@@ -70,7 +67,7 @@ function updatePagination(currentPage, totalPages, perPage, fetchFunction) {
     pageLink.addEventListener("click", (event) => {
       event.preventDefault();
       if (!isDisabled) {
-        fetchFunction("", "", page, perPage, "created_at", "asc"); 
+        fetchFunction("", "", page, perPage, "created_at", "asc");
       }
     });
 
@@ -79,7 +76,11 @@ function updatePagination(currentPage, totalPages, perPage, fetchFunction) {
   }
 
   paginationContainer.appendChild(
-    createPageButton(currentPage - 1, `<i class="fa-solid fa-chevron-left"></i>`, currentPage === 1)
+    createPageButton(
+      currentPage - 1,
+      `<i class="fa-solid fa-chevron-left"></i>`,
+      currentPage === 1
+    )
   );
 
   for (let i = 1; i <= totalPages; i++) {
@@ -89,7 +90,11 @@ function updatePagination(currentPage, totalPages, perPage, fetchFunction) {
   }
 
   paginationContainer.appendChild(
-    createPageButton(currentPage + 1, `<i class="fa-solid fa-chevron-right"></i>`, currentPage === totalPages)
+    createPageButton(
+      currentPage + 1,
+      `<i class="fa-solid fa-chevron-right"></i>`,
+      currentPage === totalPages
+    )
   );
 }
 
@@ -101,29 +106,27 @@ window.addEventListener("load", function () {
   fetchUsers("", "", page, perPage);
 });
 
-
 function displayUsers(users) {
   const tableBody = document.getElementById("usersTableBody");
   if (!tableBody) return;
 
   // users = users.filter((user => user.role != 3));
 
-  if(users.length ==0){
-    return tableBody.innerHTML = `
+  if (users.length == 0) {
+    return (tableBody.innerHTML = `
     <tr>
     <td colspan="9" class="text-center">No User Found</td>
-    </tr>`
+    </tr>`);
   }
 
   tableBody.innerHTML = users
-    .map(
-      (user, i) => {
-        const serialNumber = (currentPage - 1) * 4 + (i + 1);
-        return`
+    .map((user, i) => {
+      const serialNumber = (currentPage - 1) * 4 + (i + 1);
+      return `
           <tr>
               <td>${serialNumber}</td>
               <td><img class="rounded-circle object-fit-cover" width="35" height="35" src="/uploads/${
-                user.avatar? user.avatar : "default.jpg"
+                user.avatar ? user.avatar : "default.jpg"
               }"></td>
               <td>${user.kh_name ? user.kh_name : "N/A"}</td>
               <td>${user.eng_name ? user.eng_name : "N/A"}</td>
@@ -162,8 +165,8 @@ function displayUsers(users) {
                 </div>
               </td>
           </tr>
-              `}
-    )
+              `;
+    })
     .join("");
 }
 
@@ -188,14 +191,20 @@ async function fetchUserDetail(userId) {
               <p class="text-muted">${user.email}</p>
               <hr>
               <div class="text-start">
-                  <p><strong>Phone : </strong> ${user.phone ? user.phone : "N/A"}</p>
-                  <p><strong>Date of Birth : </strong> ${ user.dob ? new Date(
+                  <p><strong>Phone : </strong> ${
+                    user.phone ? user.phone : "N/A"
+                  }</p>
+                  <p><strong>Date of Birth : </strong> ${
                     user.dob
-                  ).toLocaleDateString("en-CA"): "N/A" }</p>
+                      ? new Date(user.dob).toLocaleDateString("en-CA")
+                      : "N/A"
+                  }</p>
                   <p><strong>Gender:</strong> ${
                     user.gender === 1 ? "Male" : "Female"
                   }</p>
-                  <p><strong>Address : </strong> ${user.address ? user.address : "N/A"}</p>
+                  <p><strong>Address : </strong> ${
+                    user.address ? user.address : "N/A"
+                  }</p>
                   <p><strong>Role : </strong> <span class="badge bg-primary">${getRoleName(
                     user.role
                   )}</span></p>
@@ -233,7 +242,7 @@ async function editUser(userId) {
           <div class="col-6">
             <label for="editEngName" class="form-label">English Name</label>
             <input type="text" id="editEngName" class="form-control" value="${
-              user.eng_name ?  user.eng_name: ""
+              user.eng_name ? user.eng_name : ""
             }">
           </div>
         </div>
@@ -254,7 +263,9 @@ async function editUser(userId) {
         <div class="mb-3 row">
           <div class="col-6">
             <label for="editDob" class="form-label">Date of Birth</label>
-            <input type="date" id="editDob" class="form-control" value="${dobFormatted ? dobFormatted : ""}">
+            <input type="date" id="editDob" class="form-control" value="${
+              dobFormatted ? dobFormatted : ""
+            }">
           </div>
           <div class="col-6">
             <label for="editGender" class="form-label">Gender</label>
@@ -285,44 +296,43 @@ async function editUser(userId) {
       .addEventListener("submit", async (event) => {
         event.preventDefault();
         const email = document.getElementById("editEmail").value;
-      const phone = document.getElementById("editPhone").value;
+        const phone = document.getElementById("editPhone").value;
 
-      // Validate email
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailPattern.test(email)) {
-        return Swal.fire({
-          icon: "error",
-          title: "Invalid Email",
-          text: "Please enter a valid email address.",
-          confirmButtonText: "OK",
-        });
-      }
-
-      // Validate phone number (basic validation)
-
-      const phonePattern = /^\d{9,10}$/; // Adjust the pattern as needed
-      // console.log(phone);
-      
-      if(phone){
-        if (!phonePattern.test(phone) ) {
+        // Validate email
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
           return Swal.fire({
             icon: "error",
-            title: "Invalid Phone Number",
-            text: "Please enter a valid phone number (9-10 digits).",
+            title: "Invalid Email",
+            text: "Please enter a valid email address.",
             confirmButtonText: "OK",
           });
         }
-      }
 
-      if(document.getElementById("editEngName").value.trim() == ""){
-        return Swal.fire({
-          icon: "error",
-          title: "Invalid Username",
-          text: "Please enter a valid username.",
-          confirmButtonText: "OK",
-        });
-      }
+        // Validate phone number (basic validation)
 
+        const phonePattern = /^\d{9,10}$/; // Adjust the pattern as needed
+        console.log(phone);
+
+        if (phone) {
+          if (!phonePattern.test(phone)) {
+            return Swal.fire({
+              icon: "error",
+              title: "Invalid Phone Number",
+              text: "Please enter a valid phone number (9-10 digits).",
+              confirmButtonText: "OK",
+            });
+          }
+        }
+
+        if (document.getElementById("editEngName").value.trim() == "") {
+          return Swal.fire({
+            icon: "error",
+            title: "Invalid Username",
+            text: "Please enter a valid username.",
+            confirmButtonText: "OK",
+          });
+        }
 
         const updatedUser = {
           kh_name: document.getElementById("editKhName").value,
@@ -363,19 +373,29 @@ async function editUser(userId) {
             });
           }
         } catch (error) {
-          if (!(error.response && error.response.data &&  typeof error.response.data == "object")) {
-            return  Swal.fire({
+          if (
+            !(
+              error.response &&
+              error.response.data &&
+              typeof error.response.data == "object"
+            )
+          ) {
+            return Swal.fire({
               icon: "error",
               title: "Error",
-              text: "An error occurred while updating the user."+ error?.response?.data?.message,
+              text:
+                "An error occurred while updating the user." +
+                error?.response?.data?.message,
               confirmButtonText: "OK",
-            });;
+            });
           }
           // console.error("Error updating user:", error);
           Swal.fire({
             icon: "error",
             title: "Error",
-            text: "An error occurred while updating the user. " + error?.response?.data?.message,
+            text:
+              "An error occurred while updating the user. " +
+              error?.response?.data?.message,
             confirmButtonText: "OK",
           });
         }

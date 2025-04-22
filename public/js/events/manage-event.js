@@ -119,7 +119,7 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
     const { data: resultUser } = await axiosInstance.get("/auth/me");
     const { data: user } = resultUser;
 
-    // console.log(user);
+    console.log(user);
 
     const userId = user.id;
     queryParams.append("creator", userId);
@@ -148,7 +148,7 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
 
       let isOffline = event.event_type !== "offline";
       let eventLinkAttributes = ``;
-      // console.log(data);
+      console.log(data);
 
       let totalPrice =
         data.data.ticket.length > 0
@@ -239,13 +239,13 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
                     </tr>`;
     }
 
-    // console.log(eventCard);
+    console.log(eventCard);
 
     eventList.innerHTML = eventCard;
     lucide.createIcons();
     renderPaginationAll(paginate);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     showToast();
   }
 }
@@ -454,7 +454,7 @@ async function renderEventsUpcoming(
     lucide.createIcons();
     renderPaginationUpcoming(paginate);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     showToast();
   }
 }
@@ -547,21 +547,21 @@ async function renderEventsShowing(
     const { data: user } = resultUser;
     const userId = user.id;
     queryParams.append("creator", userId);
-    // console.log(queryParams.toString());
+    console.log(queryParams.toString());
     const { data } = await axiosInstance.get(
       `/events?${queryParams.toString()}`
     );
     const { data: events, paginate } = data;
 
-    // console.log(events);
+    console.log(events);
 
     if (events.length <= 0) {
-      // console.log(true);
+      console.log(true);
       eventList.innerHTML = noEvent;
       return;
     }
 
-    // console.log("Hi");
+    console.log("Hi");
 
     let eventCard = "";
     for (const event of events) {
@@ -668,7 +668,7 @@ async function renderEventsShowing(
     lucide.createIcons();
     renderPaginationShowing(paginate);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     showToast();
   }
 }
@@ -872,7 +872,7 @@ async function renderEventsPast(page = 1, perpage = 10, is_published = null) {
     lucide.createIcons();
     renderPaginationPast(paginate);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     showToast();
   }
 }
@@ -956,7 +956,7 @@ async function deleteEvent(id, btn) {
     }
   } catch (error) {
     showToast();
-    // console.log(error);
+    console.log(error);
   }
 }
 

@@ -10,7 +10,7 @@ const getAllWishlist = async (req, res) => {
 
     sendResponse(res, 200, true, "Display all events in wishlist.", data);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     handleResponseError(res, error);
   }
 };
@@ -40,7 +40,7 @@ const getWishlistById = async (req, res) => {
 
     sendResponse(res, 200, true, `Display event in wishlist id : ${id}`, data);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     handleResponseError(res, error);
   }
 };
@@ -69,7 +69,7 @@ const storeEventToWishlist = async (req, res) => {
 
     sendResponse(res, 200, true, "Stored event to wishlist successfully.");
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     handleResponseError(res, error);
   }
 };
@@ -91,7 +91,7 @@ const deleteItemInWishlist = async (req, res) => {
 
     sendResponse(res, 200, true, "Deleted item from wishlist successfully.");
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     handleResponseError(res, error);
   }
 };

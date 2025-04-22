@@ -66,17 +66,16 @@
 <script src="/vendor/lib/html2canvas.min.js"></script>
 <script src="/vendor/lib/socket.io.min.js"></script>
 
-
 <script>
         let userSocketId = null;
         
 async function connectToSocket() {
     try {
         const response = await axiosInstance.get("/auth/me");
-        // console.log(response);
+           console.log(response);
         
         userSocketId = response.data.data.id;
-        // console.log(userSocketId);
+           console.log(userSocketId);
         if (userSocketId) {
             // Connect to the Socket.IO server
             const socket = io(); // Replace with your server URL
@@ -154,11 +153,11 @@ async function connectToSocket() {
 });            
 
         } else {
-            // console.log("User is not authenticated. Socket.IO connection skipped.");
+               console.log("User is not authenticated. Socket.IO connection skipped.");
         }
     } catch (error) {
         userSocketId = null;
-        // console.log(error);
+           console.log(error);
         
     }
 }

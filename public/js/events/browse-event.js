@@ -3,7 +3,7 @@ async function getCategories() {
     const result = await axiosInstance.get("/admin/event/category/view");
 
     const categories = result.data.data.data;
-    // console.log(categories);
+    console.log(categories);
 
     let categoriesHtml = "";
     categories.forEach((c) => {
@@ -19,7 +19,7 @@ async function getCategories() {
     document.getElementById("categories-mobile-container").innerHTML =
       categoriesHtml;
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     showToast();
   }
 }
@@ -137,8 +137,8 @@ function clearFilter() {
   document.getElementById("status-filter").value = "";
   document.getElementById("status-filter-mobile").value = "";
 
-  document.getElementById("type-filter").value = ""
-  document.getElementById("type-filter-mobile").value = ""
+  document.getElementById("type-filter").value = "";
+  document.getElementById("type-filter-mobile").value = "";
 
   selectedCategories = [];
   document.querySelectorAll("#category-container button").forEach((button) => {
@@ -189,11 +189,9 @@ document
   .addEventListener("change", (e) => {
     renderEvents();
   });
-document
-  .getElementById("type-filter")
-  .addEventListener("change", (e) => {
-    renderEvents();
-  });
+document.getElementById("type-filter").addEventListener("change", (e) => {
+  renderEvents();
+});
 
 document.addEventListener("DOMContentLoaded", (e) => renderEvents());
 
@@ -349,7 +347,9 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
     document.getElementById("status-filter-mobile").value;
   const search = document.getElementById("searchInput").value;
 
-  const type = document.getElementById("type-filter").value || document.getElementById("type-filter-mobile").value
+  const type =
+    document.getElementById("type-filter").value ||
+    document.getElementById("type-filter-mobile").value;
   // const location = document.getElementById("location-filter").value;
 
   let queryParams = new URLSearchParams();
@@ -362,7 +362,6 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
   queryParams.append("page", `${page}`);
   queryParams.append("is_published", `${is_published}`);
   queryParams.append("perpage", `${perpage}`);
-  
 
   if (search) {
     queryParams.append("search", search);
@@ -423,22 +422,22 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
       let resultCate = selectedCategories.map(Number);
       qryStr += `&cateId=[${resultCate}]`;
     }
-    // console.log(qryStr);
+    console.log(qryStr);
 
     const { data } = await axiosInstance.get(`/events?${qryStr}`);
     const { data: events, paginate } = data;
-    // console.log(data);
+    console.log(data);
 
-    let html = ''
+    let html = "";
 
-    if(events.length == 0){
-      document.querySelector('.pagination-container').classList.add("d-none")
-      return eventList.innerHTML = `<div class="text-center w-100 my-5">
+    if (events.length == 0) {
+      document.querySelector(".pagination-container").classList.add("d-none");
+      return (eventList.innerHTML = `<div class="text-center w-100 my-5">
               <img src="/img/noFound.png" alt="..." height="220px;">
               <h4 class="text-center text-brand mt-2">${getText("noEvent")}</h4>
-            </div>`
+            </div>`);
     }
-    document.querySelector('.pagination-container').classList.remove("d-none")
+    document.querySelector(".pagination-container").classList.remove("d-none");
 
     events.forEach((event) => {
       let pricing = null;
@@ -447,17 +446,16 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
       const endDate = new Date(event.ended_date);
 
       const currentDate = new Date();
-currentDate.setHours(0, 0, 0, 0);
+      currentDate.setHours(0, 0, 0, 0);
       let eventStatus = null;
-      
 
       if (currentDate < eventDate) {
-        eventStatus = getText("upcoming")
+        eventStatus = getText("upcoming");
       } else if (currentDate >= eventDate && currentDate <= endDate) {
-        eventStatus =  getText("showing")
+        eventStatus = getText("showing");
       } else {
-        eventStatus =  getText("past")
-      } 
+        eventStatus = getText("past");
+      }
 
       if (event.event_tickets.length > 1) {
         const numbers = event.event_tickets.map((et) => et.price);
@@ -469,11 +467,11 @@ currentDate.setHours(0, 0, 0, 0);
         pricing = `${
           event.event_tickets[0].price > 0
             ? `$${event.event_tickets[0].price.toFixed(2)}`
-            :  getText("free")
+            : getText("free")
         }`;
       } else if (event.event_tickets.length == 0) {
         if (event.event_type == "online") {
-          pricing = getText("free")
+          pricing = getText("free");
         }
       }
 
@@ -483,7 +481,6 @@ currentDate.setHours(0, 0, 0, 0);
           c.name
         }</span>`;
       });
-
 
       const eventCard = `
                 <div class="col-12" data-event-id="${event.id}">
@@ -648,9 +645,7 @@ currentDate.setHours(0, 0, 0, 0);
                             </div>
             `;
 
-            html += eventCard
-      
-      
+      html += eventCard;
     });
     eventList.innerHTML = html;
     lucide.createIcons();
@@ -658,7 +653,7 @@ currentDate.setHours(0, 0, 0, 0);
     // Initialize pagination on load
     renderPagination(paginate);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     showToast();
   }
 }
@@ -732,4 +727,3 @@ function hideSidebar() {
   document.getElementById("mobile-sidebar").classList.remove("show");
   document.getElementById("sidebar-overlay").classList.remove("show");
 }
-

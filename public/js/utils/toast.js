@@ -1,8 +1,10 @@
 const showToast = (
   result = false,
-  msg = isEnglish ? 'Something went wrong. Please try again later.':'មានអ្វីមួយខុសប្រក្រតី សូមព្យាយាមម្តងទៀតនៅពេលក្រោយ' ,
+  msg = isEnglish
+    ? "Something went wrong. Please try again later."
+    : "មានអ្វីមួយខុសប្រក្រតី សូមព្យាយាមម្តងទៀតនៅពេលក្រោយ",
   gravity = "top",
-  position= "center", 
+  position = "center",
   close = true
 ) => {
   const styleBg = result
@@ -28,7 +30,9 @@ const showToast = (
 
 const showNotification = (
   result = false,
-  msg = isEnglish ? 'Something went wrong. Please try again later.':'មានអ្វីមួយខុសប្រក្រតី សូមព្យាយាមម្តងទៀតនៅពេលក្រោយ'  ,
+  msg = isEnglish
+    ? "Something went wrong. Please try again later."
+    : "មានអ្វីមួយខុសប្រក្រតី សូមព្យាយាមម្តងទៀតនៅពេលក្រោយ",
   link = "/notification",
   gravity = "top",
   position = "center",
@@ -84,8 +88,8 @@ const showNotification = (
 
 const btnShowLoading = (id) => {
   const btnEle = document.getElementById(id);
-  // console.log(btnEle);
-  
+  console.log(btnEle);
+
   btnEle.disabled = true;
   btnEle.innerHTML = `<div class="spinner-border" role="status">
                   <span class="visually-hidden">Loading...</span>
@@ -99,110 +103,124 @@ const btnCloseLoading = (id, msg) => {
 };
 
 function extractDate(isoString) {
-  return isoString.split('T')[0]; // Extracts only the date part
+  return isoString.split("T")[0]; // Extracts only the date part
 }
 
 function toHHMMFormat(timeValue) {
   // Split by colon
-  const [hours, minutes] = timeValue.split(':');
+  const [hours, minutes] = timeValue.split(":");
   // Return as "HH:MM"
-  return `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}`;
+  return `${hours.padStart(2, "0")}:${minutes.padStart(2, "0")}`;
 }
 
 function copyEventUrlToClipboard(eventId) {
   const url = `${window.location.protocol}//${window.location.host}/event/detail?e=${eventId}`;
-  // console.log(url);
+  console.log(url);
 
   if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(url)
-          .then(() => {
-              showToast(true, isEnglish ? "Copied to Clipboard.": "បានចម្លង");
-          })
-          .catch(err => {
-              // console.error("Failed to copy: ", err);
-              showToast(false, "Failed to copy. Please try again.");
-          });
+    navigator.clipboard
+      .writeText(url)
+      .then(() => {
+        showToast(true, isEnglish ? "Copied to Clipboard." : "បានចម្លង");
+      })
+      .catch((err) => {
+        // console.error("Failed to copy: ", err);
+        showToast(false, "Failed to copy. Please try again.");
+      });
   } else {
-      // Fallback method (using a temporary textarea)
-      const textArea = document.createElement("textarea");
-      textArea.value = url;
-      document.body.appendChild(textArea);
-      textArea.select();
-      try{
-          document.execCommand('copy');
-          showToast(true, isEnglish ? "Copied to Clipboard.": "បានចម្លង");
-      }catch(err){
-          showToast(false, isEnglish ? "Copying not supported in this browser." : "ការចម្លងមិនត្រូវបានគាំទ្រនៅក្នុង Browser នេះទេ");
-      }
+    // Fallback method (using a temporary textarea)
+    const textArea = document.createElement("textarea");
+    textArea.value = url;
+    document.body.appendChild(textArea);
+    textArea.select();
+    try {
+      document.execCommand("copy");
+      showToast(true, isEnglish ? "Copied to Clipboard." : "បានចម្លង");
+    } catch (err) {
+      showToast(
+        false,
+        isEnglish
+          ? "Copying not supported in this browser."
+          : "ការចម្លងមិនត្រូវបានគាំទ្រនៅក្នុង Browser នេះទេ"
+      );
+    }
 
-      document.body.removeChild(textArea);
+    document.body.removeChild(textArea);
   }
 }
 
 async function addWishlist(id, btn) {
-    // console.log(btn);
+  console.log(btn);
   try {
-    btn.disabled = true
-    const result = await axiosInstance("/auth/me")
-    const {data} = await axiosInstance.get(`/wishlist/display/${id}`);
+    btn.disabled = true;
+    const result = await axiosInstance("/auth/me");
+    const { data } = await axiosInstance.get(`/wishlist/display/${id}`);
 
-    if(data.result){
+    if (data.result) {
       await axiosInstance.delete(`wishlist/delete/${id}`);
-      btn.classList.remove("active")
-      showToast(true, isEnglish ? "Event removed from wishlist." : "ព្រឹត្តិការណ៍ត្រូវបានដកចេញពីបញ្ជីប្រាថ្នា")
-    }else{
-      
-      await axiosInstance.post("/wishlist/create", {event_id: id});
-      btn.classList.add("active")
-      showToast(true, isEnglish ? "Event added to wishlist." : "ព្រឹត្តិការណ៍ត្រូវបានបន្ថែមទៅបញ្ជីប្រាថ្នា")
+      btn.classList.remove("active");
+      showToast(
+        true,
+        isEnglish
+          ? "Event removed from wishlist."
+          : "ព្រឹត្តិការណ៍ត្រូវបានដកចេញពីបញ្ជីប្រាថ្នា"
+      );
+    } else {
+      await axiosInstance.post("/wishlist/create", { event_id: id });
+      btn.classList.add("active");
+      showToast(
+        true,
+        isEnglish
+          ? "Event added to wishlist."
+          : "ព្រឹត្តិការណ៍ត្រូវបានបន្ថែមទៅបញ្ជីប្រាថ្នា"
+      );
     }
-
   } catch (error) {
     // console.error(error);
     if (error.response && error.response.status == 401) {
-      return window.location.href = "/auth/signin"
+      return (window.location.href = "/auth/signin");
     }
 
-    showToast()
-  }finally{
-    btn.disabled = false
+    showToast();
+  } finally {
+    btn.disabled = false;
   }
 }
 
-function goEventDetail(id){
+function goEventDetail(id) {
   sessionStorage.setItem("event-detail-id", id);
-  window.location.href = "/event/detail"
+  window.location.href = "/event/detail";
 }
 
-async function logOut (){
+async function logOut() {
   try {
+    await axiosInstance.delete("/auth/logout");
+    showToast(
+      true,
+      isEnglish ? "Logged out successfully." : "ចាកចេញពីគណនីដោយជោគជ័យ"
+    );
 
-    await axiosInstance.delete("/auth/logout")
-    showToast(true, isEnglish ? "Logged out successfully." : "ចាកចេញពីគណនីដោយជោគជ័យ")
-
-    setTimeout(()=>{
-      window.location.href = "/"
-    }, 1200)
-
+    setTimeout(() => {
+      window.location.href = "/";
+    }, 1200);
   } catch (error) {
-    
-    // console.log(error);
+    console.log(error);
     showToast();
-
   }
 }
 
 function convertUtcToSpecificTimezone(utcDateString, targetTimezoneOffset = 0) {
   const utcDate = new Date(utcDateString);
-  const targetTime = new Date(utcDate.getTime() + targetTimezoneOffset * 3600000); // offset in milliseconds
+  const targetTime = new Date(
+    utcDate.getTime() + targetTimezoneOffset * 3600000
+  ); // offset in milliseconds
 
   const year = targetTime.getFullYear();
-  const month = String(targetTime.getMonth() + 1).padStart(2, '0');
-  const day = String(targetTime.getDate()).padStart(2, '0');
-  const hours = String(targetTime.getHours()).padStart(2, '0');
-  const minutes = String(targetTime.getMinutes()).padStart(2, '0');
-  const seconds = String(targetTime.getSeconds()).padStart(2, '0');
+  const month = String(targetTime.getMonth() + 1).padStart(2, "0");
+  const day = String(targetTime.getDate()).padStart(2, "0");
+  const hours = String(targetTime.getHours()).padStart(2, "0");
+  const minutes = String(targetTime.getMinutes()).padStart(2, "0");
+  const seconds = String(targetTime.getSeconds()).padStart(2, "0");
 
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
-

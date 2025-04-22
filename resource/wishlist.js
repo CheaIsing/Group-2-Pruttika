@@ -83,9 +83,8 @@ const wishlistCollection = async (user_id) => {
     }
 
     return data;
-
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     throw error;
   }
 };

@@ -21,7 +21,7 @@ const default_img = "default-events-img.jpg";
 const getAllEvent = async (req, res) => {
   try {
     const userId = res.locals.user ? res.locals.user.id : null;
-    // console.log(res.locals.user);
+    console.log(res.locals.user);
     // const userId = req.user ? req.user.id : null;
     const data = await eventCollection(
       userId,
@@ -133,7 +133,7 @@ const postCreateEvent = async (req, res) => {
     ];
 
     const eventQresult = await executeQuery(sqlInsertE, arrEvent);
-    // console.log("eventQresult Insert success");
+    console.log("eventQresult Insert success");
     const eventId = eventQresult.insertId;
 
     // Insert tickets to tbl_ticketevent_type
@@ -159,7 +159,7 @@ const postCreateEvent = async (req, res) => {
 
     //Insert agenda
     for (const agd of agenda) {
-      // console.log(agd);
+      console.log(agd);
       const sqlInsertAgenda = `
                 INSERT INTO tbl_agenda(event_id, title, description, start_time, end_time) VALUES(?,?,?,?,?) 
             `;
@@ -450,7 +450,7 @@ const updateEThumbnail = async (req, res) => {
         if (oldTN && oldTN !== default_img) {
           fs.unlinkSync("./public/uploads/" + oldTN); //remove old img when upload new img
         }
-        // console.log('File uploaded!');
+        console.log("File uploaded!");
       });
       file = UploadFileName; // Set the new file name for database update
     }
@@ -584,7 +584,7 @@ const uploadEQr = async (req, res) => {
         if (fs.existsSync(oldPathQr)) {
           fs.unlinkSync(oldPathQr);
         }
-        // console.log('File uploaded!');
+        console.log("File uploaded!");
       });
       file = UploadFileName; // Set the new file name for database update
     }
@@ -608,7 +608,7 @@ const deleteEQr = async (req, res) => {
     if (dbResult.length === 0) {
       return sendResponse(res, 404, false, "Event is not found");
     }
-    // console.log("hello"+dbResult);
+    console.log("hello" + dbResult);
     const oldQr = dbResult[0].qr_img;
 
     //remove old tn
@@ -670,7 +670,7 @@ const putCheckIn = async (req, res) => {
     await executeQuery(sqlUpdateStatus, result[0].id);
     sendResponse(res, 200, true, "Ticket Check in successfully");
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     handleResponseError(res, error);
   }
 };

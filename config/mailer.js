@@ -10,7 +10,9 @@ const transporter = nodemailer.createTransport({
 });
 
 const sendPasswordResetEmail = async (email, otp) => {
-  const resetLink = `http://localhost:${process.env.PORT || 3000}/reset-password/${email}`;
+  const resetLink = `http://localhost:${
+    process.env.PORT || 3000
+  }/reset-password/${email}`;
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: email,
@@ -25,7 +27,7 @@ const sendPasswordResetEmail = async (email, otp) => {
 
   try {
     await transporter.sendMail(mailOptions);
-    // console.log("Password reset email sent successfully.");
+    console.log("Password reset email sent successfully.");
   } catch (err) {
     // console.error("Error sending password reset email:", err);
     throw new Error("Error sending password reset email");

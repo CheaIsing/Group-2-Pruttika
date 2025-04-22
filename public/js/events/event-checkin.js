@@ -90,13 +90,13 @@ let loadingHtml = `
   
   `;
 
-  let noEvent = `<tr><td colspan="3"><div class="text-center w-100 my-5">
+let noEvent = `<tr><td colspan="3"><div class="text-center w-100 my-5">
               <img src="/img/noFound.png" alt="..." height="220px;">
               <h4 class="text-center text-brand mt-2">${getText("noEvent")}</h4>
-            </div></td></tr>`
+            </div></td></tr>`;
 async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
   const eventList = document.getElementById("event-tobody");
-  eventList.innerHTML = loadingHtml
+  eventList.innerHTML = loadingHtml;
 
   const sort = document.getElementById("event-sort-filter")?.value;
   const search = document.getElementById("searchEventInput")?.value;
@@ -119,81 +119,119 @@ async function renderEventsAll(page = 1, perpage = 10, is_published = null) {
     const { data: resultUser } = await axiosInstance.get("/auth/me");
     const { data: user } = resultUser;
 
-    // console.log(user);
-    
+    console.log(user);
+
     const userId = user.id;
     queryParams.append("creator", userId);
 
-    const { data } = await axiosInstance.get(`/events?${queryParams.toString()}`);
+    const { data } = await axiosInstance.get(
+      `/events?${queryParams.toString()}`
+    );
     const { data: events, paginate } = data;
 
     if (events.length <= 0) {
-      return eventList.innerHTML = noEvent
+      return (eventList.innerHTML = noEvent);
     }
 
     let eventCard = "";
 
     for (const event of events) {
-      const { data } = await axiosInstance.get("/events/summary-data/" + event.id);
-      const formattedDate = `${moment(event.started_date).format("MMM D, YYYY")} - ${moment(event.ended_date).format("MMM D, YYYY")}, ${moment(event.start_time, "HH:mm").format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
+      const { data } = await axiosInstance.get(
+        "/events/summary-data/" + event.id
+      );
+      const formattedDate = `${moment(event.started_date).format(
+        "MMM D, YYYY"
+      )} - ${moment(event.ended_date).format("MMM D, YYYY")}, ${moment(
+        event.start_time,
+        "HH:mm"
+      ).format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
 
       let isOffline = event.event_type !== "offline";
       let eventLinkAttributes = ``;
-      // console.log(eventLinkAttributes);
-      
+      console.log(eventLinkAttributes);
+
       const eventDate = new Date(event.started_date);
       const endDate = new Date(event.ended_date);
 
       const currentDate = new Date();
-currentDate.setHours(0, 0, 0, 0);
+      currentDate.setHours(0, 0, 0, 0);
       let eventStatus = null;
-      let eventText = null
-      
+      let eventText = null;
 
       if (currentDate < eventDate) {
         eventStatus = "pill5";
-        eventText = getText("upcoming")
+        eventText = getText("upcoming");
       } else if (currentDate >= eventDate && currentDate <= endDate) {
         eventStatus = "pill2";
-        eventText = getText("showing")
+        eventText = getText("showing");
       } else {
         eventStatus = `pill3`;
-        eventText = getText("past")
-      } 
-      let totalPrice = data.data.ticket.length > 0 
-        ? `$${data.data.ticket.reduce((sum, item) => sum + item.price, 0).toFixed(2)}`
-        : getText("free");
+        eventText = getText("past");
+      }
+      let totalPrice =
+        data.data.ticket.length > 0
+          ? `$${data.data.ticket
+              .reduce((sum, item) => sum + item.price, 0)
+              .toFixed(2)}`
+          : getText("free");
 
-      eventCard +=`<tr class="border-bottom position-relative">
+      eventCard += `<tr class="border-bottom position-relative">
                                                     <td>
-                                                        <a onclick="showCheckInTicketList(${event.id})" role="button" class="stretched-link text-decoration-none bg-transparent"  style="color: inherit;">
+                                                        <a onclick="showCheckInTicketList(${
+                                                          event.id
+                                                        })" role="button" class="stretched-link text-decoration-none bg-transparent"  style="color: inherit;">
                                                             <div class="d-flex align-items-center">
                                                                 <div class="me-3">
-                                                                    <div class="text-center text-brand fw-bold">${moment(event.started_date).format("MMM ")}</div>
-                                                                    <div class="text-center text-brand fw-bold">${moment(event.started_date).format("DD")}</div>
+                                                                    <div class="text-center text-brand fw-bold">${moment(
+                                                                      event.started_date
+                                                                    ).format(
+                                                                      "MMM "
+                                                                    )}</div>
+                                                                    <div class="text-center text-brand fw-bold">${moment(
+                                                                      event.started_date
+                                                                    ).format(
+                                                                      "DD"
+                                                                    )}</div>
                                                                 </div>
-                                                               <img src="${event.thumbnail ? `/uploads/${event.thumbnail}` : `/uploads/default-events-img.jpg`}" alt="Event Image" class="rounded object-fit-cover" width="150" height="85">
+                                                               <img src="${
+                                                                 event.thumbnail
+                                                                   ? `/uploads/${event.thumbnail}`
+                                                                   : `/uploads/default-events-img.jpg`
+                                                               }" alt="Event Image" class="rounded object-fit-cover" width="150" height="85">
                                                                 <div class="ms-3 text-nowrap">
-                                                                    <h5 class="mb-0 text-wrap">${event.eng_name}</h5>
-                                                                    <p class="text-muted mb-0 w-75">${event.location ? event.location : getText("onlineEvent")}</p>
+                                                                    <h5 class="mb-0 text-wrap">${
+                                                                      event.eng_name
+                                                                    }</h5>
+                                                                    <p class="text-muted mb-0 w-75">${
+                                                                      event.location
+                                                                        ? event.location
+                                                                        : getText(
+                                                                            "onlineEvent"
+                                                                          )
+                                                                    }</p>
                                                                     <p class="text-muted mb-0 small">${formattedDate}</p>
                                                                 </div>
                                                             </div>
                                                         </a>
                                                     </td>
                                                     <td class="text-nowrap"><span class="badge fw-medium ${eventStatus} p-2  rounded-5">${eventText}</span></td>
-                                                    <td class="text-nowrap">${data.data.total_checkin ? data.data.total_checkin : '0'} Checked In </td>
+                                                    <td class="text-nowrap">${
+                                                      data.data.total_checkin
+                                                        ? data.data
+                                                            .total_checkin
+                                                        : "0"
+                                                    } Checked In </td>
                                                     
-                                                </tr>`
+                                                </tr>`;
     }
 
-    // console.log(eventCard); 
+    console.log(eventCard);
 
     eventList.innerHTML = eventCard;
     lucide.createIcons();
     renderPaginationAll(paginate);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     showToast();
   }
 }
@@ -259,9 +297,13 @@ async function changePageAll(newPage) {
 renderEventsAll();
 
 // Upcoming
-async function renderEventsUpcoming(page = 1, perpage = 10, is_published = null) {
+async function renderEventsUpcoming(
+  page = 1,
+  perpage = 10,
+  is_published = null
+) {
   const eventList = document.getElementById("upcoming-event-tbody");
-  eventList.innerHTML = loadingHtml
+  eventList.innerHTML = loadingHtml;
 
   const sort = document.getElementById("upcoming-event-sort-filter")?.value;
   const search = document.getElementById("upcoming-searchEventInput")?.value;
@@ -282,79 +324,114 @@ async function renderEventsUpcoming(page = 1, perpage = 10, is_published = null)
     const { data: user } = resultUser;
     const userId = user.id;
     queryParams.append("creator", userId);
-    
-    
-    const { data } = await axiosInstance.get(`/events?${queryParams.toString()}`);
+
+    const { data } = await axiosInstance.get(
+      `/events?${queryParams.toString()}`
+    );
     const { data: events, paginate } = data;
 
     if (events.length <= 0) {
-      return eventList.innerHTML = noEvent
+      return (eventList.innerHTML = noEvent);
     }
 
     let eventCard = "";
     for (const event of events) {
-      const { data } = await axiosInstance.get("/events/summary-data/" + event.id);
-      const formattedDate = `${moment(event.started_date).format("MMM D, YYYY")} - ${moment(event.ended_date).format("MMM D, YYYY")}, ${moment(event.start_time, "HH:mm").format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
-      
+      const { data } = await axiosInstance.get(
+        "/events/summary-data/" + event.id
+      );
+      const formattedDate = `${moment(event.started_date).format(
+        "MMM D, YYYY"
+      )} - ${moment(event.ended_date).format("MMM D, YYYY")}, ${moment(
+        event.start_time,
+        "HH:mm"
+      ).format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
 
+      const eventDate = new Date(event.started_date);
+      const endDate = new Date(event.ended_date);
 
-        const eventDate = new Date(event.started_date);
-        const endDate = new Date(event.ended_date);
-  
-        const currentDate = new Date();
-  currentDate.setHours(0, 0, 0, 0);
-        let eventStatus = null;
-        let eventText = null
-        
+      const currentDate = new Date();
+      currentDate.setHours(0, 0, 0, 0);
+      let eventStatus = null;
+      let eventText = null;
 
-        if (currentDate < eventDate) {
-          eventStatus = "pill5";
-          eventText = getText("upcoming")
-        } else if (currentDate >= eventDate && currentDate <= endDate) {
-          eventStatus = "pill2";
-          eventText = getText("showing")
-        } else {
-          eventStatus = `pill3`;
-          eventText = getText("past")
-        } 
-        let totalPrice = data.data.ticket.length > 0 
-        ? `$${data.data.ticket.reduce((sum, item) => sum + item.price, 0).toFixed(2)}`
-        : getText("free");
+      if (currentDate < eventDate) {
+        eventStatus = "pill5";
+        eventText = getText("upcoming");
+      } else if (currentDate >= eventDate && currentDate <= endDate) {
+        eventStatus = "pill2";
+        eventText = getText("showing");
+      } else {
+        eventStatus = `pill3`;
+        eventText = getText("past");
+      }
+      let totalPrice =
+        data.data.ticket.length > 0
+          ? `$${data.data.ticket
+              .reduce((sum, item) => sum + item.price, 0)
+              .toFixed(2)}`
+          : getText("free");
 
-      eventCard +=`<tr class="border-bottom position-relative">
+      eventCard += `<tr class="border-bottom position-relative">
                                                     <td>
-                                                        <a onclick="showCheckInTicketList(${event.id})" role="button" class="stretched-link text-decoration-none bg-transparent"  style="color: inherit;">
+                                                        <a onclick="showCheckInTicketList(${
+                                                          event.id
+                                                        })" role="button" class="stretched-link text-decoration-none bg-transparent"  style="color: inherit;">
                                                             <div class="d-flex align-items-center">
                                                                 <div class="me-3">
-                                                                    <div class="text-center text-brand fw-bold">${moment(event.started_date).format("MMM ")}</div>
-                                                                    <div class="text-center text-brand fw-bold">${moment(event.started_date).format("DD")}</div>
+                                                                    <div class="text-center text-brand fw-bold">${moment(
+                                                                      event.started_date
+                                                                    ).format(
+                                                                      "MMM "
+                                                                    )}</div>
+                                                                    <div class="text-center text-brand fw-bold">${moment(
+                                                                      event.started_date
+                                                                    ).format(
+                                                                      "DD"
+                                                                    )}</div>
                                                                 </div>
-                                                                <img src="${event.thumbnail ? `/uploads/${event.thumbnail}` : `/uploads/default-events-img.jpg`}" alt="Event Image" class="rounded object-fit-cover" width="150" height="85">
+                                                                <img src="${
+                                                                  event.thumbnail
+                                                                    ? `/uploads/${event.thumbnail}`
+                                                                    : `/uploads/default-events-img.jpg`
+                                                                }" alt="Event Image" class="rounded object-fit-cover" width="150" height="85">
                                                                 <div class="ms-3 text-nowrap">
-                                                                    <h5 class="mb-0 text-wrap">${event.eng_name}</h5>
-                                                                    <p class="text-muted mb-0 w-75">${event.location ? event.location : "Online Event"}</p>
+                                                                    <h5 class="mb-0 text-wrap">${
+                                                                      event.eng_name
+                                                                    }</h5>
+                                                                    <p class="text-muted mb-0 w-75">${
+                                                                      event.location
+                                                                        ? event.location
+                                                                        : "Online Event"
+                                                                    }</p>
                                                                     <p class="text-muted mb-0 small">${formattedDate}</p>
                                                                 </div>
                                                             </div>
                                                         </a>
                                                     </td>
                                                     <td class="text-nowrap"><span class="badge fw-medium ${eventStatus} p-2  rounded-5">${eventText}</span></td>
-                                                    <td class="text-nowrap">${data.data.total_checkin ? data.data.total_checkin : '0'} Checked In </td>
+                                                    <td class="text-nowrap">${
+                                                      data.data.total_checkin
+                                                        ? data.data
+                                                            .total_checkin
+                                                        : "0"
+                                                    } Checked In </td>
                                                     
-                                                </tr>`
+                                                </tr>`;
     }
 
     eventList.innerHTML = eventCard;
     lucide.createIcons();
     renderPaginationUpcoming(paginate);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     showToast();
   }
 }
 
 function renderPaginationUpcoming(paginate) {
-  const paginationNumbers = document.getElementById("pagination-numbers-upcoming");
+  const paginationNumbers = document.getElementById(
+    "pagination-numbers-upcoming"
+  );
   paginationNumbers.innerHTML = "";
 
   const totalPages = paginate.total_page;
@@ -390,15 +467,18 @@ function renderPaginationUpcoming(paginate) {
     if (currentPage < totalPages - 2) {
       paginationNumbers.appendChild(document.createTextNode("..."));
     }
-    
+
     paginationNumbers.appendChild(createPageButton(totalPages));
   }
 
   document.getElementById("prevUpcomingBtn").disabled = currentPage === 1;
-  document.getElementById("nextUpcomingBtn").disabled = currentPage === totalPages;
+  document.getElementById("nextUpcomingBtn").disabled =
+    currentPage === totalPages;
 
-  document.getElementById("prevUpcomingBtn").onclick = () => changePageUpcoming(currentPage - 1);
-  document.getElementById("nextUpcomingBtn").onclick = () => changePageUpcoming(currentPage + 1);
+  document.getElementById("prevUpcomingBtn").onclick = () =>
+    changePageUpcoming(currentPage - 1);
+  document.getElementById("nextUpcomingBtn").onclick = () =>
+    changePageUpcoming(currentPage + 1);
 }
 
 async function changePageUpcoming(newPage) {
@@ -409,7 +489,11 @@ async function changePageUpcoming(newPage) {
 renderEventsUpcoming();
 
 // showing
-async function renderEventsShowing(page = 1, perpage = 10, is_published = null) {
+async function renderEventsShowing(
+  page = 1,
+  perpage = 10,
+  is_published = null
+) {
   const eventList = document.getElementById("showing-event-tbody");
   eventList.innerHTML = loadingHtml;
 
@@ -432,86 +516,120 @@ async function renderEventsShowing(page = 1, perpage = 10, is_published = null) 
     const { data: user } = resultUser;
     const userId = user.id;
     queryParams.append("creator", userId);
-    // console.log(queryParams.toString());
-    const { data } = await axiosInstance.get(`/events?${queryParams.toString()}`);
+    console.log(queryParams.toString());
+    const { data } = await axiosInstance.get(
+      `/events?${queryParams.toString()}`
+    );
     const { data: events, paginate } = data;
 
-    // console.log(events);
-    
-    
+    console.log(events);
 
     if (events.length <= 0) {
-      // console.log(true);
+      console.log(true);
       eventList.innerHTML = noEvent;
-      return ;
+      return;
     }
 
-    // console.log("Hi");
-    
+    console.log("Hi");
 
     let eventCard = "";
     for (const event of events) {
-      const { data } = await axiosInstance.get("/events/summary-data/" + event.id);
-      const formattedDate = `${moment(event.started_date).format("MMM D, YYYY")} - ${moment(event.ended_date).format("MMM D, YYYY")}, ${moment(event.start_time, "HH:mm").format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
-      
+      const { data } = await axiosInstance.get(
+        "/events/summary-data/" + event.id
+      );
+      const formattedDate = `${moment(event.started_date).format(
+        "MMM D, YYYY"
+      )} - ${moment(event.ended_date).format("MMM D, YYYY")}, ${moment(
+        event.start_time,
+        "HH:mm"
+      ).format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
 
-        const eventDate = new Date(event.started_date);
-        const endDate = new Date(event.ended_date);
-  
-        const currentDate = new Date();
-  currentDate.setHours(0, 0, 0, 0);
-        let eventStatus = null;
-        let eventText = null
-        
-  
-        if (currentDate < eventDate) {
-          eventStatus = "pill5";
-          eventText = getText("upcoming")
-        } else if (currentDate >= eventDate && currentDate <= endDate) {
-          eventStatus = "pill2";
-          eventText = getText("showing")
-        } else {
-          eventStatus = `pill3`;
-          eventText = getText("past")
-        } 
-        let totalPrice = data.data.ticket.length > 0 
-        ? `$${data.data.ticket.reduce((sum, item) => sum + item.price, 0).toFixed(2)}`
-        : getText("free");
+      const eventDate = new Date(event.started_date);
+      const endDate = new Date(event.ended_date);
+
+      const currentDate = new Date();
+      currentDate.setHours(0, 0, 0, 0);
+      let eventStatus = null;
+      let eventText = null;
+
+      if (currentDate < eventDate) {
+        eventStatus = "pill5";
+        eventText = getText("upcoming");
+      } else if (currentDate >= eventDate && currentDate <= endDate) {
+        eventStatus = "pill2";
+        eventText = getText("showing");
+      } else {
+        eventStatus = `pill3`;
+        eventText = getText("past");
+      }
+      let totalPrice =
+        data.data.ticket.length > 0
+          ? `$${data.data.ticket
+              .reduce((sum, item) => sum + item.price, 0)
+              .toFixed(2)}`
+          : getText("free");
 
       eventCard += `<tr class="border-bottom position-relative">
                                                     <td>
-                                                        <a onclick="showCheckInTicketList(${event.id})" role="button" class="stretched-link text-decoration-none bg-transparent"  style="color: inherit;">
+                                                        <a onclick="showCheckInTicketList(${
+                                                          event.id
+                                                        })" role="button" class="stretched-link text-decoration-none bg-transparent"  style="color: inherit;">
                                                             <div class="d-flex align-items-center">
                                                                 <div class="me-3">
-                                                                    <div class="text-center text-brand fw-bold">${moment(event.started_date).format("MMM ")}</div>
-                                                                    <div class="text-center text-brand fw-bold">${moment(event.started_date).format("DD")}</div>
+                                                                    <div class="text-center text-brand fw-bold">${moment(
+                                                                      event.started_date
+                                                                    ).format(
+                                                                      "MMM "
+                                                                    )}</div>
+                                                                    <div class="text-center text-brand fw-bold">${moment(
+                                                                      event.started_date
+                                                                    ).format(
+                                                                      "DD"
+                                                                    )}</div>
                                                                 </div>
-                                                                <img src="${event.thumbnail ? `/uploads/${event.thumbnail}` : `/uploads/default-events-img.jpg`}" alt="Event Image" class="rounded object-fit-cover" width="150" height="85">
+                                                                <img src="${
+                                                                  event.thumbnail
+                                                                    ? `/uploads/${event.thumbnail}`
+                                                                    : `/uploads/default-events-img.jpg`
+                                                                }" alt="Event Image" class="rounded object-fit-cover" width="150" height="85">
                                                                 <div class="ms-3 text-nowrap">
-                                                                    <h5 class="mb-0 text-wrap">${event.eng_name}</h5>
-                                                                    <p class="text-muted mb-0 w-75">${event.location ? event.location : "Online Event"}</p>
+                                                                    <h5 class="mb-0 text-wrap">${
+                                                                      event.eng_name
+                                                                    }</h5>
+                                                                    <p class="text-muted mb-0 w-75">${
+                                                                      event.location
+                                                                        ? event.location
+                                                                        : "Online Event"
+                                                                    }</p>
                                                                     <p class="text-muted mb-0 small">${formattedDate}</p>
                                                                 </div>
                                                             </div>
                                                         </a>
                                                     </td>
                                                     <td class="text-nowrap"><span class="badge fw-medium ${eventStatus} p-2  rounded-5">${eventText}</span></td>
-                                                    <td class="text-nowrap">${data.data.total_checkin ? data.data.total_checkin : '0'} Checked In </td>
+                                                    <td class="text-nowrap">${
+                                                      data.data.total_checkin
+                                                        ? data.data
+                                                            .total_checkin
+                                                        : "0"
+                                                    } Checked In </td>
                                                     
-                                                </tr>`
+                                                </tr>`;
     }
 
     eventList.innerHTML = eventCard;
     lucide.createIcons();
     renderPaginationShowing(paginate);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     showToast();
   }
 }
 
 function renderPaginationShowing(paginate) {
-  const paginationNumbers = document.getElementById("pagination-numbers-showing");
+  const paginationNumbers = document.getElementById(
+    "pagination-numbers-showing"
+  );
   paginationNumbers.innerHTML = "";
 
   const totalPages = paginate.total_page;
@@ -547,15 +665,18 @@ function renderPaginationShowing(paginate) {
     if (currentPage < totalPages - 2) {
       paginationNumbers.appendChild(document.createTextNode("..."));
     }
-    
+
     paginationNumbers.appendChild(createPageButton(totalPages));
   }
 
   document.getElementById("prevShowingBtn").disabled = currentPage === 1;
-  document.getElementById("nextShowingBtn").disabled = currentPage === totalPages;
+  document.getElementById("nextShowingBtn").disabled =
+    currentPage === totalPages;
 
-  document.getElementById("prevShowingBtn").onclick = () => changePageShowing(currentPage - 1);
-  document.getElementById("nextShowingBtn").onclick = () => changePageShowing(currentPage + 1);
+  document.getElementById("prevShowingBtn").onclick = () =>
+    changePageShowing(currentPage - 1);
+  document.getElementById("nextShowingBtn").onclick = () =>
+    changePageShowing(currentPage + 1);
 }
 
 async function changePageShowing(newPage) {
@@ -590,7 +711,9 @@ async function renderEventsPast(page = 1, perpage = 10, is_published = null) {
     const userId = user.id;
     queryParams.append("creator", userId);
 
-    const { data } = await axiosInstance.get(`/events?${queryParams.toString()}`);
+    const { data } = await axiosInstance.get(
+      `/events?${queryParams.toString()}`
+    );
     const { data: events, paginate } = data;
 
     if (events.length <= 0) {
@@ -599,61 +722,94 @@ async function renderEventsPast(page = 1, perpage = 10, is_published = null) {
 
     let eventCard = "";
     for (const event of events) {
-      const { data } = await axiosInstance.get("/events/summary-data/" + event.id);
-      const formattedDate = `${moment(event.started_date).format("MMM D, YYYY")} - ${moment(event.ended_date).format("MMM D, YYYY")}, ${moment(event.start_time, "HH:mm").format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
-      
+      const { data } = await axiosInstance.get(
+        "/events/summary-data/" + event.id
+      );
+      const formattedDate = `${moment(event.started_date).format(
+        "MMM D, YYYY"
+      )} - ${moment(event.ended_date).format("MMM D, YYYY")}, ${moment(
+        event.start_time,
+        "HH:mm"
+      ).format("LT")} - ${moment(event.end_time, "HH:mm").format("LT")}`;
 
-        const eventDate = new Date(event.started_date);
-        const endDate = new Date(event.ended_date);
-  
-        const currentDate = new Date();
-  currentDate.setHours(0, 0, 0, 0);
-        let eventStatus = null;
-        let eventText = null
-        
-  
-        if (currentDate < eventDate) {
-          eventStatus = "pill5";
-          eventText = getText("upcoming")
-        } else if (currentDate >= eventDate && currentDate <= endDate) {
-          eventStatus = "pill2";
-          eventText = getText("showing")
-        } else {
-          eventStatus = `pill3`;
-          eventText = getText("past")
-        } 
-        let totalPrice = data.data.ticket.length > 0 
-        ? `$${data.data.ticket.reduce((sum, item) => sum + item.price, 0).toFixed(2)}`
-        : getText("free");
+      const eventDate = new Date(event.started_date);
+      const endDate = new Date(event.ended_date);
+
+      const currentDate = new Date();
+      currentDate.setHours(0, 0, 0, 0);
+      let eventStatus = null;
+      let eventText = null;
+
+      if (currentDate < eventDate) {
+        eventStatus = "pill5";
+        eventText = getText("upcoming");
+      } else if (currentDate >= eventDate && currentDate <= endDate) {
+        eventStatus = "pill2";
+        eventText = getText("showing");
+      } else {
+        eventStatus = `pill3`;
+        eventText = getText("past");
+      }
+      let totalPrice =
+        data.data.ticket.length > 0
+          ? `$${data.data.ticket
+              .reduce((sum, item) => sum + item.price, 0)
+              .toFixed(2)}`
+          : getText("free");
 
       eventCard += `<tr class="border-bottom position-relative">
                                                     <td>
-                                                        <a onclick="showCheckInTicketList(${event.id})" role="button" class="stretched-link text-decoration-none bg-transparent"  style="color: inherit;">
+                                                        <a onclick="showCheckInTicketList(${
+                                                          event.id
+                                                        })" role="button" class="stretched-link text-decoration-none bg-transparent"  style="color: inherit;">
                                                             <div class="d-flex align-items-center">
                                                                 <div class="me-3">
-                                                                    <div class="text-center text-brand fw-bold">${moment(event.started_date).format("MMM ")}</div>
-                                                                    <div class="text-center text-brand fw-bold">${moment(event.started_date).format("DD")}</div>
+                                                                    <div class="text-center text-brand fw-bold">${moment(
+                                                                      event.started_date
+                                                                    ).format(
+                                                                      "MMM "
+                                                                    )}</div>
+                                                                    <div class="text-center text-brand fw-bold">${moment(
+                                                                      event.started_date
+                                                                    ).format(
+                                                                      "DD"
+                                                                    )}</div>
                                                                 </div>
-                                                                <img src="${event.thumbnail ? `/uploads/${event.thumbnail}` : `/uploads/default-events-img.jpg`}" alt="Event Image" class="rounded object-fit-cover" width="150" height="85">
+                                                                <img src="${
+                                                                  event.thumbnail
+                                                                    ? `/uploads/${event.thumbnail}`
+                                                                    : `/uploads/default-events-img.jpg`
+                                                                }" alt="Event Image" class="rounded object-fit-cover" width="150" height="85">
                                                                 <div class="ms-3 text-nowrap">
-                                                                    <h5 class="mb-0 text-wrap">${event.eng_name}</h5>
-                                                                    <p class="text-muted mb-0 w-75">${event.location ? event.location : "Online Event"}</p>
+                                                                    <h5 class="mb-0 text-wrap">${
+                                                                      event.eng_name
+                                                                    }</h5>
+                                                                    <p class="text-muted mb-0 w-75">${
+                                                                      event.location
+                                                                        ? event.location
+                                                                        : "Online Event"
+                                                                    }</p>
                                                                     <p class="text-muted mb-0 small">${formattedDate}</p>
                                                                 </div>
                                                             </div>
                                                         </a>
                                                     </td>
                                                     <td class="text-nowrap"><span class="badge fw-medium ${eventStatus} p-2  rounded-5">${eventText}</span></td>
-                                                    <td class="text-nowrap">${data.data.total_checkin ? data.data.total_checkin : '0'} Checked In </td>
+                                                    <td class="text-nowrap">${
+                                                      data.data.total_checkin
+                                                        ? data.data
+                                                            .total_checkin
+                                                        : "0"
+                                                    } Checked In </td>
                                                     
-                                                </tr>`
+                                                </tr>`;
     }
 
     eventList.innerHTML = eventCard;
     lucide.createIcons();
     renderPaginationPast(paginate);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     showToast();
   }
 }
@@ -695,21 +851,23 @@ function renderPaginationPast(paginate) {
     if (currentPage < totalPages - 2) {
       paginationNumbers.appendChild(document.createTextNode("..."));
     }
-    
+
     paginationNumbers.appendChild(createPageButton(totalPages));
   }
 
   document.getElementById("prevShowingBtn").disabled = currentPage === 1;
-  document.getElementById("nextShowingBtn").disabled = currentPage === totalPages;
+  document.getElementById("nextShowingBtn").disabled =
+    currentPage === totalPages;
 
-  document.getElementById("prevShowingBtn").onclick = () => changePagePast(currentPage - 1);
-  document.getElementById("nextShowingBtn").onclick = () => changePagePast(currentPage + 1);
+  document.getElementById("prevShowingBtn").onclick = () =>
+    changePagePast(currentPage - 1);
+  document.getElementById("nextShowingBtn").onclick = () =>
+    changePagePast(currentPage + 1);
 }
 
 async function changePagePast(newPage) {
   await renderEventsPast(newPage);
 }
-
 
 renderEventsPast();
 
@@ -720,7 +878,7 @@ async function deleteEvent(id, btn) {
     btn.closest("tr").remove();
   } catch (error) {
     showToast();
-    // console.log(error);
+    console.log(error);
   }
 }
 
@@ -755,11 +913,7 @@ document.getElementById("event-sort-filter").onchange = (e) => {
   renderEventsAll();
 };
 
-
-
-  function showCheckInTicketList(id) {
-    
-    sessionStorage.setItem("event-check-in-ticket-list", id); 
-    window.location.href = "/event/check-in-ticket-list";
+function showCheckInTicketList(id) {
+  sessionStorage.setItem("event-check-in-ticket-list", id);
+  window.location.href = "/event/check-in-ticket-list";
 }
-

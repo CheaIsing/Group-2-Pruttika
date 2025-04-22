@@ -8,8 +8,8 @@
 // });
 
 // Fetch Events with Pagination
-let currentPage1 = 1
-let currentPage2 = 1
+let currentPage1 = 1;
+let currentPage2 = 1;
 async function fetchEvents(
   category_id = "",
   search = "",
@@ -74,8 +74,7 @@ async function fetchCategories(
     const result = response.data.data.data;
     const totalPages = response.data.data.pagination.total_pages;
     currentPage2 = response.data.data.pagination.current_page;
-    // console.log(result);
-    
+    console.log(result);
 
     // if (!result || result.length === 0) {
     //   throw new Error("No categories found.");
@@ -121,7 +120,11 @@ function updatePagination(currentPage, totalPages, perPage, id, fetchFunction) {
   }
 
   paginationContainer.appendChild(
-    createPageButton(currentPage - 1, `<i class="fa-solid fa-chevron-left"></i>`, currentPage === 1)
+    createPageButton(
+      currentPage - 1,
+      `<i class="fa-solid fa-chevron-left"></i>`,
+      currentPage === 1
+    )
   );
 
   for (let i = 1; i <= totalPages; i++) {
@@ -131,7 +134,11 @@ function updatePagination(currentPage, totalPages, perPage, id, fetchFunction) {
   }
 
   paginationContainer.appendChild(
-    createPageButton(currentPage + 1,`<i class="fa-solid fa-chevron-right"></i>`, currentPage === totalPages)
+    createPageButton(
+      currentPage + 1,
+      `<i class="fa-solid fa-chevron-right"></i>`,
+      currentPage === totalPages
+    )
   );
 }
 
@@ -160,8 +167,12 @@ async function fetchEventDetails(id) {
 
     detailContainer.innerHTML = `
 <div class="card p-0 border-0 shadow-none text-start mb-0">
-    <img src="/uploads/${event.thumbnail}" class="img-fluid mb-3" style="width: 100%; height: 200px; object-fit: cover;">
-    <h4 class="fw-bold mb-3"><i class="fas fa-calendar-alt me-2 text-primary"></i> ${event.eng_name}</h4>
+    <img src="/uploads/${
+      event.thumbnail
+    }" class="img-fluid mb-3" style="width: 100%; height: 200px; object-fit: cover;">
+    <h4 class="fw-bold mb-3"><i class="fas fa-calendar-alt me-2 text-primary"></i> ${
+      event.eng_name
+    }</h4>
     <hr class="my-3">
     <div class="row mb-3 ">
         <div class="col-md-12">
@@ -173,27 +184,39 @@ async function fetchEventDetails(id) {
     </div>
     <div class="row mb-3 justify-content-between">
         <div class="col-auto">
-            <p><i class="fas fa-calendar-check me-2 text-primary"></i> ${new Date(event.started_date).toLocaleDateString("en-CA")}</p>
+            <p><i class="fas fa-calendar-check me-2 text-primary"></i> ${new Date(
+              event.started_date
+            ).toLocaleDateString("en-CA")}</p>
         </div>
         <div class="col-auto">
-            <p> ${new Date(event.ended_date).toLocaleDateString("en-CA")} <i class="fas fa-calendar-times ms-2 text-primary"></i></p>
+            <p> ${new Date(event.ended_date).toLocaleDateString(
+              "en-CA"
+            )} <i class="fas fa-calendar-times ms-2 text-primary"></i></p>
         </div>
     </div>
     <div class="row mb-3 justify-content-between">
         <div class="col-auto">
-            <p><i class="fas fa-clock me-2 text-primary"></i> ${event.start_time} </p>
+            <p><i class="fas fa-clock me-2 text-primary"></i> ${
+              event.start_time
+            } </p>
         </div>
         <div class="col-auto">
-            <p> ${event.end_time} <i class="fas fa-clock ms-2 text-primary"></i></p>
+            <p> ${
+              event.end_time
+            } <i class="fas fa-clock ms-2 text-primary"></i></p>
         </div>
     </div>
     <div class="row  justify-content-between">
         <div class="col-auto">
-            <p><i class="fas fa-map-marker-alt me-2 text-primary"></i> ${event.location}</p>
+            <p><i class="fas fa-map-marker-alt me-2 text-primary"></i> ${
+              event.location
+            }</p>
         </div>
         <div class="col-auto">
             <p>
-                <span class="badge ${event.event_type === 1 ? "bg-success" : "bg-danger"}">
+                <span class="badge ${
+                  event.event_type === 1 ? "bg-success" : "bg-danger"
+                }">
                     ${event.event_type === 1 ? "Online" : "Offline"}
                 </span>
                 <i class="fas fa-tags ms-2 text-primary"></i> 
@@ -210,16 +233,16 @@ async function fetchEventDetails(id) {
 
 function displayEvents(events) {
   const tableBody = document.getElementById("tableBody");
-  if(events.length == 0){
-    return tableBody.innerHTML = `<tr>
+  if (events.length == 0) {
+    return (tableBody.innerHTML = `<tr>
     <td colspan="9" class="text-center">No Event Found</td>
-    </tr>`
+    </tr>`);
   }
   tableBody.innerHTML = events
     .map(
       (event, i) => `
             <tr>
-                <td>${(currentPage1 - 1) * 5   + (i + 1)}</td>
+                <td>${(currentPage1 - 1) * 5 + (i + 1)}</td>
                 <td>${event.eng_name}</td>
                 <td><img class="img-preview object-fit-cover" width="70" height="50" src="/uploads/${
                   event.thumbnail
@@ -242,8 +265,8 @@ function displayEvents(events) {
                 <td>
 
                            <a class="btn btn-primary py-1 px-2 btn-icon " style="height: auto !important;border-radius: 4px;" role="button" onclick="fetchEventDetails(${
-                              event.id
-                            })"
+                             event.id
+                           })"
                              data-bs-toggle="modal" data-bs-target="#viewDetail">
                              <i class="fa-regular fa-eye"></i>
                           </a>
@@ -257,12 +280,12 @@ function displayEvents(events) {
 
 function displayCategories(categories) {
   const tableBody = document.getElementById("categoryTableBody");
-  // console.log(categories);
-  
-  if(categories.length == 0){
-    return tableBody.innerHTML = `<tr>
+  console.log(categories);
+
+  if (categories.length == 0) {
+    return (tableBody.innerHTML = `<tr>
       <td colspan="9" class="text-center">No Categories Found</td>
-      </tr>`
+      </tr>`);
   }
   tableBody.innerHTML = categories
     .map(
@@ -504,12 +527,12 @@ const removeCategory = async (categoryId) => {
 fetchEvents();
 fetchCategories();
 
-document.getElementById("search").addEventListener("keyup", (e)=>{
+document.getElementById("search").addEventListener("keyup", (e) => {
   fetchEvents("", e.target.value);
-})
-document.getElementById("search2").addEventListener("keyup", (e)=>{
+});
+document.getElementById("search2").addEventListener("keyup", (e) => {
   fetchCategories(e.target.value);
-})
+});
 
 document.getElementById("example6_paginate").style.display = "none";
 document.getElementById("example5_paginate").style.display = "none";

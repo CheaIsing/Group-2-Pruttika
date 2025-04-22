@@ -1,54 +1,130 @@
-
-
-
 const Joi = joi; // Change this to false for Khmer messages
 
 const messages = {
   emailRequired: isEnglish ? "Email is required." : "អ៊ីមែលត្រូវបានទាមទារ។",
   emailInvalid: isEnglish ? "Invalid Email." : "អ៊ីមែលមិនត្រឹមត្រូវ។",
-  passwordRequired: isEnglish ? "Password is required." : "ពាក្យសម្ងាត់ត្រូវបានទាមទារ។",
-  passwordMin: isEnglish ? "Password must be at least 8 characters." : "ពាក្យសម្ងាត់ត្រូវមានយ៉ាងហោចណាស់ 8 តួអក្សរ។",
-  passwordStrong: isEnglish ? "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character." : "ពាក្យសម្ងាត់ត្រូវតែមានយ៉ាងហោចណាស់ អក្សរធំមួយ អក្សរតូចមួយ លេខមួយ និងតួអក្សរពិសេសមួយ",
-  newPasswordStrong: isEnglish ? "New Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character." : "ពាក្យសម្ងាត់ថ្មីត្រូវតែមានយ៉ាងហោចណាស់ អក្សរធំមួយ អក្សរតូចមួយ លេខមួយ និងតួអក្សរពិសេសមួយ",
-  newPasswordRequired: isEnglish ? "New Password is required." : "ពាក្យសម្ងាត់ថ្មីត្រូវបានទាមទារ។",
-  newPasswordMin: isEnglish ? "New Password must be at least 8 characters." : "ពាក្យសម្ងាត់ថ្មីត្រូវមានយ៉ាងហោចណាស់ 8 តួអក្សរ។",
+  passwordRequired: isEnglish
+    ? "Password is required."
+    : "ពាក្យសម្ងាត់ត្រូវបានទាមទារ។",
+  passwordMin: isEnglish
+    ? "Password must be at least 8 characters."
+    : "ពាក្យសម្ងាត់ត្រូវមានយ៉ាងហោចណាស់ 8 តួអក្សរ។",
+  passwordStrong: isEnglish
+    ? "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character."
+    : "ពាក្យសម្ងាត់ត្រូវតែមានយ៉ាងហោចណាស់ អក្សរធំមួយ អក្សរតូចមួយ លេខមួយ និងតួអក្សរពិសេសមួយ",
+  newPasswordStrong: isEnglish
+    ? "New Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character."
+    : "ពាក្យសម្ងាត់ថ្មីត្រូវតែមានយ៉ាងហោចណាស់ អក្សរធំមួយ អក្សរតូចមួយ លេខមួយ និងតួអក្សរពិសេសមួយ",
+  newPasswordRequired: isEnglish
+    ? "New Password is required."
+    : "ពាក្យសម្ងាត់ថ្មីត្រូវបានទាមទារ។",
+  newPasswordMin: isEnglish
+    ? "New Password must be at least 8 characters."
+    : "ពាក្យសម្ងាត់ថ្មីត្រូវមានយ៉ាងហោចណាស់ 8 តួអក្សរ។",
   otpRequired: isEnglish ? "Otp Code is required." : "កូដ OTP ត្រូវបានទាមទារ។",
-  otpInvalid: isEnglish ? "Otp Code must be exactly 6 digits." : "កូដ OTP ត្រូវតែមាន 6 ខ្ទង់។",
-  usernameRequired: isEnglish ? "Username is required." : "ឈ្មោះអ្នកប្រើ ត្រូវបានទាមទារ។",
-  usernameMin: isEnglish ? "Username must be at least 4 characters." : "ឈ្មោះអ្នកប្រើត្រូវមានយ៉ាងហោចណាស់ 4 តួអក្សរ។",
-  enusernameRequired: isEnglish ? "English username is required." : "ឈ្មោះអ្នកប្រើអង់គ្លេស ត្រូវបានទាមទារ។",
-  enusernameMin: isEnglish ? "English username must be at least 4 characters." : "ឈ្មោះអ្នកប្រើអង់គ្លេសត្រូវមានយ៉ាងហោចណាស់ 4 តួអក្សរ។",
-  khusernameRequired: isEnglish ? "Khmer username is required." : "ឈ្មោះអ្នកប្រើខ្មែរ ត្រូវបានទាមទារ។",
-  khusernameMin: isEnglish ? "Khmer username must be at least 4 characters." : "ឈ្មោះអ្នកប្រើខ្មែរត្រូវមានយ៉ាងហោចណាស់ 4 តួអក្សរ។",
-  passwordsMatch: isEnglish ? "Passwords must match." : "ពាក្យសម្ងាត់ត្រូវតែត្រួតពិនិត្យគ្នា។",
-  currentPassRequired: isEnglish ? "Current Password is required to delete account." : "ពាក្យសម្ងាត់​បច្ចុប្បន្ន​ត្រូវបានទាមទារ​សម្រាប់លុបគណនី។",
-  oldPassRequired: isEnglish ? "Old Password is required." : "ពាក្យសម្ងាត់ចាស់ត្រូវបានទាមទារ។",
-  organizationNameRequired: isEnglish ? "Organization Name is required." : "ឈ្មោះអង្គការត្រូវបានទាមទារ។",
-  locationRequired: isEnglish ? "Location is required." : "ទីតាំងត្រូវបានទាមទារ។",
-  facebookRequired: isEnglish ? "Facebook is required." : "Facebook ត្រូវបានទាមទារ។",
-  phoneNumberRequired: isEnglish ? "Phone number is required." : "លេខទូរស័ព្ទ ត្រូវបានទាមទារ។",
-  phoneNumberInvalid: isEnglish ? "Phone number must be between 9 and 10 digits." : "លេខទូរស័ព្ទ ត្រូវតែមានចន្លោះពី 9 ទៅ 10 ខ្ទង់។",
-  startDateRequired: isEnglish ? "Start date is required." : "កាលបរិច្ឆេទចាប់ផ្តើមត្រូវបានទាមទារ។",
-  endDateRequired: isEnglish ? "End date is required." : "កាលបរិច្ឆេទបញ្ចប់ត្រូវបានទាមទារ។",
-  startTimeRequired: isEnglish ? "Start time is required." : "ម៉ោងចាប់ផ្តើមត្រូវបានទាមទារ។",
-  endTimeRequired: isEnglish ? "End time is required." : "ម៉ោងបញ្ចប់ត្រូវបានទាមទារ។",
-  shortDescriptionRequired: isEnglish ? "Short Description is required." : "ការពិពណ៌នាខ្លី ត្រូវបានទាមទារ។",
-  titleRequired: isEnglish ? "Event title is required." : "ចំណងជើងព្រឹត្តិការណ៍ត្រូវបានទាមទារ",
-  titleMin: isEnglish ? "Event title is at least 6 characters." : "ចំណងជើងព្រឹត្តិការណ៍ត្រូវមានយ៉ាងហោចណាស់ 6 តួអក្សរ",
-  agendaTitleRequired: isEnglish ? "Title is required." : "ចំណងជើងត្រូវបានទាមទារ",
-  agendaTitleMin: isEnglish ? "Title must be at least 3 characters." : "ចំណងជើងត្រូវមានយ៉ាងហោចណាស់ 3 តួអក្សរ។",
-  agendaTitleMax: isEnglish ? "Title must be at most 255 characters." : "ចំណងជើងត្រូវមានភាគច្រើន 255 តួអក្សរ។",
-  descriptionRequired: isEnglish ? "Description Detail is required." : "ព័ត៌មានពិពណ៌នាដែលលម្អិត ត្រូវបានទាមទារ។",
-  descriptionMin: isEnglish ? "Description Detail must be at least 5 characters." : "ព័ត៌មានពិពណ៌នាដែលលម្អិត ត្រូវមានយ៉ាងហោចណាស់ 5 តួអក្សរ។",
-  descriptionMax: isEnglish ? "Description Detail must be at most 1000 characters." : "ព័ត៌មានពិពណ៌នាដែលលម្អិត ត្រូវមានភាគច្រើន 1000 តួអក្សរ។",
-  ticketTypeRequired: isEnglish ? "Ticket type is required." : "ប្រភេទសំបុត្រត្រូវបានទាមទារ។",
-  ticketPriceRequired: isEnglish ? "Ticket price is required." : "តម្លៃសំបុត្រត្រូវបានទាមទារ។",
-  ticketCapacityRequired: isEnglish ? "Ticket capacity is required." : "ចំនួនសំបុត្រត្រូវបានទាមទារ។",
-  ticketCapacityMin: isEnglish ? "Ticket capacity must be at least 1." : "ចំនួនសំបុត្រត្រូវតែមានយ៉ាងហោចណាស់ 1។",
-  fileTypeInvalid: isEnglish ? "Invalid file type. Only JPG, JPEG, PNG are allowed." : "ប្រភេទឯកសារមិនត្រឹមត្រូវ។ អនុញ្ញាតឱ្យមានតែ JPG, JPEG, PNG ប៉ុណ្ណោះ។",
-  fileSizeExceeded: (maxSizeMB) => isEnglish 
-    ? `File size exceeds the limit of ${maxSizeMB}MB.` 
-    : `ទំហំឯកសារប្រហែលលើកំណត់ ${maxSizeMB}MB។`,
+  otpInvalid: isEnglish
+    ? "Otp Code must be exactly 6 digits."
+    : "កូដ OTP ត្រូវតែមាន 6 ខ្ទង់។",
+  usernameRequired: isEnglish
+    ? "Username is required."
+    : "ឈ្មោះអ្នកប្រើ ត្រូវបានទាមទារ។",
+  usernameMin: isEnglish
+    ? "Username must be at least 4 characters."
+    : "ឈ្មោះអ្នកប្រើត្រូវមានយ៉ាងហោចណាស់ 4 តួអក្សរ។",
+  enusernameRequired: isEnglish
+    ? "English username is required."
+    : "ឈ្មោះអ្នកប្រើអង់គ្លេស ត្រូវបានទាមទារ។",
+  enusernameMin: isEnglish
+    ? "English username must be at least 4 characters."
+    : "ឈ្មោះអ្នកប្រើអង់គ្លេសត្រូវមានយ៉ាងហោចណាស់ 4 តួអក្សរ។",
+  khusernameRequired: isEnglish
+    ? "Khmer username is required."
+    : "ឈ្មោះអ្នកប្រើខ្មែរ ត្រូវបានទាមទារ។",
+  khusernameMin: isEnglish
+    ? "Khmer username must be at least 4 characters."
+    : "ឈ្មោះអ្នកប្រើខ្មែរត្រូវមានយ៉ាងហោចណាស់ 4 តួអក្សរ។",
+  passwordsMatch: isEnglish
+    ? "Passwords must match."
+    : "ពាក្យសម្ងាត់ត្រូវតែត្រួតពិនិត្យគ្នា។",
+  currentPassRequired: isEnglish
+    ? "Current Password is required to delete account."
+    : "ពាក្យសម្ងាត់​បច្ចុប្បន្ន​ត្រូវបានទាមទារ​សម្រាប់លុបគណនី។",
+  oldPassRequired: isEnglish
+    ? "Old Password is required."
+    : "ពាក្យសម្ងាត់ចាស់ត្រូវបានទាមទារ។",
+  organizationNameRequired: isEnglish
+    ? "Organization Name is required."
+    : "ឈ្មោះអង្គការត្រូវបានទាមទារ។",
+  locationRequired: isEnglish
+    ? "Location is required."
+    : "ទីតាំងត្រូវបានទាមទារ។",
+  facebookRequired: isEnglish
+    ? "Facebook is required."
+    : "Facebook ត្រូវបានទាមទារ។",
+  phoneNumberRequired: isEnglish
+    ? "Phone number is required."
+    : "លេខទូរស័ព្ទ ត្រូវបានទាមទារ។",
+  phoneNumberInvalid: isEnglish
+    ? "Phone number must be between 9 and 10 digits."
+    : "លេខទូរស័ព្ទ ត្រូវតែមានចន្លោះពី 9 ទៅ 10 ខ្ទង់។",
+  startDateRequired: isEnglish
+    ? "Start date is required."
+    : "កាលបរិច្ឆេទចាប់ផ្តើមត្រូវបានទាមទារ។",
+  endDateRequired: isEnglish
+    ? "End date is required."
+    : "កាលបរិច្ឆេទបញ្ចប់ត្រូវបានទាមទារ។",
+  startTimeRequired: isEnglish
+    ? "Start time is required."
+    : "ម៉ោងចាប់ផ្តើមត្រូវបានទាមទារ។",
+  endTimeRequired: isEnglish
+    ? "End time is required."
+    : "ម៉ោងបញ្ចប់ត្រូវបានទាមទារ។",
+  shortDescriptionRequired: isEnglish
+    ? "Short Description is required."
+    : "ការពិពណ៌នាខ្លី ត្រូវបានទាមទារ។",
+  titleRequired: isEnglish
+    ? "Event title is required."
+    : "ចំណងជើងព្រឹត្តិការណ៍ត្រូវបានទាមទារ",
+  titleMin: isEnglish
+    ? "Event title is at least 6 characters."
+    : "ចំណងជើងព្រឹត្តិការណ៍ត្រូវមានយ៉ាងហោចណាស់ 6 តួអក្សរ",
+  agendaTitleRequired: isEnglish
+    ? "Title is required."
+    : "ចំណងជើងត្រូវបានទាមទារ",
+  agendaTitleMin: isEnglish
+    ? "Title must be at least 3 characters."
+    : "ចំណងជើងត្រូវមានយ៉ាងហោចណាស់ 3 តួអក្សរ។",
+  agendaTitleMax: isEnglish
+    ? "Title must be at most 255 characters."
+    : "ចំណងជើងត្រូវមានភាគច្រើន 255 តួអក្សរ។",
+  descriptionRequired: isEnglish
+    ? "Description Detail is required."
+    : "ព័ត៌មានពិពណ៌នាដែលលម្អិត ត្រូវបានទាមទារ។",
+  descriptionMin: isEnglish
+    ? "Description Detail must be at least 5 characters."
+    : "ព័ត៌មានពិពណ៌នាដែលលម្អិត ត្រូវមានយ៉ាងហោចណាស់ 5 តួអក្សរ។",
+  descriptionMax: isEnglish
+    ? "Description Detail must be at most 1000 characters."
+    : "ព័ត៌មានពិពណ៌នាដែលលម្អិត ត្រូវមានភាគច្រើន 1000 តួអក្សរ។",
+  ticketTypeRequired: isEnglish
+    ? "Ticket type is required."
+    : "ប្រភេទសំបុត្រត្រូវបានទាមទារ។",
+  ticketPriceRequired: isEnglish
+    ? "Ticket price is required."
+    : "តម្លៃសំបុត្រត្រូវបានទាមទារ។",
+  ticketCapacityRequired: isEnglish
+    ? "Ticket capacity is required."
+    : "ចំនួនសំបុត្រត្រូវបានទាមទារ។",
+  ticketCapacityMin: isEnglish
+    ? "Ticket capacity must be at least 1."
+    : "ចំនួនសំបុត្រត្រូវតែមានយ៉ាងហោចណាស់ 1។",
+  fileTypeInvalid: isEnglish
+    ? "Invalid file type. Only JPG, JPEG, PNG are allowed."
+    : "ប្រភេទឯកសារមិនត្រឹមត្រូវ។ អនុញ្ញាតឱ្យមានតែ JPG, JPEG, PNG ប៉ុណ្ណោះ។",
+  fileSizeExceeded: (maxSizeMB) =>
+    isEnglish
+      ? `File size exceeds the limit of ${maxSizeMB}MB.`
+      : `ទំហំឯកសារប្រហែលលើកំណត់ ${maxSizeMB}MB។`,
 };
 
 const vSignIn = Joi.object({
@@ -77,12 +153,18 @@ const vSignUp = Joi.object({
       "string.empty": messages.emailRequired,
       "string.pattern.base": messages.emailInvalid,
     }),
-  password: Joi.string().min(8).trim().required().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/) // Strong password regex
-  .messages({
-    "string.empty": messages.passwordRequired,
-    "string.min": messages.passwordMin,
-    "string.pattern.base": messages.passwordStrong, // Add a message for strong password requirement
-  }),
+  password: Joi.string()
+    .min(8)
+    .trim()
+    .required()
+    .regex(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+    ) // Strong password regex
+    .messages({
+      "string.empty": messages.passwordRequired,
+      "string.min": messages.passwordMin,
+      "string.pattern.base": messages.passwordStrong, // Add a message for strong password requirement
+    }),
   confirmPassword: Joi.string().valid(Joi.ref("password")).required().messages({
     "any.only": messages.passwordsMatch,
     "any.required": messages.passwordsMatch,
@@ -111,12 +193,17 @@ const vVerifyOtp = Joi.object({
 }).options({ abortEarly: false });
 
 const vResetPass = Joi.object({
-  newPassword: Joi.string().min(8).required().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/) // Strong password regex
-  .messages({
-    "string.empty": messages.newPasswordRequired,
-    "string.min": messages.newPasswordMin,
-    "string.pattern.base": messages.passwordStrong, // Add a message for strong password requirement
-  }),
+  newPassword: Joi.string()
+    .min(8)
+    .required()
+    .regex(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+    ) // Strong password regex
+    .messages({
+      "string.empty": messages.newPasswordRequired,
+      "string.min": messages.newPasswordMin,
+      "string.pattern.base": messages.passwordStrong, // Add a message for strong password requirement
+    }),
   confirmNewPassword: Joi.string()
     .valid(Joi.ref("newPassword"))
     .required()
@@ -148,9 +235,15 @@ const vProfileInfo = Joi.object({
     .messages({
       "string.pattern.base": messages.phoneNumberInvalid,
     }),
-  dob: Joi.date().max("now").allow("").optional().messages({
-    "string.max": isEnglish ? "Invalid Date of Birth." : "ថ្ងៃខែឆ្នាំកំណើតមិនត្រឹមត្រូវ", // Adjust this message as needed
-  }),
+  dob: Joi.date()
+    .max("now")
+    .allow("")
+    .optional()
+    .messages({
+      "string.max": isEnglish
+        ? "Invalid Date of Birth."
+        : "ថ្ងៃខែឆ្នាំកំណើតមិនត្រឹមត្រូវ", // Adjust this message as needed
+    }),
   address: Joi.string().allow("").optional(),
   gender: Joi.string().allow("").optional(),
 }).options({ abortEarly: false });
@@ -159,11 +252,18 @@ const vChangePass = Joi.object({
   oldPass: Joi.string().required().messages({
     "string.empty": messages.oldPassRequired,
   }),
-  newPass: Joi.string().trim().min(8).required().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/).messages({
-    "string.empty": messages.newPasswordRequired,
-    "string.min": messages.newPasswordMin,
-    "string.pattern.base": messages.newPasswordStrong, // Add a message for strong password requirement
-  }),
+  newPass: Joi.string()
+    .trim()
+    .min(8)
+    .required()
+    .regex(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+    )
+    .messages({
+      "string.empty": messages.newPasswordRequired,
+      "string.min": messages.newPasswordMin,
+      "string.pattern.base": messages.newPasswordStrong, // Add a message for strong password requirement
+    }),
   newPassConfirm: Joi.string().valid(Joi.ref("newPass")).required().messages({
     "any.only": messages.passwordsMatch,
     "any.required": messages.passwordsMatch,
@@ -216,9 +316,15 @@ const vEventOverview = Joi.object({
   event_type: Joi.string().valid("1", "2").required().messages({
     "any.only": "Invalid event type selected.", // Adjust as needed
   }),
-  event_categories: Joi.array().min(1).items(Joi.string()).required().messages({
-    "array.min": isEnglish ? "Please select at least one category.": "សូមជ្រើសរើសយ៉ាងហោចណាស់មួយcategory", // Adjust as needed
-  }),
+  event_categories: Joi.array()
+    .min(1)
+    .items(Joi.string())
+    .required()
+    .messages({
+      "array.min": isEnglish
+        ? "Please select at least one category."
+        : "សូមជ្រើសរើសយ៉ាងហោចណាស់មួយcategory", // Adjust as needed
+    }),
 }).options({ abortEarly: false });
 
 const vEventDateAndLocation = Joi.object({
@@ -287,8 +393,8 @@ const vEventAgenda = Joi.object({
 
 const vUpdateEventAgenda = Joi.object({
   id: Joi.alternatives().try(
-    Joi.number().integer().min(0), 
-    Joi.string().valid('')
+    Joi.number().integer().min(0),
+    Joi.string().valid("")
   ),
   title: Joi.string().trim().min(3).max(255).required().messages({
     "string.empty": messages.agendaTitleRequired,
@@ -309,43 +415,87 @@ const vUpdateEventAgenda = Joi.object({
 }).options({ abortEarly: false });
 
 const vEventTickets = Joi.object({
-  type: Joi.string().trim().min(3).max(100).required().messages({
-    "string.empty": messages.ticketTypeRequired,
-    "string.min": isEnglish ? "Ticket type must be at least 3 characters." : "ប្រភេទសំបុត្រត្រូវមានយ៉ាងហោចណាស់ 3 តួអក្សរ។",
-  }),
-  price: Joi.number().min(0).required().messages({
-    "number.base": isEnglish ? "Ticket price must be a number." : "តម្លៃសំបុត្រត្រូវមានជាចំនួនគត់។",
-    "number.min": isEnglish ? "Ticket price cannot be negative." : "តម្លៃសំបុត្រត្រូវមិនអាចអវិជ្ជមានបានទេ។",
-    "any.required": messages.ticketPriceRequired,
-  }),
-  ticket_opacity: Joi.number().integer().min(1).required().messages({
-    "number.base": isEnglish ? "Ticket capacity must be a number." : "ចំនួនសំបុត្រត្រូវមានជាតារាង។",
-    "number.integer": isEnglish ? "Ticket capacity must be an integer." : "ចំនួនសំបុត្រត្រូវមានជាចំនួនគត់។",
-    "number.min": messages.ticketCapacityMin,
-    "any.required": messages.ticketCapacityRequired,
-  }),
+  type: Joi.string()
+    .trim()
+    .min(3)
+    .max(100)
+    .required()
+    .messages({
+      "string.empty": messages.ticketTypeRequired,
+      "string.min": isEnglish
+        ? "Ticket type must be at least 3 characters."
+        : "ប្រភេទសំបុត្រត្រូវមានយ៉ាងហោចណាស់ 3 តួអក្សរ។",
+    }),
+  price: Joi.number()
+    .min(0)
+    .required()
+    .messages({
+      "number.base": isEnglish
+        ? "Ticket price must be a number."
+        : "តម្លៃសំបុត្រត្រូវមានជាចំនួនគត់។",
+      "number.min": isEnglish
+        ? "Ticket price cannot be negative."
+        : "តម្លៃសំបុត្រត្រូវមិនអាចអវិជ្ជមានបានទេ។",
+      "any.required": messages.ticketPriceRequired,
+    }),
+  ticket_opacity: Joi.number()
+    .integer()
+    .min(1)
+    .required()
+    .messages({
+      "number.base": isEnglish
+        ? "Ticket capacity must be a number."
+        : "ចំនួនសំបុត្រត្រូវមានជាតារាង។",
+      "number.integer": isEnglish
+        ? "Ticket capacity must be an integer."
+        : "ចំនួនសំបុត្រត្រូវមានជាចំនួនគត់។",
+      "number.min": messages.ticketCapacityMin,
+      "any.required": messages.ticketCapacityRequired,
+    }),
 }).options({ abortEarly: false });
 
 const vUpdateEventTickets = Joi.object({
   id: Joi.alternatives().try(
-    Joi.number().integer().min(0), 
-    Joi.string().valid('')
+    Joi.number().integer().min(0),
+    Joi.string().valid("")
   ),
-  type: Joi.string().trim().min(3).max(100).required().messages({
-    "string.empty": messages.ticketTypeRequired,
-    "string.min": isEnglish ? "Ticket type must be at least 3 characters." : "ប្រភេទសំបុត្រត្រូវមានយ៉ាងហោចណាស់ 3 តួអក្សរ។",
-  }),
-  price: Joi.number().min(0).required().messages({
-    "number.base": isEnglish ? "Ticket price must be a number." : "តម្លៃសំបុត្រត្រូវមានជាចំនួនគត់។",
-    "number.min": isEnglish ? "Ticket price cannot be negative." : "តម្លៃសំបុត្រត្រូវមិនអាចអវិជ្ជមានបានទេ។",
-    "any.required": messages.ticketPriceRequired,
-  }),
-  ticket_opacity: Joi.number().integer().min(1).required().messages({
-    "number.base": isEnglish ? "Ticket capacity must be a number." : "ចំនួនសំបុត្រត្រូវមានជាតារាង។",
-    "number.integer": isEnglish ? "Ticket capacity must be an integer." : "ចំនួនសំបុត្រត្រូវមានជាចំនួនគត់។",
-    "number.min": messages.ticketCapacityMin,
-    "any.required": messages.ticketCapacityRequired,
-  }),
+  type: Joi.string()
+    .trim()
+    .min(3)
+    .max(100)
+    .required()
+    .messages({
+      "string.empty": messages.ticketTypeRequired,
+      "string.min": isEnglish
+        ? "Ticket type must be at least 3 characters."
+        : "ប្រភេទសំបុត្រត្រូវមានយ៉ាងហោចណាស់ 3 តួអក្សរ។",
+    }),
+  price: Joi.number()
+    .min(0)
+    .required()
+    .messages({
+      "number.base": isEnglish
+        ? "Ticket price must be a number."
+        : "តម្លៃសំបុត្រត្រូវមានជាចំនួនគត់។",
+      "number.min": isEnglish
+        ? "Ticket price cannot be negative."
+        : "តម្លៃសំបុត្រត្រូវមិនអាចអវិជ្ជមានបានទេ។",
+      "any.required": messages.ticketPriceRequired,
+    }),
+  ticket_opacity: Joi.number()
+    .integer()
+    .min(1)
+    .required()
+    .messages({
+      "number.base": isEnglish
+        ? "Ticket capacity must be a number."
+        : "ចំនួនសំបុត្រត្រូវមានជាតារាង។",
+      "number.integer": isEnglish
+        ? "Ticket capacity must be an integer."
+        : "ចំនួនសំបុត្រត្រូវមានជាចំនួនគត់។",
+      "number.min": messages.ticketCapacityMin,
+      "any.required": messages.ticketCapacityRequired,
+    }),
 }).options({ abortEarly: false });
 
 const validateFile = (file, maxSizeMB = 3) => {
@@ -353,11 +503,11 @@ const validateFile = (file, maxSizeMB = 3) => {
     return { valid: false, message: messages.fileTypeInvalid }; // No file, validation fails
   }
 
-  const validExtensions = ['.jpg', '.jpeg', '.png'];
+  const validExtensions = [".jpg", ".jpeg", ".png"];
   const fileName = file.name.toLowerCase();
-  const fileExtension = fileName.substring(fileName.lastIndexOf('.'));
+  const fileExtension = fileName.substring(fileName.lastIndexOf("."));
 
-  if (!(validExtensions.includes(fileExtension))) {
+  if (!validExtensions.includes(fileExtension)) {
     return {
       valid: false,
       message: messages.fileTypeInvalid,
@@ -375,16 +525,21 @@ const validateFile = (file, maxSizeMB = 3) => {
   return { valid: true }; // All validations passed
 };
 
-const validateFileQR = (file, maxSizeMB = 3) => { 
+const validateFileQR = (file, maxSizeMB = 3) => {
   if (!file) {
-    return { valid: false, message: isEnglish ? "Payment Qr Image is required." : "ការបង់ប្រាក់ Qr រូបភាពត្រូវបានទាមទារ" }; // No file, validation fails
+    return {
+      valid: false,
+      message: isEnglish
+        ? "Payment Qr Image is required."
+        : "ការបង់ប្រាក់ Qr រូបភាពត្រូវបានទាមទារ",
+    }; // No file, validation fails
   }
 
-  const validExtensions = ['.jpg', '.jpeg', '.png'];
+  const validExtensions = [".jpg", ".jpeg", ".png"];
   const fileName = file.name.toLowerCase();
-  const fileExtension = fileName.substring(fileName.lastIndexOf('.'));
-  
-  if (!(validExtensions.includes(fileExtension))) {
+  const fileExtension = fileName.substring(fileName.lastIndexOf("."));
+
+  if (!validExtensions.includes(fileExtension)) {
     return {
       valid: false,
       message: messages.fileTypeInvalid,
@@ -730,9 +885,9 @@ const validateFileQR = (file, maxSizeMB = 3) => {
 //   const validExtensions = ['.jpg', '.jpeg', '.png'];
 //   const fileName = file.name.toLowerCase();
 //   const fileExtension = fileName.substring(fileName.lastIndexOf('.'));
-//   // console.log(file);
-//   // console.log(fileExtension);
-  
+//      console.log(file);
+//      console.log(fileExtension);
+
 //   if (!(validExtensions.includes(fileExtension))) {
 //     return {
 //       valid: false,

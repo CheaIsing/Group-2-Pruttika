@@ -17,7 +17,9 @@ toggleTicketBtn.addEventListener("click", function () {
     // Switch to Custom Ticket Category Mode
     defaultTicket.style.display = "none";
     customTicketSection.style.display = "block";
-    toggleTicketBtn.innerHTML = `<i class="fa-solid fa-arrow-left"></i>&nbsp; ${getText("backToEventCategories")}`;
+    toggleTicketBtn.innerHTML = `<i class="fa-solid fa-arrow-left"></i>&nbsp; ${getText(
+      "backToEventCategories"
+    )}`;
 
     // Add the first custom ticket category automatically
     if (ticketCount === 0) createNewTicketCategory();
@@ -25,7 +27,9 @@ toggleTicketBtn.addEventListener("click", function () {
     // Switch Back to Default Ticket Category Mode
     customTicketSection.style.display = "none";
     defaultTicket.style.display = "block";
-    toggleTicketBtn.innerHTML = `<i class="fa-solid fa-plus"></i>&nbsp; ${getText("createOwnedEventCategories")}`;
+    toggleTicketBtn.innerHTML = `<i class="fa-solid fa-plus"></i>&nbsp; ${getText(
+      "createOwnedEventCategories"
+    )}`;
 
     // Remove all custom ticket categories
     ticketWrapper.innerHTML = "";
@@ -33,16 +37,17 @@ toggleTicketBtn.addEventListener("click", function () {
   }
 });
 
-
 function createNewTicketCategory() {
-    ticketCount++;
-    let ticketContainer = document.createElement("div");
-    ticketContainer.className = "ticket-container mb-4";
-    ticketContainer.id = `ticket${ticketCount}`;
+  ticketCount++;
+  let ticketContainer = document.createElement("div");
+  ticketContainer.className = "ticket-container mb-4";
+  ticketContainer.id = `ticket${ticketCount}`;
 
-    ticketContainer.innerHTML = `
+  ticketContainer.innerHTML = `
     <div class="d-flex align-items-center justify-content-between mb-3 mt-4">
-        <h5 class="fw-semibold text-brand mb-0">${getText("ticketCategory")} ${ticketCount}</h5>
+        <h5 class="fw-semibold text-brand mb-0">${getText(
+          "ticketCategory"
+        )} ${ticketCount}</h5>
         <button class="btn btn-danger" onclick="deleteTicketCategory('ticket${ticketCount}')">
             <i class="fa-solid fa-trash"></i>
         </button>
@@ -51,7 +56,9 @@ function createNewTicketCategory() {
         <label class="form-label fw-medium mb-2">${getText("name")}</label>
         <div class="input-field input-field-setting mb-3" id="input-field-ticketCategoryName${ticketCount}">
             <i class="fa-regular fa-pen-to-square"></i>
-            <input type="text" id="ticketCategoryName${ticketCount}" placeholder="${getText("enterTicketCategory")}">
+            <input type="text" id="ticketCategoryName${ticketCount}" placeholder="${getText(
+    "enterTicketCategory"
+  )}">
         </div>
         <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_ticketCategoryName${ticketCount}">
             <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
@@ -62,7 +69,9 @@ function createNewTicketCategory() {
         <label class="form-label fw-medium mb-2">${getText("price")}</label>
         <div class="input-field input-field-setting mb-3" id="input-field-ticketPrice${ticketCount}">
             <i class="fa-solid fa-dollar-sign"></i>
-            <input type="number" id="ticketPrice${ticketCount}" placeholder="${getText("enterPrice")}">
+            <input type="number" id="ticketPrice${ticketCount}" placeholder="${getText(
+    "enterPrice"
+  )}">
         </div> 
         <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_ticketPrice${ticketCount}">
             <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
@@ -73,7 +82,9 @@ function createNewTicketCategory() {
         <label class="form-label fw-medium mb-2">${getText("capacity")}</label>
         <div class="input-field input-field-setting mb-3" id="input-field-ticketCapacity${ticketCount}">
             <i class="fa-solid fa-ticket"></i>
-            <input type="number" id="ticketCapacity${ticketCount}" placeholder="${getText("enterCapacity")}">
+            <input type="number" id="ticketCapacity${ticketCount}" placeholder="${getText(
+    "enterCapacity"
+  )}">
         </div>
         <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_ticketCapacity${ticketCount}">
             <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
@@ -82,9 +93,8 @@ function createNewTicketCategory() {
     </div>
     `;
 
-    ticketWrapper.appendChild(ticketContainer);
+  ticketWrapper.appendChild(ticketContainer);
 }
-
 
 // Function to delete a ticket category
 function deleteTicketCategory(ticketId) {
@@ -94,7 +104,9 @@ function deleteTicketCategory(ticketId) {
 
     // If all custom tickets are removed, revert to Default Ticket Category mode
     if (document.querySelectorAll(".ticket-container").length == 0) {
-      toggleTicketBtn.innerHTML = `<i class="fa-solid fa-plus"></i> ${getText("createOwnedEventCategories")}`;
+      toggleTicketBtn.innerHTML = `<i class="fa-solid fa-plus"></i> ${getText(
+        "createOwnedEventCategories"
+      )}`;
       customTicketSection.style.display = "none";
       defaultTicket.style.display = "block";
       ticketCount = 0;
@@ -111,40 +123,62 @@ function deleteTicketCategory(ticketId) {
 
         ticket.innerHTML = `
     <div class="d-flex align-items-center justify-content-between mb-3 mt-4">
-        <h5 class="fw-semibold text-brand mb-0">${getText("ticketCategory")} ${i + 1}</h5>
-        <button class="btn btn-danger" onclick="deleteTicketCategory('ticket${i + 1}')">
+        <h5 class="fw-semibold text-brand mb-0">${getText("ticketCategory")} ${
+          i + 1
+        }</h5>
+        <button class="btn btn-danger" onclick="deleteTicketCategory('ticket${
+          i + 1
+        }')">
             <i class="fa-solid fa-trash"></i>
         </button>
     </div>
     <div class="">
         <label class="form-label fw-medium mb-2">${getText("name")}</label>
-        <div class="input-field input-field-setting mb-3" id="input-field-ticketCategoryName${i + 1}">
+        <div class="input-field input-field-setting mb-3" id="input-field-ticketCategoryName${
+          i + 1
+        }">
             <i class="fa-regular fa-pen-to-square"></i>
-            <input type="text" id="ticketCategoryName${i + 1}" value="${title}" placeholder="${getText("enterTicketCategory")}">
+            <input type="text" id="ticketCategoryName${
+              i + 1
+            }" value="${title}" placeholder="${getText("enterTicketCategory")}">
         </div>
-        <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_ticketCategoryName${i + 1}">
+        <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_ticketCategoryName${
+          i + 1
+        }">
             <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
             <div class="ms-2 ">${getText("invalidCategory")}</div>
         </div>
     </div>
     <div class="">
         <label class="form-label fw-medium mb-2">${getText("price")}</label>
-        <div class="input-field input-field-setting mb-3" id="input-field-ticketPrice${i + 1}">
+        <div class="input-field input-field-setting mb-3" id="input-field-ticketPrice${
+          i + 1
+        }">
             <i class="fa-solid fa-dollar-sign"></i>
-            <input type="number" id="ticketPrice${i + 1}" value="${price}" placeholder="${getText("enterPrice")}">
+            <input type="number" id="ticketPrice${
+              i + 1
+            }" value="${price}" placeholder="${getText("enterPrice")}">
         </div> 
-        <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_ticketPrice${i + 1}">
+        <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_ticketPrice${
+          i + 1
+        }">
             <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
             <div class="ms-2 ">${getText("invalidPrice")}</div>
         </div>
     </div>
     <div class="">
         <label class="form-label fw-medium mb-2">${getText("capacity")}</label>
-        <div class="input-field input-field-setting mb-3" id="input-field-ticketCapacity${i + 1}">
+        <div class="input-field input-field-setting mb-3" id="input-field-ticketCapacity${
+          i + 1
+        }">
             <i class="fa-solid fa-ticket"></i>
-            <input type="number" id="ticketCapacity${i + 1}" value="${capacity}" placeholder="${getText("enterCapacity")}">
+            <input type="number" id="ticketCapacity${
+              i + 1
+            }" value="${capacity}" placeholder="${getText("enterCapacity")}">
         </div>
-        <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_ticketCapacity${i + 1}">
+        <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_ticketCapacity${
+          i + 1
+        }">
             <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
             <div class="ms-2 ">${getText("invalidCapacity")}</div>
         </div>
@@ -154,8 +188,6 @@ function deleteTicketCategory(ticketId) {
     }
   }
 }
-
-
 
 const progress = (value) => {
   document.getElementsByClassName("progress-bar")[0].style.width = `${value}%`;
@@ -269,7 +301,7 @@ prevBtn.addEventListener("click", () => {
   }
   progress((100 / stepCount) * current_step);
 });
-let btnText = document.getElementById("submit-btn").innerText
+let btnText = document.getElementById("submit-btn").innerText;
 submitBtn.addEventListener("click", async () => {
   // preloader.classList.add("d-block");
 
@@ -328,7 +360,7 @@ submitBtn.addEventListener("click", async () => {
   try {
     btnShowLoading("submit-btn");
     const response1 = await axiosInstance.post("/events", event);
-    // console.log("Response 1:", response1);
+    console.log("Response 1:", response1);
     const eventId = response1.data.data.event_id;
 
     const uploadRequests = [
@@ -357,7 +389,7 @@ submitBtn.addEventListener("click", async () => {
   }
 });
 
-let agendas = []; 
+let agendas = [];
 let tickets = [];
 
 function checkStep() {
@@ -514,7 +546,7 @@ function checkStep() {
       ];
       const fieldsEventOverviewKh = [
         {
-          name: isEnglish ? "title": "ចំណងជើងព្រឹត្តិការណ៍",
+          name: isEnglish ? "title" : "ចំណងជើងព្រឹត្តិការណ៍",
           id: "input-field-title",
           textErrorElement: "#invalid_feedback_title div",
           isInvalidClass: "is_invalid",
@@ -617,25 +649,25 @@ function checkStep() {
           isInvalidClass: "is_invalid",
         },
         {
-          name: isEnglish ? "end date":"កាលបរិច្ឆេទបញ្ចប់",
+          name: isEnglish ? "end date" : "កាលបរិច្ឆេទបញ្ចប់",
           id: "input-field-ended-date",
           textErrorElement: "#invalid_feedback_ended_date div",
           isInvalidClass: "is_invalid",
         },
         {
-          name: isEnglish ? "start time":"ម៉ោងចាប់ផ្តើម" ,
+          name: isEnglish ? "start time" : "ម៉ោងចាប់ផ្តើម",
           id: "input-field-start-time",
           textErrorElement: "#invalid_feedback_start_time div",
           isInvalidClass: "is_invalid",
         },
         {
-          name: isEnglish ? "end time": "ម៉ោងបញ្ចប់",
+          name: isEnglish ? "end time" : "ម៉ោងបញ្ចប់",
           id: "input-field-end-time",
           textErrorElement: "#invalid_feedback_end_time div",
           isInvalidClass: "is_invalid",
         },
         {
-          name: isEnglish ? "location":"ទីតាំង",
+          name: isEnglish ? "location" : "ទីតាំង",
           id: "input-field-location",
           textErrorElement: "#invalid_feedback_location div",
           isInvalidClass: "is_invalid",
@@ -682,13 +714,13 @@ function checkStep() {
       ];
       const fieldsEventDescriptionKh = [
         {
-          name: isEnglish ? "short description":"ការពិពណ៌នាខ្លី",
+          name: isEnglish ? "short description" : "ការពិពណ៌នាខ្លី",
           id: "input-field-short-description",
           textErrorElement: "#invalid_feedback_short_description div",
           isInvalidClass: "is_invalid",
         },
         {
-          name:isEnglish ? "description detail": "ព័ត៌មានពិពណ៌នាដែលលម្អិត",
+          name: isEnglish ? "description detail" : "ព័ត៌មានពិពណ៌នាដែលលម្អិត",
           id: "input-field-description",
           textErrorElement: "#invalid_feedback_description div",
           isInvalidClass: "is_invalid",
@@ -754,19 +786,19 @@ function checkStep() {
             isInvalidClass: "is_invalid",
           },
           {
-            name:isEnglish ? "description": "ព័ត៌មានពិពណ៌នា",
+            name: isEnglish ? "description" : "ព័ត៌មានពិពណ៌នា",
             id: `input-field-agenda-desc-${id}`,
             textErrorElement: `#invalid_feedback_agendaDesc${id} div`,
             isInvalidClass: "is_invalid",
           },
           {
-            name: isEnglish ?"start time": "ម៉ោងចាប់ផ្តើម",
+            name: isEnglish ? "start time" : "ម៉ោងចាប់ផ្តើម",
             id: `input-field-agenda-start-time-${id}`,
             textErrorElement: `#invalid_feedback_agendaStarttime${id} div`,
             isInvalidClass: "is_invalid",
           },
           {
-            name: isEnglish ?"end time":"ម៉ោងបញ្ចប់",
+            name: isEnglish ? "end time" : "ម៉ោងបញ្ចប់",
             id: `input-field-agenda-end-time-${id}`,
             textErrorElement: `#invalid_feedback_agendaEndtime${id} div`,
             isInvalidClass: "is_invalid",
@@ -779,8 +811,8 @@ function checkStep() {
 
         // Show validation errors
         if (error) {
-          // console.log(error);
-          
+          console.log(error);
+
           const errorMessages = error.details.map((detail) => detail.message);
           handleErrorMessages(errorMessages, fieldsEventAgendaKh);
           isValid = false;
@@ -797,7 +829,7 @@ function checkStep() {
         return false;
       }
 
-      // console.log(agendas);
+      console.log(agendas);
 
       return true;
     }
@@ -843,19 +875,19 @@ function checkStep() {
         ];
         const fieldsEventTicketKh = [
           {
-            name: isEnglish ? "ticket type":"ប្រភេទសំបុត្រ",
+            name: isEnglish ? "ticket type" : "ប្រភេទសំបុត្រ",
             id: `input-field-defaultTicketCategoryName`,
             textErrorElement: `#invalid_feedback_defaultTicketCategoryName div`,
             isInvalidClass: "is_invalid",
           },
           {
-            name: isEnglish ?  "ticket price":"តម្លៃសំបុត្រ",
+            name: isEnglish ? "ticket price" : "តម្លៃសំបុត្រ",
             id: `input-field-defaultTicketPrice`,
             textErrorElement: `#invalid_feedback_defaultTicketPrice div`,
             isInvalidClass: "is_invalid",
           },
           {
-            name: isEnglish ?  "ticket capacity":"ចំនួនសំបុត្រ",
+            name: isEnglish ? "ticket capacity" : "ចំនួនសំបុត្រ",
             id: `input-field-defaultTicketCapacity`,
             textErrorElement: `#invalid_feedback_defaultTicketCapacity div`,
             isInvalidClass: "is_invalid",
@@ -894,7 +926,7 @@ function checkStep() {
           }
         }
 
-        // console.log(tickets);
+        console.log(tickets);
         if (!isValid) {
           // console.error(
           //   "Validation failed. Please fill in all required fields."
@@ -939,19 +971,19 @@ function checkStep() {
           ];
           const fieldsEventTicketKh = [
             {
-              name: isEnglish ? "ticket type":"ប្រភេទសំបុត្រ",
+              name: isEnglish ? "ticket type" : "ប្រភេទសំបុត្រ",
               id: `input-field-ticketCategoryName${id}`,
               textErrorElement: `#invalid_feedback_ticketCategoryName${id} div`,
               isInvalidClass: "is_invalid",
             },
             {
-              name: isEnglish ?  "ticket price":"តម្លៃសំបុត្រ",
+              name: isEnglish ? "ticket price" : "តម្លៃសំបុត្រ",
               id: `input-field-ticketPrice${id}`,
               textErrorElement: `#invalid_feedback_ticketPrice${id} div`,
               isInvalidClass: "is_invalid",
             },
             {
-              name: isEnglish ?  "ticket capacity":"ចំនួនសំបុត្រ",
+              name: isEnglish ? "ticket capacity" : "ចំនួនសំបុត្រ",
               id: `input-field-ticketCapacity${id}`,
               textErrorElement: `#invalid_feedback_ticketCapacity${id} div`,
               isInvalidClass: "is_invalid",
@@ -970,7 +1002,7 @@ function checkStep() {
           }
         });
 
-        // console.log(tickets);
+        console.log(tickets);
 
         if (!isValid) {
           // console.error(
@@ -986,42 +1018,41 @@ function checkStep() {
     }
     case 6: {
       if (isSkipStepPayment) {
-          return true;
+        return true;
       }
       let khqrPhotoUpload = document.getElementById("khqrPhotoUpload");
       let khqrPhotoName = document.getElementById("KhqrPhotoName");
       let khqrUploadSection = document.getElementById("khqr-upload-section");
-  
+
       // Pass the file object (khqrPhotoUpload.files[0]) to validateFile
       const validationResultQR = validateFileQR(khqrPhotoUpload.files[0], 3); // 3MB limit
 
-      // console.log(validationResultQR);
-      // console.log(validationResultQR.valid);
-      
-  
-      if (!(validationResultQR.valid)) {
-          // Validation failed
-          khqrUploadSection.style.border = "1px solid var(--bs-danger)";
-          khqrUploadSection.scrollIntoView({
-              behavior: "smooth",
-              block: "center",
-          });
-          khqrPhotoUpload.focus();
-          khqrPhotoName.innerHTML = `<span class="text-danger" >
+      console.log(validationResultQR);
+      console.log(validationResultQR.valid);
+
+      if (!validationResultQR.valid) {
+        // Validation failed
+        khqrUploadSection.style.border = "1px solid var(--bs-danger)";
+        khqrUploadSection.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+        khqrPhotoUpload.focus();
+        khqrPhotoName.innerHTML = `<span class="text-danger" >
               ${validationResultQR.message}
           </span>`;
-          return false;
+        return false;
       }
-  
+
       // Reset styles if valid
       khqrUploadSection.style.border = "none";
       khqrPhotoName.innerHTML = `<span class="text-success fw-bolder">
           File selected: <span class="text-black">${khqrPhotoUpload.files[0].name}</span>
       </span>`;
       // valid = true;
-      return true
+      return true;
       break;
-  }
+    }
     case 7: {
       return true;
       break;
@@ -1036,9 +1067,11 @@ function checkStep() {
 
 async function getCategories() {
   try {
-    const result = await axiosInstance.get("/admin/event/category/view?per_page=100");
+    const result = await axiosInstance.get(
+      "/admin/event/category/view?per_page=100"
+    );
     const categories = result.data.data.data;
-    // console.log(categories);
+    console.log(categories);
 
     const selectElement = document.getElementById("select-category");
     const tomSelectInstance = selectElement.tomselect;
@@ -1056,7 +1089,7 @@ async function getCategories() {
       tomSelectInstance.refreshOptions(false);
     }
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     showToast();
   }
 }
@@ -1087,10 +1120,14 @@ function createNewAgenda() {
         </button>
     </div>
     <div class="">
-        <label class="form-label fw-medium mb-2">${getText("agendaTitle")}</label>
+        <label class="form-label fw-medium mb-2">${getText(
+          "agendaTitle"
+        )}</label>
         <div class="input-field input-field-setting agenda mb-3" id="input-field-agenda-title-${agendaIdCounter}">
             <i class="fa-regular fa-pen-to-square"></i>
-            <input type="text" id="agendaTitle${agendaIdCounter}" placeholder="${getText("agendaTitle")}">
+            <input type="text" id="agendaTitle${agendaIdCounter}" placeholder="${getText(
+    "agendaTitle"
+  )}">
         </div>
         <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_agendaTitle${agendaIdCounter}">
                 <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
@@ -1098,10 +1135,14 @@ function createNewAgenda() {
             </div>
     </div>
     <div class="">
-        <label class="form-label fw-medium mb-2">${getText("agendaDescription")}</label>
+        <label class="form-label fw-medium mb-2">${getText(
+          "agendaDescription"
+        )}</label>
         <div class="input-field input-field-setting agenda mb-3" id="input-field-agenda-desc-${agendaIdCounter}">
             <i class="fa-regular fa-pen-to-square"></i>
-            <input type="text" id="agendaDesc${agendaIdCounter}" placeholder="${getText("agendaDescription")}">
+            <input type="text" id="agendaDesc${agendaIdCounter}" placeholder="${getText(
+    "agendaDescription"
+  )}">
         </div>
         <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_agendaDesc${agendaIdCounter}">
                 <i class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
@@ -1110,7 +1151,9 @@ function createNewAgenda() {
     </div>
     <div class="row gx-4 gy-0">
         <div class="col-6 col-lg-4 col-xxl-3">
-            <label class="form-label fw-medium mb-2">${getText("agendaStartTime")}</label>
+            <label class="form-label fw-medium mb-2">${getText(
+              "agendaStartTime"
+            )}</label>
             <div class="input-field input-field-setting border-2" id="input-field-agenda-start-time-${agendaIdCounter}">
                 <i class="fa-regular fa-pen-to-square"></i>
                 <input type="time" id="agendaStarttime${agendaIdCounter}" class="" autofocus />
@@ -1121,7 +1164,9 @@ function createNewAgenda() {
                 </div>
         </div>
         <div class="col-6 col-lg-4 col-xl-3">
-            <label class="form-label fw-medium mb-2">${getText("agendaEndTime")}</label>
+            <label class="form-label fw-medium mb-2">${getText(
+              "agendaEndTime"
+            )}</label>
             <div class="input-field input-field-setting border-2" id="input-field-agenda-end-time-${agendaIdCounter}">
                 <i class="fa-regular fa-pen-to-square fw-light"></i>
                 <input type="time" id="agendaEndtime${agendaIdCounter}" class="" autofocus />
@@ -1133,7 +1178,6 @@ function createNewAgenda() {
         </div>
     </div>
 `;
-
 
   agendaWrapper.appendChild(agendaContainer);
 }
@@ -1170,7 +1214,9 @@ function deleteAgenda(agendaId) {
             }')"><i class="fa-solid fa-trash"></i></button>
         </div>
         <div class="">
-            <label for class="form-label fw-medium mb-2">${getText("agendaTitle")}</label>
+            <label for class="form-label fw-medium mb-2">${getText(
+              "agendaTitle"
+            )}</label>
             <div class="input-field input-field-setting agenda mb-3" id="input-field-agenda-title-${
               i + 1
             }">
@@ -1187,14 +1233,18 @@ function deleteAgenda(agendaId) {
             </div>
         </div>
         <div class="">
-            <label for class="form-label fw-medium mb-2">${getText("agendaDescription")}</label>
+            <label for class="form-label fw-medium mb-2">${getText(
+              "agendaDescription"
+            )}</label>
             <div class="input-field input-field-setting agenda mb-3" id="input-field-agenda-desc-${
               i + 1
             }">
                 <i class="fa-regular fa-pen-to-square"></i>
                 <input type="text" id="agendaDesc${
                   i + 1
-                }" value="${description}" placeholder="${getText("agendaDescription")}">
+                }" value="${description}" placeholder="${getText(
+        "agendaDescription"
+      )}">
             </div>
             <div class="invalid_feedback text-danger d-flex align-items-center mb-2 w-100" id="invalid_feedback_agendaDesc${
               i + 1
@@ -1205,7 +1255,9 @@ function deleteAgenda(agendaId) {
         </div>
         <div class="row gx-4 gy-0">
             <div class="col-6 col-lg-4 col-xxl-3">
-                <label for class="form-label fw-medium mb-2">${getText("agendaStartTime")}</label>
+                <label for class="form-label fw-medium mb-2">${getText(
+                  "agendaStartTime"
+                )}</label>
                 <div class="input-field input-field-setting border-2" id="input-field-agenda-start-time-${
                   i + 1
                 }">
@@ -1222,7 +1274,9 @@ function deleteAgenda(agendaId) {
                 </div>
             </div>
             <div class="col-6 col-lg-4 col-xl-3">
-                <label for class="form-label fw-medium mb-2">${getText("agendaEndTime")}</label>
+                <label for class="form-label fw-medium mb-2">${getText(
+                  "agendaEndTime"
+                )}</label>
                 <div class="input-field input-field-setting border-2" id="input-field-agenda-end-time-${
                   i + 1
                 }">
@@ -1240,7 +1294,7 @@ function deleteAgenda(agendaId) {
             </div>
         </div>
             `;
-      // console.log(i);
+      console.log(i);
     });
   }
 }
@@ -1303,10 +1357,10 @@ document.querySelectorAll(".ts-wrapper .ts-control").forEach((input) => {
 
 document.querySelector(".ts-wrapper .ts-control").classList.add("border-0");
 
-// console.log(document.getElementById("select-category").selectedOptions);
+console.log(document.getElementById("select-category").selectedOptions);
 
 const parent = document.querySelectorAll(".ts-wrapper.input-field"); // Get the parent element
-// console.log(parent);
+console.log(parent);
 // if (!parent) return; // Ensure the parent exists
 parent.forEach((p) => {
   const newNode = document.createElement("i"); // Create a new element

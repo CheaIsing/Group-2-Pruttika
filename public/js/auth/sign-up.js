@@ -1,6 +1,6 @@
 const signUpForm = document.getElementById("sign-up-form");
-// console.log(signUpForm);
-let btnText = document.getElementById("btnSignUp").innerText
+console.log(signUpForm);
+let btnText = document.getElementById("btnSignUp").innerText;
 
 let isSubmit = false;
 
@@ -8,7 +8,7 @@ const formData = {
   name: "",
   email: "",
   password: "",
-  confirmPassword: ""
+  confirmPassword: "",
 };
 
 const fields = [
@@ -75,7 +75,9 @@ signUpForm.addEventListener(
     const name = document.getElementById("sign-up-name").value;
     const email = document.getElementById("sign-up-email").value;
     const password = document.getElementById("sign-up-password").value;
-    const confirmPassword = document.getElementById("sign-up-confirm-password").value;
+    const confirmPassword = document.getElementById(
+      "sign-up-confirm-password"
+    ).value;
 
     formData.name = name;
     formData.email = email;
@@ -97,16 +99,22 @@ signUpForm.addEventListener(
     if (!isValid) return;
 
     try {
-      btnShowLoading("btnSignUp")
+      btnShowLoading("btnSignUp");
       const res = await axiosInstance.post("/auth/signup", formData);
 
       showToast(true, getText("msgSignUp"));
-      setTimeout(()=>{
-        window.location.href = "/auth/signin"
-      }, 1200)
+      setTimeout(() => {
+        window.location.href = "/auth/signin";
+      }, 1200);
     } catch (error) {
-      // console.log(error);
-      if (!(error.response && error.response.data &&  typeof error.response.data == "object")) {
+      console.log(error);
+      if (
+        !(
+          error.response &&
+          error.response.data &&
+          typeof error.response.data == "object"
+        )
+      ) {
         return showToast();
       }
 
@@ -115,8 +123,7 @@ signUpForm.addEventListener(
       const errorMessages = Array.isArray(messages) ? messages : [messages];
 
       handleErrorMessages(errorMessages, fields);
-    }
-    finally{
+    } finally {
       btnCloseLoading("btnSignUp", btnText);
     }
   }
@@ -126,4 +133,10 @@ signUpForm.addEventListener(
 handleFieldChange("sign-up-name", "name", formData, vSignUp, fieldsKh);
 handleFieldChange("sign-up-email", "email", formData, vSignUp, fieldsKh);
 handleFieldChange("sign-up-password", "password", formData, vSignUp, fieldsKh);
-handleFieldChange("sign-up-confirm-password", "confirmPassword", formData, vSignUp, fieldsKh);
+handleFieldChange(
+  "sign-up-confirm-password",
+  "confirmPassword",
+  formData,
+  vSignUp,
+  fieldsKh
+);

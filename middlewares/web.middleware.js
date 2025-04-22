@@ -23,8 +23,8 @@ const requireAuthWeb = async (req, res, next) => {
     req.user.role = user[0].role;
     next();
   } catch (error) {
-    // console.log(error);
-    
+    console.log(error);
+
     req.user = null;
     next();
   }
@@ -45,19 +45,18 @@ const authorize = (roles = []) => {
 };
 
 const preventFromAuthorize = (req, res, next) => {
-  
-    const user = req.user; // Access user info from req.user
-    // console.log(user);
+  const user = req.user; // Access user info from req.user
+  console.log(user);
 
-    if (user) {
-      if (user.role == 2 || user.role == 1) {
-        return res.redirect("/homepage");
-      } else if (user.role == 3) {
-        return res.redirect("/admin");
-      }
+  if (user) {
+    if (user.role == 2 || user.role == 1) {
+      return res.redirect("/homepage");
+    } else if (user.role == 3) {
+      return res.redirect("/admin");
     }
+  }
 
-    next(); // Proceed if user is not authenticated
-  };
+  next(); // Proceed if user is not authenticated
+};
 
 module.exports = { requireAuthWeb, authorize, preventFromAuthorize };

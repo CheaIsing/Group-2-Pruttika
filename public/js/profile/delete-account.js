@@ -3,7 +3,7 @@ let isSubmit = false;
 const frm = document.getElementById("frm");
 
 const formData = {
-  currentPass: ""
+  currentPass: "",
 };
 
 const fields = [
@@ -34,7 +34,6 @@ frm.addEventListener(
 
     const currentPassword = document.getElementById("current-password").value;
 
-
     formData.currentPass = currentPassword;
 
     const { error } = vDeleteAcc.validate(formData);
@@ -52,25 +51,33 @@ frm.addEventListener(
     if (!isValid) return;
 
     try {
-      // console.log(formData);
+      console.log(formData);
       btnShowLoading("btnDeleteAccount");
 
       await axiosInstance.post("/profile/delete-acc", formData);
 
-      showToast(true, isEnglish ? "Account Deleted Successfully." : "គណនីត្រូវបានលុបដោយជោគជ័យ");
+      showToast(
+        true,
+        isEnglish ? "Account Deleted Successfully." : "គណនីត្រូវបានលុបដោយជោគជ័យ"
+      );
 
-      setTimeout(()=>{
-        window.location.href = "/"
-      }, 1000)
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 1000);
 
       // clearInput();
     } catch (error) {
-      // console.log(error);
+      console.log(error);
 
-      if (!(error.response && error.response.data &&  typeof error.response.data == "object")) {
+      if (
+        !(
+          error.response &&
+          error.response.data &&
+          typeof error.response.data == "object"
+        )
+      ) {
         return showToast();
       }
-
 
       const messages = error.response.data.message;
 
@@ -78,7 +85,10 @@ frm.addEventListener(
 
       handleErrorMessages(errorMessages, fields);
     } finally {
-      btnCloseLoading("btnDeleteAccount", isEnglish ? "Delete Account" : "លុបគណនី");
+      btnCloseLoading(
+        "btnDeleteAccount",
+        isEnglish ? "Delete Account" : "លុបគណនី"
+      );
     }
   }
 
@@ -100,5 +110,3 @@ const frmData = {
 // );
 //   handleFieldChange("sign-up-password", "password", formData, vSignUp, fields);
 // handleFieldChange("sign-up-confirm-password", "confirmPassword", formData, vSignUp, fields);
-
-

@@ -20,14 +20,13 @@ const promoteToOrganizer = async (req, res) => {
     const checkExistRequestQuery = `select * from tbl_organizer_req where user_id = ?`;
 
     const isExistRequest = await executeQuery(checkExistRequestQuery, user_id);
-    // console.log(isExistRequest);
-    
+    console.log(isExistRequest);
 
-    if(isExistRequest.length > 0){
-
-        await executeQuery(`delete from tbl_organizer_req where user_id = ?`, isExistRequest[0].user_id);
-
-      
+    if (isExistRequest.length > 0) {
+      await executeQuery(
+        `delete from tbl_organizer_req where user_id = ?`,
+        isExistRequest[0].user_id
+      );
     }
 
     const query = `INSERT INTO tbl_organizer_req (user_id, organization_name, bio, business_email, business_phone, location, facebook, telegram, tiktok, linkin, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)`;
@@ -60,11 +59,11 @@ const promoteToOrganizer = async (req, res) => {
 
 const displayRequestOrganizerById = async (req, res) => {
   try {
-    const {id} = req.user;
+    const { id } = req.user;
     // let id = 3
-    // console.log(id);
-    
-    let sql = "SELECT * FROM tbl_organizer_req WHERE user_id = ?"
+    console.log(id);
+
+    let sql = "SELECT * FROM tbl_organizer_req WHERE user_id = ?";
 
     const data = await executeQuery(sql, id);
 
@@ -78,4 +77,4 @@ const displayRequestOrganizerById = async (req, res) => {
     handleResponseError(res, error);
   }
 };
-module.exports = { promoteToOrganizer , displayRequestOrganizerById};
+module.exports = { promoteToOrganizer, displayRequestOrganizerById };

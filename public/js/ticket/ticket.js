@@ -1,23 +1,22 @@
-
 const tooltipTriggerList = [].slice.call(
-      document.querySelectorAll('[data-bs-toggle="tooltip"]')
-    );
-    const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-      return new bootstrap.Tooltip(tooltipTriggerEl);
-    });
+  document.querySelectorAll('[data-bs-toggle="tooltip"]')
+);
+const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  return new bootstrap.Tooltip(tooltipTriggerEl);
+});
 
-    const ticketDataManager = {
-      tickets: {},
-      addTicket(id, data) {
-          this.tickets[id] = data;
-      },
-      getTicket(id) {
-          return this.tickets[id];
-      }
-  };
-    
-function setPlaceholder(){
-  document.querySelector(".placeholder-content").innerHTML=`
+const ticketDataManager = {
+  tickets: {},
+  addTicket(id, data) {
+    this.tickets[id] = data;
+  },
+  getTicket(id) {
+    return this.tickets[id];
+  },
+};
+
+function setPlaceholder() {
+  document.querySelector(".placeholder-content").innerHTML = `
     <div class="row d-flex align-items-center w-100 px-2 mb-3 rounded-3 overflow-hidden border-0 shadow-light-sm" >
         <div class="col-2 skeleton" style="height: 100px; background-color: #e0e0e0; border-radius: 4px;"></div>
         <div class="col-7" >
@@ -41,9 +40,8 @@ function setPlaceholder(){
   `;
 }
 
-async function getRequestTicket( status="", page=1, perpage=25) {
+async function getRequestTicket(status = "", page = 1, perpage = 25) {
   let queryParams = new URLSearchParams();
-
 
   queryParams.append("page", page);
   queryParams.append("per_page", perpage);
@@ -53,39 +51,36 @@ async function getRequestTicket( status="", page=1, perpage=25) {
     queryParams.append("status", status);
   }
   setPlaceholder();
-  document.getElementById("requested-ticket-container").classList.add('d-none');
+  document.getElementById("requested-ticket-container").classList.add("d-none");
   try {
-    const {data} = await axiosInstance.get(`/profile/own-request-ticket?${queryParams.toString()}`);
-    const {data:tickets, paginate} = data;
-    // console.log(tickets);
+    const { data } = await axiosInstance.get(
+      `/profile/own-request-ticket?${queryParams.toString()}`
+    );
+    const { data: tickets, paginate } = data;
+    console.log(tickets);
 
-
-    
     document.getElementById("requested-ticket-container").innerHTML = "";
-    if(tickets.length>0){
-      tickets.forEach(ticket=>{
-        let status = ""
-        let classStatus = ""
-        switch(ticket.status){
-          case "Approved":{
-            status = `✔ Approved`
-            classStatus = "approved"
-            break
+    if (tickets.length > 0) {
+      tickets.forEach((ticket) => {
+        let status = "";
+        let classStatus = "";
+        switch (ticket.status) {
+          case "Approved": {
+            status = `✔ Approved`;
+            classStatus = "approved";
+            break;
           }
-          case "Rejected":{
-            status = `✖ Rejected`
-            classStatus = "rejected"
-            break
+          case "Rejected": {
+            status = `✖ Rejected`;
+            classStatus = "rejected";
+            break;
           }
-          case "Pending":{
-            status = `⏳ Pending`
-            classStatus = "pending"
-            break
+          case "Pending": {
+            status = `⏳ Pending`;
+            classStatus = "pending";
+            break;
           }
-          
         }
-
-        
 
         const obj = {
           purchase_date: ticket.created_at,
@@ -96,17 +91,20 @@ async function getRequestTicket( status="", page=1, perpage=25) {
           ticket_type: ticket.ticket_type,
           total: ticket.amount,
           class_status: classStatus,
-          event_type: ticket.event.event_type
-
-        }
+          event_type: ticket.event.event_type,
+        };
         let isOffline = ticket.event.event_type == 2;
 
         ticketDataManager.addTicket(ticket.id, obj);
-        // console.log(isOffline);
-        
-        let showTran = (ticket.event.event_type == 2 || (ticket.status == "Rejected" &&  ticket.event.event_type == 1)) ? `data-ticket-id='${ticket.id}' onclick="showTransaction(this)" data-bs-toggle="modal" data-bs-target="#exampleModal"` : '';
+        console.log(isOffline);
 
-        // console.log(showTran);
+        let showTran =
+          ticket.event.event_type == 2 ||
+          (ticket.status == "Rejected" && ticket.event.event_type == 1)
+            ? `data-ticket-id='${ticket.id}' onclick="showTransaction(this)" data-bs-toggle="modal" data-bs-target="#exampleModal"`
+            : "";
+
+        console.log(showTran);
         document.getElementById("requested-ticket-container").innerHTML += `
                 <div
           class="accordion-item mb-3 rounded-3 overflow-hidden border-0 shadow-light-sm">
@@ -139,7 +137,9 @@ async function getRequestTicket( status="", page=1, perpage=25) {
                       class="d-flex align-items-center fs-6 mb-2 mb-md-0">
                       <i class="text-brand" data-lucide="ticket"
                         style="stroke-width: 1.75px; width: 1.25rem;"></i>
-                      <div class="ms-2 ">${ticket.quantity} ${ticket.ticket_type.type_name ? ticket.ticket_type.type_name : "ticket"}</div>
+                      <div class="ms-2 ">${ticket.quantity} ${
+          ticket.ticket_type.type_name ? ticket.ticket_type.type_name : "ticket"
+        }</div>
                     </div>
                   </div>
                 </div>
@@ -147,7 +147,11 @@ async function getRequestTicket( status="", page=1, perpage=25) {
                   class="d-flex align-items-center fs-6 mt-md-2 mb-2 mb-md-0 d-none d-sm-flex">
                   <i class="text-brand" data-lucide="map-pin"
                     style="stroke-width: 1.75px; width: 1.25rem;"></i>
-                  <div class="ms-2 ">${ticket.event.event_type == 1 ? "Online Event" : ticket.event.location}</div>
+                  <div class="ms-2 ">${
+                    ticket.event.event_type == 1
+                      ? "Online Event"
+                      : ticket.event.location
+                  }</div>
 
                 </div>
                 <div>
@@ -162,36 +166,45 @@ async function getRequestTicket( status="", page=1, perpage=25) {
               <div
                 class="ticket-status ${classStatus} ms-auto text-nowrap d-none d-sm-block fw-semibold">${status}</div>
 
-              ${ticket.event.event_type != 1 || (ticket.status == "Rejected" &&  ticket.event.event_type == 1)  ? `<a id="btnTransaction"data-bs-toggle="tooltip" ${showTran}
+              ${
+                ticket.event.event_type != 1 ||
+                (ticket.status == "Rejected" && ticket.event.event_type == 1)
+                  ? `<a id="btnTransaction"data-bs-toggle="tooltip" ${showTran}
               data-bs-placement="bottom"
               title="View Transaction"
-              data-bs-custom-class="custom-tooltip" class="btn btn-brand btn-icon fw-semibold ms-3 px-3 rounded-circle d-none d-sm-flex" type="button"><i style="stroke-width: 1.75px; width: 1.25rem;" data-lucide="eye"></i></a>`: ""}
+              data-bs-custom-class="custom-tooltip" class="btn btn-brand btn-icon fw-semibold ms-3 px-3 rounded-circle d-none d-sm-flex" type="button"><i style="stroke-width: 1.75px; width: 1.25rem;" data-lucide="eye"></i></a>`
+                  : ""
+              }
             </button>
           </h2>
 
-        </div>`
+        </div>`;
         lucide.createIcons();
-      })
-    }else{
-      document.getElementById("requested-ticket-container").innerHTML = `<div class="text-center w-100 my-5">
+      });
+    } else {
+      document.getElementById(
+        "requested-ticket-container"
+      ).innerHTML = `<div class="text-center w-100 my-5">
               <img src="/img/noFound.png" alt="..." height="220px;">
-              <h4 class="text-center text-brand mt-2">${getText("noRequest")}</h4>
-            </div>`
+              <h4 class="text-center text-brand mt-2">${getText(
+                "noRequest"
+              )}</h4>
+            </div>`;
     }
-    
-    document.getElementById("requested-ticket-container").classList.remove('d-none');
-    document.querySelector(".placeholder-content").classList.add('d-none');
 
-    renderPaginationRequest(paginate)
-    
+    document
+      .getElementById("requested-ticket-container")
+      .classList.remove("d-none");
+    document.querySelector(".placeholder-content").classList.add("d-none");
+
+    renderPaginationRequest(paginate);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     showToast();
   }
 }
-async function getOwnedTicket( status="", page=1, perpage=15) {
+async function getOwnedTicket(status = "", page = 1, perpage = 15) {
   let queryParams = new URLSearchParams();
-
 
   queryParams.append("page", page);
   queryParams.append("per_page", perpage);
@@ -201,45 +214,45 @@ async function getOwnedTicket( status="", page=1, perpage=15) {
     queryParams.append("status", status);
   }
 
-  // console.log(queryParams.toString());
+  console.log(queryParams.toString());
   setPlaceholder();
-  document.getElementById("owned-ticket-container").classList.add('d-none');
+  document.getElementById("owned-ticket-container").classList.add("d-none");
 
   try {
-    const {data} = await axiosInstance.get(`/profile/own-ticket?${queryParams.toString()}`);
-    const {data:tickets, paginate} = data;
-    // console.log(paginate);
+    const { data } = await axiosInstance.get(
+      `/profile/own-ticket?${queryParams.toString()}`
+    );
+    const { data: tickets, paginate } = data;
+    console.log(paginate);
 
-    // console.log(tickets);
-    
+    console.log(tickets);
 
-
-    
     document.getElementById("owned-ticket-container").innerHTML = "";
-    if(tickets.length>0){
-      tickets.forEach(ticket=>{
-        let status = ""
-        let classStatus = ""
-        switch(ticket.status){
-          case "Issue":{
-            status = `Issue`
-            classStatus = "approved"
-            break
+    if (tickets.length > 0) {
+      tickets.forEach((ticket) => {
+        let status = "";
+        let classStatus = "";
+        switch (ticket.status) {
+          case "Issue": {
+            status = `Issue`;
+            classStatus = "approved";
+            break;
           }
-          case "Used":{
-            status = `Used`
-            classStatus = "pending"
-            break
-          }          
+          case "Used": {
+            status = `Used`;
+            classStatus = "pending";
+            break;
+          }
         }
-
 
         document.getElementById("owned-ticket-container").innerHTML += `
                 <div
           class="accordion-item mb-3 rounded-3 overflow-hidden border-0 shadow-light-sm">
           <h2 class="accordion-header rounded-top-3"
             id="ticket1Header">
-            <button class="accordion-button" data-tickets='${JSON.stringify(ticket)}'  onclick="showTicket(this)"
+            <button class="accordion-button" data-tickets='${JSON.stringify(
+              ticket
+            )}'  onclick="showTicket(this)"
               type="button"
               data-bs-toggle="modal" data-bs-target="#exampleModalTicket">
               <div style="max-height: 100px;width: 180px;" class="me-1 d-none d-md-block object-fit-cover">
@@ -288,7 +301,9 @@ async function getOwnedTicket( status="", page=1, perpage=15) {
               <div
                 class="ticket-status ${classStatus} ms-auto text-nowrap d-none d-sm-block fw-semibold">${status}</div>
 
-              <a id="btnTransaction" data-bs-toggle="tooltip" data-tickets='${JSON.stringify(ticket)}'  onclick="showTicket(this)"
+              <a id="btnTransaction" data-bs-toggle="tooltip" data-tickets='${JSON.stringify(
+                ticket
+              )}'  onclick="showTicket(this)"
               data-bs-placement="bottom"
               title="Display Ticket"
               data-bs-custom-class="custom-tooltip" class="btn btn-brand fw-semibold ms-3 rounded-circle align-items-center justify-content-center" style="width:2.75rem !important; height:2.75rem !important;"  type="button"><i data-lucide="ticket" style="stroke-width: 1.75px; width: 1.25rem;"></i><span class
@@ -296,29 +311,36 @@ async function getOwnedTicket( status="", page=1, perpage=15) {
             </button>
           </h2>
 
-        </div>`
+        </div>`;
         lucide.createIcons();
-      })
-    }else{
-      document.getElementById("owned-ticket-container").innerHTML = `<div class="text-center w-100 my-5">
+      });
+    } else {
+      document.getElementById(
+        "owned-ticket-container"
+      ).innerHTML = `<div class="text-center w-100 my-5">
               <img src="/img/noFound.png" alt="..." height="220px;">
-              <h4 class="text-center text-brand mt-2">${isEnglish ? "No Owned Ticket to Display": "មិនមានសំបុត្រដើម្បីបង្ហាញទេ"}</h4>
-            </div>`
+              <h4 class="text-center text-brand mt-2">${
+                isEnglish
+                  ? "No Owned Ticket to Display"
+                  : "មិនមានសំបុត្រដើម្បីបង្ហាញទេ"
+              }</h4>
+            </div>`;
     }
 
-    document.getElementById("owned-ticket-container").classList.remove('d-none');
-    document.querySelector(".placeholder-content").classList.add('d-none');
-    renderPaginationOwned(paginate)
-    
+    document
+      .getElementById("owned-ticket-container")
+      .classList.remove("d-none");
+    document.querySelector(".placeholder-content").classList.add("d-none");
+    renderPaginationOwned(paginate);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     showToast();
   }
 }
 
-getOwnedTicket()
+getOwnedTicket();
 
-getRequestTicket() 
+getRequestTicket();
 
 function renderPaginationOwned(paginate) {
   const paginationNumbers = document.getElementById("pagination-numbers-owned");
@@ -375,11 +397,13 @@ function renderPaginationOwned(paginate) {
 async function changePageOwned(newPage) {
   const queryParams = new URLSearchParams(window.location.search);
   queryParams.set("page", newPage); // Update page parameter
-  let status = document.getElementById("select-owned-ticket-status").value
-  await getOwnedTicket(status,newPage); // Call renderEvents with new page
+  let status = document.getElementById("select-owned-ticket-status").value;
+  await getOwnedTicket(status, newPage); // Call renderEvents with new page
 }
 function renderPaginationRequest(paginate) {
-  const paginationNumbers = document.getElementById("pagination-numbers-request");
+  const paginationNumbers = document.getElementById(
+    "pagination-numbers-request"
+  );
   paginationNumbers.innerHTML = "";
 
   const totalPages = paginate.total_page;
@@ -422,7 +446,8 @@ function renderPaginationRequest(paginate) {
   }
 
   document.getElementById("prevRequestBtn").disabled = currentPage === 1;
-  document.getElementById("nextRequestBtn").disabled = currentPage === totalPages;
+  document.getElementById("nextRequestBtn").disabled =
+    currentPage === totalPages;
 
   document.getElementById("prevRequestBtn").onclick = () =>
     changePage(currentPage - 1);
@@ -433,76 +458,108 @@ function renderPaginationRequest(paginate) {
 async function changePageRequest(newPage) {
   const queryParams = new URLSearchParams(window.location.search);
   queryParams.set("page", newPage); // Update page parameter
-  let status = document.getElementById("select-request-ticket-status").value
-  await getRequestTicket(status,newPage); // Call renderEvents with new page
+  let status = document.getElementById("select-request-ticket-status").value;
+  await getRequestTicket(status, newPage); // Call renderEvents with new page
 }
 
-document.getElementById("select-owned-ticket-status").addEventListener("change", (e)=>{
-  getOwnedTicket(e.target.value);
-})
+document
+  .getElementById("select-owned-ticket-status")
+  .addEventListener("change", (e) => {
+    getOwnedTicket(e.target.value);
+  });
 
-document.getElementById("select-request-ticket-status").addEventListener("change", (e)=>{
-  getRequestTicket(e.target.value);
-})
+document
+  .getElementById("select-request-ticket-status")
+  .addEventListener("change", (e) => {
+    getRequestTicket(e.target.value);
+  });
 
 function showTransaction(el) {
-    const ticketId = el.getAttribute("data-ticket-id");
-    const obj = ticketDataManager.getTicket(ticketId);
+  const ticketId = el.getAttribute("data-ticket-id");
+  const obj = ticketDataManager.getTicket(ticketId);
 
-  // console.log("click", obj);
+  console.log("click", obj);
 
-  let checkTran = obj.ticket_type.price == 0 ? `` : `/uploads/transaction/${obj.transaction_img}`;
+  let checkTran =
+    obj.ticket_type.price == 0
+      ? ``
+      : `/uploads/transaction/${obj.transaction_img}`;
 
-  if(obj.event_type == 1 && obj.reject_reason){
+  if (obj.event_type == 1 && obj.reject_reason) {
     document.getElementById("modal-body").innerHTML = `
-      <span class="ticket-status badge rounded-pill ${obj.class_status} fw-medium text-capitalize">Status: 
+      <span class="ticket-status badge rounded-pill ${
+        obj.class_status
+      } fw-medium text-capitalize">Status: 
       ${obj.status}</span>
       <br><br>
 
-      ${obj.reject_reason ? `<div class="alert alert-danger mb-2">Reject Reason: ` + obj.reject_reason : "</div>"}
+      ${
+        obj.reject_reason
+          ? `<div class="alert alert-danger mb-2">Reject Reason: ` +
+            obj.reject_reason
+          : "</div>"
+      }
 
       <div class="shadow-sm border rounded-4 overflow-hidden">
         
 
       </div>
   `;
-  return
+    return;
   }
 
   document.getElementById("modal-body").innerHTML = `
-      <span class="ticket-status badge rounded-pill ${obj.class_status} fw-medium text-capitalize">Status: 
+      <span class="ticket-status badge rounded-pill ${
+        obj.class_status
+      } fw-medium text-capitalize">Status: 
       ${obj.status}</span>
       <br><br>
 
 
-      ${obj.reject_reason ? `<div class="alert alert-danger mb-2">${isEnglish ? "Reject Reason":"ហេតុផលបដិសេធ"}: ` + obj.reject_reason + "</div>" : ""}
+      ${
+        obj.reject_reason
+          ? `<div class="alert alert-danger mb-2">${
+              isEnglish ? "Reject Reason" : "ហេតុផលបដិសេធ"
+            }: ` +
+            obj.reject_reason +
+            "</div>"
+          : ""
+      }
 
       
 
       <div class="shadow-sm border rounded-4 overflow-hidden">
-      ${obj.ticket_type.price == 0 ? `` : `<img class="w-100 object-fit-cover" src="${checkTran}" alt="transaction">`}
+      ${
+        obj.ticket_type.price == 0
+          ? ``
+          : `<img class="w-100 object-fit-cover" src="${checkTran}" alt="transaction">`
+      }
         
 
         <div class="bg-light p-4 border-top">
-          <h5 class="fw-meduim mb-3">${isEnglish ? "Ticket Detail":"ព័ត៌មានលម្អិតអំពីសំបុត្រ"}</h5>
+          <h5 class="fw-meduim mb-3">${
+            isEnglish ? "Ticket Detail" : "ព័ត៌មានលម្អិតអំពីសំបុត្រ"
+          }</h5>
 
           <div class="card-text fs-5 d-flex align-items-center justify-content-between mb-2">
-            <small>${isEnglish ? "Purchase Date":"កាលបរិច្ឆេទទិញ"}</small>
-            <small class="fw-medium">${moment(
-              obj.purchase_date
-            ).format("lll")}</small>
+            <small>${isEnglish ? "Purchase Date" : "កាលបរិច្ឆេទទិញ"}</small>
+            <small class="fw-medium">${moment(obj.purchase_date).format(
+              "lll"
+            )}</small>
           </div>
           <div class="card-text fs-5 d-flex align-items-center justify-content-between mb-2">
-            <small>${isEnglish ? "Ticket Bought":"បរិមាណសំបុត្រ"}</small>
+            <small>${isEnglish ? "Ticket Bought" : "បរិមាណសំបុត្រ"}</small>
             <small class="fw-medium">${obj.qty}</small>
           </div>
           <div class="card-text fs-5 d-flex align-items-center justify-content-between mb-2">
             <small>${isEnglish ? "Ticket Price" : "តម្លៃសំបុត្រ"}</small>
-            <small class="fw-medium">$${obj.ticket_type.price.toFixed(2)}</small>
+            <small class="fw-medium">$${obj.ticket_type.price.toFixed(
+              2
+            )}</small>
           </div>
           <hr>
           <div class="card-text fs-5 d-flex align-items-center justify-content-between mb-2">
-            <small>${isEnglish ? "Total":"សរុប"}</small>
+            <small>${isEnglish ? "Total" : "សរុប"}</small>
             <small class="fw-medium">$${obj.total.toFixed(2)}</small>
           </div>
         </div>
@@ -514,11 +571,9 @@ function showTicket(el) {
   // Get the object from the data attribute
   const obj = JSON.parse(el.getAttribute("data-tickets"));
 
-  // console.log("click", obj);
+  console.log("click", obj);
 
-
-
-  document.getElementById("modal-content").innerHTML =   `<div
+  document.getElementById("modal-content").innerHTML = `<div
   class="modal-header py-1 px-md-4 w-100 text-white bg-brand d-flex align-items-center justify-content-between">
 
   <button type="button" onclick="downloadTicket()" data-bs-toggle="tooltip"
@@ -571,28 +626,18 @@ function showTicket(el) {
         <div class="d-flex flex-wrap">
           <div class="me-3">
             <h6>Start</h6>
-            <p>${moment(
-              obj.event.started_date
-            ).format("ll")}</p>
+            <p>${moment(obj.event.started_date).format("ll")}</p>
           </div>
           <div class="me-3">
             <h6>End</h6>
-            <p>${moment(
-              obj.event.ended_date
-            ).format("ll")}</p>
+            <p>${moment(obj.event.ended_date).format("ll")}</p>
           </div>
           <div class="me-3">
             <h6>Time</h6>
             <p class="text-nowrap">${
-              moment(
-                obj.event.start_time,
-                "HH:mm"
-              ).format("LT") +
+              moment(obj.event.start_time, "HH:mm").format("LT") +
               " - " +
-              moment(
-                obj.event.end_time,
-                "HH:mm"
-              ).format("LT")
+              moment(obj.event.end_time, "HH:mm").format("LT")
             }</p>
           </div>
           
@@ -611,5 +656,5 @@ function showTicket(el) {
       </div>
     </div>
   </div>
-</div>`
+</div>`;
 }

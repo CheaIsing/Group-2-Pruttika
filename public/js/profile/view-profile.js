@@ -1,11 +1,11 @@
-let userId = sessionStorage.getItem("view-profile-id")
-if(!userId){
-  window.location.href = "/event/browse"
+let userId = sessionStorage.getItem("view-profile-id");
+if (!userId) {
+  window.location.href = "/event/browse";
 }
 let meId = null;
 
-function setPlaceholder(){
-  document.querySelector(".placeholder-content").innerHTML=`
+function setPlaceholder() {
+  document.querySelector(".placeholder-content").innerHTML = `
     <h4 class="skeleton" style="height: 40px; width: 100%; background-color: #e0e0e0; border-radius: 4px; margin: 10px 0;"></h4>
             <div class="d-flex justify-content-between align-content-center flex-column flex-md-row mb-3">
                 <div class="col-12 col-md-8 d-flex my-3 align-items-center gap-3">
@@ -51,92 +51,117 @@ function setPlaceholder(){
                 <div class="skeleton" style="width: 50%;height: 20px;"></div>  
             </div>
   `;
-  document.querySelector(".pf-content").classList.add('d-none');
+  document.querySelector(".pf-content").classList.add("d-none");
 }
 async function getOrganizer() {
   //placeholder:
   setPlaceholder();
   try {
     const { data } = await axiosInstance.get("/profile/display/" + userId);
-    // console.log(data);
+    console.log(data);
 
-
-    const {data: user} = data
-    let avatar = user.avatar ? `/uploads/${user.avatar}` : `/uploads/default.jpg`
+    const { data: user } = data;
+    let avatar = user.avatar
+      ? `/uploads/${user.avatar}`
+      : `/uploads/default.jpg`;
 
     // document.getElementById('pfp').src = '/uploads/' + user.thumbnail;
 
+    const { data: result } = await axiosInstance.get(
+      "/follow/followers/" + userId
+    );
+    const { data: result2 } = await axiosInstance.get(
+      "/follow/following/" + userId
+    );
 
-    const {data: result} = await axiosInstance.get("/follow/followers/" + userId);
-    const {data: result2} = await axiosInstance.get("/follow/following/" + userId);
+    const { data: getMe } = await axiosInstance.get("/auth/me");
+    console.log(getMe);
 
-    const {data: getMe} = await axiosInstance.get("/auth/me")
-    // console.log(getMe);
-
-    meId = getMe.data.id
-    
+    meId = getMe.data.id;
 
     const { data: result3 } = await axiosInstance.get(
       `/follow/following/${meId}`
     );
 
-    // console.log(result3);
+    console.log(result3);
 
-    document.getElementById("btnFollow").setAttribute("onclick", `toggleFollow(${userId}, this)`)
+    document
+      .getElementById("btnFollow")
+      .setAttribute("onclick", `toggleFollow(${userId}, this)`);
 
-    if (result3.data.some(item => item.id == userId)){
-      document.getElementById("btnFollow").innerText = getText("unfollow")
-    }else{
-      document.getElementById("btnFollow").innerText = getText("follow")
+    if (result3.data.some((item) => item.id == userId)) {
+      document.getElementById("btnFollow").innerText = getText("unfollow");
+    } else {
+      document.getElementById("btnFollow").innerText = getText("follow");
     }
-    // console.log(meId, userId);
-    
-    if(meId == userId){
-      document.getElementById("btnFollow").classList.add("d-none")
+    console.log(meId, userId);
+
+    if (meId == userId) {
+      document.getElementById("btnFollow").classList.add("d-none");
     }
-    
 
-    // console.log(result);
+    console.log(result);
 
-    const {data: followers} = result
-    const {data: following} = result2
+    const { data: followers } = result;
+    const { data: following } = result2;
 
-    document.getElementById('total-follower').innerText = followers.length
-    document.getElementById('total-following').innerText = following.length
-    document.getElementById('pfp').src = avatar
+    document.getElementById("total-follower").innerText = followers.length;
+    document.getElementById("total-following").innerText = following.length;
+    document.getElementById("pfp").src = avatar;
 
-    if(!user.Organizer_info.id){
-      document.getElementById('name').innerText = user.eng_name;
-      document.getElementById("organizer-info").classList.add("d-none")
-      
-      document.getElementById("event-list").innerHTML = `<div class="col-12">${isEnglish ? "No event to show": "គ្មានព្រឹត្តិការណ៍ដែលត្រូវបង្ហាញទេ"}</div>`
+    if (!user.Organizer_info.id) {
+      document.getElementById("name").innerText = user.eng_name;
+      document.getElementById("organizer-info").classList.add("d-none");
+
+      document.getElementById("event-list").innerHTML = `<div class="col-12">${
+        isEnglish ? "No event to show" : "គ្មានព្រឹត្តិការណ៍ដែលត្រូវបង្ហាញទេ"
+      }</div>`;
       document.getElementById("event-list").classList.add("h-auto");
-      // console.log(document.getElementById("event-list").innerHTML);
-      document.getElementById("select-sort").classList.add("d-none")
-      document.getElementById("pagination").classList.add("d-none")
+      console.log(document.getElementById("event-list").innerHTML);
+      document.getElementById("select-sort").classList.add("d-none");
+      document.getElementById("pagination").classList.add("d-none");
       document.getElementById("contactModal").classList.add("d-none");
-      document.getElementById("openModalBtn").classList.add("d-none")
-    }else{
-      document.getElementById("contact-phone").innerText = user.Organizer_info.phone
-      document.getElementById("contact-email").innerText = user.Organizer_info.email
-      document.getElementById("contact-location").innerText = user.Organizer_info.location
-      document.getElementById('name').innerText = user.Organizer_info.name;
-      document.getElementById('smallName').innerText = user.eng_name;
-      document.getElementById('social-media').innerHTML = `
-      <a href="${user.Organizer_info.facebook}" id="fb" class="social-icon mx-0 social-icon-organizer ${!(user.Organizer_info.facebook) && "d-none"} fs-6" style="width: 36px;height: 36px;">
+      document.getElementById("openModalBtn").classList.add("d-none");
+    } else {
+      document.getElementById("contact-phone").innerText =
+        user.Organizer_info.phone;
+      document.getElementById("contact-email").innerText =
+        user.Organizer_info.email;
+      document.getElementById("contact-location").innerText =
+        user.Organizer_info.location;
+      document.getElementById("name").innerText = user.Organizer_info.name;
+      document.getElementById("smallName").innerText = user.eng_name;
+      document.getElementById("social-media").innerHTML = `
+      <a href="${
+        user.Organizer_info.facebook
+      }" id="fb" class="social-icon mx-0 social-icon-organizer ${
+        !user.Organizer_info.facebook && "d-none"
+      } fs-6" style="width: 36px;height: 36px;">
                     <i class="fab fa-facebook-f"></i>
                 </a>
-                <a href="${user.Organizer_info.telegram}" id="tel" class="social-icon mx-0 fs-6 ${!(user.Organizer_info.telegram) && "d-none"}" style="width: 36px;height: 36px;">
+                <a href="${
+                  user.Organizer_info.telegram
+                }" id="tel" class="social-icon mx-0 fs-6 ${
+        !user.Organizer_info.telegram && "d-none"
+      }" style="width: 36px;height: 36px;">
                     <i class="fab fa-telegram"></i>
                 </a>
-                <a href="${user.Organizer_info.tiktok}" id="tt" class="social-icon mx-0  fs-6 ${!(user.Organizer_info.tiktok) && "d-none"}" style="width: 36px;height: 36px;">
+                <a href="${
+                  user.Organizer_info.tiktok
+                }" id="tt" class="social-icon mx-0  fs-6 ${
+        !user.Organizer_info.tiktok && "d-none"
+      }" style="width: 36px;height: 36px;">
                     <i class="fab fa-tiktok"></i>
                 </a>
-                <a href="${user.Organizer_info.linkin}" id="li" class="social-icon mx-0 fs-6 ${!(user.Organizer_info.linkin) && "d-none"}" style="width: 36px;height: 36px;">
+                <a href="${
+                  user.Organizer_info.linkin
+                }" id="li" class="social-icon mx-0 fs-6 ${
+        !user.Organizer_info.linkin && "d-none"
+      }" style="width: 36px;height: 36px;">
                     <i class="fab fa-linkedin-in"></i>
-                </a>`
+                </a>`;
 
-                renderEvents();
+      renderEvents();
 
       document.getElementById("contactModal").innerHTML = `
       <div class="close-button-container">
@@ -146,19 +171,25 @@ async function getOrganizer() {
         </div>
         
         <div class="modal-header mb-4 d-flex flex-column align-items-start">
-            <h2 class="modal-title">${isEnglish ? "Contact":"ទំនាក់ទំនង"}</h2>
-            <p class="modal-subtitle">${isEnglish ? "Get in touch with":"ទាក់ទងជាមួយ"} ${user.Organizer_info.name}</p>
+            <h2 class="modal-title">${isEnglish ? "Contact" : "ទំនាក់ទំនង"}</h2>
+            <p class="modal-subtitle">${
+              isEnglish ? "Get in touch with" : "ទាក់ទងជាមួយ"
+            } ${user.Organizer_info.name}</p>
         </div>
         
         <div class="contact-list">
             <div class="contact-item-container">
-                <div class="contact-item has-link" onclick="window.open('tel:${user.Organizer_info.phone}', '_blank')">
+                <div class="contact-item has-link" onclick="window.open('tel:${
+                  user.Organizer_info.phone
+                }', '_blank')">
                     <div class="social-icon social-icon-phone">
                         <i class="fa-solid fa-phone"></i>
                     </div>
                     <div class="contact-item-content">
                         <p class="contact-item-label">Phone</p>
-                        <p class="contact-item-value mb-0">${user.Organizer_info.phone}</p>
+                        <p class="contact-item-value mb-0">${
+                          user.Organizer_info.phone
+                        }</p>
                     </div>
                     <div class="contact-item-icon">
                         <i data-lucide="external-link"></i>
@@ -166,83 +197,110 @@ async function getOrganizer() {
                 </div>
             </div>
             <div class="contact-item-container">
-                <div class="contact-item has-link" onclick="window.open('mailto:${user.Organizer_info.email}', '_blank')">
+                <div class="contact-item has-link" onclick="window.open('mailto:${
+                  user.Organizer_info.email
+                }', '_blank')">
                     <div class="social-icon social-icon-email">
                         <i class="fa-solid fa-envelope"></i>
                     </div>
                     <div class="contact-item-content">
                         <p class="contact-item-label">Email</p>
-                        <p class="contact-item-value mb-0">${user.Organizer_info.email}</p>
+                        <p class="contact-item-value mb-0">${
+                          user.Organizer_info.email
+                        }</p>
                     </div>
                     <div class="contact-item-icon">
                         <i data-lucide="external-link"></i>
                     </div>
                 </div>
             </div>
-            <div class="contact-item-container ${!(user.Organizer_info.facebook) && "d-none"}">
-                <div class="contact-item has-link" onclick="window.open('${user.Organizer_info.facebook}', '_blank')">
+            <div class="contact-item-container ${
+              !user.Organizer_info.facebook && "d-none"
+            }">
+                <div class="contact-item has-link" onclick="window.open('${
+                  user.Organizer_info.facebook
+                }', '_blank')">
                     <div class="social-icon social-icon-facebook">
                         <i class="fab fa-facebook-f"></i>
                     </div>
                     <div class="contact-item-content">
                         <p class="contact-item-label">Facebook</p>
-                        <p class="contact-item-value mb-0">${user.Organizer_info.facebook}</p>
+                        <p class="contact-item-value mb-0">${
+                          user.Organizer_info.facebook
+                        }</p>
                     </div>
                     <div class="contact-item-icon">
                         <i data-lucide="external-link"></i>
                     </div>
                 </div>
             </div>
-            <div class="contact-item-container ${!(user.Organizer_info.telegram) && "d-none"}">
-                <div class="contact-item has-link" onclick="window.open('${user.Organizer_info.telegram}', '_blank')">
+            <div class="contact-item-container ${
+              !user.Organizer_info.telegram && "d-none"
+            }">
+                <div class="contact-item has-link" onclick="window.open('${
+                  user.Organizer_info.telegram
+                }', '_blank')">
                     <div class="social-icon social-icon-instagram">
                         <i class="fab fa-telegram"></i>
                     </div>
                     <div class="contact-item-content">
                         <p class="contact-item-label">Telegram</p>
-                        <p class="contact-item-value mb-0">${user.Organizer_info.telegram}</p>
+                        <p class="contact-item-value mb-0">${
+                          user.Organizer_info.telegram
+                        }</p>
                     </div>
                     <div class="contact-item-icon">
                         <i data-lucide="external-link"></i>
                     </div>
                 </div>
             </div>
-            <div class="contact-item-container ${!(user.Organizer_info.linkin) && "d-none"}">
-                <div class="contact-item has-link" onclick="window.open('${user.Organizer_info.linkin}', '_blank')">
+            <div class="contact-item-container ${
+              !user.Organizer_info.linkin && "d-none"
+            }">
+                <div class="contact-item has-link" onclick="window.open('${
+                  user.Organizer_info.linkin
+                }', '_blank')">
                     <div class="social-icon social-icon-linkedin">
                         <i class="fab fa-linkedin-in"></i>
                     </div>
                     <div class="contact-item-content">
                         <p class="contact-item-label">LinkedIn</p>
-                        <p class="contact-item-value mb-0">${user.Organizer_info.linkin}</p>
+                        <p class="contact-item-value mb-0">${
+                          user.Organizer_info.linkin
+                        }</p>
                     </div>
                     <div class="contact-item-icon">
                         <i data-lucide="external-link"></i>
                     </div>
                 </div>
             </div>
-            <div class="contact-item-container ${!(user.Organizer_info.tiktok) && "d-none"}">
-                <div class="contact-item has-link" onclick="window.open('${user.Organizer_info.tiktok}', '_blank')">
+            <div class="contact-item-container ${
+              !user.Organizer_info.tiktok && "d-none"
+            }">
+                <div class="contact-item has-link" onclick="window.open('${
+                  user.Organizer_info.tiktok
+                }', '_blank')">
                     <div class="social-icon social-icon-tiktok">
                         <i class="fab fa-tiktok"></i>
                     </div>
                     <div class="contact-item-content">
                         <p class="contact-item-label">TikTok</p>
-                        <p class="contact-item-value mb-0">${user.Organizer_info.tiktok}</p>
+                        <p class="contact-item-value mb-0">${
+                          user.Organizer_info.tiktok
+                        }</p>
                     </div>
                     <div class="contact-item-icon">
                         <i data-lucide="external-link"></i>
                     </div>
                 </div>
             </div>
-        </div>`
+        </div>`;
     }
-    
 
-    document.querySelector(".pf-content").classList.remove('d-none');
-    document.querySelector(".placeholder-content").classList.add('hidden');
+    document.querySelector(".pf-content").classList.remove("d-none");
+    document.querySelector(".placeholder-content").classList.add("hidden");
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     showToast();
   }
 }
@@ -255,13 +313,13 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
 
   let queryParams = new URLSearchParams();
 
-  if(dateStatus){
-    queryParams.append("date_status", dateStatus)
+  if (dateStatus) {
+    queryParams.append("date_status", dateStatus);
   }
 
   queryParams.append("sort", "created_at");
 
-  queryParams.append("creator", userId)
+  queryParams.append("creator", userId);
 
   queryParams.append("page", `${page}`);
   queryParams.append("is_published", `${is_published}`);
@@ -270,23 +328,21 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
   try {
     let qryStr = queryParams.toString();
 
-    // console.log(qryStr);
+    console.log(qryStr);
 
     const { data } = await axiosInstance.get(`/events?${qryStr}`);
     const { data: events, paginate } = data;
-    document.getElementById('total-event').innerText = paginate.total;
-    document.getElementById('total-event-2').innerText = paginate.total;
-    // console.log(data);
+    document.getElementById("total-event").innerText = paginate.total;
+    document.getElementById("total-event-2").innerText = paginate.total;
+    console.log(data);
 
-    if(events.length == 0){
-      document.querySelector('.pagination-container').classList.add("d-none")
-      return eventList.innerHTML = `<div class="text-center w-100 my-5">
+    if (events.length == 0) {
+      document.querySelector(".pagination-container").classList.add("d-none");
+      return (eventList.innerHTML = `<div class="text-center w-100 my-5">
               <img src="/img/noFound.png" alt="..." height="220px;">
               <h4 class="text-center text-brand mt-2">No Event to Display</h4>
-            </div>`
+            </div>`);
     }
-
-
 
     events.forEach((event) => {
       let pricing = null;
@@ -348,8 +404,8 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
                                         alt="Event Image"/>
                                     <div
                                         class="event-thumbnail-overlay" style="cursor: pointer;" onclick="goEventDetail(${
-                                                  event.id
-                                                })"></div>
+                                          event.id
+                                        })"></div>
 
                                     <!-- Wishlist & Copy buttons -->
                                     <div class="button-group z-2">
@@ -384,8 +440,8 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
 
                                 <!-- Event Details -->
                                 <div class="event-details" style="cursor: pointer;" onclick="goEventDetail(${
-                                                  event.id
-                                                })">
+                                  event.id
+                                })">
                                     <div
                                         class="d-flex justify-content-between">
 
@@ -491,12 +547,12 @@ async function renderEvents(page = 1, perpage = 10, is_published = true) {
     // Initialize pagination on load
     renderPagination(paginate);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     showToast();
   }
 }
 
-getOrganizer() 
+getOrganizer();
 
 function renderPagination(paginate) {
   const paginationNumbers = document.getElementById("pagination-numbers");
@@ -563,7 +619,7 @@ async function toggleFollow(id, btn) {
     const { data: following } = data;
 
     const isFollowing = following.some((follower) => follower.id === id);
-    // console.log(isFollowing);
+    console.log(isFollowing);
 
     if (isFollowing) {
       await axiosInstance.delete(`/follow/unfollow/${id}`);
@@ -575,11 +631,11 @@ async function toggleFollow(id, btn) {
       btn.innerText = getText("unfollow");
     }
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     showToast();
   }
 }
 
-document.getElementById("select-sort").onchange = async (e)=>{
-  await renderEvents()
-}
+document.getElementById("select-sort").onchange = async (e) => {
+  await renderEvents();
+};

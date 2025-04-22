@@ -12,37 +12,42 @@ if (headerNavbar) {
   });
 }
 
-const notiWrapper = document.getElementById("noti-wrapper")
+const notiWrapper = document.getElementById("noti-wrapper");
 
-if(notiWrapper){
-  getAllNotifications()
+if (notiWrapper) {
+  getAllNotifications();
 }
 
 async function getAllNotifications() {
   try {
-    const { data } = await axiosInstance.get("/notification?order=desc&read=false");
+    const { data } = await axiosInstance.get(
+      "/notification?order=desc&read=false"
+    );
     const { data: json } = data;
 
-    let notiUnreadHtml = ""
-    let unreadCount = json.length
+    let notiUnreadHtml = "";
+    let unreadCount = json.length;
 
-    document.getElementById("unreadCount1").innerText = unreadCount
-    document.getElementById("unreadCount2").innerText = unreadCount
-    document.getElementById("noti-count-3").innerText =  unreadCount
+    document.getElementById("unreadCount1").innerText = unreadCount;
+    document.getElementById("unreadCount2").innerText = unreadCount;
+    document.getElementById("noti-count-3").innerText = unreadCount;
 
-    if(json.length <= 0){
-
-      document.getElementById("noti-wrapper").innerHTML =  `
+    if (json.length <= 0) {
+      document.getElementById("noti-wrapper").innerHTML = `
       <div class="notification text-center w-100 my-4 d-flex flex-column">
               <img src="/img/noFound.png" alt="..." height="180px;">
               <h4 class="text-center text-brand mt-2">${getText("noNoti")}</h4>
-            </div>`
+            </div>`;
 
-      return 
+      return;
     }
 
     json.forEach((noti) => {
-      const title = isEnglish ? noti.eng_title : (noti.kh_title ? noti.kh_title : noti.eng_title);
+      const title = isEnglish
+        ? noti.eng_title
+        : noti.kh_title
+        ? noti.kh_title
+        : noti.eng_title;
       const message = isEnglish ? noti.eng_message : noti.kh_message;
 
       let status = "";
@@ -79,8 +84,7 @@ async function getAllNotifications() {
         }
       }
 
-      
-        notiUnreadHtml +=  `<div>
+      notiUnreadHtml += `<div>
         <div class="notification pt-3 rounded-3 shadow-hover d-flex align-items-start" onclick="showNoti()" style="cursor: pointer;">
             <!-- <div class="line-style-noti me-3"></div> -->
             <div class="d-flex align-items-start justify-content-between w-100">
@@ -105,8 +109,9 @@ async function getAllNotifications() {
                             <i
                                 data-lucide="clock"
                                 style="stroke-width: 1.25; width: 1rem;" class=""></i>
-                            <small class="ms-2 me-2">${moment(noti.created_at)
-                                .fromNow()}</small> 
+                            <small class="ms-2 me-2">${moment(
+                              noti.created_at
+                            ).fromNow()}</small> 
                            
                                <div
                                 class="icon-unread bg-brand"></div>
@@ -127,7 +132,9 @@ async function getAllNotifications() {
                     </button>
                     <ul
                         class="dropdown-menu dropdown-menu-end">
-                        <li><a role="button" class="dropdown-item ${noti.is_read && "d-none"}"
+                        <li><a role="button" class="dropdown-item ${
+                          noti.is_read && "d-none"
+                        }"
                                 onclick="markNotification(${
                                   noti.id
                                 }, this)" >Mark As Read</a></li>
@@ -145,20 +152,17 @@ async function getAllNotifications() {
            
         </div>
     </div>`;
-      
-  })
+    });
 
     document.getElementById("noti-wrapper").innerHTML = notiUnreadHtml;
     lucide.createIcons();
   } catch (error) {
-    // console.log(error);
+    console.log(error);
   }
 }
 
 let searchClicked = document.getElementById("searchEvent");
 let searchMobileClicked = document.getElementById("searchEventMobile");
-
-
 
 if (searchClicked) {
   searchClicked.addEventListener("focus", () => {
@@ -175,18 +179,22 @@ if (searchClicked) {
     document.querySelector(".overlay").style.display = "none";
     // document.querySelector('.search-dropdown').style.display = 'none';
   });
-  document.getElementById("searchEvent").addEventListener("keyup", async function () {
-    let searchEventbyName = document.getElementById("searchEvent").value;
+  document
+    .getElementById("searchEvent")
+    .addEventListener("keyup", async function () {
+      let searchEventbyName = document.getElementById("searchEvent").value;
 
-    document.getElementById("search-dropdown").style.display = "block";
-    if (searchEventbyName == "") {
-      document.querySelector(".search-dropdown").style.display = "none";
-    }
+      document.getElementById("search-dropdown").style.display = "block";
+      if (searchEventbyName == "") {
+        document.querySelector(".search-dropdown").style.display = "none";
+      }
 
-    try {
-      const {data} = await axiosInstance.get(`/events?search=${searchEventbyName}&is_published=true`);
-      const {data: events} = data;
-      let searchList = "";
+      try {
+        const { data } = await axiosInstance.get(
+          `/events?search=${searchEventbyName}&is_published=true`
+        );
+        const { data: events } = data;
+        let searchList = "";
         if (events.length == 0) {
           searchList = `<li class="search-dropdown-item">
                                 <i class="fa-solid fa-magnifying-glass text-brand fs-6 pe-2"></i>
@@ -194,22 +202,17 @@ if (searchClicked) {
                             </li>`;
         } else {
           events.slice(0, 5).forEach((element) => {
-            searchList += `<li class="search-dropdown-item" style="cursor: pointer;" onclick="goEventDetail(${
-                                                  element.id
-                                                })">
+            searchList += `<li class="search-dropdown-item" style="cursor: pointer;" onclick="goEventDetail(${element.id})">
                                   <i class="fa-solid fa-magnifying-glass text-brand fs-6 pe-2"></i>
                                   <span>${element.eng_name}</span>
                               </li>`;
           });
         }
         document.getElementById("search-dropdown").innerHTML = searchList;
-
-    } catch (error) {
-      // console.log(error);
-      
-    }
-
-  });
+      } catch (error) {
+        console.log(error);
+      }
+    });
 }
 if (searchMobileClicked) {
   searchMobileClicked.addEventListener("focus", () => {
@@ -226,18 +229,24 @@ if (searchMobileClicked) {
   //   // document.querySelector(".overlay").style.display = "none";
   //   document.getElementById('search-dropdown-mobile').style.display = 'none';
   // });
-  document.getElementById("searchEventMobile").addEventListener("keyup", async function () {
-    let searchEventbyName = document.getElementById("searchEventMobile").value;
+  document
+    .getElementById("searchEventMobile")
+    .addEventListener("keyup", async function () {
+      let searchEventbyName =
+        document.getElementById("searchEventMobile").value;
 
-    document.getElementById("search-dropdown-mobile").style.display = "block";
-    if (searchEventbyName == "") {
-      document.querySelector(".search-dropdown-mobile").style.display = "none";
-    }
+      document.getElementById("search-dropdown-mobile").style.display = "block";
+      if (searchEventbyName == "") {
+        document.querySelector(".search-dropdown-mobile").style.display =
+          "none";
+      }
 
-    try {
-      const {data} = await axiosInstance.get(`/events?search=${searchEventbyName}&is_published=true`);
-      const {data: events} = data;
-      let searchList = "";
+      try {
+        const { data } = await axiosInstance.get(
+          `/events?search=${searchEventbyName}&is_published=true`
+        );
+        const { data: events } = data;
+        let searchList = "";
         if (events.length == 0) {
           searchList = `<li class="search-dropdown-item">
                                 <i class="fa-solid fa-magnifying-glass text-brand fs-6 pe-2"></i>
@@ -245,24 +254,20 @@ if (searchMobileClicked) {
                             </li>`;
         } else {
           events.slice(0, 5).forEach((element) => {
-            searchList += `<li class="search-dropdown-item" style="cursor: pointer;" onclick="goEventDetail(${
-                                                  element.id
-                                                })">
+            searchList += `<li class="search-dropdown-item" style="cursor: pointer;" onclick="goEventDetail(${element.id})">
                                   <i class="fa-solid fa-magnifying-glass text-brand fs-6 pe-2"></i>
                                   <span>${element.eng_name}</span>
                               </li>`;
           });
         }
-        document.getElementById("search-dropdown-mobile").innerHTML = searchList;
-
-    } catch (error) {
-      // console.log(error);
-      
-    }
-
-  });
+        document.getElementById("search-dropdown-mobile").innerHTML =
+          searchList;
+      } catch (error) {
+        console.log(error);
+      }
+    });
 }
 
-function showNoti(){
+function showNoti() {
   window.location.href = "/notification";
 }

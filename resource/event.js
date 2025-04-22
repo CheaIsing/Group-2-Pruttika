@@ -1,6 +1,6 @@
-const { executeQuery }=require('../utils/dbQuery');
+const { executeQuery } = require("../utils/dbQuery");
 
-const joinEventQry=`SELECT
+const joinEventQry = `SELECT
                 te.id,
                 te.eng_name,
                 te.kh_name,
@@ -72,139 +72,154 @@ const joinEventQry=`SELECT
             LEFT JOIN tbl_wishlist tw ON tw.event_id = te.id AND tw.user_id = ?
         `;
 
-const eventCollection= async(userID,page=1, perpage=25, search='', sort='id', order='DESC', start_date = null, end_date = null,date_status=null, event_type = null, min_price = null, max_price = null, cate_ids = [],published=null,creator=null)=>{
-    try {
-        page=parseInt(page);
-        perpage=parseInt(perpage);
-        const offset=(page-1)*perpage;
-        let sqlQuery=joinEventQry+ ` WHERE (te.eng_name LIKE ? OR te.kh_name LIKE ?) `;
-    
-        //params
-        const searchPattern=`%${search}%`;
-        const filterParams=[userID,searchPattern,searchPattern];
+const eventCollection = async (
+  userID,
+  page = 1,
+  perpage = 25,
+  search = "",
+  sort = "id",
+  order = "DESC",
+  start_date = null,
+  end_date = null,
+  date_status = null,
+  event_type = null,
+  min_price = null,
+  max_price = null,
+  cate_ids = [],
+  published = null,
+  creator = null
+) => {
+  try {
+    page = parseInt(page);
+    perpage = parseInt(perpage);
+    const offset = (page - 1) * perpage;
+    let sqlQuery =
+      joinEventQry + ` WHERE (te.eng_name LIKE ? OR te.kh_name LIKE ?) `;
 
-        //filter
-        let filterQuery='';
+    //params
+    const searchPattern = `%${search}%`;
+    const filterParams = [userID, searchPattern, searchPattern];
 
-        //filter by date
-        if(start_date){
-            filterQuery += ` AND te.started_date >= ?`;
-            // params.push(start_date);
-            filterParams.push(start_date);
-        }
-        if(end_date){
-            filterQuery+= ` AND te.ended_date <= ?`;
-            filterParams.push(end_date);
-        }
+    //filter
+    let filterQuery = "";
 
-        //filter by price
-        if (min_price !== null || max_price !== null) {
-            filterQuery += ` AND te.id IN (
+    //filter by date
+    if (start_date) {
+      filterQuery += ` AND te.started_date >= ?`;
+      // params.push(start_date);
+      filterParams.push(start_date);
+    }
+    if (end_date) {
+      filterQuery += ` AND te.ended_date <= ?`;
+      filterParams.push(end_date);
+    }
+
+    //filter by price
+    if (min_price !== null || max_price !== null) {
+      filterQuery += ` AND te.id IN (
                 SELECT event_id FROM tbl_ticketevent_type WHERE 1=1
-                ${min_price !== null ? `AND price >= ?` : ''}
-                ${max_price !== null ? `AND price <= ?` : ''}
+                ${min_price !== null ? `AND price >= ?` : ""}
+                ${max_price !== null ? `AND price <= ?` : ""}
                 GROUP BY event_id
             )`;
-            if (min_price !== null) filterParams.push(min_price);
-            if (max_price !== null) filterParams.push(max_price);
-        }
+      if (min_price !== null) filterParams.push(min_price);
+      if (max_price !== null) filterParams.push(max_price);
+    }
 
-        //filter by event_type
-        if(event_type){
-            filterQuery +=` AND te.event_type = ?`;
-            filterParams.push(event_type);
-        }
+    //filter by event_type
+    if (event_type) {
+      filterQuery += ` AND te.event_type = ?`;
+      filterParams.push(event_type);
+    }
 
-        if (typeof cate_ids === 'string') {
-            try {
-                // Attempt to parse as JSON
-                cate_ids = JSON.parse(cate_ids);
-            } catch (error) {
-                // console.error('Error parsing cate_ids:', error);
-                cate_ids = []; // Fallback to an empty array
-            }
-        }
+    if (typeof cate_ids === "string") {
+      try {
+        // Attempt to parse as JSON
+        cate_ids = JSON.parse(cate_ids);
+      } catch (error) {
+        // console.error('Error parsing cate_ids:', error);
+        cate_ids = []; // Fallback to an empty array
+      }
+    }
 
-        // Filter by category
-        if (Array.isArray(cate_ids) && cate_ids.length > 0) {
-            const placeholders = cate_ids.map(() => '?').join(', ');
-            // console.log(placeholders);
-            filterQuery += ` AND te.id IN (
+    // Filter by category
+    if (Array.isArray(cate_ids) && cate_ids.length > 0) {
+      const placeholders = cate_ids.map(() => "?").join(", ");
+      console.log(placeholders);
+      filterQuery += ` AND te.id IN (
                 SELECT tec.event_id 
                 FROM tbl_event_category tec 
                 WHERE tec.category_id IN (${placeholders})
                 GROUP BY tec.event_id
             )`;
-            filterParams.push(...cate_ids);
-        }
+      filterParams.push(...cate_ids);
+    }
 
-        if(published=="true"){
-            filterQuery +=` AND te.is_published = 2 `;
-        }
+    if (published == "true") {
+      filterQuery += ` AND te.is_published = 2 `;
+    }
 
-        if(creator){
-            filterQuery +=` AND te.creator_id = ?`;
-            filterParams.push(creator);
-        }
+    if (creator) {
+      filterQuery += ` AND te.creator_id = ?`;
+      filterParams.push(creator);
+    }
 
-        if(date_status){
-            if(date_status==1){
-                filterQuery +=` AND te.ended_date < CURDATE()`;
-            }
-            else if(date_status==2){
-                filterQuery +=` AND te.started_date <= CURDATE() AND te.ended_date >= CURDATE()
+    if (date_status) {
+      if (date_status == 1) {
+        filterQuery += ` AND te.ended_date < CURDATE()`;
+      } else if (date_status == 2) {
+        filterQuery += ` AND te.started_date <= CURDATE() AND te.ended_date >= CURDATE()
 `;
-            }
-            else{
-                filterQuery +=` AND te.started_date > CURDATE()`;
-            }
-        }
+      } else {
+        filterQuery += ` AND te.started_date > CURDATE()`;
+      }
+    }
 
-        sqlQuery+=filterQuery; //combine filter query
-        sqlQuery+=` GROUP BY te.id
+    sqlQuery += filterQuery; //combine filter query
+    sqlQuery += ` GROUP BY te.id
                     ORDER BY te.${sort} ${order}
                     LIMIT ? OFFSET ?;`;
 
-        const params=[...filterParams];
-        params.push(perpage,offset);
+    const params = [...filterParams];
+    params.push(perpage, offset);
 
-        //get all data event
-        const result=await executeQuery(sqlQuery,params);
-        // console.log(sqlQuery);
-        // console.log(params);
-        const arrEvents=[];
-        for(let i=0;i<result.length;i++){
-            const eventData=result[i];
-            const event={
-                id:eventData.id,
-                eng_name:eventData.eng_name,
-                kh_name:eventData.kh_name,
-                short_description:eventData.short_description,
-                thumbnail: eventData.thumbnail,
-                started_date : eventData.started_date,
-                ended_date: eventData.ended_date,
-                start_time: eventData.start_time,
-                end_time: eventData.end_time,
-                location: eventData.location,
-                event_type : eventData.event_type==1 ? "online":"offline",
-                event_categories: eventCategories(eventData),
-                event_tickets:eventTicket(eventData),
-                qr_img:eventData.qr_img,
-                creator:{
-                    id:eventData.creator_id,
-                    name:eventData.organization_name,
-                    avatar:eventData.avatar
-                },
-                is_published: eventData.is_published==1? false:true,
-                is_Wishlist: eventData.user_id ? true : false,
-                created_at: eventData.created_at,
-                updated_at: eventData.updated_at
-            }
-            arrEvents.push(event);
-        }
+    //get all data event
+    const result = await executeQuery(sqlQuery, params);
+    console.log(sqlQuery);
+    console.log(params);
+    const arrEvents = [];
+    for (let i = 0; i < result.length; i++) {
+      const eventData = result[i];
+      const event = {
+        id: eventData.id,
+        eng_name: eventData.eng_name,
+        kh_name: eventData.kh_name,
+        short_description: eventData.short_description,
+        thumbnail: eventData.thumbnail,
+        started_date: eventData.started_date,
+        ended_date: eventData.ended_date,
+        start_time: eventData.start_time,
+        end_time: eventData.end_time,
+        location: eventData.location,
+        event_type: eventData.event_type == 1 ? "online" : "offline",
+        event_categories: eventCategories(eventData),
+        event_tickets: eventTicket(eventData),
+        qr_img: eventData.qr_img,
+        creator: {
+          id: eventData.creator_id,
+          name: eventData.organization_name,
+          avatar: eventData.avatar,
+        },
+        is_published: eventData.is_published == 1 ? false : true,
+        is_Wishlist: eventData.user_id ? true : false,
+        created_at: eventData.created_at,
+        updated_at: eventData.updated_at,
+      };
+      arrEvents.push(event);
+    }
 
-        //totalpage
-        let countQueryStr=`SELECT COUNT(DISTINCT te.id) as total FROM tbl_event te
+    //totalpage
+    let countQueryStr = `SELECT COUNT(DISTINCT te.id) as total FROM tbl_event te
                             LEFT JOIN tbl_organizer tor ON tor.user_id = te.creator_id
                             LEFT JOIN tbl_event_category tec ON te.id = tec.event_id
                             LEFT JOIN tbl_category tc ON tc.id = tec.category_id
@@ -220,124 +235,146 @@ const eventCollection= async(userID,page=1, perpage=25, search='', sort='id', or
                             ) ticket_info ON te.id = ticket_info.event_id
                             LEFT JOIN tbl_wishlist tw ON tw.event_id = te.id AND tw.user_id = ? 
                             WHERE (te.eng_name LIKE ? OR te.kh_name LIKE ?)`;
-        countQueryStr+=filterQuery;
+    countQueryStr += filterQuery;
 
-        const countQuery=await executeQuery(countQueryStr,filterParams);
-        const totalPage=Math.ceil(countQuery[0].total/perpage); 
+    const countQuery = await executeQuery(countQueryStr, filterParams);
+    const totalPage = Math.ceil(countQuery[0].total / perpage);
 
-        const eventObj={
-            rows:arrEvents,
-            paginate:{
-                total: countQuery[0].total,
-                perpage: perpage,
-                current_page: page,
-                total_page: totalPage
-            }
-        }        
-        return eventObj;
-    } catch (error) {
-        // console.log(error);
-        // throw error;
-    }
-}
+    const eventObj = {
+      rows: arrEvents,
+      paginate: {
+        total: countQuery[0].total,
+        perpage: perpage,
+        current_page: page,
+        total_page: totalPage,
+      },
+    };
+    return eventObj;
+  } catch (error) {
+    console.log(error);
+    // throw error;
+  }
+};
 
-const eventDetail=async(user_id,id)=>{
-    const sqlQuery=joinEventQry+ ` WHERE te.id=? `;
-    const data=await executeQuery(sqlQuery,[user_id,id]);
-    
-    if(!data[0] || !data[0].id){
-        // console.log('error');
-        return null;
-    }
-    const eventData=data[0];
+const eventDetail = async (user_id, id) => {
+  const sqlQuery = joinEventQry + ` WHERE te.id=? `;
+  const data = await executeQuery(sqlQuery, [user_id, id]);
 
-    const event={
-        id:eventData.id,
-        eng_name:eventData.eng_name,
-        kh_name:eventData.kh_name,
-        short_description:eventData.short_description,
-        description:eventData.description,
-        thumbnail: eventData.thumbnail,
-        started_date : eventData.started_date,
-        ended_date: eventData.ended_date,
-        start_time: eventData.start_time,
-        end_time: eventData.end_time,
-        location: eventData.location,
-        event_type : eventData.event_type==1 ? "online":"offline",
-        event_categories: eventCategories(eventData),
-        event_agenda: eventAgenda(eventData),
-        event_tickets:eventTicket(eventData),
-        qr_img:eventData.qr_img,
-        creator:{
-            id:eventData.creator_id,
-            name:eventData.organization_name,
-            avatar:eventData.avatar
-        },
-        is_published: eventData.is_published==1? false:true,
-        is_Wishlist: eventData.user_id ? true : false,
-        created_at: eventData.created_at,
-        updated_at: eventData.updated_at
-    }
-    return event;
-}
+  if (!data[0] || !data[0].id) {
+    console.log("error");
+    return null;
+  }
+  const eventData = data[0];
 
-const eventCategories=(eventData)=>{
-    const categoryIds = eventData.category_ids ? eventData.category_ids.split(',') : [];
-    const categoryNames = eventData.category_names ? eventData.category_names.split(',') : [];
-    const categories = [];
+  const event = {
+    id: eventData.id,
+    eng_name: eventData.eng_name,
+    kh_name: eventData.kh_name,
+    short_description: eventData.short_description,
+    description: eventData.description,
+    thumbnail: eventData.thumbnail,
+    started_date: eventData.started_date,
+    ended_date: eventData.ended_date,
+    start_time: eventData.start_time,
+    end_time: eventData.end_time,
+    location: eventData.location,
+    event_type: eventData.event_type == 1 ? "online" : "offline",
+    event_categories: eventCategories(eventData),
+    event_agenda: eventAgenda(eventData),
+    event_tickets: eventTicket(eventData),
+    qr_img: eventData.qr_img,
+    creator: {
+      id: eventData.creator_id,
+      name: eventData.organization_name,
+      avatar: eventData.avatar,
+    },
+    is_published: eventData.is_published == 1 ? false : true,
+    is_Wishlist: eventData.user_id ? true : false,
+    created_at: eventData.created_at,
+    updated_at: eventData.updated_at,
+  };
+  return event;
+};
 
-    for (let j = 0; j < categoryIds.length; j++) {
-        categories.push({
-            id: Number(categoryIds[j]),
-            name: categoryNames[j]
-        });
-    }
-    return categories;
-}
+const eventCategories = (eventData) => {
+  const categoryIds = eventData.category_ids
+    ? eventData.category_ids.split(",")
+    : [];
+  const categoryNames = eventData.category_names
+    ? eventData.category_names.split(",")
+    : [];
+  const categories = [];
 
-const eventAgenda=(eventData)=>{
-    const agendaIds = eventData.agenda_id ? eventData.agenda_id.split(',') : [];
-    const agendaTitle = eventData.agenda_title ? eventData.agenda_title.split(',') : [];
-    const agendaDescription = eventData.agenda_description ? eventData.agenda_description.split(',') : [];
-    const agendaStart_time = eventData.agenda_start_time ? eventData.agenda_start_time.split(',') : [];
-    const agendaEnd_time = eventData.agenda_end_time ? eventData.agenda_end_time.split(',') : [];
-    const agenda = [];
+  for (let j = 0; j < categoryIds.length; j++) {
+    categories.push({
+      id: Number(categoryIds[j]),
+      name: categoryNames[j],
+    });
+  }
+  return categories;
+};
 
-    for (let i = 0; i < agendaIds.length; i++) {
-        agenda.push({
-            id: agendaIds[i],
-            title: agendaTitle[i],
-            agendaDescription: agendaDescription[i],
-            agendaStart_time: agendaStart_time[i],
-            agendaEnd_time: agendaEnd_time[i]
-        });
-    }
-    return agenda;
-}
+const eventAgenda = (eventData) => {
+  const agendaIds = eventData.agenda_id ? eventData.agenda_id.split(",") : [];
+  const agendaTitle = eventData.agenda_title
+    ? eventData.agenda_title.split(",")
+    : [];
+  const agendaDescription = eventData.agenda_description
+    ? eventData.agenda_description.split(",")
+    : [];
+  const agendaStart_time = eventData.agenda_start_time
+    ? eventData.agenda_start_time.split(",")
+    : [];
+  const agendaEnd_time = eventData.agenda_end_time
+    ? eventData.agenda_end_time.split(",")
+    : [];
+  const agenda = [];
 
-const eventTicket=(eventData)=>{
-    const ticketIds = eventData.ticket_type_id ? eventData.ticket_type_id.split(',') : [];
-    const ticketNames = eventData.ticket_type_names ? eventData.ticket_type_names.split(',') : [];
-    const ticketPrice = eventData.ticket_price ? eventData.ticket_price.split(',') : [];
-    const ticketOpacity = eventData.ticket_opacity ? eventData.ticket_opacity.split(',') : [];
-    const ticketBought = eventData.ticket_bought ? eventData.ticket_bought.split(',') : [];
-    const tickets = [];
+  for (let i = 0; i < agendaIds.length; i++) {
+    agenda.push({
+      id: agendaIds[i],
+      title: agendaTitle[i],
+      agendaDescription: agendaDescription[i],
+      agendaStart_time: agendaStart_time[i],
+      agendaEnd_time: agendaEnd_time[i],
+    });
+  }
+  return agenda;
+};
 
-    for (let k = 0; k < ticketIds.length; k++) {
-        tickets.push({
-            id: Number(ticketIds[k]),
-            type: ticketNames[k],
-            price: parseFloat(ticketPrice[k]),
-            ticket_opacity: Number(ticketOpacity[k]),
-            ticket_bought: Number(ticketBought[k])
-        });
-    }
-    return tickets;
-}
+const eventTicket = (eventData) => {
+  const ticketIds = eventData.ticket_type_id
+    ? eventData.ticket_type_id.split(",")
+    : [];
+  const ticketNames = eventData.ticket_type_names
+    ? eventData.ticket_type_names.split(",")
+    : [];
+  const ticketPrice = eventData.ticket_price
+    ? eventData.ticket_price.split(",")
+    : [];
+  const ticketOpacity = eventData.ticket_opacity
+    ? eventData.ticket_opacity.split(",")
+    : [];
+  const ticketBought = eventData.ticket_bought
+    ? eventData.ticket_bought.split(",")
+    : [];
+  const tickets = [];
 
-module.exports={
-    eventCollection,
-    eventDetail,
-    eventCategories,
-    eventTicket
-}
+  for (let k = 0; k < ticketIds.length; k++) {
+    tickets.push({
+      id: Number(ticketIds[k]),
+      type: ticketNames[k],
+      price: parseFloat(ticketPrice[k]),
+      ticket_opacity: Number(ticketOpacity[k]),
+      ticket_bought: Number(ticketBought[k]),
+    });
+  }
+  return tickets;
+};
+
+module.exports = {
+  eventCollection,
+  eventDetail,
+  eventCategories,
+  eventTicket,
+};

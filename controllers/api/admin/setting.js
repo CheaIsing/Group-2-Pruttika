@@ -5,7 +5,6 @@ const bcrypt = require("bcrypt");
 const moment = require("moment");
 const fs = require("fs");
 
-
 const defaultAvatar = "default.jpg";
 
 const chnageOwnInfo = async (req, res) => {
@@ -87,14 +86,14 @@ const changePassword = async (req, res) => {
 
     const storedHashedPass = data[0].password;
     const isMatch = await bcrypt.compare(oldPass, storedHashedPass);
-    // console.log(isMatch);
-    
+    console.log(isMatch);
+
     if (!isMatch) {
-     return sendResponse(res, 401, false, "Old password is incorrect.");
+      return sendResponse(res, 401, false, "Old password is incorrect.");
     }
 
     if (newPass !== passConfirm) {
-     return sendResponse(res, 401, false, "Password do not match.");
+      return sendResponse(res, 401, false, "Password do not match.");
     }
 
     const newHashedPass = await bcrypt.hash(newPass, 10);
@@ -105,7 +104,7 @@ const changePassword = async (req, res) => {
 
     sendResponse(res, 200, true, "Updated password successfully");
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     handleResponseError(res, error);
   }
 };

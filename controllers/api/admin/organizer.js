@@ -1,11 +1,14 @@
-const { emitOrganizerApprovalNotification, emitOrganizerRejectionNotification } = require("../../../socket/socketHelper");
+const {
+  emitOrganizerApprovalNotification,
+  emitOrganizerRejectionNotification,
+} = require("../../../socket/socketHelper");
 const { executeQuery } = require("../../../utils/dbQuery");
 const { handleResponseError } = require("../../../utils/handleError");
 const { sendResponse } = require("../../../utils/response");
 
 const displayRequestOrganizer = async (req, res) => {
   try {
-    const { status=null, search } = req.query;
+    const { status = null, search } = req.query;
     let {
       page = 1,
       per_page = 50,
@@ -72,10 +75,9 @@ const displayRequestOrganizer = async (req, res) => {
   }
 };
 
-
 const displayAllOrganizer = async (req, res) => {
   try {
-    const { status=null, search=null } = req.query;
+    const { status = null, search = null } = req.query;
     let {
       page = 1,
       per_page = 50,
@@ -147,7 +149,6 @@ const displayAllOrganizer = async (req, res) => {
   }
 };
 
-
 const getRequestOrganizerDetails = async (req, res) => {
   const id = req.params.id;
 
@@ -161,7 +162,7 @@ const getRequestOrganizerDetails = async (req, res) => {
 
     sendResponse(res, 200, true, "Display request organizer details", data[0]);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     sendResponse(res, error);
   }
 };
@@ -179,7 +180,7 @@ const getOrganizerDetails = async (req, res) => {
 
     sendResponse(res, 200, true, "Display organizer details", data[0]);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     sendResponse(res, error);
   }
 };
@@ -275,7 +276,7 @@ const editOrganizer = async (req, res) => {
 
     sendResponse(res, 200, true, "Organizer updated successfully.");
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     handleResponseError(res, error);
   }
 };
@@ -291,19 +292,18 @@ const removeOrganizer = async (req, res) => {
       return sendResponse(res, 404, false, "Organizer not found.");
     }
 
-
     const deleteQuery = "DELETE FROM tbl_organizer WHERE id = ?";
     await executeQuery(deleteQuery, [id]);
 
-    const updateStatus = "Update tbl_users set role = 1 where id = ?"
+    const updateStatus = "Update tbl_users set role = 1 where id = ?";
     await executeQuery(updateStatus, [data[0].user_id]);
 
-    const deleteReq = "DELETE FROM tbl_organizer_req where user_id = ?"
+    const deleteReq = "DELETE FROM tbl_organizer_req where user_id = ?";
     await executeQuery(deleteReq, [data[0].user_id]);
 
     sendResponse(res, 200, true, "Remove organizer sucessfully.");
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     handleResponseError(res, error);
   }
 };
@@ -382,7 +382,7 @@ const adminApproval = async (req, res) => {
     ];
     await executeQuery(sqlInsertNotification, paramsNotification);
 
-    const io = req.app.get('io');
+    const io = req.app.get("io");
     emitOrganizerApprovalNotification(io, user.user_id, requestId);
 
     sendResponse(
@@ -443,8 +443,13 @@ const adminRejection = async (req, res) => {
     ];
     await executeQuery(sqlInsertNotification, paramsNotification);
 
-    const io = req.app.get('io');
-    emitOrganizerRejectionNotification(io, user_id, requestId, rejection_reason);
+    const io = req.app.get("io");
+    emitOrganizerRejectionNotification(
+      io,
+      user_id,
+      requestId,
+      rejection_reason
+    );
 
     sendResponse(res, 200, true, "Request rejected successfully.");
   } catch (error) {
