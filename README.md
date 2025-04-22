@@ -17,4 +17,7 @@ Features:
 7. Wishlist 
 8. Following/ Follower
 9. Filtering events
-10.English / Khmer Language Support
+10. English / Khmer Language Support
+
+Technologies Used:
+HTML, CSS, BOOTSTRAP, JAVASCRIPT, NODEJS, EXPRESS, MYSQL
