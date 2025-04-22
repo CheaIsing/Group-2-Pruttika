@@ -4,8 +4,8 @@ const { sendResponse } = require("../../utils/response");
 const { use } = require("i18next");
 
 const followUser = async (req, res) => {
-  const followerId = req.user.id; 
-  const followeeId = req.params.id; 
+  const followerId = req.user.id;
+  const followeeId = req.params.id;
 
   try {
     if (followerId == followeeId) {
@@ -40,7 +40,7 @@ const followUser = async (req, res) => {
 };
 
 const unfollowUser = async (req, res) => {
-  const followerId = req.user.id; 
+  const followerId = req.user.id;
   const followeeId = req.params.id;
 
   try {
@@ -54,13 +54,13 @@ const unfollowUser = async (req, res) => {
 
     sendResponse(res, 200, true, "User unfollowed successfully.");
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     handleResponseError(res, error);
   }
 };
 
 const removeFollower = async (req, res) => {
-  const followeeId = req.user.id; 
+  const followeeId = req.user.id;
   const followerId = req.params.id;
 
   try {
@@ -72,9 +72,14 @@ const removeFollower = async (req, res) => {
       return sendResponse(res, 400, false, "This user is not follow you");
     }
 
-    sendResponse(res, 200, true, "Remove this user from follower successfully.");
+    sendResponse(
+      res,
+      200,
+      true,
+      "Remove this user from follower successfully."
+    );
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     handleResponseError(res, error);
   }
 };
@@ -89,28 +94,28 @@ const getFollowers = async (req, res) => {
       INNER JOIN tbl_users u ON f.follower_id = u.id
       LEFT JOIN tbl_organizer tor ON u.id=tor.user_id
       WHERE f.followee_id = ? AND f.follower_id != ?
-    `; 
+    `;
 
     const followers = await executeQuery(query, [userId, userId]);
-    const role={
-      1:"Guest",
-      2:"Organizer",
-      3:"Admin"
-    }
+    const role = {
+      1: "Guest",
+      2: "Organizer",
+      3: "Admin",
+    };
 
-    const followerList=[];
-    followers.forEach(item => {
+    const followerList = [];
+    followers.forEach((item) => {
       followerList.push({
-        id:item.id,
-        name:item.user_name,
+        id: item.id,
+        name: item.user_name,
         email: item.email,
         avatar: item.avatar,
         role: role[item.role],
-        organizer:{
+        organizer: {
           name: item.organization_name,
-          business_email:item.business_email
-        }
-      })
+          business_email: item.business_email,
+        },
+      });
     });
 
     sendResponse(
@@ -121,7 +126,7 @@ const getFollowers = async (req, res) => {
       followerList
     );
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     handleResponseError(res, error);
   }
 };
@@ -135,7 +140,7 @@ const getFollowing = async (req, res) => {
       FROM tbl_follower f
       INNER JOIN tbl_users u ON f.followee_id = u.id
       LEFT JOIN tbl_organizer tor ON u.id=tor.user_id
-      WHERE f.follower_id = ? AND f.followee_id != ?`; 
+      WHERE f.follower_id = ? AND f.followee_id != ?`;
 
     const following = await executeQuery(query, [userId, userId]);
 
@@ -143,25 +148,25 @@ const getFollowing = async (req, res) => {
     //   return sendResponse(res, 404, false, "You are not following anyone.");
     // }
 
-    const role={
-      1:"Guest",
-      2:"Organizer",
-      3:"Admin"
-    }
+    const role = {
+      1: "Guest",
+      2: "Organizer",
+      3: "Admin",
+    };
 
-    const followingList=[];
-    following.forEach(item => {
+    const followingList = [];
+    following.forEach((item) => {
       followingList.push({
-        id:item.followee_id,
-        name:item.user_name,
+        id: item.followee_id,
+        name: item.user_name,
         email: item.email,
         avatar: item.avatar,
         role: role[item.role],
-        organizer:{
+        organizer: {
           name: item.organization_name,
-          business_email :item.business_email
-        }
-      })
+          business_email: item.business_email,
+        },
+      });
     });
 
     sendResponse(
@@ -172,7 +177,7 @@ const getFollowing = async (req, res) => {
       followingList
     );
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     handleResponseError(res, error);
   }
 };

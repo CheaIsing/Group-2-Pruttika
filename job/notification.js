@@ -1,11 +1,11 @@
-const schedule = require('node-schedule');
-const {executeQuery} = require('../utils/dbQuery'); 
+const schedule = require("node-schedule");
+const { executeQuery } = require("../utils/dbQuery");
 // const io = require('../app').get('io');
 
-const { emitNotificationForReminder } = require('../socket/socketHelper');
+const { emitNotificationForReminder } = require("../socket/socketHelper");
 
 const deleteNotification = async () => {
-    console.log("Scheduled job running..."); // Add this line
+  console.log("Scheduled job running..."); // Add this line
   const queryDelete = `
     DELETE FROM tbl_notification
     WHERE created_at < NOW() - INTERVAL 3 DAY`;
@@ -17,7 +17,6 @@ const deleteNotification = async () => {
     // console.error("Error Remove notifications:", error);
   }
 };
-
 
 // const sendEventReminders = async () => {
 //     console.log("Event reminder job running...");
@@ -40,7 +39,7 @@ const deleteNotification = async () => {
 //                     WHERE t.event_id = ? AND t.status = 2  -- Use status 2 for approved transactions
 //                 `;
 //                 const buyers = await executeQuery(buyersQuery, [event.event_id]);
-    
+
 //                 if(buyers.length > 0){
 //                     for (const buyer of buyers) {
 //                         // Insert notification into tbl_notification
@@ -48,9 +47,9 @@ const deleteNotification = async () => {
 //                             INSERT INTO tbl_notification (event_id, receiver_id, type_id, sender_id, eng_message, kh_message)
 //                             VALUES (?, ?, ?, ?, ?, ?)
 //                         `;
-        
+
 //                         let engMessage, khMessage;
-        
+
 //                         if (event.event_type === 1) { // Online event
 //                             engMessage = `Reminder: The online event ${event.eng_name} is starting tomorrow!`;
 //                             khMessage = `ការរំលឹក: ព្រឹត្តិការណ៍អនឡាញ ${event.eng_name} នឹងចាប់ផ្តើមនៅថ្ងៃស្អែក!`;
@@ -62,25 +61,21 @@ const deleteNotification = async () => {
 //                             console.error("Unknown event type:", event.event_type);
 //                             continue; // Skip to the next buyer
 //                         }
-        
+
 //                         await executeQuery(insertQuery, [event.event_id, buyer.buyer_id, 6,1, engMessage, khMessage]);
 //                         // const io = require('../socket/socket');
-//                         // console.log(io);
-                        
-        
+//                            console.log(io);
+
 //                         // Emit notification through Socket.IO
 //                         emitNotificationForReminder(io, buyer.buyer_id, event.event_id, engMessage, khMessage, 6);
-        
+
 //                         // Delay before sending the next notification (adjust as needed)
 //                         await new Promise(resolve => setTimeout(resolve, 2000)); // 100ms delay
 //                     }
 //                 }
-    
-                
+
 //             }
 //         }
-
-        
 
 //         console.log("Event reminders sent successfully.");
 
@@ -93,9 +88,10 @@ const deleteNotification = async () => {
 // schedule.scheduleJob('33 12 * * *', sendEventReminders);
 
 // Schedule the job to run every day at midnight
-schedule.scheduleJob('0 0 * * *', deleteNotification);
+schedule.scheduleJob("0 0 * * *", deleteNotification);
 
-
-// console.log('Scheduled job to delete old notifications set to run every day at 12:00 AM.');
+console.log(
+  "Scheduled job to delete old notifications set to run every day at 12:00 AM."
+);
 
 module.exports = { deleteNotification };

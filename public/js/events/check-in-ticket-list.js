@@ -22,23 +22,28 @@ async function success(result) {
   if (!scanningEnabled) return;
 
   try {
-      scanningEnabled = false;
-      await axiosInstance.put("/events/check-in/", { ticketToken: result });
+    scanningEnabled = false;
+    await axiosInstance.put("/events/check-in/", { ticketToken: result });
 
-      showToast(true, getText("checkInSuccess"));
-      getCheckInTicketList();
+    showToast(true, getText("checkInSuccess"));
+    getCheckInTicketList();
 
-      setTimeout(() => {
-          scanningEnabled = true;
-      }, 3000);
-
+    setTimeout(() => {
+      scanningEnabled = true;
+    }, 3000);
   } catch (error) {
-      console.log(error);
-      if (!(error.response && error.response.data && typeof error.response.data === "object")) {
-          return showToast();
-      } else {
-          showToast(false, getText(error.response.data.message));
-      }
+    console.log(error);
+    if (
+      !(
+        error.response &&
+        error.response.data &&
+        typeof error.response.data === "object"
+      )
+    ) {
+      return showToast();
+    } else {
+      showToast(false, getText(error.response.data.message));
+    }
   }
 }
 
@@ -46,11 +51,9 @@ async function success(result) {
 //     console.error(err);
 // }
 
-
-
 async function getCheckInTicketList(page = 1, perpage = 25) {
   let queryParams = new URLSearchParams();
-  // console.log(queryParams);
+  console.log(queryParams);
   queryParams.append("page", page);
   queryParams.append("per_page", perpage);
 
@@ -62,7 +65,7 @@ async function getCheckInTicketList(page = 1, perpage = 25) {
     );
     const { data: event } = await axiosInstance.get(`/events/${eventId}`);
 
-    // console.log(event);
+    console.log(event);
     const formattedDate = `${moment(event.data.started_date).format(
       "MMM D, YYYY"
     )} - ${moment(event.data.ended_date).format("MMM D, YYYY")}, ${moment(
@@ -73,7 +76,7 @@ async function getCheckInTicketList(page = 1, perpage = 25) {
     document.getElementById("title").innerText = event.data.eng_name;
     document.getElementById("ev-date").innerText = formattedDate;
     const { data: json } = data;
-    // console.log(data);
+    console.log(data);
 
     if (json.length == 0) {
       return (document.getElementById(
@@ -103,7 +106,7 @@ async function getCheckInTicketList(page = 1, perpage = 25) {
     // renderPagination(paginate)
   } catch (error) {
     showToast();
-    // console.log(error);
+    console.log(error);
   }
 }
 
@@ -209,7 +212,7 @@ document.getElementById("btn-checked-in").onclick = async () => {
     disapproveModal.hide();
     showToast(true, getText("checkInSuccess"));
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     if (
       !(
         error.response &&

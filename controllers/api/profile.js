@@ -23,7 +23,7 @@ const getAllProfile = async (req, res) => {
 
     sendResponse(res, 200, true, "Display all users profile.", data);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     handleResponseError(res, error);
   }
 };
@@ -331,7 +331,7 @@ const deactivateAccount = async (req, res) => {
 
     sendResponse(res, 200, true, "User deactivated successfully.");
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     handleResponseError(res, error);
   }
 };
@@ -406,7 +406,7 @@ const getProfileById = async (req, res) => {
       dataUser
     );
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     handleResponseError(res, error);
   }
 };

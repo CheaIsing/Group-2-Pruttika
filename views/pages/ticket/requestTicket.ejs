@@ -1,137 +1,146 @@
 <!DOCTYPE html>
-<html lang="<%= lang %>" >
+<html lang="<%= lang %>">
 
-<%- include("../../partials/head.ejs")  %>
+  <%- include("../../partials/head.ejs") %>
 
-<body>
-  <div class="container py-5">
-    <h2 class="fw-bold"><%= t('ticket.myTicket.title') %></h2>
+  <body>
+    <div class="container py-5">
+      <h2 class="fw-bold"><%= t('ticket.myTicket.title') %></h2>
 
-    <!-- Navigation Links -->
-    <div class="d-flex mb-4">
-      <a class="nav-link fw-bold nav-underline fs-5 me-3" href="#"><%= t('ticket.myTicket.all-ticket') %></a>
-      <a class="nav-link fw-bold nav-underline text-brand fs-5" href="#"><%= t('ticket.req-ticket.title') %></a>
-    </div>
+      <!-- Navigation Links -->
+      <div class="d-flex mb-4">
+        <a class="nav-link fw-bold nav-underline fs-5 me-3" href="#"><%=
+          t('ticket.myTicket.all-ticket') %></a>
+        <a class="nav-link fw-bold nav-underline text-brand fs-5" href="#"><%=
+          t('ticket.req-ticket.title') %></a>
+      </div>
 
-   <div class="col-2 mb-3">
-      <select id="ticketType" class="form-select custom-select">
+      <div class="col-2 mb-3">
+        <select id="ticketType" class="form-select custom-select">
           <option value="all"><%= t('ticket.myTicket.all') %></option>
           <option value="aproved"><%= t('ticket.myTicket.approve') %></option>
           <option value="pending"><%= t('ticket.myTicket.pending') %></option>
           <option value="rejected"><%= t('ticket.myTicket.reject') %></option>
-      </select>
-  </div>
+        </select>
+      </div>
 
-    <!-- Tickets Table -->
-    <table class="table table-borderless align-middle">
-      <thead>
-        <tr class="border-bottom">
-          <th scope="col"><%= t('ticket.req-ticket.event') %></th>
-          <th scope="col"><%= t('ticket.req-ticket.status') %></th>
-          <th scope="col"><%= t('ticket.req-ticket.purchase-date') %></th>
-          <th scope="col"><%= t('ticket.req-ticket.qty') %></th>
-          <th scope="col"><%= t('ticket.req-ticket.total') %></th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <!-- Event Card -->
-            <div class="d-flex align-items-start">
-              <img class="event-card-img me-3 rounded" src="/img/Eco-Action.jpg" alt="Event Image"
-                style="width: 150px; height: 100px; object-fit: cover;">
-              <div>
-                <div class="event-title fw-bold fs-5">Computer Science</div>
-                <p class="type_event text-muted mb-1">Online event</p>
-                <p class="schedule text-muted mb-0">Saturday, February 22, 2025 at CKCC</p>
+      <!-- Tickets Table -->
+      <table class="table table-borderless align-middle">
+        <thead>
+          <tr class="border-bottom">
+            <th scope="col"><%= t('ticket.req-ticket.event') %></th>
+            <th scope="col"><%= t('ticket.req-ticket.status') %></th>
+            <th scope="col"><%= t('ticket.req-ticket.purchase-date') %></th>
+            <th scope="col"><%= t('ticket.req-ticket.qty') %></th>
+            <th scope="col"><%= t('ticket.req-ticket.total') %></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <!-- Event Card -->
+              <div class="d-flex align-items-start">
+                <img class="event-card-img me-3 rounded"
+                  src="/img/Eco-Action.jpg" alt="Event Image"
+                  style="width: 150px; height: 100px; object-fit: cover;">
+                <div>
+                  <div class="event-title fw-bold fs-5">Computer Science</div>
+                  <p class="type_event text-muted mb-1">Online event</p>
+                  <p class="schedule text-muted mb-0">Saturday, February 22,
+                    2025 at CKCC</p>
+                </div>
               </div>
-            </div>
-          </td>
-          <td>
-            <span class="badge p-3 bg-success">Used</span>
-          </td>
-          <td>
-            <p class="mb-0">17, February, 2025</p>
-          </td>
-          <td>
-            <p class="mb-0">1</p>
-          </td>
-          <td>
-            <p class="mb-0">$10.00</p>
-          </td>
-          <td>
+            </td>
+            <td>
+              <span class="badge p-3 bg-success">Used</span>
+            </td>
+            <td>
+              <p class="mb-0">17, February, 2025</p>
+            </td>
+            <td>
+              <p class="mb-0">1</p>
+            </td>
+            <td>
+              <p class="mb-0">$10.00</p>
+            </td>
+            <td>
 
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-brand" data-bs-toggle="modal" data-bs-target="#exampleModal">
-              <%= t('ticket.req-ticket.view-tts') %>
-            </button>
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-brand" data-bs-toggle="modal"
+                data-bs-target="#exampleModal">
+                <%= t('ticket.req-ticket.view-tts') %>
+              </button>
 
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-              aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header border-bottom-0">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">
-                      <img src="/img/Prutika_Logo_text(2).png" alt="" style="width: 150px;">
-                    </h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <h4 class="text-center fw-bold"><%= t('ticket.req-ticket.view-ticket') %> <span class="text-brand"><%= t('ticket.req-ticket.transaction') %> </span></h4>
-                    <div class="line-dash m-3"></div>
-                    <div
-                      class="row"
-                    >
-                      <div class="col-12 col-md-6">
-                       <h5> <%= t('ticket.req-ticket.view-detail') %></h5>
-                      <div class="text-start">
-                        <p>Status : aproved</p>
-                        <p>Ticket Bought : 1</p>
-                        <p>Price Per Ticket : $10.00</p>
-                        <p>Total:$10.00</p>
-                      </div>
-                      </div>
-                      <div class="col-12 col-md-6">
-                        <h5>Transaction File</h5>
-                        <div class="transection-img">
-                          <img src="/img/payment.jpg" alt="">
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModal" tabindex="-1"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header border-bottom-0">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">
+                        <img src="/img/Prutika_Logo_text(2).png" alt
+                          style="width: 150px;">
+                      </h1>
+                      <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <h4 class="text-center fw-bold"><%=
+                        t('ticket.req-ticket.view-ticket') %> <span
+                          class="text-brand"><%=
+                          t('ticket.req-ticket.transaction') %> </span></h4>
+                      <div class="line-dash m-3"></div>
+                      <div
+                        class="row">
+                        <div class="col-12 col-md-6">
+                          <h5> <%= t('ticket.req-ticket.view-detail') %></h5>
+                          <div class="text-start">
+                            <p>Status : aproved</p>
+                            <p>Ticket Bought : 1</p>
+                            <p>Price Per Ticket : $10.00</p>
+                            <p>Total:$10.00</p>
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <h5>Transaction File</h5>
+                          <div class="transection-img">
+                            <img src="/img/payment.jpg" alt>
+
+                          </div>
 
                         </div>
-
                       </div>
+
                     </div>
-                  
                   </div>
                 </div>
               </div>
-            </div>
-          </td>
-        </tr>
+            </td>
+          </tr>
 
-      </tbody>
+        </tbody>
 
-    </table>
-  </div>
-<%- include("../../partials/script.ejs")  %>
-<script>
+      </table>
+    </div>
+    <%- include("../../partials/script.ejs") %>
+    <script>
   async function getRequestTicket() {
     try {
       const {data} = await axiosInstance.get("/profile/own-request-ticket")
       const {data: json} = data
 
-      // console.log(json);
+         console.log(json);
       
     } catch (error) {
-      // console.log(error);
+         console.log(error);
       
     }
   }
   getRequestTicket()
 </script>
 
-</body>
-
+  </body>
 
 </html>

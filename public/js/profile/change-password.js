@@ -42,7 +42,7 @@ const fieldsKh = [
     isInvalidClass: "is_invalid",
   },
   {
-    name: isEnglish ? "must match":"ត្រូវតែត្រួតពិនិត្យគ្នា",
+    name: isEnglish ? "must match" : "ត្រូវតែត្រួតពិនិត្យគ្នា",
     id: "input-field-confirm-new-password",
     textErrorElement: "#invalid_feedback_confirm_new_password div",
     isInvalidClass: "is_invalid",
@@ -82,18 +82,29 @@ frm.addEventListener(
     if (!isValid) return;
 
     try {
-      // console.log(formData);
+      console.log(formData);
       btnShowLoading("btnChangePassword");
 
       await axiosInstance.put("/profile/pass", formData);
 
-      showToast(true, isEnglish ? "Change Password Successfully.": "ផ្លាស់ប្តូរពាក្យសម្ងាត់ដោយជោគជ័យ");
+      showToast(
+        true,
+        isEnglish
+          ? "Change Password Successfully."
+          : "ផ្លាស់ប្តូរពាក្យសម្ងាត់ដោយជោគជ័យ"
+      );
 
       clearInput();
     } catch (error) {
-      // console.log(error);
+      console.log(error);
 
-      if (!(error.response && error.response.data &&  typeof error.response.data == "object")) {
+      if (
+        !(
+          error.response &&
+          error.response.data &&
+          typeof error.response.data == "object"
+        )
+      ) {
         return showToast();
       }
 
@@ -103,7 +114,10 @@ frm.addEventListener(
 
       handleErrorMessages(errorMessages, fields);
     } finally {
-      btnCloseLoading("btnChangePassword", isEnglish ? "Change Password" : "ផ្លាស់ប្តូរពាក្យសម្ងាត់");
+      btnCloseLoading(
+        "btnChangePassword",
+        isEnglish ? "Change Password" : "ផ្លាស់ប្តូរពាក្យសម្ងាត់"
+      );
     }
   }
 

@@ -4,7 +4,7 @@ const { sendResponse } = require("../../../utils/response");
 
 const viewEvent = async (req, res) => {
   try {
-    const { category_id=null, search=null } = req.query;
+    const { category_id = null, search = null } = req.query;
     let {
       page = 1,
       per_page = 50,
@@ -142,7 +142,7 @@ const viewEventDetail = async (req, res) => {
 
     sendResponse(res, 200, true, "Display event detail", eventDetail);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     handleResponseError(res, error);
   }
 };
@@ -183,11 +183,11 @@ const viewAllEventCategory = async (req, res) => {
     const total = countResult[0]?.total || 0;
     const totalPages = Math.ceil(total / perPageNum);
 
-     query += ` ORDER BY ${sort_col} ${sortDirection} LIMIT ? OFFSET ?`;
+    query += ` ORDER BY ${sort_col} ${sortDirection} LIMIT ? OFFSET ?`;
     queryParams.push(perPageNum, (pageNum - 1) * perPageNum);
 
-    // console.log(query);
-    
+    console.log(query);
+
     const data = await executeQuery(query, queryParams);
 
     // if (data.length === 0) {
@@ -209,7 +209,6 @@ const viewAllEventCategory = async (req, res) => {
   }
 };
 
-
 const viewEventCategoryById = async (req, res) => {
   const id = req.params.id;
 
@@ -230,7 +229,7 @@ const viewEventCategoryById = async (req, res) => {
       data
     );
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     handleResponseError(res, error);
   }
 };
@@ -243,7 +242,7 @@ const createEventCategory = async (req, res) => {
     await executeQuery(query, [name]);
     sendResponse(res, 200, true, "Created category successfully");
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     handleResponseError(res, error);
   }
 };
@@ -267,7 +266,7 @@ const updateEventCategory = async (req, res) => {
 
     sendResponse(res, 200, true, "Updated event category sucessfully.");
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     handleResponseError(res, error);
   }
 };
@@ -295,7 +294,7 @@ const deleteEventCategory = async (req, res) => {
       `Delete event category with id : ${id} successfully.`
     );
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     handleResponseError(res, error);
   }
 };

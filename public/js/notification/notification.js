@@ -3,11 +3,10 @@ async function getAllNotifications() {
   try {
     const { data } = await axiosInstance.get("/notification");
     const { data: json } = data;
-    // console.log(json);
+    console.log(json);
 
     let notiHtml = "";
     let notiUnreadHtml = "";
-    
 
     const notisUnread = [];
 
@@ -15,8 +14,16 @@ async function getAllNotifications() {
 
     if (json.length > 0) {
       json.forEach((noti) => {
-        const title = isEnglish ? noti.eng_title : (noti.kh_title ? noti.kh_title : noti.eng_title);
-        const message = isEnglish ? noti.eng_message : (noti.kh_message ? noti.kh_message : noti.eng_message);;
+        const title = isEnglish
+          ? noti.eng_title
+          : noti.kh_title
+          ? noti.kh_title
+          : noti.eng_title;
+        const message = isEnglish
+          ? noti.eng_message
+          : noti.kh_message
+          ? noti.kh_message
+          : noti.eng_message;
 
         let status = "";
         switch (noti.type.type_id) {
@@ -59,7 +66,9 @@ async function getAllNotifications() {
                     
           <div class="notification mb-3 py-3 rounded-3 d-flex align-items-start noti-hover" >
               <!-- <div class="line-style-noti me-3"></div> -->
-              <div class="d-flex align-items-start justify-content-between w-100" onclick='showNotificationDetail(${JSON.stringify(noti)})'>
+              <div class="d-flex align-items-start justify-content-between w-100" onclick='showNotificationDetail(${JSON.stringify(
+                noti
+              )})'>
                   <div class="d-flex">
                       <div class="me-2">
                           ${status}
@@ -81,8 +90,9 @@ async function getAllNotifications() {
                               <i
                                   data-lucide="clock"
                                   style="stroke-width: 1.25; width: 1.25rem;" class=""></i>
-                              <div class="ms-2 me-3">${moment(noti.created_at)
-                                .fromNow()}</div> 
+                              <div class="ms-2 me-3">${moment(
+                                noti.created_at
+                              ).fromNow()}</div> 
                               ${
                                 noti.is_read
                                   ? ""
@@ -132,7 +142,9 @@ async function getAllNotifications() {
         notiHtml += `<div class="col-12">
                                   <div class="notification mb-3 py-3 rounded-3 d-flex align-items-start noti-hover">
                                       <!-- <div class="line-style-noti me-3"></div> -->
-                                      <div class="d-flex align-items-start justify-content-between w-100" onclick='showNotificationDetail(${JSON.stringify(noti)})'>
+                                      <div class="d-flex align-items-start justify-content-between w-100" onclick='showNotificationDetail(${JSON.stringify(
+                                        noti
+                                      )})'>
                                           <div class="d-flex">
                                               <div class="me-2">
                                                   ${status}
@@ -154,8 +166,9 @@ async function getAllNotifications() {
                                                       <i
                                                           data-lucide="clock"
                                                           style="stroke-width: 1.25; width: 1.25rem;" class=""></i>
-                                                      <div class="ms-2 me-3">${moment(noti.created_at)
-                                .fromNow()}</div> 
+                                                      <div class="ms-2 me-3">${moment(
+                                                        noti.created_at
+                                                      ).fromNow()}</div> 
                                                       ${
                                                         noti.is_read
                                                           ? ""
@@ -220,7 +233,7 @@ async function getAllNotifications() {
       document.getElementById("pills-home-tab").classList.remove("active");
       document.getElementById("pills-profile-tab").classList.add("active");
     } else {
-      document.getElementById("btnMarkAll").classList.add("opacity-0")
+      document.getElementById("btnMarkAll").classList.add("opacity-0");
       document.getElementById("pills-home").classList.add("show", "active");
       document
         .getElementById("pills-profile")
@@ -238,7 +251,7 @@ async function getAllNotifications() {
       notiUnreadHtml;
     lucide.createIcons();
   } catch (error) {
-    // console.log(error);
+    console.log(error);
   }
 }
 getAllNotifications();
@@ -246,12 +259,17 @@ getAllNotifications();
 document.getElementById("btnMarkAll").addEventListener("click", async (e) => {
   try {
     await axiosInstance.put("/notification/read");
-    showToast(true, isEnglish ? "Marked all notification successfully." : "សម្គាល់ការជូនដំណឹងទាំងអស់ដោយជោគជ័យ");
+    showToast(
+      true,
+      isEnglish
+        ? "Marked all notification successfully."
+        : "សម្គាល់ការជូនដំណឹងទាំងអស់ដោយជោគជ័យ"
+    );
     document.querySelectorAll(".icon-unread").forEach((btn) => {
       btn.remove();
     });
   } catch (error) {
-    // console.log(error);
+    console.log(error);
 
     showToast();
   }
@@ -260,13 +278,18 @@ document.getElementById("btnMarkAll").addEventListener("click", async (e) => {
 async function deleteNotification(id, btn) {
   try {
     await axiosInstance.delete("/notification/" + id);
-    showToast(true, isEnglish ? "Notification deleted successfully.": "ការជូនដំណឹងត្រូវបានលុបដោយជោគជ័យ");
+    showToast(
+      true,
+      isEnglish
+        ? "Notification deleted successfully."
+        : "ការជូនដំណឹងត្រូវបានលុបដោយជោគជ័យ"
+    );
     const notification = btn.closest(".notification");
     if (notification && notification.parentElement) {
       notification.parentElement.remove();
     }
   } catch (error) {
-    // console.log(error);
+    console.log(error);
 
     showToast();
   }
@@ -280,11 +303,11 @@ async function markNotification(id, btn) {
     if (unread) {
       unread.remove();
     }
-    document.getElementById(
-      "notiUnreadCount"
-    ).innerText = `(${notiUnreadCount - 1})`;
+    document.getElementById("notiUnreadCount").innerText = `(${
+      notiUnreadCount - 1
+    })`;
   } catch (error) {
-    // console.log(error);
+    console.log(error);
 
     showToast();
   }
@@ -309,52 +332,66 @@ async function updateEventLink(id, btn) {
   }
   try {
     btn.disabled = true;
-  btn.innerHTML = `<div class="spinner-border" role="status">
+    btn.innerHTML = `<div class="spinner-border" role="status">
                   <span class="visually-hidden">Loading...</span>
                 </div>`;
     const result = await axiosInstance.post("/notification/set-link/" + id, {
       event_link: link,
     });
-    // console.log(result);
-    // console.log(id);
-    
-    // console.log(link);
-    
-    
-    showToast(true, isEnglish ? "Event online has sent to attendees successfully.": "Event online បានផ្ញើទៅកាន់អ្នកចូលរួមដោយជោគជ័យ");
+    console.log(result);
+    console.log(id);
+
+    console.log(link);
+
+    showToast(
+      true,
+      isEnglish
+        ? "Event online has sent to attendees successfully."
+        : "Event online បានផ្ញើទៅកាន់អ្នកចូលរួមដោយជោគជ័យ"
+    );
   } catch (error) {
-    // console.log(error);
-    if(error.response && error.response.data && error.response.data.message ){
-      return showToast(false, error.response.data.message)
+    console.log(error);
+    if (error.response && error.response.data && error.response.data.message) {
+      return showToast(false, error.response.data.message);
     }
     showToast();
-  }finally{
+  } finally {
     btn.disabled = false;
-    btn.innerHTML = isEnglish ?"Send":"ផ្ងេី";
+    btn.innerHTML = isEnglish ? "Send" : "ផ្ងេី";
   }
 }
 async function showNotificationDetail(noti) {
   try {
-    // console.log(noti);
+    console.log(noti);
     let status = "";
-    let link = ""
+    let link = "";
     switch (noti.type.type_id) {
       case 1:
       case 2: {
-        link = `<p><a href="/ticket/my-ticket" class="link text-brand ">${isEnglish ? "Go to My Ticket":"ចូលទៅកាន់សំបុត្ររបស់ខ្ញុំ"}</a></p>`
+        link = `<p><a href="/ticket/my-ticket" class="link text-brand ">${
+          isEnglish ? "Go to My Ticket" : "ចូលទៅកាន់សំបុត្ររបស់ខ្ញុំ"
+        }</a></p>`;
         break;
       }
 
       case 3:
       case 4: {
-        link = `<p><a href="/profile/organizer-view" class="link text-brand ">${isEnglish ? "Go to Organizer Setting":"ចូលទៅកាន់ការកំណត់អ្នករៀបចំ"}</a></p>`
+        link = `<p><a href="/profile/organizer-view" class="link text-brand ">${
+          isEnglish ? "Go to Organizer Setting" : "ចូលទៅកាន់ការកំណត់អ្នករៀបចំ"
+        }</a></p>`;
         break;
       }
 
-      case 5: 
+      case 5:
       case 6:
-      case 7:{
-        link = `<p><a href="/event/detail?e=${noti.event.id}" class="link text-brand ">${isEnglish ? "Go to Event Detail":"ចូលទៅកាន់ព័ត៌មានលម្អិតអំពីព្រឹត្តិការណ៍"}</a></p>`
+      case 7: {
+        link = `<p><a href="/event/detail?e=${
+          noti.event.id
+        }" class="link text-brand ">${
+          isEnglish
+            ? "Go to Event Detail"
+            : "ចូលទៅកាន់ព័ត៌មានលម្អិតអំពីព្រឹត្តិការណ៍"
+        }</a></p>`;
       }
     }
     switch (noti.type.type_id) {
@@ -366,7 +403,7 @@ async function showNotificationDetail(noti) {
                                       <i data-lucide="check"
                                           style="width: 1rem;height: 1rem;"></i>
                                   </div>`;
-        
+
         break;
       }
       case 2:
@@ -378,7 +415,7 @@ async function showNotificationDetail(noti) {
                                           style="width: 1rem;height: 1rem;"></i>
                                   </div>
                   `;
-                  
+
         break;
       }
       default: {
@@ -393,7 +430,7 @@ async function showNotificationDetail(noti) {
     }
 
     // return
-    
+
     // Fetch API to mark notification as read
     // await axiosInstance.put(`/notification/read/${notiId}`, { is_read: true });
 
@@ -402,11 +439,15 @@ async function showNotificationDetail(noti) {
     <div class="modal-header d-flex justify-content-between mb-3">
                       <div class="d-flex align-items-center">
                           ${status}
-                          <h5 class="modal-title mb-0 ms-2" style="font-size: 1rem;" id="notificationModalLabel">${isEnglish ? noti.eng_title : noti.kh_title}</h5>
+                          <h5 class="modal-title mb-0 ms-2" style="font-size: 1rem;" id="notificationModalLabel">${
+                            isEnglish ? noti.eng_title : noti.kh_title
+                          }</h5>
                       </div>
                       
                       <div class="d-flex align-items-center">
-                          <small class="mt-1">${moment(noti.created_at).format('lll')}</small>
+                          <small class="mt-1">${moment(noti.created_at).format(
+                            "lll"
+                          )}</small>
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
             
@@ -414,7 +455,9 @@ async function showNotificationDetail(noti) {
     <div class="ticket-notification">
     
                             <div class="notif-content">
-                                <p>${isEnglish ? noti.eng_message : noti.kh_message}</p>
+                                <p>${
+                                  isEnglish ? noti.eng_message : noti.kh_message
+                                }</p>
                                 <!-- Online Link -->
                           <div class="my-3 d-flex ${
                             noti.type.type_id != 7 && "d-none"
@@ -436,7 +479,11 @@ async function showNotificationDetail(noti) {
                                       id="invalid_feedback_confirm_new_password">
                                       <i
                                         class="bi bi-exclamation-triangle-fill d-flex align-items-center"></i>
-                                      <div class="ms-2">${isEnglish ? "Invalid Url Link.":"តំណមិនត្រឹមត្រូវ"}</div>
+                                      <div class="ms-2">${
+                                        isEnglish
+                                          ? "Invalid Url Link."
+                                          : "តំណមិនត្រឹមត្រូវ"
+                                      }</div>
                                     </div>
                                     
                                   </div>
@@ -444,18 +491,30 @@ async function showNotificationDetail(noti) {
                                   
                                       <button onclick="updateEventLink(${
                                         noti.event.id
-                                      }, this)" style="height: 40px !important;border-right: 0 !important; border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important;" type="button" class="btn btn-brand fw-normal">${isEnglish ? "Send":"ផ្ញើ"}</button>
+                                      }, this)" style="height: 40px !important;border-right: 0 !important; border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important;" type="button" class="btn btn-brand fw-normal">${
+      isEnglish ? "Send" : "ផ្ញើ"
+    }</button>
                                   
                               </div>
                                 ${link}
                             </div>
-                            <div class="notif-footer ${(noti.type.type_id == 3 || noti.type.type_id == 4) && "d-none"}">
+                            <div class="notif-footer ${
+                              (noti.type.type_id == 3 ||
+                                noti.type.type_id == 4) &&
+                              "d-none"
+                            }">
                                 <div class="user-info">
 
-                                    <img src="/uploads/${noti.sender.avatar != null ? noti.sender.avatar : "default.jpg"}" alt="User Profile" class="rounded-circle border-brand-sm">
+                                    <img src="/uploads/${
+                                      noti.sender.avatar != null
+                                        ? noti.sender.avatar
+                                        : "default.jpg"
+                                    }" alt="User Profile" class="rounded-circle border-brand-sm">
 
                                     <div>
-                                        <h6 class="mb-1">${noti.sender.eng_name}</h6>
+                                        <h6 class="mb-1">${
+                                          noti.sender.eng_name
+                                        }</h6>
                                         Event Organizer
                                     </div>
                                 </div>
@@ -463,18 +522,18 @@ async function showNotificationDetail(noti) {
                                     Event: ${noti.event.eng_name}
                                 </div>
                             </div>
-                        </div>`
-                        lucide.createIcons();
+                        </div>`;
+    lucide.createIcons();
     // Show the modal
-    const modal = new bootstrap.Modal(document.getElementById('notificationModal'));
+    const modal = new bootstrap.Modal(
+      document.getElementById("notificationModal")
+    );
     modal.show();
 
+    console.log(document.getElementById(`noti-read-${noti.id}`));
 
-
-    // console.log(document.getElementById(`noti-read-${noti.id}`));
-    
-    if(document.getElementById(`noti-read-${noti.id}`)){
-      await axiosInstance.put("/notification/read/"+noti.id)
+    if (document.getElementById(`noti-read-${noti.id}`)) {
+      await axiosInstance.put("/notification/read/" + noti.id);
       document.getElementById(`noti-read-${noti.id}`).remove();
     }
   } catch (error) {

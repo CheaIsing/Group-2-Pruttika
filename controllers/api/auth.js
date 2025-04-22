@@ -57,7 +57,7 @@ const postSignUp = async (req, res) => {
 
     sendResponse(res, 201, true, "User created successfully");
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     handleResponseError(res, error);
   }
 };

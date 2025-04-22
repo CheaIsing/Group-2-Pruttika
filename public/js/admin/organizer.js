@@ -6,8 +6,8 @@
 //   timeout: 10000,
 //   withCredentials: true,
 // });
-let currentPage1 = 1
-let currentPage2 = 1
+let currentPage1 = 1;
+let currentPage2 = 1;
 // Fetch Request Organizers
 async function fetchRequestOrganizers(
   status = "",
@@ -18,18 +18,31 @@ async function fetchRequestOrganizers(
   sortDir = "asc"
 ) {
   try {
-    const statuss = document.getElementById("status").value
+    const statuss = document.getElementById("status").value;
     const response = await axiosInstance.get("/admin/organizer/request", {
-      params: { page, per_page: perPage, sort_col: sortCol, sort_dir: sortDir, status : (status? status : statuss), search },
+      params: {
+        page,
+        per_page: perPage,
+        sort_col: sortCol,
+        sort_dir: sortDir,
+        status: status ? status : statuss,
+        search,
+      },
     });
 
     const result = response.data.data.data;
     const totalPages = response.data.data.pagination.total_pages;
     currentPage1 = response.data.data.pagination.current_page;
-    // console.log(result);
+    console.log(result);
 
     displayRequestOrganizer(result);
-    updatePagination(page, totalPages, perPage, "paginationRequestOrganizer", fetchRequestOrganizers);
+    updatePagination(
+      page,
+      totalPages,
+      perPage,
+      "paginationRequestOrganizer",
+      fetchRequestOrganizers
+    );
   } catch (error) {
     // console.error("Error fetching request organizers:", error);
   }
@@ -45,7 +58,14 @@ async function fetchOrganizers(
 ) {
   try {
     const response = await axiosInstance.get("/admin/organizer/all", {
-      params: { page, per_page: perPage, sort_col: sortCol, sort_dir: sortDir, status, search },
+      params: {
+        page,
+        per_page: perPage,
+        sort_col: sortCol,
+        sort_dir: sortDir,
+        status,
+        search,
+      },
     });
 
     const result = response.data.data.data;
@@ -55,7 +75,13 @@ async function fetchOrganizers(
     // if (!result || result.length === 0) throw new Error("No organizers found.");
 
     displayOrganizers(result);
-    updatePagination(page, totalPages, perPage, "paginationOrganizer", fetchOrganizers);
+    updatePagination(
+      page,
+      totalPages,
+      perPage,
+      "paginationOrganizer",
+      fetchOrganizers
+    );
   } catch (error) {
     // console.error("Error fetching organizers:", error);
   }
@@ -87,7 +113,13 @@ function updatePagination(currentPage, totalPages, perPage, id, fetchFunction) {
     return pageItem;
   }
 
-  paginationContainer.appendChild(createPageButton(currentPage - 1, `<i class="fa-solid fa-chevron-left"></i>`, currentPage === 1));
+  paginationContainer.appendChild(
+    createPageButton(
+      currentPage - 1,
+      `<i class="fa-solid fa-chevron-left"></i>`,
+      currentPage === 1
+    )
+  );
 
   for (let i = 1; i <= totalPages; i++) {
     let pageItem = createPageButton(i, i, currentPage === i);
@@ -95,12 +127,18 @@ function updatePagination(currentPage, totalPages, perPage, id, fetchFunction) {
     paginationContainer.appendChild(pageItem);
   }
 
-  paginationContainer.appendChild(createPageButton(currentPage + 1, `<i class="fa-solid fa-chevron-right"></i>`, currentPage === totalPages));
+  paginationContainer.appendChild(
+    createPageButton(
+      currentPage + 1,
+      `<i class="fa-solid fa-chevron-right"></i>`,
+      currentPage === totalPages
+    )
+  );
 }
 
 window.addEventListener("load", function () {
   const urlParams = new URLSearchParams(window.location.search);
-  
+
   let pageRequest = parseInt(urlParams.get("pageRequest")) || 1;
   let perPageRequest = parseInt(urlParams.get("per_pageRequest")) || 5;
   let pageOrganizer = parseInt(urlParams.get("pageOrganizer")) || 1;
@@ -109,8 +147,6 @@ window.addEventListener("load", function () {
   fetchRequestOrganizers("", "", pageRequest, perPageRequest);
   fetchOrganizers("", "", pageOrganizer, perPageOrganizer);
 });
-
-
 
 async function fetchRequestOrganizerDetail(id) {
   const detailContainer = document.getElementById("requestDetailContent");
@@ -221,15 +257,15 @@ async function fetchOrganizerDetail(id) {
 
 function displayRequestOrganizer(organizers) {
   const tableBody = document.getElementById("requestOrganizerTableBody");
-  // console.log(organizers);
+  console.log(organizers);
 
-  if(organizers.length ==0){
-    return tableBody.innerHTML = `
+  if (organizers.length == 0) {
+    return (tableBody.innerHTML = `
     <tr>
     <td colspan="7" class="text-center">No Request Organizer Found</td>
-    </tr>`
+    </tr>`);
   }
-  
+
   tableBody.innerHTML = organizers
     .map(
       (organizer, i) => `
@@ -256,7 +292,7 @@ function displayRequestOrganizer(organizers) {
           <td>
               <div class="d-flex gap-1">
     ${
-        organizer.status === 1
+      organizer.status === 1
         ? `
             <button type="button" class="btn btn-primary  py-1 px-2 btn-icon " style="height: auto !important;border-radius: 4px;" 
                     data-bs-placement="top" title="View details" 
@@ -289,20 +325,18 @@ function displayRequestOrganizer(organizers) {
       </tr>`
     )
     .join("");
-
-
 }
 
 function displayOrganizers(organizers) {
   const tableBody = document.getElementById("organizerTableBody");
-  if(organizers.length ==0){
-    return tableBody.innerHTML = `
+  if (organizers.length == 0) {
+    return (tableBody.innerHTML = `
     <tr>
     <td colspan="7" class="text-center">No Organizer Found</td>
-    </tr>`
+    </tr>`);
   }
   tableBody.innerHTML = organizers
-  .map(
+    .map(
       (organizer, i) => `
             <tr>
                 <td>${(currentPage2 - 1) * 5 + (i + 1)}</td>
@@ -434,7 +468,6 @@ async function adminRejection(id) {
         });
         fetchRequestOrganizers();
       } else {
-
         // console.error(
         //   "Rejection failed:",
         //   response.data.message || "Unknown error"
@@ -467,54 +500,71 @@ async function editOrganizer(organizerId) {
       `/admin/organizer/details/${organizerId}`
     );
     const organizer = response.data.data;
-    // console.log(organizer);
-    
+    console.log(organizer);
 
     editContainer.innerHTML = `
       <form id="editOrganizerForm">
         <div class="mb-3 row">
           <div class="col-12">
             <label for="editName" class="form-label">Organization Name</label>
-            <input type="text" id="editName" class="form-control" value="${organizer.organization_name}">
+            <input type="text" id="editName" class="form-control" value="${
+              organizer.organization_name
+            }">
           </div>
           <div class="col-12">
             <label for="editBio" class="form-label">Bio</label>
-            <input type="text" id="editBio" class="form-control" value="${organizer.bio ? organizer.bio : ""}">
+            <input type="text" id="editBio" class="form-control" value="${
+              organizer.bio ? organizer.bio : ""
+            }">
           </div>
         </div>
         <div class="mb-3 row">
           <div class="col-6">
             <label for="editEmail" class="form-label">Email</label>
-            <input type="email" id="editEmail" class="form-control" value="${organizer.business_email}">
+            <input type="email" id="editEmail" class="form-control" value="${
+              organizer.business_email
+            }">
           </div>
           <div class="col-6">
             <label for="editPhone" class="form-label">Phone</label>
-            <input type="text" id="editPhone" class="form-control" value="${organizer.business_phone}">
+            <input type="text" id="editPhone" class="form-control" value="${
+              organizer.business_phone
+            }">
           </div>
         </div>
         <div class="mb-3 row">
           <div class="col-6">
             <label for="editFb" class="form-label">Facebook</label>
-            <input type="text" id="editFb" class="form-control" value="${organizer.facebook}">
+            <input type="text" id="editFb" class="form-control" value="${
+              organizer.facebook
+            }">
           </div>
           <div class="col-6">
             <label for="editTg" class="form-label">Telegram</label>
-            <input type="text" id="editTg" class="form-control" value="${organizer.telegram ? organizer.telegram  : ""}">
+            <input type="text" id="editTg" class="form-control" value="${
+              organizer.telegram ? organizer.telegram : ""
+            }">
           </div>
         </div>
         <div class="mb-3 row">
           <div class="col-6">
             <label for="editTt" class="form-label">Tiktok</label>
-            <input type="text" id="editTt" class="form-control" value="${organizer.tiktok ? organizer.tiktok:""}">
+            <input type="text" id="editTt" class="form-control" value="${
+              organizer.tiktok ? organizer.tiktok : ""
+            }">
           </div>
           <div class="col-6">
             <label for="editLl" class="form-label">Linkin</label>
-            <input type="text" id="editLl" class="form-control" value="${organizer.linkin ? organizer.linkin : ""}">
+            <input type="text" id="editLl" class="form-control" value="${
+              organizer.linkin ? organizer.linkin : ""
+            }">
           </div>
         </div>
         <div class="mb-3">
           <label for="editAddress" class="form-label">Location</label>
-          <input type="text" id="editAddress" class="form-control" value="${organizer.location ? organizer.location : ""}">
+          <input type="text" id="editAddress" class="form-control" value="${
+            organizer.location ? organizer.location : ""
+          }">
         </div>
         <div class="text-end">
           <button type="submit" class="btn btn-primary">Update Organizer</button>
@@ -528,8 +578,8 @@ async function editOrganizer(organizerId) {
         event.preventDefault();
 
         const email = document.getElementById("editEmail").value;
-      const phone = document.getElementById("editPhone").value;
-      const name = document.getElementById("editName").value;
+        const phone = document.getElementById("editPhone").value;
+        const name = document.getElementById("editName").value;
         const facebook = document.getElementById("editFb").value;
         const address = document.getElementById("editAddress").value;
 
@@ -558,28 +608,27 @@ async function editOrganizer(organizerId) {
           });
         }
 
+        // Validate email
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+          return Swal.fire({
+            icon: "error",
+            title: "Invalid Email",
+            text: "Please enter a valid email address.",
+            confirmButtonText: "OK",
+          });
+        }
 
-      // Validate email
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailPattern.test(email)) {
-        return Swal.fire({
-          icon: "error",
-          title: "Invalid Email",
-          text: "Please enter a valid email address.",
-          confirmButtonText: "OK",
-        });
-      }
-
-      // Validate phone number (basic validation)
-      const phonePattern = /^\d{9,10}$/; // Adjust the pattern as needed
-      if (!phonePattern.test(phone)) {
-        return Swal.fire({
-          icon: "error",
-          title: "Invalid Phone Number",
-          text: "Please enter a valid phone number (9-10 digits).",
-          confirmButtonText: "OK",
-        });
-      }
+        // Validate phone number (basic validation)
+        const phonePattern = /^\d{9,10}$/; // Adjust the pattern as needed
+        if (!phonePattern.test(phone)) {
+          return Swal.fire({
+            icon: "error",
+            title: "Invalid Phone Number",
+            text: "Please enter a valid phone number (9-10 digits).",
+            confirmButtonText: "OK",
+          });
+        }
 
         const updatedOrganizer = {
           organization_name: document.getElementById("editName").value,
@@ -626,7 +675,9 @@ async function editOrganizer(organizerId) {
           Swal.fire({
             icon: "error",
             title: "Error",
-            text: "An error occurred while updating the organizer. "+ error?.response?.data?.message,
+            text:
+              "An error occurred while updating the organizer. " +
+              error?.response?.data?.message,
             confirmButtonText: "OK",
           });
         }

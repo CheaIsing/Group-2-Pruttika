@@ -11,7 +11,7 @@ document.getElementById("searchInput").addEventListener("input", async () => {
 
 async function getRequestTicketList(page = 1, perpage = 25) {
   let queryParams = new URLSearchParams();
-  // console.log(queryParams);
+  console.log(queryParams);
   queryParams.append("page", page);
   queryParams.append("per_page", perpage);
   queryParams.append("event_id", eventId);
@@ -28,14 +28,14 @@ async function getRequestTicketList(page = 1, perpage = 25) {
   document.getElementById("request-tbody").innerHTML = "";
 
   try {
-    // console.log(queryParams.toString());
+    console.log(queryParams.toString());
 
     const { data } = await axiosInstance.get(
       `/tickets/request-ticket?${queryParams.toString()}`
     );
     const { data: event } = await axiosInstance.get(`/events/${eventId}`);
 
-    // console.log(event);
+    console.log(event);
     const formattedDate = `${moment(event.data.started_date).format(
       "MMM D, YYYY"
     )} - ${moment(event.data.ended_date).format("MMM D, YYYY")}, ${moment(
@@ -46,10 +46,10 @@ async function getRequestTicketList(page = 1, perpage = 25) {
     document.getElementById("title").innerText = event.data.eng_name;
     document.getElementById("ev-date").innerText = formattedDate;
     const { data: json, paginate } = data;
-    // console.log(data);
+    console.log(data);
 
     if (json.length == 0) {
-      document.getElementById("request-tbody").innerHTML = ""
+      document.getElementById("request-tbody").innerHTML = "";
       document.getElementById(
         "request-tbody"
       ).innerHTML = `<tr><td colspan="9"><div class="text-center w-100 my-5">
@@ -61,8 +61,8 @@ async function getRequestTicketList(page = 1, perpage = 25) {
       return;
     }
 
-    // console.log(json);
-    document.getElementById("request-tbody").innerHTML = ''
+    console.log(json);
+    document.getElementById("request-tbody").innerHTML = "";
 
     json.forEach((r, i) => {
       let statusClass = "";
@@ -109,7 +109,7 @@ async function getRequestTicketList(page = 1, perpage = 25) {
     renderPagination(paginate);
   } catch (error) {
     showToast();
-    // console.log(error);
+    console.log(error);
   }
 }
 

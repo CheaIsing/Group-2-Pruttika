@@ -2,15 +2,12 @@ const userEmail = sessionStorage.getItem("email");
 const userOtp = sessionStorage.getItem("otp");
 const isVerifiedOtp = sessionStorage.getItem("isVerifiedOtp");
 let isSubmit = false;
-let btnText = document.getElementById("btnResetPass").innerText
+let btnText = document.getElementById("btnResetPass").innerText;
 
 if (userEmail && userOtp) {
-  if(isVerifiedOtp == "true"){
-    showToast(
-      true,
-      getText("msgReset")
-    );
-    sessionStorage.removeItem('isVerifiedOtp')
+  if (isVerifiedOtp == "true") {
+    showToast(true, getText("msgReset"));
+    sessionStorage.removeItem("isVerifiedOtp");
   }
 
   const resetPasswordForm = document.getElementById("reset-password-form");
@@ -48,8 +45,7 @@ if (userEmail && userOtp) {
       id: "input-field-confirm-new-password",
       textErrorElement: "#invalid_feedback_confirm_new_password div",
       isInvalidClass: "is_invalid",
-    }
-
+    },
   ];
 
   resetPasswordForm.addEventListener(
@@ -85,9 +81,9 @@ if (userEmail && userOtp) {
       if (!isValid) return;
 
       try {
-        // console.log(formData);
-        btnShowLoading("btnResetPass")
-        
+        console.log(formData);
+        btnShowLoading("btnResetPass");
+
         await axiosInstance.post("/auth/reset-password", formData);
         sessionStorage.removeItem("otp");
         sessionStorage.removeItem("email");
@@ -96,7 +92,13 @@ if (userEmail && userOtp) {
       } catch (error) {
         console.log(error);
 
-        if (!(error.response && error.response.data &&  typeof error.response.data == "object")) {
+        if (
+          !(
+            error.response &&
+            error.response.data &&
+            typeof error.response.data == "object"
+          )
+        ) {
           return showToast();
         }
 
@@ -105,7 +107,7 @@ if (userEmail && userOtp) {
         const errorMessages = Array.isArray(messages) ? messages : [messages];
 
         handleErrorMessages(errorMessages, fields);
-      }finally{
+      } finally {
         btnCloseLoading("btnResetPass", btnText);
       }
     }
@@ -116,9 +118,15 @@ if (userEmail && userOtp) {
   const frmData = {
     newPassword: formData.confirmNewPassword,
     confirmNewPassword: formData.newPassword,
-  }
+  };
 
-  handleFieldChange("newPassword", "newPassword", frmData, vResetPass, fieldsKh);
+  handleFieldChange(
+    "newPassword",
+    "newPassword",
+    frmData,
+    vResetPass,
+    fieldsKh
+  );
   handleFieldChange(
     "confirmNewPassword",
     "confirmNewPassword",

@@ -1,12 +1,22 @@
-const { executeQuery }=require('../utils/dbQuery');
+const { executeQuery } = require("../utils/dbQuery");
 
-const reqTicketCollection=async(userId,event_id=null,ticket_type_id=null,req_status=null,page=1, perpage=25, sort='id', order='ASC', search='')=>{
-    try {
-        page=parseInt(page);
-        perpage=parseInt(perpage);
-        const offset=(page-1)*perpage;
+const reqTicketCollection = async (
+  userId,
+  event_id = null,
+  ticket_type_id = null,
+  req_status = null,
+  page = 1,
+  perpage = 25,
+  sort = "id",
+  order = "ASC",
+  search = ""
+) => {
+  try {
+    page = parseInt(page);
+    perpage = parseInt(perpage);
+    const offset = (page - 1) * perpage;
 
-        let sqlGetReq=`SELECT 
+    let sqlGetReq = `SELECT 
                 tts.id AS transaction_id,
                 tts.event_id,
                 te.event_type,
@@ -31,94 +41,101 @@ const reqTicketCollection=async(userId,event_id=null,ticket_type_id=null,req_sta
             LEFT JOIN tbl_users tu ON tu.id= tts.buyer_id
             WHERE te.creator_id=? AND tu.eng_name LIKE ? 
         `;
-        const searchPattern=`%${search}%`;
-        let filterQry='';
-        const filterParam=[userId,searchPattern];
-        if(event_id){
-            filterQry +=` AND te.id=?`;
-            filterParam.push(event_id);
-        }
-        if(ticket_type_id){
-            filterQry +=` AND tts.ticket_event_id=?`;
-            filterParam.push(ticket_type_id);
-        }
-        if(req_status){
-            filterQry +=` AND tts.status=? `;
-            filterParam.push(req_status);
-        }
-        
-        sqlGetReq+=filterQry;
-        sqlGetReq+=` ORDER BY tts.${sort} ${order}
-                    LIMIT ? OFFSET ?;`
+    const searchPattern = `%${search}%`;
+    let filterQry = "";
+    const filterParam = [userId, searchPattern];
+    if (event_id) {
+      filterQry += ` AND te.id=?`;
+      filterParam.push(event_id);
+    }
+    if (ticket_type_id) {
+      filterQry += ` AND tts.ticket_event_id=?`;
+      filterParam.push(ticket_type_id);
+    }
+    if (req_status) {
+      filterQry += ` AND tts.status=? `;
+      filterParam.push(req_status);
+    }
 
-        const params=[...filterParam];
-        params.push(perpage,offset);
+    sqlGetReq += filterQry;
+    sqlGetReq += ` ORDER BY tts.${sort} ${order}
+                    LIMIT ? OFFSET ?;`;
 
-        const result=await executeQuery(sqlGetReq,params);
-        const data=[];
-        const status={
-            1:"Pending",
-            2:"Approved",
-            3:"Rejected"
-        }
+    const params = [...filterParam];
+    params.push(perpage, offset);
 
-        for(i=0;i<result.length ; i++){
-            const item=result[i];
-            data.push({
-                transaction_id : item.transaction_id,
-                event_id : item.event_id,
-                event_type : item.event_type,
-                rejection_reason: item.rejection_reason,
-                ticket_type_id: item.ticket_event_id,
-                price: item.price,
-                ticket_type : item.ticket_type,
-                ticket_qty : item.ticket_qty,
-                total_amount : item.total_amount,
-                transaction_img :item.transaction_img,
-                status : status[item.status],
-                buyer:{
-                    buyer_id: item.buyer_id,
-                    kh_name: item.buyer_kh_name,
-                    eng_name : item.buyer_eng_name,
-                    email: item.email,
-                    avatar : item.avatar
-                },
-                created_at : item.created_at,
-                updated_at : item.updated_at
-            })
-        }
+    const result = await executeQuery(sqlGetReq, params);
+    const data = [];
+    const status = {
+      1: "Pending",
+      2: "Approved",
+      3: "Rejected",
+    };
 
-        //totalpage
-        let countQueryStr=`SELECT COUNT(tts.id) as total 
+    for (i = 0; i < result.length; i++) {
+      const item = result[i];
+      data.push({
+        transaction_id: item.transaction_id,
+        event_id: item.event_id,
+        event_type: item.event_type,
+        rejection_reason: item.rejection_reason,
+        ticket_type_id: item.ticket_event_id,
+        price: item.price,
+        ticket_type: item.ticket_type,
+        ticket_qty: item.ticket_qty,
+        total_amount: item.total_amount,
+        transaction_img: item.transaction_img,
+        status: status[item.status],
+        buyer: {
+          buyer_id: item.buyer_id,
+          kh_name: item.buyer_kh_name,
+          eng_name: item.buyer_eng_name,
+          email: item.email,
+          avatar: item.avatar,
+        },
+        created_at: item.created_at,
+        updated_at: item.updated_at,
+      });
+    }
+
+    //totalpage
+    let countQueryStr = `SELECT COUNT(tts.id) as total 
                         FROM tbl_transaction tts
                         LEFT JOIN tbl_event te ON te.id=tts.event_id
                         WHERE te.creator_id=?`;
-        countQueryStr+=filterQry;
+    countQueryStr += filterQry;
 
-        const countQuery=await executeQuery(countQueryStr,filterParam);
-        const totalPage=Math.ceil(countQuery[0].total/perpage); 
-        const ticketReqObj={
-            rows:data,
-            paginate:{
-                total: countQuery[0].total,
-                perpage: perpage,
-                current_page: page,
-                total_page: totalPage
-            }
-        } 
-        return ticketReqObj;
-    } catch (error) {
-        // console.log(error);
-        // throw error;
-    }
-}
+    const countQuery = await executeQuery(countQueryStr, filterParam);
+    const totalPage = Math.ceil(countQuery[0].total / perpage);
+    const ticketReqObj = {
+      rows: data,
+      paginate: {
+        total: countQuery[0].total,
+        perpage: perpage,
+        current_page: page,
+        total_page: totalPage,
+      },
+    };
+    return ticketReqObj;
+  } catch (error) {
+    console.log(error);
+    // throw error;
+  }
+};
 
-const ownReqTicketCollection=async(userId,status=null,page=1,perpage=15,sort='id',order='DESC')=>{
-    try {
-        page=parseInt(page);
-        perpage=parseInt(perpage);
-        const offset=(page-1)*perpage;
-        let sqlGetReq=`
+const ownReqTicketCollection = async (
+  userId,
+  status = null,
+  page = 1,
+  perpage = 15,
+  sort = "id",
+  order = "DESC"
+) => {
+  try {
+    page = parseInt(page);
+    perpage = parseInt(perpage);
+    const offset = (page - 1) * perpage;
+    let sqlGetReq = `
             SELECT 
             tts.id,
             tts.ticket_event_id,
@@ -142,87 +159,94 @@ const ownReqTicketCollection=async(userId,status=null,page=1,perpage=15,sort='id
         LEFT JOIN tbl_ticketevent_type ttt ON ttt.id=tts.ticket_event_id
         LEFT JOIN tbl_event te ON te.id=tts.event_id
         WHERE buyer_id=? `;
-        const filterParam=[userId];
-        let sqlFilter='';
+    const filterParam = [userId];
+    let sqlFilter = "";
 
-        if(status){
-            sqlFilter+=` AND tts.status=?`;
-            filterParam.push(status);
-        }
+    if (status) {
+      sqlFilter += ` AND tts.status=?`;
+      filterParam.push(status);
+    }
 
-        sqlGetReq+=sqlFilter;
-        sqlGetReq+=` ORDER BY tts.${sort} ${order}
-                    LIMIT ? OFFSET ?;`
+    sqlGetReq += sqlFilter;
+    sqlGetReq += ` ORDER BY tts.${sort} ${order}
+                    LIMIT ? OFFSET ?;`;
 
-        const params=[...filterParam];
-        params.push(perpage,offset);
+    const params = [...filterParam];
+    params.push(perpage, offset);
 
-        const result=await executeQuery(sqlGetReq,params);
-        const data=[];
-        const tStatus={
-            1:"Pending",
-            2:"Approved",
-            3:"Rejected"
-        }
-        for(let i=0;i<result.length; i++){
-            const item=result[i];
-            data.push({
-                id : item.id,
-                
-                event : {
-                    id: item.event_id,
-                    eng_name: item.event_eng_name,
-                    kh_name: item.event_kh_name,
-                    location: item.event_location,
-                    thumbnail: item.event_thumbnail,
-                    event_type: item.event_type,
-                    started_date: item.event_started_date
-                },
-                ticket_type:{
-                    ticket_event_id: item.ticket_event_id,
-                    type_name : item.type_name,
-                    price: item.price
-                },
-                quantity: item.ticket_qty,
-                amount:item.total_amount,
-                transaction_img: item.transaction_img,
-                status: tStatus[item.status],
-                reject_reason: item.rejection_reason,
-                created_at: item.created_at,
-                updated_at: item.updated_at
-            })
-        }
+    const result = await executeQuery(sqlGetReq, params);
+    const data = [];
+    const tStatus = {
+      1: "Pending",
+      2: "Approved",
+      3: "Rejected",
+    };
+    for (let i = 0; i < result.length; i++) {
+      const item = result[i];
+      data.push({
+        id: item.id,
 
-        //totalpage
-        let countQueryStr=`SELECT COUNT(tts.id) as total 
+        event: {
+          id: item.event_id,
+          eng_name: item.event_eng_name,
+          kh_name: item.event_kh_name,
+          location: item.event_location,
+          thumbnail: item.event_thumbnail,
+          event_type: item.event_type,
+          started_date: item.event_started_date,
+        },
+        ticket_type: {
+          ticket_event_id: item.ticket_event_id,
+          type_name: item.type_name,
+          price: item.price,
+        },
+        quantity: item.ticket_qty,
+        amount: item.total_amount,
+        transaction_img: item.transaction_img,
+        status: tStatus[item.status],
+        reject_reason: item.rejection_reason,
+        created_at: item.created_at,
+        updated_at: item.updated_at,
+      });
+    }
+
+    //totalpage
+    let countQueryStr = `SELECT COUNT(tts.id) as total 
                         FROM tbl_transaction tts
                         WHERE tts.buyer_id=? `;
-        countQueryStr+=sqlFilter;
+    countQueryStr += sqlFilter;
 
-        const countQuery=await executeQuery(countQueryStr,filterParam);
-        const totalPage=Math.ceil(countQuery[0].total/perpage); 
-        const ticketReqObj={
-            rows:data,
-            paginate:{
-                total: countQuery[0].total,
-                perpage: perpage,
-                current_page: page,
-                total_page: totalPage
-            }
-        } 
-        return ticketReqObj;
-    } catch (error) {
-        // console.log(error);
-        throw error;
-    }
-}
+    const countQuery = await executeQuery(countQueryStr, filterParam);
+    const totalPage = Math.ceil(countQuery[0].total / perpage);
+    const ticketReqObj = {
+      rows: data,
+      paginate: {
+        total: countQuery[0].total,
+        perpage: perpage,
+        current_page: page,
+        total_page: totalPage,
+      },
+    };
+    return ticketReqObj;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
 
-const ownTicketCollection=async(userId,status=null,page=1,perpage=15,sort='id',order='DESC')=>{
-    try {
-        page=parseInt(page);
-        perpage=parseInt(perpage);
-        const offset=(page-1)*perpage;
-        let sqlGetTicket=`
+const ownTicketCollection = async (
+  userId,
+  status = null,
+  page = 1,
+  perpage = 15,
+  sort = "id",
+  order = "DESC"
+) => {
+  try {
+    page = parseInt(page);
+    perpage = parseInt(perpage);
+    const offset = (page - 1) * perpage;
+    let sqlGetTicket = `
             SELECT 
                 tt.id,
                 tt.transaction_id,
@@ -253,87 +277,87 @@ const ownTicketCollection=async(userId,status=null,page=1,perpage=15,sort='id',o
             WHERE tts.buyer_id=?
         `;
 
-        const filterParam=[userId];
-        let sqlFilter='';
+    const filterParam = [userId];
+    let sqlFilter = "";
 
-        if(status){
-            sqlFilter+=` AND tt.status=?`;
-            filterParam.push(status);
-        }
+    if (status) {
+      sqlFilter += ` AND tt.status=?`;
+      filterParam.push(status);
+    }
 
-        sqlGetTicket+=sqlFilter;
-        sqlGetTicket+=` ORDER BY tt.${sort} ${order}
-                    LIMIT ? OFFSET ?;`
+    sqlGetTicket += sqlFilter;
+    sqlGetTicket += ` ORDER BY tt.${sort} ${order}
+                    LIMIT ? OFFSET ?;`;
 
-        const params=[...filterParam];
-        params.push(perpage,offset);
+    const params = [...filterParam];
+    params.push(perpage, offset);
 
-        // const result=await executeQuery(sqlGetTicket,params);
-        const result=await executeQuery(sqlGetTicket,params);
-        const data=[];
-        const tStatus={
-            1:"Issue",
-            2:"Used"
-        }
-        for(let i=0;i<result.length; i++){
-            const item=result[i];
-            data.push({
-                id : item.id,
-                transaction_id : item.transaction_id,
-                qr_code_img: item.qr_code_img,
-                status : tStatus[item.status],
-                ticket_type: item.type_name,
-                price: item.price,
-                event: {
-                    id: item.event_id,
-                    eng_name : item.eng_name,
-                    kh_name : item.kh_name,
-                    started_date: item.started_date,
-                    ended_date: item.ended_date,
-                    start_time: item.start_time,
-                    end_time: item.end_time,
-                    location: item.location,
-                    thumbnail: item.thumbnail,
-                    creator:{
-                        id:item.user_id,
-                        name: item.organization_name,
-                        email:item.business_email,
-                        phone: item.business_phone
-                    }
-                },
-                created_at: item.created_at,
-                updated_at : item.updated_at
-            })
-        }
+    // const result=await executeQuery(sqlGetTicket,params);
+    const result = await executeQuery(sqlGetTicket, params);
+    const data = [];
+    const tStatus = {
+      1: "Issue",
+      2: "Used",
+    };
+    for (let i = 0; i < result.length; i++) {
+      const item = result[i];
+      data.push({
+        id: item.id,
+        transaction_id: item.transaction_id,
+        qr_code_img: item.qr_code_img,
+        status: tStatus[item.status],
+        ticket_type: item.type_name,
+        price: item.price,
+        event: {
+          id: item.event_id,
+          eng_name: item.eng_name,
+          kh_name: item.kh_name,
+          started_date: item.started_date,
+          ended_date: item.ended_date,
+          start_time: item.start_time,
+          end_time: item.end_time,
+          location: item.location,
+          thumbnail: item.thumbnail,
+          creator: {
+            id: item.user_id,
+            name: item.organization_name,
+            email: item.business_email,
+            phone: item.business_phone,
+          },
+        },
+        created_at: item.created_at,
+        updated_at: item.updated_at,
+      });
+    }
 
-        //totalpage
-        let countQueryStr=`SELECT COUNT(tt.id) as total 
+    //totalpage
+    let countQueryStr = `SELECT COUNT(tt.id) as total 
                         FROM tbl_ticket tt
                         INNER JOIN tbl_transaction tts ON tts.id=tt.transaction_id
                         WHERE tts.buyer_id=? `;
-        countQueryStr+=sqlFilter;
+    countQueryStr += sqlFilter;
 
-        const countQuery=await executeQuery(countQueryStr,filterParam);
-        const totalPage=Math.ceil(countQuery[0].total/perpage); 
-        const ticketObj={
-            rows:data,
-            paginate:{
-                total: countQuery[0].total,
-                perpage: perpage,
-                current_page: page,
-                total_page: totalPage
-            }
-        } 
-        return ticketObj;
-    } catch (error) {
-        // console.log(error);
-        throw error;
-    }
-}
+    const countQuery = await executeQuery(countQueryStr, filterParam);
+    const totalPage = Math.ceil(countQuery[0].total / perpage);
+    const ticketObj = {
+      rows: data,
+      paginate: {
+        total: countQuery[0].total,
+        perpage: perpage,
+        current_page: page,
+        total_page: totalPage,
+      },
+    };
+    return ticketObj;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
 
-const checkInTicketCollection= async (id)=>{
-    try {
-        const sqlGetCheckin=`SELECT 
+const checkInTicketCollection = async (id) => {
+  try {
+    const sqlGetCheckin = `SELECT 
             tt.id, 
             tt.transaction_id,
             tt.status,
@@ -348,17 +372,16 @@ const checkInTicketCollection= async (id)=>{
         LEFT JOIN tbl_users tu ON tu.id=tts.buyer_id
         WHERE tt.status=2 AND ttt.event_id=?`;
 
-        const result = await executeQuery(sqlGetCheckin,[id]);
-        return result;
+    const result = await executeQuery(sqlGetCheckin, [id]);
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-    } catch (error) {
-        // console.log(error);
-    }
-}
-
-module.exports={
-    reqTicketCollection,
-    ownReqTicketCollection,
-    ownTicketCollection,
-    checkInTicketCollection
+module.exports = {
+  reqTicketCollection,
+  ownReqTicketCollection,
+  ownTicketCollection,
+  checkInTicketCollection,
 };

@@ -8,7 +8,7 @@ const { emitNotificationForOnlineLink } = require("../../socket/socketHelper");
 
 const getNotifications = async (req, res) => {
   const { id: userId = 1 } = req.user;
-  const { read = false, order = 'desc' } = req.query; // Extract sorting parameters from query
+  const { read = false, order = "desc" } = req.query; // Extract sorting parameters from query
 
   let notiSql = `
   SELECT 
@@ -85,44 +85,48 @@ const getNotifications = async (req, res) => {
 
   // Add filter for is_read if provided
   if (read) {
-    // const readStatus = read === 'true' ? 1 : 2; 
+    // const readStatus = read === 'true' ? 1 : 2;
     notiSql += ` AND tn.is_read = ? `;
   }
 
   notiSql += `
     GROUP BY tn.id, te.id, tr.id, ts.id
-    ORDER BY ${order ? 'notification_created_at ' + (order === 'asc' ? 'ASC' : 'DESC') : 'notification_created_at DESC'}
+    ORDER BY ${
+      order
+        ? "notification_created_at " + (order === "asc" ? "ASC" : "DESC")
+        : "notification_created_at DESC"
+    }
 `;
 
-//   const categorySql = `
-//   SELECT id, name 
-//   FROM tbl_category 
-//   WHERE id IN (?);
-// `;
+  //   const categorySql = `
+  //   SELECT id, name
+  //   FROM tbl_category
+  //   WHERE id IN (?);
+  // `;
 
-//   const eventTypeSql = `
-//   SELECT id, type_name, price, ticket_opacity, ticket_bought 
-//   FROM tbl_ticketevent_type 
-//   WHERE id IN (?);
-// `;
+  //   const eventTypeSql = `
+  //   SELECT id, type_name, price, ticket_opacity, ticket_bought
+  //   FROM tbl_ticketevent_type
+  //   WHERE id IN (?);
+  // `;
 
-//   const agendaSql = `
-//   SELECT id, title, description, start_time, end_time 
-//   FROM tbl_agenda 
-//   WHERE id IN (?);
-// `;
+  //   const agendaSql = `
+  //   SELECT id, title, description, start_time, end_time
+  //   FROM tbl_agenda
+  //   WHERE id IN (?);
+  // `;
 
-//   const creatorSql = `
-//   SELECT user_id, organization_name, business_email
-//   FROM tbl_organizer 
-//   WHERE user_id = ?;
-// `;
+  //   const creatorSql = `
+  //   SELECT user_id, organization_name, business_email
+  //   FROM tbl_organizer
+  //   WHERE user_id = ?;
+  // `;
 
-const arrData = [userId];
+  const arrData = [userId];
 
   try {
     if (read) {
-      arrData.push(read === 'true' ? 2 : 1);
+      arrData.push(read === "true" ? 2 : 1);
     }
     const result = await executeQuery(notiSql, arrData);
 
@@ -172,26 +176,25 @@ const arrData = [userId];
     //   }
     // });
 
-
     // await Promise.all([...creatorPromises]);
 
-
-    const notifications = result.map(noti => ({
+    const notifications = result.map((noti) => ({
       id: noti.notification_id,
-      type:{
-        type_id : noti.notification_type_id,
-      type_name: noti.notification_type,
-      type_id_status: "1 & 3 Approved, 2 & 4 Rejected, 5 Update Event, 6 Reminder, 7 Event Link Access"
+      type: {
+        type_id: noti.notification_type_id,
+        type_name: noti.notification_type,
+        type_id_status:
+          "1 & 3 Approved, 2 & 4 Rejected, 5 Update Event, 6 Reminder, 7 Event Link Access",
       },
-      
+
       eng_title: noti.notification_eng_title,
       kh_title: noti.notification_kh_title,
       eng_message: noti.notification_eng_message,
       kh_message: noti.notification_kh_message,
-      is_read: noti.notification_is_read == 1 ? false:true,
+      is_read: noti.notification_is_read == 1 ? false : true,
       created_at: noti.notification_created_at,
       updated_at: noti.notification_updated_at,
-  
+
       // Receiver (User) Data
       // receiver: {
       //   id: noti.receiver_id,
@@ -205,7 +208,7 @@ const arrData = [userId];
       //   created_at: noti.receiver_created_at,
       //   updated_at: noti.receiver_updated_at,
       // },
-  
+
       // Sender (User) Data
       sender: {
         id: noti.sender_id,
@@ -219,7 +222,7 @@ const arrData = [userId];
         // created_at: noti.sender_created_at,
         // updated_at: noti.sender_updated_at,
       },
-  
+
       // Event Data
       event: {
         id: noti.event_id,
@@ -239,10 +242,16 @@ const arrData = [userId];
         // is_published: noti.event_is_published,
         // categories: noti.event_categories,
         // tickets: noti.event_tickets
-      }
+      },
     }));
 
-    sendResponse(res, 200, true, "Get All Notifications Successfully.", notifications);
+    sendResponse(
+      res,
+      200,
+      true,
+      "Get All Notifications Successfully.",
+      notifications
+    );
   } catch (error) {
     handleResponseError(res, error);
   }
@@ -250,7 +259,7 @@ const arrData = [userId];
 
 const getNotification = async (req, res) => {
   const { id: notiId } = req.params;
-  const {id: userId} = req.user;
+  const { id: userId } = req.user;
 
   const notiSql = `
   SELECT 
@@ -341,13 +350,17 @@ const getNotification = async (req, res) => {
   FROM tbl_agenda 
   WHERE id IN (?);
 `;
-  
 
   try {
-    const result = await executeQuery(notiSql, [userId,notiId]);
+    const result = await executeQuery(notiSql, [userId, notiId]);
 
     if (result.length === 0) {
-      return sendResponse(res, 404, false, "Notification not found or you are not authorized.");
+      return sendResponse(
+        res,
+        404,
+        false,
+        "Notification not found or you are not authorized."
+      );
     }
 
     const categoryPromises = result.map(async (notification) => {
@@ -364,7 +377,9 @@ const getNotification = async (req, res) => {
 
     const ticketPromises = result.map(async (notification) => {
       if (notification.ticket_type_ids) {
-        const ticketTypeIds = notification.ticket_type_ids.split(",").map(Number);
+        const ticketTypeIds = notification.ticket_type_ids
+          .split(",")
+          .map(Number);
         const tickets = await executeQuery(eventTypeSql, [ticketTypeIds]);
         notification.event_tickets = tickets;
         delete notification.ticket_type_ids;
@@ -386,17 +401,21 @@ const getNotification = async (req, res) => {
       }
     });
 
-    await Promise.all([...categoryPromises, ...ticketPromises, ...agendaPromises]);
+    await Promise.all([
+      ...categoryPromises,
+      ...ticketPromises,
+      ...agendaPromises,
+    ]);
 
-    const notification = result.map(noti => ({
+    const notification = result.map((noti) => ({
       id: noti.notification_id,
       // title: noti.notification_title,
       // message: noti.notification_message,
       // link: noti.notification_link,
-      is_read: noti.notification_is_read == 1 ? true:false,
+      is_read: noti.notification_is_read == 1 ? true : false,
       created_at: noti.notification_created_at,
       updated_at: noti.notification_updated_at,
-  
+
       // Receiver (User) Data
       receiver: {
         id: noti.receiver_id,
@@ -410,7 +429,7 @@ const getNotification = async (req, res) => {
         created_at: noti.receiver_created_at,
         updated_at: noti.receiver_updated_at,
       },
-  
+
       // Sender (User) Data
       sender: {
         id: noti.sender_id,
@@ -424,7 +443,7 @@ const getNotification = async (req, res) => {
         created_at: noti.sender_created_at,
         updated_at: noti.sender_updated_at,
       },
-  
+
       // Event Data
       event: {
         id: noti.event_id,
@@ -444,8 +463,8 @@ const getNotification = async (req, res) => {
         is_published: noti.event_is_published,
         categories: noti.event_categories,
         tickets: noti.event_tickets,
-        agenda: noti.event_agenda
-      }
+        agenda: noti.event_agenda,
+      },
     }));
     //   console.log(res);
     sendResponse(
@@ -548,59 +567,68 @@ const deleteNotification = async (req, res) => {
   }
 };
 
-const postLink=async (req,res)=>{
-  const id=req.params.id;
-  const user_id=req.user.id;
-  const {event_link}=req.body;
-  const regex=/(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+const postLink = async (req, res) => {
+  const id = req.params.id;
+  const user_id = req.user.id;
+  const { event_link } = req.body;
+  const regex =
+    /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
   try {
     //check validation url
-    const validUrl=event_link.match(regex);
-    if(!event_link || !validUrl){
-      return sendResponse(res,400,false,"Link to join event must be valid url");
+    const validUrl = event_link.match(regex);
+    if (!event_link || !validUrl) {
+      return sendResponse(
+        res,
+        400,
+        false,
+        "Link to join event must be valid url"
+      );
     }
 
     //update link to event
-    const sqlUpdateLink=`UPDATE tbl_event SET join_link=? WHERE id=?`;
-    await executeQuery(sqlUpdateLink,[event_link,id]);
+    const sqlUpdateLink = `UPDATE tbl_event SET join_link=? WHERE id=?`;
+    await executeQuery(sqlUpdateLink, [event_link, id]);
 
     //insert notification to guest
-    const sqlGetBuyer=`SELECT buyer_id,eng_name
+    const sqlGetBuyer = `SELECT buyer_id,eng_name
           from tbl_transaction
           LEFT JOIN tbl_event ON tbl_event.id=event_id
           WHERE event_id=? AND status=2
     `;
-    const getBuyer= await executeQuery(sqlGetBuyer,[id]);
+    const getBuyer = await executeQuery(sqlGetBuyer, [id]);
 
-    const sqlInsertNotification=`INSERT INTO tbl_notification
+    const sqlInsertNotification = `INSERT INTO tbl_notification
     (event_id, receiver_id, eng_message,kh_message,sender_id, type_id) 
     VALUES (?,?,?,?,?,?)`;
 
     getBuyer.forEach(async (item) => {
-      // console.log(user.buyer_id);
-      const paramsNotification=[
+      console.log(user.buyer_id);
+      const paramsNotification = [
         id,
         item.buyer_id,
         `The link to join the event "${item.eng_name}" is: <a href="${event_link}" target="_blank">${event_link}</a>`,
         `តំណភ្ជាប់ដើម្បីចូលក្នុងព្រឹត្តិការណ៍ "${item.eng_name}" គឺ៖ <a href="${event_link}" target="_blank">${event_link}</a>`,
         user_id,
-        8
+        8,
       ];
       await executeQuery(sqlInsertNotification, paramsNotification);
-      const io = req.app.get('io');
-      let engMs = `The link to join the event "${item.eng_name}" is: <a href="${event_link}" target="_blank">${event_link}</a>`
-      let khMs = `តំណភ្ជាប់ដើម្បីចូលក្នុងព្រឹត្តិការណ៍ "${item.eng_name}" គឺ៖ <a href="${event_link}" target="_blank">${event_link}</a>`
-      emitNotificationForOnlineLink(io, item.buyer_id, id, engMs, khMs );
-      await new Promise(resolve => setTimeout(resolve, 300));
+      const io = req.app.get("io");
+      let engMs = `The link to join the event "${item.eng_name}" is: <a href="${event_link}" target="_blank">${event_link}</a>`;
+      let khMs = `តំណភ្ជាប់ដើម្បីចូលក្នុងព្រឹត្តិការណ៍ "${item.eng_name}" គឺ៖ <a href="${event_link}" target="_blank">${event_link}</a>`;
+      emitNotificationForOnlineLink(io, item.buyer_id, id, engMs, khMs);
+      await new Promise((resolve) => setTimeout(resolve, 300));
     });
 
-    sendResponse(res,200,true,"The Link set successfully and notifications sent to guest!")
-
+    sendResponse(
+      res,
+      200,
+      true,
+      "The Link set successfully and notifications sent to guest!"
+    );
   } catch (error) {
-    handleResponseError(res,error);
+    handleResponseError(res, error);
   }
-}
-
+};
 
 module.exports = {
   getNotifications,

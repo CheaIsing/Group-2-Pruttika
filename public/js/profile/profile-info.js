@@ -1,4 +1,3 @@
-
 const frm = document.getElementById("frm");
 const btnSaveChange = document.getElementById("btnSaveChange");
 
@@ -11,10 +10,10 @@ const formData = {
   phone: "",
   dob: "",
   gender: "",
-  address: ""
+  address: "",
 };
 
-let defaultData = {}
+let defaultData = {};
 
 const fields = [
   {
@@ -62,7 +61,7 @@ const fieldsKh = [
     isInvalidClass: "is_invalid",
   },
   {
-    name: isEnglish ? "email": "អ៊ីមែល",
+    name: isEnglish ? "email" : "អ៊ីមែល",
     id: "input-field-email",
     textErrorElement: "#invalid_feedback_email div",
     isInvalidClass: "is_invalid",
@@ -81,20 +80,18 @@ const fieldsKh = [
   },
 ];
 
-
 const khNameEle = document.getElementById("kh-name");
 const engNameEle = document.getElementById("eng-name");
 const emailEle = document.getElementById("email");
 const phoneEle = document.getElementById("phone");
 const dobEle = document.getElementById("dob");
 const addressEle = document.getElementById("address");
-const maleEle = document.getElementById('male')
-const femaleEle = document.getElementById('female')
+const maleEle = document.getElementById("male");
+const femaleEle = document.getElementById("female");
 // const femaleEle = document.querySelectorAll('input[name="gender"]')
 const avatarEle = document.getElementById("imagePreview");
 
 const btnChangeProfile = document.getElementById("btnChangeProfile");
-
 
 function checkForChanges() {
   const gender = maleEle.checked ? 1 : femaleEle.checked ? 2 : "";
@@ -114,38 +111,44 @@ function checkForChanges() {
 }
 
 // Attach event listeners to detect changes
-[engNameEle, khNameEle, emailEle, phoneEle, dobEle, addressEle, maleEle, femaleEle, avatarEle].forEach(element => {
+[
+  engNameEle,
+  khNameEle,
+  emailEle,
+  phoneEle,
+  dobEle,
+  addressEle,
+  maleEle,
+  femaleEle,
+  avatarEle,
+].forEach((element) => {
   element.addEventListener("input", checkForChanges);
 });
 
-
 async function getProfileInfo() {
   try {
-    
     defaultData = {};
 
-    
     const { data } = await axiosInstance.get("/auth/me");
     const { data: jsonData } = data;
-    // console.log(jsonData);
-    
-    const { eng_name, kh_name, phone, email, avatar, address, dob, gender } = jsonData;
+    console.log(jsonData);
+
+    const { eng_name, kh_name, phone, email, avatar, address, dob, gender } =
+      jsonData;
 
     khNameEle.value = kh_name;
     engNameEle.value = eng_name;
     emailEle.value = email;
     phoneEle.value = phone;
     addressEle.value = address;
-    
+
     maleEle.checked = gender == 1;
     femaleEle.checked = gender == 2;
-    
-    
-    dobEle.value = dob ? dob.split('T')[0] : "";
+
+    dobEle.value = dob ? dob.split("T")[0] : "";
 
     avatarEle.src = avatar ? "/uploads/" + avatar : "/uploads/default.jpg";
 
-   
     defaultData = { eng_name, kh_name, phone, email };
 
     btnSaveChange.disabled = true;
@@ -156,10 +159,10 @@ async function getProfileInfo() {
     } else {
       btnChangeProfile.setAttribute("data-bs-toggle", "dropdown");
     }
-    
-    // console.log(jsonData);
+
+    console.log(jsonData);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
 
     if (
       error.response &&
@@ -171,9 +174,7 @@ async function getProfileInfo() {
   }
 }
 
-
 getProfileInfo();
-
 
 // Post Profile
 frm.addEventListener("submit", async (e) => {
@@ -190,12 +191,10 @@ frm.addEventListener("submit", async (e) => {
   formData.address = addressEle.value;
   formData.gender = maleEle.checked ? "1" : femaleEle.checked ? "2" : "";
 
-  // console.log(formData);
-  
+  console.log(formData);
 
   const { error } = vProfileInfo.validate(formData);
-  // console.log(error);
-  
+  console.log(error);
 
   if (error) {
     const errorMessages = error.details.map((detail) => detail.message);
@@ -206,19 +205,23 @@ frm.addEventListener("submit", async (e) => {
   handleErrorMessages([], fieldsKh);
 
   isValid = true;
-  
 
   if (!isValid) return;
-  // console.log("run here");
-  
+  console.log("run here");
+
   try {
     btnShowLoading("btnSaveChange");
     await axiosInstance.put("/profile/info", formData);
 
-    showToast(true, isEnglish ? "Update Profile Info Successfully." : "ធ្វើបច្ចុប្បន្នភាពព័ត៌មានព័ត៌មានដោយជោគជ័យ");
-    getProfileInfo()
+    showToast(
+      true,
+      isEnglish
+        ? "Update Profile Info Successfully."
+        : "ធ្វើបច្ចុប្បន្នភាពព័ត៌មានព័ត៌មានដោយជោគជ័យ"
+    );
+    getProfileInfo();
   } catch (error) {
-    // console.log(error);
+    console.log(error);
 
     if (typeof error.response.data == "string") {
       return showToast();
@@ -230,7 +233,10 @@ frm.addEventListener("submit", async (e) => {
 
     handleErrorMessages(errorMessages, fields);
   } finally {
-    btnCloseLoading("btnSaveChange", isEnglish ? "Save Changes":"រក្សាទុកការផ្លាស់ប្តូរ");
+    btnCloseLoading(
+      "btnSaveChange",
+      isEnglish ? "Save Changes" : "រក្សាទុកការផ្លាស់ប្តូរ"
+    );
   }
 });
 
@@ -255,8 +261,8 @@ document.addEventListener("DOMContentLoaded", function () {
     if (event.target.files && event.target.files[0]) {
       const validateResult = validateFile(event.target.files[0], 3);
 
-      if(!(validateResult.valid)){
-        showToast(false, validateResult.message)
+      if (!validateResult.valid) {
+        showToast(false, validateResult.message);
         return;
       }
       const reader = new FileReader();
@@ -282,26 +288,26 @@ document.addEventListener("DOMContentLoaded", function () {
           minContainerWidth: 400,
           minContainerHeight: 200,
         });
-      //   cropper = new Cropper(cropperImage, {
-      //     aspectRatio: 1,
-      //     viewMode: 1,
-      //     autoCropArea: 0.9,
-      //     responsive: true,
-      //     dragMode: 'move',
-      //     minContainerWidth: 500,
-      //     minContainerHeight: 500,
-      //     minCropBoxWidth: 250,
-      //     minCropBoxHeight: 250,
-      //     strict: true,
-      //     guides: true,
-      //     center: true,
-      //     highlight: true,
-      //     background: true,
-      //     scalable: true,
-      //     zoomable: true,
-      //     minZoom: 0.1,
-      //     maxZoom: 2
-      // });
+        //   cropper = new Cropper(cropperImage, {
+        //     aspectRatio: 1,
+        //     viewMode: 1,
+        //     autoCropArea: 0.9,
+        //     responsive: true,
+        //     dragMode: 'move',
+        //     minContainerWidth: 500,
+        //     minContainerHeight: 500,
+        //     minCropBoxWidth: 250,
+        //     minCropBoxHeight: 250,
+        //     strict: true,
+        //     guides: true,
+        //     center: true,
+        //     highlight: true,
+        //     background: true,
+        //     scalable: true,
+        //     zoomable: true,
+        //     minZoom: 0.1,
+        //     maxZoom: 2
+        // });
       };
       reader.readAsDataURL(event.target.files[0]);
     }
@@ -317,8 +323,6 @@ document.addEventListener("DOMContentLoaded", function () {
       imagePreview.src = croppedImage;
       deleteImage.style.display = "block";
 
-      
-
       // Send the cropped image to the server via API
       uploadCroppedImage();
     }
@@ -327,30 +331,40 @@ document.addEventListener("DOMContentLoaded", function () {
   async function uploadCroppedImage() {
     if (cropper) {
       const croppedCanvas = cropper.getCroppedCanvas();
-      
+
       // Convert the cropped canvas to a Blob
       croppedCanvas.toBlob(async (blob) => {
         if (blob) {
           // Create a File object from the Blob
-          const file = new File([blob], "cropped-image.jpg", { type: "image/jpeg" });
-  
+          const file = new File([blob], "cropped-image.jpg", {
+            type: "image/jpeg",
+          });
+
           // Create a FormData object and append the cropped image
           const formData = new FormData();
           formData.append("avatar", file);
-  
+
           try {
             btnShowLoading("cropImageBtn");
-            const response = await axiosInstance.post("/profile/avatar", formData);
-  
-            showToast(true, isEnglish ? "Profile Upload Successfully." : "បង្ហោះរូបភាពដោយជោគជ័យ");
+            const response = await axiosInstance.post(
+              "/profile/avatar",
+              formData
+            );
 
-            
-            document.getElementById("userImgPf").src = document.getElementById("imagePreview").src
+            showToast(
+              true,
+              isEnglish
+                ? "Profile Upload Successfully."
+                : "បង្ហោះរូបភាពដោយជោគជ័យ"
+            );
+
+            document.getElementById("userImgPf").src =
+              document.getElementById("imagePreview").src;
           } catch (error) {
-            // console.log(error);
+            console.log(error);
             showToast();
           } finally {
-            btnCloseLoading("cropImageBtn", isEnglish ? "Save": "រក្សាទុក");
+            btnCloseLoading("cropImageBtn", isEnglish ? "Save" : "រក្សាទុក");
             cropImageModal.hide();
           }
         }
@@ -361,15 +375,18 @@ document.addEventListener("DOMContentLoaded", function () {
     try {
       const response = await axiosInstance.delete("/profile/avatar");
 
-      // console.log(response);
-      showToast(true, isEnglish ? "Profile Delete Successfully." : "លុបប្រវត្តិរូបដោយជោគជ័យ");
+      console.log(response);
+      showToast(
+        true,
+        isEnglish ? "Profile Delete Successfully." : "លុបប្រវត្តិរូបដោយជោគជ័យ"
+      );
 
       getProfileInfo();
     } catch (error) {
-      // console.log(error);
+      console.log(error);
       showToast();
     }
   }
 
-  // console.log(document.querySelector('.cropper-canvas img'));
+  console.log(document.querySelector(".cropper-canvas img"));
 });
